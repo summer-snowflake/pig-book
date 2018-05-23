@@ -1,0 +1,34 @@
+AllCops:
+  Include:
+    - '**/config.ru'
+  Exclude:
+    - 'test/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+# 日本語でのコメントを許可
+AsciiComments:
+  Enabled: false
+
+# クラスにコメントを残さない
+Documentation:
+  Enabled: false
+
+# ABCサイズをMAX20に緩和
+Metrics/AbcSize:
+  Enabled: true
+  Max: 20
+
+# ModuleとClassの形式をcompactに設定
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+# モジュールの行数制限についてテストファイルを除外
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+    - "spec/rails_helper.rb"
+    - "spec/factories/*.rb"
