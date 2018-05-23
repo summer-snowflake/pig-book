@@ -11,11 +11,11 @@ jobs:
           DB_USER: postgres
           DB_HOST: localhost
           REDIS_HOST: redis
-      - image: postgres:9.4.12-alpine
+      - image: postgres:10.4-alpine
         environment:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: pig_book_test
-      - image: redis:4.0.1-alpine
+      - image: redis:4.0.9-alpine
     steps:
       - checkout
 
