@@ -72,7 +72,7 @@ jobs:
       #- run: bundle exec rake eslint
 
       # Run rubocop
-      #- run: bundle exec rubocop app/ lib/ spec/
+      - run: bundle exec rubocop app/ lib/ spec/
 
       # Run precompile
       - run: bundle exec rake assets:precompile
