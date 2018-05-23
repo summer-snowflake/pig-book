@@ -39,10 +39,10 @@ This tool is for a household account book.
   - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L10)
 
 - PostgreSQL
-  - v9.4.12
+  - v10.4
 
 - Redis
-  - v4.0.1
+  - v4.0.9
 
 ### Coding Rule
 
