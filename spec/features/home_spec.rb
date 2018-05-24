@@ -7,4 +7,10 @@ feature 'HOME', js: true do
     visit root_path
     expect(page).to have_content 'welcome'
   end
+
+  scenario 'Link to home page.' do
+    visit new_session_path
+    click_link 'HOME'
+    expect(page).to have_content 'welcome'
+  end
 end
