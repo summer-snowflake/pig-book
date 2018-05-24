@@ -5,24 +5,25 @@ body {
   font-size: 14px;
 }
 
-#left-icon {
+.left-icon {
   padding-right: 5px;
 }
 
 .navbar .navbar-brand {
-  font-weight: bold;
   font-family: 'Lucida Grande', Meiryo, sans-serif;
+  font-weight: bold;
   padding-left: 10px;
 
-  span.brand-name {
+  .brand-name {
+    border-bottom: dotted 3px $green;
+    color: $green;
     font-size: 16px;
     padding: 3px;
-    border-bottom: dotted 3px $green;
     vertical-align: middle;
-    color: $green;
   }
+
   img {
-    width: 60px;
     float: left;
+    width: 60px;
   }
 }
