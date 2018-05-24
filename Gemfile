@@ -16,12 +16,12 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'slim-rails'
+gem 'rails-i18n'
 
 group :development, :test do
   gem 'rubocop'
+  gem 'factory_bot_rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -34,6 +34,12 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'capybara', '~> 2.13'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
+  gem 'database_rewinder'
+  gem 'chromedriver-helper'
+  gem 'simplecov'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
