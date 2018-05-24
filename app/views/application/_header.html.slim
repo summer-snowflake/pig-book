@@ -1,8 +1,9 @@
-ul
-  li
-    = link_to root_path
-      span.glyphicon.glyphicon-home
+ul.nav
+  li.nav-item
+    = link_to root_path, class: 'nav-link'
+      span.oi.oi-home#left-icon
       span= t('menu.home')
-    = link_to new_session_path
-      span.glyphicon.glyphicon-leaf
+  li.nav-item
+    = link_to new_session_path, class: 'nav-link'
+      i.fa.fa-leaf#left-icon
       span= t('menu.login')
