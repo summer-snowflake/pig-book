@@ -1,7 +1,28 @@
+$green: #76891a;
+
 body {
   background-image: url('background-wood.png');
+  font-size: 14px;
 }
 
 #left-icon {
   padding-right: 5px;
+}
+
+.navbar .navbar-brand {
+  font-weight: bold;
+  font-family: 'Lucida Grande', Meiryo, sans-serif;
+  padding-left: 10px;
+
+  span.brand-name {
+    font-size: 16px;
+    padding: 3px;
+    border-bottom: dotted 3px $green;
+    vertical-align: middle;
+    color: $green;
+  }
+  img {
+    width: 60px;
+    float: left;
+  }
 }
