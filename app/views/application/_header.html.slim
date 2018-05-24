@@ -4,12 +4,12 @@ nav.navbar.navbar-expand-lg.navbar-light
     span.brand-name= t('brand.name')
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      li.nav-item.active
+      li.nav-item class="#{current_page?(controller: :welcome, action: :show) ? 'active' : ''}"
         = link_to root_path, class: 'nav-link'
           span.oi.oi-home.left-icon
           span= t('menu.home')
-    ul.nav.justify-content-end
-      li.nav-item
+    ul.navbar-nav.nav.justify-content-end
+      li.nav-item class="#{current_page?(controller: :sessions, action: :new) ? 'active' : ''}"
         = link_to new_session_path, class: 'nav-link'
           i.fa.fa-leaf.left-icon
           span= t('menu.login')
