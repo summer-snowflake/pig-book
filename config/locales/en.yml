@@ -1,4 +1,6 @@
 en:
+  brand:
+    name: Account Book -beta-
   menu:
-    home: 'HOME'
-    login: 'LOGIN'
+    home: HOME
+    login: LOGIN

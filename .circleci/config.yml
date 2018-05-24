@@ -65,14 +65,17 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
-      # Run stylelint
-      #- run: bundle exec rake stylelint
+      # Run scss-lint
+      - run: bundle exec scss-lint app/assets/stylesheets/
 
       # Run ESLint
       #- run: bundle exec rake eslint
 
       # Run rubocop
       - run: bundle exec rubocop app/ lib/ spec/
+
+      # Run slim-lint
+      - run: bundle exec slim-lint app/views/
 
       # Run precompile
       - run: bundle exec rake assets:precompile

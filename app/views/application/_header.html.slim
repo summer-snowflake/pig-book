@@ -1,8 +1,15 @@
-ul
-  li
-    = link_to root_path
-      span.glyphicon.glyphicon-home
-      span= t('menu.home')
-    = link_to new_session_path
-      span.glyphicon.glyphicon-leaf
-      span= t('menu.login')
+nav.navbar.navbar-expand-lg.navbar-light
+  = link_to root_path, class: 'navbar-brand'
+    = image_tag 'pig.gif'
+    span.brand-name= t('brand.name')
+  .collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item class="#{current_page?(controller: :welcome, action: :show) ? 'active' : ''}"
+        = link_to root_path, class: 'nav-link'
+          span.oi.oi-home.left-icon
+          span= t('menu.home')
+    ul.navbar-nav.nav.justify-content-end
+      li.nav-item class="#{current_page?(controller: :sessions, action: :new) ? 'active' : ''}"
+        = link_to new_session_path, class: 'nav-link'
+          i.fa.fa-leaf.left-icon
+          span= t('menu.login')
