@@ -74,6 +74,9 @@ jobs:
       # Run rubocop
       - run: bundle exec rubocop app/ lib/ spec/
 
+      # Run slim-lint
+      - run: bundle exec slim-lint app/views/
+
       # Run precompile
       - run: bundle exec rake assets:precompile
 
