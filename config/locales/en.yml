@@ -4,3 +4,5 @@ en:
   menu:
     home: HOME
     login: LOGIN
+  button:
+    twitter_login: Sign in with Twitter
