@@ -6,4 +6,5 @@ ja:
     login: ログイン
     sign_up: 新規登録
   button:
+    login: ログインする
     twitter_login: Twitterでログイン

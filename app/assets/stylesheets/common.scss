@@ -1,7 +1,9 @@
 $green: #76891a;
+$darken-green: darken($green, 10%);
 
 body {
   background-image: image-url('background-wood.png');
+  color: $darken-green;
   font-size: 14px;
 }
 

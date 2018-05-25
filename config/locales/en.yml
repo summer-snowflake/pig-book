@@ -6,4 +6,5 @@ en:
     login: SignIn
     sign_up: SignUp
   button:
+    login: Sign in
     twitter_login: Sign in with Twitter
