@@ -1,7 +1,8 @@
 $link-color: #76891a;
+$link-hover-decoration: none;
 
 $navbar-light-color: $link-color;
 $navbar-light-active-color: darken($link-color, 10%);
 
-$list-group-bg: rgba(#fff, 0.5);
+$list-group-bg: rgba(#fff, .5);
 $list-group-border-color: #76891a;

@@ -3,4 +3,8 @@
     .col-3
       = render 'account_menu'
     .col
-      | ログイン画面
+      - content_for :title do
+        i.fa.fa-leaf.left-icon
+        = t('menu.login')
+      = render layout: 'content_panel'
+        | ログイン画面

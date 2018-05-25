@@ -1,4 +1,6 @@
 ul.list-group
-  li.list-group-item
-    i.fa.fa-leaf.left-icon
-    = link_to t('menu.login')
+  = link_to new_session_path do
+    li.list-group-item
+      i.fa.fa-leaf.left-icon
+      = t('menu.login')
+      span.hover-menu-image.float-right
