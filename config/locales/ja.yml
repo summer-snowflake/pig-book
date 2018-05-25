@@ -4,5 +4,6 @@ ja:
   menu:
     home: HOME
     login: ログイン
+    registration_user: 新規登録
   button:
     twitter_login: Twitterでログイン

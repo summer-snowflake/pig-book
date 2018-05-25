@@ -1,18 +1,23 @@
 $pink: #ac5e9f;
 $green: #76891a;
 $darken-green: darken($green, 10%);
+$darken-pink: darken($pink, 10%);
 
 .btn {
   font-size: 14px;
 }
 
-.list-group-item:last-child {
+.list-group-item {
   color: $pink;
   font-size: 12px;
 
   a {
     color: $pink;
   }
+}
+
+.list-group-item:hover {
+  color: $darken-pink;
 }
 
 .card-header {

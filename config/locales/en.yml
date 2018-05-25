@@ -3,6 +3,7 @@ en:
     name: Account Book -beta-
   menu:
     home: HOME
-    login: LOGIN
+    login: SignIn
+    registration_user: SignUp
   button:
     twitter_login: Sign in with Twitter
