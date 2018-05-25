@@ -11,4 +11,6 @@ html
   body
     = render 'header'
     .container-fluid
+      p.notice= notice
+      p.alert= alert
       == yield
