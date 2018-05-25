@@ -1,0 +1,10 @@
+$pink: #ac5e9f;
+
+.list-group-item:last-child {
+  color: $pink;
+  font-size: 12px;
+
+  a {
+    color: $pink;
+  }
+}
