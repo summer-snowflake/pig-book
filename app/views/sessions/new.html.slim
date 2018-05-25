@@ -1,1 +1,13 @@
-| ログイン画面
+.container
+  .row
+    .col-3
+      = render 'account_menu'
+    .col
+      - content_for :title do
+        i.fa.fa-leaf.left-icon
+        = t('menu.login')
+      = render layout: 'content_panel'
+        hr
+        button.btn.btn-primary.twitter
+          i.fab.fa-twitter.left-icon
+          = t('button.twitter_login')

@@ -1,0 +1,22 @@
+$pink: #ac5e9f;
+$green: #76891a;
+$darken-green: darken($green, 10%);
+
+.btn {
+  font-size: 14px;
+}
+
+.list-group-item:last-child {
+  color: $pink;
+  font-size: 12px;
+
+  a {
+    color: $pink;
+  }
+}
+
+.card-header {
+  background-color: rgba($white, .5);
+  color: $darken-green;
+  padding: 10px 15px;
+}

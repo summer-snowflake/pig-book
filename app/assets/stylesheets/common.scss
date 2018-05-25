@@ -5,6 +5,10 @@ body {
   font-size: 14px;
 }
 
+button {
+  font-size: 12px;
+}
+
 .left-icon {
   padding-right: 5px;
 }
@@ -26,4 +30,25 @@ body {
     float: left;
     width: 60px;
   }
+}
+
+.list-group-item:hover {
+  .hover-menu-image {
+    background-image: url('pig-footprints.gif');
+    background-size: cover;
+    height: 18px;
+    width: 20px;
+  }
+}
+
+$twitter-border-color: #2e6da4;
+
+.btn-primary.twitter {
+  border-color: $twitter-border-color;
+}
+
+.with-background-panel {
+  background-image: url('filter-pig.gif');
+  background-repeat: no-repeat;
+  background-size: 120% auto;
 }
