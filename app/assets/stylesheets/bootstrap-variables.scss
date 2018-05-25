@@ -1,8 +1,14 @@
-$link-color: #76891a;
+$green: #76891a;
+$darken-green: darken($green, 10%);
+
+$link-color: $green;
 $link-hover-decoration: none;
 
-$navbar-light-color: $link-color;
-$navbar-light-active-color: darken($link-color, 10%);
+$navbar-light-color: $green;
+$navbar-light-active-color: $darken-green;
 
 $list-group-bg: rgba(#fff, .5);
-$list-group-border-color: #76891a;
+$list-group-border-color: $green;
+
+$card-bg: rgba(#fff, .5);
+$card-border-color: $green;

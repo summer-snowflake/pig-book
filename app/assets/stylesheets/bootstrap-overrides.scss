@@ -1,4 +1,6 @@
 $pink: #ac5e9f;
+$green: #76891a;
+$darken-green: darken($green, 10%);
 
 .list-group-item:last-child {
   color: $pink;
@@ -7,4 +9,9 @@ $pink: #ac5e9f;
   a {
     color: $pink;
   }
+}
+
+.card-header {
+  color: $darken-green;
+  padding: 10px 15px;
 }
