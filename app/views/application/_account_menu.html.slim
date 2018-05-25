@@ -1,6 +1,8 @@
-ul.list-group
-  = link_to new_session_path do
-    li.list-group-item
-      i.fa.fa-leaf.left-icon
-      = t('menu.login')
-      span.hover-menu-image.float-right
+.list-group
+  = link_to new_user_session_path, class: 'list-group-item' do
+    i.fa.fa-leaf.left-icon
+    = t('menu.login')
+    span.hover-menu-image.float-right
+  = link_to new_registration_path(resource_name), class: 'list-group-item' do
+    i.fa.fa-heart.left-icon
+    = t('menu.registration_user')

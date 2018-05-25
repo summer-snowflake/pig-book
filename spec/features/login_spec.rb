@@ -4,7 +4,7 @@ require 'rails_helper'
 
 feature 'LOGIN', js: true do
   scenario 'Connect to login page.' do
-    visit new_session_path
+    visit new_user_session_path
     within '.card-header' do
       expect(page).to have_content 'ログイン'
     end
@@ -19,7 +19,7 @@ feature 'LOGIN', js: true do
   end
 
   scenario 'Display the login page.' do
-    visit new_session_path
+    visit new_user_session_path
     within '.card-body' do
       expect(page).to have_content I18n.t('button.twitter_login')
     end
