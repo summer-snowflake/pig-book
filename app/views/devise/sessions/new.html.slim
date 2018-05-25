@@ -8,10 +8,10 @@
         = t('menu.login')
       = render layout: 'content_panel'
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-          .form-group
+          .form-group.required
             = f.label :email
             = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
-          .form-group
+          .form-group.required
             = f.label :password
             = f.password_field :password, autocomplete: 'off', class: 'form-control'
           - if devise_mapping.rememberable?

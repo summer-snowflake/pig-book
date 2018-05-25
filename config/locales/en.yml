@@ -8,3 +8,9 @@ en:
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
+  helpers:
+    label:
+      user:
+        email: Email
+        password: Password
+        remember_me: Remember me

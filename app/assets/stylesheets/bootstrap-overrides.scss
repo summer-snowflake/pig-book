@@ -23,7 +23,12 @@ $darken-pink: darken($pink, 10%);
 .card-header {
   background-color: rgba($white, .5);
   color: $darken-green;
+  font-size: 14px;
   padding: 10px 15px;
+}
+
+.card-body {
+  font-size: 12px;
 }
 
 .form-control {

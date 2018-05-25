@@ -8,3 +8,9 @@ ja:
   button:
     login: ログインする
     twitter_login: Twitterでログイン
+  helpers:
+    label:
+      user:
+        email: メールアドレス
+        password: パスワード
+        remember_me: 次回から自動的にログイン
