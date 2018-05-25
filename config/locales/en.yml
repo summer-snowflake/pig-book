@@ -4,6 +4,6 @@ en:
   menu:
     home: HOME
     login: SignIn
-    registration_user: SignUp
+    sign_up: SignUp
   button:
     twitter_login: Sign in with Twitter

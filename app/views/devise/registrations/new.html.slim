@@ -1,0 +1,30 @@
+.container
+  .row
+    .col-3
+      = render 'account_menu'
+    .col
+      - content_for :title do
+        i.fa.fa-leaf.left-icon
+        = t('menu.sign_up')
+      = render layout: 'content_panel'
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .field
+            = f.label :email
+            br
+            = f.email_field :email, autofocus: true, autocomplete: "email"
+          .field
+            = f.label :password
+            - if @minimum_password_length
+              em
+                | (
+                = @minimum_password_length
+                |  characters minimum)
+            br
+            = f.password_field :password, autocomplete: "off"
+          .field
+            = f.label :password_confirmation
+            br
+            = f.password_field :password_confirmation, autocomplete: "off"
+          .actions
+            = f.submit "Sign up"
