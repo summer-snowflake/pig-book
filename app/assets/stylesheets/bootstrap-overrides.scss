@@ -16,6 +16,7 @@ $darken-green: darken($green, 10%);
 }
 
 .card-header {
+  background-color: rgba($white, .5);
   color: $darken-green;
   padding: 10px 15px;
 }
