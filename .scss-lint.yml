@@ -1,1 +1,1 @@
-exclude: './app/assets/stylesheets/open-iconic-bootstrap.css'
+exclude: './app/assets/stylesheets/open-iconic-bootstrap.scss'

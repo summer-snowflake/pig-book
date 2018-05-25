@@ -1,11 +1,12 @@
 /* Bootstrap */
 
-/* NOTE: Change the fonts path by kae_kasui */
-/* NOTE: Download Version 1.1.0 */
+/* NOTE: Change the fonts path by kae_kasui
+ * url -> image-url, Rename file open-iconic-bootstrap.css -> open-iconic-bootstrap.scss
+ * NOTE: Download Version 1.1.0 */
 @font-face {
   font-family: 'Icons';
-  src: url('./fonts/open-iconic.eot');
-  src: url('./fonts/open-iconic.eot?#iconic-sm') format('embedded-opentype'), url('./fonts/open-iconic.woff') format('woff'), url('./fonts/open-iconic.ttf') format('truetype'), url('./fonts/open-iconic.otf') format('opentype'), url('./fonts/open-iconic.svg#iconic-sm') format('svg');
+  src: image-url('./fonts/open-iconic.eot');
+  src: image-url('./fonts/open-iconic.eot?#iconic-sm') format('embedded-opentype'), image-url('./fonts/open-iconic.woff') format('woff'), image-url('./fonts/open-iconic.ttf') format('truetype'), image-url('./fonts/open-iconic.otf') format('opentype'), image-url('./fonts/open-iconic.svg#iconic-sm') format('svg');
   font-weight: normal;
   font-style: normal;
 }
