@@ -25,7 +25,12 @@ module PigBook
 
     # Generate factory bot file
     config.generators do |g|
-      g.fixture_replacement :factory_bot
+      g.assets false
+      g.helper false
+      g.test_framework :rspec,
+        fixture_replacement: :factory_bot,
+        view_specs: false,
+        helper_specs: false
     end
   end
 end
