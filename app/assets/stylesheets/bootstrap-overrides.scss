@@ -34,3 +34,33 @@ $darken-pink: darken($pink, 10%);
 .form-control {
   font-size: 14px;
 }
+
+$alert-color: #76891a;
+
+.alert {
+  animation: fadeout 1s linear 2s 1;
+  animation-fill-mode: forwards;
+  background-color: rgba($alert-color, .6);
+  border-color: $alert-color;
+  bottom: 50px;
+  color: $white;
+  position: absolute;
+  right: 30px;
+}
+
+@keyframes fadeout {
+  0% {
+    bottom: 50px;
+    opacity: 1;
+  }
+
+  40% {
+    bottom: 10px;
+    opacity: 1;
+  }
+
+  100% {
+    bottom: 0;
+    opacity: 0;
+  }
+}
