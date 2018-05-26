@@ -25,6 +25,8 @@ group :development, :test do
   gem 'rubocop'
   gem 'factory_bot_rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'letter_opener'
+  gem 'letter_opener_web'
 end
 
 group :development do
