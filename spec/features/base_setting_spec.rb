@@ -11,13 +11,13 @@ feature 'Base Setting Page', js: true do
 
   scenario 'Link to base setting page.' do
     visit root_path
-    click_link I18n.t('menu.setting')
-    expect(page).to have_content 'setting'
+    click_link I18n.t('menu.settings')
+    expect(page).to have_content I18n.t('title.base_settings')
   end
 
   scenario 'Connect to base setting page.' do
     visit base_setting_path
-    expect(page).to have_content 'setting'
+    expect(page).to have_content I18n.t('title.base_settings')
   end
 
   after do
