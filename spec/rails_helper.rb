@@ -26,6 +26,13 @@ Capybara.register_driver :selenium do |app|
   )
 end
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 ActiveRecord::Migration.maintain_test_schema!
 SimpleCov.start do
   add_group 'Models', 'app/models'
