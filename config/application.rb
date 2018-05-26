@@ -22,5 +22,10 @@ module PigBook
 
     # Change the class name when validation errors occure
     config.action_view.field_error_proc = proc { |html_tag, instance| "<div class='field-with-errors'>#{html_tag}</div>".html_safe }
+
+    # Generate factory bot file
+    config.generators do |g|
+      g.fixture_replacement :factory_bot
+    end
   end
 end
