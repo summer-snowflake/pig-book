@@ -7,6 +7,7 @@ en:
     logout: SignOut
     sign_up: SignUp
     mypage_top: Mypage TOP
+    setting: Settings
   title:
     recent_list: Recent List
   button:
