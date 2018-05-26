@@ -8,9 +8,14 @@ ja:
   button:
     login: ログインする
     twitter_login: Twitterでログイン
+    sign_up: 登録する
   helpers:
     label:
       user:
+        remember_me: 次回から自動的にログイン
+  activerecord:
+    attributes:
+      user:
         email: メールアドレス
         password: パスワード
-        remember_me: 次回から自動的にログイン
+        password_confirmation: パスワード（確認）

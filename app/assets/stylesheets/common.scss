@@ -11,6 +11,10 @@ button {
   font-size: 12px;
 }
 
+.pink {
+  color: $pink;
+}
+
 .left-icon {
   padding-right: 5px;
 }
@@ -65,10 +69,20 @@ $twitter-border-color: #2e6da4;
 }
 
 .form-group.required {
-  ::after {
+  label::after {
     color: $pink;
     content: '*';
     font-weight: bold;
     margin-left: 4px;
+  }
+}
+
+.field-with-errors {
+  .form-control {
+    border-color: $pink;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 0 3px rgba($pink, .3);
   }
 }

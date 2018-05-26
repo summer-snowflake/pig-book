@@ -8,9 +8,14 @@ en:
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
+    sign_up: Sign up
   helpers:
     label:
       user:
+        remember_me: Remember me
+  activerecord:
+    attributes:
+      user:
         email: Email
         password: Password
-        remember_me: Remember me
+        password_confirmation: Password Confirmation
