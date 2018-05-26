@@ -4,6 +4,7 @@ ja:
   menu:
     home: HOME
     login: ログイン
+    logout: ログアウト
     sign_up: 新規登録
   button:
     login: ログインする

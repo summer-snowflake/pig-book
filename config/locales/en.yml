@@ -4,6 +4,7 @@ en:
   menu:
     home: HOME
     login: SignIn
+    logout: SignOut
     sign_up: SignUp
   button:
     login: Sign in
