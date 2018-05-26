@@ -39,6 +39,7 @@ group :development do
 end
 
 group :test do
+  gem 'faker'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
   gem 'capybara', '~> 2.13'
