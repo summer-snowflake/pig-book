@@ -4,5 +4,18 @@ ja:
   menu:
     home: HOME
     login: ログイン
+    sign_up: 新規登録
   button:
+    login: ログインする
     twitter_login: Twitterでログイン
+    sign_up: 登録する
+  helpers:
+    label:
+      user:
+        remember_me: 次回から自動的にログイン
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）

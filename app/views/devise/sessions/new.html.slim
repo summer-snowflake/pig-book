@@ -1,0 +1,25 @@
+.container
+  .row
+    .col-3
+      = render 'account_menu'
+    .col
+      - content_for :title do
+        i.fa.fa-leaf.left-icon
+        = t('menu.login')
+      = render layout: 'content_panel'
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .form-group.required
+            = f.label :email
+            = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
+          .form-group.required
+            = f.label :password
+            = f.password_field :password, autocomplete: 'off', class: 'form-control'
+          - if devise_mapping.rememberable?
+            .form-group.form-check
+              = f.check_box :remember_me, class: 'form-check-input'
+              = f.label :remember_me, class: 'form-check-label'
+          = f.submit t('button.login'), class: 'btn btn-secondary'
+        hr
+        button.btn.btn-primary.twitter
+          i.fab.fa-twitter.left-icon
+          = t('button.twitter_login')

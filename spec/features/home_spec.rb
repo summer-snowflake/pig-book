@@ -9,7 +9,7 @@ feature 'HOME', js: true do
   end
 
   scenario 'Link to home page.' do
-    visit new_session_path
+    visit new_user_session_path
     click_link I18n.t('menu.home')
     expect(page).to have_content 'welcome'
   end

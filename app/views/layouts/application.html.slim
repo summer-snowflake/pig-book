@@ -11,4 +11,9 @@ html
   body
     = render 'header'
     .container-fluid
+      / TODO: render template
+      - if notice
+        p.notice= notice
+      - if alert
+        p.alert= alert
       == yield

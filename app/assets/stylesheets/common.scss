@@ -1,12 +1,18 @@
 $green: #76891a;
+$darken-green: darken($green, 10%);
+$pink: #ac5e9f;
 
 body {
   background-image: image-url('background-wood.png');
-  font-size: 14px;
+  color: $darken-green;
 }
 
 button {
   font-size: 12px;
+}
+
+.pink {
+  color: $pink;
 }
 
 .left-icon {
@@ -41,6 +47,15 @@ button {
   }
 }
 
+.list-group-item {
+  .active-menu-image {
+    background-image: image-url('pig-footprints-both.gif');
+    background-size: cover;
+    height: 18px;
+    width: 20px;
+  }
+}
+
 $twitter-border-color: #2e6da4;
 
 .btn-primary.twitter {
@@ -51,4 +66,23 @@ $twitter-border-color: #2e6da4;
   background-image: image-url('filter-pig.gif');
   background-repeat: no-repeat;
   background-size: 120% auto;
+}
+
+.form-group.required {
+  label::after {
+    color: $pink;
+    content: '*';
+    font-weight: bold;
+    margin-left: 4px;
+  }
+}
+
+.field-with-errors {
+  .form-control {
+    border-color: $pink;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 0 3px rgba($pink, .3);
+  }
 }

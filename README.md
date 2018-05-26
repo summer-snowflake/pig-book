@@ -49,6 +49,13 @@ This tool is for a household account book.
 Basically, Use the following:
 
 - [rubocop](https://github.com/bbatsov/rubocop)
+  - [.rubocop.yml](https://github.com/summer-snowflake/pig-book/blob/master/.rubocop.yml)
+
+- [scss-lint](https://github.com/brigade/scss-lint)
+  - [.scss-lint.yml](https://github.com/summer-snowflake/pig-book/blob/master/.scss-lint.yml)
+
+- [slim-lint](https://github.com/sds/slim-lint)
+  - [.slim-lint.yml](https://github.com/summer-snowflake/pig-book/blob/master/.slim-lint.yml)
 
 
 ## How to Install

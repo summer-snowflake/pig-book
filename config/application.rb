@@ -16,5 +16,11 @@ module PigBook
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :ja
+
+    # Generate slim templates
+    config.generators.template_engine = :slim
+
+    # Change the class name when validation errors occure
+    config.action_view.field_error_proc = proc { |html_tag, instance| "<div class='field-with-errors'>#{html_tag}</div>".html_safe }
   end
 end

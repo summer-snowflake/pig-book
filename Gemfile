@@ -18,6 +18,8 @@ gem 'jbuilder'
 gem 'slim-rails'
 gem 'rails-i18n'
 gem 'bootstrap'
+gem 'devise'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'rubocop'

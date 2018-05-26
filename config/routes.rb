@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'welcome#show'
+  devise_for :users
 
-  resource :session, only: %i[new]
+  root to: 'welcome#show'
 end
