@@ -1,12 +1,10 @@
-.container
-  .row
-    .col-3
-      = render 'mypage_menu'
-    .col
-      - content_for :title do
-        i.fas.fa-list-ul.left-icon
-        = t('title.recent_list')
-      = render layout: 'content_panel'
-        table.table
-          tr
-            td
+- content_for :sidemenu do
+  = render 'mypage_menu'
+- content_for :title do
+  i.fas.fa-list-ul.left-icon
+  = t('title.recent_list')
+
+= render layout: 'content_panel_with_sidemenu'
+  table.table
+    tr
+      td

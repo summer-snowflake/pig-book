@@ -1,0 +1,7 @@
+.container
+  .row
+    .col-3
+      = yield :sidemenu
+    .col
+      = render layout: 'content_panel'
+        = yield

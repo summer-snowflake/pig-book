@@ -7,9 +7,10 @@ ja:
     logout: ログアウト
     sign_up: アカウント登録
     mypage_top: マイページTOP
-    setting: 各種設定
+    settings: 各種設定
   title:
     recent_list: 最近の入力リスト
+    base_settings: 基本設定
   button:
     login: ログインする
     twitter_login: Twitterでログイン
