@@ -38,7 +38,7 @@ $darken-pink: darken($pink, 10%);
 $alert-color: #76891a;
 
 .alert {
-  animation: fadeout 1s linear 2s 1;
+  animation: fadeout 1s linear 1s 1;
   animation-fill-mode: forwards;
   background-color: rgba($alert-color, .6);
   border-color: $alert-color;
