@@ -6,6 +6,9 @@ en:
     login: SignIn
     logout: SignOut
     sign_up: SignUp
+    mypage_top: Mypage TOP
+  title:
+    recent_list: Recent List
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
