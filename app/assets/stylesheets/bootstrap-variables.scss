@@ -1,5 +1,6 @@
 $green: #76891a;
 $darken-green: darken($green, 10%);
+$lighten-green: lighten($green, 15%);
 $pink: #ac5e9f;
 
 $primary: #337ab7;
@@ -16,3 +17,5 @@ $list-group-border-color: $green;
 
 $card-bg: rgba(#fff, .5);
 $card-border-color: $green;
+
+$table-border-color: $lighten-green;

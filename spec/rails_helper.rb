@@ -41,6 +41,8 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
   config.include FactoryBot::Syntax::Methods
+  config.include Warden::Test::Helpers
+  config.include FeatureSpecHelper, type: :feature
 
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
@@ -55,6 +57,7 @@ RSpec.configure do |config|
   end
 
   config.after :each do
+    Warden.test_reset!
     DatabaseRewinder.clean_all
   end
 end

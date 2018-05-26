@@ -1,0 +1,12 @@
+.container
+  .row
+    .col-3
+      = render 'mypage_menu'
+    .col
+      - content_for :title do
+        i.fas.fa-list-ul.left-icon
+        = t('title.recent_list')
+      = render layout: 'content_panel'
+        table.table
+          tr
+            td

@@ -10,7 +10,11 @@ nav.navbar.navbar-expand-lg.navbar-light
           span= t('menu.home')
     - if current_user
       ul.navbar-nav.nav.justify-content-end
-        li.nav-item class=active_class(destroy_user_session_path)
+        li.nav-item class=active_class(mypage_path)
+          = link_to mypage_path, class: 'nav-link'
+            i.fas.fa-user.left-icon
+            span= current_user.email
+        li.nav-item
           = link_to destroy_user_session_path, method: :delete, class: 'nav-link'
             i.fa.fa-leaf.left-icon
             span= t('menu.logout')

@@ -5,7 +5,10 @@ ja:
     home: HOME
     login: ログイン
     logout: ログアウト
-    sign_up: 新規登録
+    sign_up: アカウント登録
+    mypage_top: マイページTOP
+  title:
+    recent_list: 最近の入力リスト
   button:
     login: ログインする
     twitter_login: Twitterでログイン
