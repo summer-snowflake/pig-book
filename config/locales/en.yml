@@ -7,9 +7,10 @@ en:
     logout: SignOut
     sign_up: SignUp
     mypage_top: Mypage TOP
-    setting: Settings
+    settings: Settings
   title:
     recent_list: Recent List
+    base_settings: Base Settings
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
