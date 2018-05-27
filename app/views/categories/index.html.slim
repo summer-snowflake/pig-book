@@ -9,7 +9,7 @@
     - @categories.each do |category|
       tr
         td
-          span.badge.badge-pill class="badge-#{primary_or_secondary(category.balance_of_payments)}"
+          span.badge.badge-pill class="badge-#{success_or_danger(category.balance_of_payments)}"
             = category.decorate.human_balance_of_payments
         td
           = category.name

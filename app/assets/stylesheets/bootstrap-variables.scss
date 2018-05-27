@@ -1,10 +1,16 @@
 $green: #76891a;
 $darken-green: darken($green, 10%);
+$dark-green: #5e7535;
 $lighten-green: lighten($green, 15%);
 $pink: #ac5e9f;
+$blue: #5e78ac;
+$red: #ac5e78;
 
-$primary: #337ab7;
+$primary: $dark-green;
 $secondary: $pink;
+$success: $blue;
+$danger: $red;
+$info: #337ab7;
 $hr-border-color: $green;
 $link-color: $green;
 $link-hover-decoration: none;

@@ -20,7 +20,7 @@ module ApplicationHelper
     end
   end
 
-  def primary_or_secondary(item)
-    item ? 'primary' : 'secondary'
+  def success_or_danger(item)
+    item ? 'success' : 'danger'
   end
 end
