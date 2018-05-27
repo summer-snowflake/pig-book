@@ -11,6 +11,7 @@ en:
   title:
     recent_list: Recent List
     base_settings: Base Settings
+    category_list: Categories List
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
