@@ -12,6 +12,7 @@ ja:
     recent_list: 最近の入力リスト
     base_settings: 基本設定
     category_list: カテゴリ一覧
+    place_list: お店・施設一覧
   button:
     login: ログインする
     twitter_login: Twitterでログイン

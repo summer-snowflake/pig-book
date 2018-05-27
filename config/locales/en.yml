@@ -12,6 +12,7 @@ en:
     recent_list: Recent List
     base_settings: Base Settings
     category_list: Categories List
+    place_list: Places List
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
