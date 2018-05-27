@@ -19,4 +19,8 @@ module ApplicationHelper
       concat messages.join(', ')
     end
   end
+
+  def primary_or_secondary(item)
+    item ? 'primary' : 'secondary'
+  end
 end

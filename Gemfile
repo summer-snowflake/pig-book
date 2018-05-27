@@ -20,6 +20,7 @@ gem 'rails-i18n'
 gem 'bootstrap'
 gem 'devise'
 gem 'omniauth-twitter'
+gem 'draper'
 
 group :development, :test do
   gem 'rubocop'

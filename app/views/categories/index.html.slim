@@ -6,5 +6,10 @@
 
 = render layout: 'content_panel_with_sidemenu'
   table.table
-    tr
-      td
+    - @categories.each do |category|
+      tr
+        td
+          span.badge.badge-pill class="badge-#{primary_or_secondary(category.balance_of_payments)}"
+            = category.decorate.human_balance_of_payments
+        td
+          = category.name

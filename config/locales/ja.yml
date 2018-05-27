@@ -16,6 +16,9 @@ ja:
     login: ログインする
     twitter_login: Twitterでログイン
     sign_up: 登録する
+  label:
+    expenditure: 支出
+    income: 収入
   helpers:
     label:
       user:
