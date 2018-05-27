@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/base_setting', to: 'base_setting#show'
 
   resources :categories, only: %w[index]
+  resources :places, only: %w[index]
 
   # for letter_opener
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?

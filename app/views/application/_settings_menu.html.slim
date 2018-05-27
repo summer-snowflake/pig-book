@@ -4,6 +4,10 @@
     = t('title.base_settings')
     = menu_image(base_setting_path)
   = link_to categories_path, class: 'list-group-item' do
-    i.fas.fa-boxes.left-icon
+    i.fas.fa-th-large.left-icon
     = t('title.category_list')
     = menu_image(categories_path)
+  = link_to places_path, class: 'list-group-item' do
+    i.fas.fa-map-marker-alt.left-icon
+    = t('title.place_list')
+    = menu_image(places_path)
