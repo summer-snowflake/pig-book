@@ -16,6 +16,9 @@ en:
     login: Sign in
     twitter_login: Sign in with Twitter
     sign_up: Sign up
+  label:
+    expenditure: 支出
+    income: 収入
   helpers:
     label:
       user:
