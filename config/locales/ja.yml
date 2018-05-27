@@ -11,10 +11,14 @@ ja:
   title:
     recent_list: 最近の入力リスト
     base_settings: 基本設定
+    category_list: カテゴリ一覧
   button:
     login: ログインする
     twitter_login: Twitterでログイン
     sign_up: 登録する
+  label:
+    expenditure: 支出
+    income: 収入
   helpers:
     label:
       user:

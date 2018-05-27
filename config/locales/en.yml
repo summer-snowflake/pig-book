@@ -11,10 +11,14 @@ en:
   title:
     recent_list: Recent List
     base_settings: Base Settings
+    category_list: Categories List
   button:
     login: Sign in
     twitter_login: Sign in with Twitter
     sign_up: Sign up
+  label:
+    expenditure: 支出
+    income: 収入
   helpers:
     label:
       user:

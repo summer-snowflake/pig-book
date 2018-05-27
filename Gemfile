@@ -20,6 +20,7 @@ gem 'rails-i18n'
 gem 'bootstrap'
 gem 'devise'
 gem 'omniauth-twitter'
+gem 'draper'
 
 group :development, :test do
   gem 'rubocop'
@@ -45,6 +46,7 @@ group :test do
   gem 'capybara', '~> 2.13'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
   gem 'database_rewinder'
   gem 'chromedriver-helper'
   gem 'simplecov'

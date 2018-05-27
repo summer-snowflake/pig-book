@@ -3,3 +3,7 @@
     i.fas.fa-cog.left-icon
     = t('title.base_settings')
     = menu_image(base_setting_path)
+  = link_to categories_path, class: 'list-group-item' do
+    i.fas.fa-boxes.left-icon
+    = t('title.category_list')
+    = menu_image(categories_path)
