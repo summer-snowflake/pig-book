@@ -6,4 +6,5 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :omniauthable
 
   has_many :categories, dependent: :destroy
+  has_many :places, dependent: :destroy
 end
