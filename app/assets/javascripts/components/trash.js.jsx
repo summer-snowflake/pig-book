@@ -1,9 +1,10 @@
-var Trash = createReactClass({
+var TrashComponent = createReactClass({
 
   render: function() {
     return (
-      <React.Fragment>
-      </React.Fragment>
+      <div className='trash-component'>
+        <i className='far fa-trash-alt float-right' />
+      </div>
     );
   }
 });
