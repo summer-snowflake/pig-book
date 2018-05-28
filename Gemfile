@@ -21,6 +21,7 @@ gem 'bootstrap'
 gem 'devise'
 gem 'omniauth-twitter'
 gem 'draper'
+gem 'react-rails'
 
 group :development, :test do
   gem 'rubocop'
