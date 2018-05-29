@@ -5,7 +5,7 @@ class ModalComponent extends React.Component {
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <div className='modal-body'>
-              <p>{'削除しますか？'}</p>
+              <p>{'削除してもよろしいですか？'}</p>
             </div>
             <div className='modal-footer'>
               <button className='btn btn-secondary'>
