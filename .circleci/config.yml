@@ -69,7 +69,7 @@ jobs:
       - run: bundle exec scss-lint app/assets/stylesheets/
 
       # Run ESLint
-      - run: bundle exec rake eslint
+      - run: npm run eslint app/assets/javascripts/**/*.js.jsx
 
       # Run rubocop
       - run: bundle exec rubocop app/ lib/ spec/
