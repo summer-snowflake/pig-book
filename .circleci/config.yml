@@ -37,17 +37,17 @@ jobs:
           - vendor/bundle
 
       # Upgrade npm
-      #- run: npm install npm@latest
+      - run: npm install npm@latest
 
       # Restore npm cache
-      #- restore_cache:
-      #    name: Restore npm cache
-      #    keys:
-      #      - npm-5.4.2-{{ checksum "frontend/package.json" }}
+      - restore_cache:
+          name: Restore npm cache
+          keys:
+            - npm-5.4.2-{{ checksum "package.json" }}
 
       #- run:
-      #    name: Run npm install
-      #    command: npm install
+          name: Run npm install
+          command: npm install
 
       - run:
           name: Update Chromedriver
@@ -56,10 +56,10 @@ jobs:
             sudo apt-get install google-chrome-stable
 
       #- save_cache:
-      #    name: Store npm cache
-      #    key: npm-5.4.2-{{ checksum "frontend/package.json" }}
-      #    paths:
-      #      - ./frontend/node_modules
+          name: Store npm cache
+          key: npm-5.4.2-{{ checksum "package.json" }}
+          paths:
+            - ./frontend/node_modules
 
       # Database setup
       - run: bundle exec rake db:create
@@ -69,7 +69,7 @@ jobs:
       - run: bundle exec scss-lint app/assets/stylesheets/
 
       # Run ESLint
-      #- run: bundle exec rake eslint
+      - run: bundle exec rake eslint
 
       # Run rubocop
       - run: bundle exec rubocop app/ lib/ spec/
