@@ -45,7 +45,7 @@ jobs:
           keys:
             - npm-5.4.2-{{ checksum "package.json" }}
 
-      #- run:
+      - run:
           name: Run npm install
           command: npm install
 
@@ -55,7 +55,7 @@ jobs:
             sudo apt-get update
             sudo apt-get install google-chrome-stable
 
-      #- save_cache:
+      - save_cache:
           name: Store npm cache
           key: npm-5.4.2-{{ checksum "package.json" }}
           paths:
