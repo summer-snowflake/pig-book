@@ -22,6 +22,8 @@ gem 'devise'
 gem 'omniauth-twitter'
 gem 'draper'
 gem 'react-rails'
+gem 'sprockets'
+gem 'sprockets-es6'
 
 group :development, :test do
   gem 'rubocop'
