@@ -24,6 +24,7 @@ gem 'draper'
 gem 'react-rails'
 gem 'sprockets'
 gem 'sprockets-es6'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'rubocop'

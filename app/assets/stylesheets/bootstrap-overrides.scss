@@ -7,6 +7,10 @@ $darken-pink: darken($pink, 10%);
   font-size: 14px;
 }
 
+.btn-light {
+  border-color: darken($light, 10%);
+}
+
 .list-group-item {
   color: $pink;
   font-size: 12px;
@@ -63,4 +67,9 @@ $alert-color: #76891a;
     bottom: 0;
     opacity: 0;
   }
+}
+
+.modal-footer {
+  border-top: 0;
+  padding-top: 0;
 }

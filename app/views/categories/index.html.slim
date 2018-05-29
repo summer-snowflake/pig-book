@@ -5,6 +5,7 @@
   = t('title.category_list')
 
 = render layout: 'content_panel_with_sidemenu'
+  = react_component('ModalComponent')
   table.table
     - @categories.each do |category|
       tr
