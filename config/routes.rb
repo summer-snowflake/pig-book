@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/mypage', to: 'mypage#show'
   get '/base_setting', to: 'base_setting#show'
 
-  resources :categories, only: %w[index]
+  resources :categories, only: %w[index destroy]
   resources :places, only: %w[index]
 
   # for letter_opener

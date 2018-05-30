@@ -1,16 +1,23 @@
 class ModalComponent extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
-      <div className='modal-component modal fade' role='dialog' id='deleteModal' tabIndex='-1'>
+      <div className='modal-component modal fade' role='dialog' id={'deleteModal-' + this.props.item.id} tabIndex='-1'>
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <div className='modal-body'>
-              <p>{'削除してもよろしいですか？'}</p>
+              <p>
+                <b>{this.props.item.name}</b>
+                {'を削除してもよろしいですか？'}
+              </p>
             </div>
             <div className='modal-footer'>
-              <button className='btn btn-secondary'>
+              <a className='btn btn-secondary' href={this.props.url} data-method='delete'>
                 {'はい'}
-              </button>
+              </a>
               <button className='btn btn-light' data-dismiss='modal'>
                 {'閉じる'}
               </button>
