@@ -21,11 +21,11 @@ class CategoriesComponent extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.categories.map((category) =>
-              <CategoryComponent category={category} key={category.id} handleClickTrashIcon={this.handleClickTrashIcon} />
+              <CategoryComponent category={category} handleClickTrashIcon={this.handleClickTrashIcon} key={category.id} />
             )}
           </tbody>
         </table>
-        <ModalComponent url={'categories/' + this.state.category.id} item={this.state.category} />
+        <ModalComponent item={this.state.category} url={'categories/' + this.state.category.id} />
       </div>
     )
   }

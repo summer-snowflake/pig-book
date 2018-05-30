@@ -20,7 +20,7 @@ class CategoryComponent extends React.Component {
           {this.props.category.name}
         </td>
         <td>
-          <TrashComponent item={this.props.category} handleClick={this.handleClickTrashIcon} />
+          <TrashComponent handleClick={this.handleClickTrashIcon} item={this.props.category} />
         </td>
       </tr>
     )
