@@ -1,5 +1,12 @@
 {
   "name": "pig-book",
   "private": true,
-  "dependencies": {}
+  "scripts": {
+    "eslint": "eslint app/assets/javascripts/**/*.jsx"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.8.2"
+  }
 }

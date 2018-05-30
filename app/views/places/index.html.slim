@@ -5,8 +5,4 @@
   = t('title.place_list')
 
 = render layout: 'content_panel_with_sidemenu'
-  table.table
-    - @places.each do |place|
-      tr
-        td
-          = place.name
+  = react_component('PlacesComponent', render(template: '/places/places.json.jbuilder'))

@@ -20,9 +20,60 @@ feature 'CATEGORY', js: true do
     expect(page).to have_content I18n.t('title.category_list')
   end
 
-  scenario 'Display the categories' do
-    visit categories_path
-    expect(page).to have_content I18n.t('title.category_list')
+  context 'there are some categories' do
+    let!(:category1) { create(:category, user: user) }
+    let!(:category2) { create(:category, :income, user: user) }
+
+    background do
+      visit categories_path
+    end
+
+    scenario 'Display the categories' do
+      expect(page).to have_content I18n.t('title.category_list')
+      within '.card-body' do
+        within "#category-#{category1.id}" do
+          expect(page).to have_content I18n.t('label.expenditure')
+          expect(page).to have_content category1.name
+        end
+        within "#category-#{category2.id}" do
+          expect(page).to have_content I18n.t('label.income')
+          expect(page).to have_content category2.name
+        end
+      end
+    end
+
+    scenario 'Destroy the target category' do
+      within '.card-body' do
+        within "#category-#{category2.id}" do
+          find('i.far.fa-trash-alt').click
+        end
+      end
+
+      # 閉じる
+      expect(page).to have_css '.modal'
+      within '.modal' do
+        # TODO: I18nを適用する
+        expect(page).to have_content '削除してもよろしいですか？'
+        trigger_click('button#cancel')
+      end
+
+      within '.card-body' do
+        expect(page).to have_content category2.name
+        within "#category-#{category2.id}" do
+          find('.far.fa-trash-alt').click
+        end
+      end
+
+      # 削除
+      expect(page).to have_css '.modal'
+      within '.modal' do
+        expect(page).to have_content '削除してもよろしいですか？'
+        trigger_click('button#submit')
+      end
+      within '.card-body' do
+        expect(page).to have_no_content category2.name
+      end
+    end
   end
 
   after do
