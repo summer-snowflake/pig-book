@@ -54,15 +54,13 @@ feature 'CATEGORY', js: true do
       within '.modal' do
         # TODO: I18nを適用する
         expect(page).to have_content '削除してもよろしいですか？'
-        find('button#cancel').click
-      end
-      within '.card-body' do
-        expect(page).to have_content category2.name
+        trigger_click('button#cancel')
       end
 
       within '.card-body' do
+        expect(page).to have_content category2.name
         within "#category-#{category2.id}" do
-          find('i.far.fa-trash-alt').click
+          find('.far.fa-trash-alt').click
         end
       end
 
@@ -70,7 +68,7 @@ feature 'CATEGORY', js: true do
       expect(page).to have_css '.modal'
       within '.modal' do
         expect(page).to have_content '削除してもよろしいですか？'
-        find('button#submit').click
+        trigger_click('button#submit')
       end
       within '.card-body' do
         expect(page).to have_no_content category2.name
