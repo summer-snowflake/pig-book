@@ -5,7 +5,7 @@ class ModalComponent extends React.Component {
 
   render() {
     return (
-      <div className='modal-component modal fade' role='dialog' id={'deleteModal-' + this.props.item.id} tabIndex='-1'>
+      <div className='modal-component modal fade' role='dialog' id='deleteModal' tabIndex='-1'>
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <div className='modal-body'>
@@ -15,10 +15,14 @@ class ModalComponent extends React.Component {
               </p>
             </div>
             <div className='modal-footer'>
-              <a className='btn btn-secondary' href={this.props.url} data-method='delete'>
-                {'はい'}
+              <a href={this.props.url} data-method='delete'>
+                <button className='btn btn-secondary'>
+                  <i className='far fa-trash-alt left-icon' />
+                  {'はい'}
+                </button>
               </a>
               <button className='btn btn-light' data-dismiss='modal'>
+                <i className='fas fa-times left-icon' />
                 {'閉じる'}
               </button>
             </div>

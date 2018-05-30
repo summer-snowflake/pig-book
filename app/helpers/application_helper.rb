@@ -19,8 +19,4 @@ module ApplicationHelper
       concat messages.join(', ')
     end
   end
-
-  def success_or_danger(item)
-    item ? 'success' : 'danger'
-  end
 end
