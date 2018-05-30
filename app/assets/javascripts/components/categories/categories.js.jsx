@@ -21,7 +21,7 @@ class CategoriesComponent extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.categories.map((category) =>
-              <CategoryComponent category={category} handleClickTrashIcon={this.handleClickTrashIcon} key={category.id} />
+              <CategoryComponent category={category} key={category.id} onClickTrashIcon={this.handleClickTrashIcon} />
             )}
           </tbody>
         </table>

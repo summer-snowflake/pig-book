@@ -32,5 +32,6 @@ rules:
     - off
   react/display-name: 1
   react/forbid-prop-types: 0
+  react/jsx-handler-names: 1
   react/jsx-sort-props: 1
   react/sort-comp: 1

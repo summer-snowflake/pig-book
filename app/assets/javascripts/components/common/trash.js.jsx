@@ -5,7 +5,7 @@ class TrashComponent extends React.Component {
   }
 
   handleClick() {
-    this.props.handleClick(this.props.item)
+    this.props.onClick(this.props.item)
   }
 
   render() {

@@ -5,7 +5,7 @@ class CategoryComponent extends React.Component {
   }
 
   handleClickTrashIcon(category) {
-    this.props.handleClickTrashIcon(category)
+    this.props.onClickTrashIcon(category)
   }
 
   render() {
@@ -20,7 +20,7 @@ class CategoryComponent extends React.Component {
           {this.props.category.name}
         </td>
         <td>
-          <TrashComponent handleClick={this.handleClickTrashIcon} item={this.props.category} />
+          <TrashComponent item={this.props.category} onClick={this.handleClickTrashIcon} />
         </td>
       </tr>
     )
