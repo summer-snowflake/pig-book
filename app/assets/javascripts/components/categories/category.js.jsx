@@ -10,7 +10,7 @@ class CategoryComponent extends React.Component {
 
   render() {
     return (
-      <tr className='category-component'>
+      <tr className='category-component' id={'category-' + this.props.category.id}>
         <td>
           <span className={'badge badge-pill badge-' + this.props.category.success_or_danger_style_class}>
             {this.props.category.human_balance_of_payments}
