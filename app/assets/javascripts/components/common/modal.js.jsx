@@ -15,16 +15,8 @@ class ModalComponent extends React.Component {
               </p>
             </div>
             <div className='modal-footer'>
-              <a data-method='delete' href={this.props.url}>
-                <button className='btn btn-secondary' id='submit'>
-                  <i className='far fa-trash-alt left-icon' />
-                  {'はい'}
-                </button>
-              </a>
-              <button className='btn btn-light' data-dismiss='modal' id='cancel'>
-                <i className='fas fa-times left-icon' />
-                {'閉じる'}
-              </button>
+              <SubmitButtonComponent url={this.props.url} />
+              <CloseButtonComponent />
             </div>
           </div>
         </div>

@@ -16,13 +16,12 @@ class PlacesComponent extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className='places-component'>
         <table className='table'>
           <tbody>
             {this.props.places.map((place) =>
-              <PlaceComponent place={place} key={place.id} onClickTrashIcon={this.handleClickTrashIcon} />
+              <PlaceComponent key={place.id} onClickTrashIcon={this.handleClickTrashIcon} place={place} />
             )}
           </tbody>
         </table>
