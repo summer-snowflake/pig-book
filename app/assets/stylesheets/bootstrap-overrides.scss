@@ -42,7 +42,6 @@ $darken-pink: darken($pink, 10%);
 $alert-color: #76891a;
 
 .alert {
-  z-index: 3;
   animation: fadeout 1s linear 1s 1;
   animation-fill-mode: forwards;
   background-color: rgba($alert-color, .6);
@@ -51,6 +50,7 @@ $alert-color: #76891a;
   color: $white;
   position: absolute;
   right: 30px;
+  z-index: 3;
 }
 
 @keyframes fadeout {
