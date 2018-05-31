@@ -25,6 +25,7 @@ gem 'react-rails'
 gem 'sprockets'
 gem 'sprockets-es6'
 gem 'jquery-rails'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'rubocop'
