@@ -51,6 +51,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
   gem 'capybara', '~> 2.13'
+  gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
