@@ -17,6 +17,7 @@
 /yarn-error.log
 
 .byebug_history
+.env
 
 # Ignore coverage directory by simplecov output
 /coverage

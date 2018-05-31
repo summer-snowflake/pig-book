@@ -50,6 +50,7 @@ $alert-color: #76891a;
   color: $white;
   position: absolute;
   right: 30px;
+  z-index: 3;
 }
 
 @keyframes fadeout {

@@ -25,6 +25,7 @@ gem 'react-rails'
 gem 'sprockets'
 gem 'sprockets-es6'
 gem 'jquery-rails'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'rubocop'
@@ -35,6 +36,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
@@ -48,6 +51,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
   gem 'capybara', '~> 2.13'
+  gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
