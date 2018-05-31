@@ -6,6 +6,7 @@ require File.expand_path('../config/environment', __dir__)
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 require 'simplecov'
 require 'selenium-webdriver'
