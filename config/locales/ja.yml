@@ -8,11 +8,14 @@ ja:
     sign_up: アカウント登録
     mypage_top: マイページTOP
     settings: 各種設定
+    admin: 管理
   title:
     recent_list: 最近の入力リスト
     base_settings: 基本設定
     category_list: カテゴリ一覧
     place_list: お店・施設一覧
+    admin:
+      users: ユーザの管理
   button:
     login: ログインする
     twitter_login: Twitterでログイン
@@ -20,6 +23,9 @@ ja:
   label:
     expenditure: 支出
     income: 収入
+  messages:
+    alert:
+      unauthenticate_admin: アクセスできません。管理者でログインしてください
   helpers:
     label:
       user:
