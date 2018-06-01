@@ -8,11 +8,14 @@ en:
     sign_up: SignUp
     mypage_top: Mypage TOP
     settings: Settings
+    admin: Admin
   title:
     recent_list: Recent List
     base_settings: Base Settings
     category_list: Categories List
     place_list: Places List
+    admin:
+      users: Users List (Management)
   button:
     login: Sign in
     twitter_login: Sign in with Twitter

@@ -10,6 +10,11 @@ nav.navbar.navbar-expand-lg.navbar-light
           span= t('menu.home')
     - if current_user
       ul.navbar-nav.nav.justify-content-end
+        - if current_user.admin?
+          li.nav-item class=active_class(admin_users_path)
+            = link_to admin_users_path, class: 'nav-link'
+              i.fas.fa-book.left-icon
+              span= t('menu.admin')
         li.nav-item class=active_class(base_setting_path)
           = link_to base_setting_path, class: 'nav-link'
             i.fas.fa-cog.left-icon

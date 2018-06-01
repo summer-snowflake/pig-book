@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   resources :categories, only: %w[index destroy]
   resources :places, only: %w[index destroy]
 
+  namespace :admin do
+    resources :users, only: %w[index]
+  end
+
   # for letter_opener
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

@@ -1,0 +1,16 @@
+- content_for :title do
+  i.fas.fa-user.left-icon
+  = t('title.admin.users')
+
+= render layout: 'content_panel'
+  table.table
+    thead
+      tr
+        td = User.human_attribute_name :email
+        td = User.human_attribute_name :last_sign_in_at
+
+    tbody
+      - @users.each do |user|
+        tr
+          td = user.email
+          td = user.last_sign_in_at
