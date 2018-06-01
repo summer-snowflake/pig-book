@@ -1,7 +1,8 @@
 doctype html
 html
   head
-    title PibBook
+    title = "#{t('brand.name')} - #{t('brand.subtitle')}"
+    meta name='description' content="#{t('brand.description')}"
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
