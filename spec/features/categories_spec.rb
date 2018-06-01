@@ -42,6 +42,35 @@ feature 'CATEGORY', js: true do
       end
     end
 
+    scenario 'Create some categories' do
+      # 支出のカテゴリ追加
+      fill_in 'category_name', with: 'カテゴリ名'
+      click_button I18n.t('button.add')
+      category = Category.last
+
+      within "#category-#{category.id}" do
+        expect(page).to have_content '支出'
+        expect(page).to have_content 'カテゴリ名'
+      end
+
+      # バリデーションエラー
+      fill_in 'category_name', with: ''
+      click_button I18n.t('button.add')
+
+      expect(page).to have_content 'カテゴリ名を入力してください'
+
+      choose I18n.t('label.income')
+      fill_in 'category_name', with: 'カテゴリ名２'
+      click_button I18n.t('button.add')
+      category = Category.last
+
+      # 収入のカテゴリ追加
+      within "#category-#{category.id}" do
+        expect(page).to have_content '収入'
+        expect(page).to have_content 'カテゴリ名２'
+      end
+    end
+
     scenario 'Destroy the target category' do
       within '.card-body' do
         within "#category-#{category2.id}" do
