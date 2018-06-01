@@ -22,12 +22,15 @@ en:
     login: Sign in
     twitter_login: Sign in with Twitter
     sign_up: Sign up
+    add: Add
   label:
     expenditure: 支出
     income: 収入
   messages:
     alert:
       unauthenticate_admin: You need to sign in or sign up as administrator before continuing.
+    notice:
+      add: Created successfully.
   helpers:
     label:
       user:
@@ -38,3 +41,5 @@ en:
         email: Email
         password: Password
         password_confirmation: Password Confirmation
+      category:
+        name: Category Name

@@ -22,12 +22,15 @@ ja:
     login: ログインする
     twitter_login: Twitterでログイン
     sign_up: 登録する
+    add: 追加する
   label:
     expenditure: 支出
     income: 収入
   messages:
     alert:
       unauthenticate_admin: アクセスできません。管理者でログインしてください
+    notice:
+      add: 追加しました。
   helpers:
     label:
       user:
@@ -38,3 +41,5 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
+      category:
+        name: カテゴリ名
