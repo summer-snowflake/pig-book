@@ -23,6 +23,9 @@ en:
   label:
     expenditure: 支出
     income: 収入
+  messages:
+    alert:
+      unauthenticate_admin: You need to sign in or sign up as administrator before continuing.
   helpers:
     label:
       user:

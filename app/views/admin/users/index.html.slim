@@ -6,9 +6,8 @@
   table.table
     thead
       tr
-        td = User.human_attribute_name :email
-        td = User.human_attribute_name :last_sign_in_at
-
+        th = User.human_attribute_name :email
+        th = User.human_attribute_name :last_sign_in_at
     tbody
       - @users.each do |user|
         tr

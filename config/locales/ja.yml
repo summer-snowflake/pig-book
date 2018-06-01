@@ -23,6 +23,9 @@ ja:
   label:
     expenditure: 支出
     income: 収入
+  messages:
+    alert:
+      unauthenticate_admin: アクセスできません。管理者でログインしてください
   helpers:
     label:
       user:
