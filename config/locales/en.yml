@@ -1,6 +1,8 @@
 en:
   brand:
     name: Account Book -beta-
+    subtitle: the household account application displays graphs.
+    description: this site is for the household account. It has not been released yet...
   menu:
     home: HOME
     login: SignIn
