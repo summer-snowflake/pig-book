@@ -1,1 +1,4 @@
 exclude: './app/assets/stylesheets/open-iconic-bootstrap.scss'
+linters:
+  SingleLinePerSelector:
+    enabled: false
