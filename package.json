@@ -4,7 +4,9 @@
   "scripts": {
     "eslint": "eslint app/assets/javascripts/**/*.jsx"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.8.2"

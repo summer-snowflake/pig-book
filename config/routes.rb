@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   resources :categories, only: %w[index create destroy]
   resources :places, only: %w[index destroy]
 
+  namespace :api do
+    resources :places, only: %w[index]
+  end
+
   namespace :admin do
     resources :users, only: %w[index]
   end
