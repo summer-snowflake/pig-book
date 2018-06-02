@@ -1,0 +1,15 @@
+= form_for @category do |f|
+  .form-row
+    .form-group.col-auto.mb-1
+      .form-check
+        = f.radio_button :balance_of_payments, true, class: 'form-check-input'
+        = f.label :balance_of_payments, t('label.income'), value: true, class: 'form-check-label'
+    .form-group.col-auto.mb-1
+      .form-check
+        = f.radio_button :balance_of_payments, false, checked: true, class: 'form-check-input'
+        = f.label :balance_of_payments, t('label.expenditure'), value: false, class: 'form-check-label'
+    .form-group.col-md-4.mb-3
+      = f.text_field :name, class: 'form-control'
+      = error_message_for(@category, :name)
+    .actions.col-auto.mb-3
+      = f.submit t('button.add'), class: 'btn btn-secondary'
