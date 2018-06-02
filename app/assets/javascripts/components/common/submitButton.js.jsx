@@ -7,7 +7,7 @@ class SubmitButtonComponent extends React.Component {
     return (
       <span className='submit-button-component'>
         <a data-method='delete' href={this.props.url}>
-          <button className='btn btn-secondary' id='submit'>
+          <button className='btn btn-secondary' data-dismiss='modal' id='submit'>
             <i className='far fa-trash-alt left-icon' />
             {'はい'}
           </button>
