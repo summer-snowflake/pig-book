@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature 'LOGIN', js: true do
+feature 'SIGN IN', js: true do
   scenario 'Connect to login page.' do
     visit new_user_session_path
     within '.card-header' do
