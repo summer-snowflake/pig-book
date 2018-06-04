@@ -9,7 +9,16 @@ class User < ApplicationRecord
   has_many :places, dependent: :destroy
   has_one :admin, dependent: :destroy
 
+  validates :authentication_token, uniqueness: true, allow_nil: true
+
   def admin?
     !admin.nil?
+  end
+
+  def generate_authentication_token
+    token = SecureRandom.urlsafe_base64(24)
+    update!(authentication_token: token)
+  rescue
+    generate_authentication_token
   end
 end
