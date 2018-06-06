@@ -40,18 +40,25 @@ $lighten-green: lighten($green, 15%);
   font-size: 14px;
 }
 
-$alert-color: #76891a;
-
 .alert {
   animation: fadeout 1s linear 1s 1;
   animation-fill-mode: forwards;
-  background-color: rgba($alert-color, .6);
-  border-color: $alert-color;
   bottom: 50px;
   color: $white;
-  position: absolute;
+  position: fixed;
   right: 30px;
+  width: 300px;
   z-index: 3;
+}
+
+.alert-success {
+  background-color: rgba($green, .6);
+  border-color: $green;
+}
+
+.alert-danger {
+  background-color: rgba($pink, .6);
+  border-color: $pink;
 }
 
 @keyframes fadeout {
