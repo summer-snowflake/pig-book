@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
+    sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
 
@@ -12,6 +13,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: %w[index]
+  end
+
+  namespace :api do
+    resources :categories, only: %w[index destroy]
+    resources :places, only: %w[index destroy]
   end
 
   # for letter_opener

@@ -28,7 +28,8 @@ ja:
     income: 収入
   messages:
     alert:
-      unauthenticate_admin: アクセスできません。管理者でログインしてください
+      authentication_error: 401 認証に失敗しました。ログインしなおしてください。
+      unauthenticate_admin: アクセスできません。管理者でログインしてください。
     notice:
       add: 追加しました。
   helpers:

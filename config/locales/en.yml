@@ -28,6 +28,7 @@ en:
     income: 収入
   messages:
     alert:
+      authentication_error: 401 Authentication Error. You need to sign in.
       unauthenticate_admin: You need to sign in or sign up as administrator before continuing.
     notice:
       add: Created successfully.
