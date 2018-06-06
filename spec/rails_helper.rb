@@ -50,7 +50,9 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
+  config.include JsonSpec::Helpers
   config.include FeatureSpecHelper, type: :feature
+  config.include RequestSpecHelper, type: :request
 
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
