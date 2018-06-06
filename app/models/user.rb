@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
 
   def ensure_authentication_token
-    self.authentication_token || generate_authentication_token
+    authentication_token || generate_authentication_token
   end
 
   private
@@ -24,7 +24,7 @@ class User < ApplicationRecord
   def generate_authentication_token
     token = SecureRandom.urlsafe_base64(24)
     update!(authentication_token: token)
-  rescue
+  rescue StandardError
     generate_authentication_token
   end
 end
