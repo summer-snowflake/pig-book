@@ -7,7 +7,9 @@ class Api::BaseController < ApplicationController
   private
 
   def authenticate_with_user_token
-    render :error401, status: 401 if current_user&.timedout?(30.minutes.ago)
+    render :error401, status: 401 unless current_user
+
+    #render :error401, status: 401 if current_user&.timedout?(5.minutes.ago)
   end
 
   def current_user

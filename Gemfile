@@ -15,6 +15,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'active_model_serializers'
 gem 'slim-rails'
 gem 'rails-i18n'
 gem 'bootstrap'
@@ -58,6 +59,7 @@ group :test do
   gem 'database_rewinder'
   gem 'chromedriver-helper'
   gem 'simplecov'
+  gem 'json_spec'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
