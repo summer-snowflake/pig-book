@@ -20,8 +20,4 @@ class Api::BaseController < ApplicationController
       User.find_by(authentication_token: token)
     end
   end
-
-  def last_request_at_param
-    params.permit(:last_request_at)
-  end
 end
