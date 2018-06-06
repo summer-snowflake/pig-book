@@ -21,7 +21,9 @@ describe 'GET /api/categories' do
 
   context 'ログインしていた場合' do
     it '200とデータが返ってくること' do
-      get '/api/categories', headers: login_headers(user)
+      params = { last_request_at: Time.zone.now }
+      get '/api/categories',
+          params: params, headers: login_headers(user)
 
       expect(response.status).to eq 200
       json = [
