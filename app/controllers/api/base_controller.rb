@@ -4,13 +4,16 @@ class Api::BaseController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_with_user_token
 
+  rescue_from ActiveRecord::RecordNotFound,
+              ActionController::RoutingError,
+              with: :error404
+
   private
 
   def authenticate_with_user_token
     unless current_user && params[:last_request_at]
       render(:error401, status: 401) && return
     end
-    last_request_at = Time.parse(params[:last_request_at].to_s)
     render :error401, status: 401 if current_user.timedout?(last_request_at)
   end
 
@@ -19,5 +22,18 @@ class Api::BaseController < ApplicationController
       return unless token
       User.find_by(authentication_token: token)
     end
+  end
+
+  def last_request_at
+    last_request_at = params[:last_request_at]
+    if /^[0-9]+$/.match?(last_request_at)
+      Time.at(last_request_at.to_i).utc
+    else
+      Time.parse(last_request_at)
+    end
+  end
+
+  def error404
+    render :error404, status: 404
   end
 end

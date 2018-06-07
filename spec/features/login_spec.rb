@@ -37,7 +37,7 @@ feature 'LOGIN', js: true do
 
       expect(current_path).to eq mypage_path
 
-      click_link I18n.t('menu.logout')
+      click_button I18n.t('menu.logout')
 
       expect(current_path).to eq new_user_session_path
     end

@@ -79,11 +79,13 @@ feature 'CATEGORY', js: true do
       end
 
       # 閉じる
-      expect(page).to have_css '.modal'
-      within '.modal' do
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
         # TODO: I18nを適用する
         expect(page).to have_content '削除してもよろしいですか？'
-        trigger_click('button#cancel')
+      end
+      within '.modal-footer' do
+        find('button#cancel').click
       end
 
       within '.card-body' do
@@ -94,10 +96,12 @@ feature 'CATEGORY', js: true do
       end
 
       # 削除
-      expect(page).to have_css '.modal'
-      within '.modal' do
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
         expect(page).to have_content '削除してもよろしいですか？'
-        trigger_click('button#submit')
+      end
+      within '.modal-footer' do
+        find('button#submit').click
       end
       within '.card-body' do
         expect(page).to have_no_content category2.name

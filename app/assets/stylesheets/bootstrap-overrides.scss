@@ -89,8 +89,8 @@ $lighten-green: lighten($green, 15%);
 }
 
 .navbar-light .navbar-nav .nav-link {
-  border: none;
   background: transparent;
+  border: 0;
   cursor: pointer;
   font-size: 14px;
   outline: none;
