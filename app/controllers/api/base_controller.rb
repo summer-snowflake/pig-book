@@ -6,7 +6,7 @@ class Api::BaseController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound,
               ActionController::RoutingError,
-              with: :error404
+              with: :not_found_error
 
   private
 
@@ -33,7 +33,7 @@ class Api::BaseController < ApplicationController
     end
   end
 
-  def error404
-    render :error404, status: 404
+  def not_found_error
+    render :not_found_error, status: 404
   end
 end
