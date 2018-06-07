@@ -1,11 +1,14 @@
-class TrashComponent extends React.Component {
+import React from 'react'
+import PropTypes from 'prop-types'
+
+class Trash extends React.Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick() {
-    this.props.onClick(this.props.item)
+    this.props.handleClick(this.props.item)
   }
 
   render() {
@@ -16,3 +19,10 @@ class TrashComponent extends React.Component {
     )
   }
 }
+
+Trash.propTypes = {
+  item: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired
+}
+
+export default Trash

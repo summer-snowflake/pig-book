@@ -24,7 +24,7 @@ nav.navbar.navbar-expand-lg.navbar-light
             i.fas.fa-user.left-icon
             span= current_user.email
         li.nav-item
-          = link_to destroy_user_session_path, method: :delete, class: 'nav-link'
+          = button_to destroy_user_session_path, method: :delete, class: 'nav-link'
             i.fa.fa-leaf.left-icon
             span= t('menu.logout')
     - else

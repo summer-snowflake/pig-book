@@ -28,7 +28,8 @@ ja:
     income: 収入
   messages:
     alert:
-      authentication_error: 401 認証に失敗しました。ログインしなおしてください。
+      authentication_error: 401 Authentication Error. 認証に失敗しました。ログインしなおしてください。
+      not_found_error: 404 Not Found Error. 対象のコンテンツが見つかりませんでした。
       unauthenticate_admin: アクセスできません。管理者でログインしてください。
     notice:
       add: 追加しました。

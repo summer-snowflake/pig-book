@@ -1,10 +1,14 @@
-class CategoryComponent extends React.Component {
+import React from 'react'
+import PropTypes from 'prop-types'
+import Trash from './../common/Trash'
+
+class Category extends React.Component {
   constructor(props) {
     super(props)
-    this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
   }
 
-  handleClickTrashIcon(category) {
+  onClickTrashIcon(category) {
     this.props.onClickTrashIcon(category)
   }
 
@@ -20,9 +24,16 @@ class CategoryComponent extends React.Component {
           {this.props.category.name}
         </td>
         <td>
-          <TrashComponent item={this.props.category} onClick={this.handleClickTrashIcon} />
+          <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
         </td>
       </tr>
     )
   }
 }
+
+Category.propTypes = {
+  category: PropTypes.object.isRequired,
+  onClickTrashIcon: PropTypes.func.isRequired
+}
+
+export default Category

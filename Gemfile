@@ -23,9 +23,7 @@ gem 'devise'
 gem 'omniauth-twitter'
 gem 'draper'
 gem 'react-rails'
-gem 'sprockets'
-gem 'sprockets-es6'
-gem 'jquery-rails'
+gem 'webpacker'
 gem 'dotenv-rails'
 
 group :development, :test do
