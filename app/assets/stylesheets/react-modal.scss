@@ -1,0 +1,15 @@
+.ReactModalPortal > * {
+  opacity: 0;
+}
+
+.ReactModal__Overlay {
+  transition: opacity 200ms ease-in-out;
+
+  &--after-open {
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+  }
+}

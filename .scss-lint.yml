@@ -1,4 +1,6 @@
-exclude: './app/assets/stylesheets/open-iconic-bootstrap.scss'
+exclude:
+  - './app/assets/stylesheets/open-iconic-bootstrap.scss'
+  - './app/assets/stylesheets/react-modal.scss'
 linters:
   SingleLinePerSelector:
     enabled: false
