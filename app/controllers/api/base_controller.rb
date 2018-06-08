@@ -52,4 +52,8 @@ class Api::BaseController < ApplicationController
     @resource = resource
     render :validation_error, status: 422, formats: :json
   end
+
+  def render_exception_error(_err)
+    render :system_error, status: 500, formats: :json
+  end
 end
