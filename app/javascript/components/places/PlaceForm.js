@@ -19,7 +19,7 @@ class PlaceForm extends React.Component {
     return (
       <div className='place-form-component form-row'>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-          <input className='form-control' ref='name' type='text' />
+          <input className='form-control' name='place_name' ref='name' type='text' />
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
