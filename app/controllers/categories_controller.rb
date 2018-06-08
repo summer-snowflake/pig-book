@@ -2,7 +2,6 @@
 
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_category, only: %i[destroy]
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
@@ -25,16 +24,7 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def destroy
-    @category.destroy
-    redirect_to categories_path
-  end
-
   private
-
-  def set_category
-    @category = current_user.categories.find(params[:id])
-  end
 
   def category_params
     params.require(:category).permit(:balance_of_payments, :name)

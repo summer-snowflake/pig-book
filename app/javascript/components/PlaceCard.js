@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import PlaceForm from './places/PlaceForm'
 import Places from './places/Places'
 import AlertMessage from './common/AlertMessage'
 
@@ -10,10 +11,12 @@ class PlaceCard extends React.Component {
     this.state = {
       message: '',
       success: false,
-      places: this.props.places
+      places: this.props.places,
+      errorMessages: []
     }
     this.destroyPlace = this.destroyPlace.bind(this)
     this.getPlaces = this.getPlaces.bind(this)
+    this.postPlace = this.postPlace.bind(this)
   }
 
   getPlaces() {
@@ -35,6 +38,45 @@ class PlaceCard extends React.Component {
             places: res.data
           })
         }
+      })
+  }
+
+  postPlace(params) {
+    this.setState({
+      message: '',
+      errorMessages: []
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/places',
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if (res.status == '201') {
+          this.getPlaces()
+          this.setState({
+            message: '追加しました',
+            success: true
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == '422') {
+          this.setState({
+            errorMessages: error.response.data.error_messages
+          })
+        } else {
+          this.setState({
+            message: error.response.data.error_message,
+            success: false
+          })
+        }
+        console.error(error)
       })
   }
 
@@ -65,7 +107,7 @@ class PlaceCard extends React.Component {
       })
       .catch((error) => {
         this.setState({
-          message: error.response.data.error_messages,
+          message: error.response.data.error_message,
           success: false
         })
         console.error(error)
@@ -76,6 +118,7 @@ class PlaceCard extends React.Component {
     return (
       <div className='place-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
+        <PlaceForm handleSendForm={this.postPlace} errorMessages={this.state.errorMessages} />
         <Places handleClickDestroyButton={this.destroyPlace} places={this.state.places} />
       </div>
     )

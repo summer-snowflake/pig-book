@@ -8,6 +8,15 @@ class Api::PlacesController < Api::BaseController
     render json: @places
   end
 
+  def create
+    @place = current_user.places.new(place_params)
+    if @place.save
+      head :created
+    else
+      render_error @place
+    end
+  end
+
   def destroy
     @place.destroy
     head @place.destroyed? ? :ok : :forbidden
@@ -17,5 +26,9 @@ class Api::PlacesController < Api::BaseController
 
   def set_place
     @place = current_user.places.find(params[:id])
+  end
+
+  def place_params
+    params.permit(:name)
   end
 end

@@ -8,6 +8,15 @@ class Api::CategoriesController < Api::BaseController
     render json: @categories
   end
 
+  def create
+    @category = current_user.categories.new(category_params)
+    if @category.save
+      head :created
+    else
+      render_error @category
+    end
+  end
+
   def destroy
     @category.destroy
     head @category.destroyed? ? :ok : :forbidden
@@ -17,5 +26,9 @@ class Api::CategoriesController < Api::BaseController
 
   def set_category
     @category = current_user.categories.find(params[:id])
+  end
+
+  def category_params
+    params.permit(:name, :balance_of_payments)
   end
 end

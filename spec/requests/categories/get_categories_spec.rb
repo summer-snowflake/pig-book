@@ -13,7 +13,7 @@ describe 'GET /api/categories' do
 
       expect(response.status).to eq 401
       json = {
-        error_messages: I18n.t('messages.alert.authentication_error')
+        error_message: I18n.t('messages.alert.authentication_error')
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
