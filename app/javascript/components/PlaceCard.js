@@ -97,7 +97,7 @@ class PlaceCard extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
+        if(res.status == '204') {
           this.getPlaces()
           this.setState({
             message: '削除しました',

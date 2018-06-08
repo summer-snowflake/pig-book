@@ -13,7 +13,7 @@ class Api::PlacesController < Api::BaseController
     if @place.save
       head :created
     else
-      render_error @place
+      render_validation_error @place
     end
   end
 
@@ -22,7 +22,7 @@ class Api::PlacesController < Api::BaseController
     if @place.destroyed?
       head :no_content
     else
-      not_found_error
+      render_not_found_error
     end
   end
 

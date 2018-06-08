@@ -6,16 +6,14 @@ class Api::BaseController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound,
               ActionController::RoutingError,
-              with: :not_found_error
+              with: :render_not_found_error
 
   private
 
   def authenticate_with_user_token
-    unless current_user && last_request_at
-      render(:error401, status: 401) && return
-    end
+    render_authentication_error && return unless current_user && last_request_at
     return unless current_user.timedout?(last_request_at)
-    render :authentication_error, status: 401
+    render_authentication_error
   end
 
   def current_user
@@ -34,11 +32,15 @@ class Api::BaseController < ApplicationController
     end
   end
 
-  def not_found_error
+  def render_authentication_error
+    render :authentication_error, status: 401, formats: :json
+  end
+
+  def render_not_found_error
     render :not_found_error, status: 404, formats: :json
   end
 
-  def render_error(resource)
+  def render_validation_error(resource)
     @resource = resource
     render :validation_error, status: 422, formats: :json
   end

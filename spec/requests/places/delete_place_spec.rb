@@ -20,12 +20,12 @@ describe 'DELETE /api/places/:id' do
   end
 
   context 'ログインしていた場合' do
-    it '200とデータが返ってくること' do
+    it '204とデータが返ってくること' do
       params = { last_request_at: Time.zone.now }
       delete "/api/places/#{place1.id}",
              params: params, headers: login_headers(user)
 
-      expect(response.status).to eq 200
+      expect(response.status).to eq 204
     end
   end
 end

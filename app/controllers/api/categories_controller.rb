@@ -13,7 +13,7 @@ class Api::CategoriesController < Api::BaseController
     if @category.save
       head :created
     else
-      render_error @category
+      render_validation_error @category
     end
   end
 
@@ -22,7 +22,7 @@ class Api::CategoriesController < Api::BaseController
     if @category.destroyed?
       head :no_content
     else
-      not_found_error
+      render_not_found_error
     end
   end
 
