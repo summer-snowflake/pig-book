@@ -28,8 +28,10 @@ en:
     income: 収入
   messages:
     alert:
+      bad_request_error: 400 Bad Request Error. You can not access.
       authentication_error: 401 Authentication Error. You need to sign in.
       not_found_error: 404 Not Found Error. You need to reload this page.
+      system_error: 500 System Error. You need to contact the system administrator.
       unauthenticate_admin: You need to sign in or sign up as administrator before continuing.
     notice:
       add: Created successfully.

@@ -101,7 +101,7 @@ class CategoryCard extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
+        if(res.status == '204') {
           this.getCategories()
           this.setState({
             message: '削除しました',

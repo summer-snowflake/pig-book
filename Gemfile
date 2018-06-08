@@ -25,6 +25,7 @@ gem 'draper'
 gem 'react-rails'
 gem 'webpacker'
 gem 'dotenv-rails'
+gem 'slack-notifier'
 
 group :development, :test do
   gem 'rubocop'

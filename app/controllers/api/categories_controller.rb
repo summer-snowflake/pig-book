@@ -13,13 +13,17 @@ class Api::CategoriesController < Api::BaseController
     if @category.save
       head :created
     else
-      render_error @category
+      render_validation_error @category
     end
   end
 
   def destroy
     @category.destroy
-    head @category.destroyed? ? :ok : :forbidden
+    if @category.destroyed?
+      head :no_content
+    else
+      render_not_found_error
+    end
   end
 
   private

@@ -28,8 +28,10 @@ ja:
     income: 収入
   messages:
     alert:
+      bad_request_error: 400 Bad Request Error. 不正なリクエストです。アクセスできませんでした。
       authentication_error: 401 Authentication Error. 認証に失敗しました。ログインしなおしてください。
       not_found_error: 404 Not Found Error. 対象のコンテンツが見つかりませんでした。
+      system_error: 500 System Error. システムエラーが発生しました。管理者に問い合わせてください。
       unauthenticate_admin: アクセスできません。管理者でログインしてください。
     notice:
       add: 追加しました。

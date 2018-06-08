@@ -13,13 +13,17 @@ class Api::PlacesController < Api::BaseController
     if @place.save
       head :created
     else
-      render_error @place
+      render_validation_error @place
     end
   end
 
   def destroy
     @place.destroy
-    head @place.destroyed? ? :ok : :forbidden
+    if @place.destroyed?
+      head :no_content
+    else
+      render_not_found_error
+    end
   end
 
   private
