@@ -36,4 +36,9 @@ class Api::BaseController < ApplicationController
   def not_found_error
     render :not_found_error, status: 404
   end
+
+  def render_error(resource)
+    @resource = resource
+    render :validation_error, status: 422
+  end
 end

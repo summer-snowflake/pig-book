@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :categories, only: %w[index destroy]
-    resources :places, only: %w[index destroy]
+    resources :categories, only: %w[index create destroy]
+    resources :places, only: %w[index create destroy]
   end
 
   # for letter_opener

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import PlaceForm from './places/PlaceForm'
 import Places from './places/Places'
 import AlertMessage from './common/AlertMessage'
 
@@ -14,6 +15,7 @@ class PlaceCard extends React.Component {
     }
     this.destroyPlace = this.destroyPlace.bind(this)
     this.getPlaces = this.getPlaces.bind(this)
+    this.postPlace = this.postPlace.bind(this)
   }
 
   getPlaces() {
@@ -33,6 +35,28 @@ class PlaceCard extends React.Component {
         if(res.status == '200') {
           this.setState({
             places: res.data
+          })
+        }
+      })
+  }
+
+  postPlace(params) {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/places',
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '201') {
+          this.getPlaces()
+          this.setState({
+            message: '追加しました',
+            success: true
           })
         }
       })
@@ -76,6 +100,7 @@ class PlaceCard extends React.Component {
     return (
       <div className='place-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
+        <PlaceForm handleSendForm={this.postPlace} />
         <Places handleClickDestroyButton={this.destroyPlace} places={this.state.places} />
       </div>
     )

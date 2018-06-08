@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import Categories from './categories/Categories'
+import CategoryForm from './categories/CategoryForm'
 import AlertMessage from './common/AlertMessage'
 
 class CategoryCard extends React.Component {
@@ -14,6 +15,7 @@ class CategoryCard extends React.Component {
     }
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.postCategory = this.postCategory.bind(this)
   }
 
   componentWillMount() {
@@ -37,6 +39,28 @@ class CategoryCard extends React.Component {
         if(res.status == '200') {
           this.setState({
             categories: res.data
+          })
+        }
+      })
+  }
+
+  postCategory(params) {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/categories',
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '201') {
+          this.getCategories()
+          this.setState({
+            message: '追加しました',
+            success: true
           })
         }
       })
@@ -80,6 +104,7 @@ class CategoryCard extends React.Component {
     return (
       <div className='category-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
+        <CategoryForm handleSendForm={this.postCategory} />
         <Categories categories={this.state.categories} handleClickDestroyButton={this.destroyCategory} />
       </div>
     )
