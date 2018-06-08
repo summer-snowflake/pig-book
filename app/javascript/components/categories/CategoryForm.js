@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
+import FormMixin from './../mixins/FormMixin'
 
 class CategoryForm extends React.Component {
   constructor(props) {
@@ -21,10 +23,6 @@ class CategoryForm extends React.Component {
     this.setState({
       balanceOfPaymentsValue: e.target.value
     })
-  }
-
-  fieldWithErrors(column) {
-    return (column in this.props.errorMessages) ? 'field-with-errors' : ''
   }
 
   render() {
@@ -62,5 +60,7 @@ CategoryForm.propTypes = {
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(CategoryForm, FormMixin)
 
 export default CategoryForm
