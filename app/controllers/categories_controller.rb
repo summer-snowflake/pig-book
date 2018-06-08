@@ -13,20 +13,4 @@ class CategoriesController < ApplicationController
       last_request_at: @last_request_at
     }
   end
-
-  def create
-    @category = Category.new(category_params.merge(user: current_user))
-    if @category.save
-      redirect_to categories_path, notice: I18n.t('messages.notice.add')
-    else
-      @categories = current_user.categories
-      render :index
-    end
-  end
-
-  private
-
-  def category_params
-    params.require(:category).permit(:balance_of_payments, :name)
-  end
 end

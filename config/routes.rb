@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/mypage', to: 'mypage#show'
   get '/base_setting', to: 'base_setting#show'
 
-  resources :categories, only: %w[index create]
+  resources :categories, only: %w[index]
   resources :places, only: %w[index]
 
   namespace :admin do
