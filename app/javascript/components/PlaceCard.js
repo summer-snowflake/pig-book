@@ -118,7 +118,7 @@ class PlaceCard extends React.Component {
     return (
       <div className='place-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <PlaceForm handleSendForm={this.postPlace} errorMessages={this.state.errorMessages} />
+        <PlaceForm errorMessages={this.state.errorMessages} handleSendForm={this.postPlace} />
         <Places handleClickDestroyButton={this.destroyPlace} places={this.state.places} />
       </div>
     )

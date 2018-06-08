@@ -122,7 +122,7 @@ class CategoryCard extends React.Component {
     return (
       <div className='category-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <CategoryForm handleSendForm={this.postCategory} errorMessages={this.state.errorMessages} />
+        <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
         <Categories categories={this.state.categories} handleClickDestroyButton={this.destroyCategory} />
       </div>
     )

@@ -45,8 +45,8 @@ class CategoryForm extends React.Component {
           </div>
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-          <input className='form-control' ref='name' type='text' name='category_name' />
-          <FormErrorMessages errorMessages={this.props.errorMessages} column='name' />
+          <input className='form-control' name='category_name' ref='name' type='text' />
+          <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
           <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
