@@ -13,11 +13,14 @@ class PlaceForm extends React.Component {
     this.refs.name.value = ''
   }
 
+  fieldWithErrors(column) {
+    return (column in this.props.errorMessages) ? 'field-with-errors' : ''
+  }
+
   render() {
-    let field_with_errors = this.props.errorMessages.length > 0 ? 'field-with-errors' : ''
     return (
       <div className='place-form-component form-row'>
-        <div className={'form-group col-md-4 mb-3 ' + field_with_errors}>
+        <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
           <input className='form-control' ref='name' type='text' />
           <FormErrorMessages errorMessages={this.props.errorMessages} column='name' />
         </div>
