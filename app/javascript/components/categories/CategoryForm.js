@@ -24,6 +24,7 @@ class CategoryForm extends React.Component {
   }
 
   render() {
+    // TODO カラムごとに取得したい
     let field_with_errors = this.props.errorMessages.length > 0 ? 'field-with-errors' : ''
     return (
       <div className='category-form-component form-row'>
@@ -45,7 +46,7 @@ class CategoryForm extends React.Component {
         </div>
         <div className={'form-group col-md-4 mb-3 ' + field_with_errors}>
           <input className='form-control' ref='name' type='text' name='category_name' />
-          <FormErrorMessages errorMessages={this.props.errorMessages} />
+          <FormErrorMessages errorMessages={this.props.errorMessages} column='name' />
         </div>
         <div className='form-group col-auto mb-3'>
           <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
@@ -56,7 +57,7 @@ class CategoryForm extends React.Component {
 }
 
 CategoryForm.propTypes = {
-  errorMessages: PropTypes.array.isRequired,
+  errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired
 }
 

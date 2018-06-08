@@ -12,7 +12,7 @@ class PlaceCard extends React.Component {
       message: '',
       success: false,
       places: this.props.places,
-      errorMessages: []
+      errorMessages: {}
     }
     this.destroyPlace = this.destroyPlace.bind(this)
     this.getPlaces = this.getPlaces.bind(this)
@@ -44,7 +44,7 @@ class PlaceCard extends React.Component {
   postPlace(params) {
     this.setState({
       message: '',
-      errorMessages: []
+      errorMessages: {}
     })
     let options = {
       method: 'POST',

@@ -19,7 +19,7 @@ class PlaceForm extends React.Component {
       <div className='place-form-component form-row'>
         <div className={'form-group col-md-4 mb-3 ' + field_with_errors}>
           <input className='form-control' ref='name' type='text' />
-          <FormErrorMessages errorMessages={this.props.errorMessages} />
+          <FormErrorMessages errorMessages={this.props.errorMessages} column='name' />
         </div>
         <div className='form-group col-auto mb-3'>
           <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
@@ -30,7 +30,7 @@ class PlaceForm extends React.Component {
 }
 
 PlaceForm.propTypes = {
-  errorMessages: PropTypes.array.isRequired,
+  errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired
 }
 

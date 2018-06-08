@@ -12,7 +12,7 @@ class CategoryCard extends React.Component {
       message: '',
       success: false,
       categories: this.props.categories,
-      errorMessages: []
+      errorMessages: {}
     }
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
@@ -48,7 +48,7 @@ class CategoryCard extends React.Component {
   postCategory(params) {
     this.setState({
       message: '',
-      errorMessages: []
+      errorMessages: {}
     })
     let options = {
       method: 'POST',

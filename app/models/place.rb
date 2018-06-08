@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Place < ApplicationRecord
+  include ValidationErrorMessagesBuilder
+
   belongs_to :user
 
   validates :name, presence: true, length: { maximum: 30 }
