@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
+import FormMixin from './../mixins/FormMixin'
 
 class CategoryForm extends React.Component {
   constructor(props) {
@@ -42,9 +44,9 @@ class CategoryForm extends React.Component {
             </label>
           </div>
         </div>
-        <div className='form-group col-md-4 mb-3'>
-          <input className='form-control' ref='name' type='text' name='category_name' />
-          <FormErrorMessages errorMessages={this.props.errorMessages} />
+        <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
+          <input className='form-control' name='category_name' ref='name' type='text' />
+          <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
           <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
@@ -55,8 +57,10 @@ class CategoryForm extends React.Component {
 }
 
 CategoryForm.propTypes = {
-  errorMessages: PropTypes.array.isRequired,
+  errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(CategoryForm, FormMixin)
 
 export default CategoryForm

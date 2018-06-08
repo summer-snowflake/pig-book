@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
+import FormMixin from './../mixins/FormMixin'
 
 class PlaceForm extends React.Component {
   constructor(props) {
@@ -16,9 +18,9 @@ class PlaceForm extends React.Component {
   render() {
     return (
       <div className='place-form-component form-row'>
-        <div className='form-group col-md-4 mb-3'>
-          <input className='form-control' ref='name' type='text' />
-          <FormErrorMessages errorMessages={this.props.errorMessages} />
+        <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
+          <input className='form-control' name='place_name' ref='name' type='text' />
+          <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
           <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
@@ -29,8 +31,10 @@ class PlaceForm extends React.Component {
 }
 
 PlaceForm.propTypes = {
-  errorMessages: PropTypes.array.isRequired,
+  errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(PlaceForm, FormMixin)
 
 export default PlaceForm
