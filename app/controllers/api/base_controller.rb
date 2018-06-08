@@ -14,7 +14,8 @@ class Api::BaseController < ApplicationController
     unless current_user && last_request_at
       render(:error401, status: 401) && return
     end
-    render :error401, status: 401 if current_user.timedout?(last_request_at)
+    return unless current_user.timedout?(last_request_at)
+    render :authentication_error, status: 401
   end
 
   def current_user
