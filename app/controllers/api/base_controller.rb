@@ -11,7 +11,7 @@ class Api::BaseController < ApplicationController
   private
 
   def authenticate_with_user_token
-    unless current_user && params[:last_request_at]
+    unless current_user && last_request_at
       render(:error401, status: 401) && return
     end
     render :error401, status: 401 if current_user.timedout?(last_request_at)
@@ -39,6 +39,6 @@ class Api::BaseController < ApplicationController
 
   def render_error(resource)
     @resource = resource
-    render :validation_error, status: 422
+    render :validation_error, status: 422, formats: :json
   end
 end

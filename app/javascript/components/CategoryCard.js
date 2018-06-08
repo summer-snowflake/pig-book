@@ -11,7 +11,8 @@ class CategoryCard extends React.Component {
     this.state = {
       message: '',
       success: false,
-      categories: this.props.categories
+      categories: this.props.categories,
+      errorMessages: []
     }
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
@@ -45,6 +46,10 @@ class CategoryCard extends React.Component {
   }
 
   postCategory(params) {
+    this.setState({
+      message: '',
+      errorMessages: []
+    })
     let options = {
       method: 'POST',
       url: origin + '/api/categories',
@@ -63,6 +68,19 @@ class CategoryCard extends React.Component {
             success: true
           })
         }
+      })
+      .catch((error) => {
+        if (error.response.status == '422') {
+          this.setState({
+            errorMessages: error.response.data.error_messages
+          })
+        } else {
+          this.setState({
+            message: error.response.data.error_message,
+            success: false
+          })
+        }
+        console.error(error)
       })
   }
 
@@ -93,7 +111,7 @@ class CategoryCard extends React.Component {
       })
       .catch((error) => {
         this.setState({
-          message: error.response.data.error_messages,
+          message: error.response.data.error_message,
           success: false
         })
         console.error(error)
@@ -104,7 +122,7 @@ class CategoryCard extends React.Component {
     return (
       <div className='category-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <CategoryForm handleSendForm={this.postCategory} />
+        <CategoryForm handleSendForm={this.postCategory} errorMessages={this.state.errorMessages} />
         <Categories categories={this.state.categories} handleClickDestroyButton={this.destroyCategory} />
       </div>
     )

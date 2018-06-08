@@ -11,7 +11,8 @@ class PlaceCard extends React.Component {
     this.state = {
       message: '',
       success: false,
-      places: this.props.places
+      places: this.props.places,
+      errorMessages: []
     }
     this.destroyPlace = this.destroyPlace.bind(this)
     this.getPlaces = this.getPlaces.bind(this)
@@ -41,6 +42,10 @@ class PlaceCard extends React.Component {
   }
 
   postPlace(params) {
+    this.setState({
+      message: '',
+      errorMessages: []
+    })
     let options = {
       method: 'POST',
       url: origin + '/api/places',
@@ -52,13 +57,26 @@ class PlaceCard extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '201') {
+        if (res.status == '201') {
           this.getPlaces()
           this.setState({
             message: '追加しました',
             success: true
           })
         }
+      })
+      .catch((error) => {
+        if (error.response.status == '422') {
+          this.setState({
+            errorMessages: error.response.data.error_messages
+          })
+        } else {
+          this.setState({
+            message: error.response.data.error_message,
+            success: false
+          })
+        }
+        console.error(error)
       })
   }
 
@@ -89,7 +107,7 @@ class PlaceCard extends React.Component {
       })
       .catch((error) => {
         this.setState({
-          message: error.response.data.error_messages,
+          message: error.response.data.error_message,
           success: false
         })
         console.error(error)
@@ -100,7 +118,7 @@ class PlaceCard extends React.Component {
     return (
       <div className='place-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <PlaceForm handleSendForm={this.postPlace} />
+        <PlaceForm handleSendForm={this.postPlace} errorMessages={this.state.errorMessages} />
         <Places handleClickDestroyButton={this.destroyPlace} places={this.state.places} />
       </div>
     )

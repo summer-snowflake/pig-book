@@ -45,3 +45,5 @@ ja:
         password_confirmation: パスワード（確認）
       category:
         name: カテゴリ名
+      place:
+        name: 店名・施設名

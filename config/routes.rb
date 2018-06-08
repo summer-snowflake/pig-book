@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :users, only: %w[index]
   end
 
-  namespace :api do
+  namespace :api, format: :json do
     resources :categories, only: %w[index create destroy]
     resources :places, only: %w[index create destroy]
   end

@@ -46,6 +46,7 @@ feature 'CATEGORY', js: true do
       # 支出のカテゴリ追加
       fill_in 'category_name', with: 'カテゴリ名'
       click_button I18n.t('button.add')
+      expect(page).to have_content '追加しました'
       category = Category.last
 
       within "#category-#{category.id}" do
@@ -62,6 +63,7 @@ feature 'CATEGORY', js: true do
       choose I18n.t('label.income')
       fill_in 'category_name', with: 'カテゴリ名２'
       click_button I18n.t('button.add')
+      expect(page).to have_content '追加しました'
       category = Category.last
 
       # 収入のカテゴリ追加
@@ -103,6 +105,7 @@ feature 'CATEGORY', js: true do
       within '.modal-footer' do
         find('button#submit').click
       end
+      expect(page).to have_content '削除しました'
       within '.card-body' do
         expect(page).to have_no_content category2.name
       end
