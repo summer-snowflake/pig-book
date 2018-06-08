@@ -53,7 +53,19 @@ class Api::BaseController < ApplicationController
     render :validation_error, status: 422, formats: :json
   end
 
-  def render_exception_error(_err)
+  def render_exception_error(err)
+    notify_to_slack(err)
     render :system_error, status: 500, formats: :json
+  end
+
+  def notify_to_slack(err)
+    url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
+    notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL']
+    attachments = {
+      pretext: "*500 #{err}*\nurl: #{url}\nuser_email: #{current_user&.email}",
+      text: "```\n" + [*err.backtrace].take(10).join("\n") + "\n```",
+      mrkdwn: true
+    }
+    notifier.post attachments
   end
 end
