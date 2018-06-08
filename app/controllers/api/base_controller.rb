@@ -4,9 +4,13 @@ class Api::BaseController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_with_user_token
 
+  class BadRequestError < StandardError; end
+
+  rescue_from BadRequestError, with: :render_bad_request_error
   rescue_from ActiveRecord::RecordNotFound,
               ActionController::RoutingError,
               with: :render_not_found_error
+  rescue_from Exception, with: :render_exception_error
 
   private
 
@@ -32,11 +36,15 @@ class Api::BaseController < ApplicationController
     end
   end
 
+  def render_bad_request_error(_err)
+    render :bad_request_error, status: 400, formats: :json
+  end
+
   def render_authentication_error
     render :authentication_error, status: 401, formats: :json
   end
 
-  def render_not_found_error
+  def render_not_found_error(_err = nil)
     render :not_found_error, status: 404, formats: :json
   end
 
