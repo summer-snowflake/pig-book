@@ -35,7 +35,7 @@ class Api::BaseController < ApplicationController
   end
 
   def not_found_error
-    render :not_found_error, status: 404
+    render :not_found_error, status: 404, formats: :json
   end
 
   def render_error(resource)

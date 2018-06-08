@@ -19,7 +19,11 @@ class Api::PlacesController < Api::BaseController
 
   def destroy
     @place.destroy
-    head @place.destroyed? ? :ok : :forbidden
+    if @place.destroyed?
+      head :no_content
+    else
+      not_found_error
+    end
   end
 
   private

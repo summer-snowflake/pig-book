@@ -19,7 +19,11 @@ class Api::CategoriesController < Api::BaseController
 
   def destroy
     @category.destroy
-    head @category.destroyed? ? :ok : :forbidden
+    if @category.destroyed?
+      head :no_content
+    else
+      not_found_error
+    end
   end
 
   private
