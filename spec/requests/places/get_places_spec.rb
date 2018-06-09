@@ -6,6 +6,10 @@ describe 'GET /api/places' do
   let!(:user) { create(:user) }
   let!(:place1) { create(:place, user: user) }
   let!(:place2) { create(:place, user: user) }
+  let!(:category) { create(:category, user: user) }
+  let!(:categorized_place) do
+    create(:categorized_place, place: place2, category: category)
+  end
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
@@ -28,11 +32,19 @@ describe 'GET /api/places' do
       json = [
         {
           id: place1.id,
-          name: place1.name
+          name: place1.name,
+          categories: []
         },
         {
           id: place2.id,
-          name: place2.name
+          name: place2.name,
+          categories: [
+            {
+              human_balance_of_payments: '支出',
+              name: 'カテゴリ名19',
+              success_or_danger_style_class: 'danger'
+            }
+          ]
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
