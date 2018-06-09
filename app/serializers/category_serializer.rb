@@ -4,10 +4,13 @@ class CategorySerializer < ActiveModel::Serializer
   attributes :id, :name, :human_balance_of_payments,
              :success_or_danger_style_class
 
-  has_many :places, serializer: PlaceSerializer, if: -> { place_category? }
+  has_many :places, serializer: PlaceSerializer,
+                    if: -> { categories_list? }
+  has_many :breakdowns, serializer: BreakdownSerializer,
+                        if: -> { categories_list? }
 
-  def place_category?
-    instance_options[:prefixes][0] != 'api/places/categories'
+  def categories_list?
+    instance_options[:prefixes][0] == 'api/categories'
   end
 
   def human_balance_of_payments

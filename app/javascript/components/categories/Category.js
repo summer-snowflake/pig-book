@@ -24,6 +24,10 @@ class Category extends React.Component {
           {this.props.category.name}
         </td>
         <td>
+          <i className='fas fa-list left-icon' />
+          {(this.props.category.breakdowns || {}).length}
+        </td>
+        <td>
           <i className='fas fa-map-marker-alt left-icon' />
           {(this.props.category.places || {}).length}
         </td>
