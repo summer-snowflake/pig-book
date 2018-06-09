@@ -25,8 +25,10 @@ class Place extends React.Component {
           {this.props.place.name}
         </td>
         <td>
-          <span className={'badge badge-pill badge-info'} onClick={this.handleClickPlusIcon}>
-            <i className='fas fa-plus' />
+          <span className={'badge badge-info'} onClick={this.handleClickPlusIcon}>
+            <span>
+              <i className='fas fa-plus' />
+            </span>
           </span>
         </td>
         <td>
