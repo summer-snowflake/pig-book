@@ -34,12 +34,16 @@ describe 'GET /api/categories' do
         {
           human_balance_of_payments: '収入',
           name: category2.name,
-          success_or_danger_style_class: 'success'
+          success_or_danger_style_class: 'success',
+          places: [{
+            name: place.name
+          }]
         },
         {
           human_balance_of_payments: '支出',
           name: category1.name,
-          success_or_danger_style_class: 'danger'
+          success_or_danger_style_class: 'danger',
+          places: []
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
