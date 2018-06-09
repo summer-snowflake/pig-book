@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
-    @places = current_user.places
+    @places = current_user.places.order(created_at: :desc)
     @params = {
       places: @places,
       user_token: @access_token,

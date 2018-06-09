@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
-    @categories = current_user.categories
+    @categories = current_user.categories.order(created_at: :desc)
     @category = Category.new
     @params = {
       categories: @categories,

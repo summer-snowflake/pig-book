@@ -4,7 +4,7 @@ class Api::PlacesController < Api::BaseController
   before_action :set_place, only: %i[destroy]
 
   def index
-    @places = current_user.places.includes(:categories)
+    @places = current_user.places.includes(:categories).order(created_at: :desc)
     render json: @places
   end
 

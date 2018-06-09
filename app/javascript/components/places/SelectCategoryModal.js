@@ -34,10 +34,16 @@ class SelectCategoryModal extends React.Component {
   }
 
   onClickCloseButton() {
+    this.setState({
+      selectedCategoryId: undefined
+    })
     this.props.handleClickCloseButton()
   }
 
   onClickSubmitButton() {
+    this.setState({
+      selectedCategoryId: undefined
+    })
     this.props.handleClickSubmitButton(this.props.place.id, this.state.selectedCategoryId)
   }
 
