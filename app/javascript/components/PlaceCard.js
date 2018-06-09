@@ -22,6 +22,10 @@ class PlaceCard extends React.Component {
     this.postCategorizedPlace = this.postCategorizedPlace.bind(this)
   }
 
+  componentWillMount() {
+    this.getPlaces()
+  }
+
   getPlaces() {
     let options = {
       method: 'GET',

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Trash from './../common/Trash'
+import PlaceCategories from './PlaceCategories'
 
 class Place extends React.Component {
   constructor(props) {
@@ -27,6 +28,9 @@ class Place extends React.Component {
           <span className={'badge badge-pill badge-info'} onClick={this.handleClickPlusIcon}>
             <i className='fas fa-plus' />
           </span>
+        </td>
+        <td>
+          <PlaceCategories categories={this.props.place.categories || []} />
         </td>
         <td>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.place} />
