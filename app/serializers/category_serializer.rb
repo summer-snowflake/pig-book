@@ -4,6 +4,8 @@ class CategorySerializer < ActiveModel::Serializer
   attributes :id, :name, :human_balance_of_payments,
              :success_or_danger_style_class
 
+  has_many :places, serializer: PlaceSerializer
+
   def human_balance_of_payments
     object.decorate.human_balance_of_payments
   end

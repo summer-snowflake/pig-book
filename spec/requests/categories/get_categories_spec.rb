@@ -6,6 +6,10 @@ describe 'GET /api/categories' do
   let!(:user) { create(:user) }
   let!(:category1) { create(:category, user: user, balance_of_payments: false) }
   let!(:category2) { create(:category, user: user, balance_of_payments: true) }
+  let!(:place) { create(:place, user: user) }
+  let!(:categorized_place) do
+    create(:categorized_place, place: place, category: category2)
+  end
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do

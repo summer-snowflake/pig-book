@@ -24,6 +24,10 @@ class Category extends React.Component {
           {this.props.category.name}
         </td>
         <td>
+          <i className='fas fa-map-marker-alt left-icon' />
+          {(this.props.category.places || {}).length}
+        </td>
+        <td>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
         </td>
       </tr>
