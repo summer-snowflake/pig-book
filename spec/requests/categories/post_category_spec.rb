@@ -25,7 +25,7 @@ describe 'POST /api/categories' do
         balance_of_payments: true
       }
       post '/api/categories',
-          params: params, headers: login_headers(user)
+           params: params, headers: login_headers(user)
 
       expect(response.status).to eq 201
     end

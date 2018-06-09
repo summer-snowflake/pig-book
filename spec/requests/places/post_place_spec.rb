@@ -24,7 +24,7 @@ describe 'POST /api/places' do
         name: '新しいカテゴリ'
       }
       post '/api/places',
-          params: params, headers: login_headers(user)
+           params: params, headers: login_headers(user)
 
       expect(response.status).to eq 201
     end
