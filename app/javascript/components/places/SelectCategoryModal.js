@@ -26,7 +26,7 @@ class SelectCategoryModal extends React.Component {
     super(props)
     this.state = {
       category: {},
-      selectedCategoryId: null,
+      selectedCategoryId: undefined,
     }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
@@ -59,7 +59,7 @@ class SelectCategoryModal extends React.Component {
           </div>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
           <div className='modal-footer'>
-            <SubmitButton handleClickButton={this.onClickSubmitButton} />
+            <SubmitButton handleClickButton={this.onClickSubmitButton} isDisabled={!this.state.selectedCategoryId}/>
             <CloseButton handleClickButton={this.onClickCloseButton} />
           </div>
         </Modal>

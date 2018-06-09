@@ -14,7 +14,7 @@ class SubmitButton extends React.Component {
   render() {
     return (
       <span className='submit-button-component'>
-        <button className='btn btn-secondary' id='submit' onClick={this.handleClickButton}>
+        <button className='btn btn-secondary' disabled={this.props.isDisabled} id='submit' onClick={this.handleClickButton}>
           {'設定する'}
         </button>
       </span>
@@ -23,6 +23,7 @@ class SubmitButton extends React.Component {
 }
 
 SubmitButton.propTypes = {
+  isDisabled: PropTypes.bool,
   handleClickButton: PropTypes.func.isRequired
 }
 
