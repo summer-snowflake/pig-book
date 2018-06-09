@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   namespace :api, format: :json do
     resources :categories, only: %w[index create destroy]
     resources :places, only: %w[index create destroy]
+    resources :categorized_places, only: %w[create]
   end
 
   # for letter_opener
