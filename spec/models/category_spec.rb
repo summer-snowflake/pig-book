@@ -7,6 +7,7 @@ RSpec.describe Category, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:categorized_places).dependent(:destroy) }
     it { is_expected.to have_many(:places).through(:categorized_places) }
+    it { is_expected.to have_many(:breakdowns).dependent(:destroy) }
   end
 
   describe 'validation' do
