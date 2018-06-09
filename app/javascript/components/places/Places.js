@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Place from './Place'
 import DestroyModal from './../common/DestroyModal'
+import SelectCategoryModal from './SelectCategoryModal'
 
 class Places extends React.Component {
   constructor(props) {
@@ -10,11 +11,13 @@ class Places extends React.Component {
       place: {
         id: null
       },
-      destroyModalIsOpen: false
+      destroyModalIsOpen: false,
+      selectCategoryModalIsOpen: false
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
+    this.onClickAddCategoryButton = this.onClickAddCategoryButton.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
 
@@ -26,7 +29,10 @@ class Places extends React.Component {
   }
 
   handleClickPlusIcon(place) {
-    console.log(place)
+    this.setState({
+      place: place,
+      selectCategoryModalIsOpen: true
+    })
   }
 
   onClickDestroyButton(place_id) {
@@ -36,9 +42,17 @@ class Places extends React.Component {
     this.props.handleClickDestroyButton(place_id)
   }
 
+  onClickAddCategoryButton(place_id, category_id) {
+    this.setState({
+      selectCategoryModalIsOpen: false
+    })
+    //this.props.handleClickAddCategoryButton(place_id, category_id)
+  }
+
   closeModal() {
     this.setState({
-      destroyModalIsOpen: false
+      destroyModalIsOpen: false,
+      selectCategoryModalIsOpen: false
     })
   }
 
@@ -53,6 +67,7 @@ class Places extends React.Component {
           </tbody>
         </table>
         <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.place} modalIsOpen={this.state.destroyModalIsOpen} />
+        <SelectCategoryModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickAddCategoryButton} modalIsOpen={this.state.selectCategoryModalIsOpen} place={this.state.place} />
       </div>
     )
   }

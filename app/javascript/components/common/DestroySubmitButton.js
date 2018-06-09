@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class SubmitButton extends React.Component {
+class DestroySubmitButton extends React.Component {
   constructor(props) {
     super(props)
     this.handleClickButton = this.handleClickButton.bind(this)
@@ -15,15 +15,16 @@ class SubmitButton extends React.Component {
     return (
       <span className='submit-button-component'>
         <button className='btn btn-secondary' id='submit' onClick={this.handleClickButton}>
-          {'設定する'}
+          <i className='far fa-trash-alt left-icon' />
+          {'はい'}
         </button>
       </span>
     )
   }
 }
 
-SubmitButton.propTypes = {
+DestroySubmitButton.propTypes = {
   handleClickButton: PropTypes.func.isRequired
 }
 
-export default SubmitButton
+export default DestroySubmitButton

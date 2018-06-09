@@ -2,8 +2,8 @@ import React from 'react'
 import Modal from 'react-modal'
 import PropTypes from 'prop-types'
 
-import DestroySubmitButton from './DestroySubmitButton'
-import CloseButton from './CloseButton'
+import SubmitButton from './../common/SubmitButton'
+import CloseButton from './../common/CloseButton'
 
 const customStyles = {
   content : {
@@ -20,9 +20,12 @@ const customStyles = {
   }
 }
 
-class DestroyModal extends React.Component {
+class SelectCategoryModal extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      category: {}
+    }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
   }
@@ -32,7 +35,7 @@ class DestroyModal extends React.Component {
   }
 
   onClickSubmitButton() {
-    this.props.handleClickSubmitButton(this.props.item.id)
+    this.props.handleClickSubmitButton(this.props.place.id, this.state.category.id)
   }
 
   render() {
@@ -41,12 +44,12 @@ class DestroyModal extends React.Component {
         <Modal ariaHideApp={false} isOpen={this.props.modalIsOpen} style={customStyles}>
           <div className='modal-body'>
             <p>
-              <b>{this.props.item.name}</b>
-              {'を削除してもよろしいですか？'}
+              <b>{this.props.place.name}</b>
+              {'に追加するカテゴリを選択してください。'}
             </p>
           </div>
           <div className='modal-footer'>
-            <DestroySubmitButton handleClickButton={this.onClickSubmitButton} />
+            <SubmitButton handleClickButton={this.onClickSubmitButton} />
             <CloseButton handleClickButton={this.onClickCloseButton} />
           </div>
         </Modal>
@@ -55,11 +58,11 @@ class DestroyModal extends React.Component {
   }
 }
 
-DestroyModal.propTypes = {
+SelectCategoryModal.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
-  item: PropTypes.object.isRequired,
+  place: PropTypes.object.isRequired,
   handleClickSubmitButton: PropTypes.func.isRequired,
   handleClickCloseButton: PropTypes.func.isRequired
 }
 
-export default DestroyModal
+export default SelectCategoryModal
