@@ -10,9 +10,10 @@ class Places extends React.Component {
       place: {
         id: null
       },
-      modalIsOpen: false
+      destroyModalIsOpen: false
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
@@ -20,20 +21,24 @@ class Places extends React.Component {
   handleClickTrashIcon(place) {
     this.setState({
       place: place,
-      modalIsOpen: true
+      destroyModalIsOpen: true
     })
+  }
+
+  handleClickPlusIcon(place) {
+    console.log(place)
   }
 
   onClickDestroyButton(place_id) {
     this.setState({
-      modalIsOpen: false
+      destroyModalIsOpen: false
     })
     this.props.handleClickDestroyButton(place_id)
   }
 
   closeModal() {
     this.setState({
-      modalIsOpen: false
+      destroyModalIsOpen: false
     })
   }
 
@@ -43,11 +48,11 @@ class Places extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.places.map((place) =>
-              <Place key={place.id} onClickTrashIcon={this.handleClickTrashIcon} place={place} />
+              <Place key={place.id} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} place={place} />
             )}
           </tbody>
         </table>
-        <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.place} modalIsOpen={this.state.modalIsOpen} />
+        <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.place} modalIsOpen={this.state.destroyModalIsOpen} />
       </div>
     )
   }

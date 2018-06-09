@@ -88,14 +88,20 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.table i {
+.table .far.fa-trash-alt {
   padding: 6px;
 }
 
-.table i:hover {
+.table .far.fa-trash-alt:hover {
   background-color: rgba(lighten($green, 15%), .3);
   border-radius: 4px;
   cursor: pointer;
+}
+
+.table .fas.fa-plus {
+  color: $white;
+  cursor: pointer;
+  padding: 4px;
 }
 
 .card-body .form-row {
