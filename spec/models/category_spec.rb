@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Category, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:categorized_places).dependent(:destroy) }
+    it { is_expected.to have_many(:places).through(:categorized_places) }
   end
 
   describe 'validation' do
