@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   end
 
   namespace :api, format: :json do
-    resources :categories, only: %w[index create destroy]
+    resources :categories, only: %w[index create destroy] do
+      resources :breakdowns, only: %w[index], module: :categories
+    end
     resources :places, only: %w[index create destroy] do
       resources :categories, only: %w[index], module: :places
     end
