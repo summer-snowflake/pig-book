@@ -28,14 +28,14 @@ describe 'GET /api/categories' do
       expect(response.status).to eq 200
       json = [
         {
-          human_balance_of_payments: '支出',
-          name: category1.name,
-          success_or_danger_style_class: 'danger'
-        },
-        {
           human_balance_of_payments: '収入',
           name: category2.name,
           success_or_danger_style_class: 'success'
+        },
+        {
+          human_balance_of_payments: '支出',
+          name: category1.name,
+          success_or_danger_style_class: 'danger'
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

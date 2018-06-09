@@ -31,20 +31,20 @@ describe 'GET /api/places' do
       expect(response.status).to eq 200
       json = [
         {
-          id: place1.id,
-          name: place1.name,
-          categories: []
-        },
-        {
           id: place2.id,
           name: place2.name,
           categories: [
             {
               human_balance_of_payments: '支出',
-              name: 'カテゴリ名19',
+              name: category.name,
               success_or_danger_style_class: 'danger'
             }
           ]
+        },
+        {
+          id: place1.id,
+          name: place1.name,
+          categories: []
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
