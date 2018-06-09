@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import SubmitButton from './../common/SubmitButton'
 import CloseButton from './../common/CloseButton'
+import CategoriesSelectBox from './../common/CategoriesSelectBox'
 
 const customStyles = {
   content : {
@@ -24,10 +25,12 @@ class SelectCategoryModal extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: {}
+      category: {},
+      selectedCategoryId: null,
     }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
+    this.onSelectCategory = this.onSelectCategory.bind(this)
   }
 
   onClickCloseButton() {
@@ -35,7 +38,13 @@ class SelectCategoryModal extends React.Component {
   }
 
   onClickSubmitButton() {
-    this.props.handleClickSubmitButton(this.props.place.id, this.state.category.id)
+    this.props.handleClickSubmitButton(this.props.place.id, this.state.selectedCategoryId)
+  }
+
+  onSelectCategory(categoryId) {
+    this.setState({
+      selectedCategoryId: categoryId
+    })
   }
 
   render() {
@@ -48,6 +57,7 @@ class SelectCategoryModal extends React.Component {
               {'に追加するカテゴリを選択してください。'}
             </p>
           </div>
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
           <div className='modal-footer'>
             <SubmitButton handleClickButton={this.onClickSubmitButton} />
             <CloseButton handleClickButton={this.onClickCloseButton} />
@@ -61,6 +71,7 @@ class SelectCategoryModal extends React.Component {
 SelectCategoryModal.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
   place: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
   handleClickSubmitButton: PropTypes.func.isRequired,
   handleClickCloseButton: PropTypes.func.isRequired
 }

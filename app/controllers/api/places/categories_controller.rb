@@ -3,6 +3,7 @@
 class Api::Places::CategoriesController < Api::BaseController
   before_action :set_place, only: %i[index]
 
+  # 選択可能なカテゴリの一覧
   def index
     @categories = current_user.categories - @place.categories
     render json: @categories

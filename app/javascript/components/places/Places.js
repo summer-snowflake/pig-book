@@ -33,6 +33,7 @@ class Places extends React.Component {
       place: place,
       selectCategoryModalIsOpen: true
     })
+    this.props.handleClickPlusIcon(place.id)
   }
 
   onClickDestroyButton(place_id) {
@@ -42,11 +43,11 @@ class Places extends React.Component {
     this.props.handleClickDestroyButton(place_id)
   }
 
-  onClickAddCategoryButton(place_id, category_id) {
+  onClickAddCategoryButton(placeId, categoryId) {
     this.setState({
       selectCategoryModalIsOpen: false
     })
-    //this.props.handleClickAddCategoryButton(place_id, category_id)
+    this.props.handleClickAddCategoryButton({place_id: placeId, category_id: categoryId})
   }
 
   closeModal() {
@@ -67,7 +68,7 @@ class Places extends React.Component {
           </tbody>
         </table>
         <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.place} modalIsOpen={this.state.destroyModalIsOpen} />
-        <SelectCategoryModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickAddCategoryButton} modalIsOpen={this.state.selectCategoryModalIsOpen} place={this.state.place} />
+        <SelectCategoryModal categories={this.props.selectableCategories} handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickAddCategoryButton} modalIsOpen={this.state.selectCategoryModalIsOpen} place={this.state.place} />
       </div>
     )
   }
@@ -75,7 +76,10 @@ class Places extends React.Component {
 
 Places.propTypes = {
   places: PropTypes.array.isRequired,
-  handleClickDestroyButton: PropTypes.func.isRequired
+  selectableCategories: PropTypes.array.isRequired,
+  handleClickDestroyButton: PropTypes.func.isRequired,
+  handleClickAddCategoryButton: PropTypes.func.isRequired,
+  handleClickPlusIcon: PropTypes.func.isRequired
 }
 
 export default Places

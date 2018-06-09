@@ -12,11 +12,14 @@ class PlaceCard extends React.Component {
       message: '',
       success: false,
       places: this.props.places,
+      selectableCategories: [],
       errorMessages: {}
     }
     this.destroyPlace = this.destroyPlace.bind(this)
     this.getPlaces = this.getPlaces.bind(this)
     this.postPlace = this.postPlace.bind(this)
+    this.getPlaceCategories = this.getPlaceCategories.bind(this)
+    this.postCategorizedPlace = this.postCategorizedPlace.bind(this)
   }
 
   getPlaces() {
@@ -114,12 +117,73 @@ class PlaceCard extends React.Component {
       })
   }
 
+  getPlaceCategories(place_id) {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/places/' + place_id + '/categories',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '200') {
+          this.setState({
+            selectableCategories: res.data
+          })
+        }
+      })
+  }
+
+  postCategorizedPlace(params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/categorized_places',
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if (res.status == '201') {
+          this.getPlaces()
+          this.setState({
+            message: '追加しました',
+            success: true
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == '422') {
+          this.setState({
+            errorMessages: error.response.data.error_messages
+          })
+        } else {
+          this.setState({
+            message: error.response.data.error_message,
+            success: false
+          })
+        }
+        console.error(error)
+      })
+  }
+
   render() {
     return (
       <div className='place-card-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PlaceForm errorMessages={this.state.errorMessages} handleSendForm={this.postPlace} />
-        <Places handleClickDestroyButton={this.destroyPlace} places={this.state.places} />
+        <Places handleClickAddCategoryButton={this.postCategorizedPlace} handleClickDestroyButton={this.destroyPlace} handleClickPlusIcon={this.getPlaceCategories} places={this.state.places} selectableCategories={this.state.selectableCategories} />
       </div>
     )
   }
