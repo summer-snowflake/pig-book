@@ -4,8 +4,10 @@ class Api::CategoriesController < Api::BaseController
   before_action :set_category, only: %i[destroy]
 
   def index
-    @categories =
-      current_user.categories.includes(:places).order(created_at: :desc)
+    @categories = current_user
+                  .categories
+                  .includes(:places, :breakdowns)
+                  .order(created_at: :desc)
     render json: @categories
   end
 

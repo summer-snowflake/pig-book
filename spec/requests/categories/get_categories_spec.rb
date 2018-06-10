@@ -10,6 +10,8 @@ describe 'GET /api/categories' do
   let!(:categorized_place) do
     create(:categorized_place, place: place, category: category2)
   end
+  let!(:breakdown1) { create(:breakdown, category: category1) }
+  let!(:breakdown2) { create(:breakdown, category: category1) }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
@@ -37,13 +39,22 @@ describe 'GET /api/categories' do
           success_or_danger_style_class: 'success',
           places: [{
             name: place.name
-          }]
+          }],
+          breakdowns: []
         },
         {
           human_balance_of_payments: '支出',
           name: category1.name,
           success_or_danger_style_class: 'danger',
-          places: []
+          places: [],
+          breakdowns: [
+            {
+              name: breakdown1.name
+            },
+            {
+              name: breakdown2.name
+            }
+          ]
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
