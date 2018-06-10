@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: %w[index]
   resources :places, only: %w[index]
+  resources :breakdowns, only: %w[index]
 
   namespace :admin do
     resources :users, only: %w[index]

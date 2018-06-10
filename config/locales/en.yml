@@ -15,6 +15,7 @@ en:
     recent_list: Recent List
     base_settings: Base Settings
     category_list: Categories List
+    breakdown_list: Descriptions List
     place_list: Places List
     admin:
       users: Users List (Management)
