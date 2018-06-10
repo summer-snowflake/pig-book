@@ -84,7 +84,7 @@ $lighten-green: lighten($green, 15%);
 
 .modal-footer {
   border-top: 0;
-  padding: 0;
+  padding: 20px 0 0;
 }
 
 .table th, .table td {
@@ -102,8 +102,4 @@ $lighten-green: lighten($green, 15%);
 
 .input-group-text {
   font-size: 14px;
-}
-
-select.form-control:not([size]):not([multiple]) {
-  height: 35px;
 }

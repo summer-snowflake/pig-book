@@ -43,7 +43,7 @@ class Breakdowns extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.breakdowns.map((breakdown) =>
-              <Breakdown key={breakdown.id} onClickTrashIcon={this.handleClickTrashIcon} breakdown={breakdown} />
+              <Breakdown breakdown={breakdown} key={breakdown.id} onClickTrashIcon={this.handleClickTrashIcon} />
             )}
           </tbody>
         </table>
