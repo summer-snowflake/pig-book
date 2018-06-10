@@ -50,5 +50,6 @@ ja:
         name: カテゴリ名
       breakdown:
         name: 内訳
+        category: カテゴリ
       place:
         name: 店名・施設名

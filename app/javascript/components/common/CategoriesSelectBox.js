@@ -20,19 +20,21 @@ class CategoriesSelectBox extends React.Component {
 
   render() {
     return (
-      <div className='categories-select-box-component'>
-        <div className='input-group mb-3'>
+      <span className='categories-select-box-component'>
+        <div className='input-group mb-1'>
           <div className="input-group-prepend">
-            <label className="input-group-text" htmlFor='selectable-categories'>{this.state.human_balance_of_payments}</label>
+            <div className="input-group-text" htmlFor='selectable-categories'>
+              {this.state.human_balance_of_payments}
+            </div>
           </div>
-          <select className='custom-select' id='selectable-categories' onChange={this.handleSelectCategory} ref='category'>
+          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category'>
             <option />
             {this.props.categories.map ((category, index) =>
               <option key={category.id} value={index}>{category.name}</option>
             )}
           </select>
         </div>
-      </div>
+      </span>
     )
   }
 }

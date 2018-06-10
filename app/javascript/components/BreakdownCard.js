@@ -11,16 +11,41 @@ class BreakdownCard extends React.Component {
     this.state = {
       message: '',
       success: false,
+      categories: [],
       breakdowns: this.props.breakdowns,
       errorMessages: {}
     }
     this.getBreakdowns = this.getBreakdowns.bind(this)
     this.postBreakdown = this.postBreakdown.bind(this)
     this.destroyBreakdown = this.destroyBreakdown.bind(this)
+    this.getCategories = this.getCategories.bind(this)
   }
 
   componentWillMount() {
     this.getBreakdowns()
+    this.getCategories()
+  }
+
+  getCategories() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/categories',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '200') {
+          this.setState({
+            categories: res.data
+          })
+        }
+      })
   }
 
   getBreakdowns() {
@@ -121,7 +146,7 @@ class BreakdownCard extends React.Component {
   render() {
     return (
       <div className='breakdown-card-component'>
-        <BreakdownForm errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
+        <BreakdownForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
         <AlertMessage message={this.state.message} success={this.state.success} />
         <Breakdowns breakdowns={this.state.breakdowns} handleClickDestroyButton={this.destroyBreakdown} />
       </div>

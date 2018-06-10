@@ -50,5 +50,6 @@ en:
         name: Category Name
       breakdown:
         name: Description
+        category: Category
       place:
         name: Place (Store/Facility) Name

@@ -99,3 +99,11 @@ $lighten-green: lighten($green, 15%);
   font-size: 14px;
   outline: none;
 }
+
+.input-group-text {
+  font-size: 14px;
+}
+
+select.form-control:not([size]):not([multiple]) {
+  height: 35px;
+}
