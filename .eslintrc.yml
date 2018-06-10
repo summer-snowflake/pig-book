@@ -10,6 +10,7 @@ parserOptions:
   sourceType: module
 globals:
   React: true
+  process: true
 plugins:
   - react
 rules:
