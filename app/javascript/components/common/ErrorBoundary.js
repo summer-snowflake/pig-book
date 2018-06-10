@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import slack from './../plugins/slack'
 
 class ErrorBoundary extends React.Component {
