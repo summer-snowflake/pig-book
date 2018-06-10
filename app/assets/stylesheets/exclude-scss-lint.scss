@@ -13,3 +13,7 @@
     opacity: 0;
   }
 }
+
+select.form-control:not([size]):not([multiple]) {
+  height: 35px;
+}

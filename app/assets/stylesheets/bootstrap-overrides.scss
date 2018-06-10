@@ -84,7 +84,7 @@ $lighten-green: lighten($green, 15%);
 
 .modal-footer {
   border-top: 0;
-  padding: 0;
+  padding: 20px 0 0;
 }
 
 .table th, .table td {
@@ -98,4 +98,8 @@ $lighten-green: lighten($green, 15%);
   cursor: pointer;
   font-size: 14px;
   outline: none;
+}
+
+.input-group-text {
+  font-size: 14px;
 }

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: %w[index]
   resources :places, only: %w[index]
+  resources :breakdowns, only: %w[index]
 
   namespace :admin do
     resources :users, only: %w[index]
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     resources :categories, only: %w[index create destroy] do
       resources :breakdowns, only: %w[index], module: :categories
     end
+    resources :breakdowns, only: %w[index create destroy]
     resources :places, only: %w[index create destroy] do
       resources :categories, only: %w[index], module: :places
     end
