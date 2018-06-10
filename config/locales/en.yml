@@ -48,5 +48,7 @@ en:
         password_confirmation: Password Confirmation
       category:
         name: Category Name
+      breakdown:
+        name: Description
       place:
         name: Place (Store/Facility) Name

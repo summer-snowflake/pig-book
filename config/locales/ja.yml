@@ -48,5 +48,7 @@ ja:
         password_confirmation: パスワード（確認）
       category:
         name: カテゴリ名
+      breakdown:
+        name: 内訳
       place:
         name: 店名・施設名
