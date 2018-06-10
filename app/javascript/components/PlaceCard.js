@@ -12,7 +12,7 @@ class PlaceCard extends React.Component {
     return (
       <div className='place-card-component'>
         <ErrorBoundary>
-          <PlaceCardBody places={this.props.places} user_token={this.props.user_token} last_request_at={this.props.last_request_at} />
+          <PlaceCardBody last_request_at={this.props.last_request_at} places={this.props.places} user_token={this.props.user_token} />
         </ErrorBoundary>
       </div>
     )
