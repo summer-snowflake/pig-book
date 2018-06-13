@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
+import AddButton from './../common/AddButton'
 import FormMixin from './../mixins/FormMixin'
 
 class BreakdownForm extends React.Component {
@@ -38,7 +39,7 @@ class BreakdownForm extends React.Component {
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
-          <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
+          <AddButton onClickButton={this.handleClickSubmitButton} />
         </div>
       </div>
     )
