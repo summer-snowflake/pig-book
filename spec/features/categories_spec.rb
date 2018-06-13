@@ -45,7 +45,7 @@ feature 'CATEGORY', js: true do
     scenario 'Create some categories' do
       # 支出のカテゴリ追加
       fill_in 'category_name', with: 'カテゴリ名'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
       category = Category.last
 
@@ -56,13 +56,13 @@ feature 'CATEGORY', js: true do
 
       # バリデーションエラー
       fill_in 'category_name', with: ''
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
 
       expect(page).to have_content 'カテゴリ名を入力してください'
 
       choose I18n.t('label.income')
       fill_in 'category_name', with: 'カテゴリ名２'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
       category = Category.last
 

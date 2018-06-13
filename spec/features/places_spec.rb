@@ -44,7 +44,7 @@ feature 'PLACE', js: true do
     scenario 'Create some places' do
       # お店・施設の追加
       fill_in 'place_name', with: '施設名'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
       place = Place.last
 
@@ -54,12 +54,12 @@ feature 'PLACE', js: true do
 
       # バリデーションエラー
       fill_in 'place_name', with: ''
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
 
       expect(page).to have_content '店名・施設名を入力してください'
 
       fill_in 'place_name', with: '施設名２'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
       place = Place.last
 
