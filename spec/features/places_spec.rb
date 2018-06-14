@@ -15,7 +15,7 @@ feature 'PLACE', js: true do
     expect(page).to have_content I18n.t('title.place_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to places list page.' do
     visit places_path
     expect(page).to have_content I18n.t('title.place_list')
   end
@@ -44,9 +44,9 @@ feature 'PLACE', js: true do
     scenario 'Create some places' do
       # お店・施設の追加
       fill_in 'place_name', with: '施設名'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      place = Place.last
+      place = user.places.last
 
       within "#place-#{place.id}" do
         expect(page).to have_content '施設名'
@@ -54,14 +54,14 @@ feature 'PLACE', js: true do
 
       # バリデーションエラー
       fill_in 'place_name', with: ''
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
 
       expect(page).to have_content '店名・施設名を入力してください'
 
       fill_in 'place_name', with: '施設名２'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      place = Place.last
+      place = user.places.last
 
       within "#place-#{place.id}" do
         expect(page).to have_content '施設名２'

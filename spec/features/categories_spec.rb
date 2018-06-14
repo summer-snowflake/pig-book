@@ -15,7 +15,7 @@ feature 'CATEGORY', js: true do
     expect(page).to have_content I18n.t('title.category_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to categories list page.' do
     visit categories_path
     expect(page).to have_content I18n.t('title.category_list')
   end
@@ -45,9 +45,9 @@ feature 'CATEGORY', js: true do
     scenario 'Create some categories' do
       # 支出のカテゴリ追加
       fill_in 'category_name', with: 'カテゴリ名'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      category = Category.last
+      category = user.categories.last
 
       within "#category-#{category.id}" do
         expect(page).to have_content '支出'
@@ -56,15 +56,15 @@ feature 'CATEGORY', js: true do
 
       # バリデーションエラー
       fill_in 'category_name', with: ''
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
 
       expect(page).to have_content 'カテゴリ名を入力してください'
 
       choose I18n.t('label.income')
       fill_in 'category_name', with: 'カテゴリ名２'
-      click_button I18n.t('button.add')
+      trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      category = Category.last
+      category = user.categories.last
 
       # 収入のカテゴリ追加
       within "#category-#{category.id}" do

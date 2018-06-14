@@ -28,7 +28,7 @@ rules:
     - never
   no-unused-vars:
     - error
-    - varsIgnorePattern: '.Component'
+    - varsIgnorePattern: '.Component|i18n'
   no-console:
     - off
   react/display-name: 1

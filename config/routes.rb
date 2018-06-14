@@ -27,6 +27,11 @@ Rails.application.routes.draw do
     resources :categorized_places, only: %w[create]
   end
 
+  namespace :locales, format: :json do
+    get '/ja/translation', to: 'translation#ja'
+    get '/en/translation', to: 'translation#en'
+  end
+
   # for letter_opener
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

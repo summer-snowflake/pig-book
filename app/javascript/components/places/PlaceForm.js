@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import FormMixin from './../mixins/FormMixin'
+import AddButton from './../common/AddButton'
 
 class PlaceForm extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class PlaceForm extends React.Component {
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
-          <input className='btn btn-secondary' onClick={this.handleClickSubmitButton} type='submit' value={'追加する'} />
+          <AddButton onClickButton={this.handleClickSubmitButton} />
         </div>
       </div>
     )

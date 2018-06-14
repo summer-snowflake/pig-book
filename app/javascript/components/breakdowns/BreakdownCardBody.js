@@ -23,7 +23,6 @@ class BreakdownCardBody extends React.Component {
 
   componentWillMount() {
     this.getBreakdowns()
-    this.getCategories()
   }
 
   getCategories() {
@@ -63,6 +62,7 @@ class BreakdownCardBody extends React.Component {
     axios(options)
       .then((res) => {
         if(res.status == '200') {
+          this.getCategories()
           this.setState({
             breakdowns: res.data
           })
