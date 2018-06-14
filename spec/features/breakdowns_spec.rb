@@ -16,7 +16,7 @@ feature 'BREAKDOWN', js: true do
     expect(page).to have_content I18n.t('title.breakdown_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to breakdowns list page.' do
     visit breakdowns_path
     expect(page).to have_content I18n.t('title.breakdown_list')
   end

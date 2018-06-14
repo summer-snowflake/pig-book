@@ -15,7 +15,7 @@ feature 'PLACE', js: true do
     expect(page).to have_content I18n.t('title.place_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to places list page.' do
     visit places_path
     expect(page).to have_content I18n.t('title.place_list')
   end

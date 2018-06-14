@@ -15,7 +15,7 @@ feature 'CATEGORY', js: true do
     expect(page).to have_content I18n.t('title.category_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to categories list page.' do
     visit categories_path
     expect(page).to have_content I18n.t('title.category_list')
   end
