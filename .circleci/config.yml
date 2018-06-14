@@ -6,6 +6,7 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
         environment:
           RAILS_ENV: test
+          NODE_ENV: test
           DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
           DB_PASS: password
           DB_USER: postgres
@@ -93,9 +94,9 @@ jobs:
       # - run: ruby ./bin/coverage_report.rb
 
       # Save artifacts
-      #- store_artifacts:
-      #    path: ./tmp/capybara
-      #    destination: capybara-screenshot
+      - store_artifacts:
+          path: ./tmp/capybara
+          destination: capybara-screenshot
 
       #- store_artifacts:
       #    path: ./coverage
