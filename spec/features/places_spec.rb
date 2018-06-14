@@ -46,7 +46,7 @@ feature 'PLACE', js: true do
       fill_in 'place_name', with: '施設名'
       trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      place = Place.last
+      place = user.places.last
 
       within "#place-#{place.id}" do
         expect(page).to have_content '施設名'
@@ -61,7 +61,7 @@ feature 'PLACE', js: true do
       fill_in 'place_name', with: '施設名２'
       trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      place = Place.last
+      place = user.places.last
 
       within "#place-#{place.id}" do
         expect(page).to have_content '施設名２'

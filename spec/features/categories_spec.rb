@@ -47,7 +47,7 @@ feature 'CATEGORY', js: true do
       fill_in 'category_name', with: 'カテゴリ名'
       trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      category = Category.last
+      category = user.categories.last
 
       within "#category-#{category.id}" do
         expect(page).to have_content '支出'
@@ -64,7 +64,7 @@ feature 'CATEGORY', js: true do
       fill_in 'category_name', with: 'カテゴリ名２'
       trigger_click('#add-button')
       expect(page).to have_content '追加しました'
-      category = Category.last
+      category = user.categories.last
 
       # 収入のカテゴリ追加
       within "#category-#{category.id}" do
