@@ -115,3 +115,18 @@ $twitter-border-color: #2e6da4;
     padding-top: 7px;
   }
 }
+
+.error-messages {
+  .status-code {
+    color: rgba($link-color, .5);
+    font-size: 150px;
+    font-weight: bold;
+  }
+
+  .error-message {
+    span {
+      border-left: 4px solid $green;
+      padding: 15px;
+    }
+  }
+}
