@@ -5,4 +5,4 @@
   = t('title.place_list')
 
 = render layout: 'content_panel_with_sidemenu'
-  = react_component('PlacesComponent', render(template: '/places/places.json.jbuilder'))
+  = react_component('PlaceCard', @params)

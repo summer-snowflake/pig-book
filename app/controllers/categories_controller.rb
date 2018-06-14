@@ -2,20 +2,15 @@
 
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_category, only: %i[destroy]
+  before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
-    @categories = current_user.categories
-  end
-
-  def destroy
-    @category.destroy
-    redirect_to categories_path
-  end
-
-  private
-
-  def set_category
-    @category = current_user.categories.find(params[:id])
+    @categories = current_user.categories.order(created_at: :desc)
+    @category = Category.new
+    @params = {
+      categories: @categories,
+      user_token: @access_token,
+      last_request_at: @last_request_at
+    }
   end
 end

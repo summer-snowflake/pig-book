@@ -15,7 +15,7 @@ feature 'PLACE', js: true do
     expect(page).to have_content I18n.t('title.place_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to places list page.' do
     visit places_path
     expect(page).to have_content I18n.t('title.place_list')
   end
@@ -41,6 +41,33 @@ feature 'PLACE', js: true do
       end
     end
 
+    scenario 'Create some places' do
+      # お店・施設の追加
+      fill_in 'place_name', with: '施設名'
+      trigger_click('#add-button')
+      expect(page).to have_content '追加しました'
+      place = user.places.last
+
+      within "#place-#{place.id}" do
+        expect(page).to have_content '施設名'
+      end
+
+      # バリデーションエラー
+      fill_in 'place_name', with: ''
+      trigger_click('#add-button')
+
+      expect(page).to have_content '店名・施設名を入力してください'
+
+      fill_in 'place_name', with: '施設名２'
+      trigger_click('#add-button')
+      expect(page).to have_content '追加しました'
+      place = user.places.last
+
+      within "#place-#{place.id}" do
+        expect(page).to have_content '施設名２'
+      end
+    end
+
     scenario 'Destroy the target place' do
       within '.card-body' do
         within "#place-#{place2.id}" do
@@ -49,11 +76,13 @@ feature 'PLACE', js: true do
       end
 
       # 閉じる
-      expect(page).to have_css '.modal'
-      within '.modal' do
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
         # TODO: I18nを適用する
         expect(page).to have_content '削除してもよろしいですか？'
-        trigger_click('button#cancel')
+      end
+      within '.modal-footer' do
+        find('button#cancel').click
       end
 
       within '.card-body' do
@@ -64,10 +93,12 @@ feature 'PLACE', js: true do
       end
 
       # 削除
-      expect(page).to have_css '.modal'
-      within '.modal' do
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
         expect(page).to have_content '削除してもよろしいですか？'
-        trigger_click('button#submit')
+      end
+      within '.modal-footer' do
+        find('button#submit').click
       end
       within '.card-body' do
         expect(page).to have_no_content place2.name

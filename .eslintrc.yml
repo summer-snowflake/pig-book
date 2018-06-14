@@ -10,6 +10,7 @@ parserOptions:
   sourceType: module
 globals:
   React: true
+  process: true
 plugins:
   - react
 rules:
@@ -27,7 +28,7 @@ rules:
     - never
   no-unused-vars:
     - error
-    - varsIgnorePattern: '.Component'
+    - varsIgnorePattern: '.Component|i18n'
   no-console:
     - off
   react/display-name: 1
@@ -43,7 +44,7 @@ rules:
   react/jsx-no-bind: 1
   react/jsx-no-duplicate-props: 1
   react/jsx-no-literals: 1
-  # react/jsx-no-undef: 1
+  react/jsx-no-undef: 1
   react/jsx-pascal-case: 1
   react/jsx-sort-props: 1
   react/jsx-uses-react: 1
@@ -55,7 +56,7 @@ rules:
   react/no-set-state: 0
   react/no-unknown-property: 1
   react/prefer-es6-class: 1
-  # react/prop-types: 1
+  react/prop-types: 1
   react/react-in-jsx-scope: 1
   react/self-closing-comp: 1
   react/sort-comp: 1

@@ -5,4 +5,4 @@
   = t('title.category_list')
 
 = render layout: 'content_panel_with_sidemenu'
-  = react_component('CategoriesComponent', render(template: '/categories/categories.json.jbuilder'))
+  = react_component('CategoryCard', @params)

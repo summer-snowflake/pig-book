@@ -15,7 +15,7 @@ feature 'CATEGORY', js: true do
     expect(page).to have_content I18n.t('title.category_list')
   end
 
-  scenario 'Connect to base setting page.' do
+  scenario 'Connect to categories list page.' do
     visit categories_path
     expect(page).to have_content I18n.t('title.category_list')
   end
@@ -42,6 +42,37 @@ feature 'CATEGORY', js: true do
       end
     end
 
+    scenario 'Create some categories' do
+      # 支出のカテゴリ追加
+      fill_in 'category_name', with: 'カテゴリ名'
+      trigger_click('#add-button')
+      expect(page).to have_content '追加しました'
+      category = user.categories.last
+
+      within "#category-#{category.id}" do
+        expect(page).to have_content '支出'
+        expect(page).to have_content 'カテゴリ名'
+      end
+
+      # バリデーションエラー
+      fill_in 'category_name', with: ''
+      trigger_click('#add-button')
+
+      expect(page).to have_content 'カテゴリ名を入力してください'
+
+      choose I18n.t('label.income')
+      fill_in 'category_name', with: 'カテゴリ名２'
+      trigger_click('#add-button')
+      expect(page).to have_content '追加しました'
+      category = user.categories.last
+
+      # 収入のカテゴリ追加
+      within "#category-#{category.id}" do
+        expect(page).to have_content '収入'
+        expect(page).to have_content 'カテゴリ名２'
+      end
+    end
+
     scenario 'Destroy the target category' do
       within '.card-body' do
         within "#category-#{category2.id}" do
@@ -50,11 +81,13 @@ feature 'CATEGORY', js: true do
       end
 
       # 閉じる
-      expect(page).to have_css '.modal'
-      within '.modal' do
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
         # TODO: I18nを適用する
         expect(page).to have_content '削除してもよろしいですか？'
-        trigger_click('button#cancel')
+      end
+      within '.modal-footer' do
+        find('button#cancel').click
       end
 
       within '.card-body' do
@@ -65,11 +98,14 @@ feature 'CATEGORY', js: true do
       end
 
       # 削除
-      expect(page).to have_css '.modal'
-      within '.modal' do
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
         expect(page).to have_content '削除してもよろしいですか？'
-        trigger_click('button#submit')
       end
+      within '.modal-footer' do
+        find('button#submit').click
+      end
+      expect(page).to have_content '削除しました'
       within '.card-body' do
         expect(page).to have_no_content category2.name
       end

@@ -5,8 +5,7 @@ This tool is for a household account book.
 
 ## Continuous Integration (CI)
 
-- [CircleCI](https://circleci.com/)
-- red or green (not yet)
+![CircleCI](https://circleci.com/gh/summer-snowflake/pig-book/tree/master.svg?style=shield&circle-token=e90d1bd5a4b016ea384ddf835b97ac7429035b8d)
 
 ## Test coverage
 

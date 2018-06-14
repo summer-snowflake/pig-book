@@ -40,18 +40,25 @@ $lighten-green: lighten($green, 15%);
   font-size: 14px;
 }
 
-$alert-color: #76891a;
-
 .alert {
   animation: fadeout 1s linear 1s 1;
   animation-fill-mode: forwards;
-  background-color: rgba($alert-color, .6);
-  border-color: $alert-color;
   bottom: 50px;
   color: $white;
-  position: absolute;
+  position: fixed;
   right: 30px;
+  width: 300px;
   z-index: 3;
+}
+
+.alert-success {
+  background-color: rgba($green, .6);
+  border-color: $green;
+}
+
+.alert-danger {
+  background-color: rgba($pink, .6);
+  border-color: $pink;
 }
 
 @keyframes fadeout {
@@ -71,12 +78,28 @@ $alert-color: #76891a;
   }
 }
 
+.modal-body {
+  padding: 10px;
+}
+
 .modal-footer {
   border-top: 0;
-  padding-top: 0;
+  padding: 20px 0 0;
 }
 
 .table th, .table td {
   border-bottom: 1px solid $lighten-green;
   border-top: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-group-text {
+  font-size: 14px;
 }
