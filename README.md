@@ -7,7 +7,7 @@ This tool is for a household account book.
 
 - [CircleCI](https://circleci.com/)
 
-[![CircleCI](https://circleci.com/gh/summer-snowflake/pig-book/tree/master.svg?style=svg)](https://circleci.com/gh/summer-snowflake/pig-book/tree/master)
+[![CircleCI](https://circleci.com/gh/summer-snowflake/pig-book/tree/master.svg?style=svg&circle-token=e90d1bd5a4b016ea384ddf835b97ac7429035b8d)](https://circleci.com/gh/summer-snowflake/pig-book/tree/master)
 
 ## Test coverage
 
