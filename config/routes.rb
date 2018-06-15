@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :places, only: %w[index create destroy] do
       resources :categories, only: %w[index], module: :places
     end
-    resources :tags, only: %w[index]
+    resources :tags, only: %w[index create destroy]
     resources :categorized_places, only: %w[create]
   end
 
