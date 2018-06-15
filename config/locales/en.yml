@@ -53,3 +53,6 @@ en:
         category: Category
       place:
         name: Place (Store/Facility) Name
+      tag:
+        color_code: Color Code
+        name: Tag Name
