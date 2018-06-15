@@ -112,8 +112,12 @@ class Category extends React.Component {
           </span>
         </td>
         <td className='badge-td'>
-          <i className='fas fa-map-marker-alt left-icon' />
-          {(this.props.category.places || {}).length}
+          <span className={'badge badge-info'}>
+            <span>
+              <i className='fas fa-map-marker-alt left-icon' />
+              {(this.props.category.places || {}).length}
+            </span>
+          </span>
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
