@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::CategoriesController < Api::BaseController
-  before_action :set_category, only: %i[destroy]
+  before_action :set_category, only: %i[update destroy]
 
   def index
     @categories = current_user
@@ -15,6 +15,14 @@ class Api::CategoriesController < Api::BaseController
     @category = current_user.categories.new(category_params)
     if @category.save
       head :created
+    else
+      render_validation_error @category
+    end
+  end
+
+  def update
+    if @category.update_attributes(category_params)
+      head :ok
     else
       render_validation_error @category
     end

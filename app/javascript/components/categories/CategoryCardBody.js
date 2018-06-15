@@ -17,6 +17,7 @@ class CategoryCardBody extends React.Component {
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.postCategory = this.postCategory.bind(this)
+    this.patchCategory = this.patchCategory.bind(this)
   }
 
   componentWillMount() {
@@ -61,10 +62,10 @@ class CategoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '201') {
+        if(res.status == '200') {
           this.getCategories()
           this.setState({
-            message: '追加しました',
+            message: '更新しました',
             success: true
           })
         }
@@ -118,12 +119,51 @@ class CategoryCardBody extends React.Component {
       })
   }
 
+  patchCategory(categoryId, params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/categories/' + categoryId,
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '200') {
+          this.getCategories()
+          this.setState({
+            message: '更新しました',
+            success: true
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == '422') {
+          this.setState({
+            errorMessages: error.response.data.error_messages
+          })
+        } else {
+          this.setState({
+            message: error.response.data.error_message,
+            success: false
+          })
+        }
+        console.error(error)
+      })
+  }
+
   render() {
     return (
       <div className='category-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
-        <Categories categories={this.state.categories} handleClickDestroyButton={this.destroyCategory} />
+        <Categories categories={this.state.categories} handleClickDestroyButton={this.destroyCategory} handleUpdateCategory={this.patchCategory} />
       </div>
     )
   }
