@@ -88,74 +88,76 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.table td {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.table tr {
-  height: 60px;
-}
-
-.table .far.fa-trash-alt, .fas.fa-times {
-  padding: 6px;
-}
-
-.table .far.fa-trash-alt:hover, .fas.fa-times:hover {
-  background-color: rgba(lighten($green, 15%), .3);
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.radio-td {
-  text-align: center;
-  width: 140px;
-}
-
-.button-td {
-  text-align: center;
-  width: 110px;
-}
-
-.badge-td {
-  text-align: center;
-  width: 65px;
-}
-
-.icon-td {
-  text-align: center;
-  width: 50px;
-}
-
-.edit-icon-td {
-  cursor: pointer;
-}
-
-.table .badge.badge-info {
-  color: $white;
-  cursor: pointer;
-  padding: 5px;
-
-  span {
-    padding: 4px;
-  }
-}
-
-.table tr:hover {
-  .left-edit-target {
-    background-color: rgba(lighten($green, 10%), .2);
-    border-bottom-left-radius: 6px;
-    border-top-left-radius: 8px;
+.table {
+  tr {
+    height: 60px;
   }
 
-  .center-edit-target {
-    background-color: rgba(lighten($green, 10%), .2);
+  tr:hover {
+    .left-edit-target {
+      background-color: rgba(lighten($green, 10%), .2);
+      border-bottom-left-radius: 6px;
+      border-top-left-radius: 8px;
+    }
+
+    .center-edit-target {
+      background-color: rgba(lighten($green, 10%), .2);
+    }
+
+    .right-edit-target {
+      background-color: rgba(lighten($green, 10%), .2);
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+    }
   }
 
-  .right-edit-target {
-    background-color: rgba(lighten($green, 10%), .2);
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
+  td {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .radio-td {
+    text-align: center;
+    width: 140px;
+  }
+
+  .button-td {
+    text-align: center;
+    width: 110px;
+  }
+
+  .badge-td {
+    text-align: center;
+    width: 65px;
+  }
+
+  .icon-td {
+    text-align: center;
+    width: 50px;
+  }
+
+  .edit-icon-td {
+    cursor: pointer;
+  }
+
+  .far.fa-trash-alt, .fas.fa-times {
+    padding: 6px;
+  }
+
+  .far.fa-trash-alt:hover, .fas.fa-times:hover {
+    background-color: rgba(lighten($green, 15%), .3);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .badge.badge-info {
+    color: $white;
+    cursor: pointer;
+    padding: 5px;
+
+    span {
+      padding: 4px;
+    }
   }
 }
 
