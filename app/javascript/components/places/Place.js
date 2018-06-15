@@ -24,7 +24,7 @@ class Place extends React.Component {
         <td>
           {this.props.place.name}
         </td>
-        <td>
+        <td className='badge-td'>
           <span className={'badge badge-info'} onClick={this.handleClickPlusIcon}>
             <span>
               <i className='fas fa-plus' />
@@ -34,7 +34,7 @@ class Place extends React.Component {
         <td>
           <PlaceCategories categories={this.props.place.categories || []} />
         </td>
-        <td>
+        <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.place} />
         </td>
       </tr>
