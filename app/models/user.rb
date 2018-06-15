@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :breakdowns, through: :categories
+  has_many :tags, dependent: :destroy
   has_one :admin, dependent: :destroy
 
   validates :authentication_token, uniqueness: true, allow_nil: true
