@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Trash from './../common/Trash'
+import UpdateButton from './../common/UpdateButton'
 
 class Category extends React.Component {
   constructor(props) {
@@ -89,7 +90,7 @@ class Category extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target button-td'>
-            <input className='btn btn-secondary' onClick={this.handleClickUpdateButton} type='button' value='更新する' />
+            <UpdateButton onClickButton={this.handleClickUpdateButton} />
           </td>
         ) : (
           <td className='right-edit-target' />
