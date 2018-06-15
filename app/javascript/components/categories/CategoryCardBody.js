@@ -62,10 +62,10 @@ class CategoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
+        if(res.status == '201') {
           this.getCategories()
           this.setState({
-            message: '更新しました',
+            message: '追加しました',
             success: true
           })
         }
