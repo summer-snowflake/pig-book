@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :categories, only: %w[index]
   resources :places, only: %w[index]
   resources :breakdowns, only: %w[index]
+  resources :tags, only: %w[index]
 
   namespace :admin do
     resources :users, only: %w[index]
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     resources :places, only: %w[index create destroy] do
       resources :categories, only: %w[index], module: :places
     end
+    resources :tags, only: %w[index]
     resources :categorized_places, only: %w[create]
   end
 

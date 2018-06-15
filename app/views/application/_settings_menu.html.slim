@@ -15,3 +15,7 @@
     i.fas.fa-map-marker-alt.left-icon
     = t('title.place_list')
     = menu_image(places_path)
+  = link_to tags_path, class: 'list-group-item' do
+    i.fas.fa-tags.left-icon
+    = t('title.tag_list')
+    = menu_image(tags_path)
