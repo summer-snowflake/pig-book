@@ -40,7 +40,7 @@ class Category extends React.Component {
     })
   }
 
-  handleChangeBalanceOfPayments(e) {
+  handleChangeBalanceOfPayments() {
     this.setState({
       balance_of_payments: !this.state.balance_of_payments
     })
@@ -50,7 +50,7 @@ class Category extends React.Component {
     this.setState({
       isEditing: false
     })
-    this.props.handleClickUpdateButton(this.props.category.id, {name: this.state.name, balance_of_payments: this.state.balance_of_payments})
+    this.props.onClickUpdateButton(this.props.category.id, {name: this.state.name, balance_of_payments: this.state.balance_of_payments})
   }
 
   render() {
@@ -59,13 +59,13 @@ class Category extends React.Component {
         {this.state.isEditing ? (
           <td className='radio-td left-edit-target'>
             <span className='form-group col-auto'>
-              <input className='form-check-input' id={'income-' + this.props.category.id} name={'balance_of_payments' + this.props.category.id} onChange={this.handleChangeBalanceOfPayments} type='radio' value={this.state.balance_of_payments} checked={this.state.balance_of_payments} />
+              <input checked={this.state.balance_of_payments} className='form-check-input' id={'income-' + this.props.category.id} name={'balance_of_payments' + this.props.category.id} onChange={this.handleChangeBalanceOfPayments} type='radio' value={this.state.balance_of_payments} />
               <label className='form-check-label' htmlFor={'income-' + this.props.category.id}>
                 {'収入'}
               </label>
             </span>
             <span className='form-group col-auto'>
-              <input className='form-check-input' id={'expenditure-' + this.props.category.id} name={'balance_of_payments' + this.props.category.id} onChange={this.handleChangeBalanceOfPayments} type='radio' value={this.state.balance_of_payments} checked={!this.state.balance_of_payments} />
+              <input checked={!this.state.balance_of_payments} className='form-check-input' id={'expenditure-' + this.props.category.id} name={'balance_of_payments' + this.props.category.id} onChange={this.handleChangeBalanceOfPayments} type='radio' value={this.state.balance_of_payments} />
               <label className='form-check-label' htmlFor={'expenditure-' + this.props.category.id}>
                 {'支出'}
               </label>
@@ -80,7 +80,7 @@ class Category extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
-            <input type='text' value={this.state.name} className='form-control' onChange={this.handleChangeCategoryName} />
+            <input className='form-control' onChange={this.handleChangeCategoryName} type='text' value={this.state.name} />
           </td>
         ) : (
           <td className='center-edit-target'>
@@ -89,7 +89,7 @@ class Category extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target button-td'>
-            <input className='btn btn-secondary' type='button' value='更新する' onClick={this.handleClickUpdateButton} />
+            <input className='btn btn-secondary' onClick={this.handleClickUpdateButton} type='button' value='更新する' />
           </td>
         ) : (
           <td className='right-edit-target' />
@@ -126,7 +126,7 @@ class Category extends React.Component {
 Category.propTypes = {
   category: PropTypes.object.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
-  handleClickUpdateButton: PropTypes.func.isRequired
+  onClickUpdateButton: PropTypes.func.isRequired
 }
 
 export default Category

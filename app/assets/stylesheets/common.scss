@@ -144,8 +144,8 @@ $twitter-border-color: #2e6da4;
 .table tr:hover {
   .left-edit-target {
     background-color: rgba(lighten($green, 10%), .2);
-    border-top-left-radius: 8px;
     border-bottom-left-radius: 6px;
+    border-top-left-radius: 8px;
   }
 
   .center-edit-target {
@@ -154,8 +154,8 @@ $twitter-border-color: #2e6da4;
 
   .right-edit-target {
     background-color: rgba(lighten($green, 10%), .2);
-    border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
   }
 }
 
