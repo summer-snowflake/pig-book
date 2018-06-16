@@ -15,7 +15,7 @@ class CategoriesSelectBox extends React.Component {
     this.setState({
       human_balance_of_payments: (category || {}).human_balance_of_payments || '収支'
     })
-    this.props.handleSelectCategory((category || {}).id)
+    this.props.handleSelectCategory(category)
   }
 
   render() {

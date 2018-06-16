@@ -4,6 +4,7 @@ import reactMixin from 'react-mixin'
 import FormMixin from './../mixins/FormMixin'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
+import PlacesSelectBox from './PlacesSelectBox'
 
 class NewRecordForm extends React.Component {
   constructor(props) {
@@ -22,12 +23,16 @@ class NewRecordForm extends React.Component {
     this.refs.charge.value = ''
   }
 
-  onSelectCategory(categoryId) {
-    this.props.handleSelectCategory(categoryId)
+  onSelectCategory(category) {
+    this.props.handleSelectCategory(category)
   }
 
-  onSelectBreakdown(breakdownId) {
-    console.log(breakdownId)
+  onSelectBreakdown(breakdown) {
+    console.log(breakdown)
+  }
+
+  onSelectPlace(place) {
+    console.log(place)
   }
 
   render() {
@@ -39,6 +44,9 @@ class NewRecordForm extends React.Component {
         <div className='form-group'>
           <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} />
         </div>
+        <div className='form-group'>
+          <PlacesSelectBox handleSelectPlace={this.onSelectPlace} places={this.props.places} />
+        </div>
       </div>
     )
   }
@@ -47,6 +55,7 @@ class NewRecordForm extends React.Component {
 NewRecordForm.propTypes = {
   categories: PropTypes.array.isRequired,
   breakdowns: PropTypes.array.isRequired,
+  places: PropTypes.array.isRequired,
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,

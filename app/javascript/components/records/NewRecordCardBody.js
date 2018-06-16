@@ -14,15 +14,19 @@ class NewRecordCardBody extends React.Component {
       success: false,
       errorMessages: {},
       categories: [],
-      breakdowns: []
+      breakdowns: [],
+      places: []
     }
     this.postRecord = this.postRecord.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
   }
 
-  onSelectCategory(categoryId) {
-    console.log(categoryId)
+  onSelectCategory(category) {
+    this.setState({
+      breakdowns: category.breakdowns,
+      places: category.places
+    })
   }
 
   postRecord() {
@@ -56,7 +60,7 @@ class NewRecordCardBody extends React.Component {
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} />
+        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} />
         <Records records={[]}/>
       </div>
     )

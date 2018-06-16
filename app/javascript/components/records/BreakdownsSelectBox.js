@@ -9,7 +9,7 @@ class BreakdownsSelectBox extends React.Component {
 
   handleSelectBreakdown(e) {
     let breakdown = this.props.breakdowns[e.target.value]
-    this.props.handleSelectBreakdown((breakdown || {}).id)
+    this.props.handleSelectBreakdown(breakdown)
   }
 
   render() {
