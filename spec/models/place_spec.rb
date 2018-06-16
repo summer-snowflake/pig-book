@@ -6,6 +6,7 @@ RSpec.describe Place, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:categorized_places).dependent(:destroy) }
+    it { is_expected.to have_many(:records).dependent(:restrict_with_error) }
   end
 
   describe 'validation' do
