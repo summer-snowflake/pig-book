@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Trash from './../common/Trash'
+import reactCSS from 'reactcss'
 
 class Tag extends React.Component {
   constructor(props) {
@@ -13,8 +14,21 @@ class Tag extends React.Component {
   }
 
   render() {
+    const styles = reactCSS({
+      'default': {
+        color: {
+          background: `${this.props.tag.color_code}`
+        }
+      }
+    })
+
     return (
       <tr className='tag-component' id={'tag-' + this.props.tag.id}>
+        <td>
+          <div className='color-code-box-background'>
+            <div className='color-code-box' style={styles.color} />
+          </div>
+        </td>
         <td>
           {this.props.tag.name}
         </td>
