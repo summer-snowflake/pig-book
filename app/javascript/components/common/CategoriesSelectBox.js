@@ -28,7 +28,7 @@ class CategoriesSelectBox extends React.Component {
             </div>
           </div>
           <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category'>
-            <option />
+            <option value='' >{'- カテゴリ -'}</option>
             {this.props.categories.map ((category, index) =>
               <option key={category.id} value={index}>{category.name}</option>
             )}
