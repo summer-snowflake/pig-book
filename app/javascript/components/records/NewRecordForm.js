@@ -61,8 +61,9 @@ class NewRecordForm extends React.Component {
   render() {
     return (
       <div className='new-record-form-component col'>
-        <div className='form-group'>
+        <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
+          <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
           <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.state.selectedCategoryId} />
@@ -71,7 +72,14 @@ class NewRecordForm extends React.Component {
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.state.selectedCategoryId} places={this.props.places} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('charge')}>
-          <input className='form-control' name='record_charge' ref='charge' type='number' />
+          <div className='input-group'>
+            <div className='input-group-prepend'>
+              <div className="input-group-text" htmlFor='record_charge'>
+                {'¥'}
+              </div>
+            </div>
+            <input className='form-control' name='record_charge' ref='charge' type='number' />
+          </div>
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>

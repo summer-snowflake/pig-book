@@ -13,6 +13,7 @@ class Api::RecordsController < Api::BaseController
   private
 
   def record_params
-    params.permit(:published_on, :category_id, :breakdown_id, :place_id, :charge, :memo)
+    params.permit(:published_on, :category_id, :breakdown_id, :place_id,
+                  :charge, :memo)
   end
 end
