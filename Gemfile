@@ -54,7 +54,7 @@ group :test do
   gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'database_rewinder'
   gem 'chromedriver-helper'
   gem 'simplecov'

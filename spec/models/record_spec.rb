@@ -6,8 +6,8 @@ RSpec.describe Record, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:category) }
-    it { is_expected.to belong_to(:breakdown).optional(true) }
-    it { is_expected.to belong_to(:place).optional(true) }
+    it { is_expected.to belong_to(:breakdown).optional }
+    it { is_expected.to belong_to(:place).optional }
   end
 
   describe 'validation' do
