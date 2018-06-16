@@ -22,6 +22,7 @@ class NewRecordForm extends React.Component {
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
   }
 
@@ -69,7 +70,7 @@ class NewRecordForm extends React.Component {
     return (
       <div className='new-record-form-component col'>
         <div className='form-group'>
-          <DatePicker className='form-control' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
+          <DatePicker dateFormat='YYYY/MM/DD' className='form-control' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
