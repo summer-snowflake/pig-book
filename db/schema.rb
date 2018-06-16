@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180615223826) do
+ActiveRecord::Schema.define(version: 20180616120739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,22 @@ ActiveRecord::Schema.define(version: 20180615223826) do
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
+  create_table "records", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "published_on"
+    t.bigint "category_id", null: false
+    t.bigint "breakdown_id", null: false
+    t.bigint "place_id", null: false
+    t.integer "charge", null: false
+    t.string "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breakdown_id"], name: "index_records_on_breakdown_id"
+    t.index ["category_id"], name: "index_records_on_category_id"
+    t.index ["place_id"], name: "index_records_on_place_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -98,5 +114,9 @@ ActiveRecord::Schema.define(version: 20180615223826) do
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
   add_foreign_key "places", "users"
+  add_foreign_key "records", "breakdowns"
+  add_foreign_key "records", "categories"
+  add_foreign_key "records", "places"
+  add_foreign_key "records", "users"
   add_foreign_key "tags", "users"
 end
