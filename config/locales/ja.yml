@@ -16,6 +16,7 @@ ja:
     base_settings: 基本設定
     category_list: カテゴリ一覧
     breakdown_list: 内訳一覧
+    tag_list: ラベル一覧
     place_list: お店・施設一覧
     admin:
       users: ユーザの管理
@@ -52,3 +53,6 @@ ja:
         category: カテゴリ
       place:
         name: 店名・施設名
+      tag:
+        color_code: カラーコード
+        name: ラベル

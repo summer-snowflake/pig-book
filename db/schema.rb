@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180609165118) do
+ActiveRecord::Schema.define(version: 20180615223826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(version: 20180609165118) do
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "color_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -89,4 +98,5 @@ ActiveRecord::Schema.define(version: 20180609165118) do
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
   add_foreign_key "places", "users"
+  add_foreign_key "tags", "users"
 end

@@ -1,6 +1,4 @@
 AllCops:
-  Include:
-    - '**/config.ru'
   Exclude:
     - 'test/**/*'
     - 'bin/**/*'

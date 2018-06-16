@@ -183,3 +183,21 @@ $twitter-border-color: #2e6da4;
     }
   }
 }
+
+.color-code-box-background {
+  background-color: $white;
+  display: table-cell;
+  height: 35px;
+  vertical-align: middle;
+  width: 45px;
+}
+
+.color-code-box {
+  height: 25px;
+  margin: 5px;
+  width: 35px;
+}
+
+.color-picker {
+  position: absolute;
+}
