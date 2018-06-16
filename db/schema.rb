@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20180616120739) do
     t.bigint "user_id", null: false
     t.date "published_on"
     t.bigint "category_id", null: false
-    t.bigint "breakdown_id", null: false
-    t.bigint "place_id", null: false
+    t.bigint "breakdown_id"
+    t.bigint "place_id"
     t.integer "charge", null: false
     t.string "memo"
     t.datetime "created_at", null: false
