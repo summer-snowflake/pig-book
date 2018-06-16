@@ -29,8 +29,41 @@ class NewRecordCardBody extends React.Component {
     })
   }
 
-  postRecord() {
-    console.log('post new record')
+  postRecord(params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/records',
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if (res.status == '201') {
+          this.setState({
+            message: '追加しました',
+            success: true
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == '422') {
+          this.setState({
+            errorMessages: error.response.data.error_messages
+          })
+        } else {
+          this.setState({
+            message: error.response.data.error_message,
+            success: false
+          })
+        }
+      })
   }
 
   getCategories() {

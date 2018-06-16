@@ -12,7 +12,10 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedCategoryId: undefined
+      selectedPublishedOn: new Date,
+      selectedCategoryId: undefined,
+      selectedBreakdownId: undefined,
+      selectedPlaceId: undefined
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -24,8 +27,16 @@ class NewRecordForm extends React.Component {
   }
 
   handleClickSubmitButton() {
-    this.props.handleSendForm()
+    this.props.handleSendForm({
+      published_on: this.state.selectedPublishedOn,
+      category_id: this.state.selectedCategoryId,
+      breakdown_id: this.state.selectedBreakdownId,
+      place_id: this.state.selectedPlaceId,
+      charge: this.refs.charge.value,
+      memo: this.refs.memo.value
+    })
     this.refs.charge.value = ''
+    this.refs.memo.value = ''
   }
 
   onSelectCategory(category) {
@@ -36,11 +47,15 @@ class NewRecordForm extends React.Component {
   }
 
   onSelectBreakdown(breakdown) {
-    console.log(breakdown)
+    this.setState({
+      selectedBreakdownId: (breakdown || {}).id
+    })
   }
 
   onSelectPlace(place) {
-    console.log(place)
+    this.setState({
+      selectedPlaceId: (place || {}).id
+    })
   }
 
   render() {
@@ -59,8 +74,9 @@ class NewRecordForm extends React.Component {
           <input className='form-control' name='record_charge' ref='charge' type='number' />
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
         </div>
-        <div className='form-group'>
-          <textarea className='form-control' rows='3' />
+        <div className={'form-group ' + this.fieldWithErrors('memo')}>
+          <textarea className='form-control' ref='memo' rows='3' />
+          <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
           <CreateButton onClickButton={this.handleClickSubmitButton} />
