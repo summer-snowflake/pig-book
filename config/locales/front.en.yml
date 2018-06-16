@@ -2,4 +2,5 @@ en:
   front:
     button:
       add: Add
+      create: Create
       update: Update

@@ -6,6 +6,7 @@ import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
+import CreateButton from './../common/CreateButton'
 
 class NewRecordForm extends React.Component {
   constructor(props) {
@@ -60,6 +61,9 @@ class NewRecordForm extends React.Component {
         </div>
         <div className='form-group'>
           <textarea className='form-control' rows='3' />
+        </div>
+        <div className='form-group'>
+          <CreateButton onClickButton={this.handleClickSubmitButton} />
         </div>
       </div>
     )
