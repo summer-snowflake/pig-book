@@ -24,8 +24,8 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      breakdowns: category.breakdowns,
-      places: category.places
+      breakdowns: (category || {}).breakdowns || [],
+      places: (category || {}).places || []
     })
   }
 

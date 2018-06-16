@@ -16,7 +16,7 @@ class PlacesSelectBox extends React.Component {
     return (
       <span className='places-select-box-component'>
         <div className='input-group mb-1'>
-          <select className='form-control' id='selectable-places' onChange={this.handleSelectPlace} ref='place'>
+          <select className='form-control' disabled={this.props.isDisabled} id='selectable-places' onChange={this.handleSelectPlace} ref='place'>
             <option value='' >{'- お店・施設 -'}</option>
             {this.props.places.map ((place, index) =>
               <option key={place.id} value={index}>{place.name}</option>
@@ -29,6 +29,7 @@ class PlacesSelectBox extends React.Component {
 }
 
 PlacesSelectBox.propTypes = {
+  isDisabled: PropTypes.bool.isRequired,
   places: PropTypes.array.isRequired,
   handleSelectPlace: PropTypes.func.isRequired
 }
