@@ -46,6 +46,8 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         if (res.status == '201') {
+          this.refs.form.refs.charge.value = ''
+          this.refs.form.refs.memo.value = ''
           this.setState({
             message: '追加しました',
             success: true
@@ -93,7 +95,7 @@ class NewRecordCardBody extends React.Component {
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} />
+        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
         <Records records={[]}/>
       </div>
     )

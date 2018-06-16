@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 import FormMixin from './../mixins/FormMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
@@ -12,7 +14,7 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedPublishedOn: new Date,
+      selectedPublishedOn: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined
@@ -20,6 +22,7 @@ class NewRecordForm extends React.Component {
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
   }
 
   componentWillMount() {
@@ -35,8 +38,6 @@ class NewRecordForm extends React.Component {
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
     })
-    this.refs.charge.value = ''
-    this.refs.memo.value = ''
   }
 
   onSelectCategory(category) {
@@ -58,9 +59,18 @@ class NewRecordForm extends React.Component {
     })
   }
 
+  handleChangePublishedOn(date) {
+    this.setState({
+      selectedPublishedOn: date
+    })
+  }
+
   render() {
     return (
       <div className='new-record-form-component col'>
+        <div className='form-group'>
+          <DatePicker className='form-control' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
+        </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
