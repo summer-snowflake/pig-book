@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 20180616120739) do
 
   create_table "records", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.date "published_on"
+    t.date "published_on", null: false
     t.bigint "category_id", null: false
-    t.bigint "breakdown_id", null: false
-    t.bigint "place_id", null: false
+    t.bigint "breakdown_id"
+    t.bigint "place_id"
     t.integer "charge", null: false
     t.string "memo"
     t.datetime "created_at", null: false

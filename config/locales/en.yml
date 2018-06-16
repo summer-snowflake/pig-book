@@ -57,3 +57,7 @@ en:
       tag:
         color_code: Color Code
         name: Tag Name
+      record:
+        category: Category
+        charge: Amount of Money
+        memo: Memo

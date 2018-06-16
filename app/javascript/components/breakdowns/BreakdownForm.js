@@ -21,9 +21,9 @@ class BreakdownForm extends React.Component {
     this.refs.name.value = ''
   }
 
-  onSelectCategory(categoryId) {
+  onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: categoryId
+      selectedCategoryId: category.id
     })
   }
 

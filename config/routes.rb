@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     end
     resources :tags, only: %w[index create destroy]
     resources :categorized_places, only: %w[create]
+    resources :records, only: %w[create]
   end
 
   namespace :locales, format: :json do

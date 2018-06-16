@@ -57,3 +57,7 @@ ja:
       tag:
         color_code: カラーコード
         name: ラベル
+      record:
+        category: カテゴリ
+        charge: 金額
+        memo: 備考
