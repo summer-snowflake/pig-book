@@ -8,6 +8,7 @@ RSpec.describe Category, type: :model do
     it { is_expected.to have_many(:categorized_places).dependent(:destroy) }
     it { is_expected.to have_many(:places).through(:categorized_places) }
     it { is_expected.to have_many(:breakdowns).dependent(:destroy) }
+    it { is_expected.to have_many(:records).dependent(:restrict_with_error) }
   end
 
   describe 'validation' do
