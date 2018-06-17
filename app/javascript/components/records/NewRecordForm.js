@@ -8,6 +8,7 @@ import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
+import Currency from './../common/Currency'
 import CreateButton from './../common/CreateButton'
 
 class NewRecordForm extends React.Component {
@@ -87,7 +88,7 @@ class NewRecordForm extends React.Component {
           <div className='input-group'>
             <div className='input-group-prepend'>
               <div className="input-group-text" htmlFor='record_charge'>
-                {'¥'}
+                <Currency />
               </div>
             </div>
             <input className='form-control' name='record_charge' ref='charge' type='number' />
