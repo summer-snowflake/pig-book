@@ -17,7 +17,8 @@ class NewRecordCardBody extends React.Component {
       categories: [],
       breakdowns: [],
       places: [],
-      records: this.props.records
+      records: this.props.records,
+      targetDate: moment()
     }
     this.postRecord = this.postRecord.bind(this)
     this.getCategories = this.getCategories.bind(this)
@@ -67,7 +68,8 @@ class NewRecordCardBody extends React.Component {
       .then((res) => {
         if(res.status == '200') {
           this.setState({
-            records: res.data
+            records: res.data,
+            targetDate: targetDate
           })
         }
       })
@@ -176,7 +178,14 @@ class NewRecordCardBody extends React.Component {
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
         <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
-        <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
+        <div className='card col'>
+          <div className='card-body'>
+            <div className='date-of-records'>
+              {this.state.targetDate.format('YYYY年MM月DD日の登録')}
+            </div>
+            <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
+          </div>
+        </div>
       </div>
     )
   }

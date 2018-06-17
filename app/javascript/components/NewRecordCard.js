@@ -10,7 +10,7 @@ class NewRecordCard extends React.Component {
 
   render() {
     return (
-      <div className='place-card-component'>
+      <div className='new-record-card-component'>
         <ErrorBoundary>
           <NewRecordCardBody last_request_at={this.props.last_request_at} records={this.props.records} user_token={this.props.user_token} />
         </ErrorBoundary>
