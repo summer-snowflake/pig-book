@@ -17,15 +17,22 @@ class Record extends React.Component {
     return (
       <tr className='record-component' id={'record-' + this.props.record.id}>
         <td>
+          <i className='fas fa-th-large left-icon yellow' />
           {this.props.record.category_name}
         </td>
         <td>
+          {this.props.record.breakdown_name ? (
+            <i className='fas fa-list left-icon light-blue' />
+          ) : (null)}
           {this.props.record.breakdown_name}
         </td>
         <td>
+          {this.props.record.place_name ? (
+            <i className='fas fa-map-marker-alt left-icon blue' />
+          ) : (null)}
           {this.props.record.place_name}
         </td>
-        <td>
+        <td className='charge-td'>
           <Currency /> {this.props.record.charge}
         </td>
         <td className='icon-td'>

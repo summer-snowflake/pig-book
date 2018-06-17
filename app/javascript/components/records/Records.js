@@ -39,7 +39,7 @@ class Records extends React.Component {
 
   render() {
     return (
-      <div className='records-form-component col'>
+      <div className='records-component'>
         <table className='table'>
           <tbody>
             {this.props.records.map((record) =>

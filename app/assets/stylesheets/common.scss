@@ -16,6 +16,18 @@ button {
   color: $pink;
 }
 
+.yellow {
+  color: $warning;
+}
+
+.blue {
+  color: $dark;
+}
+
+.light-blue {
+  color: $info;
+}
+
 .input-menu {
   border-bottom: dotted 2px $pink;
 }
@@ -204,4 +216,29 @@ $twitter-border-color: #2e6da4;
 
 .color-picker {
   position: absolute;
+}
+
+.card .card {
+  margin: 15px;
+
+  .card-body {
+    padding: 0;
+  }
+
+  tr {
+    height: 0;
+  }
+
+  td {
+    padding: 7px;
+  }
+
+  .date-of-records-component {
+    padding: 20px 10px 10px;
+    text-align: center;
+  }
+
+  .charge-td {
+    width: 80px;
+  }
 }

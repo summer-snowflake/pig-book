@@ -6,6 +6,7 @@ import NewRecordForm from './NewRecordForm'
 import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import Records from './Records'
+import DateOfRecords from './DateOfRecords'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class NewRecordCardBody extends React.Component {
       categories: [],
       breakdowns: [],
       places: [],
-      records: this.props.records
+      records: this.props.records,
+      targetDate: moment()
     }
     this.postRecord = this.postRecord.bind(this)
     this.getCategories = this.getCategories.bind(this)
@@ -25,6 +27,7 @@ class NewRecordCardBody extends React.Component {
     this.getRecords = this.getRecords.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
+    this.handleClickChangeDateButton = this.handleClickChangeDateButton.bind(this)
   }
 
   componentWillMount() {
@@ -67,7 +70,8 @@ class NewRecordCardBody extends React.Component {
       .then((res) => {
         if(res.status == '200') {
           this.setState({
-            records: res.data
+            records: res.data,
+            targetDate: targetDate
           })
         }
       })
@@ -170,13 +174,26 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  handleClickChangeDateButton(days) {
+    const changeDate = this.state.targetDate.add('days', days)
+    this.setState({
+      targetDate: changeDate
+    })
+    this.getRecords(changeDate)
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
         <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
-        <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
+        <div className='card col'>
+          <div className='card-body'>
+            <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.state.targetDate} />
+            <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
+          </div>
+        </div>
       </div>
     )
   }
