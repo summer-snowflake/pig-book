@@ -64,13 +64,14 @@ class NewRecordForm extends React.Component {
     this.setState({
       selectedPublishedOn: date
     })
+    this.props.handleChangePublishedOn(date)
   }
 
   render() {
     return (
       <div className='new-record-form-component col'>
         <div className='form-group'>
-          <DatePicker dateFormat='YYYY/MM/DD' className='form-control' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
+          <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
@@ -112,7 +113,8 @@ NewRecordForm.propTypes = {
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
-  handleSelectCategory: PropTypes.func.isRequired
+  handleSelectCategory: PropTypes.func.isRequired,
+  handleChangePublishedOn: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(NewRecordForm, FormMixin)

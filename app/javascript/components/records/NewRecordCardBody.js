@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import moment from 'moment'
 import NewRecordForm from './NewRecordForm'
 import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
@@ -9,7 +10,6 @@ import Records from './Records'
 class NewRecordCardBody extends React.Component {
   constructor(props) {
     super(props)
-    let today = new Date()
     this.state = {
       message: '',
       success: false,
@@ -17,16 +17,14 @@ class NewRecordCardBody extends React.Component {
       categories: [],
       breakdowns: [],
       places: [],
-      records: this.props.records,
-      selectedY: today.getFullYear(),
-      selectedM: today.getMonth() + 1,
-      selectedD: today.getDate()
+      records: this.props.records
     }
     this.postRecord = this.postRecord.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.getRecords = this.getRecords.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
+    this.setStateDate = this.setStateDate.bind(this)
   }
 
   onSelectCategory(category) {
@@ -36,15 +34,25 @@ class NewRecordCardBody extends React.Component {
     })
   }
 
-  getRecords() {
+  setStateDate(date) {
+    this.setState({
+      selectedY: date.year(),
+      selectedM: date.month() + 1,
+      selectedD: date.date()
+    })
+    this.getRecords(date)
+  }
+
+  getRecords(date) {
+    let targetDate = date ? date : moment()
     let options = {
       method: 'GET',
       url: origin + '/api/records',
       params: {
         last_request_at: this.props.last_request_at,
-        y: this.state.selectedY,
-        m: this.state.selectedM,
-        d: this.state.selectedD
+        y: targetDate.year(),
+        m: targetDate.month() + 1,
+        d: targetDate.date()
       },
       headers: {
         'Authorization': 'Token token=' + this.props.user_token
@@ -162,8 +170,8 @@ class NewRecordCardBody extends React.Component {
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
-        <Records records={this.state.records} handleClickDestroyButton={this.destroyRecord} />
+        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
+        <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
       </div>
     )
   }
