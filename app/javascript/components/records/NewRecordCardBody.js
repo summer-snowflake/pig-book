@@ -190,7 +190,7 @@ class NewRecordCardBody extends React.Component {
         <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
         <div className='card col'>
           <div className='card-body'>
-            <DateOfRecords handleClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.state.targetDate} />
+            <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.state.targetDate} />
             <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
           </div>
         </div>

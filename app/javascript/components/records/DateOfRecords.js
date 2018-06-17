@@ -9,11 +9,11 @@ class DateOfRecords extends React.Component {
   }
 
   handleClickPreviousButton() {
-    this.props.handleClickChangeDateButton(-1)
+    this.props.onClickChangeDateButton(-1)
   }
 
   handleClickNextButton() {
-    this.props.handleClickChangeDateButton(1)
+    this.props.onClickChangeDateButton(1)
   }
 
   render() {
@@ -33,7 +33,7 @@ class DateOfRecords extends React.Component {
 
 DateOfRecords.propTypes = {
   targetDate: PropTypes.object.isRequired,
-  handleClickChangeDateButton: PropTypes.func.isRequired
+  onClickChangeDateButton: PropTypes.func.isRequired
 }
 
 export default DateOfRecords
