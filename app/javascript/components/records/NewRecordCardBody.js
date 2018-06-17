@@ -6,6 +6,7 @@ import NewRecordForm from './NewRecordForm'
 import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import Records from './Records'
+import DateOfRecords from './DateOfRecords'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class NewRecordCardBody extends React.Component {
     this.getRecords = this.getRecords.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
+    this.handleClickChangeDateButton = this.handleClickChangeDateButton.bind(this)
   }
 
   componentWillMount() {
@@ -172,6 +174,14 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  handleClickChangeDateButton(days) {
+    const changeDate = this.state.targetDate.add('days', days)
+    this.setState({
+      targetDate: changeDate
+    })
+    this.getRecords(changeDate)
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
@@ -180,15 +190,7 @@ class NewRecordCardBody extends React.Component {
         <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
         <div className='card col'>
           <div className='card-body'>
-            <div className='date-of-records'>
-              <button className='btn btn-primary btn-sm float-left'>
-                <i className='fas fa-chevron-left' />
-              </button>
-              {this.state.targetDate.format('YYYY年MM月DD日の登録')}
-              <button className='btn btn-primary btn-sm float-right'>
-                <i className='fas fa-chevron-right' />
-              </button>
-            </div>
+            <DateOfRecords handleClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.state.targetDate} />
             <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
           </div>
         </div>
