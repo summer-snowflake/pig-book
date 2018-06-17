@@ -12,7 +12,7 @@ class NewRecordCard extends React.Component {
     return (
       <div className='place-card-component'>
         <ErrorBoundary>
-          <NewRecordCardBody last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
+          <NewRecordCardBody last_request_at={this.props.last_request_at} records={this.props.records} user_token={this.props.user_token} />
         </ErrorBoundary>
       </div>
     )
@@ -20,6 +20,7 @@ class NewRecordCard extends React.Component {
 }
 
 NewRecordCard.propTypes = {
+  records: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }

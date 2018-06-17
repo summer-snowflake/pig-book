@@ -8,6 +8,7 @@ import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
+import Currency from './../common/Currency'
 import CreateButton from './../common/CreateButton'
 
 class NewRecordForm extends React.Component {
@@ -24,10 +25,6 @@ class NewRecordForm extends React.Component {
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
-  }
-
-  componentWillMount() {
-    this.props.getCategories()
   }
 
   handleClickSubmitButton() {
@@ -64,13 +61,14 @@ class NewRecordForm extends React.Component {
     this.setState({
       selectedPublishedOn: date
     })
+    this.props.handleChangePublishedOn(date)
   }
 
   render() {
     return (
       <div className='new-record-form-component col'>
         <div className='form-group'>
-          <DatePicker dateFormat='YYYY/MM/DD' className='form-control' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
+          <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
@@ -86,7 +84,7 @@ class NewRecordForm extends React.Component {
           <div className='input-group'>
             <div className='input-group-prepend'>
               <div className="input-group-text" htmlFor='record_charge'>
-                {'¥'}
+                <Currency />
               </div>
             </div>
             <input className='form-control' name='record_charge' ref='charge' type='number' />
@@ -111,8 +109,8 @@ NewRecordForm.propTypes = {
   places: PropTypes.array.isRequired,
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired,
-  getCategories: PropTypes.func.isRequired,
-  handleSelectCategory: PropTypes.func.isRequired
+  handleSelectCategory: PropTypes.func.isRequired,
+  handleChangePublishedOn: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(NewRecordForm, FormMixin)
