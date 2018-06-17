@@ -28,7 +28,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   componentWillMount() {
-    this.getRecords()
+    this.getCategories()
   }
 
   onSelectCategory(category) {
@@ -92,7 +92,7 @@ class NewRecordCardBody extends React.Component {
         if (res.status == '201') {
           this.refs.form.refs.charge.value = ''
           this.refs.form.refs.memo.value = ''
-          this.getRecords()
+          this.getRecords(params.published_on)
           this.setState({
             message: '追加しました',
             success: true
@@ -128,6 +128,7 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         if(res.status == '200') {
+          this.getRecords()
           this.setState({
             categories: res.data
           })
@@ -174,7 +175,7 @@ class NewRecordCardBody extends React.Component {
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
+        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
         <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
       </div>
     )

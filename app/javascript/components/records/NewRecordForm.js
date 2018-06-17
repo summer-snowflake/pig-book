@@ -27,10 +27,6 @@ class NewRecordForm extends React.Component {
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
   }
 
-  componentWillMount() {
-    this.props.getCategories()
-  }
-
   handleClickSubmitButton() {
     this.props.handleSendForm({
       published_on: this.state.selectedPublishedOn,
@@ -113,7 +109,6 @@ NewRecordForm.propTypes = {
   places: PropTypes.array.isRequired,
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired,
-  getCategories: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired
 }
