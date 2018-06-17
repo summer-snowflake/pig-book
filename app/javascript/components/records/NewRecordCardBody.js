@@ -27,6 +27,10 @@ class NewRecordCardBody extends React.Component {
     this.setStateDate = this.setStateDate.bind(this)
   }
 
+  componentWillMount() {
+    this.getRecords()
+  }
+
   onSelectCategory(category) {
     this.setState({
       breakdowns: (category || {}).breakdowns || [],

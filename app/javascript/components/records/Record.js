@@ -19,6 +19,12 @@ class Record extends React.Component {
           {this.props.record.category_name}
         </td>
         <td>
+          {this.props.record.breakdown_name}
+        </td>
+        <td>
+          {this.props.record.place_name}
+        </td>
+        <td>
           {this.props.record.charge}
         </td>
         <td className='icon-td'>
