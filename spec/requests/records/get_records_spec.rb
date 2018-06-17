@@ -15,20 +15,20 @@ describe 'GET /api/records' do
   end
 
   let!(:record1) do
-    create(:record, user: user, published_on: today, category: category)
+    create(:record, user: user, published_at: today, category: category)
   end
   let!(:record2) do
-    create(:record, user: user, published_on: today,
+    create(:record, user: user, published_at: today,
                     category: category, place: place)
   end
   let!(:record3) do
-    create(:record, user: user, published_on: yesterday, category: category)
+    create(:record, user: user, published_at: yesterday, category: category)
   end
   let!(:record4) do
-    create(:record, user: user, published_on: 2.months.ago,
+    create(:record, user: user, published_at: 2.months.ago,
                     category: category, breakdown: breakdown)
   end
-  let!(:record5) { create(:record, user: user, published_on: 1.years.ago) }
+  let!(:record5) { create(:record, user: user, published_at: 1.years.ago) }
   let!(:params) { { last_request_at: Time.zone.now } }
 
   context 'ログインしていなかった場合' do
@@ -62,7 +62,7 @@ describe 'GET /api/records' do
             memo: record5.memo,
             place_id: record5.place.id,
             place_name: record5.place.name,
-            published_on: record5.published_on
+            published_at: record5.published_at
           },
           {
             id: record4.id,
@@ -74,7 +74,7 @@ describe 'GET /api/records' do
             memo: record4.memo,
             place_id: record4.place.id,
             place_name: record4.place.name,
-            published_on: record4.published_on
+            published_at: record4.published_at
           },
           {
             id: record3.id,
@@ -86,7 +86,7 @@ describe 'GET /api/records' do
             memo: record3.memo,
             place_id: record3.place.id,
             place_name: record3.place.name,
-            published_on: record3.published_on
+            published_at: record3.published_at
           },
           {
             id: record2.id,
@@ -98,7 +98,7 @@ describe 'GET /api/records' do
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
-            published_on: record2.published_on
+            published_at: record2.published_at
           },
           {
             id: record1.id,
@@ -110,7 +110,7 @@ describe 'GET /api/records' do
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
-            published_on: record1.published_on
+            published_at: record1.published_at
           }
         ].to_json
         expect(response.body).to be_json_eql(json)
@@ -119,7 +119,7 @@ describe 'GET /api/records' do
 
     context '日付が指定されていた場合' do
       let(:params) do
-        { last_request_at: Time.zone.now, d: Time.zone.today.day }
+        { last_request_at: Time.zone.now, date: Time.zone.now }
       end
 
       it '200とデータが返ってくること' do
@@ -137,7 +137,7 @@ describe 'GET /api/records' do
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
-            published_on: record2.published_on
+            published_at: record2.published_at
           },
           {
             id: record1.id,
@@ -149,7 +149,7 @@ describe 'GET /api/records' do
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
-            published_on: record1.published_on
+            published_at: record1.published_at
           }
         ].to_json
         expect(response.body).to be_json_eql(json)
