@@ -9,7 +9,7 @@ FactoryBot.define do
     category
     breakdown
     place
-    published_on { Random.rand(start_date..finish_date) }
+    published_at { Random.rand(start_date..finish_date) }
     charge { random.rand(10..8000) }
     sequence(:memo) { |n| "メモ#{n}" }
   end

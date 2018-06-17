@@ -96,7 +96,7 @@ class NewRecordCardBody extends React.Component {
         if (res.status == '201') {
           this.refs.form.refs.charge.value = ''
           this.refs.form.refs.memo.value = ''
-          this.getRecords(params.published_on)
+          this.getRecords(params.published_at)
           this.setState({
             message: '追加しました',
             success: true

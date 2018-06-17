@@ -15,7 +15,7 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedPublishedOn: moment(),
+      selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined
@@ -29,7 +29,7 @@ class NewRecordForm extends React.Component {
 
   handleClickSubmitButton() {
     this.props.handleSendForm({
-      published_on: this.state.selectedPublishedOn,
+      published_at: this.state.selectedPublishedAt,
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
@@ -59,7 +59,7 @@ class NewRecordForm extends React.Component {
 
   handleChangePublishedOn(date) {
     this.setState({
-      selectedPublishedOn: date
+      selectedPublishedAt: date
     })
     this.props.handleChangePublishedOn(date)
   }
@@ -68,7 +68,7 @@ class NewRecordForm extends React.Component {
     return (
       <div className='new-record-form-component col'>
         <div className='form-group'>
-          <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedOn} />
+          <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedAt} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
