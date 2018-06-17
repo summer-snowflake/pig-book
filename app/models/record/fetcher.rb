@@ -22,9 +22,8 @@ class Record::Fetcher
   private
 
   def generate_date_range
-    if @date
-      begining_of_day = Time.parse("#{Date.parse(@date)}")
-      begining_of_day..(begining_of_day + 1.day)
-    end
+    return unless @date
+    begining_of_day = Time.parse(Date.parse(@date).to_s)
+    begining_of_day..(begining_of_day + 1.day)
   end
 end
