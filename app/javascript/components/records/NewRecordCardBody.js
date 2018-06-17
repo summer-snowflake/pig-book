@@ -9,17 +9,24 @@ import Records from './Records'
 class NewRecordCardBody extends React.Component {
   constructor(props) {
     super(props)
+    let today = new Date()
     this.state = {
       message: '',
       success: false,
       errorMessages: {},
       categories: [],
       breakdowns: [],
-      places: []
+      places: [],
+      records: this.props.records,
+      selectedY: today.getFullYear(),
+      selectedM: today.getMonth() + 1,
+      selectedD: today.getDate()
     }
     this.postRecord = this.postRecord.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.getRecords = this.getRecords.bind(this)
+    this.destroyRecord = this.destroyRecord.bind(this)
   }
 
   onSelectCategory(category) {
@@ -27,6 +34,31 @@ class NewRecordCardBody extends React.Component {
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
     })
+  }
+
+  getRecords() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/records',
+      params: {
+        last_request_at: this.props.last_request_at,
+        y: this.state.selectedY,
+        m: this.state.selectedM,
+        d: this.state.selectedD
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '200') {
+          this.setState({
+            records: res.data
+          })
+        }
+      })
   }
 
   postRecord(params) {
@@ -48,6 +80,7 @@ class NewRecordCardBody extends React.Component {
         if (res.status == '201') {
           this.refs.form.refs.charge.value = ''
           this.refs.form.refs.memo.value = ''
+          this.getRecords()
           this.setState({
             message: '追加しました',
             success: true
@@ -90,19 +123,54 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  destroyRecord(recordId) {
+    this.setState({
+      message: ''
+    })
+    let options = {
+      method: 'DELETE',
+      url: origin + '/api/records/' + recordId,
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        if(res.status == '204') {
+          this.getRecords()
+          this.setState({
+            message: '削除しました',
+            success: true
+          })
+        }
+      })
+      .catch((error) => {
+        this.setState({
+          message: error.response.data.error_message,
+          success: false
+        })
+        console.error(error)
+      })
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
         <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} getCategories={this.getCategories} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
-        <Records records={[]}/>
+        <Records records={this.state.records} handleClickDestroyButton={this.destroyRecord} />
       </div>
     )
   }
 }
 
 NewRecordCardBody.propTypes = {
+  records: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
