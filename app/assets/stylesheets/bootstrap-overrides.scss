@@ -103,3 +103,7 @@ $lighten-green: lighten($green, 15%);
 .input-group-text {
   font-size: 14px;
 }
+
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0 6px;
+}

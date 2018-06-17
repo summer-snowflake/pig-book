@@ -181,7 +181,13 @@ class NewRecordCardBody extends React.Component {
         <div className='card col'>
           <div className='card-body'>
             <div className='date-of-records'>
+              <button className='btn btn-primary btn-sm float-left'>
+                <i className='fas fa-chevron-left' />
+              </button>
               {this.state.targetDate.format('YYYY年MM月DD日の登録')}
+              <button className='btn btn-primary btn-sm float-right'>
+                <i className='fas fa-chevron-right' />
+              </button>
             </div>
             <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
           </div>
