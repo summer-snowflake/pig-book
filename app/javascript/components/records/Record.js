@@ -32,7 +32,7 @@ class Record extends React.Component {
           ) : (null)}
           {this.props.record.place_name}
         </td>
-        <td>
+        <td className='charge-td'>
           <Currency /> {this.props.record.charge}
         </td>
         <td className='icon-td'>
