@@ -40,7 +40,9 @@ class NewRecordForm extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: (category || {}).id
+      selectedCategoryId: (category || {}).id,
+      selectedBreakdownId: undefined,
+      selectedPlaceId: undefined
     })
     this.props.handleSelectCategory(category)
   }
