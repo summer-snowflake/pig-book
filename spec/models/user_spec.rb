@@ -10,6 +10,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:tags).dependent(:destroy) }
     it { is_expected.to have_many(:records).dependent(:destroy) }
     it { is_expected.to have_one(:admin).dependent(:destroy) }
+    it { is_expected.to have_one(:profile).dependent(:destroy) }
   end
 
   describe 'validation' do
