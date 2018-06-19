@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20180618064905) do
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "locale"
+    t.integer "locale", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
