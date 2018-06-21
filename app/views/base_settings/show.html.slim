@@ -6,11 +6,13 @@
 
 = render layout: 'content_panel_with_sidemenu'
   = form_for @base_setting, url: { action: :update } do |f|
-    .form-group
-      = f.label :locale, :ja
-      = f.radio_button :locale, :ja
-      = f.label :locale, :en
-      = f.radio_button :locale, :en
+    .form-group.col-auto.mb-1
+      .form-check.form-check-inline
+        = f.radio_button :locale, :ja, class: 'form-check-input'
+        = f.label :locale, t('helpers.label.profile.locale.ja'), class: 'form-check-label', value: :ja
+      .form-check.form-check-inline
+        = f.radio_button :locale, :en, class: 'form-check-input'
+        = f.label :locale, t('helpers.label.profile.locale.en'), class: 'form-check-label', value: :en
     .form-group
       = f.submit class: 'btn btn-secondary'
   table.table

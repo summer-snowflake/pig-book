@@ -43,6 +43,10 @@ ja:
     label:
       user:
         remember_me: 次回から自動的にログイン
+      profile:
+        locale:
+          ja: 日本語
+          en: 英語
   activerecord:
     attributes:
       user:

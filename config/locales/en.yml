@@ -43,6 +43,10 @@ en:
     label:
       user:
         remember_me: Remember me
+      profile:
+        locale:
+          ja: Japanese
+          en: English
   activerecord:
     attributes:
       user:
