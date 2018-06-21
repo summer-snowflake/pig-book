@@ -23,6 +23,10 @@ class User < ApplicationRecord
     authentication_token || generate_authentication_token
   end
 
+  def base_setting
+    Profile.find_or_create_by(user: self)
+  end
+
   private
 
   def generate_authentication_token

@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
               ActionController::RoutingError,
               with: :render_not_found_error
 
+  before_action :set_locale
+
   def after_sign_out_path_for(_resource)
     new_user_session_path
   end
@@ -28,6 +30,14 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def set_locale
+    I18n.locale = locale
+  end
+
+  def locale
+    current_user&.base_setting&.locale || I18n.default_locale
+  end
 
   def render_bad_request_error(_err)
     render :bad_request_error, status: 400
