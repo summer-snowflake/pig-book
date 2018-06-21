@@ -1,0 +1,18 @@
+- content_for :sidemenu do
+  = render 'settings_menu'
+- content_for :title do
+  i.fas.fa-cog.left-icon
+  = t('title.base_settings')
+
+= render layout: 'content_panel_with_sidemenu'
+  = form_for @base_setting, url: { action: :update } do |f|
+    .form-group
+      = f.label :locale, :ja
+      = f.radio_button :locale, :ja
+      = f.label :locale, :en
+      = f.radio_button :locale, :en
+    .form-group
+      = f.submit class: 'btn btn-secondary'
+  table.table
+    tr
+      td
