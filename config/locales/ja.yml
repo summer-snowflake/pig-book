@@ -47,6 +47,9 @@ ja:
         locale:
           ja: 日本語
           en: 英語
+        currency:
+          yen: ¥
+          dollar: $
   activerecord:
     attributes:
       user:
