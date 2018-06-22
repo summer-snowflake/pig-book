@@ -21,6 +21,6 @@ class BaseSettingsController < ApplicationController
   private
 
   def base_setting_params
-    params.require(:profile).permit(:locale)
+    params.require(:profile).permit(:locale, :currency)
   end
 end
