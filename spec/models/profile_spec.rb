@@ -10,4 +10,8 @@ RSpec.describe Profile, type: :model do
   describe '#locale' do
     it { is_expected.to define_enum_for(:locale).with_values(%i[ja en]) }
   end
+
+  describe '#currency' do
+    it { is_expected.to define_enum_for(:currency).with_values(%i[yen dollar]) }
+  end
 end
