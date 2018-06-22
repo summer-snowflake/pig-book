@@ -12,4 +12,6 @@ class Record < ApplicationRecord
   validates :charge, presence: true,
                      numericality: { greater_than_or_equal_to: 0 }
   validates :memo, length: { maximum: 250 }
+
+  enum currency: { yen: 0, dollar: 1 }
 end

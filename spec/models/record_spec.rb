@@ -19,4 +19,8 @@ RSpec.describe Record, type: :model do
     end
     it { is_expected.to validate_length_of(:memo).is_at_most(250) }
   end
+
+  describe '#currency' do
+    it { is_expected.to define_enum_for(:currency).with_values(%i[yen dollar]) }
+  end
 end
