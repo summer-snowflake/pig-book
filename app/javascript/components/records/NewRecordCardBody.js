@@ -15,6 +15,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       success: false,
       errorMessages: {},
+      baseSetting: {},
       categories: [],
       breakdowns: [],
       places: [],
@@ -22,6 +23,7 @@ class NewRecordCardBody extends React.Component {
       targetDate: moment()
     }
     this.postRecord = this.postRecord.bind(this)
+    this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.getRecords = this.getRecords.bind(this)
@@ -31,7 +33,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   componentWillMount() {
-    this.getCategories()
+    this.getBaseSetting()
   }
 
   onSelectCategory(category) {
@@ -117,6 +119,29 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  getBaseSetting() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/base_setting',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.getCategories()
+        if(res.status == '200') {
+          this.setState({
+            baseSetting: res.data
+          })
+        }
+      })
+  }
+
   getCategories() {
     let options = {
       method: 'GET',
@@ -187,7 +212,7 @@ class NewRecordCardBody extends React.Component {
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
+        <NewRecordForm baseSetting={this.state.baseSetting} breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
         <div className='card col'>
           <div className='card-body'>
             <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.state.targetDate} />

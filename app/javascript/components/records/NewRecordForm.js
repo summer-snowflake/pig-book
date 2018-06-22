@@ -106,6 +106,7 @@ class NewRecordForm extends React.Component {
 }
 
 NewRecordForm.propTypes = {
+  baseSetting: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   breakdowns: PropTypes.array.isRequired,
   places: PropTypes.array.isRequired,
