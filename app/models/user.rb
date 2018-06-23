@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
   has_one :admin, dependent: :destroy
+  has_one :profile, dependent: :destroy
 
   validates :authentication_token, uniqueness: true, allow_nil: true
 
@@ -20,6 +21,10 @@ class User < ApplicationRecord
 
   def ensure_authentication_token
     authentication_token || generate_authentication_token
+  end
+
+  def base_setting
+    Profile.find_or_create_by(user: self)
   end
 
   private

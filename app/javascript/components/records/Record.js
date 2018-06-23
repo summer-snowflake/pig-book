@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Trash from './../common/Trash'
-import Currency from './../common/Currency'
 
 class Record extends React.Component {
   constructor(props) {
@@ -33,7 +32,7 @@ class Record extends React.Component {
           {this.props.record.place_name}
         </td>
         <td className='charge-td'>
-          <Currency /> {this.props.record.charge}
+          {this.props.record.human_currency} {this.props.record.charge}
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.record} />

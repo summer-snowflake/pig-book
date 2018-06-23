@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   root to: 'welcome#show'
   get '/mypage', to: 'mypage#show'
-  get '/base_setting', to: 'base_setting#show'
+
+  resource :base_setting, only: %w[show update]
 
   resources :categories, only: %w[index]
   resources :places, only: %w[index]
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api, format: :json do
+    resource :base_setting, only: %w[show]
     resources :categories, only: %w[index create update destroy] do
       resources :breakdowns, only: %w[index], module: :categories
     end

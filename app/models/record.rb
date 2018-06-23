@@ -9,6 +9,9 @@ class Record < ApplicationRecord
   belongs_to :place, optional: true
 
   validates :published_at, presence: true
-  validates :charge, presence: true, numericality: { only_integer: true }
+  validates :charge, presence: true,
+                     numericality: { greater_than_or_equal_to: 0 }
   validates :memo, length: { maximum: 250 }
+
+  enum currency: { yen: 0, dollar: 1 }
 end

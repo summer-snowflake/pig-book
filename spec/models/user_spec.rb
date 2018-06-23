@@ -10,11 +10,22 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:tags).dependent(:destroy) }
     it { is_expected.to have_many(:records).dependent(:destroy) }
     it { is_expected.to have_one(:admin).dependent(:destroy) }
+    it { is_expected.to have_one(:profile).dependent(:destroy) }
   end
 
   describe 'validation' do
     it do
       is_expected.to validate_uniqueness_of(:authentication_token).allow_nil
+    end
+  end
+
+  describe '#base_setting' do
+    let(:user) { create(:user, confirmed_at: Time.zone.yesterday) }
+    subject { user.base_setting }
+
+    it 'user profile exist.' do
+      expect(subject).not_to be_nil
+      expect(user.profile).not_to be_nil
     end
   end
 end

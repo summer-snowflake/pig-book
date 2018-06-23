@@ -8,7 +8,6 @@ import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
-import Currency from './../common/Currency'
 import CreateButton from './../common/CreateButton'
 
 class NewRecordForm extends React.Component {
@@ -33,6 +32,7 @@ class NewRecordForm extends React.Component {
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
+      currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
     })
@@ -86,7 +86,10 @@ class NewRecordForm extends React.Component {
           <div className='input-group'>
             <div className='input-group-prepend'>
               <div className="input-group-text" htmlFor='record_charge'>
-                <Currency />
+                {this.props.baseSetting.human_currency}
+                {this.props.baseSetting.length > 0 ? (
+                  <input name={this.props.baseSetting.currency} type='hidden' value={this.props.baseSetting.currency} />
+                ) : ( null )}
               </div>
             </div>
             <input className='form-control' name='record_charge' ref='charge' type='number' />
@@ -106,6 +109,7 @@ class NewRecordForm extends React.Component {
 }
 
 NewRecordForm.propTypes = {
+  baseSetting: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   breakdowns: PropTypes.array.isRequired,
   places: PropTypes.array.isRequired,

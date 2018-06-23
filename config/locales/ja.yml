@@ -35,12 +35,21 @@ ja:
       not_found_error: 404 Not Found Error. 対象のコンテンツが見つかりませんでした。
       system_error: 500 System Error. システムエラーが発生しました。管理者に問い合わせてください。
       unauthenticate_admin: アクセスできません。管理者でログインしてください。
+      failed_update: 更新に失敗しました。
     notice:
       add: 追加しました。
+      update: 更新しました。
   helpers:
     label:
       user:
         remember_me: 次回から自動的にログイン
+      profile:
+        locale:
+          ja: 日本語
+          en: 英語
+        currency:
+          yen: ¥
+          dollar: $
   activerecord:
     attributes:
       user:

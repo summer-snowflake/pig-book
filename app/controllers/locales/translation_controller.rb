@@ -6,7 +6,6 @@ class Locales::TranslationController < ApplicationController
   end
 
   def en
-    I18n.locale = :en
     render json: I18n.t('front')
   end
 end
