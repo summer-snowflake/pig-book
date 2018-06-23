@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::PlacesController < Api::BaseController
-  before_action :set_place, only: %i[destroy]
+  before_action :set_place, only: %i[update destroy]
 
   def index
     @places = current_user.places.includes(:categories).order(created_at: :desc)
@@ -12,6 +12,14 @@ class Api::PlacesController < Api::BaseController
     @place = current_user.places.new(place_params)
     if @place.save
       head :created
+    else
+      render_validation_error @place
+    end
+  end
+
+  def update
+    if @place.update_attributes(place_params)
+      head :ok
     else
       render_validation_error @place
     end
