@@ -15,20 +15,24 @@ describe 'GET /api/records' do
   end
 
   let!(:record1) do
-    create(:record, user: user, published_at: today, category: category)
+    create(:record, user: user, published_at: today,
+                    category: category, currency: :dollar)
   end
   let!(:record2) do
     create(:record, user: user, published_at: today,
-                    category: category, place: place)
+                    category: category, place: place, currency: :yen)
   end
   let!(:record3) do
-    create(:record, user: user, published_at: yesterday, category: category)
+    create(:record, user: user, published_at: yesterday,
+                    category: category, currency: :yen)
   end
   let!(:record4) do
     create(:record, user: user, published_at: 2.months.ago,
-                    category: category, breakdown: breakdown)
+                    category: category, breakdown: breakdown, currency: :yen)
   end
-  let!(:record5) { create(:record, user: user, published_at: 1.years.ago) }
+  let!(:record5) do
+    create(:record, user: user, published_at: 1.years.ago, currency: :yen)
+  end
   let!(:params) { { last_request_at: Time.zone.now } }
 
   context 'ログインしていなかった場合' do
@@ -59,6 +63,7 @@ describe 'GET /api/records' do
             category_id: record5.category.id,
             category_name: record5.category.name,
             charge: record5.charge,
+            human_currency: '¥',
             memo: record5.memo,
             place_id: record5.place.id,
             place_name: record5.place.name,
@@ -71,6 +76,7 @@ describe 'GET /api/records' do
             category_id: record4.category.id,
             category_name: record4.category.name,
             charge: record4.charge,
+            human_currency: '¥',
             memo: record4.memo,
             place_id: record4.place.id,
             place_name: record4.place.name,
@@ -83,6 +89,7 @@ describe 'GET /api/records' do
             category_id: record3.category.id,
             category_name: record3.category.name,
             charge: record3.charge,
+            human_currency: '¥',
             memo: record3.memo,
             place_id: record3.place.id,
             place_name: record3.place.name,
@@ -95,6 +102,7 @@ describe 'GET /api/records' do
             category_id: record2.category.id,
             category_name: record2.category.name,
             charge: record2.charge,
+            human_currency: '¥',
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
@@ -107,6 +115,7 @@ describe 'GET /api/records' do
             category_id: record1.category.id,
             category_name: record1.category.name,
             charge: record1.charge,
+            human_currency: '$',
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
@@ -134,6 +143,7 @@ describe 'GET /api/records' do
             category_id: record2.category.id,
             category_name: record2.category.name,
             charge: record2.charge,
+            human_currency: '¥',
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
@@ -146,6 +156,7 @@ describe 'GET /api/records' do
             category_id: record1.category.id,
             category_name: record1.category.name,
             charge: record1.charge,
+            human_currency: '$',
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,

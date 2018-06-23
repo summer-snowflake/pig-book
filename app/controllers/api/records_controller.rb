@@ -31,7 +31,7 @@ class Api::RecordsController < Api::BaseController
 
   def record_params
     params.permit(:published_at, :category_id, :breakdown_id, :place_id,
-                  :charge, :memo)
+                  :currency, :charge, :memo)
   end
 
   def records_params
