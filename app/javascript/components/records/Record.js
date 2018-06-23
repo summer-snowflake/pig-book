@@ -32,7 +32,7 @@ class Record extends React.Component {
           {this.props.record.place_name}
         </td>
         <td className='charge-td'>
-          {this.props.record.human_currency} {this.props.record.charge}
+          {this.props.record.human_charge}
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.record} />
