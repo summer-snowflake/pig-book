@@ -16,6 +16,7 @@ class Places extends React.Component {
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
     this.onClickAddCategoryButton = this.onClickAddCategoryButton.bind(this)
     this.closeModal = this.closeModal.bind(this)
@@ -50,6 +51,10 @@ class Places extends React.Component {
     this.props.handleClickAddCategoryButton({place_id: placeId, category_id: categoryId})
   }
 
+  handleClickUpdateButton(placeId, params) {
+    this.props.handleUpdatePlace(placeId, params)
+  }
+
   closeModal() {
     this.setState({
       destroyModalIsOpen: false,
@@ -63,7 +68,7 @@ class Places extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.places.map((place) =>
-              <Place key={place.id} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} place={place} />
+              <Place key={place.id} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} onClickUpdateButton={this.handleClickUpdateButton} place={place} />
             )}
           </tbody>
         </table>
@@ -79,7 +84,8 @@ Places.propTypes = {
   selectableCategories: PropTypes.array.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickAddCategoryButton: PropTypes.func.isRequired,
-  handleClickPlusIcon: PropTypes.func.isRequired
+  handleClickPlusIcon: PropTypes.func.isRequired,
+  handleUpdatePlace: PropTypes.func.isRequired
 }
 
 export default Places

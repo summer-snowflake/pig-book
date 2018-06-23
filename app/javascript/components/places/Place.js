@@ -2,12 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Trash from './../common/Trash'
 import PlaceCategories from './PlaceCategories'
+import UpdateButton from './../common/UpdateButton'
 
 class Place extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      isEditing: false,
+      name: this.props.place.name
+    }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.handleChangePlaceName = this.handleChangePlaceName.bind(this)
     this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
   }
 
   onClickTrashIcon(place) {
@@ -18,12 +27,59 @@ class Place extends React.Component {
     this.props.onClickPlusIcon(this.props.place)
   }
 
+  handleClickEditIcon() {
+    this.setState({
+      isEditing: true
+    })
+  }
+
+  handleClickCancelIcon() {
+    this.setState({
+      isEditing: false
+    })
+  }
+
+  handleChangePlaceName(e) {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  handleClickUpdateButton() {
+    this.setState({
+      isEditing: false
+    })
+    this.props.onClickUpdateButton(this.props.place.id, {name: this.state.name})
+  }
+
   render() {
     return (
       <tr className='place-component' id={'place-' + this.props.place.id}>
-        <td>
-          {this.props.place.name}
-        </td>
+        {this.state.isEditing ? (
+          <td className='left-edit-target'>
+            <input className='form-control' onChange={this.handleChangePlaceName} type='text' value={this.state.name} />
+          </td>
+        ) : (
+          <td className='left-edit-target'>
+            {this.props.place.name}
+          </td>
+        )}
+        {this.state.isEditing ? (
+          <td className='center-edit-target'>
+            <UpdateButton onClickButton={this.handleClickUpdateButton} />
+          </td>
+        ) : (
+          <td className='center-edit-target' />
+        )}
+        {this.state.isEditing ? (
+          <td className='right-edit-target icon-td' onClick={this.handleClickCancelIcon}>
+            <i className='fas fa-times' />
+          </td>
+        ) : (
+          <td className='icon-td edit-icon-td right-edit-target' onClick={this.handleClickEditIcon}>
+            <i className='fas fa-edit' />
+          </td>
+        )}
         <td className='badge-td'>
           <span className={'badge badge-info'} onClick={this.handleClickPlusIcon}>
             <span>
@@ -31,7 +87,7 @@ class Place extends React.Component {
             </span>
           </span>
         </td>
-        <td>
+        <td className='categorized-places-td'>
           <PlaceCategories categories={this.props.place.categories || []} />
         </td>
         <td className='icon-td'>
@@ -45,7 +101,8 @@ class Place extends React.Component {
 Place.propTypes = {
   place: PropTypes.object.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
-  onClickPlusIcon: PropTypes.func.isRequired
+  onClickPlusIcon: PropTypes.func.isRequired,
+  onClickUpdateButton: PropTypes.func.isRequired
 }
 
 export default Place
