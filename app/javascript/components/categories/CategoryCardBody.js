@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import Categories from './Categories'
 import CategoryForm from './CategoryForm'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class CategoryCardBody extends React.Component {
   constructor(props) {
@@ -64,10 +66,7 @@ class CategoryCardBody extends React.Component {
       .then((res) => {
         if(res.status == '201') {
           this.getCategories()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
+          this.noticeAddMessage()
         }
       })
       .catch((error) => {
@@ -104,10 +103,7 @@ class CategoryCardBody extends React.Component {
       .then((res) => {
         if(res.status == '204') {
           this.getCategories()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
+          this.noticeDestroyedMessage()
         }
       })
       .catch((error) => {
@@ -136,11 +132,8 @@ class CategoryCardBody extends React.Component {
     axios(options)
       .then((res) => {
         if(res.status == '200') {
+          this.noticeUpdatedMessage()
           this.getCategories()
-          this.setState({
-            message: '更新しました',
-            success: true
-          })
         }
       })
       .catch((error) => {
@@ -149,10 +142,7 @@ class CategoryCardBody extends React.Component {
             errorMessages: error.response.data.error_messages
           })
         } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
+          this.noticeErrorMessages(error)
         }
         console.error(error)
       })
@@ -174,5 +164,7 @@ CategoryCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(CategoryCardBody, MessageNotifierMixin)
 
 export default CategoryCardBody

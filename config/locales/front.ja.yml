@@ -5,5 +5,7 @@ ja:
       create: 登録する
       update: 更新する
     message:
+      add: 追加しました
       updated: 更新しました
+      destroyed: 削除しました
     currency: ¥

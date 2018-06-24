@@ -5,5 +5,7 @@ en:
       create: Create
       update: Update
     message:
+      add: Add successfully.
       updated: Updated successfully.
+      destroyed: Destroyed successfully.
     currency: $

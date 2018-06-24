@@ -69,10 +69,7 @@ class PlaceCardBody extends React.Component {
       .then((res) => {
         if (res.status == '201') {
           this.getPlaces()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
+          this.noticeAddMessage()
         }
       })
       .catch((error) => {
@@ -108,10 +105,7 @@ class PlaceCardBody extends React.Component {
       .then((res) => {
         if(res.status == '204') {
           this.getPlaces()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
+          this.noticeDestroyedMessage()
         }
       })
       .catch((error) => {
@@ -163,10 +157,7 @@ class PlaceCardBody extends React.Component {
       .then((res) => {
         if (res.status == '201') {
           this.getPlaces()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
+          this.noticeAddMessage()
         }
       })
       .catch((error) => {
