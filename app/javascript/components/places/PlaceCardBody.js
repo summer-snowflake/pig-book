@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import PlaceForm from './PlaceForm'
 import Places from './Places'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class PlaceCardBody extends React.Component {
   constructor(props) {
@@ -200,10 +202,7 @@ class PlaceCardBody extends React.Component {
       .then((res) => {
         if(res.status == '200') {
           this.getPlaces()
-          this.setState({
-            message: '更新しました',
-            success: true
-          })
+          this.noticeUpdatedMessage()
         }
       })
       .catch((error) => {
@@ -237,5 +236,7 @@ PlaceCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(PlaceCardBody, MessageNotifierMixin)
 
 export default PlaceCardBody

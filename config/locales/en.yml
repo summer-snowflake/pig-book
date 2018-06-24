@@ -26,8 +26,8 @@ en:
     twitter_login: Sign in with Twitter
     sign_up: Sign up
   label:
-    expenditure: 支出
-    income: 収入
+    expenditure: Expenditure
+    income: Income
   messages:
     alert:
       bad_request_error: 400 Bad Request Error. You can not access.

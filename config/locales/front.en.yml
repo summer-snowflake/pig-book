@@ -4,4 +4,6 @@ en:
       add: Add
       create: Create
       update: Update
+    message:
+      updated: Updated successfully.
     currency: $
