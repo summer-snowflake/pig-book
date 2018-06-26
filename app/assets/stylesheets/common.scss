@@ -1,5 +1,6 @@
 $green: #76891a;
 $darken-green: darken($green, 10%);
+$purple: #9b7ec9;
 $pink: #ac5e9f;
 
 body {
@@ -16,12 +17,20 @@ button {
   color: $pink;
 }
 
+.red {
+  color: $red;
+}
+
+.blue {
+  color: $blue;
+}
+
 .yellow {
   color: $warning;
 }
 
-.blue {
-  color: $dark;
+.purple {
+  color: $purple;
 }
 
 .light-blue {
