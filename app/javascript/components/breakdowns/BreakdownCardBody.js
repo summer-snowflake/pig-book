@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import BreakdownForm from './BreakdownForm'
 import Breakdowns from './Breakdowns'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class BreakdownCardBody extends React.Component {
   constructor(props) {
@@ -88,10 +90,7 @@ class BreakdownCardBody extends React.Component {
       .then((res) => {
         if (res.status == '201') {
           this.getBreakdowns()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
+          this.noticeAddMessage()
         }
       })
       .catch((error) => {
@@ -159,5 +158,7 @@ BreakdownCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(BreakdownCardBody, MessageNotifierMixin)
 
 export default BreakdownCardBody

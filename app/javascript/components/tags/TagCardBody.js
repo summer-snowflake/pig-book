@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import TagForm from './TagForm'
 import Tags from './Tags'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class TagCardBody extends React.Component {
   constructor(props) {
@@ -63,10 +65,7 @@ class TagCardBody extends React.Component {
       .then((res) => {
         if (res.status == '201') {
           this.getTags()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
+          this.noticeAddMessage()
         }
       })
       .catch((error) => {
@@ -133,5 +132,7 @@ TagCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(TagCardBody, MessageNotifierMixin)
 
 export default TagCardBody
