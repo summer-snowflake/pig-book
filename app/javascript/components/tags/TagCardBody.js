@@ -63,7 +63,7 @@ class TagCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getTags()
         this.noticeAddMessage()
       })
@@ -88,7 +88,7 @@ class TagCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getTags()
         this.noticeDestroyedMessage()
       })

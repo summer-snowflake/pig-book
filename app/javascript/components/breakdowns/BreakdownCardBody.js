@@ -89,7 +89,7 @@ class BreakdownCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getBreakdowns()
         this.noticeAddMessage()
       })
@@ -114,7 +114,7 @@ class BreakdownCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getBreakdowns()
         this.noticeDestroyedMessage()
       })

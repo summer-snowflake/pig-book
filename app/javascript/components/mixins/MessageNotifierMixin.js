@@ -30,7 +30,12 @@ export default {
       })
       break
     case 401:
+      this.setState({
+        message: error.response.data.error_message,
+        success: false
+      })
       window.location.href = '/users/sign_in'
+      break
     default:
       this.setState({
         message: error.response.data.error_message,

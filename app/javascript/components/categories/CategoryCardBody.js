@@ -64,7 +64,7 @@ class CategoryCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getCategories()
         this.noticeAddMessage()
       })
@@ -89,7 +89,7 @@ class CategoryCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getCategories()
         this.noticeDestroyedMessage()
       })
@@ -113,7 +113,7 @@ class CategoryCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.noticeUpdatedMessage()
         this.getCategories()
       })

@@ -67,7 +67,7 @@ class PlaceCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getPlaces()
         this.noticeAddMessage()
       })
@@ -92,7 +92,7 @@ class PlaceCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getPlaces()
         this.noticeDestroyedMessage()
       })
@@ -139,7 +139,7 @@ class PlaceCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getPlaces()
         this.noticeAddMessage()
       })
@@ -163,7 +163,7 @@ class PlaceCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getPlaces()
         this.noticeUpdatedMessage()
       })

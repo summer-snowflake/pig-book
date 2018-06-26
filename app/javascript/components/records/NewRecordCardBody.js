@@ -97,7 +97,7 @@ class NewRecordCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.refs.form.refs.charge.value = ''
         this.refs.form.refs.memo.value = ''
         this.getRecords(params.published_at)
@@ -172,7 +172,7 @@ class NewRecordCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
+      .then(() => {
         this.getRecords()
         this.noticeDestroyedMessage()
       })
