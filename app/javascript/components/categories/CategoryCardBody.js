@@ -64,23 +64,11 @@ class CategoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '201') {
-          this.getCategories()
-          this.noticeAddMessage()
-        }
+        this.getCategories()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -131,20 +119,11 @@ class CategoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.noticeUpdatedMessage()
-          this.getCategories()
-        }
+        this.noticeUpdatedMessage()
+        this.getCategories()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.noticeErrorMessages(error)
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 

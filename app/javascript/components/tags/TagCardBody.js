@@ -63,22 +63,11 @@ class TagCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if (res.status == '201') {
-          this.getTags()
-          this.noticeAddMessage()
-        }
+        this.getTags()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
+        this.noticeErrorMessages(error)
       })
   }
 

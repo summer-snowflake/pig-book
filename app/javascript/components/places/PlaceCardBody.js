@@ -67,22 +67,11 @@ class PlaceCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if (res.status == '201') {
-          this.getPlaces()
-          this.noticeAddMessage()
-        }
+        this.getPlaces()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -155,23 +144,11 @@ class PlaceCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if (res.status == '201') {
-          this.getPlaces()
-          this.noticeAddMessage()
-        }
+        this.getPlaces()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -191,23 +168,11 @@ class PlaceCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.getPlaces()
-          this.noticeUpdatedMessage()
-        }
+        this.getPlaces()
+        this.noticeUpdatedMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
