@@ -27,11 +27,16 @@ class Record extends React.Component {
         </td>
         <td>
           {this.props.record.place_name ? (
-            <i className='fas fa-map-marker-alt left-icon blue' />
+            <i className='fas fa-map-marker-alt left-icon purple' />
           ) : (null)}
           {this.props.record.place_name}
         </td>
         <td className='charge-td'>
+          {this.props.record.balance_of_payments ? (
+            <i className='fas fa-plus-square left-icon blue' />
+          ) : (
+            <i className='fas fa-minus-square left-icon red' />
+          )}
           {this.props.record.human_charge}
         </td>
         <td className='icon-td'>

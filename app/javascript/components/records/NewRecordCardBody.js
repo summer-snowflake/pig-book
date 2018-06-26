@@ -61,9 +61,7 @@ class NewRecordCardBody extends React.Component {
       url: origin + '/api/records',
       params: {
         last_request_at: this.props.last_request_at,
-        y: targetDate.year(),
-        m: targetDate.month() + 1,
-        d: targetDate.date()
+        date: String(targetDate)
       },
       headers: {
         'Authorization': 'Token token=' + this.props.user_token
