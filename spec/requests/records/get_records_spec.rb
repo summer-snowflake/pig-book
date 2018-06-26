@@ -58,6 +58,7 @@ describe 'GET /api/records' do
         json = [
           {
             id: record5.id,
+            balance_of_payments: record5.category.balance_of_payments,
             breakdown_id: record5.breakdown.id,
             breakdown_name: record5.breakdown.name,
             category_id: record5.category.id,
@@ -71,6 +72,7 @@ describe 'GET /api/records' do
           },
           {
             id: record4.id,
+            balance_of_payments: record4.category.balance_of_payments,
             breakdown_id: record4.breakdown.id,
             breakdown_name: record4.breakdown.name,
             category_id: record4.category.id,
@@ -84,6 +86,7 @@ describe 'GET /api/records' do
           },
           {
             id: record3.id,
+            balance_of_payments: record3.category.balance_of_payments,
             breakdown_id: record3.breakdown.id,
             breakdown_name: record3.breakdown.name,
             category_id: record3.category.id,
@@ -97,6 +100,7 @@ describe 'GET /api/records' do
           },
           {
             id: record2.id,
+            balance_of_payments: record2.category.balance_of_payments,
             breakdown_id: record2.breakdown.id,
             breakdown_name: record2.breakdown.name,
             category_id: record2.category.id,
@@ -110,6 +114,7 @@ describe 'GET /api/records' do
           },
           {
             id: record1.id,
+            balance_of_payments: record1.category.balance_of_payments,
             breakdown_id: record1.breakdown.id,
             breakdown_name: record1.breakdown.name,
             category_id: record1.category.id,
@@ -138,6 +143,7 @@ describe 'GET /api/records' do
         json = [
           {
             id: record2.id,
+            balance_of_payments: record2.category.balance_of_payments,
             breakdown_id: record2.breakdown.id,
             breakdown_name: record2.breakdown.name,
             category_id: record2.category.id,
@@ -151,6 +157,7 @@ describe 'GET /api/records' do
           },
           {
             id: record1.id,
+            balance_of_payments: record1.category.balance_of_payments,
             breakdown_id: record1.breakdown.id,
             breakdown_name: record1.breakdown.name,
             category_id: record1.category.id,
