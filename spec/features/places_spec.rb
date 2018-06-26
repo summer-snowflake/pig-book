@@ -45,7 +45,9 @@ feature 'PLACE', js: true do
       # お店・施設の追加
       fill_in 'place_name', with: '施設名'
       trigger_click('#add-button')
-      expect(page).to have_content '追加しました'
+      within '.alert.alert-success' do
+        expect(page).to have_content 'message.add'
+      end
       place = user.places.last
 
       within "#place-#{place.id}" do
@@ -60,7 +62,9 @@ feature 'PLACE', js: true do
 
       fill_in 'place_name', with: '施設名２'
       trigger_click('#add-button')
-      expect(page).to have_content '追加しました'
+      within '.alert.alert-success' do
+        expect(page).to have_content 'message.add'
+      end
       place = user.places.last
 
       within "#place-#{place.id}" do

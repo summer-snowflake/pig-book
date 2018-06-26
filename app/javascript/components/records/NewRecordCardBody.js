@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import moment from 'moment'
 import NewRecordForm from './NewRecordForm'
@@ -7,6 +8,7 @@ import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import Records from './Records'
 import DateOfRecords from './DateOfRecords'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -70,12 +72,13 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            records: res.data,
-            targetDate: targetDate
-          })
-        }
+        this.setState({
+          records: res.data,
+          targetDate: targetDate
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -94,28 +97,14 @@ class NewRecordCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if (res.status == '201') {
-          this.refs.form.refs.charge.value = ''
-          this.refs.form.refs.memo.value = ''
-          this.getRecords(params.published_at)
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.refs.form.refs.charge.value = ''
+        this.refs.form.refs.memo.value = ''
+        this.getRecords(params.published_at)
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -134,11 +123,12 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.getCategories()
-        if(res.status == '200') {
-          this.setState({
-            baseSetting: res.data
-          })
-        }
+        this.setState({
+          baseSetting: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -156,12 +146,13 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.getRecords()
-          this.setState({
-            categories: res.data
-          })
-        }
+        this.getRecords()
+        this.setState({
+          categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -181,21 +172,12 @@ class NewRecordCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if(res.status == '204') {
-          this.getRecords()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getRecords()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -229,5 +211,7 @@ NewRecordCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)
 
 export default NewRecordCardBody

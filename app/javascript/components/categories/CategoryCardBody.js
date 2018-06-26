@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import Categories from './Categories'
 import CategoryForm from './CategoryForm'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class CategoryCardBody extends React.Component {
   constructor(props) {
@@ -38,11 +40,12 @@ class CategoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            categories: res.data
-          })
-        }
+        this.setState({
+          categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -61,27 +64,12 @@ class CategoryCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if(res.status == '201') {
-          this.getCategories()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getCategories()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -101,21 +89,12 @@ class CategoryCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if(res.status == '204') {
-          this.getCategories()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getCategories()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -134,27 +113,12 @@ class CategoryCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if(res.status == '200') {
-          this.getCategories()
-          this.setState({
-            message: '更新しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.noticeUpdatedMessage()
+        this.getCategories()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -174,5 +138,7 @@ CategoryCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(CategoryCardBody, MessageNotifierMixin)
 
 export default CategoryCardBody

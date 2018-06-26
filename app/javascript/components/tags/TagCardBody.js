@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import TagForm from './TagForm'
 import Tags from './Tags'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class TagCardBody extends React.Component {
   constructor(props) {
@@ -37,11 +39,12 @@ class TagCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            tags: res.data
-          })
-        }
+        this.setState({
+          tags: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -60,26 +63,12 @@ class TagCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if (res.status == '201') {
-          this.getTags()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getTags()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -99,21 +88,12 @@ class TagCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if(res.status == '204') {
-          this.getTags()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getTags()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -133,5 +113,7 @@ TagCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(TagCardBody, MessageNotifierMixin)
 
 export default TagCardBody

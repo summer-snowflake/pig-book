@@ -44,6 +44,10 @@ SimpleCov.start do
   add_group 'Uploaders', 'app/uploaders'
 end
 
+Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+
 RSpec.configure do |config|
   include ActionDispatch::TestProcess
 
@@ -57,6 +61,10 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
 
+  config.before(:each, type: :system, js: true) do
+    driven_by :chrome_headless
+  end
+
   config.before :suite do
     I18n.locale = :ja
     begin
@@ -69,5 +77,14 @@ RSpec.configure do |config|
   config.after :each do
     Warden.test_reset!
     DatabaseRewinder.clean_all
+  end
+
+  config.after(:each, type: :system, js: true) do
+    # NOTE: browserのerrorsを表示する
+    errors = page.driver.browser.manage.logs.get(:browser)
+    if errors.present?
+      message = errors.map(&:message).join("\n")
+      puts message
+    end
   end
 end
