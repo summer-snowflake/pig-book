@@ -127,10 +127,7 @@ class BreakdownCardBody extends React.Component {
       .then((res) => {
         if(res.status == '204') {
           this.getBreakdowns()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
+          this.noticeDestroyedMessage()
         }
       })
       .catch((error) => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import moment from 'moment'
 import NewRecordForm from './NewRecordForm'
@@ -7,6 +8,7 @@ import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import Records from './Records'
 import DateOfRecords from './DateOfRecords'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -99,10 +101,7 @@ class NewRecordCardBody extends React.Component {
           this.refs.form.refs.charge.value = ''
           this.refs.form.refs.memo.value = ''
           this.getRecords(params.published_at)
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
+          this.noticeAddMessage()
         }
       })
       .catch((error) => {
@@ -184,10 +183,7 @@ class NewRecordCardBody extends React.Component {
       .then((res) => {
         if(res.status == '204') {
           this.getRecords()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
+          this.noticeDestroyedMessage()
         }
       })
       .catch((error) => {
@@ -229,5 +225,7 @@ NewRecordCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)
 
 export default NewRecordCardBody

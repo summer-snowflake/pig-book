@@ -101,10 +101,7 @@ class TagCardBody extends React.Component {
       .then((res) => {
         if(res.status == '204') {
           this.getTags()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
+          this.noticeDestroyedMessage()
         }
       })
       .catch((error) => {
