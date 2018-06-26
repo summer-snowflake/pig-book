@@ -39,11 +39,12 @@ class TagCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            tags: res.data
-          })
-        }
+        this.setState({
+          tags: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -88,17 +89,11 @@ class TagCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '204') {
-          this.getTags()
-          this.noticeDestroyedMessage()
-        }
+        this.getTags()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 

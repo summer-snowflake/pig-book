@@ -41,11 +41,12 @@ class BreakdownCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            categories: res.data
-          })
-        }
+        this.setState({
+          categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -63,12 +64,13 @@ class BreakdownCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.getCategories()
-          this.setState({
-            breakdowns: res.data
-          })
-        }
+        this.getCategories()
+        this.setState({
+          breakdowns: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -113,17 +115,11 @@ class BreakdownCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '204') {
-          this.getBreakdowns()
-          this.noticeDestroyedMessage()
-        }
+        this.getBreakdowns()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 

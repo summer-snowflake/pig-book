@@ -72,12 +72,13 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            records: res.data,
-            targetDate: targetDate
-          })
-        }
+        this.setState({
+          records: res.data,
+          targetDate: targetDate
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -122,11 +123,12 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.getCategories()
-        if(res.status == '200') {
-          this.setState({
-            baseSetting: res.data
-          })
-        }
+        this.setState({
+          baseSetting: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -144,12 +146,13 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.getRecords()
-          this.setState({
-            categories: res.data
-          })
-        }
+        this.getRecords()
+        this.setState({
+          categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -170,17 +173,11 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '204') {
-          this.getRecords()
-          this.noticeDestroyedMessage()
-        }
+        this.getRecords()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 

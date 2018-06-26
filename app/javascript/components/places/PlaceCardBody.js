@@ -43,11 +43,12 @@ class PlaceCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            places: res.data
-          })
-        }
+        this.setState({
+          places: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -92,17 +93,11 @@ class PlaceCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '204') {
-          this.getPlaces()
-          this.noticeDestroyedMessage()
-        }
+        this.getPlaces()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -120,11 +115,12 @@ class PlaceCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            selectableCategories: res.data
-          })
-        }
+        this.setState({
+          selectableCategories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 

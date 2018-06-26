@@ -24,18 +24,18 @@ export default {
 
   noticeErrorMessages(error) {
     switch(error.response.status) {
-      case 422:
-        this.setState({
-          errorMessages: error.response.data.error_messages
-        })
-        break
-      case 401:
-        window.location.href = '/users/sign_in'
-      default:
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
+    case 422:
+      this.setState({
+        errorMessages: error.response.data.error_messages
+      })
+      break
+    case 401:
+      window.location.href = '/users/sign_in'
+    default:
+      this.setState({
+        message: error.response.data.error_message,
+        success: false
+      })
     }
   }
 }
