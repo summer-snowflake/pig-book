@@ -28,7 +28,9 @@ feature 'RECORD', js: true do
     let!(:category) { create(:category, user: user) }
     let!(:breakdown) { create(:breakdown, category: category) }
     let!(:place) { create(:place, user: user) }
-    let!(:categorized_place) { create(:categorized_place, category: category, place: place) }
+    let!(:categorized_place) do
+      create(:categorized_place, category: category, place: place)
+    end
 
     scenario 'with not changed published_on' do
       visit new_record_path
@@ -50,8 +52,12 @@ feature 'RECORD', js: true do
   end
 
   context 'there are some records' do
-    let!(:record1) { create(:record, user: user, charge: 100, published_at: Time.zone.today) }
-    let!(:record2) { create(:record, user: user, charge: 200, published_at: Time.zone.today) }
+    let!(:record1) do
+      create(:record, user: user, charge: 100, published_at: Time.zone.today)
+    end
+    let!(:record2) do
+      create(:record, user: user, charge: 200, published_at: Time.zone.today)
+    end
 
     background do
       visit new_record_path
