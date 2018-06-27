@@ -57,7 +57,8 @@ group :test do
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'database_rewinder'
   gem 'chromedriver-helper'
-  gem 'simplecov'
+  gem 'simplecov', require: false
+  gem 'codecov', require: false
   gem 'json_spec'
 end
 

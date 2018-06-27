@@ -8,10 +8,24 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
-require 'simplecov'
 require 'selenium-webdriver'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+if ENV['CI']
+  require 'simplecov'
+  require 'codecov'
+
+  SimpleCov.start do
+    add_group 'Models', 'app/models'
+    add_group 'Controllers', 'app/controllers'
+    add_group 'Helpers', 'app/helpers'
+    add_group 'Libraries', 'lib'
+    add_group 'Decorators', 'app/decorators'
+    add_group 'Uploaders', 'app/uploaders'
+  end
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
 
 Capybara.default_max_wait_time = 20
 Capybara.javascript_driver = :selenium
@@ -35,14 +49,6 @@ Shoulda::Matchers.configure do |config|
 end
 
 ActiveRecord::Migration.maintain_test_schema!
-SimpleCov.start do
-  add_group 'Models', 'app/models'
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
-  add_group 'Libraries', 'lib'
-  add_group 'Decorators', 'app/decorators'
-  add_group 'Uploaders', 'app/uploaders'
-end
 
 Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
   driver.browser.save_screenshot(path)
