@@ -108,7 +108,7 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>
-          <textarea className='form-control' ref='memo' rows='3' />
+          <textarea className='form-control' name='record_memo' ref='memo' rows='3' />
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>

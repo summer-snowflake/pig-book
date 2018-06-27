@@ -6,7 +6,7 @@ class RecordsController < ApplicationController
 
   def new
     fetcher = Record::Fetcher.new(user: current_user)
-    @records = fetcher.find_all_by(d: Time.zone.today.day)
+    @records = fetcher.find_all_by(date: Time.zone.today.to_s)
     @params = {
       records: @records,
       user_token: @access_token,
