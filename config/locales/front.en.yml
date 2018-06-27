@@ -4,6 +4,7 @@ en:
       add: Add
       create: Create
       update: Update
+      today: Today
     message:
       add: Add successfully.
       updated: Updated successfully.
