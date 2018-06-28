@@ -8,6 +8,7 @@ import UpdateButton from './../common/UpdateButton'
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
+import CategoriesSelectBox from './../common/CategoriesSelectBox'
 
 class Breakdown extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Breakdown extends React.Component {
     this.state = {
       isEditing: false,
       name: this.props.breakdown.name,
+      categoryId: this.props.breakdown.category_id,
       message: '',
       success: false,
       errorMessages: {}
@@ -24,6 +26,7 @@ class Breakdown extends React.Component {
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeBreakdownName = this.handleChangeBreakdownName.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.onSelectCategory = this.onSelectCategory.bind(this)
   }
 
   onClickTrashIcon(breakdown) {
@@ -54,7 +57,8 @@ class Breakdown extends React.Component {
       errorMessages: {}
     })
     let params = {
-      name: this.state.name
+      name: this.state.name,
+      category_id: this.state.categoryId
     }
     let options = {
       method: 'PATCH',
@@ -78,16 +82,22 @@ class Breakdown extends React.Component {
       })
   }
 
+  onSelectCategory(category) {
+    this.setState({
+      categoryId: category.id
+    })
+  }
+
   render() {
     return (
       <tr className='breakdown-component' id={'breakdown-' + this.props.breakdown.id}>
         {this.state.isEditing ? (
-          <td className='left-edit-target'>
-            {this.props.breakdown.category_name}
+          <td className='left-edit-target breakdown-category-td'>
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
-          <td className='left-edit-target'>
+          <td className='left-edit-target breakdown-category-td'>
             {this.props.breakdown.category_name}
           </td>
         )}
@@ -127,6 +137,7 @@ class Breakdown extends React.Component {
 }
 
 Breakdown.propTypes = {
+  categories: PropTypes.array.isRequired,
   breakdown: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
