@@ -393,7 +393,7 @@ DEPENDENCIES
   json_spec
   letter_opener
   letter_opener_web
-  listen (>= 3.0.5, < 3.2)
+  listen
   omniauth-twitter
   pg
   puma
@@ -413,11 +413,11 @@ DEPENDENCIES
   slim-rails
   slim_lint
   spring
-  spring-watcher-listen (~> 2.0.0)
+  spring-watcher-listen
   turbolinks
   tzinfo-data
   uglifier
-  web-console (>= 3.3.0)
+  web-console
   webpacker
 
 RUBY VERSION
