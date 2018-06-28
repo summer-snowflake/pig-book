@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { I18n } from 'react-i18next'
 import i18n from './../plugins/i18n'
+import Button from './Button'
 
 class AddButton extends React.Component {
   constructor(props) {
@@ -17,9 +18,7 @@ class AddButton extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <span className='add-button-component'>
-            <input className='btn btn-secondary' id={'add-button'} onClick={this.handleClickButton} type='submit' value={t('button.add')} />
-          </span>
+          <Button humanValueName={t('button.add')} onClickButton={this.handleClickButton} valueName='add' />
         )
       }}</I18n>
     )

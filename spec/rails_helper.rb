@@ -8,10 +8,24 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
-require 'simplecov'
 require 'selenium-webdriver'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+if ENV['CI']
+  require 'simplecov'
+  require 'codecov'
+
+  SimpleCov.start do
+    add_group 'Models', 'app/models'
+    add_group 'Controllers', 'app/controllers'
+    add_group 'Helpers', 'app/helpers'
+    add_group 'Libraries', 'lib'
+    add_group 'Decorators', 'app/decorators'
+    add_group 'Uploaders', 'app/uploaders'
+  end
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
 
 Capybara.default_max_wait_time = 20
 Capybara.javascript_driver = :selenium
@@ -35,13 +49,9 @@ Shoulda::Matchers.configure do |config|
 end
 
 ActiveRecord::Migration.maintain_test_schema!
-SimpleCov.start do
-  add_group 'Models', 'app/models'
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
-  add_group 'Libraries', 'lib'
-  add_group 'Decorators', 'app/decorators'
-  add_group 'Uploaders', 'app/uploaders'
+
+Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
 end
 
 RSpec.configure do |config|
@@ -57,6 +67,10 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
 
+  config.before(:each, type: :system, js: true) do
+    driven_by :chrome_headless
+  end
+
   config.before :suite do
     I18n.locale = :ja
     begin
@@ -69,5 +83,14 @@ RSpec.configure do |config|
   config.after :each do
     Warden.test_reset!
     DatabaseRewinder.clean_all
+  end
+
+  config.after(:each, type: :system, js: true) do
+    # NOTE: browserのerrorsを表示する
+    errors = page.driver.browser.manage.logs.get(:browser)
+    if errors.present?
+      message = errors.map(&:message).join("\n")
+      puts message
+    end
   end
 end

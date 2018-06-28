@@ -12,6 +12,7 @@ jobs:
           DB_USER: postgres
           DB_HOST: localhost
           REDIS_HOST: redis
+          TZ: Asia/Tokyo
       - image: postgres:10.4-alpine
         environment:
           POSTGRES_PASSWORD: ""

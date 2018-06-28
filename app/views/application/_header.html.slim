@@ -8,6 +8,11 @@ nav.navbar.navbar-expand-lg.navbar-light
         = link_to root_path, class: 'nav-link'
           span.oi.oi-home.left-icon
           span= t('menu.home')
+      - if current_user
+        li.nav-item class=active_class(new_record_path)
+          = link_to new_record_path, class: 'nav-link'
+            i.fas.fa-palette.left-icon.pink
+            span.pink.input-menu= t('menu.input')
     - if current_user
       ul.navbar-nav.nav.justify-content-end
         - if current_user.admin?

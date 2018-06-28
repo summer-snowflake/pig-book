@@ -1,10 +1,8 @@
 - content_for :sidemenu do
   = render 'settings_menu'
 - content_for :title do
-  i.fas.fa-cog.left-icon
-  = t('title.base_settings')
+  i.fas.fa-tags.left-icon
+  = t('title.tag_list')
 
 = render layout: 'content_panel_with_sidemenu'
-  table.table
-    tr
-      td
+  = react_component('TagCard', @params)

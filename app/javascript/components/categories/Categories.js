@@ -14,6 +14,7 @@ class Categories extends React.Component {
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
 
@@ -31,6 +32,10 @@ class Categories extends React.Component {
     this.props.handleClickDestroyButton(category_id)
   }
 
+  handleClickUpdateButton(categoryId, params) {
+    this.props.handleUpdateCategory(categoryId, params)
+  }
+
   closeModal() {
     this.setState({
       modalIsOpen: false
@@ -43,7 +48,7 @@ class Categories extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.categories.map((category) =>
-              <Category category={category} key={category.id} onClickTrashIcon={this.handleClickTrashIcon} />
+              <Category category={category} key={category.id} onClickTrashIcon={this.handleClickTrashIcon} onClickUpdateButton={this.handleClickUpdateButton} />
             )}
           </tbody>
         </table>
@@ -55,7 +60,8 @@ class Categories extends React.Component {
 
 Categories.propTypes = {
   categories: PropTypes.array.isRequired,
-  handleClickDestroyButton: PropTypes.func.isRequired
+  handleClickDestroyButton: PropTypes.func.isRequired,
+  handleUpdateCategory: PropTypes.func.isRequired
 }
 
 export default Categories

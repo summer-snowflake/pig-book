@@ -46,7 +46,9 @@ feature 'CATEGORY', js: true do
       # 支出のカテゴリ追加
       fill_in 'category_name', with: 'カテゴリ名'
       trigger_click('#add-button')
-      expect(page).to have_content '追加しました'
+      within '.alert.alert-success' do
+        expect(page).to have_content 'message.add'
+      end
       category = user.categories.last
 
       within "#category-#{category.id}" do
@@ -63,7 +65,9 @@ feature 'CATEGORY', js: true do
       choose I18n.t('label.income')
       fill_in 'category_name', with: 'カテゴリ名２'
       trigger_click('#add-button')
-      expect(page).to have_content '追加しました'
+      within '.alert.alert-success' do
+        expect(page).to have_content 'message.add'
+      end
       category = user.categories.last
 
       # 収入のカテゴリ追加
@@ -105,7 +109,9 @@ feature 'CATEGORY', js: true do
       within '.modal-footer' do
         find('button#submit').click
       end
-      expect(page).to have_content '削除しました'
+      within '.alert.alert-success' do
+        expect(page).to have_content 'message.destroyed'
+      end
       within '.card-body' do
         expect(page).to have_no_content category2.name
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180609165118) do
+ActiveRecord::Schema.define(version: 20180622053920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,41 @@ ActiveRecord::Schema.define(version: 20180609165118) do
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "locale", default: 0, null: false
+    t.integer "currency", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "published_at", null: false
+    t.bigint "category_id", null: false
+    t.bigint "breakdown_id"
+    t.bigint "place_id"
+    t.integer "charge", null: false
+    t.string "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "currency", default: 0, null: false
+    t.index ["breakdown_id"], name: "index_records_on_breakdown_id"
+    t.index ["category_id"], name: "index_records_on_category_id"
+    t.index ["place_id"], name: "index_records_on_place_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "color_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -89,4 +124,10 @@ ActiveRecord::Schema.define(version: 20180609165118) do
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
   add_foreign_key "places", "users"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "records", "breakdowns"
+  add_foreign_key "records", "categories"
+  add_foreign_key "records", "places"
+  add_foreign_key "records", "users"
+  add_foreign_key "tags", "users"
 end

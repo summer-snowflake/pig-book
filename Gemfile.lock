@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/thoughtbot/shoulda-matchers.git
+  revision: c0960bd72dd41c4e9bd8b4375254f539776bfe95
+  specs:
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,7 +60,7 @@ GEM
       io-like (~> 0.3.0)
     arel (8.0.0)
     ast (2.4.0)
-    autoprefixer-rails (8.6.2)
+    autoprefixer-rails (8.6.4)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -73,13 +80,13 @@ GEM
       sass (>= 3.5.2)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (2.18.0)
+    capybara (3.3.1)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      xpath (~> 3.1)
     capybara-email (3.0.1)
       capybara (>= 2.4, < 4.0)
       mail
@@ -93,6 +100,10 @@ GEM
     chromedriver-helper (1.2.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    codecov (0.1.10)
+      json
+      simplecov
+      url
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -114,9 +125,9 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.3.1)
-    dotenv (2.4.0)
-    dotenv-rails (2.4.0)
-      dotenv (= 2.4.0)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
       railties (>= 3.2, < 6.0)
     draper (3.0.1)
       actionpack (~> 5.0)
@@ -172,7 +183,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     nio4r (2.3.1)
-    nokogiri (1.8.2)
+    nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
     oauth (0.5.4)
     omniauth (1.8.1)
@@ -268,7 +279,7 @@ GEM
     rspec-support (3.7.1)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (0.57.1)
+    rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5)
@@ -293,11 +304,9 @@ GEM
     scss_lint (0.57.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5.5)
-    selenium-webdriver (3.12.0)
+    selenium-webdriver (3.13.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    shoulda-matchers (3.1.2)
-      activesupport (>= 4.0.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -321,7 +330,7 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (3.7.1)
+    sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -338,9 +347,10 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.11)
+    uglifier (4.1.12)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.0)
+    url (0.3.2)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.6.2)
@@ -367,10 +377,11 @@ DEPENDENCIES
   binding_of_caller
   bootstrap
   byebug
-  capybara (~> 2.13)
+  capybara
   capybara-email
   capybara-screenshot
   chromedriver-helper
+  codecov
   coffee-rails
   database_rewinder
   devise
@@ -382,7 +393,7 @@ DEPENDENCIES
   json_spec
   letter_opener
   letter_opener_web
-  listen (>= 3.0.5, < 3.2)
+  listen
   omniauth-twitter
   pg
   puma
@@ -396,17 +407,17 @@ DEPENDENCIES
   sass-rails
   scss_lint
   selenium-webdriver
-  shoulda-matchers
+  shoulda-matchers!
   simplecov
   slack-notifier
   slim-rails
   slim_lint
   spring
-  spring-watcher-listen (~> 2.0.0)
+  spring-watcher-listen
   turbolinks
   tzinfo-data
   uglifier
-  web-console (>= 3.3.0)
+  web-console
   webpacker
 
 RUBY VERSION

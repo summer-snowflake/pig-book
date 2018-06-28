@@ -1,0 +1,23 @@
+- content_for :sidemenu do
+  = render 'settings_menu'
+- content_for :title do
+  i.fas.fa-cog.left-icon
+  = t('title.base_settings')
+
+= render layout: 'content_panel_with_sidemenu'
+  = form_for @base_setting, url: { action: :update } do |f|
+    .form-group.col-auto.mb-3
+      .form-check.form-check-inline
+        = f.radio_button :locale, :ja, class: 'form-check-input'
+        = f.label :locale, t('helpers.label.profile.locale.ja'), class: 'form-check-label', value: :ja
+      .form-check.form-check-inline
+        = f.radio_button :locale, :en, class: 'form-check-input'
+        = f.label :locale, t('helpers.label.profile.locale.en'), class: 'form-check-label', value: :en
+    .form-group.col-auto.mb-3
+      .form-check.form-check-inline
+        = f.radio_button :currency, :yen, class: 'form-check-input'
+        = f.label :currency, t('helpers.label.profile.currency.yen'), class: 'form-check-label', value: :yen
+      .form-check.form-check-inline
+        = f.radio_button :currency, :dollar, class: 'form-check-input'
+        = f.label :currency, t('helpers.label.profile.currency.dollar'), class: 'form-check-label', value: :dollar
+    = f.submit class: 'btn btn-secondary'

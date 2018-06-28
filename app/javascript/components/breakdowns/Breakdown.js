@@ -21,7 +21,7 @@ class Breakdown extends React.Component {
         <td>
           {this.props.breakdown.name}
         </td>
-        <td>
+        <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.breakdown} />
         </td>
       </tr>

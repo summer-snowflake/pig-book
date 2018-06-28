@@ -1,6 +1,7 @@
 exclude:
   - './app/assets/stylesheets/open-iconic-bootstrap.scss'
   - './app/assets/stylesheets/exclude-scss-lint.scss'
+  - './app/assets/stylesheets/react-datepicker.css'
 linters:
   SingleLinePerSelector:
     enabled: false

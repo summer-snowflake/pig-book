@@ -47,7 +47,9 @@ feature 'BREAKDOWN', js: true do
       select category.name
       fill_in 'breakdown_name', with: '内訳の内容'
       trigger_click('#add-button')
-      expect(page).to have_content '追加しました'
+      within '.alert.alert-success' do
+        expect(page).to have_content 'message.add'
+      end
       breakdown = user.breakdowns.last
 
       within "#breakdown-#{breakdown.id}" do

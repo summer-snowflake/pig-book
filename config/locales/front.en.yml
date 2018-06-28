@@ -2,3 +2,15 @@ en:
   front:
     button:
       add: Add
+      create: Create
+      update: Update
+      today: Today
+    message:
+      add: Add successfully.
+      updated: Updated successfully.
+      destroyed: Destroyed successfully.
+    label:
+      records:
+    currency: $
+    date:
+      format: MM/DD/YYYY

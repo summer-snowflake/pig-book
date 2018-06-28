@@ -6,11 +6,11 @@ class Api::BaseController < ApplicationController
 
   class BadRequestError < StandardError; end
 
+  rescue_from Exception, with: :render_exception_error
   rescue_from BadRequestError, with: :render_bad_request_error
   rescue_from ActiveRecord::RecordNotFound,
               ActionController::RoutingError,
               with: :render_not_found_error
-  rescue_from Exception, with: :render_exception_error
 
   private
 
@@ -56,16 +56,5 @@ class Api::BaseController < ApplicationController
   def render_exception_error(err)
     notify_to_slack(err)
     render :system_error, status: 500, formats: :json
-  end
-
-  def notify_to_slack(err)
-    url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
-    notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL']
-    attachments = {
-      pretext: "*500 #{err}*\nurl: #{url}\nuser_email: #{current_user&.email}",
-      text: "```\n" + [*err.backtrace].take(10).join("\n") + "\n```",
-      mrkdwn: true
-    }
-    notifier.post attachments
   end
 end

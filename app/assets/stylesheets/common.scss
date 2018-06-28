@@ -1,5 +1,6 @@
 $green: #76891a;
 $darken-green: darken($green, 10%);
+$purple: #9b7ec9;
 $pink: #ac5e9f;
 
 body {
@@ -14,6 +15,30 @@ button {
 
 .pink {
   color: $pink;
+}
+
+.red {
+  color: $red;
+}
+
+.blue {
+  color: $blue;
+}
+
+.yellow {
+  color: $warning;
+}
+
+.purple {
+  color: $purple;
+}
+
+.light-blue {
+  color: $info;
+}
+
+.input-menu {
+  border-bottom: dotted 2px $pink;
 }
 
 .left-icon {
@@ -88,23 +113,80 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.table .far.fa-trash-alt {
-  padding: 6px;
-}
+.table {
+  tr {
+    height: 60px;
+  }
 
-.table .far.fa-trash-alt:hover {
-  background-color: rgba(lighten($green, 15%), .3);
-  border-radius: 4px;
-  cursor: pointer;
-}
+  tr:hover {
+    .left-edit-target {
+      background-color: rgba(lighten($green, 10%), .2);
+      border-bottom-left-radius: 6px;
+      border-top-left-radius: 8px;
+    }
 
-.table .badge.badge-info {
-  color: $white;
-  cursor: pointer;
-  padding: 5px;
+    .center-edit-target {
+      background-color: rgba(lighten($green, 10%), .2);
+    }
 
-  span {
-    padding: 4px;
+    .right-edit-target {
+      background-color: rgba(lighten($green, 10%), .2);
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+  }
+
+  td {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .radio-td {
+    text-align: center;
+    width: 140px;
+  }
+
+  .button-td {
+    text-align: center;
+    width: 110px;
+  }
+
+  .badge-td {
+    text-align: center;
+    width: 65px;
+  }
+
+  .icon-td {
+    text-align: center;
+    width: 50px;
+  }
+
+  .edit-icon-td {
+    cursor: pointer;
+  }
+
+  .categorized-places-td {
+    width: 35%;
+  }
+
+  .far.fa-trash-alt, .fas.fa-times {
+    padding: 6px;
+  }
+
+  .far.fa-trash-alt:hover, .fas.fa-times:hover {
+    background-color: rgba(lighten($green, 15%), .3);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .badge.badge-info {
+    color: $white;
+    cursor: pointer;
+    padding: 5px;
+
+    span {
+      padding: 4px;
+    }
   }
 }
 
@@ -114,4 +196,71 @@ $twitter-border-color: #2e6da4;
   .form-check {
     padding-top: 7px;
   }
+}
+
+.error-messages {
+  .status-code {
+    color: rgba($link-color, .5);
+    font-size: 150px;
+    font-weight: bold;
+  }
+
+  .error-message {
+    span {
+      border-left: 4px solid $green;
+      padding: 15px;
+    }
+  }
+}
+
+.color-code-box-background {
+  background-color: $white;
+  display: table-cell;
+  height: 35px;
+  vertical-align: middle;
+  width: 45px;
+}
+
+.color-code-box {
+  height: 25px;
+  margin: 5px;
+  width: 35px;
+}
+
+.color-picker {
+  position: absolute;
+}
+
+.card .card {
+  margin: 15px;
+
+  .card-body {
+    padding: 0;
+  }
+
+  tr {
+    height: 0;
+  }
+
+  td {
+    padding: 7px;
+  }
+
+  .date-of-records-component {
+    padding: 20px 10px 10px;
+    text-align: center;
+  }
+
+  .charge-td {
+    width: 80px;
+  }
+}
+
+.form-group.date-picker > div {
+  display: inline;
+}
+
+.today-button-component {
+  padding-left: 10px;
+  position: absolute;
 }

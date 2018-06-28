@@ -15,7 +15,7 @@ class CategoriesSelectBox extends React.Component {
     this.setState({
       human_balance_of_payments: (category || {}).human_balance_of_payments || '収支'
     })
-    this.props.handleSelectCategory((category || {}).id)
+    this.props.handleSelectCategory(category)
   }
 
   render() {
@@ -28,7 +28,7 @@ class CategoriesSelectBox extends React.Component {
             </div>
           </div>
           <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category'>
-            <option />
+            <option value='' >{'- カテゴリ -'}</option>
             {this.props.categories.map ((category, index) =>
               <option key={category.id} value={index}>{category.name}</option>
             )}

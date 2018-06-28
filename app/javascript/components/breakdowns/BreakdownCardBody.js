@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 import axios from 'axios'
 import BreakdownForm from './BreakdownForm'
 import Breakdowns from './Breakdowns'
 import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class BreakdownCardBody extends React.Component {
   constructor(props) {
@@ -39,11 +41,12 @@ class BreakdownCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.setState({
-            categories: res.data
-          })
-        }
+        this.setState({
+          categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -61,12 +64,13 @@ class BreakdownCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        if(res.status == '200') {
-          this.getCategories()
-          this.setState({
-            breakdowns: res.data
-          })
-        }
+        this.getCategories()
+        this.setState({
+          breakdowns: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -85,27 +89,12 @@ class BreakdownCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if (res.status == '201') {
-          this.getBreakdowns()
-          this.setState({
-            message: '追加しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getBreakdowns()
+        this.noticeAddMessage()
       })
       .catch((error) => {
-        if (error.response.status == '422') {
-          this.setState({
-            errorMessages: error.response.data.error_messages
-          })
-        } else {
-          this.setState({
-            message: error.response.data.error_message,
-            success: false
-          })
-        }
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -125,21 +114,12 @@ class BreakdownCardBody extends React.Component {
       json: true
     }
     axios(options)
-      .then((res) => {
-        if(res.status == '204') {
-          this.getBreakdowns()
-          this.setState({
-            message: '削除しました',
-            success: true
-          })
-        }
+      .then(() => {
+        this.getBreakdowns()
+        this.noticeDestroyedMessage()
       })
       .catch((error) => {
-        this.setState({
-          message: error.response.data.error_message,
-          success: false
-        })
-        console.error(error)
+        this.noticeErrorMessages(error)
       })
   }
 
@@ -159,5 +139,7 @@ BreakdownCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(BreakdownCardBody, MessageNotifierMixin)
 
 export default BreakdownCardBody

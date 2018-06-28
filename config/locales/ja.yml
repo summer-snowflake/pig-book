@@ -7,6 +7,7 @@ ja:
     home: HOME
     login: ログイン
     logout: ログアウト
+    input: 入力する
     sign_up: アカウント登録
     mypage_top: マイページTOP
     settings: 各種設定
@@ -16,6 +17,7 @@ ja:
     base_settings: 基本設定
     category_list: カテゴリ一覧
     breakdown_list: 内訳一覧
+    tag_list: ラベル一覧
     place_list: お店・施設一覧
     admin:
       users: ユーザの管理
@@ -23,7 +25,6 @@ ja:
     login: ログインする
     twitter_login: Twitterでログイン
     sign_up: 登録する
-    add: 追加する
   label:
     expenditure: 支出
     income: 収入
@@ -34,12 +35,21 @@ ja:
       not_found_error: 404 Not Found Error. 対象のコンテンツが見つかりませんでした。
       system_error: 500 System Error. システムエラーが発生しました。管理者に問い合わせてください。
       unauthenticate_admin: アクセスできません。管理者でログインしてください。
+      failed_update: 更新に失敗しました。
     notice:
       add: 追加しました。
+      update: 更新しました。
   helpers:
     label:
       user:
         remember_me: 次回から自動的にログイン
+      profile:
+        locale:
+          ja: 日本語
+          en: 英語
+        currency:
+          yen: ¥
+          dollar: $
   activerecord:
     attributes:
       user:
@@ -53,3 +63,10 @@ ja:
         category: カテゴリ
       place:
         name: 店名・施設名
+      tag:
+        color_code: カラーコード
+        name: ラベル
+      record:
+        category: カテゴリ
+        charge: 金額
+        memo: 備考

@@ -47,9 +47,9 @@ class SelectCategoryModal extends React.Component {
     this.props.handleClickSubmitButton(this.props.place.id, this.state.selectedCategoryId)
   }
 
-  onSelectCategory(categoryId) {
+  onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: categoryId
+      selectedCategoryId: category.id
     })
   }
 
