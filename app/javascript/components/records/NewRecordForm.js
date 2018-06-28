@@ -9,6 +9,7 @@ import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
+import TodayButton from './TodayButton'
 
 class NewRecordForm extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class NewRecordForm extends React.Component {
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
+    this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -36,6 +38,14 @@ class NewRecordForm extends React.Component {
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
     })
+  }
+
+  handleClickTodayButton() {
+    let today = moment()
+    this.setState({
+      selectedPublishedAt: today
+    })
+    this.props.handleChangePublishedOn(today)
   }
 
   onSelectCategory(category) {
@@ -69,8 +79,9 @@ class NewRecordForm extends React.Component {
   render() {
     return (
       <div className='new-record-form-component col'>
-        <div className='form-group'>
+        <div className='form-group date-picker'>
           <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedAt} />
+          <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
@@ -97,7 +108,7 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>
-          <textarea className='form-control' ref='memo' rows='3' />
+          <textarea className='form-control' name='record_memo' ref='memo' rows='3' />
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>

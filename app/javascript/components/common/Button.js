@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 class Button extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      buttonType: this.props.buttonType || 'secondary'
+    }
     this.handleClickButton = this.handleClickButton.bind(this)
   }
 
@@ -14,7 +17,7 @@ class Button extends React.Component {
   render() {
     return (
       <span className={this.props.valueName + '-button-component'}>
-        <input className='btn btn-secondary' id={this.props.valueName + '-button'} onClick={this.handleClickButton} type='submit' value={this.props.humanValueName} />
+        <input className={'btn btn-' + this.state.buttonType} id={this.props.valueName + '-button'} onClick={this.handleClickButton} type='submit' value={this.props.humanValueName} />
       </span>
     )
   }
@@ -23,6 +26,7 @@ class Button extends React.Component {
 Button.propTypes = {
   valueName: PropTypes.string.isRequired,
   humanValueName: PropTypes.string.isRequired,
+  buttonType: PropTypes.string,
   onClickButton: PropTypes.func.isRequired
 }
 

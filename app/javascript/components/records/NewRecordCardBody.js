@@ -6,9 +6,8 @@ import moment from 'moment'
 import NewRecordForm from './NewRecordForm'
 import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
-import Records from './Records'
-import DateOfRecords from './DateOfRecords'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import OneDayRecords from './OneDayRecords'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -31,7 +30,7 @@ class NewRecordCardBody extends React.Component {
     this.getRecords = this.getRecords.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
-    this.handleClickChangeDateButton = this.handleClickChangeDateButton.bind(this)
+    this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
   }
 
   componentWillMount() {
@@ -179,7 +178,7 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
-  handleClickChangeDateButton(days) {
+  onClickChangeDateButton(days) {
     const changeDate = this.state.targetDate.add('days', days)
     this.setState({
       targetDate: changeDate
@@ -193,12 +192,7 @@ class NewRecordCardBody extends React.Component {
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
         <NewRecordForm baseSetting={this.state.baseSetting} breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
-        <div className='card col'>
-          <div className='card-body'>
-            <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.state.targetDate} />
-            <Records handleClickDestroyButton={this.destroyRecord} records={this.state.records} />
-          </div>
-        </div>
+        <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} records={this.state.records} targetDate={this.state.targetDate} />
       </div>
     )
   }

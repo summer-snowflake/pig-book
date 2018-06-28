@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import DateFormat from './../common/DateFormat'
 
 class DateOfRecords extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class DateOfRecords extends React.Component {
         <button className='btn btn-primary btn-sm float-left' onClick={this.handleClickPreviousButton}>
           <i className='fas fa-chevron-left' />
         </button>
-        {this.props.targetDate.format('YYYY年MM月DD日の登録')}
+        <DateFormat targetDate={this.props.targetDate} />
         <button className='btn btn-primary btn-sm float-right' onClick={this.handleClickNextButton}>
           <i className='fas fa-chevron-right' />
         </button>

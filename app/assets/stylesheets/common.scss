@@ -255,3 +255,12 @@ $twitter-border-color: #2e6da4;
     width: 80px;
   }
 }
+
+.form-group.date-picker > div {
+  display: inline;
+}
+
+.today-button-component {
+  padding-left: 10px;
+  position: absolute;
+}
