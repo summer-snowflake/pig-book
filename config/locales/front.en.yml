@@ -9,4 +9,8 @@ en:
       add: Add successfully.
       updated: Updated successfully.
       destroyed: Destroyed successfully.
+    label:
+      records:
     currency: $
+    date:
+      format: MM/DD/YYYY

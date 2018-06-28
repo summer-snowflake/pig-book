@@ -9,4 +9,8 @@ ja:
       add: 追加しました
       updated: 更新しました
       destroyed: 削除しました
+    label:
+      records: の登録
     currency: ¥
+    date:
+      format: YYYY年MM月DD日
