@@ -126,9 +126,9 @@ class BreakdownCardBody extends React.Component {
   render() {
     return (
       <div className='breakdown-card-body-component'>
-        <BreakdownForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <Breakdowns breakdowns={this.state.breakdowns} handleClickDestroyButton={this.destroyBreakdown} />
+        <BreakdownForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
+        <Breakdowns breakdowns={this.state.breakdowns} getBreakdowns={this.getBreakdowns} handleClickDestroyButton={this.destroyBreakdown} last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
       </div>
     )
   }

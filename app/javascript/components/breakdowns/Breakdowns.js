@@ -43,7 +43,7 @@ class Breakdowns extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.breakdowns.map((breakdown) =>
-              <Breakdown breakdown={breakdown} key={breakdown.id} onClickTrashIcon={this.handleClickTrashIcon} />
+              <Breakdown breakdown={breakdown} getBreakdowns={this.props.getBreakdowns} key={breakdown.id} last_request_at={this.props.last_request_at} onClickTrashIcon={this.handleClickTrashIcon} user_token={this.props.user_token} />
             )}
           </tbody>
         </table>
@@ -55,7 +55,10 @@ class Breakdowns extends React.Component {
 
 Breakdowns.propTypes = {
   breakdowns: PropTypes.array.isRequired,
-  handleClickDestroyButton: PropTypes.func.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
+  handleClickDestroyButton: PropTypes.func.isRequired,
+  getBreakdowns: PropTypes.func.isRequired
 }
 
 export default Breakdowns
