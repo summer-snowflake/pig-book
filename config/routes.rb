@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :categories, only: %w[index create update destroy] do
       resources :breakdowns, only: %w[index], module: :categories
     end
-    resources :breakdowns, only: %w[index create destroy]
+    resources :breakdowns, only: %w[index create update destroy]
     resources :places, only: %w[index create update destroy] do
       resources :categories, only: %w[index], module: :places
     end
