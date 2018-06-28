@@ -7,6 +7,7 @@ import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import FormErrorMessages from './../common/FormErrorMessages'
 
 class Breakdown extends React.Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class Breakdown extends React.Component {
         {this.state.isEditing ? (
           <td className='left-edit-target'>
             {this.props.breakdown.category_name}
+            <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
           <td className='left-edit-target'>
@@ -92,6 +94,7 @@ class Breakdown extends React.Component {
         {this.state.isEditing ? (
           <td className='center-edit-target'>
             <input className='form-control' onChange={this.handleChangeBreakdownName} type='text' value={this.state.name} />
+            <FormErrorMessages column='name' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
           <td className='center-edit-target'>
