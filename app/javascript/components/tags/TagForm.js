@@ -34,7 +34,7 @@ class TagForm extends React.Component {
 
   handleClickColorBox() {
     this.setState({
-      isEditingColorCode: true
+      isEditingColorCode: !this.state.isEditingColorCode
     })
   }
 
