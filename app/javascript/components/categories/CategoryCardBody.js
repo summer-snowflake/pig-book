@@ -19,7 +19,6 @@ class CategoryCardBody extends React.Component {
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.postCategory = this.postCategory.bind(this)
-    this.patchCategory = this.patchCategory.bind(this)
   }
 
   componentWillMount() {
@@ -98,36 +97,12 @@ class CategoryCardBody extends React.Component {
       })
   }
 
-  patchCategory(categoryId, params) {
-    this.setState({
-      message: '',
-      errorMessages: {}
-    })
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/categories/' + categoryId,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
-      headers: {
-        'Authorization': 'Token token=' + this.props.user_token
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.noticeUpdatedMessage()
-        this.getCategories()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
-  }
-
   render() {
     return (
       <div className='category-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
-        <Categories categories={this.state.categories} handleClickDestroyButton={this.destroyCategory} handleUpdateCategory={this.patchCategory} />
+        <Categories categories={this.state.categories} getCategories={this.getCategories} handleClickDestroyButton={this.destroyCategory} last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
       </div>
     )
   }
