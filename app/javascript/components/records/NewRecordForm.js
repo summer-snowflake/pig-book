@@ -10,6 +10,7 @@ import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
 import TodayButton from './TodayButton'
+import TagsInputField from './TagsInputField'
 
 class NewRecordForm extends React.Component {
   constructor(props) {
@@ -93,6 +94,9 @@ class NewRecordForm extends React.Component {
         <div className='form-group'>
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.state.selectedCategoryId} places={this.props.places} />
         </div>
+        <div className='form-group'>
+          <TagsInputField last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
+        </div>
         <div className={'form-group ' + this.fieldWithErrors('charge')}>
           <div className='input-group'>
             <div className='input-group-prepend'>
@@ -124,6 +128,8 @@ NewRecordForm.propTypes = {
   categories: PropTypes.array.isRequired,
   breakdowns: PropTypes.array.isRequired,
   places: PropTypes.array.isRequired,
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
