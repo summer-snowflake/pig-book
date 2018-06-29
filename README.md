@@ -9,7 +9,7 @@ This tool is for a household account book.
 
 ## Test coverage
 
-- 0-100% (not yet)
+[![codecov](https://codecov.io/gh/summer-snowflake/pig-book/branch/master/graph/badge.svg)](https://codecov.io/gh/summer-snowflake/pig-book)
 
 ## Production
 
