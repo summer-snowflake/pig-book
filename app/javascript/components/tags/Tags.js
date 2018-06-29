@@ -43,7 +43,7 @@ class Tags extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.tags.map((tag) =>
-              <Tag key={tag.id} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} tag={tag} />
+              <Tag getTags={this.props.getTags} key={tag.id} last_request_at={this.props.last_request_at} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} tag={tag} user_token={this.props.user_token} />
             )}
           </tbody>
         </table>
@@ -55,7 +55,10 @@ class Tags extends React.Component {
 
 Tags.propTypes = {
   tags: PropTypes.array.isRequired,
-  handleClickDestroyButton: PropTypes.func.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
+  handleClickDestroyButton: PropTypes.func.isRequired,
+  getTags: PropTypes.func.isRequired
 }
 
 export default Tags

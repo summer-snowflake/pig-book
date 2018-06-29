@@ -98,7 +98,7 @@ class Breakdown extends React.Component {
           </td>
         )}
         {this.state.isEditing ? (
-          <td colSpan='2' className='center-edit-target breakdown-category-td'>
+          <td className='center-edit-target breakdown-category-td' colSpan='2'>
             <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>

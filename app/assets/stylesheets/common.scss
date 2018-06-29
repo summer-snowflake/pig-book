@@ -174,6 +174,10 @@ $twitter-border-color: #2e6da4;
     width: 15%;
   }
 
+  .color-code-td {
+    width: 70px;
+  }
+
   .far.fa-trash-alt, .fas.fa-times {
     padding: 6px;
   }
@@ -225,7 +229,7 @@ $twitter-border-color: #2e6da4;
   vertical-align: middle;
   width: 45px;
 
-  .change-disabled {
+  &.change-disabled {
     height: 26px;
     width: 40px;
   }
@@ -237,7 +241,7 @@ $twitter-border-color: #2e6da4;
   margin: 5px;
   width: 35px;
 
-  .change-disabled {
+  &.change-disabled {
     cursor: default;
     height: 18px;
     margin: 4px;

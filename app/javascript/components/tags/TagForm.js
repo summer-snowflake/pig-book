@@ -28,7 +28,7 @@ class TagForm extends React.Component {
   handleChangeComplete(color) {
     this.setState({
       colorCode: color.hex,
-      isEditingColorCode: false,
+      isEditingColorCode: false
     })
   }
 
@@ -63,10 +63,8 @@ class TagForm extends React.Component {
             <div className='color-code-box' style={styles.color} />
           </div>
           <div className='color-picker'>
-            {this.state.isEditingColorCode ? (
+            {this.state.isEditingColorCode && (
               <SketchPicker color={this.state.colorCode} onChangeComplete={this.handleChangeComplete} />
-            ) : (
-              null
             )}
           </div>
         </div>
