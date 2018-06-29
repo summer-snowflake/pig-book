@@ -170,8 +170,8 @@ $twitter-border-color: #2e6da4;
   }
 
   .breakdown-category-td {
-    width: 15%;
     height: 65px;
+    width: 15%;
   }
 
   .far.fa-trash-alt, .fas.fa-times {
@@ -224,6 +224,11 @@ $twitter-border-color: #2e6da4;
   height: 35px;
   vertical-align: middle;
   width: 45px;
+
+  .change-disabled {
+    height: 26px;
+    width: 40px;
+  }
 }
 
 .color-code-box {
@@ -231,18 +236,13 @@ $twitter-border-color: #2e6da4;
   height: 25px;
   margin: 5px;
   width: 35px;
-}
 
-.color-code-box-background.change-disabled {
-  height: 26px;
-  width: 40px;
-}
-
-.color-code-box.change-disabled {
-  cursor: default;
-  height: 18px;
-  margin: 4px;
-  width: 32px;
+  .change-disabled {
+    cursor: default;
+    height: 18px;
+    margin: 4px;
+    width: 32px;
+  }
 }
 
 .color-picker {
