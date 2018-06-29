@@ -12,10 +12,10 @@ require 'selenium-webdriver'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-if ENV['CI']
-  require 'simplecov'
-  require 'codecov'
+require 'simplecov'
+require 'codecov'
 
+if ENV['CI']
   SimpleCov.start do
     add_group 'Models', 'app/models'
     add_group 'Controllers', 'app/controllers'
@@ -25,6 +25,14 @@ if ENV['CI']
     add_group 'Uploaders', 'app/uploaders'
   end
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
+else
+  SimpleCov.start do
+    add_group 'Models', 'app/models'
+    add_group 'Controllers', 'app/controllers'
+    add_group 'Decorators', 'app/decorators'
+    add_group 'Serializers', 'app/serializers'
+    add_filter '/spec/'
+  end
 end
 
 Capybara.default_max_wait_time = 20
@@ -66,6 +74,9 @@ RSpec.configure do |config|
 
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
+
+  # NOTE: coverage 算出において features spec を含めない場合に指定
+  # config.filter_run_excluding js: true
 
   config.before(:each, type: :system, js: true) do
     driven_by :chrome_headless

@@ -1,9 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
+import axios from 'axios'
 
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
 import BadgePill from './../common/BadgePill'
+import AlertMessage from './../common/AlertMessage'
+import FormErrorMessages from './../common/FormErrorMessages'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class Category extends React.Component {
   constructor(props) {
@@ -11,7 +16,10 @@ class Category extends React.Component {
     this.state = {
       isEditing: false,
       balance_of_payments: this.props.category.balance_of_payments,
-      name: this.props.category.name
+      name: this.props.category.name,
+      message: '',
+      success: false,
+      errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -51,9 +59,33 @@ class Category extends React.Component {
 
   handleClickUpdateButton() {
     this.setState({
-      isEditing: false
+      message: '',
+      errorMessages: {}
     })
-    this.props.onClickUpdateButton(this.props.category.id, {name: this.state.name, balance_of_payments: this.state.balance_of_payments})
+    let params = {
+      balance_of_payments: this.state.balance_of_payments,
+      name: this.state.name
+    }
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/categories/' + this.props.category.id,
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.noticeUpdatedMessage()
+        this.props.getCategories()
+        this.setState({
+          isEditing: false
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   render() {
@@ -82,6 +114,7 @@ class Category extends React.Component {
         {this.state.isEditing ? (
           <td className='center-edit-target'>
             <input className='form-control' onChange={this.handleChangeCategoryName} type='text' value={this.state.name} />
+            <FormErrorMessages column='name' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
           <td className='center-edit-target'>
@@ -122,6 +155,7 @@ class Category extends React.Component {
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
+          <AlertMessage message={this.state.message} success={this.state.success} />
         </td>
       </tr>
     )
@@ -130,8 +164,12 @@ class Category extends React.Component {
 
 Category.propTypes = {
   category: PropTypes.object.isRequired,
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
-  onClickUpdateButton: PropTypes.func.isRequired
+  getCategories: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(Category, MessageNotifierMixin)
 
 export default Category
