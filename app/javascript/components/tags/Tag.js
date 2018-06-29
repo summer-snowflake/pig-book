@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
+import { SketchPicker } from 'react-color'
 
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
@@ -15,6 +16,7 @@ class Tag extends React.Component {
     super(props)
     this.state = {
       isEditing: false,
+      isEditingColorCode: false,
       colorCode: this.props.tag.color_code,
       name: this.props.tag.name,
       message: '',
@@ -26,6 +28,8 @@ class Tag extends React.Component {
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeTagName = this.handleChangeTagName.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.handleChangeComplete = this.handleChangeComplete.bind(this)
+    this.handleClickColorBox = this.handleClickColorBox.bind(this)
   }
 
   onClickTrashIcon(tag) {
@@ -40,7 +44,8 @@ class Tag extends React.Component {
 
   handleClickCancelIcon() {
     this.setState({
-      isEditing: false
+      isEditing: false,
+      isEditingColorCode: false
     })
   }
 
@@ -71,7 +76,8 @@ class Tag extends React.Component {
     axios(options)
       .then(() => {
         this.setState({
-          isEditing: false
+          isEditing: false,
+          isEditingColorCode: false
         })
         this.props.getTags()
         this.noticeUpdatedMessage()
@@ -81,11 +87,24 @@ class Tag extends React.Component {
       })
   }
 
+  handleChangeComplete(color) {
+    this.setState({
+      colorCode: color.hex,
+      isEditingColorCode: false
+    })
+  }
+
+  handleClickColorBox() {
+    this.setState({
+      isEditingColorCode: !this.state.isEditingColorCode
+    })
+  }
+
   render() {
     const styles = reactCSS({
       'default': {
         color: {
-          background: `${this.props.tag.color_code}`
+          background: `${this.state.colorCode}`
         }
       }
     })
@@ -94,8 +113,13 @@ class Tag extends React.Component {
       <tr className='tag-component' id={'tag-' + this.props.tag.id}>
         {this.state.isEditing ? (
           <td className='color-code-td left-edit-target'>
-            <div className='color-code-box-background'>
+            <div className='color-code-box-background' onClick={this.handleClickColorBox}>
               <div className='color-code-box' style={styles.color} />
+            </div>
+            <div className='color-picker'>
+              {this.state.isEditingColorCode && (
+                <SketchPicker color={this.state.colorCode} onChangeComplete={this.handleChangeComplete} />
+              )}
             </div>
           </td>
         ) : (
