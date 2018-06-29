@@ -25,8 +25,8 @@ class Tag extends React.Component {
     return (
       <tr className='tag-component' id={'tag-' + this.props.tag.id}>
         <td>
-          <div className='color-code-box-background'>
-            <div className='color-code-box' style={styles.color} />
+          <div className='color-code-box-background change-disabled'>
+            <div className='color-code-box change-disabled' style={styles.color} />
           </div>
         </td>
         <td>
