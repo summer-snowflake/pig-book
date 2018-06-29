@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
+import BadgePill from './../common/BadgePill'
 
 class Category extends React.Component {
   constructor(props) {
@@ -74,9 +76,7 @@ class Category extends React.Component {
           </td>
         ) : (
           <td className='left-edit-target radio-td'>
-            <span className={'badge badge-pill badge-' + this.props.category.success_or_danger_style_class}>
-              {this.props.category.human_balance_of_payments}
-            </span>
+            <BadgePill label={this.props.category.human_balance_of_payments} successOrDanger={this.props.category.success_or_danger_style_class} />
           </td>
         )}
         {this.state.isEditing ? (

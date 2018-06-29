@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::BreakdownsController < Api::BaseController
-  before_action :set_breakdown, only: %i[destroy]
+  before_action :set_breakdown, only: %i[update destroy]
 
   def index
     @breakdowns = current_user.breakdowns.order(created_at: :desc)
@@ -12,6 +12,14 @@ class Api::BreakdownsController < Api::BaseController
     @breakdown = current_user.breakdowns.new(breakdown_params)
     if @breakdown.save
       head :created
+    else
+      render_validation_error @breakdown
+    end
+  end
+
+  def update
+    if @breakdown.update_attributes(breakdown_params)
+      head :ok
     else
       render_validation_error @breakdown
     end

@@ -11,7 +11,8 @@ class CategoriesSelectBox extends React.Component {
   }
 
   handleSelectCategory(e) {
-    let category = this.props.categories[e.target.value]
+    let category = this.props.categories.find( category => category.id == e.target.value )
+
     this.setState({
       human_balance_of_payments: (category || {}).human_balance_of_payments || '収支'
     })
@@ -27,10 +28,10 @@ class CategoriesSelectBox extends React.Component {
               {this.state.human_balance_of_payments}
             </div>
           </div>
-          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category'>
-            <option value='' >{'- カテゴリ -'}</option>
-            {this.props.categories.map ((category, index) =>
-              <option key={category.id} value={index}>{category.name}</option>
+          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category' value={this.props.selectedCategoryId}>
+            {!this.props.selectedCategoryId && <option value='' >{'- カテゴリ -'}</option>}
+            {this.props.categories.map ((category) =>
+              <option key={category.id} value={category.id}>{category.name}</option>
             )}
           </select>
         </div>
@@ -41,6 +42,7 @@ class CategoriesSelectBox extends React.Component {
 
 CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
+  selectedCategoryId: PropTypes.number,
   handleSelectCategory: PropTypes.func.isRequired
 }
 

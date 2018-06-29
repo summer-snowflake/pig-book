@@ -2,13 +2,14 @@
 
 require 'rails_helper'
 
-describe 'PATCH /api/categories' do
+describe 'PATCH /api/breakdowns' do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user) }
+  let!(:breakdown) { create(:breakdown, category: category) }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
-      patch "/api/categories/#{category.id}"
+      patch "/api/breakdowns/#{breakdown.id}"
 
       expect(response.status).to eq 401
       json = {
@@ -22,10 +23,10 @@ describe 'PATCH /api/categories' do
     it '200が返ってくること' do
       params = {
         last_request_at: Time.zone.now,
-        name: '編集したカテゴリ',
-        balance_of_payments: true
+        category_id: category.id,
+        name: '編集した内訳'
       }
-      patch "/api/categories/#{category.id}",
+      patch "/api/breakdowns/#{breakdown.id}",
             params: params, headers: login_headers(user)
 
       expect(response.status).to eq 200
