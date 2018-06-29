@@ -9,6 +9,7 @@ import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
+import BadgePill from './../common/BadgePill'
 
 class Breakdown extends React.Component {
   constructor(props) {
@@ -91,13 +92,18 @@ class Breakdown extends React.Component {
   render() {
     return (
       <tr className='breakdown-component' id={'breakdown-' + this.props.breakdown.id}>
-        {this.state.isEditing ? (
+        {!this.state.isEditing && (
           <td className='left-edit-target breakdown-category-td'>
+            <BadgePill label={this.props.breakdown.category_human_balance_of_payments} successOrDanger={this.props.breakdown.category_success_or_danger_style_class} />
+          </td>
+        )}
+        {this.state.isEditing ? (
+          <td colSpan='2' className='center-edit-target breakdown-category-td'>
             <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
-          <td className='left-edit-target breakdown-category-td'>
+          <td className='center-edit-target breakdown-category-td'>
             {this.props.breakdown.category_name}
           </td>
         )}
