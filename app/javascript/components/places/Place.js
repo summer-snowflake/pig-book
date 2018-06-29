@@ -1,15 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
+import axios from 'axios'
+
 import Trash from './../common/Trash'
 import PlaceCategories from './PlaceCategories'
 import UpdateButton from './../common/UpdateButton'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import FormErrorMessages from './../common/FormErrorMessages'
+import AlertMessage from './../common/AlertMessage'
 
 class Place extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       isEditing: false,
-      name: this.props.place.name
+      name: this.props.place.name,
+      message: '',
+      success: false,
+      errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleChangePlaceName = this.handleChangePlaceName.bind(this)
@@ -47,9 +56,32 @@ class Place extends React.Component {
 
   handleClickUpdateButton() {
     this.setState({
-      isEditing: false
+      message: '',
+      errorMessages: {}
     })
-    this.props.onClickUpdateButton(this.props.place.id, {name: this.state.name})
+    let params = {
+      name: this.state.name
+    }
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/places/' + this.props.place.id,
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.setState({
+          isEditing: false
+        })
+        this.props.getPlaces()
+        this.noticeUpdatedMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   render() {
@@ -58,6 +90,7 @@ class Place extends React.Component {
         {this.state.isEditing ? (
           <td className='left-edit-target'>
             <input className='form-control' onChange={this.handleChangePlaceName} type='text' value={this.state.name} />
+            <FormErrorMessages column='name' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
           <td className='left-edit-target'>
@@ -92,6 +125,7 @@ class Place extends React.Component {
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.place} />
+          <AlertMessage message={this.state.message} success={this.state.success} />
         </td>
       </tr>
     )
@@ -100,9 +134,13 @@ class Place extends React.Component {
 
 Place.propTypes = {
   place: PropTypes.object.isRequired,
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   onClickPlusIcon: PropTypes.func.isRequired,
-  onClickUpdateButton: PropTypes.func.isRequired
+  getPlaces: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(Place, MessageNotifierMixin)
 
 export default Place
