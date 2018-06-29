@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
+import reactMixin from 'react-mixin'
+import axios from 'axios'
 
+import AlertMessage from './../common/AlertMessage'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Trash from './../common/Trash'
+import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
 
 class Tag extends React.Component {
@@ -10,7 +15,11 @@ class Tag extends React.Component {
     super(props)
     this.state = {
       isEditing: false,
-      name: this.props.tag.name
+      colorCode: this.props.tag.color_code,
+      name: this.props.tag.name,
+      message: '',
+      success: false,
+      errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -42,6 +51,34 @@ class Tag extends React.Component {
   }
 
   handleClickUpdateButton() {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let params = {
+      color_code: this.state.colorCode,
+      name: this.state.name
+    }
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/tags/' + this.props.tag.id,
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.setState({
+          isEditing: false
+        })
+        this.props.getTags()
+        this.noticeUpdatedMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   render() {
@@ -71,6 +108,7 @@ class Tag extends React.Component {
         {this.state.isEditing ? (
           <td className='center-edit-target'>
             <input className='form-control' onChange={this.handleChangeTagName} type='text' value={this.state.name} />
+            <FormErrorMessages column='name' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
           <td className='center-edit-target'>
@@ -95,6 +133,7 @@ class Tag extends React.Component {
         )}
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.tag} />
+          <AlertMessage message={this.state.message} success={this.state.success} />
         </td>
       </tr>
     )
@@ -103,7 +142,12 @@ class Tag extends React.Component {
 
 Tag.propTypes = {
   tag: PropTypes.object.isRequired,
-  onClickTrashIcon: PropTypes.func.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
+  onClickTrashIcon: PropTypes.func.isRequired,
+  getTags: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(Tag, MessageNotifierMixin)
 
 export default Tag

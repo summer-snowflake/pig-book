@@ -102,7 +102,7 @@ class TagCardBody extends React.Component {
       <div className='tag-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <TagForm errorMessages={this.state.errorMessages} handleSendForm={this.postTag} />
-        <Tags handleClickDestroyButton={this.destroyTag} tags={this.state.tags} />
+        <Tags getTags={this.getTags} handleClickDestroyButton={this.destroyTag} last_request_at={this.props.last_request_at} tags={this.state.tags} user_token={this.props.user_token} />
       </div>
     )
   }
