@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import AlertMessage from './../common/AlertMessage'
 import Autosuggest from 'react-autosuggest'
+import reactCSS from 'reactcss'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
@@ -60,10 +61,19 @@ class TagsInputField extends React.Component {
   }
 
   renderSuggestion(suggestion) {
+    const styles = reactCSS({
+      'default': {
+        color: {
+          background: `${suggestion.color_code}`
+        }
+      }
+    })
+
     return (
-      <div>
-        {suggestion.color_code} {suggestion.name}
-      </div>
+      <span className='suggestion-item'>
+        <div className='float-left color-code-box change-disabled' style={styles.color} />
+        <span className='suggestion-name'>{suggestion.name}</span>
+      </span>
     )
   }
 
