@@ -1,98 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import AlertMessage from './../common/AlertMessage'
-import Autosuggest from 'react-autosuggest'
-import reactCSS from 'reactcss'
+import TagsInput from 'react-tagsinput'
 
+import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import AutocompleteRenderInput from './AutocompleteRenderInput'
 
 class TagsInputField extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       value: '',
-      suggestions: [],
+      tags: [],
       message: '',
       success: false,
       errorMessages: {}
     }
-    this.handleSuggestionsFetchRequested = this.handleSuggestionsFetchRequested.bind(this)
-    this.handleSuggestionsClearRequested = this.handleSuggestionsClearRequested.bind(this)
-    this.handleSuggestionSelected = this.handleSuggestionSelected.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.getSuggestionValue = this.getSuggestionValue.bind(this)
-    this.getSuggestions = this.getSuggestions.bind(this)
-    this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.renderInput = this.renderInput.bind(this)
   }
 
-  onChange(event, { newValue }) {
+  handleChange(tags) {
     this.setState({
-      value: newValue
+      tags: tags
     })
   }
 
-  handleSuggestionsFetchRequested({value}) {
-    this.setState({
-      suggestions: this.getSuggestions(value)
-    })
-  }
-
-  getSuggestions(value) {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
-    return inputLength === 0 ? [] : this.props.tags.filter(tag =>
-      tag.name.toLowerCase().slice(0, inputLength) === inputValue
-    )
-  }
-
-  handleSuggestionsClearRequested() {
-    this.setState({
-      suggestions: []
-    })
-  }
-
-  handleSuggestionSelected() {
-    console.log('selected')
-  }
-
-  getSuggestionValue(suggestion) {
-    return suggestion.name
-  }
-
-  renderSuggestion(suggestion) {
-    const styles = reactCSS({
-      'default': {
-        color: {
-          background: `${suggestion.color_code}`
-        }
-      }
-    })
-
-    return (
-      <span className='suggestion-item'>
-        <div className='float-left color-code-box change-disabled' style={styles.color} />
-        <span className='suggestion-name'>{suggestion.name}</span>
-      </span>
-    )
+  renderInput(props) {
+    const tags = this.props.tags
+    return <AutocompleteRenderInput {...{tags}} {...props} />
   }
 
   render() {
-    const inputProps = {
-      value: this.state.value,
-      onChange: this.onChange
-    }
-
     return (
       <div className='tags-input-field-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <Autosuggest
-          getSuggestionValue={this.getSuggestionValue}
-          inputProps={inputProps}
-          onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-          onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-          renderSuggestion={this.renderSuggestion}
-          suggestions={this.state.suggestions}
+        <TagsInput
+          onChange={this.handleChange}
+          renderInput={this.renderInput}
+          value={this.state.tags}
         />
       </div>
     )
