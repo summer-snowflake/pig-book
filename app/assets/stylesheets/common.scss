@@ -288,10 +288,11 @@ $twitter-border-color: #2e6da4;
 }
 
 .suggestion-item {
-  display: table-cell;
+  display: inherit;
   vertical-align: middle;
 
   .suggestion-name {
-    padding-left: 8px;
+    display: table-cell;
+    padding: 3px 7px;
   }
 }

@@ -6,3 +6,5 @@ exclude:
 linters:
   SingleLinePerSelector:
     enabled: false
+  EmptyRule:
+    enabled: false
