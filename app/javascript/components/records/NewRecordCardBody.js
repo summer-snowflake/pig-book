@@ -20,12 +20,14 @@ class NewRecordCardBody extends React.Component {
       categories: [],
       breakdowns: [],
       places: [],
+      tags: [],
       records: this.props.records,
       targetDate: moment()
     }
     this.postRecord = this.postRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.getRecords = this.getRecords.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
@@ -69,6 +71,7 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
+        this.getTags()
         this.setState({
           records: res.data,
           targetDate: targetDate
@@ -153,6 +156,32 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  getTags() {
+    this.setState({
+      message: ''
+    })
+    let options = {
+      method: 'GET',
+      url: origin + '/api/tags',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.setState({
+          tags: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
   destroyRecord(recordId) {
     this.setState({
       message: ''
@@ -191,7 +220,7 @@ class NewRecordCardBody extends React.Component {
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm baseSetting={this.state.baseSetting} breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} places={this.state.places} ref='form' />
+        <NewRecordForm baseSetting={this.state.baseSetting} breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} last_request_at={this.props.last_request_at} places={this.state.places} ref='form' tags={this.state.tags} user_token={this.props.user_token} />
         <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} records={this.state.records} targetDate={this.state.targetDate} />
       </div>
     )

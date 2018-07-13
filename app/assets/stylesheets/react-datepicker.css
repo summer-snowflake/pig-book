@@ -186,11 +186,11 @@
 
 .react-datepicker__navigation--previous {
   left: 10px;
-  border-right-color: #ccc;
+  border-right-color: $lighten-green;
 }
 
 .react-datepicker__navigation--previous:hover {
-  border-right-color: #b3b3b3;
+  border-right-color: darken($lighten-green, 10%);
 }
 
 .react-datepicker__navigation--previous--disabled, .react-datepicker__navigation--previous--disabled:hover {
@@ -200,7 +200,7 @@
 
 .react-datepicker__navigation--next {
   right: 10px;
-  border-left-color: #ccc;
+  border-left-color: $lighten-green;
 }
 
 .react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
@@ -208,7 +208,7 @@
 }
 
 .react-datepicker__navigation--next:hover {
-  border-left-color: #b3b3b3;
+  border-left-color: darken($lighten-green, 10%);
 }
 
 .react-datepicker__navigation--next--disabled, .react-datepicker__navigation--next--disabled:hover {
@@ -356,7 +356,7 @@
 
 .react-datepicker__day:hover {
   border-radius: 0.3rem;
-  background-color: #f0f0f0;
+  background-color: rgba($lighten-green, .2);
 }
 
 .react-datepicker__day--today {
@@ -383,12 +383,12 @@
 
 .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range {
   border-radius: 0.3rem;
-  background-color: #216ba5;
+  background-color: $green;
   color: #fff;
 }
 
 .react-datepicker__day--selected:hover, .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover {
-  background-color: #1d5d90;
+  background-color: $darken-green;
 }
 
 .react-datepicker__day--keyboard-selected {
