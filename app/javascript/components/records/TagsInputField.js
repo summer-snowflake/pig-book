@@ -25,11 +25,12 @@ class TagsInputField extends React.Component {
     this.setState({
       tags: tags
     })
+    this.props.onUpdateTags(tags)
   }
 
   renderInput(props) {
     const tags = this.props.tags
-    return <AutocompleteRenderInput {...{tags}} {...props} />
+    return <AutocompleteRenderInput {...{tags,}} {...props} />
   }
 
   render() {
@@ -49,7 +50,8 @@ class TagsInputField extends React.Component {
 TagsInputField.propTypes = {
   tags: PropTypes.array.isRequired,
   last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired
+  user_token: PropTypes.string.isRequired,
+  onUpdateTags: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(TagsInputField, MessageNotifierMixin)

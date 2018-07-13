@@ -19,7 +19,8 @@ class NewRecordForm extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
-      selectedPlaceId: undefined
+      selectedPlaceId: undefined,
+      selectedTags: []
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -27,6 +28,7 @@ class NewRecordForm extends React.Component {
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
+    this.handleUpdateTags = this.handleUpdateTags.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -35,6 +37,7 @@ class NewRecordForm extends React.Component {
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
+      tags: this.state.selectedTags,
       currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
@@ -77,6 +80,26 @@ class NewRecordForm extends React.Component {
     this.props.handleChangePublishedOn(date)
   }
 
+  handleUpdateTags(tags) {
+    this.setState({
+      selectedTags: this.generateTagsArray(tags)
+    })
+  }
+
+  generateTagsArray(tags) {
+    const array = []
+    for (let key in tags) {
+      if (tags[key].props != undefined) {
+        let color = tags[key].props.children[0].props.style.background
+        let name = tags[key].props.children[1].props.children
+        array.push([color, name])
+      } else {
+        array.push(['', tags[key]])
+      }
+    }
+    return array
+  }
+
   render() {
     return (
       <div className='new-record-form-component col'>
@@ -95,7 +118,7 @@ class NewRecordForm extends React.Component {
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.state.selectedCategoryId} places={this.props.places} />
         </div>
         <div className='form-group'>
-          <TagsInputField last_request_at={this.props.last_request_at} tags={this.props.tags} user_token={this.props.user_token} />
+          <TagsInputField onUpdateTags={this.handleUpdateTags} last_request_at={this.props.last_request_at} tags={this.props.tags} user_token={this.props.user_token} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('charge')}>
           <div className='input-group'>
