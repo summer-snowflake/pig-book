@@ -104,6 +104,9 @@ class NewRecordCardBody extends React.Component {
         this.refs.form.refs.memo.value = ''
         this.getRecords(params.published_at)
         this.noticeAddMessage()
+        this.setState({
+          selectTags: []
+        })
       })
       .catch((error) => {
         this.noticeErrorMessages(error)
