@@ -4,6 +4,7 @@ class Tag < ApplicationRecord
   include ValidationErrorMessagesBuilder
 
   belongs_to :user
+  has_many :tagged_records
 
   validates :color_code, presence: true,
                          format: { with: /#\w+/, allow_blank: true },
