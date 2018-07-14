@@ -21,6 +21,7 @@ class NewRecordCardBody extends React.Component {
       breakdowns: [],
       places: [],
       tags: [],
+      selectTags: [],
       records: this.props.records,
       targetDate: moment()
     }
@@ -33,6 +34,7 @@ class NewRecordCardBody extends React.Component {
     this.destroyRecord = this.destroyRecord.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
+    this.handleUpdateTags = this.handleUpdateTags.bind(this)
   }
 
   componentWillMount() {
@@ -215,12 +217,33 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(changeDate)
   }
 
+  handleUpdateTags(tags) {
+    this.setState({
+      selectTags: tags
+    })
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField />
-        <NewRecordForm baseSetting={this.state.baseSetting} breakdowns={this.state.breakdowns} categories={this.state.categories} errorMessages={this.state.errorMessages} handleChangePublishedOn={this.setStateDate} handleSelectCategory={this.onSelectCategory} handleSendForm={this.postRecord} last_request_at={this.props.last_request_at} places={this.state.places} ref='form' tags={this.state.tags} user_token={this.props.user_token} />
+        <NewRecordForm
+          baseSetting={this.state.baseSetting}
+          breakdowns={this.state.breakdowns}
+          categories={this.state.categories}
+          errorMessages={this.state.errorMessages}
+          handleChangePublishedOn={this.setStateDate}
+          handleSelectCategory={this.onSelectCategory}
+          handleSendForm={this.postRecord}
+          last_request_at={this.props.last_request_at}
+          onUpdateTags={this.handleUpdateTags}
+          places={this.state.places}
+          ref='form'
+          tags={this.state.tags}
+          selectTags={this.state.selectTags}
+          user_token={this.props.user_token}
+        />
         <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} records={this.state.records} targetDate={this.state.targetDate} />
       </div>
     )

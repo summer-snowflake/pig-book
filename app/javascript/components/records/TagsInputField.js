@@ -12,7 +12,6 @@ class TagsInputField extends React.Component {
     super(props)
     this.state = {
       value: '',
-      tags: [],
       message: '',
       success: false,
       errorMessages: {}
@@ -22,9 +21,9 @@ class TagsInputField extends React.Component {
   }
 
   handleChange(tags) {
-    this.setState({
-      tags: tags
-    })
+    //this.setState({
+    //  tags: tags
+    //})
     this.props.onUpdateTags(tags)
   }
 
@@ -40,7 +39,7 @@ class TagsInputField extends React.Component {
         <TagsInput
           onChange={this.handleChange}
           renderInput={this.renderInput}
-          value={this.state.tags}
+          value={this.props.selectTags}
         />
       </div>
     )
@@ -48,6 +47,7 @@ class TagsInputField extends React.Component {
 }
 
 TagsInputField.propTypes = {
+  selectTags: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
