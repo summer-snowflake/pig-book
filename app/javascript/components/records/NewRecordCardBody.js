@@ -22,6 +22,7 @@ class NewRecordCardBody extends React.Component {
       places: [],
       tags: [],
       selectTags: [],
+      selectedTags: [],
       records: this.props.records,
       targetDate: moment()
     }
@@ -105,7 +106,8 @@ class NewRecordCardBody extends React.Component {
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
-          selectTags: []
+          selectTags: [],
+          selectedTags: []
         })
       })
       .catch((error) => {
@@ -222,8 +224,23 @@ class NewRecordCardBody extends React.Component {
 
   handleUpdateTags(tags) {
     this.setState({
-      selectTags: tags
+      selectTags: tags,
+      selectedTags: this.generateTags(tags)
     })
+  }
+
+  generateTags(tags) {
+    const hash = {}
+    for (let key in tags) {
+      if (tags[key].props != undefined) {
+        let color = tags[key].props.children[0].props.style.background
+        let name = tags[key].props.children[1].props.children
+        hash[key] = {color: color, name: name}
+      } else {
+        hash[key] = {color: '', name: tags[key]}
+      }
+    }
+    return hash
   }
 
   render() {
@@ -244,6 +261,7 @@ class NewRecordCardBody extends React.Component {
           places={this.state.places}
           ref='form'
           selectTags={this.state.selectTags}
+          selectedTags={this.state.selectedTags}
           tags={this.state.tags}
           user_token={this.props.user_token}
         />

@@ -19,8 +19,7 @@ class NewRecordForm extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
-      selectedPlaceId: undefined,
-      selectedTags: []
+      selectedPlaceId: undefined
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -37,7 +36,7 @@ class NewRecordForm extends React.Component {
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
-      tags: this.state.selectedTags,
+      tags: this.props.selectedTags,
       currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
@@ -81,24 +80,7 @@ class NewRecordForm extends React.Component {
   }
 
   handleUpdateTags(tags) {
-    this.setState({
-      selectedTags: this.generateTags(tags)
-    })
     this.props.onUpdateTags(tags)
-  }
-
-  generateTags(tags) {
-    const hash = {}
-    for (let key in tags) {
-      if (tags[key].props != undefined) {
-        let color = tags[key].props.children[0].props.style.background
-        let name = tags[key].props.children[1].props.children
-        hash[key] = {color: color, name: name}
-      } else {
-        hash[key] = {color: '', name: tags[key]}
-      }
-    }
-    return hash
   }
 
   render() {
