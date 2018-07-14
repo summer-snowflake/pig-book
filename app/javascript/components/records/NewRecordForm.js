@@ -82,22 +82,22 @@ class NewRecordForm extends React.Component {
 
   handleUpdateTags(tags) {
     this.setState({
-      selectedTags: this.generateTagsArray(tags)
+      selectedTags: this.generateTags(tags)
     })
   }
 
-  generateTagsArray(tags) {
-    const array = []
+  generateTags(tags) {
+    const hash = {}
     for (let key in tags) {
       if (tags[key].props != undefined) {
         let color = tags[key].props.children[0].props.style.background
         let name = tags[key].props.children[1].props.children
-        array.push([color, name])
+        hash[key] = {color: color, name: name}
       } else {
-        array.push(['', tags[key]])
+        hash[key] = {color: '', name: tags[key]}
       }
     }
-    return array
+    return hash
   }
 
   render() {
