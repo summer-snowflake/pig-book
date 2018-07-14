@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
+import ReactTooltip from 'react-tooltip'
 
 class TagsIcons extends React.Component {
   constructor(props) {
@@ -22,8 +23,9 @@ class TagsIcons extends React.Component {
   render() {
     return (
       <td className='tags-td'>
+        <ReactTooltip />
         {this.props.tags.map((tag) =>
-          <i className='fas fa-tag left-icon' key={tag.id} style={this.styles(tag).color} />
+          <i className='fas fa-tag left-icon' data-tip={tag.tag_name} key={tag.id} style={this.styles(tag).color} />
         )}
       </td>
     )

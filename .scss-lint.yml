@@ -3,6 +3,7 @@ exclude:
   - './app/assets/stylesheets/exclude-scss-lint.scss'
   - './app/assets/stylesheets/react-datepicker.css'
   - './app/assets/stylesheets/autosuggest.scss'
+  - './app/assets/stylesheets/react-tooltip.scss'
 linters:
   SingleLinePerSelector:
     enabled: false
