@@ -119,7 +119,7 @@ class NewRecordForm extends React.Component {
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.state.selectedCategoryId} places={this.props.places} />
         </div>
         <div className='form-group'>
-          <TagsInputField onUpdateTags={this.handleUpdateTags} last_request_at={this.props.last_request_at} tags={this.props.tags} selectTags={this.props.selectTags} user_token={this.props.user_token} />
+          <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectTags={this.props.selectTags} tags={this.props.tags} user_token={this.props.user_token} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('charge')}>
           <div className='input-group'>

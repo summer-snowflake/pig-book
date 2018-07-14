@@ -243,8 +243,8 @@ class NewRecordCardBody extends React.Component {
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}
           ref='form'
-          tags={this.state.tags}
           selectTags={this.state.selectTags}
+          tags={this.state.tags}
           user_token={this.props.user_token}
         />
         <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} records={this.state.records} targetDate={this.state.targetDate} />
