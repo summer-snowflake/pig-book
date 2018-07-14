@@ -5,6 +5,8 @@ class RecordSerializer < ActiveModel::Serializer
              :breakdown_id, :breakdown_name, :place_id, :place_name,
              :published_at, :charge, :human_charge, :memo
 
+  has_many :tagged_records, serializer: TaggedRecordSerializer
+
   def balance_of_payments
     object.category.balance_of_payments
   end
