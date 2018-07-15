@@ -13,6 +13,8 @@ describe 'GET /api/records' do
   let!(:categorized_place) do
     create(:categorized_place, place: place, category: category)
   end
+  let!(:tag1) { create(:tag, user: user) }
+  let!(:tag2) { create(:tag, user: user) }
 
   let!(:record1) do
     create(:record, user: user, published_at: today,
@@ -32,6 +34,12 @@ describe 'GET /api/records' do
   end
   let!(:record5) do
     create(:record, user: user, published_at: 1.years.ago, currency: :yen)
+  end
+  let!(:tagged_record1) do
+    create(:tagged_record, record: record1, tag: tag1)
+  end
+  let!(:tagged_record2) do
+    create(:tagged_record, record: record1, tag: tag2)
   end
   let!(:params) { { last_request_at: Time.zone.now } }
 
@@ -68,7 +76,8 @@ describe 'GET /api/records' do
             memo: record5.memo,
             place_id: record5.place.id,
             place_name: record5.place.name,
-            published_at: record5.published_at
+            published_at: record5.published_at,
+            tagged_records: []
           },
           {
             id: record4.id,
@@ -82,7 +91,8 @@ describe 'GET /api/records' do
             memo: record4.memo,
             place_id: record4.place.id,
             place_name: record4.place.name,
-            published_at: record4.published_at
+            published_at: record4.published_at,
+            tagged_records: []
           },
           {
             id: record3.id,
@@ -96,7 +106,8 @@ describe 'GET /api/records' do
             memo: record3.memo,
             place_id: record3.place.id,
             place_name: record3.place.name,
-            published_at: record3.published_at
+            published_at: record3.published_at,
+            tagged_records: []
           },
           {
             id: record2.id,
@@ -110,7 +121,8 @@ describe 'GET /api/records' do
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
-            published_at: record2.published_at
+            published_at: record2.published_at,
+            tagged_records: []
           },
           {
             id: record1.id,
@@ -124,7 +136,21 @@ describe 'GET /api/records' do
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
-            published_at: record1.published_at
+            published_at: record1.published_at,
+            tagged_records: [
+              {
+                id: tagged_record1.id,
+                tag_id: tag1.id,
+                tag_name: tag1.name,
+                tag_color_code: tag1.color_code
+              },
+              {
+                id: tagged_record2.id,
+                tag_id: tag2.id,
+                tag_name: tag2.name,
+                tag_color_code: tag2.color_code
+              }
+            ]
           }
         ].to_json
         expect(response.body).to be_json_eql(json)
@@ -153,7 +179,8 @@ describe 'GET /api/records' do
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
-            published_at: record2.published_at
+            published_at: record2.published_at,
+            tagged_records: []
           },
           {
             id: record1.id,
@@ -167,7 +194,21 @@ describe 'GET /api/records' do
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
-            published_at: record1.published_at
+            published_at: record1.published_at,
+            tagged_records: [
+              {
+                id: tagged_record1.id,
+                tag_id: tag1.id,
+                tag_name: tag1.name,
+                tag_color_code: tag1.color_code
+              },
+              {
+                id: tagged_record2.id,
+                tag_id: tag2.id,
+                tag_name: tag2.name,
+                tag_color_code: tag2.color_code
+              }
+            ]
           }
         ].to_json
         expect(response.body).to be_json_eql(json)

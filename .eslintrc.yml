@@ -7,6 +7,7 @@ parserOptions:
   ecmaVersion: 6
   ecmaFeatures:
     jsx: true
+    experimentalObjectRestSpread: true
   sourceType: module
 globals:
   React: true
@@ -28,7 +29,7 @@ rules:
     - never
   no-unused-vars:
     - error
-    - varsIgnorePattern: '.Component|i18n'
+    - varsIgnorePattern: '.Component|i18n|addTag'
   no-console:
     - off
   react/display-name: 1
@@ -36,7 +37,7 @@ rules:
   react/jsx-boolean-value: 1
   react/jsx-closing-bracket-location:
     - warn
-    - selfClosing: 'props-aligned'
+    - selfClosing: 'tag-aligned'
   react/jsx-curly-spacing: 1
   react/jsx-handler-names: 1
   react/jsx-key: 1

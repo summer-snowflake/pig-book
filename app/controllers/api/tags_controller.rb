@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::TagsController < Api::BaseController
-  before_action :set_tag, only: %i[destroy]
+  before_action :set_tag, only: %i[update destroy]
 
   def index
     @tags = current_user.tags.order(created_at: :desc)
@@ -12,6 +12,14 @@ class Api::TagsController < Api::BaseController
     @tag = current_user.tags.new(tag_params)
     if @tag.save
       head :created
+    else
+      render_validation_error @tag
+    end
+  end
+
+  def update
+    if @tag.update_attributes(tag_params)
+      head :ok
     else
       render_validation_error @tag
     end

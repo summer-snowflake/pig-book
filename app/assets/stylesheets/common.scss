@@ -157,8 +157,12 @@ $twitter-border-color: #2e6da4;
   }
 
   .icon-td {
+    min-width: 50px;
     text-align: center;
-    width: 50px;
+  }
+
+  .tags-td {
+    text-align: center;
   }
 
   .edit-icon-td {
@@ -167,6 +171,15 @@ $twitter-border-color: #2e6da4;
 
   .categorized-places-td {
     width: 35%;
+  }
+
+  .breakdown-category-td {
+    height: 65px;
+    width: 15%;
+  }
+
+  .color-code-td {
+    width: 70px;
   }
 
   .far.fa-trash-alt, .fas.fa-times {
@@ -219,12 +232,25 @@ $twitter-border-color: #2e6da4;
   height: 35px;
   vertical-align: middle;
   width: 45px;
+
+  &.change-disabled {
+    height: 26px;
+    width: 40px;
+  }
 }
 
 .color-code-box {
+  cursor: pointer;
   height: 25px;
   margin: 5px;
   width: 35px;
+
+  &.change-disabled {
+    cursor: default;
+    height: 18px;
+    margin: 4px;
+    width: 32px;
+  }
 }
 
 .color-picker {
@@ -263,4 +289,14 @@ $twitter-border-color: #2e6da4;
 .today-button-component {
   padding-left: 10px;
   position: absolute;
+}
+
+.suggestion-item {
+  display: inherit;
+  vertical-align: middle;
+
+  .suggestion-name {
+    display: table-cell;
+    padding: 3px 7px;
+  }
 }

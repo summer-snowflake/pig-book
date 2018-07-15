@@ -10,6 +10,7 @@ import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
 import TodayButton from './TodayButton'
+import TagsInputField from './TagsInputField'
 
 class NewRecordForm extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class NewRecordForm extends React.Component {
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
+    this.handleUpdateTags = this.handleUpdateTags.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -34,6 +36,7 @@ class NewRecordForm extends React.Component {
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
+      tags: this.props.selectedTags,
       currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
@@ -76,6 +79,10 @@ class NewRecordForm extends React.Component {
     this.props.handleChangePublishedOn(date)
   }
 
+  handleUpdateTags(tags) {
+    this.props.onUpdateTags(tags)
+  }
+
   render() {
     return (
       <div className='new-record-form-component col'>
@@ -92,6 +99,9 @@ class NewRecordForm extends React.Component {
         </div>
         <div className='form-group'>
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.state.selectedCategoryId} places={this.props.places} />
+        </div>
+        <div className='form-group'>
+          <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectTags={this.props.selectTags} tags={this.props.tags} user_token={this.props.user_token} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('charge')}>
           <div className='input-group'>
@@ -124,7 +134,13 @@ NewRecordForm.propTypes = {
   categories: PropTypes.array.isRequired,
   breakdowns: PropTypes.array.isRequired,
   places: PropTypes.array.isRequired,
+  tags: PropTypes.array.isRequired,
+  selectTags: PropTypes.array.isRequired,
+  selectedTags: PropTypes.array.isRequired,
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
   errorMessages: PropTypes.object.isRequired,
+  onUpdateTags: PropTypes.func.isRequired,
   handleSendForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired

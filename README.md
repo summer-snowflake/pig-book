@@ -9,7 +9,7 @@ This tool is for a household account book.
 
 ## Test coverage
 
-- 0-100% (not yet)
+[![codecov](https://codecov.io/gh/summer-snowflake/pig-book/branch/master/graph/badge.svg)](https://codecov.io/gh/summer-snowflake/pig-book)
 
 ## Production
 
@@ -56,6 +56,8 @@ Basically, Use the following:
 - [slim-lint](https://github.com/sds/slim-lint)
   - [.slim-lint.yml](https://github.com/summer-snowflake/pig-book/blob/master/.slim-lint.yml)
 
+- [eslint](https://github.com/eslint/eslint)
+  - [.eslintrc.yml](https://github.com/summer-snowflake/pig-book/blob/master/.eslintrc.yml)
 
 ## How to Install
 
@@ -92,7 +94,7 @@ rbenv install 2.5.1
 rbenv rehash
 ```
 
-- PostgreSQL
+- PostgreSQL and Start postgresql server
 
 ```
 brew install postgres

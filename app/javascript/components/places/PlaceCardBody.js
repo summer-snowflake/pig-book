@@ -22,7 +22,6 @@ class PlaceCardBody extends React.Component {
     this.postPlace = this.postPlace.bind(this)
     this.getPlaceCategories = this.getPlaceCategories.bind(this)
     this.postCategorizedPlace = this.postCategorizedPlace.bind(this)
-    this.patchPlace = this.patchPlace.bind(this)
   }
 
   componentWillMount() {
@@ -148,36 +147,12 @@ class PlaceCardBody extends React.Component {
       })
   }
 
-  patchPlace(placeId, params) {
-    this.setState({
-      message: '',
-      errorMessages: {}
-    })
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/places/' + placeId,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
-      headers: {
-        'Authorization': 'Token token=' + this.props.user_token
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getPlaces()
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
-  }
-
   render() {
     return (
       <div className='place-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PlaceForm errorMessages={this.state.errorMessages} handleSendForm={this.postPlace} />
-        <Places handleClickAddCategoryButton={this.postCategorizedPlace} handleClickDestroyButton={this.destroyPlace} handleClickPlusIcon={this.getPlaceCategories} handleUpdatePlace={this.patchPlace} places={this.state.places} selectableCategories={this.state.selectableCategories} />
+        <Places getPlaces={this.getPlaces} handleClickAddCategoryButton={this.postCategorizedPlace} handleClickDestroyButton={this.destroyPlace} handleClickPlusIcon={this.getPlaceCategories} last_request_at={this.props.last_request_at} places={this.state.places} selectableCategories={this.state.selectableCategories} user_token={this.props.user_token} />
       </div>
     )
   }

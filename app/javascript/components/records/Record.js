@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import Trash from './../common/Trash'
+import TagsIcons from './TagsIcons'
 
 class Record extends React.Component {
   constructor(props) {
@@ -31,6 +33,9 @@ class Record extends React.Component {
           ) : (null)}
           {this.props.record.place_name}
         </td>
+        {this.props.record.tagged_records && (
+          <TagsIcons tags={this.props.record.tagged_records} />
+        )}
         <td className='charge-td'>
           {this.props.record.balance_of_payments ? (
             <i className='fas fa-plus-square left-icon blue' />

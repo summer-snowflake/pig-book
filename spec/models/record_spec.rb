@@ -8,6 +8,7 @@ RSpec.describe Record, type: :model do
     it { is_expected.to belong_to(:category) }
     it { is_expected.to belong_to(:breakdown).optional }
     it { is_expected.to belong_to(:place).optional }
+    it { is_expected.to have_many(:tagged_records) }
   end
 
   describe 'validation' do
