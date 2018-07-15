@@ -165,7 +165,7 @@ NewRecordForm.propTypes = {
   places: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
   selectTags: PropTypes.array.isRequired,
-  selectedTags: PropTypes.array.isRequired,
+  selectedTags: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
   errorMessages: PropTypes.object.isRequired,
