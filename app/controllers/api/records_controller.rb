@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 class Api::RecordsController < Api::BaseController
-  before_action :set_record, only: %i[destroy]
+  before_action :set_record, only: %i[show destroy]
 
   def index
     fetcher = Record::Fetcher.new(user: current_user)
     @records = fetcher.find_all_by(records_params)
     render json: @records
+  end
+
+  def show
+    render json: @record
   end
 
   def create
