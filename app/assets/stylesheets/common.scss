@@ -157,8 +157,12 @@ $twitter-border-color: #2e6da4;
   }
 
   .icon-td {
+    min-width: 50px;
     text-align: center;
-    width: 50px;
+  }
+
+  .tags-td {
+    text-align: center;
   }
 
   .edit-icon-td {
