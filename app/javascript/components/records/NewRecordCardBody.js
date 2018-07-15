@@ -22,7 +22,7 @@ class NewRecordCardBody extends React.Component {
       places: [],
       tags: [],
       selectTags: [],
-      selectedTags: [],
+      selectedTags: {},
       records: this.props.records,
       targetDate: moment()
     }
@@ -107,7 +107,7 @@ class NewRecordCardBody extends React.Component {
         this.noticeAddMessage()
         this.setState({
           selectTags: [],
-          selectedTags: []
+          selectedTags: {}
         })
       })
       .catch((error) => {

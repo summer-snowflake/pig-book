@@ -39,6 +39,9 @@ en:
     notice:
       add: Created successfully.
       update: Updated successfully.
+    errors:
+      point:
+        less_than_or_equal_to: is less than or equal to %{count}
   helpers:
     label:
       user:
@@ -69,4 +72,5 @@ en:
       record:
         category: Category
         charge: Amount of Money
+        point: Point
         memo: Memo

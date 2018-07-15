@@ -15,6 +15,7 @@ class Record < ApplicationRecord
   validates :published_at, presence: true
   validates :charge, presence: true,
                      numericality: { greater_than_or_equal_to: 0 }
+  validate :point_is_less_than_or_equal_to_charge
   validates :memo, length: { maximum: 250 }
 
   enum currency: { yen: 0, dollar: 1 }
@@ -38,5 +39,13 @@ class Record < ApplicationRecord
       color_code = '#' + format('%06x', (rand * 0xffffff))
       user.tags.create(color_code: color_code, name: name)
     end
+  end
+
+  def point_is_less_than_or_equal_to_charge
+    return unless charge
+    return if point <= charge
+
+    errors[:point] <<
+      I18n.t('messages.errors.point.less_than_or_equal_to', count: charge)
   end
 end

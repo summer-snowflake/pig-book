@@ -44,7 +44,7 @@ class Record extends React.Component {
           )}
           {this.props.record.human_charge}
         </td>
-        <td className='icon-td'>
+        <td className='trash-icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.record} />
         </td>
       </tr>
