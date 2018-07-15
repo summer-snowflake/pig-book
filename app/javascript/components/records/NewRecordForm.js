@@ -31,6 +31,7 @@ class NewRecordForm extends React.Component {
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.handleClickPointCheckBox = this.handleClickPointCheckBox.bind(this)
+    this.handleChangePoint = this.handleChangePoint.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -93,6 +94,12 @@ class NewRecordForm extends React.Component {
     })
   }
 
+  handleChangePoint(e) {
+    this.setState({
+      point: e.target.value
+    })
+  }
+
   render() {
     return (
       <div className='new-record-form-component col'>
@@ -132,7 +139,7 @@ class NewRecordForm extends React.Component {
                   <input onClick={this.handleClickPointCheckBox} type='checkbox' value={this.state.pointCheck} />
                 </div>
               </div>
-              <input className='form-control' disabled={!this.state.pointCheck} name='record_point' ref='point' type='number' value={this.state.point} />
+              <input className='form-control' disabled={!this.state.pointCheck} name='record_point' onChange={this.handleChangePoint} ref='point' type='number' value={this.state.point} />
             </div>
           </div>
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
