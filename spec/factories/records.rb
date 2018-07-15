@@ -11,6 +11,7 @@ FactoryBot.define do
     place
     published_at { Random.rand(start_date..finish_date) }
     charge { random.rand(10..8000) }
+    point { 10 }
     sequence(:memo) { |n| "メモ#{n}" }
     currency { %i[yen dollar].sample }
   end
