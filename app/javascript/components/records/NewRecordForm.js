@@ -19,7 +19,9 @@ class NewRecordForm extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
-      selectedPlaceId: undefined
+      selectedPlaceId: undefined,
+      pointCheck: false,
+      point: 0
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -28,6 +30,7 @@ class NewRecordForm extends React.Component {
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
+    this.handleClickPointCheckBox = this.handleClickPointCheckBox.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -83,6 +86,13 @@ class NewRecordForm extends React.Component {
     this.props.onUpdateTags(tags)
   }
 
+  handleClickPointCheckBox(e) {
+    this.setState({
+      pointCheck: e.target.checked,
+      point: e.target.checked ? this.refs.charge.value : 0
+    })
+  }
+
   render() {
     return (
       <div className='new-record-form-component col'>
@@ -103,17 +113,27 @@ class NewRecordForm extends React.Component {
         <div className='form-group'>
           <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectTags={this.props.selectTags} tags={this.props.tags} user_token={this.props.user_token} />
         </div>
-        <div className={'form-group ' + this.fieldWithErrors('charge')}>
-          <div className='input-group'>
-            <div className='input-group-prepend'>
-              <div className="input-group-text" htmlFor='record_charge'>
-                {this.props.baseSetting.human_currency}
-                {this.props.baseSetting.length > 0 ? (
-                  <input name={this.props.baseSetting.currency} type='hidden' value={this.props.baseSetting.currency} />
-                ) : ( null )}
+        <div className='form-group'>
+          <div className='row'>
+            <div className={'col-sm-8 input-group ' + this.fieldWithErrors('charge')}>
+              <div className='input-group-prepend'>
+                <div className="input-group-text" htmlFor='record_charge'>
+                  {this.props.baseSetting.human_currency}
+                  {this.props.baseSetting.length > 0 && (
+                    <input name={this.props.baseSetting.currency} type='hidden' value={this.props.baseSetting.currency} />
+                  )}
+                </div>
               </div>
+              <input className='form-control' name='record_charge' ref='charge' type='number' />
             </div>
-            <input className='form-control' name='record_charge' ref='charge' type='number' />
+            <div className='col-sm-4 input-group'>
+              <div className='input-group-prepend'>
+                <div className='input-group-text'>
+                  <input onClick={this.handleClickPointCheckBox} type='checkbox' value={this.state.pointCheck} />
+                </div>
+              </div>
+              <input className='form-control' disabled={!this.state.pointCheck} name='record_point' ref='point' type='number' value={this.state.point} />
+            </div>
           </div>
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
         </div>

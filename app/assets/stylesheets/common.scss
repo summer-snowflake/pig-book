@@ -169,6 +169,10 @@ $twitter-border-color: #2e6da4;
     cursor: pointer;
   }
 
+  .trash-icon-td {
+    text-align: right;
+  }
+
   .categorized-places-td {
     width: 35%;
   }
@@ -258,7 +262,7 @@ $twitter-border-color: #2e6da4;
 }
 
 .card .card {
-  margin: 15px;
+  margin: 12px;
 
   .card-body {
     padding: 0;
