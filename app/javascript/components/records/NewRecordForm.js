@@ -43,6 +43,7 @@ class NewRecordForm extends React.Component {
       tags: this.props.selectedTags,
       currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
+      point: this.state.point,
       memo: this.refs.memo.value
     })
   }
@@ -143,6 +144,7 @@ class NewRecordForm extends React.Component {
             </div>
           </div>
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
+          <FormErrorMessages column='point' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>
           <textarea className='form-control' name='record_memo' ref='memo' rows='3' />
