@@ -25,6 +25,7 @@ class NewRecordCardBody extends React.Component {
       selectedTags: {},
       records: this.props.records,
       targetDate: moment(),
+      editingRecord: null
     }
     this.postRecord = this.postRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
@@ -224,8 +225,27 @@ class NewRecordCardBody extends React.Component {
   }
 
   getRecord(recordId) {
-    console.log('get record')
-    console.log(recordId)
+    let options = {
+      method: 'GET',
+      url: origin + '/api/records/' + recordId,
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        console.log('get record')
+        this.setState({
+          editingRecord: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   handleUpdateTags(tags) {
