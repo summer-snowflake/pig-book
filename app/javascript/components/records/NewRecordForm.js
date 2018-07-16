@@ -16,7 +16,6 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
@@ -36,7 +35,7 @@ class NewRecordForm extends React.Component {
 
   handleClickSubmitButton() {
     this.props.handleSendForm({
-      published_at: this.state.selectedPublishedAt,
+      published_at: this.props.selectedPublishedAt,
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
@@ -50,9 +49,6 @@ class NewRecordForm extends React.Component {
 
   handleClickTodayButton() {
     let today = moment()
-    this.setState({
-      selectedPublishedAt: today
-    })
     this.props.handleChangePublishedOn(today)
   }
 
@@ -78,9 +74,6 @@ class NewRecordForm extends React.Component {
   }
 
   handleChangePublishedOn(date) {
-    this.setState({
-      selectedPublishedAt: date
-    })
     this.props.handleChangePublishedOn(date)
   }
 
@@ -105,7 +98,7 @@ class NewRecordForm extends React.Component {
     return (
       <div className='new-record-form-component col'>
         <div className='form-group date-picker'>
-          <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.state.selectedPublishedAt} />
+          <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.props.selectedPublishedAt} />
           <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
@@ -164,6 +157,7 @@ NewRecordForm.propTypes = {
   breakdowns: PropTypes.array.isRequired,
   places: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
+  selectedPublishedAt: PropTypes.object.isRequired,
   selectTags: PropTypes.array.isRequired,
   selectedTags: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,

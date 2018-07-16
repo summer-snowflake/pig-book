@@ -21,11 +21,11 @@ class NewRecordCardBody extends React.Component {
       breakdowns: [],
       places: [],
       tags: [],
+      selectedPublishedAt: moment(),
       selectTags: [],
       selectedTags: {},
       records: this.props.records,
-      targetDate: moment(),
-      editingRecord: null
+      targetDate: moment()
     }
     this.postRecord = this.postRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
@@ -55,7 +55,8 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       selectedY: date.year(),
       selectedM: date.month() + 1,
-      selectedD: date.date()
+      selectedD: date.date(),
+      selectedPublishedAt: date
     })
     this.getRecords(date)
   }
@@ -238,9 +239,9 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        console.log('get record')
+        let record = res.data
         this.setState({
-          editingRecord: res.data
+          selectedPublishedAt: moment(record.published_at)
         })
       })
       .catch((error) => {
@@ -287,6 +288,7 @@ class NewRecordCardBody extends React.Component {
           places={this.state.places}
           ref='form'
           selectTags={this.state.selectTags}
+          selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
           tags={this.state.tags}
           user_token={this.props.user_token}
