@@ -9,7 +9,8 @@ class Records extends React.Component {
     this.state = {
       destroyModalIsOpen: false,
       record: {
-        id: null
+        id: null,
+        editingRecordId: null
       }
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
@@ -27,6 +28,9 @@ class Records extends React.Component {
 
   handleClickEditIcon(recordId) {
     this.props.handleClickEditIcon(recordId)
+    this.setState({
+      editingRecordId: recordId
+    })
   }
 
   onClickDestroyButton(recordId) {
@@ -47,9 +51,15 @@ class Records extends React.Component {
       <div className='records-component'>
         <table className='table'>
           <tbody>
-            {this.props.records.map((record) =>
-              <Record key={record.id} isEditing={this.props.isEditing} onClickEditIcon={this.handleClickEditIcon} onClickTrashIcon={this.handleClickTrashIcon} record={record} />
-            )}
+            {this.props.records.map((record) => (
+              <Record
+                editingRecordId={this.state.editingRecordId}
+                key={record.id}
+                onClickEditIcon={this.handleClickEditIcon}
+                onClickTrashIcon={this.handleClickTrashIcon}
+                record={record}
+              />
+            ))}
           </tbody>
         </table>
         <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.record} modalIsOpen={this.state.destroyModalIsOpen} />
@@ -59,7 +69,6 @@ class Records extends React.Component {
 }
 
 Records.propTypes = {
-  isEditing: PropTypes.bool.isRequired,
   records: PropTypes.array.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickEditIcon: PropTypes.func.isRequired
