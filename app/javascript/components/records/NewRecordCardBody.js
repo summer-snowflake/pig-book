@@ -32,6 +32,7 @@ class NewRecordCardBody extends React.Component {
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.getRecords = this.getRecords.bind(this)
+    this.getRecord = this.getRecord.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
@@ -222,6 +223,11 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(changeDate)
   }
 
+  getRecord(recordId) {
+    console.log('get record')
+    console.log(recordId)
+  }
+
   handleUpdateTags(tags) {
     this.setState({
       selectTags: tags,
@@ -265,7 +271,7 @@ class NewRecordCardBody extends React.Component {
           tags={this.state.tags}
           user_token={this.props.user_token}
         />
-        <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} records={this.state.records} targetDate={this.state.targetDate} />
+        <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} handleClickEditIcon={this.getRecord} records={this.state.records} targetDate={this.state.targetDate} />
       </div>
     )
   }

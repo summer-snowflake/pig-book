@@ -186,11 +186,11 @@ $twitter-border-color: #2e6da4;
     width: 70px;
   }
 
-  .far.fa-trash-alt, .fas.fa-times {
+  .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit {
     padding: 6px;
   }
 
-  .far.fa-trash-alt:hover, .fas.fa-times:hover {
+  .far.fa-trash-alt:hover, .fas.fa-times:hover, .fas.fa-edit:hover {
     background-color: rgba(lighten($green, 15%), .3);
     border-radius: 4px;
     cursor: pointer;
