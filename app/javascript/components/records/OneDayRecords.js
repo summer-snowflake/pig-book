@@ -29,6 +29,7 @@ class OneDayRecords extends React.Component {
         <div className='card-body'>
           <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.props.targetDate} />
           <Records
+            editingRecordId={this.props.editingRecordId}
             handleClickDestroyButton={this.onClickDestroyButton}
             handleClickEditIcon={this.onClickEditIcon}
             records={this.props.records}
@@ -42,6 +43,7 @@ class OneDayRecords extends React.Component {
 OneDayRecords.propTypes = {
   targetDate: PropTypes.object.isRequired,
   records: PropTypes.array.isRequired,
+  editingRecordId: PropTypes.number,
   handleClickEditIcon: PropTypes.func.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickChangeDateButton: PropTypes.func.isRequired

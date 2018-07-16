@@ -18,6 +18,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       success: false,
       errorMessages: {},
+      editingRecordId: undefined,
       baseSetting: {},
       categories: [],
       breakdowns: [],
@@ -282,6 +283,7 @@ class NewRecordCardBody extends React.Component {
           selectedGenerateTags: generateTags,
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
+          editingRecordId: record.id
         })
       })
       .catch((error) => {
@@ -339,6 +341,7 @@ class NewRecordCardBody extends React.Component {
           user_token={this.props.user_token}
         />
         <OneDayRecords
+          editingRecordId={this.state.editingRecordId}
           handleClickChangeDateButton={this.onClickChangeDateButton}
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.getRecord}

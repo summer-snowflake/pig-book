@@ -9,8 +9,7 @@ class Records extends React.Component {
     this.state = {
       destroyModalIsOpen: false,
       record: {
-        id: null,
-        editingRecordId: null
+        id: null
       }
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
@@ -28,9 +27,6 @@ class Records extends React.Component {
 
   handleClickEditIcon(recordId) {
     this.props.handleClickEditIcon(recordId)
-    this.setState({
-      editingRecordId: recordId
-    })
   }
 
   onClickDestroyButton(recordId) {
@@ -53,7 +49,7 @@ class Records extends React.Component {
           <tbody>
             {this.props.records.map((record) => (
               <Record
-                editingRecordId={this.state.editingRecordId}
+                editingRecordId={this.props.editingRecordId}
                 key={record.id}
                 onClickEditIcon={this.handleClickEditIcon}
                 onClickTrashIcon={this.handleClickTrashIcon}
@@ -70,6 +66,7 @@ class Records extends React.Component {
 
 Records.propTypes = {
   records: PropTypes.array.isRequired,
+  editingRecordId: PropTypes.number,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickEditIcon: PropTypes.func.isRequired
 }
