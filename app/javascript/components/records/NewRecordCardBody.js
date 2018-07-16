@@ -22,8 +22,8 @@ class NewRecordCardBody extends React.Component {
       places: [],
       tags: [],
       selectedPublishedAt: moment(),
-      selectedCategoryId: '',
-      selectedBreakdownId: '',
+      selectedCategoryId: undefined,
+      selectedBreakdownId: undefined,
       selectTags: [],
       selectedTags: {},
       records: this.props.records,
@@ -255,8 +255,8 @@ class NewRecordCardBody extends React.Component {
         let category = this.state.categories.find( category => category.id == record.category_id )
         this.setState({
           selectedPublishedAt: moment(record.published_at),
-          selectedCategoryId: String(record.category_id),
-          selectedBreakdownId: String(record.breakdown_id),
+          selectedCategoryId: record.category_id,
+          selectedBreakdownId: record.breakdown_id,
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
         })

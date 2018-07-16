@@ -42,7 +42,7 @@ class CategoriesSelectBox extends React.Component {
 
 CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
-  selectedCategoryId: PropTypes.string,
+  selectedCategoryId: PropTypes.number,
   handleSelectCategory: PropTypes.func.isRequired
 }
 

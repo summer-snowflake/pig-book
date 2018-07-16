@@ -31,7 +31,7 @@ class BreakdownsSelectBox extends React.Component {
 BreakdownsSelectBox.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   breakdowns: PropTypes.array.isRequired,
-  selectedBreakdownId: PropTypes.string,
+  selectedBreakdownId: PropTypes.number,
   handleSelectBreakdown: PropTypes.func.isRequired
 }
 
