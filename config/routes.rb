@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     end
     resources :tags, only: %w[index create update destroy]
     resources :categorized_places, only: %w[create]
-    resources :records, only: %w[index create destroy]
+    resources :records, only: %w[index show create destroy]
   end
 
   namespace :locales, format: :json do
