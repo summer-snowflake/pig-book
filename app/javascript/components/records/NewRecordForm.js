@@ -16,7 +16,6 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedPlaceId: undefined,
       pointCheck: false,
       point: 0
     }
@@ -36,7 +35,7 @@ class NewRecordForm extends React.Component {
       published_at: this.props.selectedPublishedAt,
       category_id: this.props.selectedCategoryId,
       breakdown_id: this.props.selectedBreakdownId,
-      place_id: this.state.selectedPlaceId,
+      place_id: this.props.selectedPlaceId,
       tags: this.props.selectedTags,
       currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
@@ -51,9 +50,6 @@ class NewRecordForm extends React.Component {
   }
 
   onSelectCategory(category) {
-    this.setState({
-      selectedPlaceId: undefined
-    })
     this.props.handleSelectCategory(category)
   }
 
@@ -62,9 +58,7 @@ class NewRecordForm extends React.Component {
   }
 
   onSelectPlace(place) {
-    this.setState({
-      selectedPlaceId: (place || {}).id
-    })
+    this.props.handleSelectPlace(place)
   }
 
   handleChangePublishedOn(date) {
@@ -103,7 +97,7 @@ class NewRecordForm extends React.Component {
           <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
         </div>
         <div className='form-group'>
-          <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} />
+          <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} selectedPlaceId={this.props.selectedPlaceId} />
         </div>
         <div className='form-group'>
           <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectTags={this.props.selectTags} tags={this.props.tags} user_token={this.props.user_token} />
@@ -154,6 +148,7 @@ NewRecordForm.propTypes = {
   selectedPublishedAt: PropTypes.object.isRequired,
   selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.number,
+  selectedPlaceId: PropTypes.number,
   selectTags: PropTypes.array.isRequired,
   selectedTags: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,
@@ -163,6 +158,7 @@ NewRecordForm.propTypes = {
   handleSendForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
+  handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired
 }
 

@@ -24,6 +24,7 @@ class NewRecordCardBody extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
+      selectedPlaceId: undefined,
       selectTags: [],
       selectedTags: {},
       records: this.props.records,
@@ -35,6 +36,7 @@ class NewRecordCardBody extends React.Component {
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.onSelectPlace = this.onSelectPlace.bind(this)
     this.getRecords = this.getRecords.bind(this)
     this.getRecord = this.getRecord.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
@@ -51,6 +53,7 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
+      selectedPlaceId: undefined,
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
     })
@@ -59,6 +62,12 @@ class NewRecordCardBody extends React.Component {
   onSelectBreakdown(breakdown) {
     this.setState({
       selectedBreakdownId: (breakdown || {}).id
+    })
+  }
+
+  onSelectPlace(place) {
+    this.setState({
+      selectedPlaceId: (place || {}).id
     })
   }
 
@@ -256,7 +265,8 @@ class NewRecordCardBody extends React.Component {
         this.setState({
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
-          selectedBreakdownId: record.breakdown_id,
+          selectedBreakdownId: record.breakdown_id || undefined,
+          selectedPlaceId: record.place_id || undefined,
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
         })
@@ -300,6 +310,7 @@ class NewRecordCardBody extends React.Component {
           handleChangePublishedOn={this.setStateDate}
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
+          handleSelectPlace={this.onSelectPlace}
           handleSendForm={this.postRecord}
           last_request_at={this.props.last_request_at}
           onUpdateTags={this.handleUpdateTags}
@@ -308,6 +319,7 @@ class NewRecordCardBody extends React.Component {
           selectTags={this.state.selectTags}
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
+          selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
           tags={this.state.tags}
