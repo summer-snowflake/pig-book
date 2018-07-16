@@ -267,6 +267,10 @@ class NewRecordCardBody extends React.Component {
         let tags = record.tagged_records.map(tagged => (
           { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
         ))
+        let generateTags = tags.reduce(
+          (map, tag, index) => Object.assign(map, { [index]: tag }),
+          {}
+        )
         this.setState({
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
@@ -275,6 +279,7 @@ class NewRecordCardBody extends React.Component {
           selectedTags: tags.map(tag =>
             <Tag key={tag.id} tag={tag} />
           ),
+          selectedGenerateTags: generateTags,
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
         })
@@ -295,11 +300,11 @@ class NewRecordCardBody extends React.Component {
     const hash = {}
     for (let key in tags) {
       if (tags[key].props != undefined) {
-        let color = tags[key].props.tag.color_code
+        let color_code = tags[key].props.tag.color_code
         let name = tags[key].props.tag.name
-        hash[key] = {color: color, name: name}
+        hash[key] = {color_code: color_code, name: name}
       } else {
-        hash[key] = {color: '', name: tags[key]}
+        hash[key] = {color_code: '', name: tags[key]}
       }
     }
     return hash

@@ -32,9 +32,9 @@ class Record < ApplicationRecord
 
   def find_tag(tag)
     name = tag['name']
-    if tag['color'].present?
-      user.tags.find_by(color_code: tag['color']) ||
-        user.tags.create(color_code: tag['color'], name: name)
+    if tag['color_code'].present?
+      user.tags.find_by(color_code: tag['color_code']) ||
+        user.tags.create(color_code: tag['color_code'], name: name)
     else
       color_code = '#' + format('%06x', (rand * 0xffffff))
       user.tags.create(color_code: color_code, name: name)
