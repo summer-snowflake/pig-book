@@ -15,10 +15,6 @@ import TagsInputField from './TagsInputField'
 class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      pointCheck: false,
-      point: 0
-    }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
@@ -40,7 +36,7 @@ class NewRecordForm extends React.Component {
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
       charge: this.refs.charge.value,
-      point: this.state.point,
+      point: this.props.inputPoint,
       memo: this.refs.memo.value
     })
   }
@@ -71,10 +67,7 @@ class NewRecordForm extends React.Component {
   }
 
   handleClickPointCheckBox(e) {
-    this.setState({
-      pointCheck: e.target.checked,
-      point: e.target.checked ? this.refs.charge.value : 0
-    })
+    this.props.handleChangePoint(this.refs.charge.value, e.target.checked)
   }
 
   handleChangeCharge(e) {
@@ -82,9 +75,7 @@ class NewRecordForm extends React.Component {
   }
 
   handleChangePoint(e) {
-    this.setState({
-      point: e.target.value
-    })
+    this.props.handleChangePoint(e.target.value)
   }
 
   render() {
@@ -123,10 +114,10 @@ class NewRecordForm extends React.Component {
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
                 <div className='input-group-text'>
-                  <input onClick={this.handleClickPointCheckBox} type='checkbox' value={this.state.pointCheck} />
+                  <input onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} checked={this.props.checkedPoint} />
                 </div>
               </div>
-              <input className='form-control' disabled={!this.state.pointCheck} name='record_point' onChange={this.handleChangePoint} ref='point' type='number' value={this.state.point} />
+              <input className='form-control' disabled={!this.props.checkedPoint} name='record_point' onChange={this.handleChangePoint} ref='point' type='number' value={this.props.inputPoint} />
             </div>
           </div>
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
@@ -150,6 +141,7 @@ NewRecordForm.propTypes = {
   breakdowns: PropTypes.array.isRequired,
   places: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
+  checkedPoint: PropTypes.bool.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
   selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.number,
@@ -157,6 +149,7 @@ NewRecordForm.propTypes = {
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
   inputCharge: PropTypes.string,
+  inputPoint: PropTypes.string,
   inputMemo: PropTypes.string,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
@@ -167,7 +160,8 @@ NewRecordForm.propTypes = {
   handleSelectBreakdown: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
-  handleChangeCharge: PropTypes.func.isRequired
+  handleChangeCharge: PropTypes.func.isRequired,
+  handleChangePoint: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(NewRecordForm, FormMixin)

@@ -24,6 +24,7 @@ class NewRecordCardBody extends React.Component {
       breakdowns: [],
       places: [],
       tags: [],
+      checkedPoint: false,
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
@@ -31,6 +32,7 @@ class NewRecordCardBody extends React.Component {
       selectedTags: [],
       selectedGenerateTags: {},
       inputCharge: '',
+      inputPoint: '0',
       inputMemo: '',
       records: this.props.records,
       targetDate: moment()
@@ -49,6 +51,7 @@ class NewRecordCardBody extends React.Component {
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.onChangeCharge = this.onChangeCharge.bind(this)
+    this.onChangePoint = this.onChangePoint.bind(this)
   }
 
   componentWillMount() {
@@ -58,6 +61,13 @@ class NewRecordCardBody extends React.Component {
   onChangeCharge(charge) {
     this.setState({
       inputCharge: charge
+    })
+  }
+
+  onChangePoint(point, checked) {
+    this.setState({
+      checkedPoint: checked,
+      inputPoint: checked ? point : '0'
     })
   }
 
@@ -291,6 +301,8 @@ class NewRecordCardBody extends React.Component {
           ),
           selectedGenerateTags: generateTags,
           inputCharge: String(record.charge),
+          inputPoint: String(record.point),
+          checkedPoint: record.point == 0 ? false : true,
           inputMemo: record.memo,
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
@@ -332,14 +344,17 @@ class NewRecordCardBody extends React.Component {
           baseSetting={this.state.baseSetting}
           breakdowns={this.state.breakdowns}
           categories={this.state.categories}
+          checkedPoint={this.state.checkedPoint}
           errorMessages={this.state.errorMessages}
           handleChangeCharge={this.onChangeCharge}
+          handleChangePoint={this.onChangePoint}
           handleChangePublishedOn={this.setStateDate}
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSelectPlace={this.onSelectPlace}
           handleSendForm={this.postRecord}
           inputCharge={this.state.inputCharge}
+          inputPoint={this.state.inputPoint}
           inputMemo={this.state.inputMemo}
           last_request_at={this.props.last_request_at}
           onUpdateTags={this.handleUpdateTags}
