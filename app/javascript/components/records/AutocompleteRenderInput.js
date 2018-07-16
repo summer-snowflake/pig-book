@@ -1,30 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
-import reactCSS from 'reactcss'
+
+import Tag from './Tag'
 
 class AutocompleteRenderInput extends React.Component {
   constructor(props) {
     super(props)
-    this.styles = this.styles.bind(this)
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.shouldRenderSuggestions = this.shouldRenderSuggestions.bind(this)
     this.renderSuggestion = this.renderSuggestion.bind(this)
     this.handleSuggestionSelected = this.handleSuggestionSelected.bind(this)
     this.handleSuggestionsClearRequested = this.handleSuggestionsClearRequested.bind(this)
     this.handleSuggestionsFetchRequested = this.handleSuggestionsFetchRequested.bind(this)
-  }
-
-  styles(suggestion) {
-    return (
-      reactCSS({
-        'default': {
-          color: {
-            background: `${suggestion.color_code}`
-          }
-        }
-      })
-    )
   }
 
   getSuggestionValue(suggestion) {
@@ -36,20 +24,12 @@ class AutocompleteRenderInput extends React.Component {
   }
 
   renderSuggestion(suggestion) {
-    return (
-      <span className='suggestion-item'>
-        <div className='float-left color-code-box change-disabled' style={this.styles(suggestion).color} />
-        <span className='suggestion-name'>{suggestion.name}</span>
-      </span>
-    )
+    return <Tag tag={suggestion} />
   }
 
   handleSuggestionSelected(e, {suggestion}) {
     this.props.addTag(
-      <span className='suggestion-item'>
-        <div className='float-left color-code-box change-disabled' style={this.styles(suggestion).color} />
-        <span className='suggestion-name'>{suggestion.name}</span>
-      </span>
+      <Tag tag={suggestion} />
     )
   }
 

@@ -287,8 +287,8 @@ class NewRecordCardBody extends React.Component {
     const hash = {}
     for (let key in tags) {
       if (tags[key].props != undefined) {
-        let color = tags[key].props.children[0].props.style.background
-        let name = tags[key].props.children[1].props.children
+        let color = tags[key].props.tag.color_code
+        let name = tags[key].props.tag.name
         hash[key] = {color: color, name: name}
       } else {
         hash[key] = {color: '', name: tags[key]}
