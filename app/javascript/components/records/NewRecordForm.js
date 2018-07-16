@@ -16,7 +16,6 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
       pointCheck: false,
@@ -36,7 +35,7 @@ class NewRecordForm extends React.Component {
   handleClickSubmitButton() {
     this.props.handleSendForm({
       published_at: this.props.selectedPublishedAt,
-      category_id: this.state.selectedCategoryId,
+      category_id: this.props.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
       tags: this.props.selectedTags,
@@ -54,7 +53,6 @@ class NewRecordForm extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined
     })
@@ -102,14 +100,14 @@ class NewRecordForm extends React.Component {
           <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.props.selectedCategoryId} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
-          <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.state.selectedCategoryId} />
+          <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} />
         </div>
         <div className='form-group'>
-          <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.state.selectedCategoryId} places={this.props.places} />
+          <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} />
         </div>
         <div className='form-group'>
           <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectTags={this.props.selectTags} tags={this.props.tags} user_token={this.props.user_token} />
@@ -158,6 +156,7 @@ NewRecordForm.propTypes = {
   places: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
+  selectedCategoryId: PropTypes.string,
   selectTags: PropTypes.array.isRequired,
   selectedTags: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,

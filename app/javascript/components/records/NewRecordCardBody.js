@@ -22,6 +22,7 @@ class NewRecordCardBody extends React.Component {
       places: [],
       tags: [],
       selectedPublishedAt: moment(),
+      selectedCategoryId: '',
       selectTags: [],
       selectedTags: {},
       records: this.props.records,
@@ -46,6 +47,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
+      selectedCategoryId: (category || {}).id,
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
     })
@@ -240,8 +242,13 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         let record = res.data
+        console.log(record)
+        let category = this.state.categories.find( category => category.id == record.category_id )
         this.setState({
-          selectedPublishedAt: moment(record.published_at)
+          selectedPublishedAt: moment(record.published_at),
+          selectedCategoryId: String(record.category_id),
+          breakdowns: (category || {}).breakdowns || [],
+          places: (category || {}).places || []
         })
       })
       .catch((error) => {
@@ -288,6 +295,7 @@ class NewRecordCardBody extends React.Component {
           places={this.state.places}
           ref='form'
           selectTags={this.state.selectTags}
+          selectedCategoryId={this.state.selectedCategoryId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
           tags={this.state.tags}
