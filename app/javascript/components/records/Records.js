@@ -48,7 +48,7 @@ class Records extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.records.map((record) =>
-              <Record key={record.id} onClickEditIcon={this.handleClickEditIcon} onClickTrashIcon={this.handleClickTrashIcon} record={record} />
+              <Record key={record.id} isEditing={this.props.isEditing} onClickEditIcon={this.handleClickEditIcon} onClickTrashIcon={this.handleClickTrashIcon} record={record} />
             )}
           </tbody>
         </table>
@@ -59,6 +59,7 @@ class Records extends React.Component {
 }
 
 Records.propTypes = {
+  isEditing: PropTypes.bool.isRequired,
   records: PropTypes.array.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickEditIcon: PropTypes.func.isRequired

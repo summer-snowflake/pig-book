@@ -24,7 +24,8 @@ class NewRecordCardBody extends React.Component {
       selectTags: [],
       selectedTags: {},
       records: this.props.records,
-      targetDate: moment()
+      targetDate: moment(),
+      isEditing: false
     }
     this.postRecord = this.postRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
@@ -225,6 +226,9 @@ class NewRecordCardBody extends React.Component {
 
   getRecord(recordId) {
     console.log('get record')
+    this.setState({
+      isEditing: true
+    })
     console.log(recordId)
   }
 
@@ -271,7 +275,14 @@ class NewRecordCardBody extends React.Component {
           tags={this.state.tags}
           user_token={this.props.user_token}
         />
-        <OneDayRecords handleClickChangeDateButton={this.onClickChangeDateButton} handleClickDestroyButton={this.destroyRecord} handleClickEditIcon={this.getRecord} records={this.state.records} targetDate={this.state.targetDate} />
+        <OneDayRecords
+          isEditing={this.state.isEditing}
+          handleClickChangeDateButton={this.onClickChangeDateButton}
+          handleClickDestroyButton={this.destroyRecord}
+          handleClickEditIcon={this.getRecord}
+          records={this.state.records}
+          targetDate={this.state.targetDate}
+        />
       </div>
     )
   }
