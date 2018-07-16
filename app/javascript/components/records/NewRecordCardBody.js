@@ -25,7 +25,7 @@ class NewRecordCardBody extends React.Component {
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
-      selectTags: [],
+      selectedTags: [],
       selectedGenerateTags: {},
       records: this.props.records,
       targetDate: moment()
@@ -129,7 +129,7 @@ class NewRecordCardBody extends React.Component {
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
-          selectTags: [],
+          selectedTags: [],
           selectedGenerateTags: {}
         })
       })
@@ -278,7 +278,7 @@ class NewRecordCardBody extends React.Component {
 
   handleUpdateTags(tags) {
     this.setState({
-      selectTags: tags,
+      selectedTags: tags,
       selectedGenerateTags: this.generateTags(tags)
     })
   }
@@ -316,12 +316,12 @@ class NewRecordCardBody extends React.Component {
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}
           ref='form'
-          selectTags={this.state.selectTags}
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
+          selectedGenerateTags={this.state.selectedGenerateTags}
           selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
-          selectedGenerateTags={this.state.selectedGenerateTags}
+          selectedTags={this.state.selectedTags}
           tags={this.state.tags}
           user_token={this.props.user_token}
         />

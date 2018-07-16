@@ -100,7 +100,7 @@ class NewRecordForm extends React.Component {
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} selectedPlaceId={this.props.selectedPlaceId} />
         </div>
         <div className='form-group'>
-          <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectTags={this.props.selectTags} tags={this.props.tags} user_token={this.props.user_token} />
+          <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectedTags={this.props.selectedTags} tags={this.props.tags} user_token={this.props.user_token} />
         </div>
         <div className='form-group'>
           <div className='row'>
@@ -149,7 +149,7 @@ NewRecordForm.propTypes = {
   selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.number,
   selectedPlaceId: PropTypes.number,
-  selectTags: PropTypes.array.isRequired,
+  selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
