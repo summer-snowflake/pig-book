@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
 import moment from 'moment'
+
 import NewRecordForm from './NewRecordForm'
 import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
+import Tag from './Tag'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -262,11 +264,17 @@ class NewRecordCardBody extends React.Component {
         let record = res.data
         console.log(record)
         let category = this.state.categories.find( category => category.id == record.category_id )
+        let tags = record.tagged_records.map(tagged => (
+          { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
+        ))
         this.setState({
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
           selectedBreakdownId: record.breakdown_id || undefined,
           selectedPlaceId: record.place_id || undefined,
+          selectedTags: tags.map(tag =>
+            <Tag key={tag.id} tag={tag} />
+          ),
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
         })
