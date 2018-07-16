@@ -16,7 +16,6 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
       pointCheck: false,
       point: 0
@@ -36,7 +35,7 @@ class NewRecordForm extends React.Component {
     this.props.handleSendForm({
       published_at: this.props.selectedPublishedAt,
       category_id: this.props.selectedCategoryId,
-      breakdown_id: this.state.selectedBreakdownId,
+      breakdown_id: this.props.selectedBreakdownId,
       place_id: this.state.selectedPlaceId,
       tags: this.props.selectedTags,
       currency: this.props.baseSetting.currency,
@@ -53,16 +52,13 @@ class NewRecordForm extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedBreakdownId: undefined,
       selectedPlaceId: undefined
     })
     this.props.handleSelectCategory(category)
   }
 
   onSelectBreakdown(breakdown) {
-    this.setState({
-      selectedBreakdownId: (breakdown || {}).id
-    })
+    this.props.handleSelectBreakdown(breakdown)
   }
 
   onSelectPlace(place) {
@@ -104,7 +100,7 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
-          <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} />
+          <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
         </div>
         <div className='form-group'>
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} />
@@ -157,6 +153,7 @@ NewRecordForm.propTypes = {
   tags: PropTypes.array.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
   selectedCategoryId: PropTypes.string,
+  selectedBreakdownId: PropTypes.string,
   selectTags: PropTypes.array.isRequired,
   selectedTags: PropTypes.object.isRequired,
   last_request_at: PropTypes.number.isRequired,
@@ -165,6 +162,7 @@ NewRecordForm.propTypes = {
   onUpdateTags: PropTypes.func.isRequired,
   handleSendForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
+  handleSelectBreakdown: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired
 }
 

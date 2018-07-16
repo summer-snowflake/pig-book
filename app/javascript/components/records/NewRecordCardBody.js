@@ -23,6 +23,7 @@ class NewRecordCardBody extends React.Component {
       tags: [],
       selectedPublishedAt: moment(),
       selectedCategoryId: '',
+      selectedBreakdownId: '',
       selectTags: [],
       selectedTags: {},
       records: this.props.records,
@@ -33,6 +34,7 @@ class NewRecordCardBody extends React.Component {
     this.getCategories = this.getCategories.bind(this)
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.getRecords = this.getRecords.bind(this)
     this.getRecord = this.getRecord.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
@@ -48,8 +50,15 @@ class NewRecordCardBody extends React.Component {
   onSelectCategory(category) {
     this.setState({
       selectedCategoryId: (category || {}).id,
+      selectedBreakdownId: undefined,
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
+    })
+  }
+
+  onSelectBreakdown(breakdown) {
+    this.setState({
+      selectedBreakdownId: (breakdown || {}).id
     })
   }
 
@@ -247,8 +256,9 @@ class NewRecordCardBody extends React.Component {
         this.setState({
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: String(record.category_id),
+          selectedBreakdownId: String(record.breakdown_id),
           breakdowns: (category || {}).breakdowns || [],
-          places: (category || {}).places || []
+          places: (category || {}).places || [],
         })
       })
       .catch((error) => {
@@ -288,6 +298,7 @@ class NewRecordCardBody extends React.Component {
           categories={this.state.categories}
           errorMessages={this.state.errorMessages}
           handleChangePublishedOn={this.setStateDate}
+          handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSendForm={this.postRecord}
           last_request_at={this.props.last_request_at}
@@ -295,6 +306,7 @@ class NewRecordCardBody extends React.Component {
           places={this.state.places}
           ref='form'
           selectTags={this.state.selectTags}
+          selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
