@@ -33,9 +33,9 @@ describe 'POST /api/records' do
         breakdown_id: breakdown.id,
         place_id: place.id,
         tags: {
-          '0': { color_code: '#666666', name: '灰色ラベル' },
-          '1': { color_code: '#ffffff', name: '白' }
-        },
+          '0': { 'color_code': '#666666', 'name': '灰色ラベル' },
+          '1': { 'color_code': '#ffffff', 'name': '白' }
+        }.to_json,
         point: 50,
         memo: 'メモ'
       }
