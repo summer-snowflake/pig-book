@@ -4,7 +4,7 @@ class Record < ApplicationRecord
   include ValidationErrorMessagesBuilder
 
   attr_accessor :tags
-  before_save :set_tagged_records, if: 'tags.present?'
+  before_save :set_tagged_records, if: -> { tags.present? }
 
   belongs_to :user
   belongs_to :category
