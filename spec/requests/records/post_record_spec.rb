@@ -34,7 +34,8 @@ describe 'POST /api/records' do
         place_id: place.id,
         tags: {
           '0': { 'color_code': '#666666', 'name': '灰色ラベル' },
-          '1': { 'color_code': '#ffffff', 'name': '白' }
+          '1': { 'color_code': '#ffffff', 'name': '白' },
+          '2': { 'name': '新規作成ラベル' }
         }.to_json,
         point: 50,
         memo: 'メモ'
