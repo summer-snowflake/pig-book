@@ -31,6 +31,7 @@ class NewRecordCardBody extends React.Component {
       selectedTags: [],
       selectedGenerateTags: {},
       inputCharge: '',
+      inputMemo: '',
       records: this.props.records,
       targetDate: moment()
     }
@@ -135,10 +136,10 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.refs.form.refs.memo.value = ''
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
+          inputMemo: '',
           inputCharge: '',
           selectedTags: [],
           selectedGenerateTags: {}
@@ -290,6 +291,7 @@ class NewRecordCardBody extends React.Component {
           ),
           selectedGenerateTags: generateTags,
           inputCharge: String(record.charge),
+          inputMemo: record.memo,
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
           editingRecordId: record.id
@@ -338,6 +340,7 @@ class NewRecordCardBody extends React.Component {
           handleSelectPlace={this.onSelectPlace}
           handleSendForm={this.postRecord}
           inputCharge={this.state.inputCharge}
+          inputMemo={this.state.inputMemo}
           last_request_at={this.props.last_request_at}
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}

@@ -133,7 +133,7 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='point' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>
-          <textarea className='form-control' name='record_memo' ref='memo' rows='3' />
+          <textarea className='form-control' name='record_memo' ref='memo' rows='3' value={this.props.inputMemo} />
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
@@ -157,6 +157,7 @@ NewRecordForm.propTypes = {
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
   inputCharge: PropTypes.string,
+  inputMemo: PropTypes.string,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
   errorMessages: PropTypes.object.isRequired,
