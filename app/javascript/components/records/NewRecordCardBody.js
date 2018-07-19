@@ -68,7 +68,7 @@ class NewRecordCardBody extends React.Component {
   onChangePoint(point, checked) {
     this.setState({
       checkedPoint: checked,
-      inputPoint: checked ? point : '0'
+      inputPoint: checked && point ? point : '0'
     })
   }
 

@@ -42,7 +42,7 @@ class Record < ApplicationRecord
   end
 
   def point_is_less_than_or_equal_to_charge
-    return unless charge
+    return unless charge && point
     return if point <= charge
 
     errors[:point] <<
