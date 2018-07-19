@@ -27,6 +27,7 @@ class NewRecordForm extends React.Component {
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.handleClickPointCheckBox = this.handleClickPointCheckBox.bind(this)
+    this.handleChangeCharge = this.handleChangeCharge.bind(this)
     this.handleChangePoint = this.handleChangePoint.bind(this)
   }
 
@@ -76,6 +77,10 @@ class NewRecordForm extends React.Component {
     })
   }
 
+  handleChangeCharge(e) {
+    this.props.handleChangeCharge(e.target.value)
+  }
+
   handleChangePoint(e) {
     this.setState({
       point: e.target.value
@@ -113,7 +118,7 @@ class NewRecordForm extends React.Component {
                   )}
                 </div>
               </div>
-              <input className='form-control' name='record_charge' ref='charge' type='number' />
+              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref='charge' type='number' value={this.props.inputCharge} />
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
@@ -151,6 +156,7 @@ NewRecordForm.propTypes = {
   selectedPlaceId: PropTypes.number,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
+  inputCharge: PropTypes.string,
   last_request_at: PropTypes.number.isRequired,
   user_token: PropTypes.string.isRequired,
   errorMessages: PropTypes.object.isRequired,
@@ -159,7 +165,8 @@ NewRecordForm.propTypes = {
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,
-  handleChangePublishedOn: PropTypes.func.isRequired
+  handleChangePublishedOn: PropTypes.func.isRequired,
+  handleChangeCharge: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(NewRecordForm, FormMixin)

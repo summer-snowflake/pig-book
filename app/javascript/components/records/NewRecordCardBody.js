@@ -30,6 +30,7 @@ class NewRecordCardBody extends React.Component {
       selectedPlaceId: undefined,
       selectedTags: [],
       selectedGenerateTags: {},
+      inputCharge: '',
       records: this.props.records,
       targetDate: moment()
     }
@@ -46,10 +47,17 @@ class NewRecordCardBody extends React.Component {
     this.setStateDate = this.setStateDate.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
+    this.onChangeCharge = this.onChangeCharge.bind(this)
   }
 
   componentWillMount() {
     this.getBaseSetting()
+  }
+
+  onChangeCharge(charge) {
+    this.setState({
+      inputCharge: charge
+    })
   }
 
   onSelectCategory(category) {
@@ -127,11 +135,11 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.refs.form.refs.charge.value = ''
         this.refs.form.refs.memo.value = ''
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
+          inputCharge: '',
           selectedTags: [],
           selectedGenerateTags: {}
         })
@@ -281,6 +289,7 @@ class NewRecordCardBody extends React.Component {
             <Tag key={tag.id} tag={tag} />
           ),
           selectedGenerateTags: generateTags,
+          inputCharge: String(record.charge),
           breakdowns: (category || {}).breakdowns || [],
           places: (category || {}).places || [],
           editingRecordId: record.id
@@ -322,11 +331,13 @@ class NewRecordCardBody extends React.Component {
           breakdowns={this.state.breakdowns}
           categories={this.state.categories}
           errorMessages={this.state.errorMessages}
+          handleChangeCharge={this.onChangeCharge}
           handleChangePublishedOn={this.setStateDate}
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSelectPlace={this.onSelectPlace}
           handleSendForm={this.postRecord}
+          inputCharge={this.state.inputCharge}
           last_request_at={this.props.last_request_at}
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}
