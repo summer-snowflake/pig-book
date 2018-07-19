@@ -52,6 +52,7 @@ class NewRecordCardBody extends React.Component {
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.onChangeCharge = this.onChangeCharge.bind(this)
     this.onChangePoint = this.onChangePoint.bind(this)
+    this.onChangeMemo = this.onChangeMemo.bind(this)
   }
 
   componentWillMount() {
@@ -68,6 +69,12 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       checkedPoint: checked,
       inputPoint: checked ? point : '0'
+    })
+  }
+
+  onChangeMemo(memo) {
+    this.setState({
+      inputMemo: memo
     })
   }
 
@@ -349,6 +356,7 @@ class NewRecordCardBody extends React.Component {
           handleChangeCharge={this.onChangeCharge}
           handleChangePoint={this.onChangePoint}
           handleChangePublishedOn={this.setStateDate}
+          handleChangeMemo={this.onChangeMemo}
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSelectPlace={this.onSelectPlace}

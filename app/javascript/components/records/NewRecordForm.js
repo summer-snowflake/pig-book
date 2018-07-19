@@ -25,6 +25,7 @@ class NewRecordForm extends React.Component {
     this.handleClickPointCheckBox = this.handleClickPointCheckBox.bind(this)
     this.handleChangeCharge = this.handleChangeCharge.bind(this)
     this.handleChangePoint = this.handleChangePoint.bind(this)
+    this.handleChangeMemo = this.handleChangeMemo.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -78,6 +79,10 @@ class NewRecordForm extends React.Component {
     this.props.handleChangePoint(e.target.value)
   }
 
+  handleChangeMemo(e) {
+    this.props.handleChangeMemo(e.target.value)
+  }
+
   render() {
     return (
       <div className='new-record-form-component col'>
@@ -124,7 +129,7 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='point' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>
-          <textarea className='form-control' name='record_memo' ref='memo' rows='3' value={this.props.inputMemo} />
+          <textarea className='form-control' name='record_memo' onChange={this.handleChangeMemo} ref='memo' rows='3' value={this.props.inputMemo} />
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
@@ -161,7 +166,8 @@ NewRecordForm.propTypes = {
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
   handleChangeCharge: PropTypes.func.isRequired,
-  handleChangePoint: PropTypes.func.isRequired
+  handleChangePoint: PropTypes.func.isRequired,
+  handleChangeMemo: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(NewRecordForm, FormMixin)
