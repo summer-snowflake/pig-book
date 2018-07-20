@@ -38,6 +38,7 @@ class NewRecordCardBody extends React.Component {
       targetDate: moment()
     }
     this.postRecord = this.postRecord.bind(this)
+    this.patchRecord = this.patchRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getTags = this.getTags.bind(this)
@@ -50,6 +51,7 @@ class NewRecordCardBody extends React.Component {
     this.setStateDate = this.setStateDate.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
+    this.onCancelEditing = this.onCancelEditing.bind(this)
     this.onChangeCharge = this.onChangeCharge.bind(this)
     this.onChangePoint = this.onChangePoint.bind(this)
     this.onChangeMemo = this.onChangeMemo.bind(this)
@@ -65,10 +67,16 @@ class NewRecordCardBody extends React.Component {
     })
   }
 
+  onCancelEditing() {
+    this.setState({
+      editingRecordId: undefined,
+    })
+  }
+
   onChangePoint(point, checked) {
     this.setState({
       checkedPoint: checked,
-      inputPoint: checked && point ? point : '0'
+      inputPoint: checked ? point : '0'
     })
   }
 
@@ -158,8 +166,43 @@ class NewRecordCardBody extends React.Component {
         this.setState({
           inputMemo: '',
           inputCharge: '',
+          inputPoint: '0',
+          checkedPoint: false,
           selectedTags: [],
           selectedGenerateTags: {}
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
+  patchRecord(params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/records/' + params.id,
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.getRecords(params.published_at)
+        this.noticeUpdatedMessage()
+        this.setState({
+          inputMemo: '',
+          inputCharge: '',
+          inputPoint: '0',
+          checkedPoint: false,
+          selectedTags: [],
+          selectedGenerateTags: {},
+          editingRecordId: undefined
         })
       })
       .catch((error) => {
@@ -352,18 +395,21 @@ class NewRecordCardBody extends React.Component {
           breakdowns={this.state.breakdowns}
           categories={this.state.categories}
           checkedPoint={this.state.checkedPoint}
+          editingRecordId={this.state.editingRecordId}
           errorMessages={this.state.errorMessages}
+          handleCancelEditing={this.onCancelEditing}
           handleChangeCharge={this.onChangeCharge}
+          handleChangeMemo={this.onChangeMemo}
           handleChangePoint={this.onChangePoint}
           handleChangePublishedOn={this.setStateDate}
-          handleChangeMemo={this.onChangeMemo}
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSelectPlace={this.onSelectPlace}
           handleSendForm={this.postRecord}
+          handleUpdateForm={this.patchRecord}
           inputCharge={this.state.inputCharge}
-          inputPoint={this.state.inputPoint}
           inputMemo={this.state.inputMemo}
+          inputPoint={this.state.inputPoint}
           last_request_at={this.props.last_request_at}
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}

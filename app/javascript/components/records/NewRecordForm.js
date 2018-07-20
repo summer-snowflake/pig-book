@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+
 import FormMixin from './../mixins/FormMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './BreakdownsSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
+import UpdateButton from './../common/UpdateButton'
+import CopyButton from './../common/CopyButton'
 import TodayButton from './TodayButton'
 import TagsInputField from './TagsInputField'
 
@@ -16,6 +19,7 @@ class NewRecordForm extends React.Component {
   constructor(props) {
     super(props)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
@@ -26,6 +30,7 @@ class NewRecordForm extends React.Component {
     this.handleChangeCharge = this.handleChangeCharge.bind(this)
     this.handleChangePoint = this.handleChangePoint.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
+    this.handleClickCopyButton = this.handleClickCopyButton.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -42,9 +47,28 @@ class NewRecordForm extends React.Component {
     })
   }
 
+  handleClickUpdateButton() {
+    this.props.handleUpdateForm({
+      id: this.props.editingRecordId,
+      published_at: this.props.selectedPublishedAt,
+      category_id: this.props.selectedCategoryId,
+      breakdown_id: this.props.selectedBreakdownId,
+      place_id: this.props.selectedPlaceId,
+      tags: this.props.selectedGenerateTags,
+      currency: this.props.baseSetting.currency,
+      charge: this.refs.charge.value,
+      point: this.props.inputPoint,
+      memo: this.refs.memo.value
+    })
+  }
+
   handleClickTodayButton() {
     let today = moment()
     this.props.handleChangePublishedOn(today)
+  }
+
+  handleClickCopyButton() {
+    this.props.handleCancelEditing()
   }
 
   onSelectCategory(category) {
@@ -76,7 +100,7 @@ class NewRecordForm extends React.Component {
   }
 
   handleChangePoint(e) {
-    this.props.handleChangePoint(e.target.value)
+    this.props.handleChangePoint(e.target.value, true)
   }
 
   handleChangeMemo(e) {
@@ -119,7 +143,7 @@ class NewRecordForm extends React.Component {
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
                 <div className='input-group-text'>
-                  <input onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} checked={this.props.checkedPoint} />
+                  <input checked={this.props.checkedPoint} onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} />
                 </div>
               </div>
               <input className='form-control' disabled={!this.props.checkedPoint} name='record_point' onChange={this.handleChangePoint} ref='point' type='number' value={this.props.inputPoint} />
@@ -133,7 +157,14 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
-          <CreateButton onClickButton={this.handleClickSubmitButton} />
+          {this.props.editingRecordId == undefined ? (
+            <CreateButton onClickButton={this.handleClickSubmitButton} />
+          ) : (
+            <UpdateButton onClickButton={this.handleClickUpdateButton} />
+          )}
+          {this.props.editingRecordId != undefined && (
+            <CopyButton onClickButton={this.handleClickCopyButton} />
+          )}
         </div>
       </div>
     )
@@ -144,6 +175,7 @@ NewRecordForm.propTypes = {
   baseSetting: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   breakdowns: PropTypes.array.isRequired,
+  editingRecordId: PropTypes.number,
   places: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
   checkedPoint: PropTypes.bool.isRequired,
@@ -161,13 +193,15 @@ NewRecordForm.propTypes = {
   errorMessages: PropTypes.object.isRequired,
   onUpdateTags: PropTypes.func.isRequired,
   handleSendForm: PropTypes.func.isRequired,
+  handleUpdateForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
   handleChangeCharge: PropTypes.func.isRequired,
   handleChangePoint: PropTypes.func.isRequired,
-  handleChangeMemo: PropTypes.func.isRequired
+  handleChangeMemo: PropTypes.func.isRequired,
+  handleCancelEditing: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(NewRecordForm, FormMixin)
