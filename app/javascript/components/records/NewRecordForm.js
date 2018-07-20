@@ -143,7 +143,7 @@ class NewRecordForm extends React.Component {
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
                 <div className='input-group-text'>
-                  <input checked={this.props.checkedPoint} onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} />
+                  <input checked={this.props.checkedPoint} disabled={this.props.checkedPointDisabled} onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} />
                 </div>
               </div>
               <input className='form-control' disabled={!this.props.checkedPoint} name='record_point' onChange={this.handleChangePoint} ref='point' type='number' value={this.props.inputPoint} />
@@ -174,6 +174,7 @@ class NewRecordForm extends React.Component {
 NewRecordForm.propTypes = {
   baseSetting: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
+  checkedPointDisabled: PropTypes.bool.isRequired,
   breakdowns: PropTypes.array.isRequired,
   editingRecordId: PropTypes.number,
   places: PropTypes.array.isRequired,
