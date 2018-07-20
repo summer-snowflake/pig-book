@@ -25,6 +25,7 @@ class NewRecordCardBody extends React.Component {
       places: [],
       tags: [],
       checkedPoint: false,
+      checkedPointDisabled: true,
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
@@ -63,6 +64,7 @@ class NewRecordCardBody extends React.Component {
 
   onChangeCharge(charge) {
     this.setState({
+      checkedPointDisabled: charge > 0 ? false : true,
       inputCharge: charge
     })
   }
@@ -395,6 +397,7 @@ class NewRecordCardBody extends React.Component {
           breakdowns={this.state.breakdowns}
           categories={this.state.categories}
           checkedPoint={this.state.checkedPoint}
+          checkedPointDisabled={this.state.checkedPointDisabled}
           editingRecordId={this.state.editingRecordId}
           errorMessages={this.state.errorMessages}
           handleCancelEditing={this.onCancelEditing}
