@@ -39,6 +39,9 @@ ja:
     notice:
       add: 追加しました。
       update: 更新しました。
+    errors:
+      point:
+        less_than_or_equal_to: は%{count}以下の値にしてください
   helpers:
     label:
       user:
@@ -69,4 +72,5 @@ ja:
       record:
         category: カテゴリ
         charge: 金額
+        point: ポイント
         memo: 備考

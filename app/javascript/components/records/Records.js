@@ -13,6 +13,7 @@ class Records extends React.Component {
       }
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
   }
@@ -22,6 +23,10 @@ class Records extends React.Component {
       record: record,
       destroyModalIsOpen: true
     })
+  }
+
+  handleClickEditIcon(recordId) {
+    this.props.handleClickEditIcon(recordId)
   }
 
   onClickDestroyButton(recordId) {
@@ -42,9 +47,15 @@ class Records extends React.Component {
       <div className='records-component'>
         <table className='table'>
           <tbody>
-            {this.props.records.map((record) =>
-              <Record key={record.id} onClickTrashIcon={this.handleClickTrashIcon} record={record} />
-            )}
+            {this.props.records.map((record) => (
+              <Record
+                editingRecordId={this.props.editingRecordId}
+                key={record.id}
+                onClickEditIcon={this.handleClickEditIcon}
+                onClickTrashIcon={this.handleClickTrashIcon}
+                record={record}
+              />
+            ))}
           </tbody>
         </table>
         <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.record} modalIsOpen={this.state.destroyModalIsOpen} />
@@ -55,7 +66,9 @@ class Records extends React.Component {
 
 Records.propTypes = {
   records: PropTypes.array.isRequired,
-  handleClickDestroyButton: PropTypes.func.isRequired
+  editingRecordId: PropTypes.number,
+  handleClickDestroyButton: PropTypes.func.isRequired,
+  handleClickEditIcon: PropTypes.func.isRequired
 }
 
 export default Records

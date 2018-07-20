@@ -8,6 +8,7 @@ class OneDayRecords extends React.Component {
     super(props)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
     this.handleClickChangeDateButton = this.handleClickChangeDateButton.bind(this)
+    this.onClickEditIcon = this.onClickEditIcon.bind(this)
   }
 
   handleClickChangeDateButton(days) {
@@ -18,12 +19,21 @@ class OneDayRecords extends React.Component {
     this.props.handleClickDestroyButton(recordId)
   }
 
+  onClickEditIcon(recordId) {
+    this.props.handleClickEditIcon(recordId)
+  }
+
   render() {
     return (
       <div className='card col one-day-records-component'>
         <div className='card-body'>
           <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.props.targetDate} />
-          <Records handleClickDestroyButton={this.onClickDestroyButton} records={this.props.records} />
+          <Records
+            editingRecordId={this.props.editingRecordId}
+            handleClickDestroyButton={this.onClickDestroyButton}
+            handleClickEditIcon={this.onClickEditIcon}
+            records={this.props.records}
+          />
         </div>
       </div>
     )
@@ -33,6 +43,8 @@ class OneDayRecords extends React.Component {
 OneDayRecords.propTypes = {
   targetDate: PropTypes.object.isRequired,
   records: PropTypes.array.isRequired,
+  editingRecordId: PropTypes.number,
+  handleClickEditIcon: PropTypes.func.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickChangeDateButton: PropTypes.func.isRequired
 }

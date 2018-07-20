@@ -19,6 +19,27 @@ RSpec.describe Record, type: :model do
         .is_greater_than_or_equal_to(0)
     end
     it { is_expected.to validate_length_of(:memo).is_at_most(250) }
+
+    describe '#point_is_less_than_or_equal_to_charge' do
+      subject { build(:record, charge: 100, point: point) }
+
+      context 'point is greater than charge' do
+        let(:point) { 101 }
+        it 'has errors messages' do
+          subject.invalid?
+          expect(subject.errors.messages[:point]).to eq [
+            I18n.t('messages.errors.point.less_than_or_equal_to', count: 100)
+          ]
+        end
+      end
+
+      context 'point is not greater than charge' do
+        let(:point) { 99 }
+        it 'has errors messages' do
+          expect(subject.invalid?).to be_falsey
+        end
+      end
+    end
   end
 
   describe '#currency' do
