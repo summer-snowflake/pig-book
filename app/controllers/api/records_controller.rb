@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::RecordsController < Api::BaseController
-  before_action :set_record, only: %i[show destroy]
+  before_action :set_record, only: %i[show update destroy]
 
   def index
     fetcher = Record::Fetcher.new(user: current_user)
@@ -22,6 +22,14 @@ class Api::RecordsController < Api::BaseController
     end
   end
 
+  def update
+    if @record.update_attributes(record_params)
+      head :ok
+    else
+      render_validation_error @record
+    end
+  end
+
   def destroy
     @record.destroy
     if @record.destroyed?
@@ -34,7 +42,7 @@ class Api::RecordsController < Api::BaseController
   private
 
   def record_params
-    params.permit(:published_at, :category_id, :breakdown_id, :place_id,
+    params.permit(:id, :published_at, :category_id, :breakdown_id, :place_id,
                   :tags, :currency, :charge, :point, :memo)
   end
 

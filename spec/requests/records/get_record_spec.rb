@@ -61,6 +61,7 @@ describe 'GET /api/record' do
         memo: record.memo,
         place_id: record.place.id,
         place_name: record.place.name,
+        point: 10,
         published_at: record.published_at,
         tagged_records: [
           {

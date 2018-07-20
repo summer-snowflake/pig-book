@@ -136,6 +136,25 @@ $twitter-border-color: #2e6da4;
     }
   }
 
+  .is-editing-tr {
+    animation: flash 1.5s infinite linear;
+    background-color: rgba(lighten($green, 10%), .2);
+  }
+
+  @keyframes flash {
+    0% {
+      opacity: .2;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: .2;
+    }
+  }
+
   td {
     display: table-cell;
     vertical-align: middle;
@@ -186,11 +205,11 @@ $twitter-border-color: #2e6da4;
     width: 70px;
   }
 
-  .far.fa-trash-alt, .fas.fa-times {
+  .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit {
     padding: 6px;
   }
 
-  .far.fa-trash-alt:hover, .fas.fa-times:hover {
+  .far.fa-trash-alt:hover, .fas.fa-times:hover, .fas.fa-edit:hover {
     background-color: rgba(lighten($green, 15%), .3);
     border-radius: 4px;
     cursor: pointer;
@@ -303,4 +322,8 @@ $twitter-border-color: #2e6da4;
     display: table-cell;
     padding: 3px 7px;
   }
+}
+
+.update-button-component + .copy-button-component {
+  padding-left: 10px;
 }

@@ -8,15 +8,25 @@ class Record extends React.Component {
   constructor(props) {
     super(props)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
   }
 
   onClickTrashIcon(record) {
     this.props.onClickTrashIcon(record)
   }
 
+  handleClickEditIcon() {
+    this.props.onClickEditIcon(this.props.record.id)
+  }
+
   render() {
+    let editing = this.props.editingRecordId == this.props.record.id ? 'is-editing-tr' : ''
+
     return (
-      <tr className='record-component' id={'record-' + this.props.record.id}>
+      <tr className={'record-component ' + editing} id={'record-' + this.props.record.id}>
+        <td className='icon-td'>
+          <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+        </td>
         <td>
           <i className='fas fa-th-large left-icon yellow' />
           {this.props.record.category_name}
@@ -53,8 +63,10 @@ class Record extends React.Component {
 }
 
 Record.propTypes = {
+  editingRecordId: PropTypes.number,
   record: PropTypes.object.isRequired,
-  onClickTrashIcon: PropTypes.func.isRequired
+  onClickTrashIcon: PropTypes.func.isRequired,
+  onClickEditIcon: PropTypes.func.isRequired
 }
 
 export default Record

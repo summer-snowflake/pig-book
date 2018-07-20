@@ -76,6 +76,7 @@ describe 'GET /api/records' do
             memo: record5.memo,
             place_id: record5.place.id,
             place_name: record5.place.name,
+            point: 10,
             published_at: record5.published_at,
             tagged_records: []
           },
@@ -91,6 +92,7 @@ describe 'GET /api/records' do
             memo: record4.memo,
             place_id: record4.place.id,
             place_name: record4.place.name,
+            point: 10,
             published_at: record4.published_at,
             tagged_records: []
           },
@@ -106,6 +108,7 @@ describe 'GET /api/records' do
             memo: record3.memo,
             place_id: record3.place.id,
             place_name: record3.place.name,
+            point: 10,
             published_at: record3.published_at,
             tagged_records: []
           },
@@ -121,6 +124,7 @@ describe 'GET /api/records' do
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
+            point: 10,
             published_at: record2.published_at,
             tagged_records: []
           },
@@ -136,6 +140,7 @@ describe 'GET /api/records' do
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
+            point: 10,
             published_at: record1.published_at,
             tagged_records: [
               {
@@ -179,6 +184,7 @@ describe 'GET /api/records' do
             memo: record2.memo,
             place_id: record2.place.id,
             place_name: record2.place.name,
+            point: 10,
             published_at: record2.published_at,
             tagged_records: []
           },
@@ -194,6 +200,7 @@ describe 'GET /api/records' do
             memo: record1.memo,
             place_id: record1.place.id,
             place_name: record1.place.name,
+            point: 10,
             published_at: record1.published_at,
             tagged_records: [
               {
