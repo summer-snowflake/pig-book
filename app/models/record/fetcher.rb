@@ -10,21 +10,38 @@ class Record::Fetcher
   end
 
   def find_all_by(params)
-    @date = params[:date]
+    build_params(params)
 
     @records = @user.records
-    if generate_date_range
-      @records = @records.where(published_at: generate_date_range)
-    end
+    @records = @records.where(published_at: generate_range) if @date || @month
     @records.includes(:category, :place, :breakdown)
-            .order(created_at: :desc)
+            .order(created_at: :desc).limit(@limit)
   end
 
   private
 
+  def build_params(params)
+    @date = params[:date]
+    @month = params[:month]
+    @limit = params[:limit] || 100
+  end
+
+  def generate_range
+    if @date
+      generate_date_range
+    elsif @month
+      generate_month_range
+    end
+  end
+
   def generate_date_range
-    return unless @date
-    begining_of_day = Time.parse(Date.parse(@date).to_s)
-    begining_of_day..(begining_of_day + 1.day)
+    beginning = Time.parse(Date.parse(@date).to_s)
+    beginning..beginning.end_of_day
+  end
+
+  def generate_month_range
+    beginning_date = Date.parse(@month).beginning_of_month
+    end_date = beginning_date.end_of_month
+    Time.parse(beginning_date.to_s)..Time.parse(end_date.to_s)
   end
 end
