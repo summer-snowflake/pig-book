@@ -8,6 +8,7 @@ en:
     login: SignIn
     logout: SignOut
     input: Input data
+    list: List
     sign_up: SignUp
     mypage_top: Mypage TOP
     settings: Settings

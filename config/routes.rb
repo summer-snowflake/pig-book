@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :places, only: %w[index]
   resources :breakdowns, only: %w[index]
   resources :tags, only: %w[index]
-  resources :records, only: %w[new]
+  resources :records, only: %w[index new]
 
   namespace :admin do
     resources :users, only: %w[index]
