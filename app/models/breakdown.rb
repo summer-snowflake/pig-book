@@ -5,6 +5,7 @@ class Breakdown < ApplicationRecord
 
   belongs_to :category
   has_many :records, dependent: :restrict_with_error
+  has_many :templates
 
   validates :name, presence: true, length: { maximum: 30 }
 end
