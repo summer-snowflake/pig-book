@@ -50,6 +50,7 @@ class Records extends React.Component {
             {this.props.records.map((record) => (
               <Record
                 editingRecordId={this.props.editingRecordId}
+                isListPage={this.props.isListPage}
                 key={record.id}
                 onClickEditIcon={this.handleClickEditIcon}
                 onClickTrashIcon={this.handleClickTrashIcon}
@@ -65,6 +66,7 @@ class Records extends React.Component {
 }
 
 Records.propTypes = {
+  isListPage: PropTypes.bool,
   records: PropTypes.array.isRequired,
   editingRecordId: PropTypes.number,
   handleClickDestroyButton: PropTypes.func.isRequired,

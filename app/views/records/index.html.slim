@@ -1,0 +1,6 @@
+- content_for :title do
+  i.fas.fa-clipboard-list.left-icon
+  = t('menu.list')
+
+= render layout: 'content_panel'
+  = react_component('RecordsCard', @params)
