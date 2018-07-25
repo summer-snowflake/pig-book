@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 import Trash from './../common/Trash'
 import TagsIcons from './TagsIcons'
+import DateFormat from './../common/DateFormat'
 
 class Record extends React.Component {
   constructor(props) {
@@ -27,6 +29,11 @@ class Record extends React.Component {
         <td className='icon-td'>
           <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
         </td>
+        {this.props.isListPage && (
+          <td>
+            <DateFormat targetDate={moment(this.props.record.published_at)} />
+          </td>
+        )}
         <td>
           <i className='fas fa-th-large left-icon yellow' />
           {this.props.record.category_name}
@@ -63,6 +70,7 @@ class Record extends React.Component {
 }
 
 Record.propTypes = {
+  isListPage: PropTypes.bool,
   editingRecordId: PropTypes.number,
   record: PropTypes.object.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,

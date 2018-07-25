@@ -12,7 +12,10 @@ class DateFormat extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <span>{this.props.targetDate.format(t('date.format'))} {t('label.records')}</span>
+          <span>
+            {this.props.targetDate.format(t('date.format'))}
+            {this.props.displayLabel && t('label.records') }
+          </span>
         )
       }}</I18n>
     )
@@ -20,6 +23,7 @@ class DateFormat extends React.Component {
 }
 
 DateFormat.propTypes = {
+  displayLabel: PropTypes.bool,
   targetDate: PropTypes.object.isRequired
 }
 

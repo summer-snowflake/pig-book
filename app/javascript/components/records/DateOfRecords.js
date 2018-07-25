@@ -23,7 +23,7 @@ class DateOfRecords extends React.Component {
         <button className='btn btn-primary btn-sm float-left' onClick={this.handleClickPreviousButton}>
           <i className='fas fa-chevron-left' />
         </button>
-        <DateFormat targetDate={this.props.targetDate} />
+        <DateFormat displayLabel targetDate={this.props.targetDate} />
         <button className='btn btn-primary btn-sm float-right' onClick={this.handleClickNextButton}>
           <i className='fas fa-chevron-right' />
         </button>
