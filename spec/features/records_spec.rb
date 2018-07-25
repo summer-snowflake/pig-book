@@ -17,10 +17,25 @@ feature 'RECORD', js: true do
     end
   end
 
+  scenario 'Link to list page' do
+    visit root_path
+    click_link I18n.t('menu.list')
+    within '.card-header' do
+      expect(page).to have_content I18n.t('menu.list')
+    end
+  end
+
   scenario 'Connect to input page.' do
     visit new_record_path
     within '.card-header' do
       expect(page).to have_content I18n.t('menu.input')
+    end
+  end
+
+  scenario 'Connect to list page.' do
+    visit records_path
+    within '.card-header' do
+      expect(page).to have_content I18n.t('menu.list')
     end
   end
 
