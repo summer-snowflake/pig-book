@@ -50,8 +50,7 @@ ActiveRecord::Schema.define(version: 20180726121901) do
 
   create_table "monthly_balance_tables", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "year", null: false
-    t.integer "month", null: false
+    t.datetime "beginning_at", null: false
     t.integer "income", default: 0, null: false
     t.integer "expenditure", default: 0, null: false
     t.datetime "created_at", null: false
