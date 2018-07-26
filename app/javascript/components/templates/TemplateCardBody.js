@@ -14,6 +14,7 @@ class TemplateCardBody extends React.Component {
       message: '',
       success: false,
       categories: [],
+      tags: [],
       templates: this.props.templates,
       errorMessages: {}
     }
@@ -21,10 +22,35 @@ class TemplateCardBody extends React.Component {
     this.postTemplate = this.postTemplate.bind(this)
     this.destroyTemplate = this.destroyTemplate.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.getTags = this.getTags.bind(this)
   }
 
   componentWillMount() {
-    this.getTemplates()
+    this.getTags()
+  }
+
+  getTags() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/tags',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.getTemplates()
+        this.setState({
+          tags: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   getCategories() {
@@ -127,7 +153,7 @@ class TemplateCardBody extends React.Component {
     return (
       <div className='template-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <TemplateForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postTemplate} />
+        <TemplateForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postTemplate} tags={this.state.tags} />
         <Templates categories={this.state.categories} getTemplates={this.getTemplates} handleClickDestroyButton={this.destroyTemplate} last_request_at={this.props.last_request_at} templates={this.state.templates} user_token={this.props.user_token} />
       </div>
     )

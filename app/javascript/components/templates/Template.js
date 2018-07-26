@@ -9,7 +9,7 @@ import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
-import BadgePill from './../common/BadgePill'
+import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
 
 class Template extends React.Component {
   constructor(props) {
@@ -17,7 +17,11 @@ class Template extends React.Component {
     this.state = {
       isEditing: false,
       name: this.props.template.name,
+      charge: this.props.template.charge,
+      memo: this.props.template.memo,
       categoryId: this.props.template.category_id,
+      breakdownId: this.props.template.breakdown_id,
+      breakdowns: [],
       message: '',
       success: false,
       errorMessages: {}
@@ -26,8 +30,11 @@ class Template extends React.Component {
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeTemplateName = this.handleChangeTemplateName.bind(this)
+    this.handleChangeTemplateCharge = this.handleChangeTemplateCharge.bind(this)
+    this.handleChangeTemplateMemo = this.handleChangeTemplateMemo.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
   }
 
   onClickTrashIcon(template) {
@@ -52,6 +59,18 @@ class Template extends React.Component {
     })
   }
 
+  handleChangeTemplateCharge(e) {
+    this.setState({
+      charge: e.target.value
+    })
+  }
+
+  handleChangeTemplateMemo(e) {
+    this.setState({
+      memo: e.target.value
+    })
+  }
+
   handleClickUpdateButton() {
     this.setState({
       message: '',
@@ -59,7 +78,10 @@ class Template extends React.Component {
     })
     let params = {
       name: this.state.name,
-      category_id: this.state.categoryId
+      category_id: this.state.categoryId,
+      breakdown_id: this.state.breakdownId,
+      charge: this.state.charge,
+      memo: this.state.memo
     }
     let options = {
       method: 'PATCH',
@@ -85,20 +107,22 @@ class Template extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      categoryId: category.id
+      categoryId: category.id,
+      breakdowns: category.breakdowns
+    })
+  }
+
+  onSelectBreakdown(breakdown) {
+    this.setState({
+      breakdownId: (breakdown || {}).id
     })
   }
 
   render() {
     return (
       <tr className='template-component' id={'template-' + this.props.template.id}>
-        {!this.state.isEditing && (
-          <td className='left-edit-target template-category-td'>
-            <BadgePill label={this.props.template.category_human_balance_of_payments} successOrDanger={this.props.template.category_success_or_danger_style_class} />
-          </td>
-        )}
         {this.state.isEditing ? (
-          <td className='center-edit-target template-category-td' colSpan='2'>
+          <td className='left-edit-target template-category-td' colSpan='2'>
             <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
@@ -115,6 +139,36 @@ class Template extends React.Component {
         ) : (
           <td className='center-edit-target'>
             {this.props.template.name}
+          </td>
+        )}
+        {this.state.isEditing ? (
+          <td className='center-edit-target template-category-td' colSpan='2'>
+            <BreakdownsSelectBox breakdowns={this.state.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={false} selectedBreakdownId={this.state.breakdownId} />
+            <FormErrorMessages column='breakdown' errorMessages={this.state.errorMessages} />
+          </td>
+        ) : (
+          <td className='center-edit-target template-category-td'>
+            {this.props.template.breakdown_name}
+          </td>
+        )}
+        {this.state.isEditing ? (
+          <td className='center-edit-target'>
+            <input className='form-control' onChange={this.handleChangeTemplateCharge} type='number' value={this.state.charge} />
+            <FormErrorMessages column='charge' errorMessages={this.state.errorMessages} />
+          </td>
+        ) : (
+          <td className='center-edit-target'>
+            {this.props.template.charge}
+          </td>
+        )}
+        {this.state.isEditing ? (
+          <td className='center-edit-target'>
+            <input className='form-control' onChange={this.handleChangeTemplateMemo} type='text' value={this.state.memo} />
+            <FormErrorMessages column='memo' errorMessages={this.state.errorMessages} />
+          </td>
+        ) : (
+          <td className='center-edit-target'>
+            {this.props.template.memo}
           </td>
         )}
         {this.state.isEditing ? (

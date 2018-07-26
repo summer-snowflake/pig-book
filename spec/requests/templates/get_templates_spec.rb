@@ -34,6 +34,7 @@ describe 'GET /api/templates' do
         {
           category_name: category.name,
           breakdown_name: nil,
+          tag_name: nil,
           name: template2.name,
           charge: template2.charge,
           memo: template2.memo
@@ -41,6 +42,7 @@ describe 'GET /api/templates' do
         {
           category_name: category.name,
           breakdown_name: breakdown.name,
+          tag_name: nil,
           name: template1.name,
           charge: template1.charge,
           memo: template1.memo

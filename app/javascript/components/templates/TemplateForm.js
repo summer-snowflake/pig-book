@@ -5,6 +5,7 @@ import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
+import TagsSelectBox from './../common/TagsSelectBox'
 import AddButton from './../common/AddButton'
 import FormMixin from './../mixins/FormMixin'
 
@@ -14,11 +15,13 @@ class TemplateForm extends React.Component {
     this.state = {
       selectedCategoryId: null,
       selectedBreakdownId: null,
+      selectedTagId: null,
       breakdowns: []
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.onSelectTag = this.onSelectTag.bind(this)
   }
 
   handleClickSubmitButton() {
@@ -26,6 +29,7 @@ class TemplateForm extends React.Component {
       name: this.refs.name.value,
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
+      tag_id: this.state.selectedTagId,
       charge: this.refs.charge.value,
       memo: this.refs.memo.value
     })
@@ -41,7 +45,13 @@ class TemplateForm extends React.Component {
 
   onSelectBreakdown(breakdown) {
     this.setState({
-      selectedBreakdownId: breakdown.id
+      selectedBreakdownId: (breakdown || {}).id
+    })
+  }
+
+  onSelectTag(tag) {
+    this.setState({
+      selectedTagId: (tag || {}).id
     })
   }
 
@@ -61,6 +71,9 @@ class TemplateForm extends React.Component {
         <div className='form-row without-error'>
           <div className='form-group col-auto mb-3'>
             <BreakdownsSelectBox breakdowns={this.state.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.state.selectedCategoryId} selectedBreakdownId={this.state.selectedBreakdownId} />
+          </div>
+          <div className='form-group col-auto mb-3'>
+            <TagsSelectBox handleSelectTag={this.onSelectTag} selectedTagId={this.state.selectedTagId} tags={this.props.tags} />
           </div>
         </div>
         <div className='form-row'>
@@ -83,6 +96,7 @@ class TemplateForm extends React.Component {
 
 TemplateForm.propTypes = {
   categories: PropTypes.array.isRequired,
+  tags: PropTypes.array.isRequired,
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired
 }
