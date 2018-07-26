@@ -106,11 +106,13 @@ ActiveRecord::Schema.define(version: 20180725142636) do
     t.string "name", null: false
     t.integer "charge"
     t.bigint "breakdown_id"
+    t.bigint "tag_id"
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["breakdown_id"], name: "index_templates_on_breakdown_id"
     t.index ["category_id"], name: "index_templates_on_category_id"
+    t.index ["tag_id"], name: "index_templates_on_tag_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -156,4 +158,5 @@ ActiveRecord::Schema.define(version: 20180725142636) do
   add_foreign_key "tags", "users"
   add_foreign_key "templates", "breakdowns"
   add_foreign_key "templates", "categories"
+  add_foreign_key "templates", "tags"
 end

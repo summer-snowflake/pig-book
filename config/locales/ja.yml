@@ -18,6 +18,7 @@ ja:
     base_settings: 基本設定
     category_list: カテゴリ一覧
     breakdown_list: 内訳一覧
+    template_list: テンプレート一覧
     tag_list: ラベル一覧
     place_list: お店・施設一覧
     admin:
@@ -65,6 +66,11 @@ ja:
       breakdown:
         name: 内訳
         category: カテゴリ
+      template:
+        name: テンプレート名
+        category: カテゴリ
+        charge: 金額
+        memo: メモ
       place:
         name: 店名・施設名
       tag:

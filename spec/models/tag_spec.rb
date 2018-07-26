@@ -6,6 +6,7 @@ RSpec.describe Tag, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:tagged_records) }
+    it { is_expected.to have_many(:templates) }
   end
 
   describe 'validation' do

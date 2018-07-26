@@ -7,7 +7,8 @@ import moment from 'moment'
 import FormMixin from './../mixins/FormMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
-import BreakdownsSelectBox from './BreakdownsSelectBox'
+import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
+import TemplatesSelectBox from './../common/TemplatesSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
 import UpdateButton from './../common/UpdateButton'
@@ -22,6 +23,7 @@ class NewRecordForm extends React.Component {
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
@@ -79,6 +81,10 @@ class NewRecordForm extends React.Component {
     this.props.handleSelectBreakdown(breakdown)
   }
 
+  onSelectTemplate(template) {
+    this.props.handleSelectTemplate(template)
+  }
+
   onSelectPlace(place) {
     this.props.handleSelectPlace(place)
   }
@@ -120,6 +126,9 @@ class NewRecordForm extends React.Component {
         </div>
         <div className='form-group'>
           <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
+        </div>
+        <div className='form-group'>
+          <TemplatesSelectBox handleSelectTemplate={this.onSelectTemplate} isDisabled={!this.props.selectedCategoryId} selectedTemplateId={this.props.selectedTemplateId} templates={this.props.templates} />
         </div>
         <div className='form-group'>
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} selectedPlaceId={this.props.selectedPlaceId} />
@@ -186,6 +195,8 @@ NewRecordForm.propTypes = {
   selectedPlaceId: PropTypes.number,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
+  selectedTemplateId: PropTypes.number,
+  templates: PropTypes.array.isRequired,
   inputCharge: PropTypes.string,
   inputPoint: PropTypes.string,
   inputMemo: PropTypes.string,
@@ -197,6 +208,7 @@ NewRecordForm.propTypes = {
   handleUpdateForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
+  handleSelectTemplate: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
   handleChangeCharge: PropTypes.func.isRequired,

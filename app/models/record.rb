@@ -13,8 +13,9 @@ class Record < ApplicationRecord
   has_many :tagged_records
 
   validates :published_at, presence: true
-  validates :charge, presence: true,
-                     numericality: { greater_than_or_equal_to: 0 }
+  validates :charge,
+            presence: true,
+            numericality: { greater_than_or_equal_to: 0, allow_nil: true }
   validate :point_is_less_than_or_equal_to_charge
   validates :memo, length: { maximum: 250 }
 

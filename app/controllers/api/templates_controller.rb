@@ -41,6 +41,6 @@ class Api::TemplatesController < Api::BaseController
   end
 
   def template_params
-    params.permit(:name, :category_id, :breakdown_id, :charge, :memo)
+    params.permit(:name, :category_id, :breakdown_id, :tag_id, :charge, :memo)
   end
 end

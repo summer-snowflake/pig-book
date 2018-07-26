@@ -229,6 +229,10 @@ $twitter-border-color: #2e6da4;
 .card-body .form-row {
   height: 70px;
 
+  &.without-error {
+    height: 44px;
+  }
+
   .form-check {
     padding-top: 7px;
   }

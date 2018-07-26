@@ -33,14 +33,22 @@ describe 'GET /api/templates' do
       json = [
         {
           category_name: category.name,
+          breakdown_id: nil,
           breakdown_name: nil,
+          tag_id: nil,
+          tag_name: nil,
+          tag_color_code: nil,
           name: template2.name,
           charge: template2.charge,
           memo: template2.memo
         },
         {
           category_name: category.name,
+          breakdown_id: breakdown.id,
           breakdown_name: breakdown.name,
+          tag_id: nil,
+          tag_name: nil,
+          tag_color_code: nil,
           name: template1.name,
           charge: template1.charge,
           memo: template1.memo
