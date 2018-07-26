@@ -40,7 +40,8 @@ describe 'GET /api/categories' do
           places: [{
             name: place.name
           }],
-          breakdowns: []
+          breakdowns: [],
+          templates: []
         },
         {
           human_balance_of_payments: '支出',
@@ -56,7 +57,8 @@ describe 'GET /api/categories' do
               category_name: category1.name,
               name: breakdown2.name
             }
-          ]
+          ],
+          templates: []
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

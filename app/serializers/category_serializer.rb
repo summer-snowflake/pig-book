@@ -8,6 +8,8 @@ class CategorySerializer < ActiveModel::Serializer
                     if: -> { categories_list? }
   has_many :breakdowns, serializer: BreakdownSerializer,
                         if: -> { categories_list? }
+  has_many :templates, serializer: TemplateSerializer,
+                       if: -> { categories_list? }
 
   def human_balance_of_payments
     object.decorate.human_balance_of_payments
