@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180715221337) do
+ActiveRecord::Schema.define(version: 20180725142636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,18 @@ ActiveRecord::Schema.define(version: 20180715221337) do
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "name", null: false
+    t.integer "charge"
+    t.bigint "breakdown_id"
+    t.text "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breakdown_id"], name: "index_templates_on_breakdown_id"
+    t.index ["category_id"], name: "index_templates_on_category_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -142,4 +154,6 @@ ActiveRecord::Schema.define(version: 20180715221337) do
   add_foreign_key "tagged_records", "records"
   add_foreign_key "tagged_records", "tags"
   add_foreign_key "tags", "users"
+  add_foreign_key "templates", "breakdowns"
+  add_foreign_key "templates", "categories"
 end
