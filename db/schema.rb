@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725142636) do
+ActiveRecord::Schema.define(version: 20180726121901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20180725142636) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_categorized_places_on_category_id"
     t.index ["place_id"], name: "index_categorized_places_on_place_id"
+  end
+
+  create_table "monthly_balance_tables", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "year", null: false
+    t.integer "month", null: false
+    t.integer "income", default: 0, null: false
+    t.integer "expenditure", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_monthly_balance_tables_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -147,6 +158,7 @@ ActiveRecord::Schema.define(version: 20180725142636) do
   add_foreign_key "categories", "users"
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
+  add_foreign_key "monthly_balance_tables", "users"
   add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "records", "breakdowns"
