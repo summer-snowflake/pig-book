@@ -6,6 +6,7 @@ RSpec.describe Template, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:category) }
     it { is_expected.to belong_to(:breakdown).optional }
+    it { is_expected.to belong_to(:tag).optional }
   end
 
   describe 'validation' do

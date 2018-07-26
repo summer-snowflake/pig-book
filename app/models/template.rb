@@ -5,6 +5,7 @@ class Template < ApplicationRecord
 
   belongs_to :category
   belongs_to :breakdown, optional: true
+  belongs_to :tag, optional: true
 
   validates :name, presence: true, length: { maximum: 250 }
   validates :charge,
