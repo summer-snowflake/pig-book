@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :categories, only: %w[index]
   resources :places, only: %w[index]
   resources :breakdowns, only: %w[index]
+  resources :templates, only: %w[index]
   resources :tags, only: %w[index]
   resources :records, only: %w[index new]
 

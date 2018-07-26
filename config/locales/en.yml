@@ -18,6 +18,7 @@ en:
     base_settings: Base Settings
     category_list: Categories List
     breakdown_list: Descriptions List
+    template_list: Templates List
     tag_list: Tags List
     place_list: Places List
     admin:
@@ -65,6 +66,11 @@ en:
       breakdown:
         name: Description
         category: Category
+      template:
+        name: Template Name
+        category: Category
+        charge: Amount of Money
+        memo: Note
       place:
         name: Place (Store/Facility) Name
       tag:
@@ -74,4 +80,4 @@ en:
         category: Category
         charge: Amount of Money
         point: Point
-        memo: Memo
+        memo: Note
