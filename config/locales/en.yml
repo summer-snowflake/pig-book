@@ -30,6 +30,7 @@ en:
   label:
     expenditure: Expenditure
     income: Income
+    event: Event
   messages:
     alert:
       bad_request_error: 400 Bad Request Error. You can not access.

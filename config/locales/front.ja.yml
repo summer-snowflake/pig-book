@@ -6,12 +6,16 @@ ja:
       create: 登録する
       update: 更新する
       today: 今日
+      tally: 集計する
     message:
       add: 追加しました
       updated: 更新しました
       destroyed: 削除しました
     label:
       records: の登録
+      last_tally_at: 最終集計時刻
     currency: ¥
     date:
       format: YYYY年MM月DD日
+    time:
+      format: YYYY年MM月DD日 HH:mm:ss
