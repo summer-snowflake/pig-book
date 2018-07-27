@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :calculator do
+namespace :tally do
   desc 'Calculate the records on monthly.'
   task monthly: :environment do
     id = ENV['USER_ID']
