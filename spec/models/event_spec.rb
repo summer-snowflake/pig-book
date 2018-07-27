@@ -14,7 +14,7 @@ RSpec.describe Event, type: :model do
   describe '#category' do
     it do
       is_expected.to define_enum_for(:category)
-        .with_values(%i[monthly_calculator])
+        .with_values(%i[tally_monthly])
     end
   end
 end

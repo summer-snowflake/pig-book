@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :event do
     user
     created_by { user.id }
-    category { %i[monthly_calculator].sample }
+    category { %i[tally_monthly].sample }
   end
 end

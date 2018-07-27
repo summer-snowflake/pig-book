@@ -4,5 +4,5 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :operator, class_name: User, foreign_key: :created_by
 
-  enum category: { monthly_calculator: 0 }
+  enum category: { tally_monthly: 0 }
 end
