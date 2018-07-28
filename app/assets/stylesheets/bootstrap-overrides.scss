@@ -108,3 +108,10 @@ $lighten-green: lighten($green, 15%);
 .btn-sm, .btn-group-sm > .btn {
   padding: 0 6px;
 }
+
+.monthly-table.table {
+  tr {
+    height: 0;
+    padding: 10px;
+  }
+}

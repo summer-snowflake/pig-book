@@ -4,6 +4,7 @@ import reactMixin from 'react-mixin'
 
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import MonthlyBalanceTable from './MonthlyBalanceTable'
 
 class DashboardCardBody extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class DashboardCardBody extends React.Component {
     return (
       <div className='dashboard-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
+        <MonthlyBalanceTable data={this.props.monthly_balance_table} />
       </div>
     )
   }
@@ -29,7 +31,8 @@ class DashboardCardBody extends React.Component {
 
 DashboardCardBody.propTypes = {
   user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  monthly_balance_table: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(DashboardCardBody, MessageNotifierMixin)
