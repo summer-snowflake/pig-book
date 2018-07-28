@@ -1,0 +1,6 @@
+- content_for :title do
+  i.fas.fa-chart-bar.left-icon
+  = t('menu.dashboard')
+
+= render layout: 'content_panel'
+  = react_component('DashboardCard', @params)

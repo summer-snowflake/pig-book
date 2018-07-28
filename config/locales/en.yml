@@ -9,6 +9,7 @@ en:
     logout: SignOut
     input: Input data
     list: List
+    dashboard: Dashboard
     sign_up: SignUp
     mypage_top: Mypage TOP
     settings: Settings

@@ -2,6 +2,7 @@
 
 class Record < ApplicationRecord
   include ValidationErrorMessagesBuilder
+  include EnumDefinedCurrency
 
   attr_accessor :tags
   before_save :set_tagged_records, if: -> { tags.present? }
@@ -19,7 +20,8 @@ class Record < ApplicationRecord
   validate :point_is_less_than_or_equal_to_charge
   validates :memo, length: { maximum: 250 }
 
-  enum currency: { yen: 0, dollar: 1 }
+  scope :current_currency,
+        ->(user) { where(currency: user.base_setting.currency) }
 
   private
 
