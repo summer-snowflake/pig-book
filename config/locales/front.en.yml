@@ -11,6 +11,7 @@ en:
       add: Add successfully.
       updated: Updated successfully.
       destroyed: Destroyed successfully.
+      completed: Completed successfully.
     label:
       records:
       last_tally_at: last tally at

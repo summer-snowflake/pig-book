@@ -11,6 +11,7 @@ ja:
       add: 追加しました
       updated: 更新しました
       destroyed: 削除しました
+      completed: 完了しました
     label:
       records: の登録
       last_tally_at: 最終集計時刻

@@ -14,5 +14,4 @@
         tr
           td = user.email
           td = user.last_sign_in_at
-          td
-            = react_component('TallyButtonTableRecord', @params)
+          td = react_component('TallyButtonTableRecord', @params.merge(user_id: user.id))

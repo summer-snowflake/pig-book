@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :users, only: :none do
-        get :tally
+        patch :tally
       end
     end
   end

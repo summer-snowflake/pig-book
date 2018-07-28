@@ -1,31 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import TallyButton from './admin/users/TallyButton'
-import TallyTimeLabel from './admin/users/TallyTimeLabel'
+import TallyButtonTableRecordBody from './admin/users/TallyButtonTableRecordBody'
 import ErrorBoundary from './common/ErrorBoundary'
 
 class TallyButtonTableRecord extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      lastTallyAt: undefined
-    }
-    this.handleClickButton = this.handleClickButton.bind(this)
-  }
-
-  handleClickButton() {
-    console.log('click')
   }
 
   render() {
     return (
       <div className='monthly-calculate-table-record-component'>
         <ErrorBoundary>
-          <span>
-            <TallyButton onClickButton={this.handleClickButton} />
-            <TallyTimeLabel lastTallyAt={this.state.lastTallyAt} />
-          </span>
+          <TallyButtonTableRecordBody last_request_at={this.props.last_request_at} user_id={this.props.user_id} user_token={this.props.user_token} />
         </ErrorBoundary>
       </div>
     )
@@ -34,7 +22,8 @@ class TallyButtonTableRecord extends React.Component {
 
 TallyButtonTableRecord.propTypes = {
   user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  user_id: PropTypes.number.isRequired
 }
 
 export default TallyButtonTableRecord
