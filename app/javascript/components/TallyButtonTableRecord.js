@@ -13,7 +13,7 @@ class TallyButtonTableRecord extends React.Component {
     return (
       <div className='monthly-calculate-table-record-component'>
         <ErrorBoundary>
-          <TallyButtonTableRecordBody last_request_at={this.props.last_request_at} user_id={this.props.user_id} user_token={this.props.user_token} />
+          <TallyButtonTableRecordBody last_request_at={this.props.last_request_at} last_tally_at={this.props.last_tally_at} user_id={this.props.user_id} user_token={this.props.user_token} />
         </ErrorBoundary>
       </div>
     )
@@ -23,6 +23,7 @@ class TallyButtonTableRecord extends React.Component {
 TallyButtonTableRecord.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired,
+  last_tally_at: PropTypes.string.isRequired,
   user_id: PropTypes.number.isRequired
 }
 

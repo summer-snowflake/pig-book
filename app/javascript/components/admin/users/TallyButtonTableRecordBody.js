@@ -13,16 +13,12 @@ class TallyButtonTableRecordBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastTallyAt: this.props.last_tally_at || moment(),
+      lastTallyAt: moment(this.props.last_tally_at),
       message: '',
       success: false,
       errorMessages: {}
     }
     this.handleClickButton = this.handleClickButton.bind(this)
-  }
-
-  componentWillMount() {
-    // get last event updated_at
   }
 
   handleClickButton() {
@@ -63,7 +59,7 @@ class TallyButtonTableRecordBody extends React.Component {
 TallyButtonTableRecordBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired,
-  last_tally_at: PropTypes.string,
+  last_tally_at: PropTypes.string.isRequired,
   user_id: PropTypes.number.isRequired
 }
 

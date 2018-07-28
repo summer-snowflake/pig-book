@@ -10,7 +10,7 @@ describe 'GET /api/admin/users/:user_id/tally' do
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
-      get "/api/admin/users/#{user.id}/tally"
+      patch "/api/admin/users/#{user.id}/tally"
 
       expect(response.status).to eq 401
       json = {
@@ -24,8 +24,8 @@ describe 'GET /api/admin/users/:user_id/tally' do
     let(:params) { { last_request_at: Time.zone.now } }
 
     it '200とデータが返ってくること' do
-      get "/api/admin/users/#{user.id}/tally",
-          params: params, headers: login_headers(admin_user)
+      patch "/api/admin/users/#{user.id}/tally",
+            params: params, headers: login_headers(admin_user)
 
       expect(response.status).to eq 200
       event = user.events.last

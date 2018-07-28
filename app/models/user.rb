@@ -30,6 +30,10 @@ class User < ApplicationRecord
     Profile.find_or_create_by(user: self)
   end
 
+  def last_tally_at
+    events.tally_monthly.last&.created_at
+  end
+
   private
 
   def generate_authentication_token
