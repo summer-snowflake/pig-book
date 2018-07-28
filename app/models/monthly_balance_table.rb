@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MonthlyBalanceTable < ApplicationRecord
-  belongs_to :user
+  include EnumDefinedCurrency
 
-  enum currency: { yen: 0, dollar: 1 }
+  belongs_to :user
 end
