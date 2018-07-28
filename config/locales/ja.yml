@@ -30,6 +30,7 @@ ja:
   label:
     expenditure: 支出
     income: 収入
+    event: 操作
   messages:
     alert:
       bad_request_error: 400 Bad Request Error. 不正なリクエストです。アクセスできませんでした。

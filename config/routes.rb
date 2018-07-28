@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     resources :categorized_places, only: %w[create]
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
+
+    namespace :admin do
+      resources :users, only: :none do
+        patch :tally
+      end
+    end
   end
 
   namespace :locales, format: :json do

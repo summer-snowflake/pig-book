@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :templates, through: :categories
   has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
+  has_many :monthly_balance_tables, dependent: :destroy
+  has_many :events, dependent: :destroy
   has_one :admin, dependent: :destroy
   has_one :profile, dependent: :destroy
 
@@ -26,6 +28,10 @@ class User < ApplicationRecord
 
   def base_setting
     Profile.find_or_create_by(user: self)
+  end
+
+  def last_tally_at
+    events.tally_monthly.last&.created_at
   end
 
   private
