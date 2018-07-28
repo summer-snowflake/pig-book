@@ -13,6 +13,7 @@ class MonthlyBalanceTable::Updator
       monthly = MonthlyBalanceTable
                 .find_or_initialize_by(user: @user, beginning_at: key)
       monthly.update!(
+        currency: @user.base_setting.currency,
         income: sum_charge(incomes(records)),
         expenditure: sum_charge(expenditure(records))
       )

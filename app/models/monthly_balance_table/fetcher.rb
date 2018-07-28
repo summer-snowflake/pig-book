@@ -12,6 +12,7 @@ class MonthlyBalanceTable::Fetcher
 
   def all
     @user.monthly_balance_tables
+         .where(currency: @user.base_setting.currency)
          .where('beginning_at >= ? and beginning_at <= ?',
                 @date.beginning_of_year, @date.end_of_year)
          .order(:beginning_at)
