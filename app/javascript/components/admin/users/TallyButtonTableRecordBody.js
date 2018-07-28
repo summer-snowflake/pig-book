@@ -13,7 +13,7 @@ class TallyButtonTableRecordBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastTallyAt: moment(this.props.last_tally_at),
+      lastTallyAt: this.props.last_tally_at && moment(this.props.last_tally_at),
       message: '',
       success: false,
       errorMessages: {}
@@ -59,7 +59,7 @@ class TallyButtonTableRecordBody extends React.Component {
 TallyButtonTableRecordBody.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired,
-  last_tally_at: PropTypes.string.isRequired,
+  last_tally_at: PropTypes.string,
   user_id: PropTypes.number.isRequired
 }
 
