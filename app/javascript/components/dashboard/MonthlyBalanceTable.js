@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 
 import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
@@ -8,6 +9,36 @@ import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      monthly_balance_tables: this.props.data
+    }
+  }
+
+  componentWillMount() {
+    this.getMonthlyBalanceTables()
+  }
+
+  getMonthlyBalanceTables() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/monthly_balance_tables',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.setState({
+          monthly_balance_tables: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   render() {
@@ -27,8 +58,8 @@ class MonthlyBalanceTable extends React.Component {
             <tr>
               {monthlyKeys.map((index) =>
                 (<td key={index}>
-                  <MonthlyTotalIncome month={index + 1} tally={this.props.data} />
-                  <MonthlyTotalExpenditure month={index + 1} tally={this.props.data} />
+                  <MonthlyTotalIncome month={index + 1} tally={this.state.monthly_balance_tables} />
+                  <MonthlyTotalExpenditure month={index + 1} tally={this.state.monthly_balance_tables} />
                 </td>)
               )}
             </tr>
@@ -40,6 +71,8 @@ class MonthlyBalanceTable extends React.Component {
 }
 
 MonthlyBalanceTable.propTypes = {
+  user_token: PropTypes.string.isRequired,
+  last_request_at: PropTypes.number.isRequired,
   data: PropTypes.array.isRequired
 }
 

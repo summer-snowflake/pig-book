@@ -10,6 +10,12 @@ class MonthlyTotalExpenditure extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      monthlyTotal: nextProps.tally.find( data => moment(data.beginning_at).month() == this.props.month )
+    })
+  }
+
   render() {
     let defaultNumber = { income: 0, expenditure: 0 }
 
