@@ -4,7 +4,7 @@ class MonthlyBalanceTable::Updator
   def initialize(user:)
     @user = user
     @grouping_records =
-      @user.records.includes(:category)
+      @user.records.current_currency(user).includes(:category)
            .group_by { |record| record.published_at.beginning_of_month }
   end
 

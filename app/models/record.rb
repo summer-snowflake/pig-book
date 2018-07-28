@@ -21,6 +21,9 @@ class Record < ApplicationRecord
 
   enum currency: { yen: 0, dollar: 1 }
 
+  scope :current_currency,
+        ->(user) { where(currency: user.base_setting.currency) }
+
   private
 
   def set_tagged_records
