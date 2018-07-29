@@ -22,6 +22,13 @@ export default {
     })
   },
 
+  noticeCompletedMessage() {
+    this.setState({
+      message: i18n.t('message.completed'),
+      success: true
+    })
+  },
+
   noticeErrorMessages(error) {
     switch(error.response.status) {
     case 422:

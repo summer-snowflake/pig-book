@@ -6,12 +6,30 @@ en:
       copy: Copy
       update: Update
       today: Today
+      tally: Tally
     message:
       add: Add successfully.
       updated: Updated successfully.
       destroyed: Destroyed successfully.
+      completed: Completed successfully.
     label:
       records:
+      last_tally_at: last tally at
     currency: $
     date:
       format: MM/DD/YYYY
+    time:
+      format: MM/DD/YYYY HH:mm:ss
+    month:
+      1: January
+      2: February
+      3: March
+      4: April
+      5: May
+      6: June
+      7: July
+      8: August
+      9: September
+      10: October
+      11: November
+      12: December

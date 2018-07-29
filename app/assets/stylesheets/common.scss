@@ -205,6 +205,10 @@ $twitter-border-color: #2e6da4;
     width: 70px;
   }
 
+  .monthly-td {
+    width: 110px;
+  }
+
   .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit {
     padding: 6px;
   }
@@ -228,6 +232,10 @@ $twitter-border-color: #2e6da4;
 
 .card-body .form-row {
   height: 70px;
+
+  &.without-error {
+    height: 44px;
+  }
 
   .form-check {
     padding-top: 7px;
@@ -326,4 +334,8 @@ $twitter-border-color: #2e6da4;
 
 .update-button-component + .copy-button-component {
   padding-left: 10px;
+}
+
+.last-tally-at {
+  padding: 0 10px;
 }

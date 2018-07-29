@@ -11,6 +11,10 @@
     i.fas.fa-list.left-icon
     = t('title.breakdown_list')
     = menu_image(breakdowns_path)
+  = link_to templates_path, class: 'list-group-item' do
+    i.fas.fa-subway.left-icon
+    = t('title.template_list')
+    = menu_image(templates_path)
   = link_to places_path, class: 'list-group-item' do
     i.fas.fa-map-marker-alt.left-icon
     = t('title.place_list')

@@ -24,11 +24,14 @@ class NewRecordCardBody extends React.Component {
       breakdowns: [],
       places: [],
       tags: [],
+      templates: [],
       checkedPoint: false,
+      checkedPointDisabled: true,
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
+      selectedTemplateId: undefined,
       selectedTags: [],
       selectedGenerateTags: {},
       inputCharge: '',
@@ -44,6 +47,7 @@ class NewRecordCardBody extends React.Component {
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.getRecords = this.getRecords.bind(this)
     this.getRecord = this.getRecord.bind(this)
@@ -63,6 +67,7 @@ class NewRecordCardBody extends React.Component {
 
   onChangeCharge(charge) {
     this.setState({
+      checkedPointDisabled: charge > 0 ? false : true,
       inputCharge: charge
     })
   }
@@ -91,7 +96,9 @@ class NewRecordCardBody extends React.Component {
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
+      selectedTemplateId: undefined,
       breakdowns: (category || {}).breakdowns || [],
+      templates: (category || {}).templates || [],
       places: (category || {}).places || []
     })
   }
@@ -99,6 +106,27 @@ class NewRecordCardBody extends React.Component {
   onSelectBreakdown(breakdown) {
     this.setState({
       selectedBreakdownId: (breakdown || {}).id
+    })
+  }
+
+  onSelectTemplate(template) {
+    console.log(template)
+    let tags = [
+      { id: template.tag_id, name: template.tag_name, color_code: template.tag_color_code }
+    ]
+    let generateTags = tags.reduce(
+      (map, tag, index) => Object.assign(map, { [index]: tag }),
+      {}
+    )
+    this.setState({
+      selectedTemplateId: (template || {}).id,
+      selectedBreakdownId: template.breakdown_id,
+      inputCharge: String(template.charge),
+      inputMemo: template.memo,
+      selectedTags: tags.map(tag =>
+        <Tag key={tag.id} tag={tag} />
+      ),
+      selectedGenerateTags: generateTags
     })
   }
 
@@ -345,6 +373,7 @@ class NewRecordCardBody extends React.Component {
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
           selectedBreakdownId: record.breakdown_id || undefined,
+          selectedTemplateId: record.template_id || undefined,
           selectedPlaceId: record.place_id || undefined,
           selectedTags: tags.map(tag =>
             <Tag key={tag.id} tag={tag} />
@@ -395,6 +424,7 @@ class NewRecordCardBody extends React.Component {
           breakdowns={this.state.breakdowns}
           categories={this.state.categories}
           checkedPoint={this.state.checkedPoint}
+          checkedPointDisabled={this.state.checkedPointDisabled}
           editingRecordId={this.state.editingRecordId}
           errorMessages={this.state.errorMessages}
           handleCancelEditing={this.onCancelEditing}
@@ -405,6 +435,7 @@ class NewRecordCardBody extends React.Component {
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSelectPlace={this.onSelectPlace}
+          handleSelectTemplate={this.onSelectTemplate}
           handleSendForm={this.postRecord}
           handleUpdateForm={this.patchRecord}
           inputCharge={this.state.inputCharge}
@@ -420,7 +451,9 @@ class NewRecordCardBody extends React.Component {
           selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
+          selectedTemplateId={this.state.selectedTemplateId}
           tags={this.state.tags}
+          templates={this.state.templates}
           user_token={this.props.user_token}
         />
         <OneDayRecords

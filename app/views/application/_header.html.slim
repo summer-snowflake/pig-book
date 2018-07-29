@@ -13,6 +13,14 @@ nav.navbar.navbar-expand-lg.navbar-light
           = link_to new_record_path, class: 'nav-link'
             i.fas.fa-palette.left-icon.pink
             span.pink.input-menu= t('menu.input')
+        li.nav-item class=active_class(records_path)
+          = link_to records_path, class: 'nav-link'
+            span.fas.fa-clipboard-list.left-icon
+            span= t('menu.list')
+        li.nav-item class=active_class(dashboard_path)
+          = link_to dashboard_path, class: 'nav-link'
+            span.fas.fa-chart-bar.left-icon
+            span= t('menu.dashboard')
     - if current_user
       ul.navbar-nav.nav.justify-content-end
         - if current_user.admin?

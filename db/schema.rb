@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180715221337) do
+ActiveRecord::Schema.define(version: 20180728125752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,26 @@ ActiveRecord::Schema.define(version: 20180715221337) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_categorized_places_on_category_id"
     t.index ["place_id"], name: "index_categorized_places_on_place_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "category", null: false
+    t.bigint "created_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "monthly_balance_tables", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "beginning_at", null: false
+    t.integer "income", default: 0, null: false
+    t.integer "expenditure", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "currency", default: 0, null: false
+    t.index ["user_id"], name: "index_monthly_balance_tables_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -101,6 +121,20 @@ ActiveRecord::Schema.define(version: 20180715221337) do
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "name", null: false
+    t.integer "charge"
+    t.bigint "breakdown_id"
+    t.bigint "tag_id"
+    t.text "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breakdown_id"], name: "index_templates_on_breakdown_id"
+    t.index ["category_id"], name: "index_templates_on_category_id"
+    t.index ["tag_id"], name: "index_templates_on_tag_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -133,6 +167,8 @@ ActiveRecord::Schema.define(version: 20180715221337) do
   add_foreign_key "categories", "users"
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
+  add_foreign_key "events", "users"
+  add_foreign_key "monthly_balance_tables", "users"
   add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "records", "breakdowns"
@@ -142,4 +178,7 @@ ActiveRecord::Schema.define(version: 20180715221337) do
   add_foreign_key "tagged_records", "records"
   add_foreign_key "tagged_records", "tags"
   add_foreign_key "tags", "users"
+  add_foreign_key "templates", "breakdowns"
+  add_foreign_key "templates", "categories"
+  add_foreign_key "templates", "tags"
 end

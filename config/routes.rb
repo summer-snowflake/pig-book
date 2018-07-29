@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   resources :categories, only: %w[index]
   resources :places, only: %w[index]
   resources :breakdowns, only: %w[index]
+  resources :templates, only: %w[index]
   resources :tags, only: %w[index]
-  resources :records, only: %w[new]
+  resources :records, only: %w[index new]
+  resource :dashboard, only: %w[show]
 
   namespace :admin do
     resources :users, only: %w[index]
@@ -31,6 +33,14 @@ Rails.application.routes.draw do
     resources :tags, only: %w[index create update destroy]
     resources :categorized_places, only: %w[create]
     resources :records, only: %w[index show create update destroy]
+    resources :templates, only: %w[index create update destroy]
+    resources :monthly_balance_tables, only: %w[index]
+
+    namespace :admin do
+      resources :users, only: :none do
+        patch :tally
+      end
+    end
   end
 
   namespace :locales, format: :json do

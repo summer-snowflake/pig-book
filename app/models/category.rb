@@ -8,6 +8,7 @@ class Category < ApplicationRecord
   has_many :places, through: :categorized_places
   has_many :breakdowns, dependent: :destroy
   has_many :records, dependent: :restrict_with_error
+  has_many :templates, dependent: :restrict_with_error
 
   validates :balance_of_payments, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 30 }

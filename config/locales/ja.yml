@@ -8,6 +8,8 @@ ja:
     login: ログイン
     logout: ログアウト
     input: 入力する
+    list: リスト
+    dashboard: ダッシュボード
     sign_up: アカウント登録
     mypage_top: マイページTOP
     settings: 各種設定
@@ -17,6 +19,7 @@ ja:
     base_settings: 基本設定
     category_list: カテゴリ一覧
     breakdown_list: 内訳一覧
+    template_list: テンプレート一覧
     tag_list: ラベル一覧
     place_list: お店・施設一覧
     admin:
@@ -28,6 +31,7 @@ ja:
   label:
     expenditure: 支出
     income: 収入
+    event: 操作
   messages:
     alert:
       bad_request_error: 400 Bad Request Error. 不正なリクエストです。アクセスできませんでした。
@@ -64,6 +68,11 @@ ja:
       breakdown:
         name: 内訳
         category: カテゴリ
+      template:
+        name: テンプレート名
+        category: カテゴリ
+        charge: 金額
+        memo: メモ
       place:
         name: 店名・施設名
       tag:
