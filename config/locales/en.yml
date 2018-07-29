@@ -22,6 +22,7 @@ en:
     template_list: Templates List
     tag_list: Tags List
     place_list: Places List
+    csv_import: CSV Import
     admin:
       users: Users List (Management)
   button:

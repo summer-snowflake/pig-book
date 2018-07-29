@@ -22,6 +22,7 @@ ja:
     template_list: テンプレート一覧
     tag_list: ラベル一覧
     place_list: お店・施設一覧
+    csv_import: CSVインポート
     admin:
       users: ユーザの管理
   button:

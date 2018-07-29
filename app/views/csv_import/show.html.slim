@@ -1,0 +1,10 @@
+- content_for :sidemenu do
+  = render 'mypage_menu'
+- content_for :title do
+  i.fas.fa-file-import.left-icon
+  = t('title.csv_import')
+
+= render layout: 'content_panel_with_sidemenu'
+  table.table
+    tr
+      td
