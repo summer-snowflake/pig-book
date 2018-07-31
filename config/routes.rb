@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root to: 'welcome#show'
   get '/mypage', to: 'mypage#show'
-  get '/csv_import', to: 'csv_import#show'
+  resources :csv_files, only: %w[index]
 
   resource :base_setting, only: %w[show update]
 

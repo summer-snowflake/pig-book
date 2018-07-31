@@ -5,6 +5,4 @@
   = t('title.csv_import')
 
 = render layout: 'content_panel_with_sidemenu'
-  table.table
-    tr
-      td
+  = react_component('ImportCard', @params)
