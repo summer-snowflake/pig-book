@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20180729143144) do
   create_table "import_histories", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "row", null: false
+    t.text "messages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_import_histories_on_user_id"
