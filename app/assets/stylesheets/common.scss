@@ -339,3 +339,27 @@ $twitter-border-color: #2e6da4;
 .last-tally-at {
   padding: 0 10px;
 }
+
+.file-upload-field {
+  border: dotted 1px $green;
+  cursor: pointer;
+  height: 100px;
+  width: 100%;
+
+  p {
+    padding-top: 35px;
+    text-align: center;
+  }
+
+  .file-upload {
+    visibility: hidden;
+  }
+}
+
+.loading-image {
+  background-image: image-url('pig-loading.gif');
+  background-size: contain;
+  display: inline-block;
+  height: 20px;
+  width: 20%;
+}

@@ -13,29 +13,36 @@ class ImportCardBody extends React.Component {
     this.state = {
       message: '',
       success: false,
-      errorMessages: {}
+      errorMessages: {},
+      uploaded: false
     }
     this.handleUploadFile = this.handleUploadFile.bind(this)
     this.postFile = this.postFile.bind(this)
   }
 
   handleUploadFile(files) {
-    let formData = new FormData()
-    formData.append('file', files[0])
-    formData.append('last_request_at', this.props.last_request_at)
-    this.postFile(formData)
+    if (files[0] != undefined) {
+      let formData = new FormData()
+      formData.append('file', files[0])
+      formData.append('last_request_at', this.props.last_request_at)
+      this.postFile(formData)
+    }
   }
 
   postFile(fileParams) {
     this.setState({
       message: '',
-      errorMessages: {}
+      errorMessages: {},
+      uploaded: false
     })
     let url = origin + '/api/import_histories'
     let headers = {'Authorization': 'Token token=' + this.props.user_token }
     axios.post(url, fileParams, { headers: headers })
       .then(() => {
         this.noticeAddMessage()
+        this.setState({
+          uploaded: true
+        })
       })
       .catch((error) => {
         this.noticeErrorMessages(error)
@@ -46,7 +53,7 @@ class ImportCardBody extends React.Component {
     return (
       <div className='import-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <FileField onUploadFile={this.handleUploadFile} ref='file_field' />
+        <FileField onUploadFile={this.handleUploadFile} uploaded={this.state.uploaded} />
       </div>
     )
   }

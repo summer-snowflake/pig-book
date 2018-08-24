@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import UploadButton from './../common/UploadButton'
-
 class FileField extends React.Component {
   constructor(props) {
     super(props)
@@ -21,15 +19,29 @@ class FileField extends React.Component {
   render() {
     return (
       <div className='file-field-component'>
-        <input className='file-upload-field' id='page_fine_name' name='page[fine_name]' onChange={this.handleChangeFile} ref='file' size='30' type='file' />
-        <UploadButton onClickButton={this.handleClick} />
+        <div className='file-upload-field' onClick={this.handleClick}>
+          <p>
+            {this.refs.file == undefined || this.props.uploaded ? (
+              <span>
+                <i className='fas fa-file left-icon' />
+                {'ここにファイルをドラッグ、またはクリックしてファイルをアップロードします。'}
+              </span>
+            ) : (
+              <span className='loading-image' />
+            )}
+          </p>
+          <div>
+            <input className='file-upload' id='page_fine_name' name='page[fine_name]' onChange={this.handleChangeFile} ref='file' size='30' type='file' />
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 FileField.propTypes = {
-  onUploadFile: PropTypes.func.isRequired
+  onUploadFile: PropTypes.func.isRequired,
+  uploaded: PropTypes.bool.isRequired
 }
 
 export default FileField
