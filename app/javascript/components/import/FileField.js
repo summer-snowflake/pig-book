@@ -1,38 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Dropzone from 'react-dropzone'
 
 class FileField extends React.Component {
   constructor(props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleChangeFile = this.handleChangeFile.bind(this)
+    this.handleDropFile = this.handleDropFile.bind(this)
   }
 
-  handleClick() {
-    this.refs.file.click()
-  }
-
-  handleChangeFile(e) {
-    this.props.onUploadFile(e.target.files)
+  handleDropFile(acceptedFiles) {
+    this.props.onUploadFile(acceptedFiles)
   }
 
   render() {
     return (
       <div className='file-field-component'>
-        <div className='file-upload-field' onClick={this.handleClick}>
-          <p>
-            {this.refs.file == undefined || this.props.uploaded ? (
-              <span>
-                <i className='fas fa-file left-icon' />
-                {'ここにファイルをドラッグ、またはクリックしてファイルをアップロードします。'}
-              </span>
-            ) : (
-              <span className='loading-image' />
-            )}
-          </p>
-          <div>
-            <input className='file-upload' id='page_fine_name' name='page[fine_name]' onChange={this.handleChangeFile} ref='file' size='30' type='file' />
-          </div>
+        <div className='file-upload-fieldd'>
+          <Dropzone className='file-upload-field' onDrop={this.handleDropFile}>
+            <p>
+              {this.props.uploading ? (
+                <span className='loading-image' />
+              ) : (
+                <span>
+                  <i className='fas fa-file left-icon' />
+                  {'ここにCSVファイルをドラッグ、またはクリックしてファイルをアップロードします。'}
+                </span>
+              )}
+            </p>
+          </Dropzone>
         </div>
       </div>
     )
@@ -41,7 +36,7 @@ class FileField extends React.Component {
 
 FileField.propTypes = {
   onUploadFile: PropTypes.func.isRequired,
-  uploaded: PropTypes.bool.isRequired
+  uploading: PropTypes.bool.isRequired
 }
 
 export default FileField

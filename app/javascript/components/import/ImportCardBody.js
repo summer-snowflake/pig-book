@@ -14,7 +14,7 @@ class ImportCardBody extends React.Component {
       message: '',
       success: false,
       errorMessages: {},
-      uploaded: false
+      uploading: false
     }
     this.handleUploadFile = this.handleUploadFile.bind(this)
     this.postFile = this.postFile.bind(this)
@@ -33,7 +33,7 @@ class ImportCardBody extends React.Component {
     this.setState({
       message: '',
       errorMessages: {},
-      uploaded: false
+      uploading: true
     })
     let url = origin + '/api/import_histories'
     let headers = {'Authorization': 'Token token=' + this.props.user_token }
@@ -41,11 +41,14 @@ class ImportCardBody extends React.Component {
       .then(() => {
         this.noticeAddMessage()
         this.setState({
-          uploaded: true
+          uploading: false
         })
       })
       .catch((error) => {
         this.noticeErrorMessages(error)
+        this.setState({
+          uploading: false
+        })
       })
   }
 
@@ -53,7 +56,7 @@ class ImportCardBody extends React.Component {
     return (
       <div className='import-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <FileField onUploadFile={this.handleUploadFile} uploaded={this.state.uploaded} />
+        <FileField onUploadFile={this.handleUploadFile} uploading={this.state.uploading} />
       </div>
     )
   }
