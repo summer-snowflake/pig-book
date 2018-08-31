@@ -14,9 +14,12 @@ class ImportCardBody extends React.Component {
       message: '',
       success: false,
       errorMessages: {},
-      uploading: false
+      uploading: false,
+      isDragOver: false
     }
     this.handleUploadFile = this.handleUploadFile.bind(this)
+    this.handleDragEnter = this.handleDragEnter.bind(this)
+    this.handleDragLeave = this.handleDragLeave.bind(this)
     this.postFile = this.postFile.bind(this)
   }
 
@@ -27,6 +30,18 @@ class ImportCardBody extends React.Component {
       formData.append('last_request_at', this.props.last_request_at)
       this.postFile(formData)
     }
+  }
+
+  handleDragEnter() {
+    this.setState({
+      isDragOver: true
+    })
+  }
+
+  handleDragLeave() {
+    this.setState({
+      isDragOver: false
+    })
   }
 
   postFile(fileParams) {
@@ -41,13 +56,15 @@ class ImportCardBody extends React.Component {
       .then(() => {
         this.noticeAddMessage()
         this.setState({
-          uploading: false
+          uploading: false,
+          isDragOver: false
         })
       })
       .catch((error) => {
         this.noticeErrorMessages(error)
         this.setState({
-          uploading: false
+          uploading: false,
+          isDragOver: false
         })
       })
   }
@@ -56,7 +73,7 @@ class ImportCardBody extends React.Component {
     return (
       <div className='import-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <FileField onUploadFile={this.handleUploadFile} uploading={this.state.uploading} />
+        <FileField isDragOver={this.state.isDragOver} onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onUploadFile={this.handleUploadFile} uploading={this.state.uploading} />
       </div>
     )
   }

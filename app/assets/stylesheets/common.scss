@@ -352,10 +352,8 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.file-field-component {
-  .file-upload {
-    visibility: hidden;
-  }
+.is-dragover {
+  background-color: rgba(lighten($green, 10%), .2);
 }
 
 .loading-image {
