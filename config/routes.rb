@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root to: 'welcome#show'
   get '/mypage', to: 'mypage#show'
   resources :csv_files, only: %w[index]
+  resources :import_histories, only: %w[index]
 
   resource :base_setting, only: %w[show update]
 

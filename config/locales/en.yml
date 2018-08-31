@@ -22,7 +22,8 @@ en:
     template_list: Templates List
     tag_list: Tags List
     place_list: Places List
-    csv_import: CSV Import
+    csv_import: File Upload
+    import_list: Unregistered Data
     admin:
       users: Users List (Management)
   button:

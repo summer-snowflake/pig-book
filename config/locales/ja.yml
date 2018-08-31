@@ -22,7 +22,8 @@ ja:
     template_list: テンプレート一覧
     tag_list: ラベル一覧
     place_list: お店・施設一覧
-    csv_import: CSVインポート
+    csv_import: ファイルアップロード
+    import_list: 未登録データ一覧
     admin:
       users: ユーザの管理
   button:
