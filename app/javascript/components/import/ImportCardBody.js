@@ -74,7 +74,7 @@ class ImportCardBody extends React.Component {
       <div className='import-card-body-component'>
         <p>
           {'アップロードしたファイル内のデータは、データインポート前のデータとして未登録データ一覧に表示されます。'}
-        <br />
+          <br />
           {'データインポートを完了させるには、未登録データ一覧の画面で対象データを「登録」する必要があります。'}
         </p>
         <AlertMessage message={this.state.message} success={this.state.success} />
