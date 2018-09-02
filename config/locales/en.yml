@@ -85,3 +85,25 @@ en:
         charge: Amount of Money
         point: Point
         memo: Note
+  activemodel:
+    attributes:
+      import_history/record:
+        date: Date
+        category_name: Category Name
+        breakdown_name: Breakdown Name
+        place_name: Shop Name
+        charge: Charge
+        memo: Memo
+        tags: Tags Name
+    errors:
+      models:
+        import_history/record:
+          attributes:
+            category_name:
+              unregistered: is not registered
+            breakdown_name:
+              unregistered: is not registered
+            place_name:
+              unregistered: is not registered
+            tags:
+              unregistered: is not registered

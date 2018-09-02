@@ -10,6 +10,7 @@ class ImportHistory extends React.Component {
     return (
       <tr className='import-history-component'>
         <td>{this.props.history.row}</td>
+        <td>{this.props.history.messages}</td>
       </tr>
     )
   }

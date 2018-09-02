@@ -85,3 +85,25 @@ ja:
         charge: 金額
         point: ポイント
         memo: 備考
+  activemodel:
+    attributes:
+      import_history/record:
+        date: 日付
+        category_name: カテゴリ名
+        breakdown_name: 内訳
+        place_name: 店名・施設名
+        charge: 金額
+        memo: メモ
+        tags: ラベル名
+    errors:
+      models:
+        import_history/record:
+          attributes:
+            category_name:
+              unregistered: が登録されていません
+            breakdown_name:
+              unregistered: が登録されていません
+            place_name:
+              unregistered: が登録されていません
+            tags:
+              unregistered: が登録されていません
