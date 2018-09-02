@@ -18,13 +18,6 @@ feature 'LOGIN', js: true do
     end
   end
 
-  scenario 'Display the login page.' do
-    visit new_user_session_path
-    within '.card-body' do
-      expect(page).to have_content I18n.t('button.twitter_login')
-    end
-  end
-
   context 'there is a user' do
     let!(:user) { create(:user, confirmed_at: Time.zone.now) }
 
