@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MonthlyBalanceTable::Updator
+class MonthlyBalanceTable::Updater
   def initialize(user:)
     @user = user
     @grouping_records =

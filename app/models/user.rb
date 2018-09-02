@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :records, dependent: :destroy
   has_many :monthly_balance_tables, dependent: :destroy
   has_many :events, dependent: :destroy
+  has_many :import_histories, dependent: :destroy
   has_one :admin, dependent: :destroy
   has_one :profile, dependent: :destroy
 

@@ -10,7 +10,7 @@ namespace :tally do
     operator = User.find(args[:operator_id])
 
     ActiveRecord::Base.transaction do
-      updator = MonthlyBalanceTable::Updator.new(user: user)
+      updator = MonthlyBalanceTable::Updater.new(user: user)
       updator.update!
       user.events.where('created_at < ?', 1.month.ago).destroy_all
       user.events.create!(category: :tally_monthly, operator: operator)
