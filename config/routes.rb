@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root to: 'welcome#show'
   get '/mypage', to: 'mypage#show'
+  resources :csv_files, only: %w[index]
+  resources :import_histories, only: %w[index]
 
   resource :base_setting, only: %w[show update]
 
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, only: %w[index]
+    resources :import_histories, only: %w[create]
 
     namespace :admin do
       resources :users, only: :none do

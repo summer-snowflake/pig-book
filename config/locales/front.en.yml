@@ -5,6 +5,7 @@ en:
       create: Create
       copy: Copy
       update: Update
+      upload: Upload
       today: Today
       tally: Tally
     message:

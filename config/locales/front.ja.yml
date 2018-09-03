@@ -5,6 +5,7 @@ ja:
       copy: コピーする
       create: 登録する
       update: 更新する
+      upload: アップロードする
       today: 今日
       tally: 集計する
     message:

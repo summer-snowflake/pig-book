@@ -3,3 +3,11 @@
     i.fas.fa-piggy-bank.left-icon
     = t('menu.mypage_top')
     = menu_image(mypage_path)
+  = link_to csv_files_path, class: 'list-group-item' do
+    i.fas.fa-file-import.left-icon
+    = t('title.csv_import')
+    = menu_image(csv_files_path)
+  = link_to import_histories_path, class: 'list-group-item' do
+    i.fas.fa-clipboard-list.left-icon
+    = t('title.import_list')
+    = menu_image(import_histories_path)
