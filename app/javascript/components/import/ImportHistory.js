@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
+import axios from 'axios'
 
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
 
@@ -10,6 +13,8 @@ class ImportHistory extends React.Component {
     this.state = {
       isEditing: false,
       row: this.props.history.row,
+      message: '',
+      success: false,
       errorMessages: {}
     }
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -37,7 +42,33 @@ class ImportHistory extends React.Component {
   }
 
   handleClickUpdateButton() {
-    console.log('click')
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let params = {
+      row: this.state.row
+    }
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/import_histories/' + this.props.history.id,
+      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.setState({
+          isEditing: false
+        })
+        this.props.getImportHistories()
+        this.noticeUpdatedMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   render() {
@@ -46,7 +77,7 @@ class ImportHistory extends React.Component {
         {this.state.isEditing ? (
           <td className='left-edit-target'>
             <input className='form-control' onChange={this.handleChangeRow} type='text' value={this.state.row} />
-            <FormErrorMessages column='name' errorMessages={this.state.errorMessages} />
+            <FormErrorMessages column='row' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
           <td className='left-edit-target'>
@@ -76,7 +107,12 @@ class ImportHistory extends React.Component {
 }
 
 ImportHistory.propTypes = {
-  history: PropTypes.object.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
+  getImportHistories: PropTypes.func.isRequired
 }
+
+reactMixin.onClass(ImportHistory, MessageNotifierMixin)
 
 export default ImportHistory

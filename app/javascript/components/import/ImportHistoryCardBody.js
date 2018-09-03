@@ -8,10 +8,14 @@ class ImportHistoryCardBody extends React.Component {
     super(props)
   }
 
+  getImportHistories() {
+    console.log('get import histories')
+  }
+
   render() {
     return (
       <div className='import-history-card-body-component'>
-        <ImportHistories histories={this.props.histories} />
+        <ImportHistories getImportHistories={this.getImportHistories} histories={this.props.histories} last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
       </div>
     )
   }
