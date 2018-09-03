@@ -6,6 +6,7 @@ import axios from 'axios'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
+import AlertMessage from './../common/AlertMessage'
 
 class ImportHistory extends React.Component {
   constructor(props) {
@@ -100,7 +101,10 @@ class ImportHistory extends React.Component {
             <i className='fas fa-edit' />
           </td>
         )}
-        <td>{this.props.history.messages}</td>
+        <td>
+          {this.props.history.messages}
+          <AlertMessage message={this.state.message} success={this.state.success} />
+        </td>
       </tr>
     )
   }
