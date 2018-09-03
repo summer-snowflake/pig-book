@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, only: %w[index]
-    resources :import_histories, only: %w[create update]
+    resources :import_histories, only: %w[index create update]
 
     namespace :admin do
       resources :users, only: :none do

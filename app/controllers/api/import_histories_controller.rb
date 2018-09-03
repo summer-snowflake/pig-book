@@ -3,6 +3,11 @@
 class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
 
+  def index
+    @import_histories = current_user.import_histories.order(created_at: :desc)
+    render json: @import_histories
+  end
+
   def create
     updater = ImportHistory::Updater.new(user: current_user)
     if updater.import(file: import_params[:file])
