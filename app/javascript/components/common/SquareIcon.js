@@ -20,7 +20,7 @@ class SquareIcon extends React.Component {
 }
 
 SquareIcon.propTypes = {
-  balanceOfPayments: PropTypes.bool.isRequired
+  balanceOfPayments: PropTypes.bool
 }
 
 export default SquareIcon
