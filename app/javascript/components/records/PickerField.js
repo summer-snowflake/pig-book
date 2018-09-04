@@ -1,5 +1,7 @@
 import React from 'react'
 
+import CategoryPicker from './CategoryPicker'
+
 class PickerField extends React.Component {
   constructor(props) {
     super(props)
@@ -8,7 +10,7 @@ class PickerField extends React.Component {
   render() {
     return (
       <div className='picker-form-component col-md-3'>
-        {'picker field'}
+        <CategoryPicker />
       </div>
     )
   }
