@@ -35,6 +35,12 @@ class User < ApplicationRecord
     events.tally_monthly.last&.created_at
   end
 
+  # NOTE: 登録したデータの直近100件で利用されているカテゴリ
+  def recently_used_categories
+    records.order(created_at: :desc).limit(100)
+           .includes(:category).map(&:category).uniq
+  end
+
   private
 
   def generate_authentication_token
