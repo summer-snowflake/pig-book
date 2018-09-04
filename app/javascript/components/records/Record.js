@@ -5,6 +5,7 @@ import moment from 'moment'
 import Trash from './../common/Trash'
 import TagsIcons from './TagsIcons'
 import DateFormat from './../common/DateFormat'
+import SquareIcon from './../common/SquareIcon'
 
 class Record extends React.Component {
   constructor(props) {
@@ -54,11 +55,7 @@ class Record extends React.Component {
           <TagsIcons tags={this.props.record.tagged_records} />
         )}
         <td className='charge-td'>
-          {this.props.record.balance_of_payments ? (
-            <i className='fas fa-plus-square left-icon blue' />
-          ) : (
-            <i className='fas fa-minus-square left-icon red' />
-          )}
+          <SquareIcon balanceOfPayments={this.props.record.balance_of_payments} />
           {this.props.record.human_charge}
         </td>
         <td className='trash-icon-td'>
