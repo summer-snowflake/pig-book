@@ -38,7 +38,8 @@ class NewRecordCardBody extends React.Component {
       inputPoint: '0',
       inputMemo: '',
       records: this.props.records,
-      targetDate: moment()
+      targetDate: moment(),
+      recentlyUsedCategories: this.props.recently_used_categories
     }
     this.postRecord = this.postRecord.bind(this)
     this.patchRecord = this.patchRecord.bind(this)
@@ -418,7 +419,7 @@ class NewRecordCardBody extends React.Component {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <PickerField />
+        <PickerField categories={this.state.recentlyUsedCategories} />
         <NewRecordForm
           baseSetting={this.state.baseSetting}
           breakdowns={this.state.breakdowns}
@@ -471,6 +472,7 @@ class NewRecordCardBody extends React.Component {
 
 NewRecordCardBody.propTypes = {
   records: PropTypes.array.isRequired,
+  recently_used_categories: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }

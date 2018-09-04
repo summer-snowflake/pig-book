@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import CategoryPicker from './CategoryPicker'
 
@@ -10,10 +11,14 @@ class PickerField extends React.Component {
   render() {
     return (
       <div className='picker-form-component col-md-3'>
-        <CategoryPicker />
+        <CategoryPicker categories={this.props.categories} />
       </div>
     )
   }
+}
+
+PickerField.propTypes = {
+  categories: PropTypes.array.isRequired
 }
 
 export default PickerField
