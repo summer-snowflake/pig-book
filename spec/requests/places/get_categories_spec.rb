@@ -32,6 +32,7 @@ describe 'GET /api/places/:place_id/categories' do
       expect(response.status).to eq 200
       json = [
         {
+          balance_of_payments: false,
           human_balance_of_payments: '支出',
           name: category1.name,
           success_or_danger_style_class: 'danger'
