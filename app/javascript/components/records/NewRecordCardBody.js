@@ -45,6 +45,7 @@ class NewRecordCardBody extends React.Component {
     this.patchRecord = this.patchRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.getRecentlyUsedCategories = this.getRecentlyUsedCategories.bind(this)
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
@@ -190,6 +191,7 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then(() => {
+        this.getRecentlyUsedCategories()
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
@@ -277,9 +279,33 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        this.getRecords()
+        this.getRecentlyUsedCategories()
         this.setState({
           categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
+  getRecentlyUsedCategories() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/recently_used_categories',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.getRecords()
+        this.setState({
+          recentlyUsedCategories: res.data
         })
       })
       .catch((error) => {
