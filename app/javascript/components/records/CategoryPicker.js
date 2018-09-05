@@ -6,24 +6,26 @@ import SquareIcon from './../common/SquareIcon'
 class CategoryPicker extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClickPickerButton = this.handleClickPickerButton.bind(this)
+  }
+
+  handleClickPickerButton() {
+    this.props.onClickPickerButton(this.props.category.id)
   }
 
   render() {
     return (
-      <div className='category-picker-component'>
-        {this.props.categories.map ((category) =>
-          (<div className='picker-button' key={category.id}>
-            <SquareIcon balanceOfPayments={category.balance_of_payments} />
-            {category.name}
-          </div>)
-        )}
+      <div className='category-picker-component picker-button' onClick={this.handleClickPickerButton}>
+        <SquareIcon balanceOfPayments={this.props.category.balance_of_payments} />
+        {this.props.category.name}
       </div>
     )
   }
 }
 
 CategoryPicker.propTypes = {
-  categories: PropTypes.array.isRequired
+  onClickPickerButton: PropTypes.func.isRequired,
+  category: PropTypes.object.isRequired
 }
 
 export default CategoryPicker

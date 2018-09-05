@@ -1,11 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CategoryPicker from './CategoryPicker'
+import CategoryPickers from './CategoryPickers'
 
 class PickerField extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClickCategoryPickerButton = this.handleClickCategoryPickerButton.bind(this)
+  }
+
+  handleClickCategoryPickerButton(category_id) {
+    console.log(category_id)
   }
 
   render() {
@@ -15,7 +20,7 @@ class PickerField extends React.Component {
           <i className='fas fa-th-large left-icon' />
           {'カテゴリ'}
         </span>
-        <CategoryPicker categories={this.props.categories} />
+        <CategoryPickers categories={this.props.categories} onClickPickerButton={this.handleClickCategoryPickerButton} />
         <hr />
       </div>
     )
