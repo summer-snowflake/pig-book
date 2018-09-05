@@ -372,9 +372,14 @@ $twitter-border-color: #2e6da4;
   display: inline-block;
   margin-bottom: 8px;
   margin-left: 10px;
-  padding: 10px;
+  padding: 4px 8px;
 
   &:hover {
     background-color: rgba(lighten($green, 10%), .2);
   }
+}
+
+.picker-label {
+  display: block;
+  padding: 5px 10px
 }
