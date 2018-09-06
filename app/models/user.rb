@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable, :omniauthable
 
+  RECENTLY_RECORDS_LIMIT_COUNT = 50
+
   has_many :categories, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :breakdowns, through: :categories
@@ -33,6 +35,12 @@ class User < ApplicationRecord
 
   def last_tally_at
     events.tally_monthly.last&.created_at
+  end
+
+  # NOTE: 登録したデータの直近100件で利用されているカテゴリ
+  def recently_used_categories
+    records.order(created_at: :desc).limit(RECENTLY_RECORDS_LIMIT_COUNT)
+           .includes(:category).map(&:category).uniq
   end
 
   private

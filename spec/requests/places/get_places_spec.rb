@@ -35,6 +35,7 @@ describe 'GET /api/places' do
           name: place2.name,
           categories: [
             {
+              balance_of_payments: false,
               human_balance_of_payments: '支出',
               name: category.name,
               success_or_danger_style_class: 'danger'
