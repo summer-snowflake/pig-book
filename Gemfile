@@ -50,6 +50,7 @@ group :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
+  gem 'rspec-retry'
   gem 'capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
