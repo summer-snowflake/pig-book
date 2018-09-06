@@ -9,8 +9,8 @@ class CategoryPickers extends React.Component {
     this.handleClickPickerButton = this.handleClickPickerButton.bind(this)
   }
 
-  handleClickPickerButton(category_id) {
-    this.props.onClickPickerButton(category_id)
+  handleClickPickerButton(category) {
+    this.props.onClickPickerButton(category)
   }
 
   render() {

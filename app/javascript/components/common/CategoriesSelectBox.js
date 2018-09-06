@@ -4,18 +4,11 @@ import PropTypes from 'prop-types'
 class CategoriesSelectBox extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      human_balance_of_payments: '収支'
-    }
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
   }
 
   handleSelectCategory(e) {
     let category = this.props.categories.find( category => category.id == e.target.value )
-
-    this.setState({
-      human_balance_of_payments: (category || {}).human_balance_of_payments || '収支'
-    })
     this.props.handleSelectCategory(category)
   }
 
@@ -25,7 +18,7 @@ class CategoriesSelectBox extends React.Component {
         <div className='input-group mb-1'>
           <div className="input-group-prepend">
             <div className="input-group-text" htmlFor='selectable-categories'>
-              {this.state.human_balance_of_payments}
+              {this.props.selectedHumanBalanceOfPayments}
             </div>
           </div>
           <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category' value={this.props.selectedCategoryId}>
@@ -42,6 +35,7 @@ class CategoriesSelectBox extends React.Component {
 
 CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
+  selectedHumanBalanceOfPayments: PropTypes.string,
   selectedCategoryId: PropTypes.number,
   handleSelectCategory: PropTypes.func.isRequired
 }

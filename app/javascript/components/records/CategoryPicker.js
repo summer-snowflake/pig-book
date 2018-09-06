@@ -10,7 +10,7 @@ class CategoryPicker extends React.Component {
   }
 
   handleClickPickerButton() {
-    this.props.onClickPickerButton(this.props.category.id)
+    this.props.onClickPickerButton(this.props.category)
   }
 
   render() {

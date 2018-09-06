@@ -30,6 +30,7 @@ class NewRecordCardBody extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
+      selectedHumanBalanceOfPayments: '収支',
       selectedPlaceId: undefined,
       selectedTemplateId: undefined,
       selectedTags: [],
@@ -61,6 +62,7 @@ class NewRecordCardBody extends React.Component {
     this.onChangeCharge = this.onChangeCharge.bind(this)
     this.onChangePoint = this.onChangePoint.bind(this)
     this.onChangeMemo = this.onChangeMemo.bind(this)
+    this.setCategory = this.setCategory.bind(this)
   }
 
   componentWillMount() {
@@ -95,6 +97,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
+      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
@@ -112,7 +115,6 @@ class NewRecordCardBody extends React.Component {
   }
 
   onSelectTemplate(template) {
-    console.log(template)
     let tags = [
       { id: template.tag_id, name: template.tag_name, color_code: template.tag_color_code }
     ]
@@ -387,7 +389,6 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         let record = res.data
-        console.log(record)
         let category = this.state.categories.find( category => category.id == record.category_id )
         let tags = record.tagged_records.map(tagged => (
           { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
@@ -397,6 +398,7 @@ class NewRecordCardBody extends React.Component {
           {}
         )
         this.setState({
+          selectedHumanBalanceOfPayments: record.balance_of_payments ? '収入' : '支出',
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
           selectedBreakdownId: record.breakdown_id || undefined,
@@ -441,11 +443,21 @@ class NewRecordCardBody extends React.Component {
     return hash
   }
 
+  setCategory(category) {
+    this.setState({
+      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
+      selectedCategoryId: (category || {}).id
+    })
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <PickerField categories={this.state.recentlyUsedCategories} />
+        <PickerField
+          categories={this.state.recentlyUsedCategories}
+          handleClickCategoryPickerButton={this.setCategory}
+        />
         <NewRecordForm
           baseSetting={this.state.baseSetting}
           breakdowns={this.state.breakdowns}
@@ -475,6 +487,7 @@ class NewRecordCardBody extends React.Component {
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
           selectedGenerateTags={this.state.selectedGenerateTags}
+          selectedHumanBalanceOfPayments={this.state.selectedHumanBalanceOfPayments}
           selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}

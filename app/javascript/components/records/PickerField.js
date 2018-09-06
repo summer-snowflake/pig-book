@@ -9,8 +9,8 @@ class PickerField extends React.Component {
     this.handleClickCategoryPickerButton = this.handleClickCategoryPickerButton.bind(this)
   }
 
-  handleClickCategoryPickerButton(category_id) {
-    console.log(category_id)
+  handleClickCategoryPickerButton(category) {
+    this.props.handleClickCategoryPickerButton(category)
   }
 
   render() {
@@ -28,6 +28,7 @@ class PickerField extends React.Component {
 }
 
 PickerField.propTypes = {
+  handleClickCategoryPickerButton: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired
 }
 
