@@ -14,7 +14,7 @@ class ImportHistories extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.histories.map((history) =>
-              <ImportHistory history={history} key={history.id} />
+              <ImportHistory getImportHistories={this.props.getImportHistories} history={history} key={history.id} last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
             )}
           </tbody>
         </table>
@@ -24,7 +24,10 @@ class ImportHistories extends React.Component {
 }
 
 ImportHistories.propTypes = {
-  histories: PropTypes.array.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  user_token: PropTypes.string.isRequired,
+  histories: PropTypes.array.isRequired,
+  getImportHistories: PropTypes.func.isRequired
 }
 
 export default ImportHistories

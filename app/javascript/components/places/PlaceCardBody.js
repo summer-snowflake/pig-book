@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
+
 import PlaceForm from './PlaceForm'
 import Places from './Places'
 import AlertMessage from './../common/AlertMessage'

@@ -30,6 +30,7 @@ class NewRecordCardBody extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
+      selectedHumanBalanceOfPayments: '収支',
       selectedPlaceId: undefined,
       selectedTemplateId: undefined,
       selectedTags: [],
@@ -38,12 +39,14 @@ class NewRecordCardBody extends React.Component {
       inputPoint: '0',
       inputMemo: '',
       records: this.props.records,
-      targetDate: moment()
+      targetDate: moment(),
+      recentlyUsedCategories: this.props.recently_used_categories
     }
     this.postRecord = this.postRecord.bind(this)
     this.patchRecord = this.patchRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.getRecentlyUsedCategories = this.getRecentlyUsedCategories.bind(this)
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
@@ -59,6 +62,7 @@ class NewRecordCardBody extends React.Component {
     this.onChangeCharge = this.onChangeCharge.bind(this)
     this.onChangePoint = this.onChangePoint.bind(this)
     this.onChangeMemo = this.onChangeMemo.bind(this)
+    this.setCategory = this.setCategory.bind(this)
   }
 
   componentWillMount() {
@@ -93,6 +97,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
+      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
@@ -110,7 +115,6 @@ class NewRecordCardBody extends React.Component {
   }
 
   onSelectTemplate(template) {
-    console.log(template)
     let tags = [
       { id: template.tag_id, name: template.tag_name, color_code: template.tag_color_code }
     ]
@@ -189,6 +193,7 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then(() => {
+        this.getRecentlyUsedCategories()
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
@@ -276,9 +281,33 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        this.getRecords()
+        this.getRecentlyUsedCategories()
         this.setState({
           categories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
+  getRecentlyUsedCategories() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/recently_used_categories',
+      params: {
+        last_request_at: this.props.last_request_at
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.props.user_token
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.getRecords()
+        this.setState({
+          recentlyUsedCategories: res.data
         })
       })
       .catch((error) => {
@@ -360,7 +389,6 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         let record = res.data
-        console.log(record)
         let category = this.state.categories.find( category => category.id == record.category_id )
         let tags = record.tagged_records.map(tagged => (
           { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
@@ -370,6 +398,7 @@ class NewRecordCardBody extends React.Component {
           {}
         )
         this.setState({
+          selectedHumanBalanceOfPayments: record.balance_of_payments ? '収入' : '支出',
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
           selectedBreakdownId: record.breakdown_id || undefined,
@@ -414,11 +443,21 @@ class NewRecordCardBody extends React.Component {
     return hash
   }
 
+  setCategory(category) {
+    this.setState({
+      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
+      selectedCategoryId: (category || {}).id
+    })
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
-        <PickerField />
+        <PickerField
+          categories={this.state.recentlyUsedCategories}
+          handleClickCategoryPickerButton={this.setCategory}
+        />
         <NewRecordForm
           baseSetting={this.state.baseSetting}
           breakdowns={this.state.breakdowns}
@@ -448,6 +487,7 @@ class NewRecordCardBody extends React.Component {
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
           selectedGenerateTags={this.state.selectedGenerateTags}
+          selectedHumanBalanceOfPayments={this.state.selectedHumanBalanceOfPayments}
           selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
@@ -471,6 +511,7 @@ class NewRecordCardBody extends React.Component {
 
 NewRecordCardBody.propTypes = {
   records: PropTypes.array.isRequired,
+  recently_used_categories: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }

@@ -8,7 +8,7 @@ class ImportHistory::Record
 
   validates :date,
             presence: true,
-            format: { with: /(19|20)\d{2}-\d{2}-(((1|2)\d)|30|31)/,
+            format: { with: /(19|20)\d{2}-(0|1)\d-(((0|1|2)\d)|30|31)/,
                       allow_blank: true }
   validates :category_name, presence: true
   validates :charge,

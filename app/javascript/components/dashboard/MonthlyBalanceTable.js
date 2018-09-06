@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import moment from 'moment'
 
 import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
@@ -10,7 +11,8 @@ class MonthlyBalanceTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      monthly_balance_tables: this.props.data
+      monthly_balance_tables: this.props.data,
+      year: moment().year()
     }
   }
 
@@ -46,6 +48,9 @@ class MonthlyBalanceTable extends React.Component {
 
     return (
       <div className='monthly-balance-table-component'>
+        <div className='monthly-balance-table-title'>
+          <span>{this.state.year} {'年'}</span>
+        </div>
         <table className='table table-bordered monthly-table'>
           <tbody>
             <tr>

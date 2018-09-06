@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: :json do
     resource :base_setting, only: %w[show]
+    resources :recently_used_categories, only: %w[index]
     resources :categories, only: %w[index create update destroy] do
       resources :breakdowns, only: %w[index], module: :categories
     end
@@ -37,7 +38,7 @@ Rails.application.routes.draw do
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, only: %w[index]
-    resources :import_histories, only: %w[create]
+    resources :import_histories, only: %w[index create update]
 
     namespace :admin do
       resources :users, only: :none do

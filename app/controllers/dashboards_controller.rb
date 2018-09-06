@@ -6,7 +6,7 @@ class DashboardsController < ApplicationController
 
   def show
     monthly_balance_table =
-      MonthlyBalanceTable::Fetcher.all(user: current_user)
+      MonthlyBalanceTable::Fetcher.all_of_year(user: current_user)
     @params = {
       monthly_balance_table: monthly_balance_table,
       user_token: @access_token,
