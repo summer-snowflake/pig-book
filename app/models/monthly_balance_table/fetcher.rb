@@ -6,11 +6,11 @@ class MonthlyBalanceTable::Fetcher
     @date = date
   end
 
-  def self.all(user:, date: Time.zone.today)
-    new(user: user, date: date).all
+  def self.all_of_year(user:, date: Time.zone.today)
+    new(user: user, date: date).all_of_year
   end
 
-  def all
+  def all_of_year
     @user.monthly_balance_tables
          .where(currency: @user.base_setting.currency)
          .where('beginning_at >= ? and beginning_at <= ?',
