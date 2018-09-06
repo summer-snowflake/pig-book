@@ -5,6 +5,7 @@ require File.expand_path('../config/environment', __dir__)
 
 require 'spec_helper'
 require 'rspec/rails'
+require 'rspec/retry'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
@@ -74,6 +75,13 @@ RSpec.configure do |config|
 
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
+
+  # rspec-retry
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
+  config.around :each, :js do |ex|
+    ex.run_with_retry retry: ENV['RETRY_COUNT'] ? ENV['RETRY_COUNT'].to_i : 1
+  end
 
   # NOTE: coverage 算出において features spec を含めない場合に指定
   # config.filter_run_excluding js: true

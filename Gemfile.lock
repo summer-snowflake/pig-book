@@ -284,6 +284,8 @@ GEM
       rspec-expectations (~> 3.7.0)
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
+    rspec-retry (0.6.1)
+      rspec-core (> 3.3)
     rspec-support (3.7.1)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
@@ -410,6 +412,7 @@ DEPENDENCIES
   rails_12factor
   react-rails
   rspec-rails
+  rspec-retry
   rspec_junit_formatter
   rubocop
   sass-rails
