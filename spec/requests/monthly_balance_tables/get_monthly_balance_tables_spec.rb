@@ -29,7 +29,7 @@ describe 'GET /api/monthly_balance_tables' do
 
   context 'ログインしていた場合' do
     it '200とデータが返ってくること' do
-      params = { last_request_at: Time.zone.now }
+      params = { last_request_at: Time.zone.now, date: Date.current.to_s }
       get '/api/monthly_balance_tables',
           params: params, headers: login_headers(user)
 
