@@ -25,7 +25,8 @@ class MonthlyBalanceTable extends React.Component {
       method: 'GET',
       url: origin + '/api/monthly_balance_tables',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.props.last_request_at,
+        date: moment()
       },
       headers: {
         'Authorization': 'Token token=' + this.props.user_token
