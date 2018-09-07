@@ -56,6 +56,7 @@ feature 'RECORD', js: true do
       fill_in 'record_memo', with: 'メモ'
       click_on 'button.create'
 
+      sleep 0.5
       expect(find('input[name=record_charge]').value).to eq ''
       within '.one-day-records-component .card-body' do
         expect(page).to have_content category.name

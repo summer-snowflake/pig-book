@@ -444,9 +444,16 @@ class NewRecordCardBody extends React.Component {
   }
 
   setCategory(category) {
+    console.log(category)
     this.setState({
       selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
-      selectedCategoryId: (category || {}).id
+      selectedCategoryId: (category || {}).id,
+      selectedBreakdownId: undefined,
+      selectedPlaceId: undefined,
+      selectedTemplateId: undefined,
+      breakdowns: (category || {}).breakdowns || [],
+      templates: (category || {}).templates || [],
+      places: (category || {}).places || []
     })
   }
 

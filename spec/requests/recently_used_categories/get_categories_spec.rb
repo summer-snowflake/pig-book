@@ -34,13 +34,19 @@ describe 'GET /api/recently_used_categories' do
           balance_of_payments: category2.balance_of_payments,
           human_balance_of_payments: '収入',
           name: category2.name,
-          success_or_danger_style_class: 'success'
+          success_or_danger_style_class: 'success',
+          breakdowns: [],
+          places: [],
+          templates: []
         },
         {
           balance_of_payments: category1.balance_of_payments,
           human_balance_of_payments: '支出',
           name: category1.name,
-          success_or_danger_style_class: 'danger'
+          success_or_danger_style_class: 'danger',
+          breakdowns: [],
+          places: [],
+          templates: []
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
