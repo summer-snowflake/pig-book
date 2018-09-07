@@ -7,8 +7,10 @@ class Dashboard::MonthlyBalanceTablesController < ApplicationController
   def index
     target = current_user.monthly_balance_tables
                          .where(currency: current_user.base_setting.currency)
-    oldest_year = target.minimum(:beginning_at).year
-    @years = [*oldest_year..Time.zone.today.year].reverse
+    oldest_year = target.minimum(:beginning_at)&.year
+    this_year = Time.zone.today.year
+    range = oldest_year ? [*oldest_year..this_year] : [this_year]
+    @years = range.reverse
     @params = {
       user_token: @access_token,
       last_request_at: @last_request_at
