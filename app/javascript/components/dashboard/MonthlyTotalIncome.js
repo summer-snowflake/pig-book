@@ -6,14 +6,16 @@ class MonthlyTotalIncome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      monthlyTotal: this.props.tally.find( data => (moment(data.beginning_at).month() + 1) == this.props.month )
+      monthlyTotal: (this.props.tally || []).find( data => (moment(data.beginning_at).month() + 1) == this.props.month )
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      monthlyTotal: nextProps.tally.find( data => (moment(data.beginning_at).month() + 1) == this.props.month )
-    })
+    if (this.props.tally == undefined) {
+      this.setState({
+        monthlyTotal: nextProps.tally.find( data => (moment(data.beginning_at).month() + 1) == this.props.month )
+      })
+    }
   }
 
   render() {
@@ -30,7 +32,7 @@ class MonthlyTotalIncome extends React.Component {
 
 MonthlyTotalIncome.propTypes = {
   month: PropTypes.number.isRequired,
-  tally: PropTypes.array.isRequired
+  tally: PropTypes.array
 }
 
 export default MonthlyTotalIncome

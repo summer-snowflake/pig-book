@@ -11,8 +11,8 @@ class MonthlyBalanceTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      monthly_balance_tables: this.props.data,
-      year: moment().year()
+      monthlyBalanceTable: this.props.monthlyBalanceTable,
+      year: this.props.year || moment().year()
     }
   }
 
@@ -23,10 +23,9 @@ class MonthlyBalanceTable extends React.Component {
   getMonthlyBalanceTables() {
     let options = {
       method: 'GET',
-      url: origin + '/api/monthly_balance_tables',
+      url: origin + '/api/monthly_balance_tables/' + this.state.year,
       params: {
-        last_request_at: this.props.last_request_at,
-        date: moment()
+        last_request_at: this.props.last_request_at
       },
       headers: {
         'Authorization': 'Token token=' + this.props.user_token
@@ -36,7 +35,7 @@ class MonthlyBalanceTable extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
-          monthly_balance_tables: res.data
+          monthlyBalanceTable: res.data
         })
       })
       .catch((error) => {
@@ -64,8 +63,8 @@ class MonthlyBalanceTable extends React.Component {
             <tr>
               {monthlyKeys.map((index) =>
                 (<td key={index}>
-                  <MonthlyTotalIncome month={index + 1} tally={this.state.monthly_balance_tables} />
-                  <MonthlyTotalExpenditure month={index + 1} tally={this.state.monthly_balance_tables} />
+                  <MonthlyTotalIncome month={index + 1} tally={this.state.monthlyBalanceTable} />
+                  <MonthlyTotalExpenditure month={index + 1} tally={this.state.monthlyBalanceTable} />
                 </td>)
               )}
             </tr>
@@ -79,7 +78,8 @@ class MonthlyBalanceTable extends React.Component {
 MonthlyBalanceTable.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired,
-  data: PropTypes.array.isRequired
+  monthlyBalanceTable: PropTypes.array,
+  year: PropTypes.number
 }
 
 export default MonthlyBalanceTable

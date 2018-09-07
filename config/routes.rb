@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   resources :templates, only: %w[index]
   resources :tags, only: %w[index]
   resources :records, only: %w[index new]
-  resource :dashboard, only: %w[show]
+  resource :dashboard, only: %w[show] do
+    resources :monthly_balance_tables, only: %w[index], module: :dashboard
+  end
 
   namespace :admin do
     resources :users, only: %w[index]
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
     resources :categorized_places, only: %w[create]
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
-    resources :monthly_balance_tables, only: %w[index]
+    resources :monthly_balance_tables, param: :year, only: %w[index show]
     resources :import_histories, only: %w[index create update]
 
     namespace :admin do
