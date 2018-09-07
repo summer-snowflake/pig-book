@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   resources :templates, only: %w[index]
   resources :tags, only: %w[index]
   resources :records, only: %w[index new]
-  resource :dashboard, only: %w[show]
+  resource :dashboard, only: %w[show] do
+    resources :monthly_balance_tables, only: %w[index], module: :dashboard
+  end
 
   namespace :admin do
     resources :users, only: %w[index]

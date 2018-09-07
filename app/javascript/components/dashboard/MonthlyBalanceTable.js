@@ -12,7 +12,7 @@ class MonthlyBalanceTable extends React.Component {
     super(props)
     this.state = {
       monthlyBalanceTable: this.props.monthlyBalanceTable,
-      year: moment().year()
+      year: this.props.year || moment().year()
     }
   }
 
@@ -35,7 +35,7 @@ class MonthlyBalanceTable extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
-          monthlyBalanceTables: res.data
+          monthlyBalanceTable: res.data
         })
       })
       .catch((error) => {
@@ -78,7 +78,8 @@ class MonthlyBalanceTable extends React.Component {
 MonthlyBalanceTable.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired,
-  monthlyBalanceTable: PropTypes.array.isRequired
+  monthlyBalanceTable: PropTypes.array,
+  year: PropTypes.number
 }
 
 export default MonthlyBalanceTable

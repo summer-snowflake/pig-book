@@ -1,0 +1,7 @@
+- content_for :title do
+  i.fas.fa-chart-bar.left-icon
+  = t('menu.dashboard')
+
+= render layout: 'content_panel'
+  -  @years.each do |year|
+    = react_component('DashboardMonthlyBalanceTablesCard', @params.merge(year: year))

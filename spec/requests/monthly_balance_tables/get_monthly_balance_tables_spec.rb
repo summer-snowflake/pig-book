@@ -39,7 +39,7 @@ describe 'GET /api/monthly_balance_tables' do
           params: params, headers: login_headers(user)
 
       expect(response.status).to eq 200
-      json = [2016, 2017, 2018].to_json
+      json = [2018, 2017, 2016].to_json
       expect(response.body).to be_json_eql(json)
     end
   end
