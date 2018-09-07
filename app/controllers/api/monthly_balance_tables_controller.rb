@@ -3,6 +3,14 @@
 class Api::MonthlyBalanceTablesController < Api::BaseController
   before_action :set_monthly_balance_table, only: %i[show]
 
+  def index
+    # NOTE: データは、各年度ごとに取得するため、このメソッドでは年度のみを返す
+    target = current_user.monthly_balance_tables
+      .where(currency: current_user.base_setting.currency)
+    oldest_year = target.minimum(:beginning_at).year
+    render json: [*oldest_year..Time.zone.today.year]
+  end
+
   def show
     render json: @monthly_balance_table
   end
