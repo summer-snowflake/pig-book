@@ -34,6 +34,8 @@ en:
     expenditure: Expenditure
     income: Income
     event: Event
+  link:
+    all_monthly_balance_tables: All Monthly Balance Tables
   messages:
     alert:
       bad_request_error: 400 Bad Request Error. You can not access.
