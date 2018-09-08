@@ -8,11 +8,14 @@ import MessageNotifierMixin from './../../mixins/MessageNotifierMixin'
 import AlertMessage from './../../common/AlertMessage'
 import TallyButton from './TallyButton'
 import TallyTimeLabel from './TallyTimeLabel'
+import LocalStorageMixin from './../../mixins/LocalStorageMixin'
 
 class TallyButtonTableRecordBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       lastTallyAt: this.props.last_tally_at && moment(this.props.last_tally_at),
       message: '',
       success: false,
@@ -26,10 +29,10 @@ class TallyButtonTableRecordBody extends React.Component {
       method: 'PATCH',
       url: origin + '/api/admin/users/' + this.props.user_id + '/tally',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -57,12 +60,11 @@ class TallyButtonTableRecordBody extends React.Component {
 }
 
 TallyButtonTableRecordBody.propTypes = {
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired,
   last_tally_at: PropTypes.string,
   user_id: PropTypes.number.isRequired
 }
 
 reactMixin.onClass(TallyButtonTableRecordBody, MessageNotifierMixin)
+reactMixin.onClass(TallyButtonTableRecordBody, LocalStorageMixin)
 
 export default TallyButtonTableRecordBody

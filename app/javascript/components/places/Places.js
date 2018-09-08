@@ -63,7 +63,7 @@ class Places extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.places.map((place) =>
-              <Place getPlaces={this.props.getPlaces} key={place.id} last_request_at={this.props.last_request_at} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} place={place} user_token={this.props.user_token} />
+              <Place getPlaces={this.props.getPlaces} key={place.id} onClickPlusIcon={this.handleClickPlusIcon} onClickTrashIcon={this.handleClickTrashIcon} place={place} />
             )}
           </tbody>
         </table>
@@ -77,8 +77,6 @@ class Places extends React.Component {
 Places.propTypes = {
   places: PropTypes.array.isRequired,
   selectableCategories: PropTypes.array.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickAddCategoryButton: PropTypes.func.isRequired,
   handleClickPlusIcon: PropTypes.func.isRequired,

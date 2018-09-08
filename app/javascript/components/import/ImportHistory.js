@@ -7,11 +7,14 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
 import AlertMessage from './../common/AlertMessage'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class ImportHistory extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       isEditing: false,
       row: this.props.history.row,
       message: '',
@@ -53,9 +56,9 @@ class ImportHistory extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/import_histories/' + this.props.history.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -111,12 +114,11 @@ class ImportHistory extends React.Component {
 }
 
 ImportHistory.propTypes = {
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
   getImportHistories: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)
+reactMixin.onClass(ImportHistory, LocalStorageMixin)
 
 export default ImportHistory

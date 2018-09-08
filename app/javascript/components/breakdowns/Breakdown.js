@@ -10,11 +10,14 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BadgePill from './../common/BadgePill'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class Breakdown extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.breakdown.name,
       categoryId: this.props.breakdown.category_id,
@@ -65,9 +68,9 @@ class Breakdown extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/breakdowns/' + this.props.breakdown.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -147,12 +150,11 @@ class Breakdown extends React.Component {
 Breakdown.propTypes = {
   categories: PropTypes.array.isRequired,
   breakdown: PropTypes.object.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   getBreakdowns: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(Breakdown, MessageNotifierMixin)
+reactMixin.onClass(Breakdown, LocalStorageMixin)
 
 export default Breakdown

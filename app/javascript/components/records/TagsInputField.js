@@ -46,8 +46,6 @@ class TagsInputField extends React.Component {
 TagsInputField.propTypes = {
   selectedTags: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   onUpdateTags: PropTypes.func.isRequired
 }
 

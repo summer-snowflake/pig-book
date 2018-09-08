@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import Template from './Template'
 import DestroyModal from './../common/DestroyModal'
 
@@ -43,7 +44,7 @@ class Templates extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.templates.map((template) =>
-              <Template categories={this.props.categories} getTemplates={this.props.getTemplates} key={template.id} last_request_at={this.props.last_request_at} onClickTrashIcon={this.handleClickTrashIcon} template={template} user_token={this.props.user_token} />
+              <Template categories={this.props.categories} getTemplates={this.props.getTemplates} key={template.id} onClickTrashIcon={this.handleClickTrashIcon} template={template} />
             )}
           </tbody>
         </table>
@@ -56,8 +57,6 @@ class Templates extends React.Component {
 Templates.propTypes = {
   categories: PropTypes.array.isRequired,
   templates: PropTypes.array.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   getTemplates: PropTypes.func.isRequired
 }

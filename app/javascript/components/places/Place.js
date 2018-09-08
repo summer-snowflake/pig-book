@@ -9,11 +9,14 @@ import UpdateButton from './../common/UpdateButton'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import AlertMessage from './../common/AlertMessage'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class Place extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.place.name,
       message: '',
@@ -65,9 +68,9 @@ class Place extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/places/' + this.props.place.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -134,13 +137,12 @@ class Place extends React.Component {
 
 Place.propTypes = {
   place: PropTypes.object.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   onClickPlusIcon: PropTypes.func.isRequired,
   getPlaces: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(Place, MessageNotifierMixin)
+reactMixin.onClass(Place, LocalStorageMixin)
 
 export default Place

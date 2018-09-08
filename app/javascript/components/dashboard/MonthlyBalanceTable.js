@@ -2,15 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import moment from 'moment'
+import reactMixin from 'react-mixin'
 
 import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
 import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       monthlyBalanceTable: this.props.monthlyBalanceTable,
       year: this.props.year || moment().year()
     }
@@ -25,10 +29,10 @@ class MonthlyBalanceTable extends React.Component {
       method: 'GET',
       url: origin + '/api/monthly_balance_tables/' + this.state.year,
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -76,10 +80,10 @@ class MonthlyBalanceTable extends React.Component {
 }
 
 MonthlyBalanceTable.propTypes = {
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired,
   monthlyBalanceTable: PropTypes.array,
   year: PropTypes.number
 }
+
+reactMixin.onClass(MonthlyBalanceTable, LocalStorageMixin)
 
 export default MonthlyBalanceTable
