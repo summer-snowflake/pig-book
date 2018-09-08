@@ -14,7 +14,7 @@ class Api::CategoriesController < Api::BaseController
   def create
     @category = current_user.categories.new(category_params)
     if @category.save
-      head :created
+      render json: @category, status: :created
     else
       render_validation_error @category
     end
