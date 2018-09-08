@@ -87,6 +87,11 @@ class RecordsCardBody extends React.Component {
     return (
       <div className='records-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.props.month && (
+          <span className='records-list-title'>
+            {moment(this.props.month).year()}{'年'}{moment(this.props.month).month() + 1}{'月'}
+          </span>
+        )}
         <Records
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}
@@ -99,6 +104,7 @@ class RecordsCardBody extends React.Component {
 }
 
 RecordsCardBody.propTypes = {
+  month: PropTypes.string,
   records: PropTypes.array.isRequired
 }
 
