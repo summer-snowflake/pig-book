@@ -7,11 +7,14 @@ import moment from 'moment'
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './Records'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       message: '',
       success: false,
       errorMessages: {},
@@ -32,11 +35,11 @@ class RecordsCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/records',
       params: {
-        last_request_at: this.props.last_request_at,
+        last_request_at: this.state.lastRequestAt,
         month: String(targetDate)
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -59,10 +62,10 @@ class RecordsCardBody extends React.Component {
       method: 'DELETE',
       url: origin + '/api/records/' + recordId,
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -96,11 +99,10 @@ class RecordsCardBody extends React.Component {
 }
 
 RecordsCardBody.propTypes = {
-  records: PropTypes.array.isRequired,
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  records: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(RecordsCardBody, MessageNotifierMixin)
+reactMixin.onClass(RecordsCardBody, LocalStorageMixin)
 
 export default RecordsCardBody

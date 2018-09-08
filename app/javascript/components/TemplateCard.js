@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
+
 import TemplateCardBody from './templates/TemplateCardBody'
 import ErrorBoundary from './common/ErrorBoundary'
+import LocalStorageMixin from './mixins/LocalStorageMixin'
 
 class TemplateCard extends React.Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class TemplateCard extends React.Component {
     return (
       <div className='template-card-component'>
         <ErrorBoundary>
-          <TemplateCardBody last_request_at={this.props.last_request_at} templates={this.props.templates} user_token={this.props.user_token} />
+          <TemplateCardBody templates={this.props.templates} />
         </ErrorBoundary>
       </div>
     )
@@ -24,5 +27,7 @@ TemplateCard.propTypes = {
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
+
+reactMixin.onClass(TemplateCard, LocalStorageMixin)
 
 export default TemplateCard

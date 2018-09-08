@@ -7,11 +7,14 @@ import PlaceForm from './PlaceForm'
 import Places from './Places'
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class PlaceCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       message: '',
       success: false,
       places: this.props.places,
@@ -34,10 +37,10 @@ class PlaceCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/places',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -60,9 +63,9 @@ class PlaceCardBody extends React.Component {
     let options = {
       method: 'POST',
       url: origin + '/api/places',
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -84,10 +87,10 @@ class PlaceCardBody extends React.Component {
       method: 'DELETE',
       url: origin + '/api/places/' + place_id,
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -106,10 +109,10 @@ class PlaceCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/places/' + place_id + '/categories',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -132,9 +135,9 @@ class PlaceCardBody extends React.Component {
     let options = {
       method: 'POST',
       url: origin + '/api/categorized_places',
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -153,18 +156,17 @@ class PlaceCardBody extends React.Component {
       <div className='place-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PlaceForm errorMessages={this.state.errorMessages} handleSendForm={this.postPlace} />
-        <Places getPlaces={this.getPlaces} handleClickAddCategoryButton={this.postCategorizedPlace} handleClickDestroyButton={this.destroyPlace} handleClickPlusIcon={this.getPlaceCategories} last_request_at={this.props.last_request_at} places={this.state.places} selectableCategories={this.state.selectableCategories} user_token={this.props.user_token} />
+        <Places getPlaces={this.getPlaces} handleClickAddCategoryButton={this.postCategorizedPlace} handleClickDestroyButton={this.destroyPlace} handleClickPlusIcon={this.getPlaceCategories} places={this.state.places} selectableCategories={this.state.selectableCategories} />
       </div>
     )
   }
 }
 
 PlaceCardBody.propTypes = {
-  places: PropTypes.array.isRequired,
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  places: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(PlaceCardBody, MessageNotifierMixin)
+reactMixin.onClass(PlaceCardBody, LocalStorageMixin)
 
 export default PlaceCardBody

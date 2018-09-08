@@ -6,11 +6,14 @@ import axios from 'axios'
 import FileField from './FileField'
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class ImportCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       message: '',
       success: false,
       errorMessages: {},
@@ -27,7 +30,7 @@ class ImportCardBody extends React.Component {
     if (files[0] != undefined) {
       let formData = new FormData()
       formData.append('file', files[0])
-      formData.append('last_request_at', this.props.last_request_at)
+      formData.append('last_request_at', this.state.lastRequestAt)
       this.postFile(formData)
     }
   }
@@ -51,7 +54,7 @@ class ImportCardBody extends React.Component {
       uploading: true
     })
     let url = origin + '/api/import_histories'
-    let headers = {'Authorization': 'Token token=' + this.props.user_token }
+    let headers = {'Authorization': 'Token token=' + this.state.userToken }
     axios.post(url, fileParams, { headers: headers })
       .then(() => {
         this.noticeAddMessage()
@@ -84,11 +87,7 @@ class ImportCardBody extends React.Component {
   }
 }
 
-ImportCardBody.propTypes = {
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
-}
-
 reactMixin.onClass(ImportCardBody, MessageNotifierMixin)
+reactMixin.onClass(ImportCardBody, LocalStorageMixin)
 
 export default ImportCardBody

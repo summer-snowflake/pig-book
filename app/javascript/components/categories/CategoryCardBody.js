@@ -2,15 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
+
 import Categories from './Categories'
 import CategoryForm from './CategoryForm'
 import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class CategoryCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       message: '',
       success: false,
       categories: this.props.categories,
@@ -30,10 +34,10 @@ class CategoryCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/categories',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -56,9 +60,9 @@ class CategoryCardBody extends React.Component {
     let options = {
       method: 'POST',
       url: origin + '/api/categories',
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -80,10 +84,10 @@ class CategoryCardBody extends React.Component {
       method: 'delete',
       url: origin + '/api/categories/' + category_id,
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -102,18 +106,17 @@ class CategoryCardBody extends React.Component {
       <div className='category-card-body-component'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
-        <Categories categories={this.state.categories} getCategories={this.getCategories} handleClickDestroyButton={this.destroyCategory} last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
+        <Categories categories={this.state.categories} getCategories={this.getCategories} handleClickDestroyButton={this.destroyCategory} />
       </div>
     )
   }
 }
 
 CategoryCardBody.propTypes = {
-  categories: PropTypes.array.isRequired,
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  categories: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(CategoryCardBody, MessageNotifierMixin)
+reactMixin.onClass(CategoryCardBody, LocalStorageMixin)
 
 export default CategoryCardBody

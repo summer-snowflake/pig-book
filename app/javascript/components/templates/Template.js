@@ -10,11 +10,14 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class Template extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.template.name,
       charge: this.props.template.charge,
@@ -86,9 +89,9 @@ class Template extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/templates/' + this.props.template.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -199,12 +202,11 @@ class Template extends React.Component {
 Template.propTypes = {
   categories: PropTypes.array.isRequired,
   template: PropTypes.object.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   getTemplates: PropTypes.func.isRequired
 }
 
+reactMixin.onClass(Template, MessageNotifierMixin)
 reactMixin.onClass(Template, MessageNotifierMixin)
 
 export default Template

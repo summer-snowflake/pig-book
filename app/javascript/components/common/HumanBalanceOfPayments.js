@@ -7,13 +7,10 @@ var bop = function(payments) {
   switch (payments) {
   case true:
     return 'income'
-    break
   case false:
     return 'expenditure'
-    break
   default:
     return 'balance_of_payments'
-    break
   }
 }
 
