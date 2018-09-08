@@ -7,11 +7,16 @@ class CategoriesSelectBox extends React.Component {
   constructor(props) {
     super(props)
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
+    this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
   }
 
   handleSelectCategory(e) {
     let category = this.props.categories.find( category => category.id == e.target.value )
     this.props.handleSelectCategory(category)
+  }
+
+  handleClickPlusButton() {
+    console.log('plus')
   }
 
   render() {
@@ -29,6 +34,11 @@ class CategoriesSelectBox extends React.Component {
               <option key={category.id} value={category.id}>{category.name}</option>
             )}
           </select>
+          {this.props.plusButton && (
+            <button className='btn btn-primary btn-sm' onClick={this.handleClickPlusButton}>
+              <i className='fas fa-plus' />
+            </button>
+          )}
         </div>
       </span>
     )
@@ -39,6 +49,7 @@ CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
   selectedBalanceOfPayments: PropTypes.bool,
   selectedCategoryId: PropTypes.number,
+  plusButton: PropTypes.bool.isRequired,
   handleSelectCategory: PropTypes.func.isRequired
 }
 
