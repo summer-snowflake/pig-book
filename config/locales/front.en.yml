@@ -14,10 +14,14 @@ en:
       destroyed: Destroyed successfully.
       completed: Completed successfully.
     label:
+      income: Income
+      expenditure: Expenditure
+      balance_of_payments: BoP
       records:
       last_tally_at: last tally at
     currency: $
     date:
+      month_format: MM/YYYY
       format: MM/DD/YYYY
     time:
       format: MM/DD/YYYY HH:mm:ss

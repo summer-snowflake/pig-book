@@ -10,11 +10,14 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Trash from './../common/Trash'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class Tag extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       isEditing: false,
       isEditingColorCode: false,
       colorCode: this.props.tag.color_code,
@@ -67,9 +70,9 @@ class Tag extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/tags/' + this.props.tag.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -166,12 +169,11 @@ class Tag extends React.Component {
 
 Tag.propTypes = {
   tag: PropTypes.object.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   getTags: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(Tag, MessageNotifierMixin)
+reactMixin.onClass(Tag, LocalStorageMixin)
 
 export default Tag

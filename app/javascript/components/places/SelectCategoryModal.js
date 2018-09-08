@@ -27,6 +27,7 @@ class SelectCategoryModal extends React.Component {
     this.state = {
       category: {},
       selectedCategoryId: undefined,
+      selectedBalanceOfPayments: undefined
     }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
@@ -49,7 +50,8 @@ class SelectCategoryModal extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: category.id
+      selectedCategoryId: (category || {}).id,
+      selectedBalanceOfPayments: (category || {}).balance_of_payments
     })
   }
 
@@ -63,7 +65,7 @@ class SelectCategoryModal extends React.Component {
               {'に追加するカテゴリを選択してください。'}
             </p>
           </div>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
           <div className='modal-footer'>
             <SubmitButton handleClickButton={this.onClickSubmitButton} isDisabled={!this.state.selectedCategoryId}/>
             <CloseButton handleClickButton={this.onClickCloseButton} />

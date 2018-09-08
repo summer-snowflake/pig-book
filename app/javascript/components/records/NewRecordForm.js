@@ -121,7 +121,7 @@ class NewRecordForm extends React.Component {
           <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.props.selectedCategoryId} selectedHumanBalanceOfPayments={this.props.selectedHumanBalanceOfPayments} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
@@ -134,7 +134,7 @@ class NewRecordForm extends React.Component {
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} selectedPlaceId={this.props.selectedPlaceId} />
         </div>
         <div className='form-group'>
-          <TagsInputField last_request_at={this.props.last_request_at} onUpdateTags={this.handleUpdateTags} selectedTags={this.props.selectedTags} tags={this.props.tags} user_token={this.props.user_token} />
+          <TagsInputField onUpdateTags={this.handleUpdateTags} selectedTags={this.props.selectedTags} tags={this.props.tags} />
         </div>
         <div className='form-group'>
           <div className='row'>
@@ -192,7 +192,7 @@ NewRecordForm.propTypes = {
   selectedPublishedAt: PropTypes.object.isRequired,
   selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.number,
-  selectedHumanBalanceOfPayments: PropTypes.string.isRequired,
+  selectedBalanceOfPayments: PropTypes.bool,
   selectedPlaceId: PropTypes.number,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
@@ -201,8 +201,6 @@ NewRecordForm.propTypes = {
   inputCharge: PropTypes.string,
   inputPoint: PropTypes.string,
   inputMemo: PropTypes.string,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   errorMessages: PropTypes.object.isRequired,
   onUpdateTags: PropTypes.func.isRequired,
   handleSendForm: PropTypes.func.isRequired,

@@ -9,11 +9,14 @@ import BadgePill from './../common/BadgePill'
 import AlertMessage from './../common/AlertMessage'
 import FormErrorMessages from './../common/FormErrorMessages'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class Category extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       isEditing: false,
       balance_of_payments: this.props.category.balance_of_payments,
       name: this.props.category.name,
@@ -69,9 +72,9 @@ class Category extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/categories/' + this.props.category.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -164,12 +167,11 @@ class Category extends React.Component {
 
 Category.propTypes = {
   category: PropTypes.object.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(Category, MessageNotifierMixin)
+reactMixin.onClass(Category, LocalStorageMixin)
 
 export default Category

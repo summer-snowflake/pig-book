@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 
-import ImportHistoryCardBody from './import/ImportHistoryCardBody'
+import MonthlyBalanceTable from './dashboard/MonthlyBalanceTable'
 import ErrorBoundary from './common/ErrorBoundary'
 import LocalStorageMixin from './mixins/LocalStorageMixin'
 
-class ImportHistoryCard extends React.Component {
+class DashboardMonthlyBalanceTablesCard extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -17,21 +17,21 @@ class ImportHistoryCard extends React.Component {
 
   render() {
     return (
-      <div className='import-card-component'>
+      <div className='dashboard-monthly-balance-tables-card-component'>
         <ErrorBoundary>
-          <ImportHistoryCardBody histories={this.props.histories} />
+          <MonthlyBalanceTable year={this.props.year} />
         </ErrorBoundary>
       </div>
     )
   }
 }
 
-ImportHistoryCard.propTypes = {
-  histories: PropTypes.array.isRequired,
+DashboardMonthlyBalanceTablesCard.propTypes = {
   user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  last_request_at: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired
 }
 
-reactMixin.onClass(ImportHistoryCard, LocalStorageMixin)
+reactMixin.onClass(DashboardMonthlyBalanceTablesCard, LocalStorageMixin)
 
-export default ImportHistoryCard
+export default DashboardMonthlyBalanceTablesCard

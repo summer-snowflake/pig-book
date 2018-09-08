@@ -4,3 +4,5 @@
 
 = render layout: 'content_panel'
   = react_component('DashboardCard', @params)
+
+  p.text-right = link_to I18n.t('link.all_monthly_balance_tables'), dashboard_monthly_balance_tables_path

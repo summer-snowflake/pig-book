@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import HumanBalanceOfPayments from './HumanBalanceOfPayments'
+
 class CategoriesSelectBox extends React.Component {
   constructor(props) {
     super(props)
@@ -18,7 +20,7 @@ class CategoriesSelectBox extends React.Component {
         <div className='input-group mb-1'>
           <div className="input-group-prepend">
             <div className="input-group-text" htmlFor='selectable-categories'>
-              {this.props.selectedHumanBalanceOfPayments}
+              <HumanBalanceOfPayments balanceOfPayments={this.props.selectedBalanceOfPayments} />
             </div>
           </div>
           <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} ref='category' value={this.props.selectedCategoryId}>
@@ -35,7 +37,7 @@ class CategoriesSelectBox extends React.Component {
 
 CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
-  selectedHumanBalanceOfPayments: PropTypes.string,
+  selectedBalanceOfPayments: PropTypes.bool,
   selectedCategoryId: PropTypes.number,
   handleSelectCategory: PropTypes.func.isRequired
 }

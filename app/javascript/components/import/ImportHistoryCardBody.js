@@ -5,11 +5,14 @@ import axios from 'axios'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import ImportHistories from './ImportHistories'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class ImportHistoryCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       histories: this.props.histories
     }
     this.getImportHistories = this.getImportHistories.bind(this)
@@ -24,10 +27,10 @@ class ImportHistoryCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/import_histories',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -45,18 +48,17 @@ class ImportHistoryCardBody extends React.Component {
   render() {
     return (
       <div className='import-history-card-body-component'>
-        <ImportHistories getImportHistories={this.getImportHistories} histories={this.state.histories} last_request_at={this.props.last_request_at} user_token={this.props.user_token} />
+        <ImportHistories getImportHistories={this.getImportHistories} histories={this.state.histories} />
       </div>
     )
   }
 }
 
 ImportHistoryCardBody.propTypes = {
-  histories: PropTypes.array.isRequired,
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  histories: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(ImportHistoryCardBody, MessageNotifierMixin)
+reactMixin.onClass(ImportHistoryCardBody, LocalStorageMixin)
 
 export default ImportHistoryCardBody

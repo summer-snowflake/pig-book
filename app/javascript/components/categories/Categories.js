@@ -43,7 +43,7 @@ class Categories extends React.Component {
         <table className='table'>
           <tbody>
             {this.props.categories.map((category) =>
-              <Category category={category} getCategories={this.props.getCategories} key={category.id} last_request_at={this.props.last_request_at} onClickTrashIcon={this.handleClickTrashIcon} user_token={this.props.user_token} />
+              <Category category={category} getCategories={this.props.getCategories} key={category.id} onClickTrashIcon={this.handleClickTrashIcon} />
             )}
           </tbody>
         </table>
@@ -55,8 +55,6 @@ class Categories extends React.Component {
 
 Categories.propTypes = {
   categories: PropTypes.array.isRequired,
-  last_request_at: PropTypes.number.isRequired,
-  user_token: PropTypes.string.isRequired,
   getCategories: PropTypes.func.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired
 }

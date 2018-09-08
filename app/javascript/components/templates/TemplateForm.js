@@ -14,6 +14,7 @@ class TemplateForm extends React.Component {
     super(props)
     this.state = {
       selectedCategoryId: null,
+      selectedBalanceOfPayments: undefined,
       selectedBreakdownId: null,
       selectedTagId: null,
       breakdowns: []
@@ -39,6 +40,7 @@ class TemplateForm extends React.Component {
   onSelectCategory(category) {
     this.setState({
       selectedCategoryId: (category || {}).id,
+      selectedBalanceOfPayments: (category || {}).balance_of_payments,
       breakdowns: (category || {}).breakdowns || []
     })
   }
@@ -60,7 +62,7 @@ class TemplateForm extends React.Component {
       <div className='template-form-component'>
         <div className='form-row'>
           <div className='form-group col-auto mb-3'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} />
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
             <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
           </div>
           <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>

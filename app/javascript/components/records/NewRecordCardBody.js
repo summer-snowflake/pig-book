@@ -10,11 +10,14 @@ import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
       message: '',
       success: false,
       errorMessages: {},
@@ -30,7 +33,7 @@ class NewRecordCardBody extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
-      selectedHumanBalanceOfPayments: '収支',
+      selectedBalanceOfPayments: undefined,
       selectedPlaceId: undefined,
       selectedTemplateId: undefined,
       selectedTags: [],
@@ -97,7 +100,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
+      selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
@@ -156,11 +159,11 @@ class NewRecordCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/records',
       params: {
-        last_request_at: this.props.last_request_at,
+        last_request_at: this.state.lastRequestAt,
         date: String(targetDate)
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -185,9 +188,9 @@ class NewRecordCardBody extends React.Component {
     let options = {
       method: 'POST',
       url: origin + '/api/records',
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -218,9 +221,9 @@ class NewRecordCardBody extends React.Component {
     let options = {
       method: 'PATCH',
       url: origin + '/api/records/' + params.id,
-      params: Object.assign(params, {last_request_at: this.props.last_request_at}),
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -248,10 +251,10 @@ class NewRecordCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/base_setting',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -272,10 +275,10 @@ class NewRecordCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/categories',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -296,10 +299,10 @@ class NewRecordCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/recently_used_categories',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -323,10 +326,10 @@ class NewRecordCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/tags',
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -349,10 +352,10 @@ class NewRecordCardBody extends React.Component {
       method: 'DELETE',
       url: origin + '/api/records/' + recordId,
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -379,10 +382,10 @@ class NewRecordCardBody extends React.Component {
       method: 'GET',
       url: origin + '/api/records/' + recordId,
       params: {
-        last_request_at: this.props.last_request_at
+        last_request_at: this.state.lastRequestAt
       },
       headers: {
-        'Authorization': 'Token token=' + this.props.user_token
+        'Authorization': 'Token token=' + this.state.userToken
       },
       json: true
     }
@@ -398,7 +401,7 @@ class NewRecordCardBody extends React.Component {
           {}
         )
         this.setState({
-          selectedHumanBalanceOfPayments: record.balance_of_payments ? '収入' : '支出',
+          selectedBalanceOfPayments: record.balance_of_payments,
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
           selectedBreakdownId: record.breakdown_id || undefined,
@@ -444,9 +447,16 @@ class NewRecordCardBody extends React.Component {
   }
 
   setCategory(category) {
+    console.log(category)
     this.setState({
-      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
-      selectedCategoryId: (category || {}).id
+      selectedBalanceOfPayments: (category || {}).balance_of_payments,
+      selectedCategoryId: (category || {}).id,
+      selectedBreakdownId: undefined,
+      selectedPlaceId: undefined,
+      selectedTemplateId: undefined,
+      breakdowns: (category || {}).breakdowns || [],
+      templates: (category || {}).templates || [],
+      places: (category || {}).places || []
     })
   }
 
@@ -480,21 +490,19 @@ class NewRecordCardBody extends React.Component {
           inputCharge={this.state.inputCharge}
           inputMemo={this.state.inputMemo}
           inputPoint={this.state.inputPoint}
-          last_request_at={this.props.last_request_at}
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}
           ref='form'
+          selectedBalanceOfPayments={this.state.selectedBalanceOfPayments}
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
           selectedGenerateTags={this.state.selectedGenerateTags}
-          selectedHumanBalanceOfPayments={this.state.selectedHumanBalanceOfPayments}
           selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}
           selectedTemplateId={this.state.selectedTemplateId}
           tags={this.state.tags}
           templates={this.state.templates}
-          user_token={this.props.user_token}
         />
         <OneDayRecords
           editingRecordId={this.state.editingRecordId}
@@ -511,11 +519,10 @@ class NewRecordCardBody extends React.Component {
 
 NewRecordCardBody.propTypes = {
   records: PropTypes.array.isRequired,
-  recently_used_categories: PropTypes.array.isRequired,
-  user_token: PropTypes.string.isRequired,
-  last_request_at: PropTypes.number.isRequired
+  recently_used_categories: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)
+reactMixin.onClass(NewRecordCardBody, LocalStorageMixin)
 
 export default NewRecordCardBody
