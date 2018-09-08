@@ -14,6 +14,9 @@ ja:
       destroyed: 削除しました
       completed: 完了しました
     label:
+      income: 収入
+      expenditure: 支出
+      balance_of_payments: 収支
       records: の登録
       last_tally_at: 最終集計時刻
     currency: ¥
