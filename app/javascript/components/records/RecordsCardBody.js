@@ -8,6 +8,7 @@ import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './Records'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import DateMonthFormat from './../common/DateMonthFormat'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
@@ -89,7 +90,7 @@ class RecordsCardBody extends React.Component {
         <AlertMessage message={this.state.message} success={this.state.success} />
         {this.props.month && (
           <span className='records-list-title'>
-            {moment(this.props.month).year()}{'年'}{moment(this.props.month).month() + 1}{'月'}
+            <DateMonthFormat targetDate={moment(this.props.month)} />
           </span>
         )}
         <Records
