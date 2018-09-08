@@ -30,7 +30,7 @@ class NewRecordCardBody extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
-      selectedHumanBalanceOfPayments: '収支',
+      selectedBalanceOfPayments: undefined,
       selectedPlaceId: undefined,
       selectedTemplateId: undefined,
       selectedTags: [],
@@ -97,7 +97,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
+      selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
@@ -398,7 +398,7 @@ class NewRecordCardBody extends React.Component {
           {}
         )
         this.setState({
-          selectedHumanBalanceOfPayments: record.balance_of_payments ? '収入' : '支出',
+          selectedBalanceOfPayments: record.balance_of_payments,
           selectedPublishedAt: moment(record.published_at),
           selectedCategoryId: record.category_id,
           selectedBreakdownId: record.breakdown_id || undefined,
@@ -446,7 +446,7 @@ class NewRecordCardBody extends React.Component {
   setCategory(category) {
     console.log(category)
     this.setState({
-      selectedHumanBalanceOfPayments: (category || {}).human_balance_of_payments,
+      selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
       selectedPlaceId: undefined,
@@ -494,7 +494,7 @@ class NewRecordCardBody extends React.Component {
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
           selectedGenerateTags={this.state.selectedGenerateTags}
-          selectedHumanBalanceOfPayments={this.state.selectedHumanBalanceOfPayments}
+          selectedBalanceOfPayments={this.state.selectedBalanceOfPayments}
           selectedPlaceId={this.state.selectedPlaceId}
           selectedPublishedAt={this.state.selectedPublishedAt}
           selectedTags={this.state.selectedTags}

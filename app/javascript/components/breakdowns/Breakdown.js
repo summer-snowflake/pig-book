@@ -18,6 +18,7 @@ class Breakdown extends React.Component {
       isEditing: false,
       name: this.props.breakdown.name,
       categoryId: this.props.breakdown.category_id,
+      selectedBalanceOfPayments: undefined,
       message: '',
       success: false,
       errorMessages: {}
@@ -85,7 +86,8 @@ class Breakdown extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      categoryId: category.id
+      categoryId: category.id,
+      selectedBalanceOfPayments: category.balance_of_payments
     })
   }
 
@@ -99,7 +101,7 @@ class Breakdown extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target breakdown-category-td' colSpan='2'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.state.categoryId} />
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (

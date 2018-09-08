@@ -121,7 +121,7 @@ class NewRecordForm extends React.Component {
           <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.props.selectedCategoryId} selectedHumanBalanceOfPayments={this.props.selectedHumanBalanceOfPayments} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
@@ -192,7 +192,7 @@ NewRecordForm.propTypes = {
   selectedPublishedAt: PropTypes.object.isRequired,
   selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.number,
-  selectedHumanBalanceOfPayments: PropTypes.string.isRequired,
+  selectedBalanceOfPayments: PropTypes.bool,
   selectedPlaceId: PropTypes.number,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
