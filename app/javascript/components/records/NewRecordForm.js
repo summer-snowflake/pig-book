@@ -22,6 +22,7 @@ class NewRecordForm extends React.Component {
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
@@ -77,6 +78,10 @@ class NewRecordForm extends React.Component {
     this.props.handleSelectCategory(category)
   }
 
+  onSelectNewCategory(category) {
+    this.props.handleSelectNewCategory(category)
+  }
+
   onSelectBreakdown(breakdown) {
     this.props.handleSelectBreakdown(breakdown)
   }
@@ -121,7 +126,7 @@ class NewRecordForm extends React.Component {
           <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} handleSelectNewCategory={this.onSelectNewCategory} plusButton selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
@@ -206,6 +211,7 @@ NewRecordForm.propTypes = {
   handleSendForm: PropTypes.func.isRequired,
   handleUpdateForm: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
+  handleSelectNewCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
   handleSelectTemplate: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,

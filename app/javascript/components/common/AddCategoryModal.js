@@ -1,9 +1,14 @@
 import React from 'react'
 import Modal from 'react-modal'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
+import axios from 'axios'
 
-import AddButton from './AddButton'
-import CloseButton from './/CloseButton'
+import AlertMessage from './../common/AlertMessage'
+import CloseButton from './CloseButton'
+import CategoryForm from './../categories/CategoryForm'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 const customStyles = {
   content : {
@@ -24,19 +29,44 @@ class AddCategoryModal extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      lastRequestAt: this.getLastRequestAt(),
+      userToken: this.getUserToken(),
+      errorMessages: {},
+      message: '',
+      success: false,
       name: ''
     }
     this.handleChangeName = this.handleChangeName.bind(this)
-    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
+    this.postCategory = this.postCategory.bind(this)
   }
 
   onClickCloseButton() {
     this.props.handleClickCloseButton()
   }
 
-  handleClickSubmitButton() {
-    this.props.handleClickSubmitButton(this.state.name)
+  postCategory(params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/categories',
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.noticeAddMessage()
+        this.props.handleAddCategory(res.data)
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   handleChangeName(e) {
@@ -48,15 +78,15 @@ class AddCategoryModal extends React.Component {
   render() {
     return (
       <div className='add-category-modal-component'>
+        <AlertMessage message={this.state.message} success={this.state.success} />
         <Modal ariaHideApp={false} isOpen={this.props.modalIsOpen} style={customStyles}>
           <div className='modal-body'>
             <p>
               {'追加するカテゴリ名を入力してください'}
             </p>
           </div>
-          <input className='form-control' onChange={this.handleChangeName} type='text' value={this.state.name} />
+          <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
           <div className='modal-footer'>
-            <AddButton isDisabled={!this.state.name} onClickButton={this.handleClickSubmitButton}/>
             <CloseButton handleClickButton={this.onClickCloseButton} />
           </div>
         </Modal>
@@ -65,9 +95,12 @@ class AddCategoryModal extends React.Component {
   }
 }
 
+reactMixin.onClass(AddCategoryModal, MessageNotifierMixin)
+reactMixin.onClass(AddCategoryModal, LocalStorageMixin)
+
 AddCategoryModal.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
-  handleClickSubmitButton: PropTypes.func.isRequired,
+  handleAddCategory: PropTypes.func.isRequired,
   handleClickCloseButton: PropTypes.func.isRequired
 }
 

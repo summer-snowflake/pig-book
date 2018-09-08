@@ -52,6 +52,7 @@ class NewRecordCardBody extends React.Component {
     this.getRecentlyUsedCategories = this.getRecentlyUsedCategories.bind(this)
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
@@ -99,6 +100,20 @@ class NewRecordCardBody extends React.Component {
   }
 
   onSelectCategory(category) {
+    this.setState({
+      selectedBalanceOfPayments: (category || {}).balance_of_payments,
+      selectedCategoryId: (category || {}).id,
+      selectedBreakdownId: undefined,
+      selectedPlaceId: undefined,
+      selectedTemplateId: undefined,
+      breakdowns: (category || {}).breakdowns || [],
+      templates: (category || {}).templates || [],
+      places: (category || {}).places || []
+    })
+  }
+
+  onSelectNewCategory(category) {
+    this.getCategories()
     this.setState({
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
@@ -447,7 +462,6 @@ class NewRecordCardBody extends React.Component {
   }
 
   setCategory(category) {
-    console.log(category)
     this.setState({
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
@@ -483,6 +497,7 @@ class NewRecordCardBody extends React.Component {
           handleChangePublishedOn={this.setStateDate}
           handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
+          handleSelectNewCategory={this.onSelectNewCategory}
           handleSelectPlace={this.onSelectPlace}
           handleSelectTemplate={this.onSelectTemplate}
           handleSendForm={this.postRecord}

@@ -12,7 +12,7 @@ class CategoriesSelectBox extends React.Component {
     }
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
     this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
-    this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
+    this.onAddCategory = this.onAddCategory.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
   }
 
@@ -31,11 +31,13 @@ class CategoriesSelectBox extends React.Component {
     this.setState({
       addCategoryModalIsOpen: false
     })
-    console.log('close')
   }
 
-  onClickSubmitButton(categoryName) {
-    console.log(categoryName)
+  onAddCategory(category) {
+    this.props.handleSelectNewCategory(category)
+    this.setState({
+      addCategoryModalIsOpen: false
+    })
   }
 
   render() {
@@ -58,7 +60,7 @@ class CategoriesSelectBox extends React.Component {
               <i className='fas fa-plus' />
             </button>
           )}
-          <AddCategoryModal handleClickCloseButton={this.onClickCloseButton} handleClickSubmitButton={this.onClickSubmitButton} modalIsOpen={this.state.addCategoryModalIsOpen} />
+          <AddCategoryModal handleAddCategory={this.onAddCategory} handleClickCloseButton={this.onClickCloseButton} modalIsOpen={this.state.addCategoryModalIsOpen} />
         </div>
       </span>
     )
@@ -70,7 +72,8 @@ CategoriesSelectBox.propTypes = {
   selectedBalanceOfPayments: PropTypes.bool,
   selectedCategoryId: PropTypes.number,
   plusButton: PropTypes.bool.isRequired,
-  handleSelectCategory: PropTypes.func.isRequired
+  handleSelectCategory: PropTypes.func.isRequired,
+  handleSelectNewCategory: PropTypes.func
 }
 
 export default CategoriesSelectBox
