@@ -57,7 +57,7 @@ class SelectCategoryModal extends React.Component {
 
   render() {
     return (
-      <div className='destroy-modal-component'>
+      <div className='select-category-modal-component'>
         <Modal ariaHideApp={false} isOpen={this.props.modalIsOpen} style={customStyles}>
           <div className='modal-body'>
             <p>

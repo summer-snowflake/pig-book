@@ -2,12 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import HumanBalanceOfPayments from './HumanBalanceOfPayments'
+import AddCategoryModal from './../common/AddCategoryModal'
 
 class CategoriesSelectBox extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      addCategoryModalIsOpen: false
+    }
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
     this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
+    this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
+    this.onClickCloseButton = this.onClickCloseButton.bind(this)
   }
 
   handleSelectCategory(e) {
@@ -16,7 +22,20 @@ class CategoriesSelectBox extends React.Component {
   }
 
   handleClickPlusButton() {
-    console.log('plus')
+    this.setState({
+      addCategoryModalIsOpen: true
+    })
+  }
+
+  onClickCloseButton() {
+    this.setState({
+      addCategoryModalIsOpen: false
+    })
+    console.log('close')
+  }
+
+  onClickSubmitButton(categoryName) {
+    console.log(categoryName)
   }
 
   render() {
@@ -39,6 +58,7 @@ class CategoriesSelectBox extends React.Component {
               <i className='fas fa-plus' />
             </button>
           )}
+          <AddCategoryModal handleClickCloseButton={this.onClickCloseButton} handleClickSubmitButton={this.onClickSubmitButton} modalIsOpen={this.state.addCategoryModalIsOpen} />
         </div>
       </span>
     )
