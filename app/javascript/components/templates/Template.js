@@ -207,6 +207,6 @@ Template.propTypes = {
 }
 
 reactMixin.onClass(Template, MessageNotifierMixin)
-reactMixin.onClass(Template, MessageNotifierMixin)
+reactMixin.onClass(Template, LocalStorageMixin)
 
 export default Template

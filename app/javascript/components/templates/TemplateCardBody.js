@@ -169,5 +169,6 @@ TemplateCardBody.propTypes = {
 }
 
 reactMixin.onClass(TemplateCardBody, MessageNotifierMixin)
+reactMixin.onClass(TemplateCardBody, LocalStorageMixin)
 
 export default TemplateCardBody
