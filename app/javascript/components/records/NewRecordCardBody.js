@@ -261,6 +261,7 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.getCategories()
+        this.getRecords()
         this.setState({
           baseSetting: res.data
         })
@@ -308,7 +309,6 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        this.getRecords()
         this.setState({
           recentlyUsedCategories: res.data
         })
