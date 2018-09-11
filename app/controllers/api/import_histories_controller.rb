@@ -4,7 +4,10 @@ class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
 
   def index
-    @import_histories = current_user.import_histories.order(created_at: :desc)
+    @import_histories = current_user
+                        .import_histories
+                        .order(:created_at)
+                        .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
     render json: @import_histories
   end
 

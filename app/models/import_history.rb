@@ -2,6 +2,7 @@
 
 class ImportHistory < ApplicationRecord
   include ValidationErrorMessagesBuilder
+  DISPLAY_LIMIT_COUNT = 100
 
   belongs_to :user
 end
