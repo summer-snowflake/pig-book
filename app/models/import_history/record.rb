@@ -36,24 +36,28 @@ class ImportHistory::Record
   def category_should_have_existed
     return unless category_name.present?
     return if @user.categories.find_by(name: category_name)
+
     errors.add(:category_name, :unregistered)
   end
 
   def breakdown_should_have_existed
     return unless breakdown_name.present?
     return if @user.breakdowns.find_by(name: breakdown_name)
+
     errors.add(:breakdown_name, :unregistered)
   end
 
   def place_should_have_existed
     return unless place_name.present?
     return if @user.places.find_by(name: place_name)
+
     errors.add(:place_name, :unregistered)
   end
 
   def tags_should_have_existed
     return unless tags.present?
     return if @user.tags.find_by(name: tags.split(','))
+
     errors.add(:tags, :unregistered)
   end
 end
