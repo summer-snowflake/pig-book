@@ -33,13 +33,13 @@ describe 'GET /api/import_histories' do
       expect(response.status).to eq 200
       json = [
         {
-          id: import_history2.id,
-          row: '2014-03-26,飲食費,食事,すき家,450,,',
+          id: import_history.id,
+          row: '2014-03-25,水道光熱費,電気代,,4122,,',
           messages: ''
         },
         {
-          id: import_history.id,
-          row: '2014-03-25,水道光熱費,電気代,,4122,,',
+          id: import_history2.id,
+          row: '2014-03-26,飲食費,食事,すき家,450,,',
           messages: ''
         }
       ].to_json
