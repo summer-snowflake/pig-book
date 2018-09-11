@@ -25,6 +25,7 @@ RSpec.describe 'locales/ja.yml', type: :lib do
 
     def search_keys(hash)
       return unless hash.try(:values)
+
       @keys << hash.keys
       hash.values.each do |h|
         search_keys(h)

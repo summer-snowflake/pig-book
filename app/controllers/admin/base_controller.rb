@@ -6,6 +6,7 @@ class Admin::BaseController < ApplicationController
 
   def authenticate_admin!
     return if current_user.admin?
+
     flash[:alert] = I18n.t('messages.alert.unauthenticate_admin')
     redirect_to mypage_path
   end

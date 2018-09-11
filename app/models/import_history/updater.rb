@@ -12,6 +12,7 @@ class ImportHistory::Updater
 
     csv_data.each do |row|
       next if row.blank?
+
       @user.import_histories
            .create!(row: row.join(','), messages: error_messages(row))
     end
