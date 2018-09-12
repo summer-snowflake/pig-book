@@ -54,6 +54,7 @@ feature 'RECORD', js: true do
       click_on '追加する'
     end
 
+    sleep 0.5
     expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
   end
 

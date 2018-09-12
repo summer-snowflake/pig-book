@@ -51,6 +51,7 @@ class CategoryForm extends React.Component {
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
+          // NOTE: AddButton componentを利用するとcapybaraでjsのエラーが発生してしまうため、Buttonを直接利用する
           <Button humanValueName='追加する' onClickButton={this.handleClickSubmitButton} valueName='add' />
         </div>
       </div>
