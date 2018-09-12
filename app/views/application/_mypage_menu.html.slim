@@ -10,4 +10,7 @@
   = link_to import_histories_path, class: 'list-group-item' do
     i.fas.fa-clipboard-list.left-icon
     = t('title.import_list')
+    - if @histories.count.positive?
+      span.right-icon
+        span.badge.badge-light = @histories.count
     = menu_image(import_histories_path)
