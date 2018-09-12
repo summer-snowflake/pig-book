@@ -39,6 +39,24 @@ feature 'RECORD', js: true do
     end
   end
 
+  scenario 'Add a new category.' do
+    visit new_record_path
+
+    expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
+
+    within '.categories-select-box-component' do
+      find('.fas.fa-plus').click
+    end
+
+    expect(page).to have_css '.modal-body'
+    within '.modal-body' do
+      fill_in 'category_name', with: '新しいカテゴリ名'
+      click_on '追加する'
+    end
+
+    expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
+  end
+
   context 'Create a new record.' do
     let!(:category) { create(:category, user: user) }
     let!(:breakdown) { create(:breakdown, category: category) }
