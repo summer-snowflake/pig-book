@@ -115,3 +115,9 @@ $lighten-green: lighten($green, 15%);
     padding: 10px;
   }
 }
+
+.badge-light {
+  background-color: $pink;
+  color: rgba($white, .8);
+  font-family: sans-serif;
+}
