@@ -84,8 +84,8 @@ class AddCategoryModal extends React.Component {
             <p>
               {'追加するカテゴリ名を入力してください'}
             </p>
+            <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
           </div>
-          <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
           <div className='modal-footer'>
             <CloseButton handleClickButton={this.onClickCloseButton} />
           </div>
