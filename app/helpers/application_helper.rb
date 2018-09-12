@@ -14,6 +14,7 @@ module ApplicationHelper
   def error_message_for(resource, column)
     messages = resource.errors.full_messages_for(column)
     return unless messages.present?
+
     content_tag(:small, class: 'form-text pink') do
       concat content_tag(:i, class: 'fas fa-exclamation-circle left-icon') {}
       concat messages.join(', ')

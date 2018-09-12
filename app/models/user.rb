@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable, :omniauthable
 
-  RECENTLY_RECORDS_LIMIT_COUNT = 50
+  RECENTLY_RECORDS_LIMIT_COUNT = 20
 
   has_many :categories, dependent: :destroy
   has_many :places, dependent: :destroy

@@ -17,12 +17,14 @@ class Api::BaseController < ApplicationController
   def authenticate_with_user_token
     render_authentication_error && return unless current_user && last_request_at
     return unless current_user.timedout?(last_request_at)
+
     render_authentication_error
   end
 
   def current_user
     authenticate_with_http_token do |token, _options|
       return unless token
+
       User.find_by(authentication_token: token)
     end
   end
