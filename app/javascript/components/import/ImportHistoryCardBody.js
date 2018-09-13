@@ -13,13 +13,36 @@ class ImportHistoryCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      histories: this.props.histories
+      histories: this.props.histories,
+      activeLink: 'all'
     }
     this.getImportHistories = this.getImportHistories.bind(this)
+    this.handleClickAllTab = this.handleClickAllTab.bind(this)
+    this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
+    this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
   }
 
   componentWillMount() {
     this.getImportHistories()
+  }
+
+  handleClickAllTab() {
+    this.setState({
+      activeLink: 'all'
+    })
+    this.getImportHistories()
+  }
+
+  handleClickUnregisteredTab() {
+    this.setState({
+      activeLink: 'unregistered'
+    })
+  }
+
+  handleClickRegisteredTab() {
+    this.setState({
+      activeLink: 'registered'
+    })
   }
 
   getImportHistories() {
@@ -48,6 +71,26 @@ class ImportHistoryCardBody extends React.Component {
   render() {
     return (
       <div className='import-history-card-body-component'>
+        <ul className='nav nav-tabs'>
+          <li className='nav-item'>
+            <a className={'nav-link' + (this.state.activeLink == 'all' ? ' active' : '')} href='#' onClick={this.handleClickAllTab}>
+              {'すべて'}
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
+              {'未登録'}
+              {this.state.histories.length > 0 && (
+                <span className='right-icon'>
+                  <span className='badge badge-light'>{this.state.histories.length}</span>
+                </span>
+              )}
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a className={'nav-link' + (this.state.activeLink == 'registered' ? ' active' : '')} href='#' onClick={this.handleClickRegisteredTab}>{'登録済み'}</a>
+          </li>
+        </ul>
         <ImportHistories getImportHistories={this.getImportHistories} histories={this.state.histories} />
       </div>
     )
