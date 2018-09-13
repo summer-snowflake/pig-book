@@ -4,12 +4,13 @@ require 'rails_helper'
 
 describe 'GET /api/import_histories' do
   let!(:user) { create(:user) }
+  let!(:record) { create(:record, user: user) }
   let!(:import_history) do
     create(:import_history, user: user,
                             row: '2014-03-25,水道光熱費,電気代,,4122,,', messages: '')
   end
   let!(:import_history2) do
-    create(:import_history, user: user,
+    create(:import_history, user: user, record: record,
                             row: '2014-03-26,飲食費,食事,すき家,450,,', messages: '')
   end
 
@@ -35,12 +36,14 @@ describe 'GET /api/import_histories' do
         {
           id: import_history.id,
           row: '2014-03-25,水道光熱費,電気代,,4122,,',
-          messages: ''
+          messages: '',
+          status_name: 'unregistered'
         },
         {
           id: import_history2.id,
           row: '2014-03-26,飲食費,食事,すき家,450,,',
-          messages: ''
+          messages: '',
+          status_name: 'registered'
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
