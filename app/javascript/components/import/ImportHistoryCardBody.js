@@ -37,18 +37,43 @@ class ImportHistoryCardBody extends React.Component {
     this.setState({
       activeLink: 'unregistered'
     })
+    this.getImportHistoriesWithStatus('unregistered')
   }
 
   handleClickRegisteredTab() {
     this.setState({
       activeLink: 'registered'
     })
+    this.getImportHistoriesWithStatus('registered')
   }
 
   getImportHistories() {
     let options = {
       method: 'GET',
       url: origin + '/api/import_histories',
+      params: {
+        last_request_at: this.state.lastRequestAt
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.setState({
+          histories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
+  getImportHistoriesWithStatus(statusName) {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/import_histories/' + statusName,
       params: {
         last_request_at: this.state.lastRequestAt
       },
