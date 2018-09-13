@@ -14,7 +14,8 @@ class ImportHistoryCardBody extends React.Component {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
       histories: this.props.histories,
-      activeLink: 'all'
+      activeLink: 'all',
+      unregisteredLength: 0
     }
     this.getImportHistories = this.getImportHistories.bind(this)
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
@@ -62,6 +63,7 @@ class ImportHistoryCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
+          unregisteredLength: res.data.filter( history => history.status_name == 'unregistered' ).length,
           histories: res.data
         })
       })
@@ -85,6 +87,7 @@ class ImportHistoryCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
+          unregisteredLength: statusName == 'unregistered' ? res.data.length : this.state.unregisteredLength,
           histories: res.data
         })
       })
@@ -105,9 +108,9 @@ class ImportHistoryCardBody extends React.Component {
           <li className='nav-item'>
             <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
               {'未登録'}
-              {this.state.histories.length > 0 && (
+              {this.state.unregisteredLength > 0 && (
                 <span className='right-icon'>
-                  <span className='badge badge-light'>{this.state.histories.length}</span>
+                  <span className='badge badge-light'>{this.state.unregisteredLength}</span>
                 </span>
               )}
             </a>

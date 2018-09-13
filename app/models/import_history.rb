@@ -9,4 +9,8 @@ class ImportHistory < ApplicationRecord
 
   scope :unregistered, -> { where(record_id: nil) }
   scope :registered, -> { where.not(record_id: nil) }
+
+  def status_name
+    record_id.nil? ? 'unregistered' : 'registered'
+  end
 end
