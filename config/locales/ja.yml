@@ -23,7 +23,7 @@ ja:
     tag_list: ラベル一覧
     place_list: お店・施設一覧
     csv_import: ファイルアップロード
-    import_list: 未登録データ一覧
+    import_list: アップロード明細一覧
     admin:
       users: ユーザの管理
   button:
