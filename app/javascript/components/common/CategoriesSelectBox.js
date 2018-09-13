@@ -2,16 +2,42 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import HumanBalanceOfPayments from './HumanBalanceOfPayments'
+import AddCategoryModal from './../common/AddCategoryModal'
 
 class CategoriesSelectBox extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      addCategoryModalIsOpen: false
+    }
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
+    this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
+    this.onAddCategory = this.onAddCategory.bind(this)
+    this.onClickCloseButton = this.onClickCloseButton.bind(this)
   }
 
   handleSelectCategory(e) {
     let category = this.props.categories.find( category => category.id == e.target.value )
     this.props.handleSelectCategory(category)
+  }
+
+  handleClickPlusButton() {
+    this.setState({
+      addCategoryModalIsOpen: true
+    })
+  }
+
+  onClickCloseButton() {
+    this.setState({
+      addCategoryModalIsOpen: false
+    })
+  }
+
+  onAddCategory(category) {
+    this.props.handleSelectNewCategory(category)
+    this.setState({
+      addCategoryModalIsOpen: false
+    })
   }
 
   render() {
@@ -29,6 +55,12 @@ class CategoriesSelectBox extends React.Component {
               <option key={category.id} value={category.id}>{category.name}</option>
             )}
           </select>
+          {this.props.plusButton && (
+            <button className='btn btn-primary btn-sm' onClick={this.handleClickPlusButton}>
+              <i className='fas fa-plus' />
+            </button>
+          )}
+          <AddCategoryModal handleAddCategory={this.onAddCategory} handleClickCloseButton={this.onClickCloseButton} modalIsOpen={this.state.addCategoryModalIsOpen} />
         </div>
       </span>
     )
@@ -39,7 +71,9 @@ CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
   selectedBalanceOfPayments: PropTypes.bool,
   selectedCategoryId: PropTypes.number,
-  handleSelectCategory: PropTypes.func.isRequired
+  plusButton: PropTypes.bool.isRequired,
+  handleSelectCategory: PropTypes.func.isRequired,
+  handleSelectNewCategory: PropTypes.func
 }
 
 export default CategoriesSelectBox

@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
+
 import FormErrorMessages from './../common/FormErrorMessages'
-import AddButton from './../common/AddButton'
+import Button from './../common/Button'
 import FormMixin from './../mixins/FormMixin'
 
 class CategoryForm extends React.Component {
@@ -50,7 +51,8 @@ class CategoryForm extends React.Component {
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>
-          <AddButton onClickButton={this.handleClickSubmitButton} />
+          // NOTE: AddButton componentを利用するとcapybaraでjsのエラーが発生してしまうため、Buttonを直接利用する
+          <Button humanValueName='追加する' onClickButton={this.handleClickSubmitButton} valueName='add' />
         </div>
       </div>
     )

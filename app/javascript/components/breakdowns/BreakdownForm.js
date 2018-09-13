@@ -33,7 +33,7 @@ class BreakdownForm extends React.Component {
     return (
       <div className='breakdown-form-component form-row'>
         <div className='form-group col-auto mb-3'>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
