@@ -7,6 +7,7 @@ class ImportHistoriesController < ApplicationController
   def index
     histories = current_user
                 .import_histories
+                .unregistered
                 .order(:created_at)
                 .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
     @params = {

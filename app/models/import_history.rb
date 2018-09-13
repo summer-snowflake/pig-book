@@ -6,4 +6,7 @@ class ImportHistory < ApplicationRecord
 
   belongs_to :user
   belongs_to :record, optional: true
+
+  scope :unregistered, -> { where(record_id: nil) }
+  scope :registered, -> { where.not(record_id: nil) }
 end
