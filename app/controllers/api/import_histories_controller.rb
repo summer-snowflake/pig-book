@@ -4,11 +4,20 @@ class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
 
   def index
-    @import_histories = current_user
-                        .import_histories
-                        .order(:created_at)
-                        .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
-    render json: @import_histories
+    import_histories = current_user
+                       .import_histories
+                       .order(:created_at)
+                       .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
+    render json: import_histories
+  end
+
+  def show
+    import_histories = current_user
+                       .import_histories
+                       .send(status_params)
+                       .order(:created_at)
+                       .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
+    render json: import_histories
   end
 
   def create
@@ -33,6 +42,10 @@ class Api::ImportHistoriesController < Api::BaseController
 
   def import_params
     params.permit(:file)
+  end
+
+  def status_params
+    params.require(:status)
   end
 
   def update_params
