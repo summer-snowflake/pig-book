@@ -29,13 +29,6 @@ class ApplicationController < ActionController::Base
     @access_token = current_user.authentication_token
   end
 
-  def set_histories
-    @histories = current_user
-                 .import_histories
-                 .order(:created_at)
-                 .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
-  end
-
   protected
 
   def set_locale

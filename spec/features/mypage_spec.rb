@@ -21,17 +21,6 @@ feature 'MYPAGE', js: true do
     expect(page).to have_content I18n.t('title.recent_list')
   end
 
-  context 'there is import data' do
-    let!(:import_history) { create(:import_history, user: user) }
-
-    it 'Display the import history counter number' do
-      visit mypage_path
-      within '.list-group' do
-        expect(page).to have_content 1
-      end
-    end
-  end
-
   after do
     logout(:user)
   end
