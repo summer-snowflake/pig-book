@@ -6,7 +6,6 @@ class Api::ImportHistoriesController < Api::BaseController
   def index
     @import_histories = current_user
                         .import_histories
-                        .unregistered
                         .order(:created_at)
                         .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
     render json: @import_histories
