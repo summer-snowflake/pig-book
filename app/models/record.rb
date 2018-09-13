@@ -11,6 +11,7 @@ class Record < ApplicationRecord
   belongs_to :category
   belongs_to :breakdown, optional: true
   belongs_to :place, optional: true
+  has_one :import_history
   has_many :tagged_records
 
   validates :published_at, presence: true

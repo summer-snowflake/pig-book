@@ -3,7 +3,6 @@
 class CsvFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
-  before_action :set_histories, only: %i[index]
 
   def index
     @params = {
