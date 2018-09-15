@@ -14,7 +14,11 @@ class ImportHistory::RecordBuilder
     @record.valid?
   end
 
+  def unregistered_error?(target)
+    @record.errors.added?(target, :unregistered)
+  end
+
   def error_messages
-    @record.valid? ? [] : @record.errors.full_messages
+    valid? ? [] : @record.errors.full_messages
   end
 end

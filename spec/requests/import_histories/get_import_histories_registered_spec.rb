@@ -43,13 +43,17 @@ describe 'GET /api/import_histories/registered' do
           id: import_history1.id,
           row: '2014-03-25,水道光熱費,電気代,,4122,,',
           messages: '',
-          status_name: 'registered'
+          status_name: 'registered',
+          category_name: '水道光熱費',
+          category_required: true
         },
         {
           id: import_history2.id,
           row: '2014-03-26,飲食費,食事,すき家,450,,',
           messages: '',
-          status_name: 'registered'
+          status_name: 'registered',
+          category_name: '飲食費',
+          category_required: true
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
