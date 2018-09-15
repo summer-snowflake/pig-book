@@ -8,6 +8,7 @@ import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
 import AlertMessage from './../common/AlertMessage'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import AddButton from './../common/AddButton'
 
 class ImportHistory extends React.Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class ImportHistory extends React.Component {
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeRow = this.handleChangeRow.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.handleClickAddCategoryButton = this.handleClickAddCategoryButton.bind(this)
+    this.postCategory = this.postCategory.bind(this)
   }
 
   handleClickEditIcon() {
@@ -75,6 +78,34 @@ class ImportHistory extends React.Component {
       })
   }
 
+  handleClickAddCategoryButton() {
+    this.postCategory({name: this.props.history.category_name})
+  }
+
+  postCategory(params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/categories',
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.props.getImportHistories()
+        this.noticeAddMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
   render() {
     return (
       <tr className='import-history-component'>
@@ -106,6 +137,17 @@ class ImportHistory extends React.Component {
         )}
         <td>
           {this.props.history.messages}
+          {this.props.history.category_required && (
+            <div className='text-right'>
+              <span className='target-name'>
+                {'カテゴリ名：'}
+                {(this.props.history || {}).category_name}
+              </span>
+              <span>
+                <AddButton onClickButton={this.handleClickAddCategoryButton} />
+              </span>
+            </div>
+          )}
           <AlertMessage message={this.state.message} success={this.state.success} />
         </td>
       </tr>
@@ -116,6 +158,7 @@ class ImportHistory extends React.Component {
 ImportHistory.propTypes = {
   history: PropTypes.object.isRequired,
   getImportHistories: PropTypes.func.isRequired
+
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)
