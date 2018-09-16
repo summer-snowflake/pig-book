@@ -44,6 +44,7 @@ describe 'GET /api/import_histories/unregistered' do
           row: '2014-03-27,飲食費,食事,すき家,700,,',
           messages: '',
           status_name: 'unregistered',
+          category_id: nil,
           category_name: '飲食費',
           category_required: true,
           breakdown_name: '食事',

@@ -16,6 +16,10 @@ class ImportHistory < ApplicationRecord
     record_id.nil? ? 'unregistered' : 'registered'
   end
 
+  def category_id
+    user.categories.find_by(name: category_name)&.id if category_name
+  end
+
   def category_name
     row&.split(',')&.second
   end

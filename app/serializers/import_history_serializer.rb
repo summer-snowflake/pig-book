@@ -2,7 +2,7 @@
 
 class ImportHistorySerializer < ActiveModel::Serializer
   attributes :id, :row, :messages, :status_name,
-             :category_name, :category_required,
+             :category_id, :category_name, :category_required,
              :breakdown_name, :breakdown_required
 
   def category_required
