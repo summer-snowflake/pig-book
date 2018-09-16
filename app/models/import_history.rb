@@ -16,8 +16,16 @@ class ImportHistory < ApplicationRecord
     record_id.nil? ? 'unregistered' : 'registered'
   end
 
+  def category_id
+    user.categories.find_by(name: category_name)&.id if category_name
+  end
+
   def category_name
     row&.split(',')&.second
+  end
+
+  def breakdown_name
+    row&.split(',')&.third
   end
 
   def assign_builder
@@ -29,5 +37,10 @@ class ImportHistory < ApplicationRecord
   def category_required?
     assign_builder
     @builder.unregistered_error?(:category_name)
+  end
+
+  def breakdown_required?
+    assign_builder
+    @builder.unregistered_error?(:breakdown_name)
   end
 end
