@@ -22,7 +22,8 @@ class ImportHistory < ApplicationRecord
 
   def assign_builder
     @builder ||= ImportHistory::RecordBuilder.new(user: user, row: row)
-    @builder.valid?
+    self.messages = @builder.error_messages.join(' / ')
+    save if changed?
   end
 
   def category_required?
