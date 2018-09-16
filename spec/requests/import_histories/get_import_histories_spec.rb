@@ -37,13 +37,47 @@ describe 'GET /api/import_histories' do
           id: import_history.id,
           row: '2014-03-25,水道光熱費,電気代,,4122,,',
           messages: '',
-          status_name: 'unregistered'
+          status_name: 'unregistered',
+          category_name: '水道光熱費',
+          category_required: true
         },
         {
           id: import_history2.id,
           row: '2014-03-26,飲食費,食事,すき家,450,,',
           messages: '',
-          status_name: 'registered'
+          status_name: 'registered',
+          category_name: '飲食費',
+          category_required: true
+        }
+      ].to_json
+      expect(response.body).to be_json_eql(json)
+    end
+  end
+
+  context 'カテゴリがある場合' do
+    let!(:category) { create(:category, user: user, name: '水道光熱費') }
+
+    it '200とcategory_reuiqred: falseのデータが返ってくること' do
+      params = { last_request_at: Time.zone.now }
+      get '/api/import_histories', params: params, headers: login_headers(user)
+
+      expect(response.status).to eq 200
+      json = [
+        {
+          id: import_history.id,
+          row: '2014-03-25,水道光熱費,電気代,,4122,,',
+          messages: '',
+          status_name: 'unregistered',
+          category_name: '水道光熱費',
+          category_required: false
+        },
+        {
+          id: import_history2.id,
+          row: '2014-03-26,飲食費,食事,すき家,450,,',
+          messages: '',
+          status_name: 'registered',
+          category_name: '飲食費',
+          category_required: true
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
