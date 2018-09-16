@@ -45,7 +45,9 @@ describe 'GET /api/import_histories/unregistered' do
           messages: '',
           status_name: 'unregistered',
           category_name: '飲食費',
-          category_required: true
+          category_required: true,
+          breakdown_name: '食事',
+          breakdown_required: true
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

@@ -39,7 +39,9 @@ describe 'GET /api/import_histories' do
           messages: '',
           status_name: 'unregistered',
           category_name: '水道光熱費',
-          category_required: true
+          category_required: true,
+          breakdown_name: '電気代',
+          breakdown_required: true
         },
         {
           id: import_history2.id,
@@ -47,7 +49,9 @@ describe 'GET /api/import_histories' do
           messages: '',
           status_name: 'registered',
           category_name: '飲食費',
-          category_required: true
+          category_required: true,
+          breakdown_name: '食事',
+          breakdown_required: true
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
@@ -69,7 +73,9 @@ describe 'GET /api/import_histories' do
           messages: '',
           status_name: 'unregistered',
           category_name: '水道光熱費',
-          category_required: false
+          category_required: false,
+          breakdown_name: '電気代',
+          breakdown_required: true
         },
         {
           id: import_history2.id,
@@ -77,7 +83,9 @@ describe 'GET /api/import_histories' do
           messages: '',
           status_name: 'registered',
           category_name: '飲食費',
-          category_required: true
+          category_required: true,
+          breakdown_name: '食事',
+          breakdown_required: true
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
