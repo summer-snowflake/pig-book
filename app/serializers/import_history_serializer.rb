@@ -17,4 +17,9 @@ class ImportHistorySerializer < ActiveModel::Serializer
   def place_required
     object.place_required?
   end
+
+  def messages
+    object.assign_builder
+    object.messages
+  end
 end

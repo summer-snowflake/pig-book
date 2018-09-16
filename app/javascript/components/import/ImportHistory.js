@@ -28,6 +28,7 @@ class ImportHistory extends React.Component {
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickAddCategoryButton = this.handleClickAddCategoryButton.bind(this)
     this.handleClickAddBreakdownButton = this.handleClickAddBreakdownButton.bind(this)
+    this.handleClickAddPlaceButton = this.handleClickAddPlaceButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
   }
 
@@ -136,6 +137,35 @@ class ImportHistory extends React.Component {
       })
   }
 
+  handleClickAddPlaceButton() {
+    let history = this.props.history
+    this.postPlace({category_id: history.category_id, name: history.place_name})
+  }
+
+  postPlace(params) {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/places',
+      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.props.getImportHistories()
+        this.noticeAddMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
   render() {
     return (
       <tr className='import-history-component'>
@@ -186,6 +216,17 @@ class ImportHistory extends React.Component {
               </span>
               <span>
                 <AddButton onClickButton={this.handleClickAddBreakdownButton} />
+              </span>
+            </div>
+          )}
+          {!this.props.history.category_required && this.props.history.place_required && (
+            <div className='text-right'>
+              <span className='target-name'>
+                {'お店・施設名：'}
+                {(this.props.history || {}).place_name}
+              </span>
+              <span>
+                <AddButton onClickButton={this.handleClickAddPlaceButton} />
               </span>
             </div>
           )}
