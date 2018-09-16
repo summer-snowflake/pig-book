@@ -13,13 +13,39 @@ class ImportHistoryCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      histories: this.props.histories
+      histories: this.props.histories,
+      activeLink: 'all',
+      unregisteredLength: 0
     }
     this.getImportHistories = this.getImportHistories.bind(this)
+    this.handleClickAllTab = this.handleClickAllTab.bind(this)
+    this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
+    this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
   }
 
   componentWillMount() {
     this.getImportHistories()
+  }
+
+  handleClickAllTab() {
+    this.setState({
+      activeLink: 'all'
+    })
+    this.getImportHistories()
+  }
+
+  handleClickUnregisteredTab() {
+    this.setState({
+      activeLink: 'unregistered'
+    })
+    this.getImportHistoriesWithStatus('unregistered')
+  }
+
+  handleClickRegisteredTab() {
+    this.setState({
+      activeLink: 'registered'
+    })
+    this.getImportHistoriesWithStatus('registered')
   }
 
   getImportHistories() {
@@ -37,6 +63,31 @@ class ImportHistoryCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
+          unregisteredLength: res.data.filter( history => history.status_name == 'unregistered' ).length,
+          histories: res.data
+        })
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
+  getImportHistoriesWithStatus(statusName) {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/import_histories/' + statusName,
+      params: {
+        last_request_at: this.state.lastRequestAt
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.setState({
+          unregisteredLength: statusName == 'unregistered' ? res.data.length : this.state.unregisteredLength,
           histories: res.data
         })
       })
@@ -48,6 +99,26 @@ class ImportHistoryCardBody extends React.Component {
   render() {
     return (
       <div className='import-history-card-body-component'>
+        <ul className='nav nav-tabs'>
+          <li className='nav-item'>
+            <a className={'nav-link' + (this.state.activeLink == 'all' ? ' active' : '')} href='#' onClick={this.handleClickAllTab}>
+              {'すべて'}
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
+              {'未登録'}
+              {this.state.unregisteredLength > 0 && (
+                <span className='right-icon'>
+                  <span className='badge badge-light'>{this.state.unregisteredLength}</span>
+                </span>
+              )}
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a className={'nav-link' + (this.state.activeLink == 'registered' ? ' active' : '')} href='#' onClick={this.handleClickRegisteredTab}>{'登録済み'}</a>
+          </li>
+        </ul>
         <ImportHistories getImportHistories={this.getImportHistories} histories={this.state.histories} />
       </div>
     )

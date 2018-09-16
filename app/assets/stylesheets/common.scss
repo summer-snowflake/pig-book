@@ -45,6 +45,10 @@ button {
   padding-right: 5px;
 }
 
+.right-icon {
+  padding-left: 5px;
+}
+
 .navbar .navbar-brand {
   font-family: 'Lucida Grande', Meiryo, sans-serif;
   font-weight: bold;
@@ -399,4 +403,10 @@ $twitter-border-color: #2e6da4;
 
 .records-list-title {
   font-size: 16px;
+}
+
+.categories-select-box-component {
+  button {
+    margin: 5px 8px;
+  }
 }

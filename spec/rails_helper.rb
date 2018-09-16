@@ -104,7 +104,7 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
-  config.after(:each, type: :system, js: true) do
+  config.after(:each, js: true) do
     # NOTE: browserのerrorsを表示する
     errors = page.driver.browser.manage.logs.get(:browser)
     if errors.present?

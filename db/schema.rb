@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180729143144) do
+ActiveRecord::Schema.define(version: 2018_09_13_121831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(version: 20180729143144) do
     t.text "messages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "record_id"
+    t.index ["record_id"], name: "index_import_histories_on_record_id"
     t.index ["user_id"], name: "index_import_histories_on_user_id"
   end
 
@@ -177,6 +179,7 @@ ActiveRecord::Schema.define(version: 20180729143144) do
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
   add_foreign_key "events", "users"
+  add_foreign_key "import_histories", "records"
   add_foreign_key "import_histories", "users"
   add_foreign_key "monthly_balance_tables", "users"
   add_foreign_key "places", "users"

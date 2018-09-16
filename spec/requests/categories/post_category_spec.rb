@@ -28,6 +28,16 @@ describe 'POST /api/categories' do
            params: params, headers: login_headers(user)
 
       expect(response.status).to eq 201
+      json = {
+        balance_of_payments: true,
+        human_balance_of_payments: '収入',
+        name: '新しいカテゴリ',
+        success_or_danger_style_class: 'success',
+        places: [],
+        breakdowns: [],
+        templates: []
+      }.to_json
+      expect(response.body).to be_json_eql(json)
     end
   end
 end

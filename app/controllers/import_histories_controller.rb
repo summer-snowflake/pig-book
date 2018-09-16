@@ -7,7 +7,8 @@ class ImportHistoriesController < ApplicationController
   def index
     histories = current_user
                 .import_histories
-                .order(:created_at).limit(ImportHistory::DISPLAY_LIMIT_COUNT)
+                .order(:created_at)
+                .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
     @params = {
       histories: histories,
       user_token: @access_token,

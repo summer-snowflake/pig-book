@@ -179,6 +179,8 @@
   position: absolute;
   top: 10px;
   width: 0;
+  height: 0;
+  overflow: hidden;
   padding: 0;
   border: 0.45rem solid transparent;
   z-index: 1;
