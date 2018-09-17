@@ -130,10 +130,10 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
-          <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
+          <TemplatesSelectBox handleSelectTemplate={this.onSelectTemplate} isDisabled={!this.props.selectedCategoryId} selectedTemplateId={this.props.selectedTemplateId} templates={this.props.templates} />
         </div>
         <div className='form-group'>
-          <TemplatesSelectBox handleSelectTemplate={this.onSelectTemplate} isDisabled={!this.props.selectedCategoryId} selectedTemplateId={this.props.selectedTemplateId} templates={this.props.templates} />
+          <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
         </div>
         <div className='form-group'>
           <PlacesSelectBox handleSelectPlace={this.onSelectPlace} isDisabled={!this.props.selectedCategoryId} places={this.props.places} selectedPlaceId={this.props.selectedPlaceId} />

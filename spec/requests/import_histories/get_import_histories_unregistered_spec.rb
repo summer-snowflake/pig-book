@@ -42,8 +42,15 @@ describe 'GET /api/import_histories/unregistered' do
         {
           id: import_history3.id,
           row: '2014-03-27,飲食費,食事,すき家,700,,',
-          messages: '',
-          status_name: 'unregistered'
+          messages: 'カテゴリ名が登録されていません / 内訳が登録されていません / 店名・施設名が登録されていません',
+          status_name: 'unregistered',
+          category_id: nil,
+          category_name: '飲食費',
+          category_required: true,
+          breakdown_name: '食事',
+          breakdown_required: true,
+          place_name: 'すき家',
+          place_required: true
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
