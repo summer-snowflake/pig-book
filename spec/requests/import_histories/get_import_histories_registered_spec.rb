@@ -42,7 +42,7 @@ describe 'GET /api/import_histories/registered' do
         {
           id: import_history1.id,
           row: '2014-03-25,水道光熱費,電気代,,4122,,',
-          messages: '',
+          messages: 'カテゴリ名が登録されていません / 内訳が登録されていません',
           status_name: 'registered',
           category_id: nil,
           category_name: '水道光熱費',
@@ -55,7 +55,7 @@ describe 'GET /api/import_histories/registered' do
         {
           id: import_history2.id,
           row: '2014-03-26,飲食費,食事,すき家,450,,',
-          messages: '',
+          messages: 'カテゴリ名が登録されていません / 内訳が登録されていません / 店名・施設名が登録されていません',
           status_name: 'registered',
           category_id: nil,
           category_name: '飲食費',
