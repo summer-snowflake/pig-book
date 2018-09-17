@@ -28,6 +28,10 @@ class ImportHistory < ApplicationRecord
     row&.split(',')&.third
   end
 
+  def place_name
+    row&.split(',')&.fourth
+  end
+
   def assign_builder
     @builder ||= ImportHistory::RecordBuilder.new(user: user, row: row)
     self.messages = @builder.error_messages.join(' / ')
@@ -42,5 +46,10 @@ class ImportHistory < ApplicationRecord
   def breakdown_required?
     assign_builder
     @builder.unregistered_error?(:breakdown_name)
+  end
+
+  def place_required?
+    assign_builder
+    @builder.unregistered_error?(:place_name)
   end
 end
