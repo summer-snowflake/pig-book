@@ -47,8 +47,10 @@ describe 'GET /api/import_histories/unregistered' do
           category_id: nil,
           category_name: '飲食費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '食事',
           breakdown_required: true,
+          place_id: nil,
           place_name: 'すき家',
           place_required: true
         }

@@ -41,8 +41,10 @@ describe 'GET /api/import_histories' do
           category_id: nil,
           category_name: '水道光熱費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '電気代',
           breakdown_required: true,
+          place_id: nil,
           place_name: '',
           place_required: false
         },
@@ -54,8 +56,10 @@ describe 'GET /api/import_histories' do
           category_id: nil,
           category_name: '飲食費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '食事',
           breakdown_required: true,
+          place_id: nil,
           place_name: 'すき家',
           place_required: true
         }
@@ -81,8 +85,10 @@ describe 'GET /api/import_histories' do
           category_id: category.id,
           category_name: '水道光熱費',
           category_required: false,
+          breakdown_id: nil,
           breakdown_name: '電気代',
           breakdown_required: true,
+          place_id: nil,
           place_name: '',
           place_required: false
         },
@@ -94,8 +100,10 @@ describe 'GET /api/import_histories' do
           status_name: 'registered',
           category_name: '飲食費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '食事',
           breakdown_required: true,
+          place_id: nil,
           place_name: 'すき家',
           place_required: true
         }

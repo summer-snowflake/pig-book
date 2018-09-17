@@ -24,8 +24,16 @@ class ImportHistory < ApplicationRecord
     row&.split(',')&.second
   end
 
+  def breakdown_id
+    user.breakdowns.find_by(name: breakdown_name)&.id if breakdown_name
+  end
+
   def breakdown_name
     row&.split(',')&.third
+  end
+
+  def place_id
+    user.places.find_by(name: place_name)&.id if place_name
   end
 
   def place_name
