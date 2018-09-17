@@ -40,6 +40,14 @@ class ImportHistory < ApplicationRecord
     row&.split(',')&.fourth
   end
 
+  def charge
+    row&.split(',')&.fifth
+  end
+
+  def tags
+    row&.split(',')&.from(6)&.join(',')
+  end
+
   def assign_builder
     @builder ||= ImportHistory::RecordBuilder.new(user: user, row: row)
     self.messages = @builder.error_messages.join(' / ')
