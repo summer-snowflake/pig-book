@@ -209,7 +209,7 @@ class ImportHistory extends React.Component {
             </div>
           )}
           {!this.props.history.category_required && this.props.history.breakdown_required && (
-            <div className='text-right'>
+            <div className='text-right space-bottom'>
               <span className='target-name'>
                 {'内訳：'}
                 {(this.props.history || {}).breakdown_name}
@@ -220,7 +220,7 @@ class ImportHistory extends React.Component {
             </div>
           )}
           {!this.props.history.category_required && this.props.history.place_required && (
-            <div className='text-right'>
+            <div className='text-right space-bottom'>
               <span className='target-name'>
                 {'お店・施設名：'}
                 {(this.props.history || {}).place_name}
