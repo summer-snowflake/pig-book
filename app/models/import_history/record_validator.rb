@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ImportHistory::Record
+class ImportHistory::RecordValidator
   include ActiveModel::Model
 
   attr_reader :date, :category_name, :breakdown_name, :place_name,

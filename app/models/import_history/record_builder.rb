@@ -7,7 +7,8 @@ class ImportHistory::RecordBuilder
     @user = user
     @row = row
     @error_messages = []
-    @record = ImportHistory::Record.new(user: user, row: row.split(','))
+    @record = ImportHistory::RecordValidator
+              .new(user: user, row: row.split(','))
   end
 
   def valid?
