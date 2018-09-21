@@ -24,12 +24,28 @@ class ImportHistory < ApplicationRecord
     row&.split(',')&.second
   end
 
+  def breakdown_id
+    user.breakdowns.find_by(name: breakdown_name)&.id if breakdown_name
+  end
+
   def breakdown_name
     row&.split(',')&.third
   end
 
+  def place_id
+    user.places.find_by(name: place_name)&.id if place_name
+  end
+
   def place_name
     row&.split(',')&.fourth
+  end
+
+  def charge
+    row&.split(',')&.fifth
+  end
+
+  def tags
+    row&.split(',')&.from(6)&.join(',')
   end
 
   def assign_builder

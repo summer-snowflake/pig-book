@@ -47,10 +47,14 @@ describe 'GET /api/import_histories/registered' do
           category_id: nil,
           category_name: '水道光熱費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '電気代',
           breakdown_required: true,
+          place_id: nil,
           place_name: '',
-          place_required: false
+          place_required: false,
+          charge: '4122',
+          tags: ''
         },
         {
           id: import_history2.id,
@@ -60,10 +64,14 @@ describe 'GET /api/import_histories/registered' do
           category_id: nil,
           category_name: '飲食費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '食事',
           breakdown_required: true,
+          place_id: nil,
           place_name: 'すき家',
-          place_required: true
+          place_required: true,
+          charge: '450',
+          tags: ''
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

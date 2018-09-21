@@ -47,10 +47,14 @@ describe 'GET /api/import_histories/unregistered' do
           category_id: nil,
           category_name: '飲食費',
           category_required: true,
+          breakdown_id: nil,
           breakdown_name: '食事',
           breakdown_required: true,
+          place_id: nil,
           place_name: 'すき家',
-          place_required: true
+          place_required: true,
+          charge: '700',
+          tags: ''
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

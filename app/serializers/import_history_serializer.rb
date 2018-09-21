@@ -3,8 +3,9 @@
 class ImportHistorySerializer < ActiveModel::Serializer
   attributes :id, :row, :messages, :status_name,
              :category_id, :category_name, :category_required,
-             :breakdown_name, :breakdown_required,
-             :place_name, :place_required
+             :breakdown_id, :breakdown_name, :breakdown_required,
+             :place_id, :place_name, :place_required,
+             :charge, :tags
 
   def category_required
     object.category_required?
