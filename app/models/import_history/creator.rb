@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ImportHistory::RecordCreator
+class ImportHistory::Creator
   def initialize(user:, import_history_id:)
     @user = user
     @import_history = @user.import_histories.find(import_history_id)

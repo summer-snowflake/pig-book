@@ -30,7 +30,7 @@ class Api::ImportHistoriesController < Api::BaseController
   end
 
   def create_record
-    creator = ImportHistory::RecordCreator.new(
+    creator = ImportHistory::Creator.new(
       user: current_user,
       import_history_id: params[:import_history_id]
     )
