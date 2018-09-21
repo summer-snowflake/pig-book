@@ -18,4 +18,10 @@ class ImportHistory::Creator
       @import_history.update(record_id: record.id) if record.save
     end
   end
+
+  def create_category
+    return unless @import_history.category_required?
+
+    @user.categories.create(name: @import_history.category_name)
+  end
 end
