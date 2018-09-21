@@ -87,7 +87,8 @@ class ImportHistory::RecordValidator
 
   def tags_hash
     tags_params = HashWithIndifferentAccess.new
-    @tags.each_with_index do |tag_name, index|
+    p @tags
+    @tags&.each_with_index do |tag_name, index|
       tag = @user.tags.find_by(name: tag_name)
       tags_params[index.to_s] = { color_code: tag&.color_code, name: tag_name }
     end

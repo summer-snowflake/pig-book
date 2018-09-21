@@ -18,6 +18,7 @@ class ImportHistoryCardBody extends React.Component {
       unregisteredLength: 0
     }
     this.getImportHistories = this.getImportHistories.bind(this)
+    this.getImportHistoriesWithStatus = this.getImportHistoriesWithStatus.bind(this)
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
@@ -119,7 +120,7 @@ class ImportHistoryCardBody extends React.Component {
             <a className={'nav-link' + (this.state.activeLink == 'registered' ? ' active' : '')} href='#' onClick={this.handleClickRegisteredTab}>{'登録済み'}</a>
           </li>
         </ul>
-        <ImportHistories getImportHistories={this.getImportHistories} histories={this.state.histories} />
+        <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} />
       </div>
     )
   }

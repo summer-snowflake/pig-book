@@ -74,7 +74,7 @@ class ImportHistory extends React.Component {
         this.setState({
           isEditing: false
         })
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeUpdatedMessage()
       })
       .catch((error) => {
@@ -102,7 +102,7 @@ class ImportHistory extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeAddMessage()
       })
       .catch((error) => {
@@ -131,7 +131,7 @@ class ImportHistory extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeAddMessage()
       })
       .catch((error) => {
@@ -145,6 +145,31 @@ class ImportHistory extends React.Component {
   }
 
   handleClickCreateRecordButton() {
+    this.postRecord()
+  }
+
+  postRecord() {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + this.props.history.id + '/create_record',
+      params: {last_request_at: this.state.lastRequestAt},
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
+        this.noticeAddMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   postPlace(params) {
@@ -163,7 +188,7 @@ class ImportHistory extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeAddMessage()
       })
       .catch((error) => {
@@ -201,7 +226,7 @@ class ImportHistory extends React.Component {
           </td>
         )}
         <td>
-          {this.props.history.messages ? (
+          {this.props.history.messages || this.props.activeLink == 'registered' ? (
             <span>{this.props.history.messages}</span>
           ) : (
             <CreateButton onClickButton={this.handleClickCreateRecordButton} />
@@ -248,8 +273,9 @@ class ImportHistory extends React.Component {
 
 ImportHistory.propTypes = {
   history: PropTypes.object.isRequired,
-  getImportHistories: PropTypes.func.isRequired
-
+  getImportHistories: PropTypes.func.isRequired,
+  getImportHistoriesWithStatus: PropTypes.func.isRequired,
+  activeLink: PropTypes.string.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)
