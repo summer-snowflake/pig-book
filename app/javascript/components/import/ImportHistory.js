@@ -226,7 +226,7 @@ class ImportHistory extends React.Component {
           </td>
         )}
         <td>
-          {this.props.history.messages || this.props.activeLink == 'registered' ? (
+          {this.props.history.messages || this.props.activeLink == 'registered' || (this.props.history.status_name == 'registered' && this.props.activeLink == 'all') ? (
             <span>{this.props.history.messages}</span>
           ) : (
             <CreateButton onClickButton={this.handleClickCreateRecordButton} />
