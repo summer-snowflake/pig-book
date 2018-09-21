@@ -34,7 +34,7 @@ class Api::ImportHistoriesController < Api::BaseController
       user: current_user,
       import_history_id: params[:import_history_id]
     )
-    if creator.create
+    if creator.create_record
       head :created
     else
       render_validation_error creator

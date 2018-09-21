@@ -6,7 +6,7 @@ class ImportHistory::Creator
     @import_history = @user.import_histories.find(import_history_id)
   end
 
-  def create
+  def create_record
     ActiveRecord::Base.transaction do
       record_validator = ImportHistory::RecordValidator.new(
         user: @user,
