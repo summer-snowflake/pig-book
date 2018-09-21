@@ -89,7 +89,7 @@ ja:
         memo: 備考
   activemodel:
     attributes:
-      import_history/record:
+      import_history/record_validator:
         date: 日付
         category_name: カテゴリ名
         breakdown_name: 内訳
@@ -99,7 +99,7 @@ ja:
         tags: ラベル名
     errors:
       models:
-        import_history/record:
+        import_history/record_validator:
           attributes:
             category_name:
               unregistered: が登録されていません

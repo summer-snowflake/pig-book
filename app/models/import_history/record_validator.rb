@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ImportHistory::Record
+class ImportHistory::RecordValidator
   include ActiveModel::Model
 
   attr_reader :date, :category_name, :breakdown_name, :place_name,
@@ -31,6 +31,18 @@ class ImportHistory::Record
     @tags = row[6..-1]
   end
 
+  def params
+    { published_at: @date,
+      category_id: category_id,
+      breakdown_id: breakdown_id,
+      place_id: place_id,
+      charge: @charge,
+      memo: @memo,
+      tags: tags_hash,
+      currency: @user.base_setting.currency,
+      point: 0 }
+  end
+
   private
 
   def category_should_have_existed
@@ -59,5 +71,27 @@ class ImportHistory::Record
     return if @user.tags.find_by(name: tags.split(','))
 
     errors.add(:tags, :unregistered)
+  end
+
+  def category_id
+    @user.categories.find_by(name: @category_name)&.id if @category_name
+  end
+
+  def breakdown_id
+    @user.breakdowns.find_by(name: @breakdown_name)&.id if @breakdown_name
+  end
+
+  def place_id
+    @user.places.find_by(name: @place_name)&.id if @place_name
+  end
+
+  def tags_hash
+    tags_params = HashWithIndifferentAccess.new
+    p @tags
+    @tags&.each_with_index do |tag_name, index|
+      tag = @user.tags.find_by(name: tag_name)
+      tags_params[index.to_s] = { color_code: tag&.color_code, name: tag_name }
+    end
+    tags_params
   end
 end

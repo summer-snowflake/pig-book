@@ -9,6 +9,7 @@ import UpdateButton from './../common/UpdateButton'
 import AlertMessage from './../common/AlertMessage'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import AddButton from './../common/AddButton'
+import CreateButton from './../common/CreateButton'
 
 class ImportHistory extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class ImportHistory extends React.Component {
     this.handleClickAddCategoryButton = this.handleClickAddCategoryButton.bind(this)
     this.handleClickAddBreakdownButton = this.handleClickAddBreakdownButton.bind(this)
     this.handleClickAddPlaceButton = this.handleClickAddPlaceButton.bind(this)
+    this.handleClickCreateRecordButton = this.handleClickCreateRecordButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
   }
 
@@ -72,7 +74,7 @@ class ImportHistory extends React.Component {
         this.setState({
           isEditing: false
         })
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeUpdatedMessage()
       })
       .catch((error) => {
@@ -100,7 +102,7 @@ class ImportHistory extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeAddMessage()
       })
       .catch((error) => {
@@ -129,7 +131,7 @@ class ImportHistory extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeAddMessage()
       })
       .catch((error) => {
@@ -140,6 +142,34 @@ class ImportHistory extends React.Component {
   handleClickAddPlaceButton() {
     let history = this.props.history
     this.postPlace({category_id: history.category_id, name: history.place_name})
+  }
+
+  handleClickCreateRecordButton() {
+    this.postRecord()
+  }
+
+  postRecord() {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + this.props.history.id + '/create_record',
+      params: {last_request_at: this.state.lastRequestAt},
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
+        this.noticeAddMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
   }
 
   postPlace(params) {
@@ -158,7 +188,7 @@ class ImportHistory extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.props.getImportHistories()
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
         this.noticeAddMessage()
       })
       .catch((error) => {
@@ -196,7 +226,11 @@ class ImportHistory extends React.Component {
           </td>
         )}
         <td>
-          {this.props.history.messages}
+          {this.props.history.messages || this.props.activeLink == 'registered' || (this.props.history.status_name == 'registered' && this.props.activeLink == 'all') ? (
+            <span>{this.props.history.messages}</span>
+          ) : (
+            <CreateButton onClickButton={this.handleClickCreateRecordButton} />
+          )}
           {this.props.history.category_required && (
             <div className='text-right'>
               <span className='target-name'>
@@ -239,8 +273,9 @@ class ImportHistory extends React.Component {
 
 ImportHistory.propTypes = {
   history: PropTypes.object.isRequired,
-  getImportHistories: PropTypes.func.isRequired
-
+  getImportHistories: PropTypes.func.isRequired,
+  getImportHistoriesWithStatus: PropTypes.func.isRequired,
+  activeLink: PropTypes.string.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)

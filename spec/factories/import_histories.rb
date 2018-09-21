@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :import_history do
     user
-    sequence(:row) { |n| "2018-03-03, CSVデータ#{n}" }
+    sequence(:row) { |n| "2014-03-22,医療費,診察代,歯医者,3400,#{n},医療費控除対象" }
   end
 end
