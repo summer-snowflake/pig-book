@@ -83,18 +83,18 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddCategoryButton() {
-    this.postCategory({name: this.props.history.category_name})
+    this.postCategory()
   }
 
-  postCategory(params) {
+  postCategory() {
     this.setState({
       message: '',
       errorMessages: {}
     })
     let options = {
       method: 'POST',
-      url: origin + '/api/categories',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
+      url: origin + '/api/import_histories/' + this.props.history.id + '/create_category',
+      params: {last_request_at: this.state.lastRequestAt},
       headers: {
         'Authorization': 'Token token=' + this.state.userToken
       },

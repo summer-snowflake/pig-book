@@ -88,7 +88,7 @@ class ImportHistoryCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
-          unregisteredLength: statusName == 'unregistered' ? res.data.length : this.state.unregisteredLength,
+          unregisteredLength: res.data.filter( history => history.status_name == 'unregistered' ).length,
           histories: res.data
         })
       })
