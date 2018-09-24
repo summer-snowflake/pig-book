@@ -24,4 +24,12 @@ class ImportHistory::Creator
 
     @user.categories.create(name: @import_history.category_name)
   end
+
+  def create_breakdown
+    return unless @import_history.breakdown_required?
+
+    category = @user.categories.find(@import_history.category_id)
+    category.breakdowns.create(name: @import_history.breakdown_name,
+                               category_id: @import_history.category_id)
+  end
 end

@@ -41,6 +41,18 @@ class Api::ImportHistoriesController < Api::BaseController
     end
   end
 
+  def create_breakdown
+    creator = ImportHistory::Creator.new(
+      user: current_user,
+      import_history_id: params[:import_history_id]
+    )
+    if creator.create_breakdown
+      head :created
+    else
+      render_validation_error creator
+    end
+  end
+
   def create_record
     creator = ImportHistory::Creator.new(
       user: current_user,
