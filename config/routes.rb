@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, param: :year, only: %w[index show]
     resources :import_histories, only: %w[index create update] do
+      get :unregistered_count, on: :collection
+      post :create_category
       post :create_record
     end
     resources :import_histories, param: :status, only: %w[show]

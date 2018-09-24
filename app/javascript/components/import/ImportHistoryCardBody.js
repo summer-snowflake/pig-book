@@ -19,6 +19,7 @@ class ImportHistoryCardBody extends React.Component {
     }
     this.getImportHistories = this.getImportHistories.bind(this)
     this.getImportHistoriesWithStatus = this.getImportHistoriesWithStatus.bind(this)
+    this.getImportHistoriesCount = this.getImportHistoriesCount.bind(this)
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
@@ -63,13 +64,33 @@ class ImportHistoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
+        this.getImportHistoriesCount()
         this.setState({
-          unregisteredLength: res.data.filter( history => history.status_name == 'unregistered' ).length,
           histories: res.data
         })
       })
       .catch((error) => {
         this.noticeErrorMessages(error)
+      })
+  }
+
+  getImportHistoriesCount() {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/import_histories/unregistered_count',
+      params: {
+        last_request_at: this.state.lastRequestAt
+      },
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        this.setState({
+          unregisteredLength: res.data
+        })
       })
   }
 
@@ -87,8 +108,8 @@ class ImportHistoryCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
+        this.getImportHistoriesCount()
         this.setState({
-          unregisteredLength: statusName == 'unregistered' ? res.data.length : this.state.unregisteredLength,
           histories: res.data
         })
       })

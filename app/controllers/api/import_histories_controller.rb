@@ -29,12 +29,24 @@ class Api::ImportHistoriesController < Api::BaseController
     end
   end
 
-  def create_record
-    creator = ImportHistory::RecordCreator.new(
+  def create_category
+    creator = ImportHistory::Creator.new(
       user: current_user,
       import_history_id: params[:import_history_id]
     )
-    if creator.create
+    if creator.create_category
+      head :created
+    else
+      render_validation_error creator
+    end
+  end
+
+  def create_record
+    creator = ImportHistory::Creator.new(
+      user: current_user,
+      import_history_id: params[:import_history_id]
+    )
+    if creator.create_record
       head :created
     else
       render_validation_error creator
@@ -48,6 +60,16 @@ class Api::ImportHistoriesController < Api::BaseController
     else
       render_validation_error updater
     end
+  end
+
+  def unregistered_count
+    import_histories_count =
+      current_user
+      .import_histories
+      .send(:unregistered)
+      .order(:created_at)
+      .count
+    render json: import_histories_count
   end
 
   private
