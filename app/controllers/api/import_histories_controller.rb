@@ -62,6 +62,16 @@ class Api::ImportHistoriesController < Api::BaseController
     end
   end
 
+  def unregistered_count
+    import_histories_count =
+      current_user
+      .import_histories
+      .send(:unregistered)
+      .order(:created_at)
+      .count
+    render json: import_histories_count
+  end
+
   private
 
   def import_params
