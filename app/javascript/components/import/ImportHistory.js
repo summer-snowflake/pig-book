@@ -112,18 +112,18 @@ class ImportHistory extends React.Component {
 
   handleClickAddBreakdownButton() {
     let history = this.props.history
-    this.postBreakdown({category_id: history.category_id, name: history.breakdown_name})
+    this.postBreakdown()
   }
 
-  postBreakdown(params) {
+  postBreakdown() {
     this.setState({
       message: '',
       errorMessages: {}
     })
     let options = {
       method: 'POST',
-      url: origin + '/api/breakdowns',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
+      url: origin + '/api/import_histories/' + this.props.history.id + '/create_breakdown',
+      params: {last_request_at: this.state.lastRequestAt},
       headers: {
         'Authorization': 'Token token=' + this.state.userToken
       },
