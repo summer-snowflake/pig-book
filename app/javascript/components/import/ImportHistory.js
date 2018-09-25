@@ -141,7 +141,7 @@ class ImportHistory extends React.Component {
 
   handleClickAddPlaceButton() {
     let history = this.props.history
-    this.postPlace({category_id: history.category_id, name: history.place_name})
+    this.postPlace()
   }
 
   handleClickCreateRecordButton() {
@@ -172,15 +172,15 @@ class ImportHistory extends React.Component {
       })
   }
 
-  postPlace(params) {
+  postPlace() {
     this.setState({
       message: '',
       errorMessages: {}
     })
     let options = {
       method: 'POST',
-      url: origin + '/api/places',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
+      url: origin + '/api/import_histories/' + this.props.history.id + '/create_place',
+      params: {last_request_at: this.state.lastRequestAt},
       headers: {
         'Authorization': 'Token token=' + this.state.userToken
       },

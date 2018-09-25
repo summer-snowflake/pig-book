@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get :unregistered_count, on: :collection
       post :create_category
       post :create_breakdown
+      post :create_place
       post :create_record
     end
     resources :import_histories, param: :status, only: %w[show]
