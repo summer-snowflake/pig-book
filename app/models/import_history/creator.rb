@@ -32,4 +32,15 @@ class ImportHistory::Creator
     category.breakdowns.create(name: @import_history.breakdown_name,
                                category_id: @import_history.category_id)
   end
+
+  def create_place
+    return unless @import_history.place_required?
+
+    ActiveRecord::Base.transaction do
+      category = @user.categories.find(@import_history.category_id)
+      place = @user.places.create(name: @import_history.place_name)
+      category.categorized_places.find_by(place: place) ||
+        category.categorized_places.create(place: place)
+    end
+  end
 end
