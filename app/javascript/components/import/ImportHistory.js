@@ -30,6 +30,7 @@ class ImportHistory extends React.Component {
     this.handleClickAddCategoryButton = this.handleClickAddCategoryButton.bind(this)
     this.handleClickAddBreakdownButton = this.handleClickAddBreakdownButton.bind(this)
     this.handleClickAddPlaceButton = this.handleClickAddPlaceButton.bind(this)
+    this.handleClickAddTagsButton = this.handleClickAddTagsButton.bind(this)
     this.handleClickCreateRecordButton = this.handleClickCreateRecordButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
   }
@@ -111,7 +112,6 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddBreakdownButton() {
-    let history = this.props.history
     this.postBreakdown()
   }
 
@@ -140,7 +140,6 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddPlaceButton() {
-    let history = this.props.history
     this.postPlace()
   }
 
@@ -180,6 +179,34 @@ class ImportHistory extends React.Component {
     let options = {
       method: 'POST',
       url: origin + '/api/import_histories/' + this.props.history.id + '/create_place',
+      params: {last_request_at: this.state.lastRequestAt},
+      headers: {
+        'Authorization': 'Token token=' + this.state.userToken
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        this.props.getImportHistoriesWithStatus(this.props.activeLink)
+        this.noticeAddMessage()
+      })
+      .catch((error) => {
+        this.noticeErrorMessages(error)
+      })
+  }
+
+  handleClickAddTagsButton() {
+    this.postTags()
+  }
+
+  postTags() {
+    this.setState({
+      message: '',
+      errorMessages: {}
+    })
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + this.props.history.id + '/create_tags',
       params: {last_request_at: this.state.lastRequestAt},
       headers: {
         'Authorization': 'Token token=' + this.state.userToken
@@ -261,6 +288,17 @@ class ImportHistory extends React.Component {
               </span>
               <span>
                 <AddButton onClickButton={this.handleClickAddPlaceButton} />
+              </span>
+            </div>
+          )}
+          {this.props.history.tags_required && (
+            <div className='text-right space-bottom'>
+              <span className='target-name'>
+                {'ラベル：'}
+                {(this.props.history || {}).tags_name}
+              </span>
+              <span>
+                <AddButton onClickButton={this.handleClickAddTagsButton} />
               </span>
             </div>
           )}

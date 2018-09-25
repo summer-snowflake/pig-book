@@ -49,7 +49,9 @@ describe 'GET /api/import_histories/unregistered' do
           breakdown_name: '食事',
           breakdown_required: true,
           place_name: 'すき家',
-          place_required: true
+          place_required: true,
+          tags_name: '',
+          tags_required: false
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
