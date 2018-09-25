@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     resources :import_histories, only: %w[index create update] do
       get :unregistered_count, on: :collection
       post :create_category
+      post :create_breakdown
       post :create_record
     end
     resources :import_histories, param: :status, only: %w[show]
