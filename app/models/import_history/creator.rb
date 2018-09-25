@@ -43,4 +43,22 @@ class ImportHistory::Creator
         category.categorized_places.create(place: place)
     end
   end
+
+  def create_tags
+    return unless @import_history.tags_required?
+
+    @import_history.tags.each do |tag|
+      @user.tags.find_by(name: tag) ||
+        @user.tags.create(name: tag, color_code: generate_color_code)
+    end
+  end
+
+  private
+
+  def generate_color_code
+    color_code = '#' + format('%06x', (rand * 0xffffff))
+    return color_code if @user.tags.find_by(color_code: color_code).nil?
+
+    generate_color_code
+  end
 end

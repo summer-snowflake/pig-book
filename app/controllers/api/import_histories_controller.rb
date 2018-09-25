@@ -2,6 +2,9 @@
 
 class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
+  before_action :set_creator, only: %i[
+    create_category create_breakdown create_place create_tags create_record
+  ]
 
   def index
     import_histories = current_user
@@ -30,50 +33,42 @@ class Api::ImportHistoriesController < Api::BaseController
   end
 
   def create_category
-    creator = ImportHistory::Creator.new(
-      user: current_user,
-      import_history_id: params[:import_history_id]
-    )
-    if creator.create_category
+    if @creator.create_category
       head :created
     else
-      render_validation_error creator
+      render_validation_error @creator
     end
   end
 
   def create_breakdown
-    creator = ImportHistory::Creator.new(
-      user: current_user,
-      import_history_id: params[:import_history_id]
-    )
-    if creator.create_breakdown
+    if @creator.create_breakdown
       head :created
     else
-      render_validation_error creator
+      render_validation_error @creator
     end
   end
 
   def create_place
-    creator = ImportHistory::Creator.new(
-      user: current_user,
-      import_history_id: params[:import_history_id]
-    )
-    if creator.create_place
+    if @creator.create_place
       head :created
     else
-      render_validation_error creator
+      render_validation_error @creator
+    end
+  end
+
+  def create_tags
+    if @creator.create_tags
+      head :created
+    else
+      render_validation_error @creator
     end
   end
 
   def create_record
-    creator = ImportHistory::Creator.new(
-      user: current_user,
-      import_history_id: params[:import_history_id]
-    )
-    if creator.create_record
+    if @creator.create_record
       head :created
     else
-      render_validation_error creator
+      render_validation_error @creator
     end
   end
 
@@ -88,11 +83,7 @@ class Api::ImportHistoriesController < Api::BaseController
 
   def unregistered_count
     import_histories_count =
-      current_user
-      .import_histories
-      .send(:unregistered)
-      .order(:created_at)
-      .count
+      current_user.import_histories.send(:unregistered).order(:created_at).count
     render json: import_histories_count
   end
 
@@ -108,5 +99,12 @@ class Api::ImportHistoriesController < Api::BaseController
 
   def update_params
     params.permit(:id, :row)
+  end
+
+  def set_creator
+    @creator = ImportHistory::Creator.new(
+      user: current_user,
+      import_history_id: params[:import_history_id]
+    )
   end
 end
