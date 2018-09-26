@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
     notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL']
     attachments = {
       pretext: "*500 #{err}*\nurl: #{url}\nuser_email: #{current_user&.email}",
-      text: "```\n" + [*err.backtrace].take(10).join("\n") + "\n```",
+      text: "```\n" + [*err.backtrace].take(25).join("\n") + "\n```",
       mrkdwn: true
     }
     notifier.post attachments
