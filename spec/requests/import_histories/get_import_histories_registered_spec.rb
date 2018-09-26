@@ -49,7 +49,9 @@ describe 'GET /api/import_histories/registered' do
           breakdown_name: '電気代',
           breakdown_required: true,
           place_name: '',
-          place_required: false
+          place_required: false,
+          tags_name: '',
+          tags_required: false
         },
         {
           id: import_history2.id,
@@ -61,7 +63,9 @@ describe 'GET /api/import_histories/registered' do
           breakdown_name: '食事',
           breakdown_required: true,
           place_name: 'すき家',
-          place_required: true
+          place_required: true,
+          tags_name: '',
+          tags_required: false
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
