@@ -11,5 +11,6 @@ class Category < ApplicationRecord
   has_many :templates, dependent: :restrict_with_error
 
   validates :balance_of_payments, inclusion: { in: [true, false] }
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 30 },
+                   uniqueness: { scope: :user }
 end
