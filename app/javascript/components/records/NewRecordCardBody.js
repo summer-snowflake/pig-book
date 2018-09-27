@@ -43,13 +43,13 @@ class NewRecordCardBody extends React.Component {
       inputMemo: '',
       records: this.props.records,
       targetDate: moment(),
-      recentlyUsedCategories: this.props.recently_used_categories
+      recentlyUsed: this.props.recentlyUsed
     }
     this.postRecord = this.postRecord.bind(this)
     this.patchRecord = this.patchRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
-    this.getRecentlyUsedCategories = this.getRecentlyUsedCategories.bind(this)
+    this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
@@ -67,6 +67,8 @@ class NewRecordCardBody extends React.Component {
     this.onChangePoint = this.onChangePoint.bind(this)
     this.onChangeMemo = this.onChangeMemo.bind(this)
     this.setCategory = this.setCategory.bind(this)
+    this.setTemplate = this.setTemplate.bind(this)
+    this.setTag = this.setTag.bind(this)
   }
 
   componentWillMount() {
@@ -134,7 +136,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectTemplate(template) {
     let tags = [
-      { id: template.tag_id, name: template.tag_name, color_code: template.tag_color_code }
+      { id: template.tag.id, name: template.tag.name, color_code: template.tag.color_code }
     ]
     let generateTags = tags.reduce(
       (map, tag, index) => Object.assign(map, { [index]: tag }),
@@ -211,7 +213,7 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.getRecentlyUsedCategories()
+        this.getRecentlyUsed()
         this.getRecords(params.published_at)
         this.noticeAddMessage()
         this.setState({
@@ -300,7 +302,7 @@ class NewRecordCardBody extends React.Component {
     }
     axios(options)
       .then((res) => {
-        this.getRecentlyUsedCategories()
+        this.getRecentlyUsed()
         this.setState({
           categories: res.data
         })
@@ -310,10 +312,10 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
-  getRecentlyUsedCategories() {
+  getRecentlyUsed() {
     let options = {
       method: 'GET',
-      url: origin + '/api/recently_used_categories',
+      url: origin + '/api/recently_used',
       params: {
         last_request_at: this.state.lastRequestAt
       },
@@ -325,7 +327,7 @@ class NewRecordCardBody extends React.Component {
     axios(options)
       .then((res) => {
         this.setState({
-          recentlyUsedCategories: res.data
+          recentlyUsed: res.data
         })
       })
       .catch((error) => {
@@ -474,13 +476,61 @@ class NewRecordCardBody extends React.Component {
     })
   }
 
+  setTemplate(template) {
+    let category = this.state.categories.find( category => category.id == template.category_id )
+    let tags = template.tag ? ([
+      { id: template.tag.id, name: template.tag.name, color_code: template.tag.color_code }
+    ]) : (
+      []
+    )
+    let generateTags = tags.reduce(
+      (map, tag, index) => Object.assign(map, { [index]: tag }),
+      {}
+    )
+    this.setState({
+      selectedBalanceOfPayments: category.balance_of_payments,
+      selectedCategoryId: template.category_id,
+      selectedBreakdownId: template.breakdown_id,
+      selectedTemplateId: template.id,
+      breakdowns: category.breakdowns || [],
+      templates: category.templates || [],
+      places: category.places || [],
+      inputCharge: String(template.charge),
+      inputMemo: template.memo,
+      selectedTags: tags.map(tag =>
+        <Tag key={tag.id} tag={tag} />
+      ),
+      selectedGenerateTags: generateTags
+    })
+  }
+
+  setTag(tag) {
+    let tags = tag ? ([
+      { id: tag.id, name: tag.name, color_code: tag.color_code }
+    ]) : (
+      []
+    )
+    let generateTags = tags.reduce(
+      (map, tag, index) => Object.assign(map, { [index]: tag }),
+      {}
+    )
+    this.setState({
+      selectedTags: tags.map(tag =>
+        <Tag key={tag.id} tag={tag} />
+      ),
+      selectedGenerateTags: generateTags
+    })
+  }
+
   render() {
     return (
       <div className='new-record-card-body-component row'>
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField
-          categories={this.state.recentlyUsedCategories}
           handleClickCategoryPickerButton={this.setCategory}
+          handleClickTemplatePickerButton={this.setTemplate}
+          handleClickTagPickerButton={this.setTag}
+          recentlyUsed={this.state.recentlyUsed}
         />
         <NewRecordForm
           baseSetting={this.state.baseSetting}
@@ -534,7 +584,7 @@ class NewRecordCardBody extends React.Component {
 
 NewRecordCardBody.propTypes = {
   records: PropTypes.array.isRequired,
-  recently_used_categories: PropTypes.array.isRequired
+  recentlyUsed: PropTypes.object.isRequired
 }
 
 reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)

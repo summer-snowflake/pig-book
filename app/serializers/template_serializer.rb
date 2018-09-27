@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
 class TemplateSerializer < ActiveModel::Serializer
-  attributes :id, :name, :category_name, :breakdown_id, :breakdown_name,
-             :tag_id, :tag_name, :tag_color_code, :charge, :memo
+  attributes :id, :name,
+             :category_id, :category_balance_of_payments, :category_name,
+             :breakdown_id, :breakdown_name, :tag_id, :charge, :memo
+
+  has_one :tag, serializer: TagSerializer
+
+  def category_balance_of_payments
+    object.category.balance_of_payments
+  end
 
   def category_name
     object.category.name
@@ -10,13 +17,5 @@ class TemplateSerializer < ActiveModel::Serializer
 
   def breakdown_name
     object.breakdown&.name
-  end
-
-  def tag_name
-    object.tag&.name
-  end
-
-  def tag_color_code
-    object.tag&.color_code
   end
 end

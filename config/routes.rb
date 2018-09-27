@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: :json do
     resource :base_setting, only: %w[show]
-    resources :recently_used_categories, only: %w[index]
+    resources :recently_used, only: %w[index]
     resources :categories, only: %w[index create update destroy] do
       resources :breakdowns, only: %w[index], module: :categories
     end
