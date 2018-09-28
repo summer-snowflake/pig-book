@@ -12,6 +12,13 @@ module FeatureSpecHelper
     trigger(:click, locator, options)
   end
 
+  def add_category(balance_of_payments: false, name:)
+    visit categories_path
+    choose I18n.t('label.income') if balance_of_payments
+    fill_in 'category_name', with: name
+    trigger_click('#add-button')
+  end
+
   private
 
   def trigger(action, locator = nil, **options)
