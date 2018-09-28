@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature 'RECORD', js: true do
+feature 'New RECORD', js: true do
   let!(:user) { create(:user) }
 
   background do
@@ -17,45 +17,11 @@ feature 'RECORD', js: true do
     end
   end
 
-  scenario 'Link to list page' do
-    visit root_path
-    click_link I18n.t('menu.list')
-    within '.card-header' do
-      expect(page).to have_content I18n.t('menu.list')
-    end
-  end
-
   scenario 'Connect to input page.' do
     visit new_record_path
     within '.card-header' do
       expect(page).to have_content I18n.t('menu.input')
     end
-  end
-
-  scenario 'Connect to list page.' do
-    visit records_path
-    within '.card-header' do
-      expect(page).to have_content I18n.t('menu.list')
-    end
-  end
-
-  scenario 'Add a new category.' do
-    visit new_record_path
-
-    expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
-
-    within '.categories-select-box-component' do
-      find('.fas.fa-plus').click
-    end
-
-    expect(page).to have_css '.modal-body'
-    within '.modal-body' do
-      fill_in 'category_name', with: '新しいカテゴリ名'
-      click_on '追加する'
-    end
-
-    sleep 0.5
-    expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
   end
 
   context 'Create a new record.' do
@@ -172,6 +138,27 @@ feature 'RECORD', js: true do
       within '.one-day-records-component .card-body' do
         expect(page).to have_no_content record2.decorate.human_charge
       end
+    end
+  end
+
+  feature 'Input Form' do
+    scenario 'Add a new category.' do
+      visit new_record_path
+
+      expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
+
+      within '.categories-select-box-component' do
+        find('.fas.fa-plus').click
+      end
+
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
+        fill_in 'category_name', with: '新しいカテゴリ名'
+        click_on '追加する'
+      end
+
+      sleep 0.5
+      expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
     end
   end
 
