@@ -6,6 +6,7 @@ class CsvFilesController < ApplicationController
 
   def index
     @params = {
+      memo: current_user.profile.memo,
       user_token: @access_token,
       last_request_at: @last_request_at
     }
