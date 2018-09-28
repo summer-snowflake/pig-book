@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   include ValidationErrorMessagesBuilder
 
   belongs_to :user
-  has_many :tagged_records
+  has_many :tagged_records, dependent: :destroy
   has_many :templates
 
   validates :color_code, presence: true,
