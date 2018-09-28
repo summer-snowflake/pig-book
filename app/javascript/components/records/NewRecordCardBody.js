@@ -135,18 +135,21 @@ class NewRecordCardBody extends React.Component {
   }
 
   onSelectTemplate(template) {
-    let tags = [
+    let tags = (template || {}).tag ? ([
       { id: template.tag.id, name: template.tag.name, color_code: template.tag.color_code }
     ]
+    ) : (
+      []
+    )
     let generateTags = tags.reduce(
       (map, tag, index) => Object.assign(map, { [index]: tag }),
       {}
     )
     this.setState({
       selectedTemplateId: (template || {}).id,
-      selectedBreakdownId: template.breakdown_id,
-      inputCharge: String(template.charge),
-      inputMemo: template.memo,
+      selectedBreakdownId: (template || {}).breakdown_id,
+      inputCharge: String((template || {}).charge),
+      inputMemo: (template || {}).memo,
       selectedTags: tags.map(tag =>
         <Tag key={tag.id} tag={tag} />
       ),
@@ -528,8 +531,8 @@ class NewRecordCardBody extends React.Component {
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField
           handleClickCategoryPickerButton={this.setCategory}
-          handleClickTemplatePickerButton={this.setTemplate}
           handleClickTagPickerButton={this.setTag}
+          handleClickTemplatePickerButton={this.setTemplate}
           recentlyUsed={this.state.recentlyUsed}
         />
         <NewRecordForm
