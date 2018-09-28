@@ -10,6 +10,7 @@ class ImportHistoriesController < ApplicationController
                 .order(:created_at)
                 .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
     @params = {
+      memo: current_user.profile.memo,
       histories: histories,
       user_token: @access_token,
       last_request_at: @last_request_at

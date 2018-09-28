@@ -528,8 +528,8 @@ class NewRecordCardBody extends React.Component {
         <AlertMessage message={this.state.message} success={this.state.success} />
         <PickerField
           handleClickCategoryPickerButton={this.setCategory}
-          handleClickTemplatePickerButton={this.setTemplate}
           handleClickTagPickerButton={this.setTag}
+          handleClickTemplatePickerButton={this.setTemplate}
           recentlyUsed={this.state.recentlyUsed}
         />
         <NewRecordForm
