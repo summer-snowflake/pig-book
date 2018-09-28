@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SquareIcon from './../../common/SquareIcon'
-
 class TagPicker extends React.Component {
   constructor(props) {
     super(props)
