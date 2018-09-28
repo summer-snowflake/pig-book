@@ -2,6 +2,7 @@
 
 class Profile < ApplicationRecord
   include EnumDefinedCurrency
+  include ValidationErrorMessagesBuilder
 
   belongs_to :user
 
