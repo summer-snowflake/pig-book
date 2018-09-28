@@ -19,6 +19,20 @@ module FeatureSpecHelper
     trigger_click('#add-button')
   end
 
+  def add_record(category_name: 'カテゴリ名', breakdown_name: '内訳',
+                 place_name: 'お店・施設', charge: 108, memo: 'めも')
+    visit new_record_path
+
+    within '.new-record-form-component' do
+      select category_name, from: 'selectable-categories'
+      select breakdown_name, from: 'selectable-breakdowns'
+      select place_name, from: 'selectable-places'
+      fill_in 'record_charge', with: charge
+      fill_in 'record_memo', with: memo
+      click_on 'button.create'
+    end
+  end
+
   private
 
   def trigger(action, locator = nil, **options)
