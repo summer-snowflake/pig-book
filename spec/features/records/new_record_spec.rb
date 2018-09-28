@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature 'RECORD', js: true do
+feature 'New RECORD', js: true do
   let!(:user) { create(:user) }
 
   background do
@@ -17,45 +17,11 @@ feature 'RECORD', js: true do
     end
   end
 
-  scenario 'Link to list page' do
-    visit root_path
-    click_link I18n.t('menu.list')
-    within '.card-header' do
-      expect(page).to have_content I18n.t('menu.list')
-    end
-  end
-
   scenario 'Connect to input page.' do
     visit new_record_path
     within '.card-header' do
       expect(page).to have_content I18n.t('menu.input')
     end
-  end
-
-  scenario 'Connect to list page.' do
-    visit records_path
-    within '.card-header' do
-      expect(page).to have_content I18n.t('menu.list')
-    end
-  end
-
-  scenario 'Add a new category.' do
-    visit new_record_path
-
-    expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
-
-    within '.categories-select-box-component' do
-      find('.fas.fa-plus').click
-    end
-
-    expect(page).to have_css '.modal-body'
-    within '.modal-body' do
-      fill_in 'category_name', with: '新しいカテゴリ名'
-      click_on '追加する'
-    end
-
-    sleep 0.5
-    expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
   end
 
   context 'Create a new record.' do
@@ -67,14 +33,8 @@ feature 'RECORD', js: true do
     end
 
     scenario 'Save record with not changed published_on' do
-      visit new_record_path
-      select category.name, from: 'selectable-categories'
-      select breakdown.name, from: 'selectable-breakdowns'
-      select place.name, from: 'selectable-places'
-      fill_in 'record_charge', with: '9000'
-      fill_in 'record_memo', with: 'メモ'
-      click_on 'button.create'
-
+      add_record(category_name: category.name, breakdown_name: breakdown.name,
+                 place_name: place.name, charge: 9000, memo: 'メモ')
       sleep 0.5
       expect(find('input[name=record_charge]').value).to eq ''
       within '.one-day-records-component .card-body' do
@@ -172,6 +132,62 @@ feature 'RECORD', js: true do
       within '.one-day-records-component .card-body' do
         expect(page).to have_no_content record2.decorate.human_charge
       end
+    end
+  end
+
+  feature 'Picker Buttons' do
+    scenario 'Add a record from category picker button.' do
+      add_category(name: '支出カテゴリ')
+      add_category(balance_of_payments: true, name: '収入カテゴリ')
+
+      add_record(category_name: '支出カテゴリ')
+      within '.picker-form-component' do
+        expect(page).to have_content '支出カテゴリ'
+        expect(page).to have_no_content '収入カテゴリ'
+      end
+
+      add_record(category_name: '収入カテゴリ')
+      within '.picker-form-component' do
+        expect(page).to have_content '支出カテゴリ'
+        expect(page).to have_content '収入カテゴリ'
+      end
+
+      within '.picker-form-component' do
+        find('.category-picker-component', text: '収入カテゴリ').click
+      end
+      fill_in 'record_charge', with: '400'
+      click_on 'button.create'
+      sleep 0.5
+
+      within '.one-day-records-component' do
+        records_dom = all('table.table tr.record-component')
+        expect(records_dom[0]).to have_content '収入カテゴリ'
+        expect(records_dom[0]).to have_content '400'
+        expect(records_dom[1]).to have_content '収入カテゴリ'
+        expect(records_dom[2]).to have_content '支出カテゴリ'
+        expect(records_dom.count).to eq 3
+      end
+    end
+  end
+
+  feature 'Input Form' do
+    scenario 'Add a new category.' do
+      visit new_record_path
+
+      expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
+
+      within '.categories-select-box-component' do
+        find('.fas.fa-plus').click
+      end
+
+      expect(page).to have_css '.modal-body'
+      within '.modal-body' do
+        fill_in 'category_name', with: '新しいカテゴリ名'
+        click_on '追加する'
+      end
+
+      sleep 0.5
+      expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
     end
   end
 
