@@ -31,7 +31,7 @@ class RecordsCardBody extends React.Component {
   }
 
   getRecords() {
-    let targetDate = moment()
+    let targetDate = moment(this.props.month)
     let options = {
       method: 'GET',
       url: origin + '/api/records',
