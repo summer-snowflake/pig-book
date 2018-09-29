@@ -16,6 +16,8 @@ class RecordsCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
+      year: moment(this.props.month).year(),
+      month: this.props.month,
       message: '',
       success: false,
       errorMessages: {},
@@ -29,7 +31,7 @@ class RecordsCardBody extends React.Component {
   }
 
   componentWillMount() {
-    this.getRecords()
+    this.getRecords(this.state.month)
   }
 
   handleClickPreviousButton() {
@@ -52,8 +54,8 @@ class RecordsCardBody extends React.Component {
     location.href = 'records?year=' + year + '&month=' + month
   }
 
-  getRecords() {
-    let targetDate = moment(this.props.month)
+  getRecords(month) {
+    let targetDate = moment(month)
     let options = {
       method: 'GET',
       url: origin + '/api/records',
@@ -94,7 +96,7 @@ class RecordsCardBody extends React.Component {
     }
     axios(options)
       .then(() => {
-        this.getRecords()
+        this.getRecords(this.state.month)
         this.noticeDestroyedMessage()
       })
       .catch((error) => {
