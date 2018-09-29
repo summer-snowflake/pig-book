@@ -7,6 +7,7 @@ import reactMixin from 'react-mixin'
 import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
 import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
+import MonthlyTotal from './MonthlyTotal'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class MonthlyBalanceTable extends React.Component {
@@ -63,6 +64,7 @@ class MonthlyBalanceTable extends React.Component {
                   <MonthName month={index + 1} />
                 </td>)
               )}
+              <td className='monthly-td'>{'合計'}</td>
             </tr>
             <tr>
               {monthlyKeys.map((index) =>
@@ -71,6 +73,7 @@ class MonthlyBalanceTable extends React.Component {
                   <MonthlyTotalExpenditure month={index + 1} tally={this.state.monthlyBalanceTable} />
                 </td>)
               )}
+              <MonthlyTotal tally={this.state.monthlyBalanceTable} />
             </tr>
           </tbody>
         </table>

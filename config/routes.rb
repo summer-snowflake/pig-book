@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   end
 
   namespace :api, format: :json do
-    resource :base_setting, only: %w[show]
-    resources :recently_used_categories, only: %w[index]
+    resource :base_setting, only: %w[show update]
+    resources :recently_used, only: %w[index]
     resources :categories, only: %w[index create update destroy] do
       resources :breakdowns, only: %w[index], module: :categories
     end
@@ -40,7 +40,14 @@ Rails.application.routes.draw do
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, param: :year, only: %w[index show]
-    resources :import_histories, only: %w[index create update]
+    resources :import_histories, only: %w[index create update] do
+      get :unregistered_count, on: :collection
+      post :create_category
+      post :create_breakdown
+      post :create_place
+      post :create_tags
+      post :create_record
+    end
     resources :import_histories, param: :status, only: %w[show]
 
     namespace :admin do

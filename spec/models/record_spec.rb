@@ -9,7 +9,7 @@ RSpec.describe Record, type: :model do
     it { is_expected.to belong_to(:breakdown).optional }
     it { is_expected.to belong_to(:place).optional }
     it { is_expected.to have_one(:import_history) }
-    it { is_expected.to have_many(:tagged_records) }
+    it { is_expected.to have_many(:tagged_records).dependent(:destroy) }
   end
 
   describe 'validation' do

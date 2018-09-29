@@ -12,7 +12,7 @@ class Record < ApplicationRecord
   belongs_to :breakdown, optional: true
   belongs_to :place, optional: true
   has_one :import_history
-  has_many :tagged_records
+  has_many :tagged_records, dependent: :destroy
 
   validates :published_at, presence: true
   validates :charge,
@@ -28,7 +28,9 @@ class Record < ApplicationRecord
 
   def set_tagged_records
     tagged_records.destroy_all
-    JSON.parse(tags).values.each do |tag|
+    # NOTE: サーバー側で処理した場合、JSON.parseが不要なため
+    hash_tags = tags.is_a?(Hash) ? tags : JSON.parse(tags)
+    hash_tags.values.each do |tag|
       new_tag = find_tag(tag)
       tagged_records.new(tag: new_tag)
     end
@@ -40,9 +42,15 @@ class Record < ApplicationRecord
       user.tags.find_by(color_code: tag['color_code']) ||
         user.tags.create(color_code: tag['color_code'], name: name)
     else
-      color_code = '#' + format('%06x', (rand * 0xffffff))
-      user.tags.create(color_code: color_code, name: name)
+      user.tags.create(color_code: generate_color_code, name: name)
     end
+  end
+
+  def generate_color_code
+    color_code = '#' + format('%06x', (rand * 0xffffff))
+    return color_code if user.tags.find_by(color_code: color_code).nil?
+
+    generate_color_code
   end
 
   def point_is_less_than_or_equal_to_charge

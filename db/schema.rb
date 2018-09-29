@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_13_121831) do
+ActiveRecord::Schema.define(version: 2018_09_28_192509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_121831) do
     t.integer "currency", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "memo", default: "", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

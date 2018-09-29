@@ -7,6 +7,10 @@ RSpec.describe Profile, type: :model do
     it { is_expected.to belong_to(:user) }
   end
 
+  describe 'validation' do
+    it { is_expected.to validate_length_of(:memo).is_at_most(250) }
+  end
+
   describe '#locale' do
     it { is_expected.to define_enum_for(:locale).with_values(%i[ja en]) }
   end

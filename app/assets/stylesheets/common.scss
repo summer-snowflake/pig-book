@@ -336,7 +336,8 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.update-button-component + .copy-button-component {
+.update-button-component + .copy-button-component,
+.update-button-component + .cancel-button-component {
   padding-left: 10px;
 }
 
@@ -417,4 +418,21 @@ $twitter-border-color: #2e6da4;
 
 .space-bottom + .space-bottom {
   padding-top: 5px;
+}
+
+.mypage-memo {
+  .memo-edit-line {
+    text-align: right;
+  }
+
+  .memo-edit-icon {
+    min-width: 50px;
+    padding: 6px;
+  }
+
+  .memo-edit-icon:hover {
+    background-color: rgba(lighten($green, 15%), .3);
+    border-radius: 4px;
+    cursor: pointer;
+  }
 }

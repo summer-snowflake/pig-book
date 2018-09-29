@@ -11,3 +11,8 @@
     i.fas.fa-clipboard-list.left-icon
     = t('title.import_list')
     = menu_image(import_histories_path)
+
+br
+.card
+  .card-body
+    = react_component('MemoCard', @params)

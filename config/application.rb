@@ -12,6 +12,10 @@ module PigBook
     config.load_defaults 5.1
     config.serve_static_assets = true
 
+    # This change allows you to immediately pinpoint
+    # what line of application code is triggering SQL queries in the development log.
+    config.active_record.verbose_query_logs = true
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

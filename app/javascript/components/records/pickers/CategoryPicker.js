@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SquareIcon from './../common/SquareIcon'
+import SquareIcon from './../../common/SquareIcon'
 
 class CategoryPicker extends React.Component {
   constructor(props) {

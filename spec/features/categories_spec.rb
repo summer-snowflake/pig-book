@@ -44,8 +44,7 @@ feature 'CATEGORY', js: true do
 
     scenario 'Create some categories' do
       # 支出のカテゴリ追加
-      fill_in 'category_name', with: 'カテゴリ名'
-      trigger_click('#add-button')
+      add_category(name: 'カテゴリ名')
       within '.alert.alert-success' do
         expect(page).to have_content 'message.add'
       end
@@ -55,26 +54,27 @@ feature 'CATEGORY', js: true do
         expect(page).to have_content '支出'
         expect(page).to have_content 'カテゴリ名'
       end
+      expect(all('table.table tr.category-component').count).to eq 3
 
       # バリデーションエラー
       fill_in 'category_name', with: ''
       trigger_click('#add-button')
 
       expect(page).to have_content 'カテゴリ名を入力してください'
+      expect(all('table.table tr.category-component').count).to eq 3
 
-      choose I18n.t('label.income')
-      fill_in 'category_name', with: 'カテゴリ名２'
-      trigger_click('#add-button')
+      # 収入のカテゴリ追加
+      add_category(balance_of_payments: true, name: 'カテゴリ名２')
       within '.alert.alert-success' do
         expect(page).to have_content 'message.add'
       end
       category = user.categories.last
 
-      # 収入のカテゴリ追加
       within "#category-#{category.id}" do
         expect(page).to have_content '収入'
         expect(page).to have_content 'カテゴリ名２'
       end
+      expect(all('table.table tr.category-component').count).to eq 4
     end
 
     scenario 'Destroy the target category' do

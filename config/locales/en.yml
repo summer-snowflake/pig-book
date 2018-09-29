@@ -89,7 +89,7 @@ en:
         memo: Note
   activemodel:
     attributes:
-      import_history/record:
+      import_history/record_validator:
         date: Date
         category_name: Category Name
         breakdown_name: Breakdown Name
@@ -99,7 +99,7 @@ en:
         tags: Tags Name
     errors:
       models:
-        import_history/record:
+        import_history/record_validator:
           attributes:
             category_name:
               unregistered: is not registered

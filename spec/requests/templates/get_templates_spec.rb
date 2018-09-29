@@ -32,24 +32,26 @@ describe 'GET /api/templates' do
       expect(response.status).to eq 200
       json = [
         {
+          name: template2.name,
+          category_id: category.id,
+          category_balance_of_payments: category.balance_of_payments,
           category_name: category.name,
           breakdown_id: nil,
           breakdown_name: nil,
+          tag: template2.tag,
           tag_id: nil,
-          tag_name: nil,
-          tag_color_code: nil,
-          name: template2.name,
           charge: template2.charge,
           memo: template2.memo
         },
         {
+          name: template1.name,
+          category_id: category.id,
+          category_balance_of_payments: category.balance_of_payments,
           category_name: category.name,
           breakdown_id: breakdown.id,
           breakdown_name: breakdown.name,
+          tag: template1.tag,
           tag_id: nil,
-          tag_name: nil,
-          tag_color_code: nil,
-          name: template1.name,
           charge: template1.charge,
           memo: template1.memo
         }

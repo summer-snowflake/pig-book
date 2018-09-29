@@ -19,7 +19,7 @@ class NewRecordCard extends React.Component {
     return (
       <div className='new-record-card-component'>
         <ErrorBoundary>
-          <NewRecordCardBody recently_used_categories={this.props.recently_used_categories} records={this.props.records} />
+          <NewRecordCardBody recentlyUsed={this.props.recently_used} records={this.props.records} />
         </ErrorBoundary>
       </div>
     )
@@ -28,7 +28,7 @@ class NewRecordCard extends React.Component {
 
 NewRecordCard.propTypes = {
   records: PropTypes.array.isRequired,
-  recently_used_categories: PropTypes.array.isRequired,
+  recently_used: PropTypes.object.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }

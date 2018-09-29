@@ -2,8 +2,11 @@
 
 class Profile < ApplicationRecord
   include EnumDefinedCurrency
+  include ValidationErrorMessagesBuilder
 
   belongs_to :user
+
+  validates :memo, length: { maximum: 250 }
 
   enum locale: { ja: 0, en: 1 }
 end
