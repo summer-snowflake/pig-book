@@ -47,7 +47,7 @@ class Api::RecordsController < Api::BaseController
   end
 
   def records_params
-    params.permit(:date, :month, :limit, :order)
+    params.permit(:date, :year, :month, :limit, :order)
   end
 
   def set_record

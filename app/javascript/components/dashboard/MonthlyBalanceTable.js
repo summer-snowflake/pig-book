@@ -61,7 +61,7 @@ class MonthlyBalanceTable extends React.Component {
             <tr>
               {monthlyKeys.map((index) =>
                 (<td className='monthly-td' key={index}>
-                  <a href={'/records?month=' + (index + 1)}>
+                  <a href={'/records?year=' + this.state.year + '&month=' + (index + 1)}>
                     <MonthName month={index + 1} />
                   </a>
                 </td>)
