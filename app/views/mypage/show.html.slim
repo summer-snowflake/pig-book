@@ -5,6 +5,4 @@
   = t('title.recent_list')
 
 = render layout: 'content_panel_with_sidemenu'
-  table.table
-    tr
-      td
+  = react_component('MypageRecordsCard', @params)
