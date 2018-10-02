@@ -30,7 +30,7 @@ class User < ApplicationRecord
   end
 
   def base_setting
-    Profile.find_or_create_by(user: self)
+    profile || Profile.create!(user: self)
   end
 
   def last_tally_at
