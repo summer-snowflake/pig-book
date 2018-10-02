@@ -7,6 +7,7 @@ import Categories from './Categories'
 import CategoryForm from './CategoryForm'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 
 class CategoryCardBody extends React.Component {
   constructor(props) {
@@ -20,33 +21,26 @@ class CategoryCardBody extends React.Component {
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.postCategory = this.postCategory.bind(this)
+    this.setCategories = this.setCategories.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
     this.getCategories()
   }
 
+  setCategories(res) {
+    this.setState({
+      categories: res.data
+    })
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   getCategories() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/categories',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          categories: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoriesAxios.get(this.setCategories, this.noticeErrorMessage)
   }
 
   postCategory(params) {

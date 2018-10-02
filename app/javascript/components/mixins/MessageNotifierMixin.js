@@ -61,7 +61,7 @@ export default {
       break
     default:
       this.setState({
-        message: error.response.data.error_message,
+        message: error.response.data.error_message || error.response.statusText,
         success: false
       })
     }
