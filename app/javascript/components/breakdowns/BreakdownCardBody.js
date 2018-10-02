@@ -1,29 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import BreakdownForm from './BreakdownForm'
 import Breakdowns from './Breakdowns'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { breakdownsAxios } from './../mixins/requests/BreakdownsMixin'
 
 class BreakdownCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       categories: [],
       breakdowns: this.props.breakdowns,
       errorMessages: {}
     }
     this.getBreakdowns = this.getBreakdowns.bind(this)
+    this.getBreakdownsCallback = this.getBreakdownsCallback.bind(this)
     this.postBreakdown = this.postBreakdown.bind(this)
+    this.postBreakdownCallback = this.postBreakdownCallback.bind(this)
     this.destroyBreakdown = this.destroyBreakdown.bind(this)
+    this.destroyBreakdownCallback = this.destroyBreakdownCallback.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
@@ -44,28 +45,20 @@ class BreakdownCardBody extends React.Component {
     categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
   }
 
+  getBreakdownsCallback(res) {
+    this.getCategories()
+    this.setState({
+      breakdowns: res.data
+    })
+  }
+
   getBreakdowns() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/breakdowns',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getCategories()
-        this.setState({
-          breakdowns: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    breakdownsAxios.get(this.getBreakdownsCallback, this.noticeErrorMessage)
+  }
+
+  postBreakdownCallback() {
+    this.getBreakdowns()
+    this.noticeAddMessage()
   }
 
   postBreakdown(params) {
@@ -73,48 +66,19 @@ class BreakdownCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/breakdowns',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getBreakdowns()
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    breakdownsAxios.post(params, this.postBreakdownCallback, this.noticeErrorMessage)
   }
 
-  destroyBreakdown(breakdown_id) {
+  destroyBreakdownCallback() {
+    this.getBreakdowns()
+    this.noticeDestroyedMessage()
+  }
+
+  destroyBreakdown(breakdownId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/breakdowns/' + breakdown_id,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getBreakdowns()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    breakdownsAxios.delete(breakdownId, this.destroyBreakdownCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -133,6 +97,5 @@ BreakdownCardBody.propTypes = {
 }
 
 reactMixin.onClass(BreakdownCardBody, MessageNotifierMixin)
-reactMixin.onClass(BreakdownCardBody, LocalStorageMixin)
 
 export default BreakdownCardBody
