@@ -1,26 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import Categories from './Categories'
 import CategoryForm from './CategoryForm'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 
 class CategoryCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       categories: this.props.categories,
       errorMessages: {}
     }
     this.destroyCategory = this.destroyCategory.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.postCategory = this.postCategory.bind(this)
+    this.postCategoryCallback = this.postCategoryCallback.bind(this)
+    this.destroyCategoryCallback = this.destroyCategoryCallback.bind(this)
     this.setCategories = this.setCategories.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
@@ -43,53 +41,29 @@ class CategoryCardBody extends React.Component {
     categoriesAxios.get(this.setCategories, this.noticeErrorMessage)
   }
 
+  postCategoryCallback() {
+    this.getCategories()
+    this.noticeAddMessage()
+  }
+
   postCategory(params) {
     this.setState({
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/categories',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getCategories()
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoriesAxios.post(params, this.postCategoryCallback, this.noticeErrorMessage)
   }
 
-  destroyCategory(category_id) {
+  destroyCategoryCallback() {
+    this.getCategories()
+    this.noticeDestroyedMessage()
+  }
+
+  destroyCategory(categoryId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'delete',
-      url: origin + '/api/categories/' + category_id,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getCategories()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoriesAxios.delete(categoryId, this.destroyCategoryCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -108,6 +82,5 @@ CategoryCardBody.propTypes = {
 }
 
 reactMixin.onClass(CategoryCardBody, MessageNotifierMixin)
-reactMixin.onClass(CategoryCardBody, LocalStorageMixin)
 
 export default CategoryCardBody
