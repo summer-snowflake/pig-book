@@ -10,6 +10,7 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class NewRecordCardBody extends React.Component {
     this.patchRecord = this.patchRecord.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
     this.getTags = this.getTags.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -288,28 +290,19 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  getCategoriesCallback(res) {
+    this.getRecentlyUsed()
+    this.setState({
+      categories: res.data
+    })
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   getCategories() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/categories',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getRecentlyUsed()
-        this.setState({
-          categories: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
   }
 
   getRecentlyUsed() {
