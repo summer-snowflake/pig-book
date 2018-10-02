@@ -25,8 +25,6 @@ class Template extends React.Component {
       categoryId: this.props.template.category_id,
       breakdownId: this.props.template.breakdown_id,
       breakdowns: [],
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)

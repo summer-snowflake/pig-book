@@ -15,8 +15,6 @@ class CategoryCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      message: '',
-      success: false,
       categories: this.props.categories,
       errorMessages: {}
     }

@@ -12,8 +12,6 @@ class TagsInputField extends React.Component {
     super(props)
     this.state = {
       value: '',
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.handleChange = this.handleChange.bind(this)

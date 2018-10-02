@@ -19,8 +19,6 @@ class Place extends React.Component {
       userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.place.name,
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)

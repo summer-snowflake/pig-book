@@ -15,8 +15,6 @@ class TemplateCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      message: '',
-      success: false,
       categories: [],
       tags: [],
       templates: this.props.templates,

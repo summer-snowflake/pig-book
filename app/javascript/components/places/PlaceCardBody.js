@@ -15,8 +15,6 @@ class PlaceCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      message: '',
-      success: false,
       places: this.props.places,
       selectableCategories: [],
       errorMessages: {}

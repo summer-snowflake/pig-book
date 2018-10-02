@@ -17,8 +17,6 @@ class TallyButtonTableRecordBody extends React.Component {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
       lastTallyAt: this.props.last_tally_at && moment(this.props.last_tally_at),
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.handleClickButton = this.handleClickButton.bind(this)

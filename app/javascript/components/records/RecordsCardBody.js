@@ -18,8 +18,6 @@ class RecordsCardBody extends React.Component {
       userToken: this.getUserToken(),
       year: moment(this.props.month).year(),
       month: this.props.month,
-      message: '',
-      success: false,
       errorMessages: {},
       records: this.props.records
     }

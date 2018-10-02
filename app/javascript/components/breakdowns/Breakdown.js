@@ -22,8 +22,6 @@ class Breakdown extends React.Component {
       name: this.props.breakdown.name,
       categoryId: this.props.breakdown.category_id,
       selectedBalanceOfPayments: undefined,
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)

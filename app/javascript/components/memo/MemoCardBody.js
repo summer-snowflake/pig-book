@@ -15,8 +15,6 @@ class MemoCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      message: '',
-      success: false,
       isEditing: false,
       memo: this.props.memo,
       editingMemo: this.props.memo,

@@ -32,8 +32,6 @@ class AddCategoryModal extends React.Component {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
       errorMessages: {},
-      message: '',
-      success: false,
       name: ''
     }
     this.handleChangeName = this.handleChangeName.bind(this)

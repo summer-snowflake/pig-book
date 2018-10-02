@@ -20,8 +20,6 @@ class Category extends React.Component {
       isEditing: false,
       balance_of_payments: this.props.category.balance_of_payments,
       name: this.props.category.name,
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)

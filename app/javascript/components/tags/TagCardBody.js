@@ -15,8 +15,6 @@ class TagCardBody extends React.Component {
     this.state = {
       lastRequestAt: this.getLastRequestAt(),
       userToken: this.getUserToken(),
-      message: '',
-      success: false,
       tags: this.props.tags,
       errorMessages: {}
     }

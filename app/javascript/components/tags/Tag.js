@@ -22,8 +22,6 @@ class Tag extends React.Component {
       isEditingColorCode: false,
       colorCode: this.props.tag.color_code,
       name: this.props.tag.name,
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)

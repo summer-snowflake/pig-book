@@ -1,6 +1,13 @@
 import i18n from './../plugins/i18n'
 
 export default {
+  getInitialState() {
+    return {
+      message: '',
+      success: false
+    }
+  },
+
   noticeAddMessage() {
     this.setState({
       message: i18n.t('message.add'),

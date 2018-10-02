@@ -19,8 +19,6 @@ class ImportHistory extends React.Component {
       userToken: this.getUserToken(),
       isEditing: false,
       row: this.props.history.row,
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
