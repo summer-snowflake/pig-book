@@ -5,7 +5,6 @@ import axios from 'axios'
 import moment from 'moment'
 
 import NewRecordForm from './NewRecordForm'
-import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
@@ -526,7 +525,7 @@ class NewRecordCardBody extends React.Component {
   render() {
     return (
       <div className='new-record-card-body-component row'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <PickerField
           handleClickCategoryPickerButton={this.setCategory}
           handleClickTagPickerButton={this.setTag}

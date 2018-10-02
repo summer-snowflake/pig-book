@@ -8,7 +8,6 @@ import PlaceCategories from './PlaceCategories'
 import UpdateButton from './../common/UpdateButton'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
-import AlertMessage from './../common/AlertMessage'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
 class Place extends React.Component {
@@ -126,7 +125,7 @@ class Place extends React.Component {
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.place} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )

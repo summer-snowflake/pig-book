@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import Categories from './Categories'
 import CategoryForm from './CategoryForm'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
@@ -102,7 +101,7 @@ class CategoryCardBody extends React.Component {
   render() {
     return (
       <div className='category-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <CategoryForm errorMessages={this.state.errorMessages} handleSendForm={this.postCategory} />
         <Categories categories={this.state.categories} getCategories={this.getCategories} handleClickDestroyButton={this.destroyCategory} />
       </div>

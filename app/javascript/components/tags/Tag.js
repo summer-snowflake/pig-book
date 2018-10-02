@@ -5,7 +5,6 @@ import reactMixin from 'react-mixin'
 import axios from 'axios'
 import { SketchPicker } from 'react-color'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Trash from './../common/Trash'
 import FormErrorMessages from './../common/FormErrorMessages'
@@ -158,7 +157,7 @@ class Tag extends React.Component {
         )}
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.tag} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )

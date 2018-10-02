@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import TagForm from './TagForm'
 import Tags from './Tags'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
@@ -102,7 +101,7 @@ class TagCardBody extends React.Component {
   render() {
     return (
       <div className='tag-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <TagForm errorMessages={this.state.errorMessages} handleSendForm={this.postTag} />
         <Tags getTags={this.getTags} handleClickDestroyButton={this.destroyTag} tags={this.state.tags} />
       </div>

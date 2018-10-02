@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import BreakdownForm from './BreakdownForm'
 import Breakdowns from './Breakdowns'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
@@ -128,7 +127,7 @@ class BreakdownCardBody extends React.Component {
   render() {
     return (
       <div className='breakdown-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <BreakdownForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
         <Breakdowns breakdowns={this.state.breakdowns} categories={this.state.categories} getBreakdowns={this.getBreakdowns} handleClickDestroyButton={this.destroyBreakdown} />
       </div>

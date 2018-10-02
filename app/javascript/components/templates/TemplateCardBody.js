@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import TemplateForm from './TemplateForm'
 import Templates from './Templates'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
@@ -154,7 +153,7 @@ class TemplateCardBody extends React.Component {
   render() {
     return (
       <div className='template-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <TemplateForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postTemplate} tags={this.state.tags} />
         <Templates categories={this.state.categories} getTemplates={this.getTemplates} handleClickDestroyButton={this.destroyTemplate} templates={this.state.templates} />
       </div>

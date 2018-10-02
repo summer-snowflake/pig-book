@@ -1,4 +1,7 @@
+import React from 'react'
+
 import i18n from './../plugins/i18n'
+import AlertMessage from './../common/AlertMessage'
 
 export default {
   getInitialState() {
@@ -6,6 +9,12 @@ export default {
       message: '',
       success: false
     }
+  },
+
+  renderAlertMessage() {
+    return (
+      <AlertMessage message={this.state.message} success={this.state.success} />
+    )
   },
 
   noticeAddMessage() {

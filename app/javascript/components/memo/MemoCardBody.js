@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import UpdateButton from './../common/UpdateButton'
@@ -76,7 +75,7 @@ class MemoCardBody extends React.Component {
   render() {
     return (
       <div className='memo-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         {this.state.isEditing ? (
           <div className='mypage-memo'>
             <div className='form-group'>

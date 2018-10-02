@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import PlaceForm from './PlaceForm'
 import Places from './Places'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
@@ -152,7 +151,7 @@ class PlaceCardBody extends React.Component {
   render() {
     return (
       <div className='place-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <PlaceForm errorMessages={this.state.errorMessages} handleSendForm={this.postPlace} />
         <Places getPlaces={this.getPlaces} handleClickAddCategoryButton={this.postCategorizedPlace} handleClickDestroyButton={this.destroyPlace} handleClickPlusIcon={this.getPlaceCategories} places={this.state.places} selectableCategories={this.state.selectableCategories} />
       </div>

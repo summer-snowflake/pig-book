@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
 
-import AlertMessage from './../common/AlertMessage'
 import CloseButton from './CloseButton'
 import CategoryForm from './../categories/CategoryForm'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
@@ -76,7 +75,7 @@ class AddCategoryModal extends React.Component {
   render() {
     return (
       <div className='add-category-modal-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <Modal ariaHideApp={false} isOpen={this.props.modalIsOpen} style={customStyles}>
           <div className='modal-body'>
             <p>

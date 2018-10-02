@@ -6,7 +6,6 @@ import axios from 'axios'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
-import AlertMessage from './../common/AlertMessage'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import AddButton from './../common/AddButton'
 import CreateButton from './../common/CreateButton'
@@ -300,7 +299,7 @@ class ImportHistory extends React.Component {
               </span>
             </div>
           )}
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )

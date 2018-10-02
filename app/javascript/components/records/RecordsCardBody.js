@@ -4,7 +4,6 @@ import reactMixin from 'react-mixin'
 import axios from 'axios'
 import moment from 'moment'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './Records'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
@@ -109,7 +108,7 @@ class RecordsCardBody extends React.Component {
   render() {
     return (
       <div className='records-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         {this.props.month && (
           <div className='records-list-title'>
             <button className='btn btn-primary btn-sm float-left' onClick={this.handleClickPreviousButton}>

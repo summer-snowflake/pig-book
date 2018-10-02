@@ -6,7 +6,6 @@ import axios from 'axios'
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
 import BadgePill from './../common/BadgePill'
-import AlertMessage from './../common/AlertMessage'
 import FormErrorMessages from './../common/FormErrorMessages'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
@@ -156,7 +155,7 @@ class Category extends React.Component {
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )

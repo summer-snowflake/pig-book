@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import axios from 'axios'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './../records/Records'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
@@ -83,7 +82,7 @@ class MypageRecordsCardBody extends React.Component {
   render() {
     return (
       <div className='mypage-records-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <Records
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}

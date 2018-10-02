@@ -5,7 +5,6 @@ import moment from 'moment'
 import reactMixin from 'react-mixin'
 
 import MessageNotifierMixin from './../../mixins/MessageNotifierMixin'
-import AlertMessage from './../../common/AlertMessage'
 import TallyButton from './TallyButton'
 import TallyTimeLabel from './TallyTimeLabel'
 import LocalStorageMixin from './../../mixins/LocalStorageMixin'
@@ -49,7 +48,7 @@ class TallyButtonTableRecordBody extends React.Component {
   render() {
     return (
       <div className='monthly-calculate-table-record-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <TallyButton onClickButton={this.handleClickButton} />
         <TallyTimeLabel lastTallyAt={this.state.lastTallyAt} />
       </div>

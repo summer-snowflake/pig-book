@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
@@ -138,7 +137,7 @@ class Breakdown extends React.Component {
         )}
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.breakdown} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )

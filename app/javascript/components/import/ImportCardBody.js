@@ -3,7 +3,6 @@ import reactMixin from 'react-mixin'
 import axios from 'axios'
 
 import FileField from './FileField'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 
@@ -75,7 +74,7 @@ class ImportCardBody extends React.Component {
         <p>
           {'アップロードしたファイル内のデータは、未登録データとしてアップロード明細一覧に追加されます。'}
         </p>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <FileField isDragOver={this.state.isDragOver} onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onUploadFile={this.handleUploadFile} uploading={this.state.uploading} />
       </div>
     )
