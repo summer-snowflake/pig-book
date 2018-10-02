@@ -4,7 +4,10 @@ class Api::BreakdownsController < Api::BaseController
   before_action :set_breakdown, only: %i[update destroy]
 
   def index
-    @breakdowns = current_user.breakdowns.includes(:category).order(created_at: :desc)
+    @breakdowns = current_user
+                  .breakdowns
+                  .includes(:category)
+                  .order(created_at: :desc)
     render json: @breakdowns
   end
 
