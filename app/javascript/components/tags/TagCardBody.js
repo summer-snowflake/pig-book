@@ -1,52 +1,49 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import TagForm from './TagForm'
 import Tags from './Tags'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { tagsAxios, tagAxios } from './../mixins/requests/TagsMixin'
 
 class TagCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       tags: this.props.tags,
       errorMessages: {}
     }
-    this.destroyTag = this.destroyTag.bind(this)
     this.getTags = this.getTags.bind(this)
+    this.getTagsCallback = this.getTagsCallback.bind(this)
     this.postTag = this.postTag.bind(this)
+    this.postTagCallback = this.postTagCallback.bind(this)
+    this.destroyTag = this.destroyTag.bind(this)
+    this.destroyTagCallback = this.destroyTagCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
     this.getTags()
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
+  getTagsCallback(res) {
+    this.setState({
+      tags: res.data
+    })
+  }
+
   getTags() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/tags',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          tags: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
+  }
+
+  postTagCallback() {
+    this.getTags()
+    this.noticeAddMessage()
   }
 
   postTag(params) {
@@ -54,48 +51,19 @@ class TagCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/tags',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getTags()
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagAxios.post(params, this.postTagCallback, this.noticeErrorMessage)
   }
 
-  destroyTag(tag_id) {
+  destroyTagCallback() {
+    this.getTags()
+    this.noticeDestroyedMessage()
+  }
+
+  destroyTag(tagId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/tags/' + tag_id,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getTags()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagAxios.delete(tagId, this.destroyTagCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -114,6 +82,5 @@ TagCardBody.propTypes = {
 }
 
 reactMixin.onClass(TagCardBody, MessageNotifierMixin)
-reactMixin.onClass(TagCardBody, LocalStorageMixin)
 
 export default TagCardBody
