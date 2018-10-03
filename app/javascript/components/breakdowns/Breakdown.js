@@ -101,7 +101,7 @@ class Breakdown extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target breakdown-category-td' colSpan='2'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} selectedCategoryId={this.state.categoryId} />
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
