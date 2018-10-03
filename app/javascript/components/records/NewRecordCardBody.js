@@ -11,6 +11,7 @@ import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { recordsAxios } from './../mixins/requests/RecordsMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -43,8 +44,12 @@ class NewRecordCardBody extends React.Component {
       targetDate: moment(),
       recentlyUsed: this.props.recentlyUsed
     }
+    this.getRecords = this.getRecords.bind(this)
+    this.getRecordsCallback = this.getRecordsCallback.bind(this)
     this.postRecord = this.postRecord.bind(this)
+    this.postRecordCallback = this.postRecordCallback.bind(this)
     this.patchRecord = this.patchRecord.bind(this)
+    this.patchRecordCallback = this.patchRecordCallback.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
@@ -55,10 +60,11 @@ class NewRecordCardBody extends React.Component {
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
-    this.getRecords = this.getRecords.bind(this)
     this.getRecord = this.getRecord.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
+    this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.onCancelEditing = this.onCancelEditing.bind(this)
@@ -172,31 +178,38 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(date)
   }
 
+  getRecordsCallback(res, params) {
+    this.getTags()
+    this.setState({
+      records: res.data,
+      targetDate: moment(params.date)
+    })
+  }
+
   getRecords(date) {
     let targetDate = date ? date : moment()
-    let options = {
-      method: 'GET',
-      url: origin + '/api/records',
-      params: {
-        last_request_at: this.state.lastRequestAt,
-        date: String(targetDate)
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
+    let params = {
+      date: String(targetDate)
     }
-    axios(options)
-      .then((res) => {
-        this.getTags()
-        this.setState({
-          records: res.data,
-          targetDate: targetDate
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
+  }
+
+  postRecordCallback(params) {
+    this.getRecentlyUsed()
+    this.getRecords(params.published_at)
+    this.noticeAddMessage()
+    this.setState({
+      inputMemo: '',
+      inputCharge: '',
+      inputPoint: '0',
+      checkedPoint: false,
+      selectedTags: [],
+      selectedGenerateTags: {}
+    })
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   postRecord(params) {
@@ -204,32 +217,21 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/records',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecentlyUsed()
-        this.getRecords(params.published_at)
-        this.noticeAddMessage()
-        this.setState({
-          inputMemo: '',
-          inputCharge: '',
-          inputPoint: '0',
-          checkedPoint: false,
-          selectedTags: [],
-          selectedGenerateTags: {}
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordsAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
+  }
+
+  patchRecordCallback(params) {
+    this.getRecords(params.published_at)
+    this.noticeUpdatedMessage()
+    this.setState({
+      inputMemo: '',
+      inputCharge: '',
+      inputPoint: '0',
+      checkedPoint: false,
+      selectedTags: [],
+      selectedGenerateTags: {},
+      editingRecordId: undefined
+    })
   }
 
   patchRecord(params) {
@@ -237,32 +239,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/records/' + params.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecords(params.published_at)
-        this.noticeUpdatedMessage()
-        this.setState({
-          inputMemo: '',
-          inputCharge: '',
-          inputPoint: '0',
-          checkedPoint: false,
-          selectedTags: [],
-          selectedGenerateTags: {},
-          editingRecordId: undefined
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordsAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
   }
 
   getBaseSetting() {
@@ -295,10 +272,6 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       categories: res.data
     })
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getCategories() {
@@ -354,29 +327,16 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  destroyRecordCallback() {
+    this.getRecords(this.state.targetDate)
+    this.noticeDestroyedMessage()
+  }
+
   destroyRecord(recordId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/records/' + recordId,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecords()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordsAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
   }
 
   onClickChangeDateButton(days) {
