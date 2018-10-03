@@ -9,6 +9,7 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { tagsAxios } from './../mixins/requests/TagsMixin'
+import { templatesAxios, templateAxios } from './../mixins/requests/TemplatesMixin'
 
 class TemplateCardBody extends React.Component {
   constructor(props) {
@@ -22,8 +23,11 @@ class TemplateCardBody extends React.Component {
       errorMessages: {}
     }
     this.getTemplates = this.getTemplates.bind(this)
+    this.getTemplatesCallback = this.getTemplatesCallback.bind(this)
     this.postTemplate = this.postTemplate.bind(this)
+    this.postTemplateCallback = this.postTemplateCallback.bind(this)
     this.destroyTemplate = this.destroyTemplate.bind(this)
+    this.destroyTemplateCallback = this.destroyTemplateCallback.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getTags = this.getTags.bind(this)
@@ -56,36 +60,24 @@ class TemplateCardBody extends React.Component {
     })
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   getCategories() {
     categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
   }
 
+  getTemplatesCallback(res) {
+    this.getCategories()
+    this.setState({
+      templates: res.data
+    })
+  }
+
   getTemplates() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/templates',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getCategories()
-        this.setState({
-          templates: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    templatesAxios.get(this.getTemplatesCallback, this.noticeErrorMessage)
+  }
+
+  postTemplateCallback() {
+    this.getTemplates()
+    this.noticeAddMessage()
   }
 
   postTemplate(params) {
@@ -93,48 +85,19 @@ class TemplateCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/templates',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getTemplates()
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    templateAxios.post(params, this.postTemplateCallback, this.noticeErrorMessage)
   }
 
-  destroyTemplate(template_id) {
+  destroyTemplateCallback() {
+    this.getTemplates()
+    this.noticeDestroyedMessage()
+  }
+
+  destroyTemplate(templateId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/templates/' + template_id,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getTemplates()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    templateAxios.delete(templateId, this.destroyTemplateCallback, this.noticeErrorMessage)
   }
 
   render() {
