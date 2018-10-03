@@ -11,7 +11,7 @@ import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
-import { recordsAxios } from './../mixins/requests/RecordsMixin'
+import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -217,7 +217,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    recordsAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
+    recordAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
   }
 
   patchRecordCallback(params) {
@@ -239,7 +239,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    recordsAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
+    recordAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
   }
 
   getBaseSetting() {
@@ -336,7 +336,7 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    recordsAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
   }
 
   onClickChangeDateButton(days) {

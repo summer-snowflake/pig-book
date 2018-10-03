@@ -6,7 +6,7 @@ import moment from 'moment'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './Records'
 import DateMonthFormat from './../common/DateMonthFormat'
-import { recordsAxios } from './../mixins/requests/RecordsMixin'
+import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class RecordsCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    recordsAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
   }
 
   onClickEditIcon() {

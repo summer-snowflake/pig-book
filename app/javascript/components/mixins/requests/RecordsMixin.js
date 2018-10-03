@@ -19,7 +19,10 @@ export const recordsAxios = {
       .catch((error) => {
         errorCallback(error)
       })
-  },
+  }
+}
+
+export const recordAxios = {
   post : (params, callback, errorCallback) => {
     let options = {
       method: 'POST',

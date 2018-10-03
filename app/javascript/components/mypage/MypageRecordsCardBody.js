@@ -4,7 +4,7 @@ import reactMixin from 'react-mixin'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './../records/Records'
-import { recordsAxios } from './../mixins/requests/RecordsMixin'
+import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 
 class MypageRecordsCardBody extends React.Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class MypageRecordsCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    recordsAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
   }
 
   onClickEditIcon() {
