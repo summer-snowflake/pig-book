@@ -40,6 +40,24 @@ export const categoriesAxios = {
         errorCallback(error)
       })
   },
+  patch: (categoryId, params, callback, errorCallback) => {
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/categories/' + categoryId,
+      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        callback(params)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  },
   delete : (categoryId, callback, errorCallback) => {
     let options = {
       method: 'delete',
