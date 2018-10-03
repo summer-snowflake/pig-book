@@ -36,8 +36,8 @@ export const categoryAxios = {
       json: true
     }
     axios(options)
-      .then(() => {
-        callback()
+      .then((res) => {
+        callback(res)
       })
       .catch((error) => {
         errorCallback(error)

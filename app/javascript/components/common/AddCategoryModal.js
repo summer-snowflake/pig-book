@@ -2,12 +2,11 @@ import React from 'react'
 import Modal from 'react-modal'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import CloseButton from './CloseButton'
 import CategoryForm from './../categories/CategoryForm'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { categoryAxios } from './../mixins/requests/CategoriesMixin'
 
 const customStyles = {
   content : {
@@ -28,18 +27,27 @@ class AddCategoryModal extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       errorMessages: {},
       name: ''
     }
     this.handleChangeName = this.handleChangeName.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
+    this.postCategoryCallback = this.postCategoryCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   onClickCloseButton() {
     this.props.handleClickCloseButton()
+  }
+
+  postCategoryCallback(res) {
+    this.noticeAddMessage()
+    this.props.handleAddCategory(res.data)
   }
 
   postCategory(params) {
@@ -47,23 +55,7 @@ class AddCategoryModal extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/categories',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.noticeAddMessage()
-        this.props.handleAddCategory(res.data)
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoryAxios.post(params, this.postCategoryCallback, this.noticeErrorMessage)
   }
 
   handleChangeName(e) {
@@ -93,7 +85,6 @@ class AddCategoryModal extends React.Component {
 }
 
 reactMixin.onClass(AddCategoryModal, MessageNotifierMixin)
-reactMixin.onClass(AddCategoryModal, LocalStorageMixin)
 
 AddCategoryModal.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
