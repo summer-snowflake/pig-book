@@ -43,6 +43,24 @@ export const breakdownAxios = {
         errorCallback(error)
       })
   },
+  patch: (breakdownId, params, callback, errorCallback) => {
+    let options = {
+      method: 'PATCH',
+      url: origin + '/api/breakdowns/' + breakdownId,
+      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        callback(params)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  },
   delete : (breakdownId, callback, errorCallback) => {
     let options = {
       method: 'delete',
