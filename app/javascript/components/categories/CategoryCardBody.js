@@ -5,7 +5,7 @@ import reactMixin from 'react-mixin'
 import Categories from './Categories'
 import CategoryForm from './CategoryForm'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { categoriesAxios, categoryAxios } from './../mixins/requests/CategoriesMixin'
 
 class CategoryCardBody extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class CategoryCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    categoriesAxios.post(params, this.postCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.post(params, this.postCategoryCallback, this.noticeErrorMessage)
   }
 
   destroyCategoryCallback() {
@@ -63,7 +63,7 @@ class CategoryCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    categoriesAxios.delete(categoryId, this.destroyCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.delete(categoryId, this.destroyCategoryCallback, this.noticeErrorMessage)
   }
 
   render() {

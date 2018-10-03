@@ -21,7 +21,10 @@ export const breakdownsAxios = {
       .catch((error) => {
         errorCallback(error)
       })
-  },
+  }
+}
+
+export const breakdownAxios = {
   post : (params, callback, errorCallback) => {
     let options = {
       method: 'POST',

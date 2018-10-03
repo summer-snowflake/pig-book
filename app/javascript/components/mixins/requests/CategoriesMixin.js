@@ -21,7 +21,10 @@ export const categoriesAxios = {
       .catch((error) => {
         errorCallback(error)
       })
-  },
+  }
+}
+
+export const categoryAxios = {
   post : (params, callback, errorCallback) => {
     let options = {
       method: 'POST',

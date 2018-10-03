@@ -6,7 +6,7 @@ import BreakdownForm from './BreakdownForm'
 import Breakdowns from './Breakdowns'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
-import { breakdownsAxios } from './../mixins/requests/BreakdownsMixin'
+import { breakdownsAxios, breakdownAxios } from './../mixins/requests/BreakdownsMixin'
 
 class BreakdownCardBody extends React.Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class BreakdownCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    breakdownsAxios.post(params, this.postBreakdownCallback, this.noticeErrorMessage)
+    breakdownAxios.post(params, this.postBreakdownCallback, this.noticeErrorMessage)
   }
 
   destroyBreakdownCallback() {
@@ -78,7 +78,7 @@ class BreakdownCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    breakdownsAxios.delete(breakdownId, this.destroyBreakdownCallback, this.noticeErrorMessage)
+    breakdownAxios.delete(breakdownId, this.destroyBreakdownCallback, this.noticeErrorMessage)
   }
 
   render() {

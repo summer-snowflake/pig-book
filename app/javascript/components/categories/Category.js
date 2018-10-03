@@ -7,7 +7,7 @@ import UpdateButton from './../common/UpdateButton'
 import BadgePill from './../common/BadgePill'
 import FormErrorMessages from './../common/FormErrorMessages'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { categoriesAxios, categoryAxios } from './../mixins/requests/CategoriesMixin'
 
 class Category extends React.Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class Category extends React.Component {
       balance_of_payments: this.state.balance_of_payments,
       name: this.state.name
     }
-    categoriesAxios.patch(this.props.category.id, params, this.patchCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.patch(this.props.category.id, params, this.patchCategoryCallback, this.noticeErrorMessage)
   }
 
   render() {
