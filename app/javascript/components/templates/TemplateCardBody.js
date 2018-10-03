@@ -8,6 +8,7 @@ import Templates from './Templates'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { tagsAxios } from './../mixins/requests/TagsMixin'
 
 class TemplateCardBody extends React.Component {
   constructor(props) {
@@ -26,34 +27,27 @@ class TemplateCardBody extends React.Component {
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getTags = this.getTags.bind(this)
+    this.getTagsCallback = this.getTagsCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
     this.getTags()
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
+  getTagsCallback(res) {
+    this.getTemplates()
+    this.setState({
+      tags: res.data
+    })
+  }
+
   getTags() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/tags',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getTemplates()
-        this.setState({
-          tags: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
   }
 
   getCategoriesCallback(res) {
