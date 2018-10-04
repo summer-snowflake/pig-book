@@ -1,28 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import UpdateButton from './../common/UpdateButton'
 import CancelButton from './../common/CancelButton'
+import { memoAxios } from './../mixins/requests/MemoMixin'
 
 class MemoCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       memo: this.props.memo,
       editingMemo: this.props.memo,
       errorMessages: {}
     }
+    this.patchMemo = this.patchMemo.bind(this)
+    this.patchMemoCallback = this.patchMemoCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
-    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   handleClickEditIcon() {
@@ -37,33 +40,22 @@ class MemoCardBody extends React.Component {
     })
   }
 
-  handleClickUpdateButton() {
+  patchMemoCallback() {
+    this.setState({
+      isEditing: false,
+      memo: this.state.editingMemo
+    })
+    this.noticeUpdatedMessage()
+  }
+
+  patchMemo() {
     let profile = {}
     profile.memo = this.state.editingMemo
     this.setState({
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/base_setting',
-      params: Object.assign(profile, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.setState({
-          isEditing: false,
-          memo: this.state.editingMemo
-        })
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    memoAxios.patch(profile, this.patchMemoCallback, this.noticeErrorMessage)
   }
 
   handleClickCancelButton() {
@@ -82,7 +74,7 @@ class MemoCardBody extends React.Component {
               <textarea className='form-control' onChange={this.handleChangeMemo} rows='4' value={this.state.editingMemo} />
             </div>
             <div className='form-group'>
-              <UpdateButton onClickButton={this.handleClickUpdateButton} />
+              <UpdateButton onClickButton={this.patchMemo} />
               <CancelButton onClickButton={this.handleClickCancelButton} />
             </div>
           </div>
@@ -105,6 +97,5 @@ MemoCardBody.propTypes = {
 }
 
 reactMixin.onClass(MemoCardBody, MessageNotifierMixin)
-reactMixin.onClass(MemoCardBody, LocalStorageMixin)
 
 export default MemoCardBody
