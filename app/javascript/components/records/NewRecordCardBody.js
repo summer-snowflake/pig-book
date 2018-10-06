@@ -10,8 +10,9 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
-import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
+import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { tagsAxios } from './../mixins/requests/TagsMixin'
 import { profileAxios } from './../mixins/requests/BaseSettingMixin'
 
 class NewRecordCardBody extends React.Component {
@@ -57,6 +58,7 @@ class NewRecordCardBody extends React.Component {
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
     this.getTags = this.getTags.bind(this)
+    this.getTagsCallback = this.getTagsCallback.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
@@ -290,30 +292,17 @@ class NewRecordCardBody extends React.Component {
       })
   }
 
+  getTagsCallback(res) {
+    this.setState({
+      tags: res.data
+    })
+  }
+
   getTags() {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'GET',
-      url: origin + '/api/tags',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          tags: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
   }
 
   destroyRecordCallback() {
