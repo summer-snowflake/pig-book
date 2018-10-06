@@ -12,6 +12,7 @@ import Tag from './Tag'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
+import { profileAxios } from './../mixins/requests/BaseSettingMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class NewRecordCardBody extends React.Component {
     this.patchRecord = this.patchRecord.bind(this)
     this.patchRecordCallback = this.patchRecordCallback.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
+    this.getBaseSettingCallback = this.getBaseSettingCallback.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
@@ -242,29 +244,16 @@ class NewRecordCardBody extends React.Component {
     recordAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
   }
 
+  getBaseSettingCallback(res) {
+    this.getCategories()
+    this.getRecords()
+    this.setState({
+      baseSetting: res.data
+    })
+  }
+
   getBaseSetting() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/base_setting',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getCategories()
-        this.getRecords()
-        this.setState({
-          baseSetting: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    profileAxios.get(this.getBaseSettingCallback, this.noticeErrorMessage)
   }
 
   getCategoriesCallback(res) {
