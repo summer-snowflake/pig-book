@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 import moment from 'moment'
 
 import NewRecordForm from './NewRecordForm'
@@ -9,18 +8,16 @@ import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { tagsAxios } from './../mixins/requests/TagsMixin'
 import { profileAxios } from './../mixins/requests/BaseSettingMixin'
+import { recentlyUsedAxios } from './../mixins/requests/RecentlyUsedMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       errorMessages: {},
       editingRecordId: undefined,
       baseSetting: {},
@@ -57,6 +54,7 @@ class NewRecordCardBody extends React.Component {
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
+    this.getRecentlyUsedCallback = this.getRecentlyUsedCallback.bind(this)
     this.getTags = this.getTags.bind(this)
     this.getTagsCallback = this.getTagsCallback.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -270,27 +268,14 @@ class NewRecordCardBody extends React.Component {
     categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
   }
 
+  getRecentlyUsedCallback(res) {
+    this.setState({
+      recentlyUsed: res.data
+    })
+  }
+
   getRecentlyUsed() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/recently_used',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          recentlyUsed: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recentlyUsedAxios.get(this.getRecentlyUsedCallback, this.noticeErrorMessage)
   }
 
   getTagsCallback(res) {
@@ -507,6 +492,5 @@ NewRecordCardBody.propTypes = {
 }
 
 reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)
-reactMixin.onClass(NewRecordCardBody, LocalStorageMixin)
 
 export default NewRecordCardBody
