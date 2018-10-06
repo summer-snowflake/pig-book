@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
 import moment from 'moment'
 import reactMixin from 'react-mixin'
 
@@ -8,44 +7,37 @@ import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
 import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
 import MonthlyTotal from './MonthlyTotal'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import { monthlyBalanceTablesAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       monthlyBalanceTable: this.props.monthlyBalanceTable,
       year: this.props.year || moment().year()
     }
+    this.getMonthlyBalanceTables = this.getMonthlyBalanceTables.bind(this)
+    this.getMonthlyBalanceTablesCallback = this.getMonthlyBalanceTablesCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
     this.getMonthlyBalanceTables()
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
+  getMonthlyBalanceTablesCallback(res) {
+    this.setState({
+      monthlyBalanceTable: res.data
+    })
+  }
+
   getMonthlyBalanceTables() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/monthly_balance_tables/' + this.state.year,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          monthlyBalanceTable: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    monthlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -89,6 +81,6 @@ MonthlyBalanceTable.propTypes = {
   year: PropTypes.number
 }
 
-reactMixin.onClass(MonthlyBalanceTable, LocalStorageMixin)
+reactMixin.onClass(MonthlyBalanceTable, MessageNotifierMixin)
 
 export default MonthlyBalanceTable
