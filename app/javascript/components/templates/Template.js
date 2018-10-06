@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
@@ -9,14 +8,12 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { templateAxios } from './../mixins/requests/TemplatesMixin'
 
 class Template extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.template.name,
       charge: this.props.template.charge,
@@ -26,13 +23,15 @@ class Template extends React.Component {
       breakdowns: [],
       errorMessages: {}
     }
+    this.patchTemplate = this.patchTemplate.bind(this)
+    this.patchTemplateCallback = this.patchTemplateCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeTemplateName = this.handleChangeTemplateName.bind(this)
     this.handleChangeTemplateCharge = this.handleChangeTemplateCharge.bind(this)
     this.handleChangeTemplateMemo = this.handleChangeTemplateMemo.bind(this)
-    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
   }
@@ -71,7 +70,15 @@ class Template extends React.Component {
     })
   }
 
-  handleClickUpdateButton() {
+  patchTemplateCallback() {
+    this.setState({
+      isEditing: false
+    })
+    this.props.getTemplates()
+    this.noticeUpdatedMessage()
+  }
+
+  patchTemplate() {
     this.setState({
       message: '',
       errorMessages: {}
@@ -83,26 +90,7 @@ class Template extends React.Component {
       charge: this.state.charge,
       memo: this.state.memo
     }
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/templates/' + this.props.template.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.setState({
-          isEditing: false
-        })
-        this.props.getTemplates()
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    templateAxios.patch(this.props.template.id, params, patchTemplateCallback, noticeErrorMessage)
   }
 
   onSelectCategory(category) {
@@ -173,7 +161,7 @@ class Template extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
-            <UpdateButton onClickButton={this.handleClickUpdateButton} />
+            <UpdateButton onClickButton={this.patchTemplate} />
           </td>
         ) : (
           <td className='center-edit-target' />
@@ -204,6 +192,5 @@ Template.propTypes = {
 }
 
 reactMixin.onClass(Template, MessageNotifierMixin)
-reactMixin.onClass(Template, LocalStorageMixin)
 
 export default Template

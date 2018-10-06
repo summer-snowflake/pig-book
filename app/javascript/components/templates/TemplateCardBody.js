@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import TemplateForm from './TemplateForm'
 import Templates from './Templates'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { tagsAxios } from './../mixins/requests/TagsMixin'
 import { templatesAxios, templateAxios } from './../mixins/requests/TemplatesMixin'
@@ -15,8 +13,6 @@ class TemplateCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       categories: [],
       tags: [],
       templates: this.props.templates,
@@ -116,6 +112,5 @@ TemplateCardBody.propTypes = {
 }
 
 reactMixin.onClass(TemplateCardBody, MessageNotifierMixin)
-reactMixin.onClass(TemplateCardBody, LocalStorageMixin)
 
 export default TemplateCardBody
