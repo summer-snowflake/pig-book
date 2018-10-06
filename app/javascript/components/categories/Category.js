@@ -7,7 +7,7 @@ import UpdateButton from './../common/UpdateButton'
 import BadgePill from './../common/BadgePill'
 import FormErrorMessages from './../common/FormErrorMessages'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import { categoriesAxios, categoryAxios } from './../mixins/requests/CategoriesMixin'
+import { categoryAxios } from './../mixins/requests/CategoriesMixin'
 
 class Category extends React.Component {
   constructor(props) {

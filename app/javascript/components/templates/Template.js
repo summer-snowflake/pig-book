@@ -27,6 +27,7 @@ class Template extends React.Component {
     this.patchTemplateCallback = this.patchTemplateCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeTemplateName = this.handleChangeTemplateName.bind(this)
@@ -38,6 +39,10 @@ class Template extends React.Component {
 
   onClickTrashIcon(template) {
     this.props.onClickTrashIcon(template)
+  }
+
+  handleClickUpdateButton() {
+    this.patchTemplate()
   }
 
   handleClickEditIcon() {
@@ -90,7 +95,7 @@ class Template extends React.Component {
       charge: this.state.charge,
       memo: this.state.memo
     }
-    templateAxios.patch(this.props.template.id, params, patchTemplateCallback, noticeErrorMessage)
+    templateAxios.patch(this.props.template.id, params, this.patchTemplateCallback, this.noticeErrorMessage)
   }
 
   onSelectCategory(category) {
@@ -161,7 +166,7 @@ class Template extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
-            <UpdateButton onClickButton={this.patchTemplate} />
+            <UpdateButton onClickButton={this.handleClickUpdateButton} />
           </td>
         ) : (
           <td className='center-edit-target' />

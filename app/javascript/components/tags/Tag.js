@@ -24,6 +24,7 @@ class Tag extends React.Component {
     this.patchTagCallback = this.patchTagCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeTagName = this.handleChangeTagName.bind(this)
@@ -92,6 +93,10 @@ class Tag extends React.Component {
     })
   }
 
+  handleClickUpdateButton() {
+    this.patchTag()
+  }
+
   render() {
     const styles = reactCSS({
       'default': {
@@ -133,7 +138,7 @@ class Tag extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
-            <UpdateButton onClickButton={this.patchTag} />
+            <UpdateButton onClickButton={this.handleClickUpdateButton} />
           </td>
         ) : (
           <td className='center-edit-target' />

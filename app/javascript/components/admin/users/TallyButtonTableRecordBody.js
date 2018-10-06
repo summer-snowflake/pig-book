@@ -6,7 +6,6 @@ import reactMixin from 'react-mixin'
 import MessageNotifierMixin from './../../mixins/MessageNotifierMixin'
 import TallyButton from './TallyButton'
 import TallyTimeLabel from './TallyTimeLabel'
-import LocalStorageMixin from './../../mixins/LocalStorageMixin'
 import { userAxios } from './../../mixins/requests/UsersMixin'
 
 class TallyButtonTableRecordBody extends React.Component {
@@ -19,10 +18,15 @@ class TallyButtonTableRecordBody extends React.Component {
     this.patchUser = this.patchUser.bind(this)
     this.patchUserCallback = this.patchUserCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.handleClickButton = this.handleClickButton.bind(this)
   }
 
   noticeErrorMessage(error) {
     this.noticeErrorMessages(error)
+  }
+
+  handleClickButton() {
+    this.patchUser()
   }
 
   patchUserCallback(res) {
@@ -40,7 +44,7 @@ class TallyButtonTableRecordBody extends React.Component {
     return (
       <div className='monthly-calculate-table-record-body-component'>
         {this.renderAlertMessage()}
-        <TallyButton onClickButton={this.patchUser} />
+        <TallyButton onClickButton={this.handleClickButton} />
         <TallyTimeLabel lastTallyAt={this.state.lastTallyAt} />
       </div>
     )

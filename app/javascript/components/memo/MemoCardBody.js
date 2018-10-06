@@ -5,7 +5,7 @@ import reactMixin from 'react-mixin'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import UpdateButton from './../common/UpdateButton'
 import CancelButton from './../common/CancelButton'
-import { profileMxios } from './../mixins/requests/BaseSettingMixin'
+import { profileAxios } from './../mixins/requests/BaseSettingMixin'
 
 class MemoCardBody extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class MemoCardBody extends React.Component {
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
   }
 
@@ -32,6 +33,10 @@ class MemoCardBody extends React.Component {
     this.setState({
       isEditing: true
     })
+  }
+
+  handleClickSubmitButton() {
+    this.patchMemo()
   }
 
   handleChangeMemo(e) {
@@ -74,7 +79,7 @@ class MemoCardBody extends React.Component {
               <textarea className='form-control' onChange={this.handleChangeMemo} rows='4' value={this.state.editingMemo} />
             </div>
             <div className='form-group'>
-              <UpdateButton onClickButton={this.patchMemo} />
+              <UpdateButton onClickButton={this.handleClickSubmitButton} />
               <CancelButton onClickButton={this.handleClickCancelButton} />
             </div>
           </div>

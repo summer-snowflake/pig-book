@@ -50,7 +50,7 @@ class ImportCardBody extends React.Component {
     })
   }
 
-  postFileFailure() {
+  postFileFailure(error) {
     this.noticeErrorMessages(error)
     this.setState({
       uploading: false,
@@ -64,7 +64,7 @@ class ImportCardBody extends React.Component {
       errorMessages: {},
       uploading: true
     })
-    fileAxios.post(fileParms, postFileCallback, postFileFailure)
+    fileAxios.post(fileParams, this.postFileCallback, this.postFileFailure)
   }
 
   render() {

@@ -27,11 +27,16 @@ class Breakdown extends React.Component {
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeBreakdownName = this.handleChangeBreakdownName.bind(this)
+    this.handleClickButton = this.handleClickButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
   }
 
   onClickTrashIcon(breakdown) {
     this.props.onClickTrashIcon(breakdown)
+  }
+
+  handleClickButton() {
+    this.patchBreakdown()
   }
 
   handleClickEditIcon() {
@@ -52,7 +57,7 @@ class Breakdown extends React.Component {
     })
   }
 
-  patchBreakdownCallback(res) {
+  patchBreakdownCallback() {
     this.setState({
       isEditing: false
     })
@@ -113,7 +118,7 @@ class Breakdown extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
-            <UpdateButton onClickButton={this.patchBreakdown} />
+            <UpdateButton onClickButton={this.handleClickButton} />
           </td>
         ) : (
           <td className='center-edit-target' />
