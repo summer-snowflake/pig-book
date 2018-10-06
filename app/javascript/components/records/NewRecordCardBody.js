@@ -65,6 +65,7 @@ class NewRecordCardBody extends React.Component {
     this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.getRecord = this.getRecord.bind(this)
+    this.getRecordCallback = this.getRecordCallback.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
@@ -325,52 +326,39 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(changeDate)
   }
 
+  getRecordCallback(res) {
+    let record = res.data
+    let category = this.state.categories.find( category => category.id == record.category_id )
+    let tags = record.tagged_records.map(tagged => (
+      { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
+    ))
+    let generateTags = tags.reduce(
+      (map, tag, index) => Object.assign(map, { [index]: tag }),
+      {}
+    )
+    this.setState({
+      selectedBalanceOfPayments: record.balance_of_payments,
+      selectedPublishedAt: moment(record.published_at),
+      selectedCategoryId: record.category_id,
+      selectedBreakdownId: record.breakdown_id || undefined,
+      selectedTemplateId: record.template_id || undefined,
+      selectedPlaceId: record.place_id || undefined,
+      selectedTags: tags.map(tag =>
+        <Tag key={tag.id} tag={tag} />
+      ),
+      selectedGenerateTags: generateTags,
+      inputCharge: String(record.charge),
+      inputPoint: String(record.point),
+      checkedPoint: record.point == 0 ? false : true,
+      inputMemo: record.memo,
+      breakdowns: (category || {}).breakdowns || [],
+      places: (category || {}).places || [],
+      editingRecordId: record.id
+    })
+  }
+
   getRecord(recordId) {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/records/' + recordId,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        let record = res.data
-        let category = this.state.categories.find( category => category.id == record.category_id )
-        let tags = record.tagged_records.map(tagged => (
-          { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
-        ))
-        let generateTags = tags.reduce(
-          (map, tag, index) => Object.assign(map, { [index]: tag }),
-          {}
-        )
-        this.setState({
-          selectedBalanceOfPayments: record.balance_of_payments,
-          selectedPublishedAt: moment(record.published_at),
-          selectedCategoryId: record.category_id,
-          selectedBreakdownId: record.breakdown_id || undefined,
-          selectedTemplateId: record.template_id || undefined,
-          selectedPlaceId: record.place_id || undefined,
-          selectedTags: tags.map(tag =>
-            <Tag key={tag.id} tag={tag} />
-          ),
-          selectedGenerateTags: generateTags,
-          inputCharge: String(record.charge),
-          inputPoint: String(record.point),
-          checkedPoint: record.point == 0 ? false : true,
-          inputMemo: record.memo,
-          breakdowns: (category || {}).breakdowns || [],
-          places: (category || {}).places || [],
-          editingRecordId: record.id
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessage)
   }
 
   handleUpdateTags(tags) {
