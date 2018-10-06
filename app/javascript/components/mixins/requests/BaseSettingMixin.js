@@ -1,7 +1,7 @@
 import axios from 'axios'
 import LocalStorageMixin from './../LocalStorageMixin'
 
-export const memoAxios = {
+export const profileAxios = {
   patch: (params, callback, errorCallback) => {
     let options = {
       method: 'PATCH',

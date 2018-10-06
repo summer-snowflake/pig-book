@@ -5,7 +5,7 @@ import reactMixin from 'react-mixin'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import UpdateButton from './../common/UpdateButton'
 import CancelButton from './../common/CancelButton'
-import { memoAxios } from './../mixins/requests/MemoMixin'
+import { profileMxios } from './../mixins/requests/BaseSettingMixin'
 
 class MemoCardBody extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class MemoCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    memoAxios.patch(profile, this.patchMemoCallback, this.noticeErrorMessage)
+    profileAxios.patch(profile, this.patchMemoCallback, this.noticeErrorMessage)
   }
 
   handleClickCancelButton() {
