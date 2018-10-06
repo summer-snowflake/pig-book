@@ -111,7 +111,7 @@ class Template extends React.Component {
       <tr className='template-component' id={'template-' + this.props.template.id}>
         {this.state.isEditing ? (
           <td className='left-edit-target template-category-td' colSpan='2'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedCategoryId={this.state.categoryId} plusButton={false} />
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (

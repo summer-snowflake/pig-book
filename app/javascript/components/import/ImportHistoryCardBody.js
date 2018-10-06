@@ -6,6 +6,7 @@ import axios from 'axios'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import ImportHistories from './ImportHistories'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { importHistoriesAxios, importHistoriesCountAxios } from './../mixins/requests/ImportHistoriesMixin'
 
 class ImportHistoryCardBody extends React.Component {
   constructor(props) {
@@ -18,8 +19,11 @@ class ImportHistoryCardBody extends React.Component {
       unregisteredLength: 0
     }
     this.getImportHistories = this.getImportHistories.bind(this)
+    this.getImportHistoriesCallback = this.getImportHistoriesCallback.bind(this)
     this.getImportHistoriesWithStatus = this.getImportHistoriesWithStatus.bind(this)
     this.getImportHistoriesCount = this.getImportHistoriesCount.bind(this)
+    this.getImportHistoriesCountCallback = this.getImportHistoriesCountCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
@@ -27,6 +31,10 @@ class ImportHistoryCardBody extends React.Component {
 
   componentWillMount() {
     this.getImportHistories()
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   handleClickAllTab() {
@@ -50,48 +58,25 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesWithStatus('registered')
   }
 
+  getImportHistoriesCallback(res) {
+    this.getImportHistoriesCount()
+    this.setState({
+      histories: res.data
+    })
+  }
+
   getImportHistories() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/import_histories',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getImportHistoriesCount()
-        this.setState({
-          histories: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoriesAxios.get(this.getImportHistoriesCallback, this.noticeErrorMessage)
+  }
+
+  getImportHistoriesCountCallback(res) {
+    this.setState({
+      unregisteredLength: res.data
+    })
   }
 
   getImportHistoriesCount() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/import_histories/unregistered_count',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          unregisteredLength: res.data
-        })
-      })
+    importHistoriesCountAxios.get(this.getImportHistoriesCountCallback, this.noticeErrorMessage)
   }
 
   getImportHistoriesWithStatus(statusName) {

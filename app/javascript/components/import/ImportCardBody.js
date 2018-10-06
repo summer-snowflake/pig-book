@@ -1,17 +1,14 @@
 import React from 'react'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import FileField from './FileField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { fileAxios } from './../mixins/requests/ImportHistoriesMixin'
 
 class ImportCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       errorMessages: {},
       uploading: false,
       isDragOver: false
@@ -20,6 +17,8 @@ class ImportCardBody extends React.Component {
     this.handleDragEnter = this.handleDragEnter.bind(this)
     this.handleDragLeave = this.handleDragLeave.bind(this)
     this.postFile = this.postFile.bind(this)
+    this.postFileCallback = this.postFileCallback.bind(this)
+    this.postFileFailure = this.postFileFailure.bind(this)
   }
 
   handleUploadFile(files) {
@@ -43,29 +42,29 @@ class ImportCardBody extends React.Component {
     })
   }
 
+  postFileCallback() {
+    this.noticeAddMessage()
+    this.setState({
+      uploading: false,
+      isDragOver: false
+    })
+  }
+
+  postFileFailure() {
+    this.noticeErrorMessages(error)
+    this.setState({
+      uploading: false,
+      isDragOver: false
+    })
+  }
+
   postFile(fileParams) {
     this.setState({
       message: '',
       errorMessages: {},
       uploading: true
     })
-    let url = origin + '/api/import_histories'
-    let headers = {'Authorization': 'Token token=' + this.state.userToken }
-    axios.post(url, fileParams, { headers: headers })
-      .then(() => {
-        this.noticeAddMessage()
-        this.setState({
-          uploading: false,
-          isDragOver: false
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-        this.setState({
-          uploading: false,
-          isDragOver: false
-        })
-      })
+    fileAxios.post(fileParms, postFileCallback, postFileFailure)
   }
 
   render() {
@@ -82,6 +81,5 @@ class ImportCardBody extends React.Component {
 }
 
 reactMixin.onClass(ImportCardBody, MessageNotifierMixin)
-reactMixin.onClass(ImportCardBody, LocalStorageMixin)
 
 export default ImportCardBody
