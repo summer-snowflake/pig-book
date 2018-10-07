@@ -9,6 +9,7 @@ import UpdateButton from './../common/UpdateButton'
 import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import AddButton from './../common/AddButton'
 import CreateButton from './../common/CreateButton'
+import { importHistoryAxios } from './../mixins/requests/ImportHistoriesMixin'
 
 class ImportHistory extends React.Component {
   constructor(props) {
@@ -30,6 +31,14 @@ class ImportHistory extends React.Component {
     this.handleClickAddTagsButton = this.handleClickAddTagsButton.bind(this)
     this.handleClickCreateRecordButton = this.handleClickCreateRecordButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
+    this.postCategoryCallback = this.postCategoryCallback.bind(this)
+    this.patchImportHistory = this.patchImportHistory.bind(this)
+    this.patchImportHistoryCallback = this.patchImportHistoryCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   handleClickEditIcon() {
@@ -51,6 +60,18 @@ class ImportHistory extends React.Component {
   }
 
   handleClickUpdateButton() {
+    this.patchImportHistory()
+  }
+
+  patchImportHistoryCallback(res) {
+    this.setState({
+      isEditing: false
+    })
+    this.props.getImportHistoriesWithStatus(this.props.activeLink)
+    this.noticeUpdatedMessage()
+  }
+
+  patchImportHistory() {
     this.setState({
       message: '',
       errorMessages: {}
@@ -58,30 +79,16 @@ class ImportHistory extends React.Component {
     let params = {
       row: this.state.row
     }
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/import_histories/' + this.props.history.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.setState({
-          isEditing: false
-        })
-        this.props.getImportHistoriesWithStatus(this.props.activeLink)
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoryAxios.patch(this.props.history.id, params, this.patchImportHistoryCallback, this.noticeErrorMessage)
   }
 
   handleClickAddCategoryButton() {
     this.postCategory()
+  }
+
+  postCategoryCallback() {
+    this.props.getImportHistoriesWithStatus(this.props.activeLink)
+    this.noticeAddMessage()
   }
 
   postCategory() {
@@ -89,23 +96,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/import_histories/' + this.props.history.id + '/create_category',
-      params: {last_request_at: this.state.lastRequestAt},
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.props.getImportHistoriesWithStatus(this.props.activeLink)
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoryAxios.postCategory(this.props.history.id, this.postCategoryCallback, this.noticeErrorMessage)
   }
 
   handleClickAddBreakdownButton() {
