@@ -83,6 +83,10 @@ class NewRecordCardBody extends React.Component {
     this.getBaseSetting()
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   onChangeCharge(charge) {
     this.setState({
       checkedPointDisabled: charge > 0 ? false : true,
@@ -197,9 +201,9 @@ class NewRecordCardBody extends React.Component {
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
   }
 
-  postRecordCallback(params) {
+  postRecordCallback(res) {
     this.getRecentlyUsed()
-    this.getRecords(params.published_at)
+    this.getRecords(res.data.published_at)
     this.noticeAddMessage()
     this.setState({
       inputMemo: '',
@@ -209,10 +213,6 @@ class NewRecordCardBody extends React.Component {
       selectedTags: [],
       selectedGenerateTags: {}
     })
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   postRecord(params) {

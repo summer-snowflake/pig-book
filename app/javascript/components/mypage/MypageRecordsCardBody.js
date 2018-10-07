@@ -25,14 +25,14 @@ class MypageRecordsCardBody extends React.Component {
     this.getRecords()
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   getRecordsCallback(res) {
     this.setState({
       records: res.data
     })
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getRecords() {

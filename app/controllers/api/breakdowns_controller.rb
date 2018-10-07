@@ -22,7 +22,7 @@ class Api::BreakdownsController < Api::BaseController
 
   def update
     if @breakdown.update_attributes(breakdown_params)
-      head :ok
+      render json: @breakdown, status: :ok
     else
       render_validation_error @breakdown
     end

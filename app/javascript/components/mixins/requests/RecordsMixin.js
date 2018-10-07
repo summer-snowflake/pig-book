@@ -1,12 +1,13 @@
 import axios from 'axios'
 import LocalStorageMixin from './../LocalStorageMixin'
+import { axiosMixin } from './AxiosMixin'
 
 export const recordsAxios = {
   get : (params={}, callback, errorCallback) => {
     let options = {
       method: 'GET',
       url: origin + '/api/records',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
+      params: Object.assign(params, { last_request_at: LocalStorageMixin.getLastRequestAt() }),
       headers: {
         'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
       },
@@ -54,8 +55,8 @@ export const recordAxios = {
       json: true
     }
     axios(options)
-      .then(() => {
-        callback(params)
+      .then((res) => {
+        callback(res)
       })
       .catch((error) => {
         errorCallback(error)

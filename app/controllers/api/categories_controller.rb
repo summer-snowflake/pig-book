@@ -22,7 +22,7 @@ class Api::CategoriesController < Api::BaseController
 
   def update
     if @category.update_attributes(category_params)
-      head :ok
+      render json: @category, status: :ok
     else
       render_validation_error @category
     end

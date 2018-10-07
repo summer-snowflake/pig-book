@@ -16,7 +16,7 @@ class Api::RecordsController < Api::BaseController
   def create
     @record = current_user.records.new(record_params)
     if @record.save
-      head :created
+      render json: @record, status: :created
     else
       render_validation_error @record
     end
