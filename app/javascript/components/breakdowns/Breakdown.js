@@ -1,41 +1,42 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BadgePill from './../common/BadgePill'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { breakdownAxios } from './../mixins/requests/BreakdownsMixin'
 
 class Breakdown extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.breakdown.name,
       categoryId: this.props.breakdown.category_id,
       selectedBalanceOfPayments: undefined,
-      message: '',
-      success: false,
       errorMessages: {}
     }
+    this.patchBreakdown = this.patchBreakdown.bind(this)
+    this.patchBreakdownCallback = this.patchBreakdownCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeBreakdownName = this.handleChangeBreakdownName.bind(this)
-    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.handleClickButton = this.handleClickButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
   }
 
   onClickTrashIcon(breakdown) {
     this.props.onClickTrashIcon(breakdown)
+  }
+
+  handleClickButton() {
+    this.patchBreakdown()
   }
 
   handleClickEditIcon() {
@@ -56,7 +57,19 @@ class Breakdown extends React.Component {
     })
   }
 
-  handleClickUpdateButton() {
+  patchBreakdownCallback() {
+    this.setState({
+      isEditing: false
+    })
+    this.props.getBreakdowns()
+    this.noticeUpdatedMessage()
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
+  patchBreakdown() {
     this.setState({
       message: '',
       errorMessages: {}
@@ -65,26 +78,7 @@ class Breakdown extends React.Component {
       name: this.state.name,
       category_id: this.state.categoryId
     }
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/breakdowns/' + this.props.breakdown.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.setState({
-          isEditing: false
-        })
-        this.props.getBreakdowns()
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    breakdownAxios.patch(this.props.breakdown.id, params, this.patchBreakdownCallback, this.noticeErrorMessage)
   }
 
   onSelectCategory(category) {
@@ -104,7 +98,7 @@ class Breakdown extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target breakdown-category-td' colSpan='2'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} selectedCategoryId={this.state.categoryId} />
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} selectedCategoryId={this.state.categoryId} />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
@@ -124,7 +118,7 @@ class Breakdown extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
-            <UpdateButton onClickButton={this.handleClickUpdateButton} />
+            <UpdateButton onClickButton={this.handleClickButton} />
           </td>
         ) : (
           <td className='center-edit-target' />
@@ -140,7 +134,7 @@ class Breakdown extends React.Component {
         )}
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.breakdown} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )
@@ -155,6 +149,5 @@ Breakdown.propTypes = {
 }
 
 reactMixin.onClass(Breakdown, MessageNotifierMixin)
-reactMixin.onClass(Breakdown, LocalStorageMixin)
 
 export default Breakdown

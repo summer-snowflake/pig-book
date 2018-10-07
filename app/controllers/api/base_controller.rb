@@ -25,7 +25,7 @@ class Api::BaseController < ApplicationController
     authenticate_with_http_token do |token, _options|
       return unless token
 
-      User.find_by(authentication_token: token)
+      @current_user ||= User.find_by(authentication_token: token)
     end
   end
 
