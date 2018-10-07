@@ -1,25 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import Trash from './../common/Trash'
 import PlaceCategories from './PlaceCategories'
 import UpdateButton from './../common/UpdateButton'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { placeAxios } from './../mixins/requests/PlacesMixin'
 
 class Place extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       name: this.props.place.name,
       errorMessages: {}
     }
+    this.patchPlace = this.patchPlace.bind(this)
+    this.patchPlaceCallback = this.patchPlaceCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleChangePlaceName = this.handleChangePlaceName.bind(this)
     this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
@@ -30,6 +30,10 @@ class Place extends React.Component {
 
   onClickTrashIcon(place) {
     this.props.onClickTrashIcon(place)
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   handleClickPlusIcon() {
@@ -54,34 +58,27 @@ class Place extends React.Component {
     })
   }
 
+  patchPlaceCallback() {
+    this.setState({
+      isEditing: false
+    })
+    this.props.getPlaces()
+    this.noticeUpdatedMessage()
+  }
+
+  patchPlace() {
+    let params = {
+      name: this.state.name
+    }
+    placeAxios.patch(this.props.place.id, params, this.patchPlaceCallback, this.noticeErrorMessage)
+  }
+
   handleClickUpdateButton() {
     this.setState({
       message: '',
       errorMessages: {}
     })
-    let params = {
-      name: this.state.name
-    }
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/places/' + this.props.place.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.setState({
-          isEditing: false
-        })
-        this.props.getPlaces()
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    this.patchPlace()
   }
 
   render() {
@@ -140,6 +137,5 @@ Place.propTypes = {
 }
 
 reactMixin.onClass(Place, MessageNotifierMixin)
-reactMixin.onClass(Place, LocalStorageMixin)
 
 export default Place

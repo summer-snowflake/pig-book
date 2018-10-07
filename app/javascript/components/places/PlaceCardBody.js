@@ -1,20 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import PlaceForm from './PlaceForm'
 import Places from './Places'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { placesAxios, placeAxios } from './../mixins/requests/PlacesMixin'
 
 class PlaceCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       places: this.props.places,
       selectableCategories: [],
       errorMessages: {}
@@ -26,7 +22,9 @@ class PlaceCardBody extends React.Component {
     this.destroyPlace = this.destroyPlace.bind(this)
     this.destroyPlaceCallback = this.destroyPlaceCallback.bind(this)
     this.getPlaceCategories = this.getPlaceCategories.bind(this)
+    this.getPlaceCategoriesCallback = this.getPlaceCategoriesCallback.bind(this)
     this.postCategorizedPlace = this.postCategorizedPlace.bind(this)
+    this.postCategorizedPlaceCallback = this.postCategorizedPlaceCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
@@ -73,27 +71,19 @@ class PlaceCardBody extends React.Component {
     placeAxios.delete(placeId, this.destroyPlaceCallback, this.noticeErrorMessage)
   }
 
-  getPlaceCategories(place_id) {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/places/' + place_id + '/categories',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          selectableCategories: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+  getPlaceCategoriesCallback(res) {
+    this.setState({
+      selectableCategories: res.data
+    })
+  }
+
+  getPlaceCategories(placeId) {
+    placeAxios.getCategories(placeId, this.getPlaceCategoriesCallback, this.noticeErrorMessage)
+  }
+
+  postCategorizedPlaceCallback() {
+    this.getPlaces()
+    this.noticeAddMessage()
   }
 
   postCategorizedPlace(params) {
@@ -101,23 +91,7 @@ class PlaceCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/categorized_places',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getPlaces()
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    placeAxios.postCategorized(params, this.postCategorizedPlaceCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -136,6 +110,5 @@ PlaceCardBody.propTypes = {
 }
 
 reactMixin.onClass(PlaceCardBody, MessageNotifierMixin)
-reactMixin.onClass(PlaceCardBody, LocalStorageMixin)
 
 export default PlaceCardBody

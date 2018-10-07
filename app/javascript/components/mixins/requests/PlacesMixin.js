@@ -80,5 +80,43 @@ export const placeAxios = {
       .catch((error) => {
         errorCallback(error)
       })
+  },
+  getCategories : (placeId, callback, errorCallback) => {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/places/' + placeId + '/categories',
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        callback(res)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  },
+  postCategorized : (params, callback, errorCallback) => {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/categorized_places',
+      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then(() => {
+        callback()
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
   }
 }
