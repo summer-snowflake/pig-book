@@ -14,7 +14,7 @@ class Record::Fetcher
 
     @records = @user.records
     @records = @records.where(published_at: generate_range) if @date || @month
-    @records.includes(:category, :place, :breakdown)
+    @records.includes(:category, :place, :breakdown, tagged_records: :tag)
             .order("#{@order}": :desc, created_at: :desc).limit(@limit)
   end
 
