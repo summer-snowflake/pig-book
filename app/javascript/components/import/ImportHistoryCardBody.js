@@ -1,19 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import ImportHistories from './ImportHistories'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import { importHistoriesAxios, importHistoriesCountAxios } from './../mixins/requests/ImportHistoriesMixin'
 
 class ImportHistoryCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       histories: this.props.histories,
       activeLink: 'all',
       unregisteredLength: 0
@@ -21,6 +17,7 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistories = this.getImportHistories.bind(this)
     this.getImportHistoriesCallback = this.getImportHistoriesCallback.bind(this)
     this.getImportHistoriesWithStatus = this.getImportHistoriesWithStatus.bind(this)
+    this.getImportHistoriesWithStatusCallback = this.getImportHistoriesWithStatusCallback.bind(this)
     this.getImportHistoriesCount = this.getImportHistoriesCount.bind(this)
     this.getImportHistoriesCountCallback = this.getImportHistoriesCountCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
@@ -79,28 +76,15 @@ class ImportHistoryCardBody extends React.Component {
     importHistoriesCountAxios.get(this.getImportHistoriesCountCallback, this.noticeErrorMessage)
   }
 
+  getImportHistoriesWithStatusCallback(res) {
+    this.getImportHistoriesCount()
+    this.setState({
+      histories: res.data
+    })
+  }
+
   getImportHistoriesWithStatus(statusName) {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/import_histories/' + statusName,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getImportHistoriesCount()
-        this.setState({
-          histories: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoriesAxios.getWithStatus(statusName, this.getImportHistoriesWithStatusCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -137,6 +121,5 @@ ImportHistoryCardBody.propTypes = {
 }
 
 reactMixin.onClass(ImportHistoryCardBody, MessageNotifierMixin)
-reactMixin.onClass(ImportHistoryCardBody, LocalStorageMixin)
 
 export default ImportHistoryCardBody

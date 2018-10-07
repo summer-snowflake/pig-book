@@ -35,6 +35,26 @@ export const importHistoriesAxios = {
       .catch((error) => {
         errorCallback(error)
       })
+  },
+  getWithStatus : (statusName, callback, errorCallback) => {
+    let options = {
+      method: 'GET',
+      url: origin + '/api/import_histories' + statusName,
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        callback(res)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
   }
 }
 
