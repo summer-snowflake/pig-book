@@ -5,7 +5,7 @@ class TemplatesController < ApplicationController
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
-    @templates = current_user.templates
+    @templates = current_user.templates.includes(:category, :breakdown, :tag)
     @params = {
       templates: @templates,
       user_token: @access_token,

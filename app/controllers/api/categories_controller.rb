@@ -6,7 +6,7 @@ class Api::CategoriesController < Api::BaseController
   def index
     @categories = current_user
                   .categories
-                  .includes(:places, :breakdowns, :templates)
+                  .includes(:places, :breakdowns, templates: :breakdown)
                   .order(created_at: :desc)
     render json: @categories
   end

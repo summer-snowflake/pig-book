@@ -4,7 +4,10 @@ class Api::TemplatesController < Api::BaseController
   before_action :set_template, only: %i[update destroy]
 
   def index
-    @templates = current_user.templates.order(created_at: :desc)
+    @templates = current_user
+                 .templates
+                 .includes(:category, :breakdown, :tag)
+                 .order(created_at: :desc)
     render json: @templates
   end
 
