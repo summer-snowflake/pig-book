@@ -37,8 +37,10 @@ export const importHistoryAxios = {
   postCategory : (importHistoryId, callback, errorCallback) => {
     let options = {
       method: 'POST',
-      url: origin + '/api/import_histories' + importHistoriesId + '/create_category',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
+      url: origin + '/api/import_histories/' + importHistoryId + '/create_category',
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
       headers: {
         'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
       },
@@ -52,7 +54,87 @@ export const importHistoryAxios = {
         errorCallback(error)
       })
   },
- 
+  postBreakdown : (importHistoryId, callback, errorCallback) => {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + importHistoryId + '/create_breakdown',
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        callback(res)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  },
+  postPlace : (importHistoryId, callback, errorCallback) => {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + importHistoryId + '/create_place',
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        callback(res)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  },
+  postTags : (importHistoryId, callback, errorCallback) => {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + importHistoryId + '/create_tags',
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        callback(res)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  },
+  postRecord : (importHistoryId, callback, errorCallback) => {
+    let options = {
+      method: 'POST',
+      url: origin + '/api/import_histories/' + importHistoryId + '/create_record',
+      params: {
+        last_request_at: LocalStorageMixin.getLastRequestAt()
+      },
+      headers: {
+        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
+      },
+      json: true
+    }
+    axios(options)
+      .then((res) => {
+        callback(res)
+      })
+      .catch((error) => {
+        errorCallback(error)
+      })
+  }
+
 }
 
 export const importHistoriesAxios = {

@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
 import AddButton from './../common/AddButton'
 import CreateButton from './../common/CreateButton'
 import { importHistoryAxios } from './../mixins/requests/ImportHistoriesMixin'
@@ -15,8 +13,6 @@ class ImportHistory extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       row: this.props.history.row,
       errorMessages: {}
@@ -32,6 +28,14 @@ class ImportHistory extends React.Component {
     this.handleClickCreateRecordButton = this.handleClickCreateRecordButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
     this.postCategoryCallback = this.postCategoryCallback.bind(this)
+    this.postBreakdown = this.postBreakdown.bind(this)
+    this.postBreakdownCallback = this.postBreakdownCallback.bind(this)
+    this.postPlace = this.postPlace.bind(this)
+    this.postPlaceCallback = this.postPlaceCallback.bind(this)
+    this.postTags = this.postTags.bind(this)
+    this.postTagsCallback = this.postTagsCallback.bind(this)
+    this.postRecord = this.postRecord.bind(this)
+    this.postRecordCallback = this.postRecordCallback.bind(this)
     this.patchImportHistory = this.patchImportHistory.bind(this)
     this.patchImportHistoryCallback = this.patchImportHistoryCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
@@ -63,7 +67,7 @@ class ImportHistory extends React.Component {
     this.patchImportHistory()
   }
 
-  patchImportHistoryCallback(res) {
+  patchImportHistoryCallback() {
     this.setState({
       isEditing: false
     })
@@ -103,28 +107,17 @@ class ImportHistory extends React.Component {
     this.postBreakdown()
   }
 
+  postBreakdownCallback() {
+    this.props.getImportHistoriesWithStatus(this.props.activeLink)
+    this.noticeAddMessage()
+  }
+
   postBreakdown() {
     this.setState({
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/import_histories/' + this.props.history.id + '/create_breakdown',
-      params: {last_request_at: this.state.lastRequestAt},
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.props.getImportHistoriesWithStatus(this.props.activeLink)
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoryAxios.postBreakdown(this.props.history.id, this.postBreakdownCallback, this.noticeErrorMessage)
   }
 
   handleClickAddPlaceButton() {
@@ -135,28 +128,22 @@ class ImportHistory extends React.Component {
     this.postRecord()
   }
 
+  postRecordCallback() {
+    this.props.getImportHistoriesWithStatus(this.props.activeLink)
+    this.noticeAddMessage()
+  }
+
   postRecord() {
     this.setState({
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/import_histories/' + this.props.history.id + '/create_record',
-      params: {last_request_at: this.state.lastRequestAt},
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.props.getImportHistoriesWithStatus(this.props.activeLink)
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoryAxios.postRecord(this.props.history.id, this.postRecordCallback, this.noticeErrorMessage)
+  }
+
+  postPlaceCallback() {
+    this.props.getImportHistoriesWithStatus(this.props.activeLink)
+    this.noticeAddMessage()
   }
 
   postPlace() {
@@ -164,27 +151,16 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/import_histories/' + this.props.history.id + '/create_place',
-      params: {last_request_at: this.state.lastRequestAt},
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.props.getImportHistoriesWithStatus(this.props.activeLink)
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoryAxios.postPlace(this.props.history.id, this.postPlaceCallback, this.noticeErrorMessage)
   }
 
   handleClickAddTagsButton() {
     this.postTags()
+  }
+
+  postTagsCallback() {
+    this.props.getImportHistoriesWithStatus(this.props.activeLink)
+    this.noticeAddMessage()
   }
 
   postTags() {
@@ -192,23 +168,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/import_histories/' + this.props.history.id + '/create_tags',
-      params: {last_request_at: this.state.lastRequestAt},
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.props.getImportHistoriesWithStatus(this.props.activeLink)
-        this.noticeAddMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    importHistoryAxios.postTags(this.props.history.id, this.postTagsCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -305,6 +265,5 @@ ImportHistory.propTypes = {
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)
-reactMixin.onClass(ImportHistory, LocalStorageMixin)
 
 export default ImportHistory
