@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 import TagsInput from 'react-tagsinput'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import AutocompleteRenderInput from './AutocompleteRenderInput'
 
@@ -12,8 +11,6 @@ class TagsInputField extends React.Component {
     super(props)
     this.state = {
       value: '',
-      message: '',
-      success: false,
       errorMessages: {}
     }
     this.handleChange = this.handleChange.bind(this)
@@ -32,7 +29,7 @@ class TagsInputField extends React.Component {
   render() {
     return (
       <div className='tags-input-field-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <TagsInput
           onChange={this.handleChange}
           renderInput={this.renderInput}

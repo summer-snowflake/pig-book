@@ -2,37 +2,38 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 import { SketchPicker } from 'react-color'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Trash from './../common/Trash'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { tagAxios } from './../mixins/requests/TagsMixin'
 
 class Tag extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       isEditingColorCode: false,
       colorCode: this.props.tag.color_code,
       name: this.props.tag.name,
-      message: '',
-      success: false,
       errorMessages: {}
     }
+    this.patchTag = this.patchTag.bind(this)
+    this.patchTagCallback = this.patchTagCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeTagName = this.handleChangeTagName.bind(this)
-    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleChangeComplete = this.handleChangeComplete.bind(this)
     this.handleClickColorBox = this.handleClickColorBox.bind(this)
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   onClickTrashIcon(tag) {
@@ -58,7 +59,16 @@ class Tag extends React.Component {
     })
   }
 
-  handleClickUpdateButton() {
+  patchTagCallback() {
+    this.setState({
+      isEditing: false,
+      isEditingColorCode: false
+    })
+    this.props.getTags()
+    this.noticeUpdatedMessage()
+  }
+
+  patchTag() {
     this.setState({
       message: '',
       errorMessages: {}
@@ -67,27 +77,7 @@ class Tag extends React.Component {
       color_code: this.state.colorCode,
       name: this.state.name
     }
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/tags/' + this.props.tag.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.setState({
-          isEditing: false,
-          isEditingColorCode: false
-        })
-        this.props.getTags()
-        this.noticeUpdatedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagAxios.patch(this.props.tag.id, params, this.patchTagCallback, this.noticeErrorMessage)
   }
 
   handleChangeComplete(color) {
@@ -101,6 +91,10 @@ class Tag extends React.Component {
     this.setState({
       isEditingColorCode: !this.state.isEditingColorCode
     })
+  }
+
+  handleClickUpdateButton() {
+    this.patchTag()
   }
 
   render() {
@@ -160,7 +154,7 @@ class Tag extends React.Component {
         )}
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.tag} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )
@@ -174,6 +168,5 @@ Tag.propTypes = {
 }
 
 reactMixin.onClass(Tag, MessageNotifierMixin)
-reactMixin.onClass(Tag, LocalStorageMixin)
 
 export default Tag

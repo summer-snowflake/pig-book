@@ -1,57 +1,49 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
 import moment from 'moment'
 import reactMixin from 'react-mixin'
 
 import MessageNotifierMixin from './../../mixins/MessageNotifierMixin'
-import AlertMessage from './../../common/AlertMessage'
 import TallyButton from './TallyButton'
 import TallyTimeLabel from './TallyTimeLabel'
-import LocalStorageMixin from './../../mixins/LocalStorageMixin'
+import { userAxios } from './../../mixins/requests/UsersMixin'
 
 class TallyButtonTableRecordBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       lastTallyAt: this.props.last_tally_at && moment(this.props.last_tally_at),
-      message: '',
-      success: false,
       errorMessages: {}
     }
+    this.patchUser = this.patchUser.bind(this)
+    this.patchUserCallback = this.patchUserCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickButton = this.handleClickButton.bind(this)
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   handleClickButton() {
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/admin/users/' + this.props.user_id + '/tally',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.noticeCompletedMessage()
-        this.setState({
-          lastTallyAt: moment(res.data.last_tally_at)
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    this.patchUser()
+  }
+
+  patchUserCallback(res) {
+    this.noticeCompletedMessage()
+    this.setState({
+      lastTallyAt: moment(res.data.last_tally_at)
+    })
+  }
+
+  patchUser() {
+    userAxios.patch(this.props.user_id, this.patchUserCallback, this.noticeErrorMessage)
   }
 
   render() {
     return (
       <div className='monthly-calculate-table-record-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <TallyButton onClickButton={this.handleClickButton} />
         <TallyTimeLabel lastTallyAt={this.state.lastTallyAt} />
       </div>
@@ -65,6 +57,5 @@ TallyButtonTableRecordBody.propTypes = {
 }
 
 reactMixin.onClass(TallyButtonTableRecordBody, MessageNotifierMixin)
-reactMixin.onClass(TallyButtonTableRecordBody, LocalStorageMixin)
 
 export default TallyButtonTableRecordBody

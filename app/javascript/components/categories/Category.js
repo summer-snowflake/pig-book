@@ -1,29 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
 import BadgePill from './../common/BadgePill'
-import AlertMessage from './../common/AlertMessage'
 import FormErrorMessages from './../common/FormErrorMessages'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { categoryAxios } from './../mixins/requests/CategoriesMixin'
 
 class Category extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
       isEditing: false,
       balance_of_payments: this.props.category.balance_of_payments,
       name: this.props.category.name,
-      message: '',
-      success: false,
       errorMessages: {}
     }
+    this.patchCategory = this.patchCategory.bind(this)
+    this.patchCategoryCallback = this.patchCategoryCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
@@ -60,7 +57,23 @@ class Category extends React.Component {
     })
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   handleClickUpdateButton() {
+    this.patchCategory()
+  }
+
+  patchCategoryCallback() {
+    this.noticeUpdatedMessage()
+    this.props.getCategories()
+    this.setState({
+      isEditing: false
+    })
+  }
+
+  patchCategory() {
     this.setState({
       message: '',
       errorMessages: {}
@@ -69,26 +82,7 @@ class Category extends React.Component {
       balance_of_payments: this.state.balance_of_payments,
       name: this.state.name
     }
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/categories/' + this.props.category.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.noticeUpdatedMessage()
-        this.props.getCategories()
-        this.setState({
-          isEditing: false
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoryAxios.patch(this.props.category.id, params, this.patchCategoryCallback, this.noticeErrorMessage)
   }
 
   render() {
@@ -158,7 +152,7 @@ class Category extends React.Component {
         </td>
         <td className='icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
-          <AlertMessage message={this.state.message} success={this.state.success} />
+          {this.renderAlertMessage()}
         </td>
       </tr>
     )
@@ -172,6 +166,5 @@ Category.propTypes = {
 }
 
 reactMixin.onClass(Category, MessageNotifierMixin)
-reactMixin.onClass(Category, LocalStorageMixin)
 
 export default Category

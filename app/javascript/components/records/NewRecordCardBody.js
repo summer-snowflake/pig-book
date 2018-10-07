@@ -1,25 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 import moment from 'moment'
 
 import NewRecordForm from './NewRecordForm'
-import AlertMessage from './../common/AlertMessage'
 import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import OneDayRecords from './OneDayRecords'
 import Tag from './Tag'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
+import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
+import { tagsAxios } from './../mixins/requests/TagsMixin'
+import { profileAxios } from './../mixins/requests/BaseSettingMixin'
+import { recentlyUsedAxios } from './../mixins/requests/RecentlyUsedMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
-      message: '',
-      success: false,
       errorMessages: {},
       editingRecordId: undefined,
       baseSetting: {},
@@ -45,21 +43,31 @@ class NewRecordCardBody extends React.Component {
       targetDate: moment(),
       recentlyUsed: this.props.recentlyUsed
     }
+    this.getRecords = this.getRecords.bind(this)
+    this.getRecordsCallback = this.getRecordsCallback.bind(this)
     this.postRecord = this.postRecord.bind(this)
+    this.postRecordCallback = this.postRecordCallback.bind(this)
     this.patchRecord = this.patchRecord.bind(this)
+    this.patchRecordCallback = this.patchRecordCallback.bind(this)
     this.getBaseSetting = this.getBaseSetting.bind(this)
+    this.getBaseSettingCallback = this.getBaseSettingCallback.bind(this)
     this.getCategories = this.getCategories.bind(this)
+    this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
+    this.getRecentlyUsedCallback = this.getRecentlyUsedCallback.bind(this)
     this.getTags = this.getTags.bind(this)
+    this.getTagsCallback = this.getTagsCallback.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
-    this.getRecords = this.getRecords.bind(this)
     this.getRecord = this.getRecord.bind(this)
+    this.getRecordCallback = this.getRecordCallback.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
+    this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.onCancelEditing = this.onCancelEditing.bind(this)
@@ -173,31 +181,38 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(date)
   }
 
+  getRecordsCallback(res, params) {
+    this.getTags()
+    this.setState({
+      records: res.data,
+      targetDate: moment(params.date)
+    })
+  }
+
   getRecords(date) {
     let targetDate = date ? date : moment()
-    let options = {
-      method: 'GET',
-      url: origin + '/api/records',
-      params: {
-        last_request_at: this.state.lastRequestAt,
-        date: String(targetDate)
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
+    let params = {
+      date: String(targetDate)
     }
-    axios(options)
-      .then((res) => {
-        this.getTags()
-        this.setState({
-          records: res.data,
-          targetDate: targetDate
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
+  }
+
+  postRecordCallback(params) {
+    this.getRecentlyUsed()
+    this.getRecords(params.published_at)
+    this.noticeAddMessage()
+    this.setState({
+      inputMemo: '',
+      inputCharge: '',
+      inputPoint: '0',
+      checkedPoint: false,
+      selectedTags: [],
+      selectedGenerateTags: {}
+    })
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
   }
 
   postRecord(params) {
@@ -205,32 +220,21 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'POST',
-      url: origin + '/api/records',
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecentlyUsed()
-        this.getRecords(params.published_at)
-        this.noticeAddMessage()
-        this.setState({
-          inputMemo: '',
-          inputCharge: '',
-          inputPoint: '0',
-          checkedPoint: false,
-          selectedTags: [],
-          selectedGenerateTags: {}
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
+  }
+
+  patchRecordCallback(params) {
+    this.getRecords(params.published_at)
+    this.noticeUpdatedMessage()
+    this.setState({
+      inputMemo: '',
+      inputCharge: '',
+      inputPoint: '0',
+      checkedPoint: false,
+      selectedTags: [],
+      selectedGenerateTags: {},
+      editingRecordId: undefined
+    })
   }
 
   patchRecord(params) {
@@ -238,155 +242,65 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/records/' + params.id,
-      params: Object.assign(params, {last_request_at: this.state.lastRequestAt}),
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecords(params.published_at)
-        this.noticeUpdatedMessage()
-        this.setState({
-          inputMemo: '',
-          inputCharge: '',
-          inputPoint: '0',
-          checkedPoint: false,
-          selectedTags: [],
-          selectedGenerateTags: {},
-          editingRecordId: undefined
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
+  }
+
+  getBaseSettingCallback(res) {
+    this.getCategories()
+    this.getRecords()
+    this.setState({
+      baseSetting: res.data
+    })
   }
 
   getBaseSetting() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/base_setting',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getCategories()
-        this.getRecords()
-        this.setState({
-          baseSetting: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    profileAxios.get(this.getBaseSettingCallback, this.noticeErrorMessage)
+  }
+
+  getCategoriesCallback(res) {
+    this.getRecentlyUsed()
+    this.setState({
+      categories: res.data
+    })
   }
 
   getCategories() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/categories',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.getRecentlyUsed()
-        this.setState({
-          categories: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
+  }
+
+  getRecentlyUsedCallback(res) {
+    this.setState({
+      recentlyUsed: res.data
+    })
   }
 
   getRecentlyUsed() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/recently_used',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          recentlyUsed: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recentlyUsedAxios.get(this.getRecentlyUsedCallback, this.noticeErrorMessage)
+  }
+
+  getTagsCallback(res) {
+    this.setState({
+      tags: res.data
+    })
   }
 
   getTags() {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'GET',
-      url: origin + '/api/tags',
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          tags: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
+  }
+
+  destroyRecordCallback() {
+    this.getRecords(this.state.targetDate)
+    this.noticeDestroyedMessage()
   }
 
   destroyRecord(recordId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/records/' + recordId,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecords()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
   }
 
   onClickChangeDateButton(days) {
@@ -397,52 +311,39 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(changeDate)
   }
 
+  getRecordCallback(res) {
+    let record = res.data
+    let category = this.state.categories.find( category => category.id == record.category_id )
+    let tags = record.tagged_records.map(tagged => (
+      { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
+    ))
+    let generateTags = tags.reduce(
+      (map, tag, index) => Object.assign(map, { [index]: tag }),
+      {}
+    )
+    this.setState({
+      selectedBalanceOfPayments: record.balance_of_payments,
+      selectedPublishedAt: moment(record.published_at),
+      selectedCategoryId: record.category_id,
+      selectedBreakdownId: record.breakdown_id || undefined,
+      selectedTemplateId: record.template_id || undefined,
+      selectedPlaceId: record.place_id || undefined,
+      selectedTags: tags.map(tag =>
+        <Tag key={tag.id} tag={tag} />
+      ),
+      selectedGenerateTags: generateTags,
+      inputCharge: String(record.charge),
+      inputPoint: String(record.point),
+      checkedPoint: record.point == 0 ? false : true,
+      inputMemo: record.memo,
+      breakdowns: (category || {}).breakdowns || [],
+      places: (category || {}).places || [],
+      editingRecordId: record.id
+    })
+  }
+
   getRecord(recordId) {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/records/' + recordId,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        let record = res.data
-        let category = this.state.categories.find( category => category.id == record.category_id )
-        let tags = record.tagged_records.map(tagged => (
-          { id: tagged.tag_id, name: tagged.tag_name, color_code: tagged.tag_color_code }
-        ))
-        let generateTags = tags.reduce(
-          (map, tag, index) => Object.assign(map, { [index]: tag }),
-          {}
-        )
-        this.setState({
-          selectedBalanceOfPayments: record.balance_of_payments,
-          selectedPublishedAt: moment(record.published_at),
-          selectedCategoryId: record.category_id,
-          selectedBreakdownId: record.breakdown_id || undefined,
-          selectedTemplateId: record.template_id || undefined,
-          selectedPlaceId: record.place_id || undefined,
-          selectedTags: tags.map(tag =>
-            <Tag key={tag.id} tag={tag} />
-          ),
-          selectedGenerateTags: generateTags,
-          inputCharge: String(record.charge),
-          inputPoint: String(record.point),
-          checkedPoint: record.point == 0 ? false : true,
-          inputMemo: record.memo,
-          breakdowns: (category || {}).breakdowns || [],
-          places: (category || {}).places || [],
-          editingRecordId: record.id
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessage)
   }
 
   handleUpdateTags(tags) {
@@ -528,7 +429,7 @@ class NewRecordCardBody extends React.Component {
   render() {
     return (
       <div className='new-record-card-body-component row'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <PickerField
           handleClickCategoryPickerButton={this.setCategory}
           handleClickTagPickerButton={this.setTag}
@@ -591,6 +492,5 @@ NewRecordCardBody.propTypes = {
 }
 
 reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)
-reactMixin.onClass(NewRecordCardBody, LocalStorageMixin)
 
 export default NewRecordCardBody

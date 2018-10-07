@@ -1,81 +1,58 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
-import axios from 'axios'
 
-import AlertMessage from './../common/AlertMessage'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './../records/Records'
-import LocalStorageMixin from './../mixins/LocalStorageMixin'
+import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 
 class MypageRecordsCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lastRequestAt: this.getLastRequestAt(),
-      userToken: this.getUserToken(),
-      message: '',
-      success: false,
       errorMessages: {},
       records: this.props.records
     }
     this.getRecords = this.getRecords.bind(this)
-    this.onClickEditIcon = this.onClickEditIcon.bind(this)
+    this.getRecordsCallback = this.getRecordsCallback.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
+    this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
+    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.onClickEditIcon = this.onClickEditIcon.bind(this)
   }
 
   componentWillMount() {
     this.getRecords()
   }
 
+  getRecordsCallback(res) {
+    this.setState({
+      records: res.data
+    })
+  }
+
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   getRecords() {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/records',
-      params: {
-        last_request_at: this.state.lastRequestAt,
-        order: 'created_at',
-        limit: 5
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
+    let params = {
+      order: 'created_at',
+      limit: 5
     }
-    axios(options)
-      .then((res) => {
-        this.setState({
-          records: res.data
-        })
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
+  }
+
+  destroyRecordCallback() {
+    this.getRecords()
+    this.noticeDestroyedMessage()
   }
 
   destroyRecord(recordId) {
     this.setState({
       message: ''
     })
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/records/' + recordId,
-      params: {
-        last_request_at: this.state.lastRequestAt
-      },
-      headers: {
-        'Authorization': 'Token token=' + this.state.userToken
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        this.getRecords()
-        this.noticeDestroyedMessage()
-      })
-      .catch((error) => {
-        this.noticeErrorMessages(error)
-      })
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
   }
 
   onClickEditIcon() {
@@ -85,7 +62,7 @@ class MypageRecordsCardBody extends React.Component {
   render() {
     return (
       <div className='mypage-records-card-body-component'>
-        <AlertMessage message={this.state.message} success={this.state.success} />
+        {this.renderAlertMessage()}
         <Records
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}
@@ -103,6 +80,5 @@ MypageRecordsCardBody.propTypes = {
 }
 
 reactMixin.onClass(MypageRecordsCardBody, MessageNotifierMixin)
-reactMixin.onClass(MypageRecordsCardBody, LocalStorageMixin)
 
 export default MypageRecordsCardBody
