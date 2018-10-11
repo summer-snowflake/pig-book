@@ -223,8 +223,8 @@ class NewRecordCardBody extends React.Component {
     recordAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
   }
 
-  patchRecordCallback(params) {
-    this.getRecords(params.published_at)
+  patchRecordCallback(res) {
+    this.getRecords(res.data.published_at)
     this.noticeUpdatedMessage()
     this.setState({
       inputMemo: '',
@@ -242,7 +242,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    recordAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
+    recordAxios.patch(params.id, params, this.patchRecordCallback, this.noticeErrorMessage)
   }
 
   getBaseSettingCallback(res) {

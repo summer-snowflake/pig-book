@@ -29,59 +29,15 @@ export const recordAxios = {
     axiosMixin.request('GET', callback, errorCallback, url)
   },
   post : (params, callback, errorCallback) => {
-    let options = {
-      method: 'POST',
-      url: origin + '/api/records',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/records'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   },
   patch: (recordId, params, callback, errorCallback) => {
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/records/' + recordId,
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback(params)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/records/' + recordId
+    axiosMixin.request('PATCH', callback, errorCallback, url, params)
   },
   delete : (recordId, callback, errorCallback) => {
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/records/' + recordId,
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/records/' + recordId
+    axiosMixin.request('DELETE', callback, errorCallback, url)
   }
 }

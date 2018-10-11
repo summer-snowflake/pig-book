@@ -24,7 +24,7 @@ class Api::RecordsController < Api::BaseController
 
   def update
     if @record.update_attributes(record_params)
-      head :ok
+      render json: @record, status: :ok
     else
       render_validation_error @record
     end
