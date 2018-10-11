@@ -83,6 +83,10 @@ class NewRecordCardBody extends React.Component {
     this.getBaseSetting()
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   onChangeCharge(charge) {
     this.setState({
       checkedPointDisabled: charge > 0 ? false : true,
@@ -181,25 +185,28 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(date)
   }
 
-  getRecordsCallback(res, params) {
+  getRecordsCallback(res) {
     this.getTags()
     this.setState({
       records: res.data,
-      targetDate: moment(params.date)
+      targetDate: this.state.targetDate
     })
   }
 
   getRecords(date) {
     let targetDate = date ? date : moment()
+    this.setState({
+      targetDate: targetDate
+    })
     let params = {
       date: String(targetDate)
     }
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
   }
 
-  postRecordCallback(params) {
+  postRecordCallback(res) {
     this.getRecentlyUsed()
-    this.getRecords(params.published_at)
+    this.getRecords(moment(res.data.published_at))
     this.noticeAddMessage()
     this.setState({
       inputMemo: '',
@@ -211,10 +218,6 @@ class NewRecordCardBody extends React.Component {
     })
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   postRecord(params) {
     this.setState({
       message: '',
@@ -223,8 +226,8 @@ class NewRecordCardBody extends React.Component {
     recordAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
   }
 
-  patchRecordCallback(params) {
-    this.getRecords(params.published_at)
+  patchRecordCallback(res) {
+    this.getRecords(moment(res.data.published_at))
     this.noticeUpdatedMessage()
     this.setState({
       inputMemo: '',
@@ -242,7 +245,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    recordAxios.patch(params.id, params, this.postRecordCallback, this.noticeErrorMessage)
+    recordAxios.patch(params.id, params, this.patchRecordCallback, this.noticeErrorMessage)
   }
 
   getBaseSettingCallback(res) {

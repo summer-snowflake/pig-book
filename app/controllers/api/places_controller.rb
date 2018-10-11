@@ -19,7 +19,7 @@ class Api::PlacesController < Api::BaseController
 
   def update
     if @place.update_attributes(place_params)
-      head :ok
+      render json: @place, status: :ok
     else
       render_validation_error @place
     end

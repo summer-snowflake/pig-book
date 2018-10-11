@@ -37,6 +37,10 @@ class Template extends React.Component {
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
   }
 
+  noticeErrorMessage(error) {
+    this.noticeErrorMessages(error)
+  }
+
   onClickTrashIcon(template) {
     this.props.onClickTrashIcon(template)
   }

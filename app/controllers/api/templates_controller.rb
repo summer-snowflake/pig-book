@@ -22,7 +22,7 @@ class Api::TemplatesController < Api::BaseController
 
   def update
     if @template.update_attributes(template_params)
-      head :ok
+      render json: @template, status: :ok
     else
       render_validation_error @template
     end

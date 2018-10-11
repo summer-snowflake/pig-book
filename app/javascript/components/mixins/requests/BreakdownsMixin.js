@@ -1,84 +1,23 @@
-import axios from 'axios'
-import LocalStorageMixin from './../LocalStorageMixin'
+import { axiosMixin } from './AxiosMixin'
 
 export const breakdownsAxios = {
   get : (callback, errorCallback) => {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/breakdowns',
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/breakdowns'
+    axiosMixin.request('GET', callback, errorCallback, url)
   }
 }
 
 export const breakdownAxios = {
   post : (params, callback, errorCallback) => {
-    let options = {
-      method: 'POST',
-      url: origin + '/api/breakdowns',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/breakdowns'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   },
   patch: (breakdownId, params, callback, errorCallback) => {
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/breakdowns/' + breakdownId,
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback(params)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/breakdowns/' + breakdownId
+    axiosMixin.request('PATCH', callback, errorCallback, url, params)
   },
   delete : (breakdownId, callback, errorCallback) => {
-    let options = {
-      method: 'delete',
-      url: origin + '/api/breakdowns/' + breakdownId,
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/breakdowns/' + breakdownId
+    axiosMixin.request('DELETE', callback, errorCallback, url)
   }
 }
