@@ -185,16 +185,19 @@ class NewRecordCardBody extends React.Component {
     this.getRecords(date)
   }
 
-  getRecordsCallback(res, params) {
+  getRecordsCallback(res) {
     this.getTags()
     this.setState({
       records: res.data,
-      targetDate: moment(params.date)
+      targetDate: this.state.targetDate
     })
   }
 
   getRecords(date) {
     let targetDate = date ? date : moment()
+    this.setState({
+      targetDate: targetDate
+    })
     let params = {
       date: String(targetDate)
     }
@@ -203,7 +206,7 @@ class NewRecordCardBody extends React.Component {
 
   postRecordCallback(res) {
     this.getRecentlyUsed()
-    this.getRecords(res.data.published_at)
+    this.getRecords(moment(res.data.published_at))
     this.noticeAddMessage()
     this.setState({
       inputMemo: '',
@@ -224,7 +227,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   patchRecordCallback(res) {
-    this.getRecords(res.data.published_at)
+    this.getRecords(moment(res.data.published_at))
     this.noticeUpdatedMessage()
     this.setState({
       inputMemo: '',
