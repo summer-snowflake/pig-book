@@ -27,13 +27,26 @@ describe 'PATCH /api/templates' do
       params = {
         last_request_at: Time.zone.now,
         category_id: category.id,
-        name: '編集した内訳',
+        name: '編集したテンプレート',
         charge: 300
       }
       patch "/api/templates/#{template.id}",
             params: params, headers: login_headers(user)
 
       expect(response.status).to eq 200
+      json = {
+        name: '編集したテンプレート',
+        breakdown_id: breakdown.id,
+        breakdown_name: breakdown.name,
+        category_balance_of_payments: false,
+        category_id: category.id,
+        category_name: category.name,
+        charge: 300,
+        memo: template.memo,
+        tag: nil,
+        tag_id: nil
+      }.to_json
+      expect(response.body).to be_json_eql(json)
     end
   end
 end

@@ -1,43 +1,12 @@
-import axios from 'axios'
-import LocalStorageMixin from './../LocalStorageMixin'
+import { axiosMixin } from './AxiosMixin'
 
 export const profileAxios = {
   get : (callback, errorCallback) => {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/base_setting',
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/base_setting'
+    axiosMixin.request('GET', callback, errorCallback, url)
   },
   patch: (params, callback, errorCallback) => {
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/base_setting',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/base_setting'
+    axiosMixin.request('PATCH', callback, errorCallback, url, params)
   }
 }

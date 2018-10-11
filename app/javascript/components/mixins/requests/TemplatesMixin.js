@@ -1,84 +1,23 @@
-import axios from 'axios'
-import LocalStorageMixin from './../LocalStorageMixin'
+import { axiosMixin } from './AxiosMixin'
 
 export const templatesAxios = {
   get : (callback, errorCallback) => {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/templates',
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/templates'
+    axiosMixin.request('GET', callback, errorCallback, url)
   }
 }
 
 export const templateAxios = {
   post : (params, callback, errorCallback) => {
-    let options = {
-      method: 'POST',
-      url: origin + '/api/templates',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/templates'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   },
-  patch: (templatesId, params, callback, errorCallback) => {
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/templates/' + templatesId,
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback(params)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+  patch: (templateId, params, callback, errorCallback) => {
+    let url = '/api/templates/' + templateId
+    axiosMixin.request('PATCH', callback, errorCallback, url, params)
   },
   delete : (templateId, callback, errorCallback) => {
-    let options = {
-      method: 'DELETE',
-      url: origin + '/api/templates/' + templateId,
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/templates/' + templateId
+    axiosMixin.request('DELETE', callback, errorCallback, url)
   }
 }

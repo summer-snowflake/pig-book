@@ -29,6 +29,16 @@ describe 'PATCH /api/categories' do
             params: params, headers: login_headers(user)
 
       expect(response.status).to eq 200
+      json = {
+        name: '編集したカテゴリ',
+        balance_of_payments: true,
+        human_balance_of_payments: '収入',
+        success_or_danger_style_class: 'success',
+        breakdowns: [],
+        places: [],
+        templates: []
+      }.to_json
+      expect(response.body).to be_json_eql(json)
     end
   end
 end

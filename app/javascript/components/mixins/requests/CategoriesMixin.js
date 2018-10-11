@@ -1,84 +1,23 @@
-import axios from 'axios'
-import LocalStorageMixin from './../LocalStorageMixin'
+import { axiosMixin } from './AxiosMixin'
 
 export const categoriesAxios = {
   get : (callback, errorCallback) => {
-    let options = {
-      method: 'GET',
-      url: origin + '/api/categories',
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/categories'
+    axiosMixin.request('GET', callback, errorCallback, url)
   }
 }
 
 export const categoryAxios = {
   post : (params, callback, errorCallback) => {
-    let options = {
-      method: 'POST',
-      url: origin + '/api/categories',
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then((res) => {
-        callback(res)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/categories'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   },
   patch: (categoryId, params, callback, errorCallback) => {
-    let options = {
-      method: 'PATCH',
-      url: origin + '/api/categories/' + categoryId,
-      params: Object.assign(params, {last_request_at: LocalStorageMixin.getLastRequestAt()}),
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback(params)
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/categories/' + categoryId
+    axiosMixin.request('PATCH', callback, errorCallback, url, params)
   },
   delete : (categoryId, callback, errorCallback) => {
-    let options = {
-      method: 'delete',
-      url: origin + '/api/categories/' + categoryId,
-      params: {
-        last_request_at: LocalStorageMixin.getLastRequestAt()
-      },
-      headers: {
-        'Authorization': 'Token token=' + LocalStorageMixin.getUserToken()
-      },
-      json: true
-    }
-    axios(options)
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        errorCallback(error)
-      })
+    let url = '/api/categories/' + categoryId
+    axiosMixin.request('DELETE', callback, errorCallback, url)
   }
 }
