@@ -35,9 +35,11 @@ class Record extends React.Component {
         <td className='icon-td'>
           <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
         </td>
-        <td className='icon-td'>
-          <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
-        </td>
+        {!this.props.isListPage && (
+          <td className='icon-td'>
+            <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+          </td>
+        )}
         {this.props.isListPage && (
           <td>
             <DateFormat targetDate={moment(this.props.record.published_at)} />
