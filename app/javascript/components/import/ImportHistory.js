@@ -191,11 +191,12 @@ class ImportHistory extends React.Component {
         ) : (
           <td className='center-edit-target' />
         )}
-        {this.state.isEditing ? (
+        {this.state.isEditing && (
           <td className='right-edit-target icon-td' onClick={this.handleClickCancelIcon}>
             <i className='fas fa-times' />
           </td>
-        ) : (
+        )}
+        {!this.state.isEditing && this.props.activeLink != 'registered' && (
           <td className='icon-td edit-icon-td right-edit-target' onClick={this.handleClickEditIcon}>
             <i className='fas fa-edit' />
           </td>
