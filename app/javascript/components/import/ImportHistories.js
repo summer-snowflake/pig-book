@@ -18,9 +18,17 @@ class ImportHistories extends React.Component {
       <div className='import-histories-component'>
         <table className='table'>
           <tbody>
-            {this.props.histories.map((history) =>
-              <ImportHistory activeLink={this.props.activeLink} getImportHistories={this.props.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} history={history} key={history.id} />
-            )}
+            {this.props.histories.map((history) => (
+              <ImportHistory
+                activeLink={this.props.activeLink}
+                getImportHistories={this.props.getImportHistories}
+                getImportHistoriesWithStatus={this.getImportHistoriesWithStatus}
+                history={history}
+                isLoading={this.props.isLoading}
+                key={history.id}
+                onLoad={this.props.onLoad}
+              />
+            ))}
           </tbody>
         </table>
       </div>
@@ -29,10 +37,12 @@ class ImportHistories extends React.Component {
 }
 
 ImportHistories.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   activeLink: PropTypes.string.isRequired,
   histories: PropTypes.array.isRequired,
   getImportHistories: PropTypes.func.isRequired,
-  getImportHistoriesWithStatus: PropTypes.func.isRequired
+  getImportHistoriesWithStatus: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired
 }
 
 export default ImportHistories

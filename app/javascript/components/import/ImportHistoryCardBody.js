@@ -12,7 +12,9 @@ class ImportHistoryCardBody extends React.Component {
     this.state = {
       histories: this.props.histories,
       activeLink: 'all',
-      unregisteredLength: 0
+      unregisteredLength: 0,
+      isLoadingList: false,
+      isLoadingButton: false
     }
     this.getImportHistories = this.getImportHistories.bind(this)
     this.getImportHistoriesCallback = this.getImportHistoriesCallback.bind(this)
@@ -24,6 +26,7 @@ class ImportHistoryCardBody extends React.Component {
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
+    this.handleLoad = this.handleLoad.bind(this)
   }
 
   componentWillMount() {
@@ -34,23 +37,32 @@ class ImportHistoryCardBody extends React.Component {
     this.noticeErrorMessages(error)
   }
 
+  handleLoad() {
+    this.setState({
+      isLoadingButton: true
+    })
+  }
+
   handleClickAllTab() {
     this.setState({
-      activeLink: 'all'
+      activeLink: 'all',
+      isLoadingList: true
     })
     this.getImportHistories()
   }
 
   handleClickUnregisteredTab() {
     this.setState({
-      activeLink: 'unregistered'
+      activeLink: 'unregistered',
+      isLoadingList: true
     })
     this.getImportHistoriesWithStatus('unregistered')
   }
 
   handleClickRegisteredTab() {
     this.setState({
-      activeLink: 'registered'
+      activeLink: 'registered',
+      isLoadingList: true
     })
     this.getImportHistoriesWithStatus('registered')
   }
@@ -58,7 +70,9 @@ class ImportHistoryCardBody extends React.Component {
   getImportHistoriesCallback(res) {
     this.getImportHistoriesCount()
     this.setState({
-      histories: res.data
+      histories: res.data,
+      isLoadingList: false,
+      isLoadingButton: false
     })
   }
 
@@ -79,7 +93,9 @@ class ImportHistoryCardBody extends React.Component {
   getImportHistoriesWithStatusCallback(res) {
     this.getImportHistoriesCount()
     this.setState({
-      histories: res.data
+      histories: res.data,
+      isLoadingList: false,
+      isLoadingButton: false
     })
   }
 
@@ -110,7 +126,11 @@ class ImportHistoryCardBody extends React.Component {
             <a className={'nav-link' + (this.state.activeLink == 'registered' ? ' active' : '')} href='#' onClick={this.handleClickRegisteredTab}>{'登録済み'}</a>
           </li>
         </ul>
-        <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} />
+        {this.state.isLoadingList ? (
+          <div className='pig-loading-image' />
+        ) : (
+          <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} isLoading={this.state.isLoadingButton} onLoad={this.handleLoad} />
+        )}
       </div>
     )
   }
