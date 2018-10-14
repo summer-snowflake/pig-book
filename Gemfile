@@ -63,5 +63,9 @@ group :test do
   gem 'json_spec'
 end
 
+group :production do
+  gem 'lograge'
+  gem 'rails_12factor'
+end
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'rails_12factor', group: :production
