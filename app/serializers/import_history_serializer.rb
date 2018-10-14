@@ -5,7 +5,7 @@ class ImportHistorySerializer < ActiveModel::Serializer
              :category_name, :category_required,
              :breakdown_name, :breakdown_required,
              :place_name, :place_required,
-             :tags_name, :tags_required
+             :tags_name, :tags_required, :record_id
 
   def category_required
     object.category_required?

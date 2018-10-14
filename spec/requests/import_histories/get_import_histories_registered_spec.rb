@@ -51,7 +51,8 @@ describe 'GET /api/import_histories/registered' do
           place_name: '',
           place_required: false,
           tags_name: '',
-          tags_required: false
+          tags_required: false,
+          record_id: record1.id
         },
         {
           id: import_history2.id,
@@ -65,7 +66,8 @@ describe 'GET /api/import_histories/registered' do
           place_name: 'すき家',
           place_required: true,
           tags_name: '',
-          tags_required: false
+          tags_required: false,
+          record_id: record2.id
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
