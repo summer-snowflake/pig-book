@@ -18,7 +18,7 @@ class AddButton extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <Button humanValueName={t('button.add')} onClickButton={this.handleClickButton} valueName='add' />
+          <Button humanValueName={t('button.add')} isDisabled={this.props.isDisabled} onClickButton={this.handleClickButton} valueName='add' />
         )
       }}</I18n>
     )
@@ -26,6 +26,7 @@ class AddButton extends React.Component {
 }
 
 AddButton.propTypes = {
+  isDisabled: PropTypes.bool,
   onClickButton: PropTypes.func.isRequired
 }
 

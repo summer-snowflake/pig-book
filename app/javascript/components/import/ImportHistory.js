@@ -84,6 +84,7 @@ class ImportHistory extends React.Component {
   }
 
   handleClickUpdateButton() {
+    this.props.onLoad()
     this.patchImportHistory()
   }
 
@@ -107,6 +108,7 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddCategoryButton() {
+    this.props.onLoad()
     this.postCategory()
   }
 
@@ -124,6 +126,7 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddBreakdownButton() {
+    this.props.onLoad()
     this.postBreakdown()
   }
 
@@ -141,10 +144,12 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddPlaceButton() {
+    this.props.onLoad()
     this.postPlace()
   }
 
   handleClickCreateRecordButton() {
+    this.props.onLoad()
     this.postRecord()
   }
 
@@ -186,6 +191,7 @@ class ImportHistory extends React.Component {
   }
 
   handleClickAddTagsButton() {
+    this.props.onLoad()
     this.postTags()
   }
 
@@ -241,7 +247,7 @@ class ImportHistory extends React.Component {
           {this.props.history.messages || this.props.activeLink == 'registered' || (this.props.history.status_name == 'registered' && this.props.activeLink == 'all') ? (
             <span>{this.props.history.messages}</span>
           ) : (
-            <CreateButton onClickButton={this.handleClickCreateRecordButton} />
+            <CreateButton isDisabled={this.props.isLoading} onClickButton={this.handleClickCreateRecordButton} />
           )}
           {this.props.history.category_required && (
             <div className='text-right'>
@@ -250,7 +256,7 @@ class ImportHistory extends React.Component {
                 {(this.props.history || {}).category_name}
               </span>
               <span>
-                <AddButton onClickButton={this.handleClickAddCategoryButton} />
+                <AddButton isDisabled={this.props.isLoading} onClickButton={this.handleClickAddCategoryButton} />
               </span>
             </div>
           )}
@@ -261,7 +267,7 @@ class ImportHistory extends React.Component {
                 {(this.props.history || {}).breakdown_name}
               </span>
               <span>
-                <AddButton onClickButton={this.handleClickAddBreakdownButton} />
+                <AddButton isDisabled={this.props.isLoading} onClickButton={this.handleClickAddBreakdownButton} />
               </span>
             </div>
           )}
@@ -272,7 +278,7 @@ class ImportHistory extends React.Component {
                 {(this.props.history || {}).place_name}
               </span>
               <span>
-                <AddButton onClickButton={this.handleClickAddPlaceButton} />
+                <AddButton isDisabled={this.props.isLoading} onClickButton={this.handleClickAddPlaceButton} />
               </span>
             </div>
           )}
@@ -283,7 +289,7 @@ class ImportHistory extends React.Component {
                 {(this.props.history || {}).tags_name}
               </span>
               <span>
-                <AddButton onClickButton={this.handleClickAddTagsButton} />
+                <AddButton isDisabled={this.props.isLoading} onClickButton={this.handleClickAddTagsButton} />
               </span>
             </div>
           )}
@@ -296,10 +302,12 @@ class ImportHistory extends React.Component {
 }
 
 ImportHistory.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
   getImportHistories: PropTypes.func.isRequired,
   getImportHistoriesWithStatus: PropTypes.func.isRequired,
-  activeLink: PropTypes.string.isRequired
+  activeLink: PropTypes.string.isRequired,
+  onLoad: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)

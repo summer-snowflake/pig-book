@@ -13,7 +13,8 @@ class ImportHistoryCardBody extends React.Component {
       histories: this.props.histories,
       activeLink: 'all',
       unregisteredLength: 0,
-      isLoadingList: false
+      isLoadingList: false,
+      isLoadingButton: false
     }
     this.getImportHistories = this.getImportHistories.bind(this)
     this.getImportHistoriesCallback = this.getImportHistoriesCallback.bind(this)
@@ -25,6 +26,7 @@ class ImportHistoryCardBody extends React.Component {
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
+    this.handleLoad = this.handleLoad.bind(this)
   }
 
   componentWillMount() {
@@ -33,6 +35,12 @@ class ImportHistoryCardBody extends React.Component {
 
   noticeErrorMessage(error) {
     this.noticeErrorMessages(error)
+  }
+
+  handleLoad() {
+    this.setState({
+      isLoadingButton: true
+    })
   }
 
   handleClickAllTab() {
@@ -63,7 +71,8 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesCount()
     this.setState({
       histories: res.data,
-      isLoadingList: false
+      isLoadingList: false,
+      isLoadingButton: false
     })
   }
 
@@ -85,7 +94,8 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesCount()
     this.setState({
       histories: res.data,
-      isLoadingList: false
+      isLoadingList: false,
+      isLoadingButton: false
     })
   }
 
@@ -119,7 +129,7 @@ class ImportHistoryCardBody extends React.Component {
         {this.state.isLoadingList ? (
           <div className='pig-loading-image' />
         ) : (
-          <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} />
+          <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} isLoading={this.state.isLoadingButton} onLoad={this.handleLoad} />
         )}
       </div>
     )
