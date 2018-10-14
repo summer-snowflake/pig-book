@@ -439,3 +439,12 @@ $twitter-border-color: #2e6da4;
     cursor: pointer;
   }
 }
+
+.pig-loading-image {
+  background-image: image-url('pig-loading.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 18px;
+  margin: 20px;
+  width: 70px;
+}
