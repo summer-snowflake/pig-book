@@ -32,7 +32,6 @@ class RecordInfoModal extends React.Component {
   }
 
   render() {
-    console.log(this.props.record)
     if (this.props.record.id == null) {
       return null
     }

@@ -7,7 +7,9 @@ import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
 import AddButton from './../common/AddButton'
 import CreateButton from './../common/CreateButton'
+import RecordInfoModal from './../records/RecordInfoModal'
 import { importHistoryAxios } from './../mixins/requests/ImportHistoriesMixin'
+import { recordAxios } from './../mixins/requests/RecordsMixin'
 
 class ImportHistory extends React.Component {
   constructor(props) {
@@ -15,6 +17,10 @@ class ImportHistory extends React.Component {
     this.state = {
       isEditing: false,
       row: this.props.history.row,
+      record: {
+        id: null
+      },
+      modalIsOpen: false,
       errorMessages: {}
     }
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -26,6 +32,7 @@ class ImportHistory extends React.Component {
     this.handleClickAddPlaceButton = this.handleClickAddPlaceButton.bind(this)
     this.handleClickAddTagsButton = this.handleClickAddTagsButton.bind(this)
     this.handleClickCreateRecordButton = this.handleClickCreateRecordButton.bind(this)
+    this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
     this.postCategory = this.postCategory.bind(this)
     this.postCategoryCallback = this.postCategoryCallback.bind(this)
     this.postBreakdown = this.postBreakdown.bind(this)
@@ -34,15 +41,24 @@ class ImportHistory extends React.Component {
     this.postPlaceCallback = this.postPlaceCallback.bind(this)
     this.postTags = this.postTags.bind(this)
     this.postTagsCallback = this.postTagsCallback.bind(this)
+    this.getRecord = this.getRecord.bind(this)
+    this.getRecordCallback = this.getRecordCallback.bind(this)
     this.postRecord = this.postRecord.bind(this)
     this.postRecordCallback = this.postRecordCallback.bind(this)
     this.patchImportHistory = this.patchImportHistory.bind(this)
     this.patchImportHistoryCallback = this.patchImportHistoryCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
   noticeErrorMessage(error) {
     this.noticeErrorMessages(error)
+  }
+
+  closeModal() {
+    this.setState({
+      modalIsOpen: false
+    })
   }
 
   handleClickEditIcon() {
@@ -55,6 +71,10 @@ class ImportHistory extends React.Component {
     this.setState({
       isEditing: false
     })
+  }
+
+  handleClickInfoIcon() {
+    this.getRecord()
   }
 
   handleChangeRow(e) {
@@ -133,6 +153,17 @@ class ImportHistory extends React.Component {
     this.noticeAddMessage()
   }
 
+  getRecordCallback(res) {
+    this.setState({
+      record: res.data,
+      modalIsOpen: true
+    })
+  }
+
+  getRecord() {
+    recordAxios.get(this.props.history.record_id, this.getRecordCallback, this.noticeErrorMessage)
+  }
+
   postRecord() {
     this.setState({
       message: '',
@@ -201,6 +232,11 @@ class ImportHistory extends React.Component {
             <i className='fas fa-edit' />
           </td>
         )}
+        {this.props.activeLink == 'registered' && (
+          <td className='right-edit-target'>
+            <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
+          </td>
+        )}
         <td>
           {this.props.history.messages || this.props.activeLink == 'registered' || (this.props.history.status_name == 'registered' && this.props.activeLink == 'all') ? (
             <span>{this.props.history.messages}</span>
@@ -252,6 +288,7 @@ class ImportHistory extends React.Component {
             </div>
           )}
           {this.renderAlertMessage()}
+          <RecordInfoModal handleClickCloseButton={this.closeModal} modalIsOpen={this.state.modalIsOpen} record={this.state.record} />
         </td>
       </tr>
     )
