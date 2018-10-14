@@ -51,7 +51,8 @@ describe 'GET /api/import_histories/unregistered' do
           place_name: 'すき家',
           place_required: true,
           tags_name: '',
-          tags_required: false
+          tags_required: false,
+          record_id: nil
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

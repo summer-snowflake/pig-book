@@ -2,18 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Record from './Record'
 import DestroyModal from './../common/DestroyModal'
+import RecordInfoModal from './RecordInfoModal'
 
 class Records extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       destroyModalIsOpen: false,
+      recordInfoModalIsOpen: false,
       record: {
         id: null
       }
     }
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
   }
@@ -29,6 +32,13 @@ class Records extends React.Component {
     this.props.handleClickEditIcon(recordId)
   }
 
+  handleClickInfoIcon(record) {
+    this.setState({
+      record: record,
+      recordInfoModalIsOpen: true
+    })
+  }
+
   onClickDestroyButton(recordId) {
     this.setState({
       destroyModalIsOpen: false
@@ -38,7 +48,8 @@ class Records extends React.Component {
 
   closeModal() {
     this.setState({
-      destroyModalIsOpen: false
+      destroyModalIsOpen: false,
+      recordInfoModalIsOpen: false
     })
   }
 
@@ -53,6 +64,7 @@ class Records extends React.Component {
                 isListPage={this.props.isListPage}
                 key={record.id}
                 onClickEditIcon={this.handleClickEditIcon}
+                onClickInfoIcon={this.handleClickInfoIcon}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 record={record}
               />
@@ -60,6 +72,7 @@ class Records extends React.Component {
           </tbody>
         </table>
         <DestroyModal handleClickCloseButton={this.closeModal} handleClickSubmitButton={this.onClickDestroyButton} item={this.state.record} modalIsOpen={this.state.destroyModalIsOpen} />
+        <RecordInfoModal handleClickCloseButton={this.closeModal} modalIsOpen={this.state.recordInfoModalIsOpen} record={this.state.record} />
       </div>
     )
   }

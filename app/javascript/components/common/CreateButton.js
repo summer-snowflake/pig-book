@@ -18,7 +18,7 @@ class CreateButton extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <Button humanValueName={t('button.create')} onClickButton={this.handleClickButton} valueName='create' />
+          <Button humanValueName={t('button.create')} isDisabled={this.props.isDisabled} onClickButton={this.handleClickButton} valueName='create' />
         )
       }}</I18n>
     )
@@ -26,6 +26,7 @@ class CreateButton extends React.Component {
 }
 
 CreateButton.propTypes = {
+  isDisabled: PropTypes.bool,
   onClickButton: PropTypes.func.isRequired
 }
 

@@ -17,13 +17,14 @@ class Button extends React.Component {
   render() {
     return (
       <span className={this.props.valueName + '-button-component'}>
-        <input className={'btn btn-' + this.state.buttonType} id={this.props.valueName + '-button'} onClick={this.handleClickButton} type='submit' value={this.props.humanValueName} />
+        <input className={'btn btn-' + this.state.buttonType} disabled={this.props.isDisabled} id={this.props.valueName + '-button'} onClick={this.handleClickButton} type='submit' value={this.props.humanValueName} />
       </span>
     )
   }
 }
 
 Button.propTypes = {
+  isDisabled: PropTypes.bool,
   valueName: PropTypes.string.isRequired,
   humanValueName: PropTypes.string.isRequired,
   buttonType: PropTypes.string,

@@ -180,8 +180,8 @@ $twitter-border-color: #2e6da4;
   }
 
   .icon-td {
-    min-width: 50px;
     text-align: center;
+    width: 26px;
   }
 
   .tags-td {
@@ -213,11 +213,11 @@ $twitter-border-color: #2e6da4;
     width: 110px;
   }
 
-  .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit {
+  .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit, .fas.fa-info-circle {
     padding: 6px;
   }
 
-  .far.fa-trash-alt:hover, .fas.fa-times:hover, .fas.fa-edit:hover {
+  .far.fa-trash-alt:hover, .fas.fa-times:hover, .fas.fa-edit:hover, .fas.fa-info-circle:hover {
     background-color: rgba(lighten($green, 15%), .3);
     border-radius: 4px;
     cursor: pointer;
@@ -438,4 +438,13 @@ $twitter-border-color: #2e6da4;
     border-radius: 4px;
     cursor: pointer;
   }
+}
+
+.pig-loading-image {
+  background-image: image-url('pig-loading.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 18px;
+  margin: 20px;
+  width: 70px;
 }

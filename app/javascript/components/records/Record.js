@@ -12,6 +12,7 @@ class Record extends React.Component {
     super(props)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
   }
 
   onClickTrashIcon(record) {
@@ -22,14 +23,23 @@ class Record extends React.Component {
     this.props.onClickEditIcon(this.props.record.id)
   }
 
+  handleClickInfoIcon() {
+    this.props.onClickInfoIcon(this.props.record)
+  }
+
   render() {
     let editing = this.props.editingRecordId == this.props.record.id ? 'is-editing-tr' : ''
 
     return (
       <tr className={'record-component ' + editing} id={'record-' + this.props.record.id}>
         <td className='icon-td'>
-          <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+          <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
         </td>
+        {!this.props.isListPage && (
+          <td className='icon-td'>
+            <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+          </td>
+        )}
         {this.props.isListPage && (
           <td>
             <DateFormat targetDate={moment(this.props.record.published_at)} />
@@ -71,6 +81,7 @@ Record.propTypes = {
   editingRecordId: PropTypes.number,
   record: PropTypes.object.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
+  onClickInfoIcon: PropTypes.func.isRequired,
   onClickEditIcon: PropTypes.func.isRequired
 }
 
