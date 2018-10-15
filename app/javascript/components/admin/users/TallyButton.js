@@ -18,7 +18,7 @@ class MonthlyCalculateButton extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <Button humanValueName={t('button.tally')} onClickButton={this.handleClickButton} valueName='tally' />
+          <Button isDisabled={this.props.isDisabled} humanValueName={t('button.tally')} onClickButton={this.handleClickButton} valueName='tally' />
         )
       }}</I18n>
     )
@@ -26,6 +26,7 @@ class MonthlyCalculateButton extends React.Component {
 }
 
 MonthlyCalculateButton.propTypes = {
+  isDisabled: PropTypes.bool,
   onClickButton: PropTypes.func.isRequired
 }
 

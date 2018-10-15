@@ -13,6 +13,7 @@ class TallyButtonTableRecordBody extends React.Component {
     super(props)
     this.state = {
       lastTallyAt: this.props.last_tally_at && moment(this.props.last_tally_at),
+      isDisabled: false,
       errorMessages: {}
     }
     this.patchUser = this.patchUser.bind(this)
@@ -26,12 +27,16 @@ class TallyButtonTableRecordBody extends React.Component {
   }
 
   handleClickButton() {
+    this.setState({
+      isDisabled: true
+    })
     this.patchUser()
   }
 
   patchUserCallback(res) {
     this.noticeCompletedMessage()
     this.setState({
+      isDisabled: false,
       lastTallyAt: moment(res.data.last_tally_at)
     })
   }
@@ -44,7 +49,7 @@ class TallyButtonTableRecordBody extends React.Component {
     return (
       <div className='monthly-calculate-table-record-body-component'>
         {this.renderAlertMessage()}
-        <TallyButton onClickButton={this.handleClickButton} />
+        <TallyButton isDisabled={this.state.isDisabled} onClickButton={this.handleClickButton} />
         <TallyTimeLabel lastTallyAt={this.state.lastTallyAt} />
       </div>
     )
