@@ -23,7 +23,6 @@ module PigBook
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
-    config.lograge.enabled = true
 
     # Generate slim templates
     config.generators.template_engine = :slim
