@@ -57,6 +57,11 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
+  # Lograge is an attempt to bring sanity to Rails' noisy and unusable,
+  # unparsable and, in the context of running multiple processes and servers,
+  # unreadable default logging output.
+  config.lograge.enabled = true
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
