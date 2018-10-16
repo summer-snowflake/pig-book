@@ -28,6 +28,7 @@ class Breakdown extends React.Component {
     this.handleChangeBreakdownName = this.handleChangeBreakdownName.bind(this)
     this.handleClickButton = this.handleClickButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(breakdown) {

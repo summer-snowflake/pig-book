@@ -20,6 +20,7 @@ class TagCardBody extends React.Component {
     this.postTagCallback = this.postTagCallback.bind(this)
     this.destroyTag = this.destroyTag.bind(this)
     this.destroyTagCallback = this.destroyTagCallback.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {

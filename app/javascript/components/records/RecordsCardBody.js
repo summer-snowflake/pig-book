@@ -24,6 +24,7 @@ class RecordsCardBody extends React.Component {
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
     this.handleClickPreviousButton = this.handleClickPreviousButton.bind(this)
     this.handleClickNextButton = this.handleClickNextButton.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {

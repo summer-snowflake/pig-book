@@ -22,6 +22,7 @@ class MemoCardBody extends React.Component {
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   handleClickEditIcon() {

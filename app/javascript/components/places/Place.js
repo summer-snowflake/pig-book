@@ -25,6 +25,7 @@ class Place extends React.Component {
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(place) {

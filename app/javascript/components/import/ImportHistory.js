@@ -50,6 +50,7 @@ class ImportHistory extends React.Component {
     this.patchImportHistoryCallback = this.patchImportHistoryCallback.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   closeModal() {

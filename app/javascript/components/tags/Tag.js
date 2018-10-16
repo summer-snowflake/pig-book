@@ -29,6 +29,7 @@ class Tag extends React.Component {
     this.handleChangeTagName = this.handleChangeTagName.bind(this)
     this.handleChangeComplete = this.handleChangeComplete.bind(this)
     this.handleClickColorBox = this.handleClickColorBox.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(tag) {

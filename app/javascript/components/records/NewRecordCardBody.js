@@ -76,6 +76,7 @@ class NewRecordCardBody extends React.Component {
     this.setCategory = this.setCategory.bind(this)
     this.setTemplate = this.setTemplate.bind(this)
     this.setTag = this.setTag.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {

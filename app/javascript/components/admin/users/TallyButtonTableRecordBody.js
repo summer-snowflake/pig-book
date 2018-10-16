@@ -19,6 +19,7 @@ class TallyButtonTableRecordBody extends React.Component {
     this.patchUser = this.patchUser.bind(this)
     this.patchUserCallback = this.patchUserCallback.bind(this)
     this.handleClickButton = this.handleClickButton.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   handleClickButton() {

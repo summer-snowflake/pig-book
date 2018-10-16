@@ -34,6 +34,7 @@ class AddCategoryModal extends React.Component {
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
     this.postCategoryCallback = this.postCategoryCallback.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickCloseButton() {

@@ -20,6 +20,7 @@ class CategoryCardBody extends React.Component {
     this.postCategoryCallback = this.postCategoryCallback.bind(this)
     this.destroyCategory = this.destroyCategory.bind(this)
     this.destroyCategoryCallback = this.destroyCategoryCallback.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {

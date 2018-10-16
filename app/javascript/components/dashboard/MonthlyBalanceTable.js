@@ -19,6 +19,7 @@ class MonthlyBalanceTable extends React.Component {
     }
     this.getMonthlyBalanceTables = this.getMonthlyBalanceTables.bind(this)
     this.getMonthlyBalanceTablesCallback = this.getMonthlyBalanceTablesCallback.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {

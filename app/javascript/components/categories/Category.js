@@ -26,6 +26,7 @@ class Category extends React.Component {
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleChangeCategoryName = this.handleChangeCategoryName.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(category) {

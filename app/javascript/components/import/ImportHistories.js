@@ -22,6 +22,7 @@ class ImportHistories extends React.Component {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.deleteImportHistory = this.deleteImportHistory.bind(this)
     this.deleteImportHistoryCallback = this.deleteImportHistoryCallback.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   getImportHistoriesWithStatus(activeLink) {

@@ -34,6 +34,7 @@ class Template extends React.Component {
     this.handleChangeTemplateMemo = this.handleChangeTemplateMemo.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(template) {
