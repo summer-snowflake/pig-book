@@ -5,7 +5,6 @@ class Api::ImportHistoriesController < Api::BaseController
   before_action :set_creator, only: %i[
     create_category create_breakdown create_place create_tags create_record
   ]
-  before_action :set_import_history, only: %i[destroy]
 
   def index
     import_histories = current_user
@@ -83,8 +82,9 @@ class Api::ImportHistoriesController < Api::BaseController
   end
 
   def destroy
-    @import_history.destroy
-    if @import_history.destroyed?
+    import_history = current_user.import_histories.find(params[:id])
+    import_history.destroy
+    if import_history.destroyed?
       head :no_content
     else
       render_not_found_error
@@ -109,10 +109,6 @@ class Api::ImportHistoriesController < Api::BaseController
 
   def update_params
     params.permit(:id, :row)
-  end
-
-  def set_import_history
-    @import_history = current_user.import_histories.find(params[:id])
   end
 
   def set_creator
