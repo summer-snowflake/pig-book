@@ -7,6 +7,7 @@ class ImportHistory::Creator
   end
 
   def create_record
+    return false unless @import_history.unregistered?
     ActiveRecord::Base.transaction do
       record_validator = ImportHistory::RecordValidator.new(
         user: @user,
