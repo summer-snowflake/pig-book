@@ -6,6 +6,7 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import UpdateButton from './../common/UpdateButton'
 import AddButton from './../common/AddButton'
+import Trash from './../common/Trash'
 import CreateButton from './../common/CreateButton'
 import RecordInfoModal from './../records/RecordInfoModal'
 import { importHistoryAxios } from './../mixins/requests/ImportHistoriesMixin'
@@ -49,6 +50,7 @@ class ImportHistory extends React.Component {
     this.patchImportHistoryCallback = this.patchImportHistoryCallback.bind(this)
     this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
   }
 
   noticeErrorMessage(error) {
@@ -59,6 +61,10 @@ class ImportHistory extends React.Component {
     this.setState({
       modalIsOpen: false
     })
+  }
+
+  onClickTrashIcon() {
+    this.props.onClickTrashIcon(this.props.history)
   }
 
   handleClickEditIcon() {
@@ -296,6 +302,11 @@ class ImportHistory extends React.Component {
           {this.renderAlertMessage()}
           <RecordInfoModal handleClickCloseButton={this.closeModal} modalIsOpen={this.state.modalIsOpen} record={this.state.record} />
         </td>
+        {this.props.activeLink == 'unregistered' && (
+          <td className='icon-td'>
+            <Trash handleClick={this.onClickTrashIcon} item={this.props.history} />
+          </td>
+        )}
       </tr>
     )
   }
@@ -307,7 +318,8 @@ ImportHistory.propTypes = {
   getImportHistories: PropTypes.func.isRequired,
   getImportHistoriesWithStatus: PropTypes.func.isRequired,
   activeLink: PropTypes.string.isRequired,
-  onLoad: PropTypes.func.isRequired
+  onLoad: PropTypes.func.isRequired,
+  onClickTrashIcon: PropTypes.func.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)

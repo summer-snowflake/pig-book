@@ -18,7 +18,7 @@ class MonthlyCalculateButton extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <Button isDisabled={this.props.isDisabled} humanValueName={t('button.tally')} onClickButton={this.handleClickButton} valueName='tally' />
+          <Button humanValueName={t('button.tally')} isDisabled={this.props.isDisabled} onClickButton={this.handleClickButton} valueName='tally' />
         )
       }}</I18n>
     )
