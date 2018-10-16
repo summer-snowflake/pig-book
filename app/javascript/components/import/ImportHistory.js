@@ -48,13 +48,8 @@ class ImportHistory extends React.Component {
     this.postRecordCallback = this.postRecordCallback.bind(this)
     this.patchImportHistory = this.patchImportHistory.bind(this)
     this.patchImportHistoryCallback = this.patchImportHistoryCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   closeModal() {
@@ -110,7 +105,7 @@ class ImportHistory extends React.Component {
     let params = {
       row: this.state.row
     }
-    importHistoryAxios.patch(this.props.history.id, params, this.patchImportHistoryCallback, this.noticeErrorMessage)
+    importHistoryAxios.patch(this.props.history.id, params, this.patchImportHistoryCallback, this.noticeErrorMessages)
   }
 
   handleClickAddCategoryButton() {
@@ -128,7 +123,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    importHistoryAxios.postCategory(this.props.history.id, this.postCategoryCallback, this.noticeErrorMessage)
+    importHistoryAxios.postCategory(this.props.history.id, this.postCategoryCallback, this.noticeErrorMessages)
   }
 
   handleClickAddBreakdownButton() {
@@ -146,7 +141,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    importHistoryAxios.postBreakdown(this.props.history.id, this.postBreakdownCallback, this.noticeErrorMessage)
+    importHistoryAxios.postBreakdown(this.props.history.id, this.postBreakdownCallback, this.noticeErrorMessages)
   }
 
   handleClickAddPlaceButton() {
@@ -172,7 +167,7 @@ class ImportHistory extends React.Component {
   }
 
   getRecord() {
-    recordAxios.get(this.props.history.record_id, this.getRecordCallback, this.noticeErrorMessage)
+    recordAxios.get(this.props.history.record_id, this.getRecordCallback, this.noticeErrorMessages)
   }
 
   postRecord() {
@@ -180,7 +175,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    importHistoryAxios.postRecord(this.props.history.id, this.postRecordCallback, this.noticeErrorMessage)
+    importHistoryAxios.postRecord(this.props.history.id, this.postRecordCallback, this.noticeErrorMessages)
   }
 
   postPlaceCallback() {
@@ -193,7 +188,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    importHistoryAxios.postPlace(this.props.history.id, this.postPlaceCallback, this.noticeErrorMessage)
+    importHistoryAxios.postPlace(this.props.history.id, this.postPlaceCallback, this.noticeErrorMessages)
   }
 
   handleClickAddTagsButton() {
@@ -211,7 +206,7 @@ class ImportHistory extends React.Component {
       message: '',
       errorMessages: {}
     })
-    importHistoryAxios.postTags(this.props.history.id, this.postTagsCallback, this.noticeErrorMessage)
+    importHistoryAxios.postTags(this.props.history.id, this.postTagsCallback, this.noticeErrorMessages)
   }
 
   render() {

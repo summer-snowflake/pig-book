@@ -25,15 +25,10 @@ class PlaceCardBody extends React.Component {
     this.getPlaceCategoriesCallback = this.getPlaceCategoriesCallback.bind(this)
     this.postCategorizedPlace = this.postCategorizedPlace.bind(this)
     this.postCategorizedPlaceCallback = this.postCategorizedPlaceCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
     this.getPlaces()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getPlacesCallback(res) {
@@ -43,7 +38,7 @@ class PlaceCardBody extends React.Component {
   }
 
   getPlaces() {
-    placesAxios.get(this.getPlacesCallback, this.noticeErrorMessage)
+    placesAxios.get(this.getPlacesCallback, this.noticeErrorMessages)
   }
 
   postPlaceCallback() {
@@ -56,7 +51,7 @@ class PlaceCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    placeAxios.post(params, this.postPlaceCallback, this.noticeErrorMessage)
+    placeAxios.post(params, this.postPlaceCallback, this.noticeErrorMessages)
   }
 
   destroyPlaceCallback() {
@@ -68,7 +63,7 @@ class PlaceCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    placeAxios.delete(placeId, this.destroyPlaceCallback, this.noticeErrorMessage)
+    placeAxios.delete(placeId, this.destroyPlaceCallback, this.noticeErrorMessages)
   }
 
   getPlaceCategoriesCallback(res) {
@@ -78,7 +73,7 @@ class PlaceCardBody extends React.Component {
   }
 
   getPlaceCategories(placeId) {
-    placeAxios.getCategories(placeId, this.getPlaceCategoriesCallback, this.noticeErrorMessage)
+    placeAxios.getCategories(placeId, this.getPlaceCategoriesCallback, this.noticeErrorMessages)
   }
 
   postCategorizedPlaceCallback() {
@@ -91,7 +86,7 @@ class PlaceCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    placeAxios.postCategorized(params, this.postCategorizedPlaceCallback, this.noticeErrorMessage)
+    placeAxios.postCategorized(params, this.postCategorizedPlaceCallback, this.noticeErrorMessages)
   }
 
   render() {

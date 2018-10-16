@@ -18,12 +18,7 @@ class TallyButtonTableRecordBody extends React.Component {
     }
     this.patchUser = this.patchUser.bind(this)
     this.patchUserCallback = this.patchUserCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickButton = this.handleClickButton.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   handleClickButton() {
@@ -42,7 +37,7 @@ class TallyButtonTableRecordBody extends React.Component {
   }
 
   patchUser() {
-    userAxios.patch(this.props.user_id, this.patchUserCallback, this.noticeErrorMessage)
+    userAxios.patch(this.props.user_id, this.patchUserCallback, this.noticeErrorMessages)
   }
 
   render() {

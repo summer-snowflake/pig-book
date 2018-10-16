@@ -22,7 +22,6 @@ class RecordsCardBody extends React.Component {
     this.onClickEditIcon = this.onClickEditIcon.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickPreviousButton = this.handleClickPreviousButton.bind(this)
     this.handleClickNextButton = this.handleClickNextButton.bind(this)
   }
@@ -57,16 +56,12 @@ class RecordsCardBody extends React.Component {
     })
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   getRecords(month) {
     let targetDate = moment(month)
     let params = {
       month: String(targetDate)
     }
-    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
+    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
 
   destroyRecordCallback() {
@@ -78,7 +73,7 @@ class RecordsCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessages)
   }
 
   onClickEditIcon() {

@@ -22,7 +22,6 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesWithStatusCallback = this.getImportHistoriesWithStatusCallback.bind(this)
     this.getImportHistoriesCount = this.getImportHistoriesCount.bind(this)
     this.getImportHistoriesCountCallback = this.getImportHistoriesCountCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
@@ -31,10 +30,6 @@ class ImportHistoryCardBody extends React.Component {
 
   componentWillMount() {
     this.getImportHistories()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   handleLoad() {
@@ -77,7 +72,7 @@ class ImportHistoryCardBody extends React.Component {
   }
 
   getImportHistories() {
-    importHistoriesAxios.get(this.getImportHistoriesCallback, this.noticeErrorMessage)
+    importHistoriesAxios.get(this.getImportHistoriesCallback, this.noticeErrorMessages)
   }
 
   getImportHistoriesCountCallback(res) {
@@ -87,7 +82,7 @@ class ImportHistoryCardBody extends React.Component {
   }
 
   getImportHistoriesCount() {
-    importHistoriesCountAxios.get(this.getImportHistoriesCountCallback, this.noticeErrorMessage)
+    importHistoriesCountAxios.get(this.getImportHistoriesCountCallback, this.noticeErrorMessages)
   }
 
   getImportHistoriesWithStatusCallback(res) {
@@ -100,7 +95,7 @@ class ImportHistoryCardBody extends React.Component {
   }
 
   getImportHistoriesWithStatus(statusName) {
-    importHistoriesAxios.getWithStatus(statusName, this.getImportHistoriesWithStatusCallback, this.noticeErrorMessage)
+    importHistoriesAxios.getWithStatus(statusName, this.getImportHistoriesWithStatusCallback, this.noticeErrorMessages)
   }
 
   render() {

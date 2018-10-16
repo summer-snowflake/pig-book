@@ -25,7 +25,6 @@ class Template extends React.Component {
     }
     this.patchTemplate = this.patchTemplate.bind(this)
     this.patchTemplateCallback = this.patchTemplateCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -35,10 +34,6 @@ class Template extends React.Component {
     this.handleChangeTemplateMemo = this.handleChangeTemplateMemo.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   onClickTrashIcon(template) {
@@ -99,7 +94,7 @@ class Template extends React.Component {
       charge: this.state.charge,
       memo: this.state.memo
     }
-    templateAxios.patch(this.props.template.id, params, this.patchTemplateCallback, this.noticeErrorMessage)
+    templateAxios.patch(this.props.template.id, params, this.patchTemplateCallback, this.noticeErrorMessages)
   }
 
   onSelectCategory(category) {

@@ -17,16 +17,11 @@ class MypageRecordsCardBody extends React.Component {
     this.getRecordsCallback = this.getRecordsCallback.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickEditIcon = this.onClickEditIcon.bind(this)
   }
 
   componentWillMount() {
     this.getRecords()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getRecordsCallback(res) {
@@ -40,7 +35,7 @@ class MypageRecordsCardBody extends React.Component {
       order: 'created_at',
       limit: 5
     }
-    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
+    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
 
   destroyRecordCallback() {
@@ -52,7 +47,7 @@ class MypageRecordsCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessages)
   }
 
   onClickEditIcon() {

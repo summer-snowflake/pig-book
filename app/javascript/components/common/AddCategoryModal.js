@@ -34,11 +34,6 @@ class AddCategoryModal extends React.Component {
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
     this.postCategory = this.postCategory.bind(this)
     this.postCategoryCallback = this.postCategoryCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   onClickCloseButton() {
@@ -55,7 +50,7 @@ class AddCategoryModal extends React.Component {
       message: '',
       errorMessages: {}
     })
-    categoryAxios.post(params, this.postCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.post(params, this.postCategoryCallback, this.noticeErrorMessages)
   }
 
   handleChangeName(e) {

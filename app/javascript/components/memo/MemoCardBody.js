@@ -18,15 +18,10 @@ class MemoCardBody extends React.Component {
     }
     this.patchMemo = this.patchMemo.bind(this)
     this.patchMemoCallback = this.patchMemoCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   handleClickEditIcon() {
@@ -60,7 +55,7 @@ class MemoCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    profileAxios.patch(profile, this.patchMemoCallback, this.noticeErrorMessage)
+    profileAxios.patch(profile, this.patchMemoCallback, this.noticeErrorMessages)
   }
 
   handleClickCancelButton() {

@@ -67,7 +67,6 @@ class NewRecordCardBody extends React.Component {
     this.destroyRecord = this.destroyRecord.bind(this)
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
     this.setStateDate = this.setStateDate.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickChangeDateButton = this.onClickChangeDateButton.bind(this)
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.onCancelEditing = this.onCancelEditing.bind(this)
@@ -81,10 +80,6 @@ class NewRecordCardBody extends React.Component {
 
   componentWillMount() {
     this.getBaseSetting()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   onChangeCharge(charge) {
@@ -201,7 +196,7 @@ class NewRecordCardBody extends React.Component {
     let params = {
       date: String(targetDate)
     }
-    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessage)
+    recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
 
   postRecordCallback(res) {
@@ -223,7 +218,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    recordAxios.post(params, this.postRecordCallback, this.noticeErrorMessage)
+    recordAxios.post(params, this.postRecordCallback, this.noticeErrorMessages)
   }
 
   patchRecordCallback(res) {
@@ -245,7 +240,7 @@ class NewRecordCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    recordAxios.patch(params.id, params, this.patchRecordCallback, this.noticeErrorMessage)
+    recordAxios.patch(params.id, params, this.patchRecordCallback, this.noticeErrorMessages)
   }
 
   getBaseSettingCallback(res) {
@@ -257,7 +252,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   getBaseSetting() {
-    profileAxios.get(this.getBaseSettingCallback, this.noticeErrorMessage)
+    profileAxios.get(this.getBaseSettingCallback, this.noticeErrorMessages)
   }
 
   getCategoriesCallback(res) {
@@ -268,7 +263,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   getCategories() {
-    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
   }
 
   getRecentlyUsedCallback(res) {
@@ -278,7 +273,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   getRecentlyUsed() {
-    recentlyUsedAxios.get(this.getRecentlyUsedCallback, this.noticeErrorMessage)
+    recentlyUsedAxios.get(this.getRecentlyUsedCallback, this.noticeErrorMessages)
   }
 
   getTagsCallback(res) {
@@ -291,7 +286,7 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessages)
   }
 
   destroyRecordCallback() {
@@ -303,7 +298,7 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessage)
+    recordAxios.delete(recordId, this.destroyRecordCallback, this.noticeErrorMessages)
   }
 
   onClickChangeDateButton(days) {
@@ -346,7 +341,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   getRecord(recordId) {
-    recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessage)
+    recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessages)
   }
 
   handleUpdateTags(tags) {

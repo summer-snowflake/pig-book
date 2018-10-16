@@ -19,15 +19,10 @@ class MonthlyBalanceTable extends React.Component {
     }
     this.getMonthlyBalanceTables = this.getMonthlyBalanceTables.bind(this)
     this.getMonthlyBalanceTablesCallback = this.getMonthlyBalanceTablesCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
   }
 
   componentWillMount() {
     this.getMonthlyBalanceTables()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getMonthlyBalanceTablesCallback(res) {
@@ -37,7 +32,7 @@ class MonthlyBalanceTable extends React.Component {
   }
 
   getMonthlyBalanceTables() {
-    monthlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesCallback, this.noticeErrorMessage)
+    monthlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesCallback, this.noticeErrorMessages)
   }
 
   render() {
