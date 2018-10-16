@@ -22,13 +22,13 @@ class Breakdown extends React.Component {
     }
     this.patchBreakdown = this.patchBreakdown.bind(this)
     this.patchBreakdownCallback = this.patchBreakdownCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleChangeBreakdownName = this.handleChangeBreakdownName.bind(this)
     this.handleClickButton = this.handleClickButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(breakdown) {
@@ -65,10 +65,6 @@ class Breakdown extends React.Component {
     this.noticeUpdatedMessage()
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   patchBreakdown() {
     this.setState({
       message: '',
@@ -78,7 +74,7 @@ class Breakdown extends React.Component {
       name: this.state.name,
       category_id: this.state.categoryId
     }
-    breakdownAxios.patch(this.props.breakdown.id, params, this.patchBreakdownCallback, this.noticeErrorMessage)
+    breakdownAxios.patch(this.props.breakdown.id, params, this.patchBreakdownCallback, this.noticeErrorMessages)
   }
 
   onSelectCategory(category) {

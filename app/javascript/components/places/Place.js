@@ -19,21 +19,17 @@ class Place extends React.Component {
     }
     this.patchPlace = this.patchPlace.bind(this)
     this.patchPlaceCallback = this.patchPlaceCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleChangePlaceName = this.handleChangePlaceName.bind(this)
     this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(place) {
     this.props.onClickTrashIcon(place)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   handleClickPlusIcon() {
@@ -70,7 +66,7 @@ class Place extends React.Component {
     let params = {
       name: this.state.name
     }
-    placeAxios.patch(this.props.place.id, params, this.patchPlaceCallback, this.noticeErrorMessage)
+    placeAxios.patch(this.props.place.id, params, this.patchPlaceCallback, this.noticeErrorMessages)
   }
 
   handleClickUpdateButton() {

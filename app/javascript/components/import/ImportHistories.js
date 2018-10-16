@@ -20,13 +20,9 @@ class ImportHistories extends React.Component {
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.deleteImportHistory = this.deleteImportHistory.bind(this)
     this.deleteImportHistoryCallback = this.deleteImportHistoryCallback.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   getImportHistoriesWithStatus(activeLink) {
@@ -59,7 +55,7 @@ class ImportHistories extends React.Component {
   }
 
   deleteImportHistory() {
-    importHistoryAxios.delete(this.state.importHistory.id, this.deleteImportHistoryCallback, this.noticeErrorMessage)
+    importHistoryAxios.delete(this.state.importHistory.id, this.deleteImportHistoryCallback, this.noticeErrorMessages)
   }
 
   render() {
