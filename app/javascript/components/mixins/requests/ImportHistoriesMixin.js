@@ -21,6 +21,10 @@ export const importHistoryAxios = {
     let url = '/api/import_histories/' + importHistoryId
     axiosMixin.request('PATCH', callback, errorCallback, url, params)
   },
+  delete: (importHistoryId, callback, errorCallback) => {
+    let url = '/api/import_histories/' + importHistoryId
+    axiosMixin.request('DELETE', callback, errorCallback, url)
+  },
   postCategory : (importHistoryId, callback, errorCallback) => {
     let url = '/api/import_histories/' + importHistoryId + '/create_category'
     axiosMixin.request('POST', callback, errorCallback, url)

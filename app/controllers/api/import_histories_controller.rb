@@ -81,6 +81,16 @@ class Api::ImportHistoriesController < Api::BaseController
     end
   end
 
+  def destroy
+    import_history = current_user.import_histories.find(params[:id])
+    import_history.destroy
+    if import_history.destroyed?
+      head :no_content
+    else
+      render_not_found_error
+    end
+  end
+
   def unregistered_count
     import_histories_count =
       current_user.import_histories.send(:unregistered).order(:created_at).count
