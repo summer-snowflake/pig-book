@@ -20,13 +20,13 @@ class Category extends React.Component {
     }
     this.patchCategory = this.patchCategory.bind(this)
     this.patchCategoryCallback = this.patchCategoryCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleChangeCategoryName = this.handleChangeCategoryName.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(category) {
@@ -57,10 +57,6 @@ class Category extends React.Component {
     })
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   handleClickUpdateButton() {
     this.patchCategory()
   }
@@ -82,7 +78,7 @@ class Category extends React.Component {
       balance_of_payments: this.state.balance_of_payments,
       name: this.state.name
     }
-    categoryAxios.patch(this.props.category.id, params, this.patchCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.patch(this.props.category.id, params, this.patchCategoryCallback, this.noticeErrorMessages)
   }
 
   render() {

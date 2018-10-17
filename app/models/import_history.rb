@@ -16,6 +16,14 @@ class ImportHistory < ApplicationRecord
     record_id.nil? ? 'unregistered' : 'registered'
   end
 
+  def registered
+    status_name == 'registered'
+  end
+
+  def unregistered?
+    status_name == 'unregistered'
+  end
+
   def category_id
     user.categories.find_by(name: category_name)&.id if category_name
   end

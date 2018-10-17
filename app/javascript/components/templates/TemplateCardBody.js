@@ -28,15 +28,11 @@ class TemplateCardBody extends React.Component {
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getTags = this.getTags.bind(this)
     this.getTagsCallback = this.getTagsCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {
     this.getTags()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getTagsCallback(res) {
@@ -47,7 +43,7 @@ class TemplateCardBody extends React.Component {
   }
 
   getTags() {
-    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessages)
   }
 
   getCategoriesCallback(res) {
@@ -57,7 +53,7 @@ class TemplateCardBody extends React.Component {
   }
 
   getCategories() {
-    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
   }
 
   getTemplatesCallback(res) {
@@ -68,7 +64,7 @@ class TemplateCardBody extends React.Component {
   }
 
   getTemplates() {
-    templatesAxios.get(this.getTemplatesCallback, this.noticeErrorMessage)
+    templatesAxios.get(this.getTemplatesCallback, this.noticeErrorMessages)
   }
 
   postTemplateCallback() {
@@ -81,7 +77,7 @@ class TemplateCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    templateAxios.post(params, this.postTemplateCallback, this.noticeErrorMessage)
+    templateAxios.post(params, this.postTemplateCallback, this.noticeErrorMessages)
   }
 
   destroyTemplateCallback() {
@@ -93,7 +89,7 @@ class TemplateCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    templateAxios.delete(templateId, this.destroyTemplateCallback, this.noticeErrorMessage)
+    templateAxios.delete(templateId, this.destroyTemplateCallback, this.noticeErrorMessages)
   }
 
   render() {

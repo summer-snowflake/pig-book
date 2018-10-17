@@ -22,7 +22,6 @@ class Tag extends React.Component {
     }
     this.patchTag = this.patchTag.bind(this)
     this.patchTagCallback = this.patchTagCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -30,10 +29,7 @@ class Tag extends React.Component {
     this.handleChangeTagName = this.handleChangeTagName.bind(this)
     this.handleChangeComplete = this.handleChangeComplete.bind(this)
     this.handleClickColorBox = this.handleClickColorBox.bind(this)
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   onClickTrashIcon(tag) {
@@ -77,7 +73,7 @@ class Tag extends React.Component {
       color_code: this.state.colorCode,
       name: this.state.name
     }
-    tagAxios.patch(this.props.tag.id, params, this.patchTagCallback, this.noticeErrorMessage)
+    tagAxios.patch(this.props.tag.id, params, this.patchTagCallback, this.noticeErrorMessages)
   }
 
   handleChangeComplete(color) {

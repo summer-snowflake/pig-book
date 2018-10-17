@@ -24,7 +24,7 @@ class BreakdownCardBody extends React.Component {
     this.destroyBreakdownCallback = this.destroyBreakdownCallback.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {
@@ -37,12 +37,8 @@ class BreakdownCardBody extends React.Component {
     })
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   getCategories() {
-    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
   }
 
   getBreakdownsCallback(res) {
@@ -53,7 +49,7 @@ class BreakdownCardBody extends React.Component {
   }
 
   getBreakdowns() {
-    breakdownsAxios.get(this.getBreakdownsCallback, this.noticeErrorMessage)
+    breakdownsAxios.get(this.getBreakdownsCallback, this.noticeErrorMessages)
   }
 
   postBreakdownCallback() {
@@ -66,7 +62,7 @@ class BreakdownCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    breakdownAxios.post(params, this.postBreakdownCallback, this.noticeErrorMessage)
+    breakdownAxios.post(params, this.postBreakdownCallback, this.noticeErrorMessages)
   }
 
   destroyBreakdownCallback() {
@@ -78,7 +74,7 @@ class BreakdownCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    breakdownAxios.delete(breakdownId, this.destroyBreakdownCallback, this.noticeErrorMessage)
+    breakdownAxios.delete(breakdownId, this.destroyBreakdownCallback, this.noticeErrorMessages)
   }
 
   render() {

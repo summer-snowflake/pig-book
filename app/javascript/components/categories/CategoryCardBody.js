@@ -20,7 +20,7 @@ class CategoryCardBody extends React.Component {
     this.postCategoryCallback = this.postCategoryCallback.bind(this)
     this.destroyCategory = this.destroyCategory.bind(this)
     this.destroyCategoryCallback = this.destroyCategoryCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {
@@ -33,12 +33,8 @@ class CategoryCardBody extends React.Component {
     })
   }
 
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
-  }
-
   getCategories() {
-    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessage)
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
   }
 
   postCategoryCallback() {
@@ -51,7 +47,7 @@ class CategoryCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    categoryAxios.post(params, this.postCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.post(params, this.postCategoryCallback, this.noticeErrorMessages)
   }
 
   destroyCategoryCallback() {
@@ -63,7 +59,7 @@ class CategoryCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    categoryAxios.delete(categoryId, this.destroyCategoryCallback, this.noticeErrorMessage)
+    categoryAxios.delete(categoryId, this.destroyCategoryCallback, this.noticeErrorMessages)
   }
 
   render() {

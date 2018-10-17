@@ -20,15 +20,11 @@ class TagCardBody extends React.Component {
     this.postTagCallback = this.postTagCallback.bind(this)
     this.destroyTag = this.destroyTag.bind(this)
     this.destroyTagCallback = this.destroyTagCallback.bind(this)
-    this.noticeErrorMessage = this.noticeErrorMessage.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
   componentWillMount() {
     this.getTags()
-  }
-
-  noticeErrorMessage(error) {
-    this.noticeErrorMessages(error)
   }
 
   getTagsCallback(res) {
@@ -38,7 +34,7 @@ class TagCardBody extends React.Component {
   }
 
   getTags() {
-    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessage)
+    tagsAxios.get(this.getTagsCallback, this.noticeErrorMessages)
   }
 
   postTagCallback() {
@@ -51,7 +47,7 @@ class TagCardBody extends React.Component {
       message: '',
       errorMessages: {}
     })
-    tagAxios.post(params, this.postTagCallback, this.noticeErrorMessage)
+    tagAxios.post(params, this.postTagCallback, this.noticeErrorMessages)
   }
 
   destroyTagCallback() {
@@ -63,7 +59,7 @@ class TagCardBody extends React.Component {
     this.setState({
       message: ''
     })
-    tagAxios.delete(tagId, this.destroyTagCallback, this.noticeErrorMessage)
+    tagAxios.delete(tagId, this.destroyTagCallback, this.noticeErrorMessages)
   }
 
   render() {
