@@ -12,7 +12,7 @@ class RecordsCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: moment(this.props.month).year(),
+      year: this.props.year,
       month: this.props.month,
       errorMessages: {},
       records: this.props.records
@@ -32,7 +32,7 @@ class RecordsCardBody extends React.Component {
   }
 
   handleClickPreviousButton() {
-    let m = moment(this.props.month)
+    let m = moment(this.state.month)
     let month = m.add(-1, 'months').month() + 1
     let year = m.year()
     if (month == -1) {
@@ -42,7 +42,7 @@ class RecordsCardBody extends React.Component {
   }
 
   handleClickNextButton() {
-    let m = moment(this.props.month)
+    let m = moment(this.state.month)
     let month = m.add(1, 'months').month() + 1
     let year = m.year()
     if (month == 13) {
@@ -85,12 +85,12 @@ class RecordsCardBody extends React.Component {
     return (
       <div className='records-card-body-component'>
         {this.renderAlertMessage()}
-        {this.props.month && (
+        {this.state.month && (
           <div className='records-list-title'>
             <button className='btn btn-primary btn-sm float-left' onClick={this.handleClickPreviousButton}>
               <i className='fas fa-chevron-left' />
             </button>
-            <span><DateMonthFormat targetDate={moment(this.props.month)} /></span>
+            <span><DateMonthFormat targetDate={moment(this.state.month)} /></span>
             <button className='btn btn-primary btn-sm float-right' onClick={this.handleClickNextButton}>
               <i className='fas fa-chevron-right' />
             </button>
@@ -108,6 +108,7 @@ class RecordsCardBody extends React.Component {
 }
 
 RecordsCardBody.propTypes = {
+  year: PropTypes.string,
   month: PropTypes.string,
   records: PropTypes.array.isRequired
 }

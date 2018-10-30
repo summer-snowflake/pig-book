@@ -9,10 +9,10 @@ class RecordsController < ApplicationController
     year = params[:year] || Time.zone.today.year
     month = params[:month] || Time.zone.today.month
     date = Date.new(year.to_i, month.to_i, 1).to_s
-    @records = @fetcher.find_all_by(month: date)
     @params = {
+      year: year,
       month: date,
-      records: @records,
+      records: @fetcher.find_all_by(month: date),
       user_token: @access_token,
       last_request_at: @last_request_at
     }
