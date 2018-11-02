@@ -21,6 +21,7 @@ en:
       last_tally_at: last tally at
     currency: $
     date:
+      year_format: YYYY
       month_format: MM/YYYY
       format: MM/DD/YYYY
     time:

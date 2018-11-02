@@ -7,12 +7,12 @@ import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './Records'
 import DateMonthFormat from './../common/DateMonthFormat'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
+import RecordsTag from './RecordsTag'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: this.props.year,
       month: this.props.month,
       errorMessages: {},
       records: this.props.records
@@ -95,6 +95,9 @@ class RecordsCardBody extends React.Component {
               <i className='fas fa-chevron-right' />
             </button>
           </div>
+        )}
+        {this.props.year && (
+          <RecordsTag name={this.props.year} />
         )}
         <Records
           handleClickDestroyButton={this.destroyRecord}
