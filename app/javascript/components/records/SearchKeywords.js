@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import DateYearFormat from './../common/DateYearFormat'
 
-class RecordsTag extends React.Component {
+class SearchKeywords extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -19,8 +19,8 @@ class RecordsTag extends React.Component {
   }
 }
 
-RecordsTag.propTypes = {
+SearchKeywords.propTypes = {
   name: PropTypes.number.isRequired
 }
 
-export default RecordsTag
+export default SearchKeywords

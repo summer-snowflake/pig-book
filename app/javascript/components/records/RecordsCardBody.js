@@ -8,7 +8,7 @@ import Records from './Records'
 import DateYearFormat from './../common/DateYearFormat'
 import DateMonthFormat from './../common/DateMonthFormat'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
-import RecordsTag from './RecordsTag'
+import SearchKeywords from './SearchKeywords'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
@@ -102,7 +102,7 @@ class RecordsCardBody extends React.Component {
           </div>
         )}
         {this.props.year && (
-          <RecordsTag name={this.props.year} />
+          <SearchKeywords name={this.props.year} />
         )}
         <Records
           handleClickDestroyButton={this.destroyRecord}
