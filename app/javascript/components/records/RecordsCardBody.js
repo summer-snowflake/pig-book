@@ -102,7 +102,7 @@ class RecordsCardBody extends React.Component {
           </div>
         )}
         {this.props.year && (
-          <SearchKeywords name={this.props.year} />
+          <SearchKeywords month={this.state.month} year={this.state.year} />
         )}
         <Records
           handleClickDestroyButton={this.destroyRecord}
