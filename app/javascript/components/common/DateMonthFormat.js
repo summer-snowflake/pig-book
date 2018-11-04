@@ -14,10 +14,14 @@ class DateMonthFormat extends React.Component {
       <I18n>{(t) => {
         return (
           <span>
-            {moment(this.props.month, 'MM').format(t('date.month_format'))}
+            {this.props.month && (
+              <span>
+                {moment(this.props.month, 'MM').format(t('date.month_format'))}
+              </span>
+            )}
           </span>
-        )
-      }}</I18n>
+        )}
+      }</I18n>
     )
   }
 }

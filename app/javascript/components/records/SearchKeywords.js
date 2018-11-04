@@ -15,9 +15,12 @@ class SearchKeywords extends React.Component {
         <span className='search-keyword-button'>
           <DateYearFormat year={this.props.year} />
         </span>
-        <span className='search-keyword-button'>
-          <DateMonthFormat month={this.props.month} />
-        </span>
+        {this.props.month && (
+          <span className='search-keyword-button'>
+            <DateMonthFormat month={this.props.month} />
+            <i className='fas fa-times right-icon' onClick={this.props.handleClickMonthTagButton} />
+          </span>
+        )}
       </span>
     )
   }
@@ -25,7 +28,8 @@ class SearchKeywords extends React.Component {
 
 SearchKeywords.propTypes = {
   year: PropTypes.number.isRequired,
-  month: PropTypes.number
+  month: PropTypes.number,
+  handleClickMonthTagButton: PropTypes.func.isRequired
 }
 
 export default SearchKeywords

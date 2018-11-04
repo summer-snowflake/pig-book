@@ -27,38 +27,64 @@ class RecordsCardBody extends React.Component {
     this.handleClickPreviousButton = this.handleClickPreviousButton.bind(this)
     this.handleClickNextButton = this.handleClickNextButton.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
+    this.onClickMonthTagButton = this.onClickMonthTagButton.bind(this)
   }
 
   componentWillMount() {
     this.getRecords(this.props.year, this.props.month)
   }
 
-  handleClickPreviousButton() {
-    let m = moment(this.state.year + '-' + this.state.month + '-01', 'YYYY-MM-DD')
-    let month = m.add(-1, 'months').month() + 1
-    let year = m.year()
-    if (month == -1) {
-      year -= 1
-    }
+  onClickMonthTagButton() {
     this.setState({
-      year: year,
-      month: month
+      month: undefined
     })
-    this.getRecords(year, month)
+    this.getRecords(this.state.year)
+  }
+
+  handleClickPreviousButton() {
+    if (this.state.year && this.state.month) {
+      let m = moment(this.state.year + '-' + this.state.month + '-01', 'YYYY-MM-DD')
+      let month = m.add(-1, 'months').month() + 1
+      let year = m.year()
+      if (month == -1) {
+        year -= 1
+      }
+      this.setState({
+        year: year,
+        month: month
+      })
+      this.getRecords(year, month)
+    } else {
+      let year = this.state.year
+      year -= 1
+      this.setState({
+        year: year
+      })
+      this.getRecords(year)
+    }
   }
 
   handleClickNextButton() {
-    let m = moment(this.state.year + '-' + this.state.month + '-01')
-    let month = m.add(1, 'months').month() + 1
-    let year = m.year()
-    if (month == 13) {
+    if (this.state.year && this.state.month) {
+      let m = moment(this.state.year + '-' + this.state.month + '-01')
+      let month = m.add(1, 'months').month() + 1
+      let year = m.year()
+      if (month == 13) {
+        year += 1
+      }
+      this.setState({
+        year: year,
+        month: month
+      })
+      this.getRecords(year, month)
+    } else {
+      let year = this.state.year
       year += 1
+      this.setState({
+        year: year
+      })
+      this.getRecords(year)
     }
-    this.setState({
-      year: year,
-      month: month
-    })
-    this.getRecords(year, month)
   }
 
   getRecordsCallback(res) {
@@ -69,8 +95,10 @@ class RecordsCardBody extends React.Component {
 
   getRecords(year, month) {
     let params = {
-      year: String(year),
-      month: String(month)
+      year: String(year)
+    }
+    if (month) {
+      Object.assign(params, { month: String(month) })
     }
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
@@ -95,7 +123,7 @@ class RecordsCardBody extends React.Component {
     return (
       <div className='records-card-body-component'>
         {this.renderAlertMessage()}
-        {this.state.month && (
+        {this.state.year && (
           <div className='records-list-title'>
             <button className='btn btn-primary btn-sm float-left' onClick={this.handleClickPreviousButton}>
               <i className='fas fa-chevron-left' />
@@ -110,7 +138,7 @@ class RecordsCardBody extends React.Component {
           </div>
         )}
         {this.props.year && (
-          <SearchKeywords month={this.state.month} year={this.state.year} />
+          <SearchKeywords handleClickMonthTagButton={this.onClickMonthTagButton} month={this.state.month} year={this.state.year} />
         )}
         <Records
           handleClickDestroyButton={this.destroyRecord}
