@@ -22,7 +22,7 @@ ja:
     currency: ¥
     date:
       year_format: YYYY年
-      month_format: YYYY年MM月
+      month_format: MM月
       format: YYYY年MM月DD日
     time:
       format: YYYY年MM月DD日 HH:mm:ss

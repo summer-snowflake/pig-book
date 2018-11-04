@@ -20,7 +20,7 @@ class RecordsTag extends React.Component {
 }
 
 RecordsTag.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.number.isRequired
 }
 
 export default RecordsTag

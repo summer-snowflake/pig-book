@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import { I18n } from 'react-i18next'
 import i18n from './../plugins/i18n'
 
@@ -13,7 +14,7 @@ class DateMonthFormat extends React.Component {
       <I18n>{(t) => {
         return (
           <span>
-            {this.props.targetDate.format(t('date.month_format'))}
+            {moment(this.props.month, 'MM').format(t('date.month_format'))}
           </span>
         )
       }}</I18n>
@@ -22,7 +23,7 @@ class DateMonthFormat extends React.Component {
 }
 
 DateMonthFormat.propTypes = {
-  targetDate: PropTypes.object.isRequired
+  month: PropTypes.number
 }
 
 export default DateMonthFormat

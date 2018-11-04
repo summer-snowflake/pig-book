@@ -6,12 +6,12 @@ class RecordsController < ApplicationController
                 only: %i[index new]
 
   def index
-    year = params[:year] || Time.zone.today.year
-    month = params[:month] || Time.zone.today.month
-    date = Date.new(year.to_i, month.to_i, 1).to_s
+    year = params[:year]&.to_i || Time.zone.today.year
+    month = params[:month]&.to_i || Time.zone.today.month
+    date = Date.new(year, month, 1).to_s
     @params = {
       year: year,
-      month: date,
+      month: month,
       records: @fetcher.find_all_by(month: date),
       user_token: @access_token,
       last_request_at: @last_request_at

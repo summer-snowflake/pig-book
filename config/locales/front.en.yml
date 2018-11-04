@@ -22,7 +22,7 @@ en:
     currency: $
     date:
       year_format: YYYY
-      month_format: MM/YYYY
+      month_format: MM
       format: MM/DD/YYYY
     time:
       format: MM/DD/YYYY HH:mm:ss

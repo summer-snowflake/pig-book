@@ -27,8 +27,8 @@ class RecordsCard extends React.Component {
 }
 
 RecordsCard.propTypes = {
-  year: PropTypes.string,
-  month: PropTypes.string,
+  year: PropTypes.number,
+  month: PropTypes.number,
   records: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired

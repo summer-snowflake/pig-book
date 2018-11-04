@@ -5,6 +5,7 @@ import moment from 'moment'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import Records from './Records'
+import DateYearFormat from './../common/DateYearFormat'
 import DateMonthFormat from './../common/DateMonthFormat'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import RecordsTag from './RecordsTag'
@@ -13,6 +14,7 @@ class RecordsCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      year: this.props.year,
       month: this.props.month,
       errorMessages: {},
       records: this.props.records
@@ -28,11 +30,11 @@ class RecordsCardBody extends React.Component {
   }
 
   componentWillMount() {
-    this.getRecords(this.state.month)
+    this.getRecords(this.props.year, this.props.month)
   }
 
   handleClickPreviousButton() {
-    let m = moment(this.state.month)
+    let m = moment(this.state.year + '-' + this.state.month + '-01')
     let month = m.add(-1, 'months').month() + 1
     let year = m.year()
     if (month == -1) {
@@ -42,7 +44,7 @@ class RecordsCardBody extends React.Component {
   }
 
   handleClickNextButton() {
-    let m = moment(this.state.month)
+    let m = moment(this.state.year + '-' + this.state.month + '-01')
     let month = m.add(1, 'months').month() + 1
     let year = m.year()
     if (month == 13) {
@@ -57,16 +59,16 @@ class RecordsCardBody extends React.Component {
     })
   }
 
-  getRecords(month) {
-    let targetDate = moment(month)
+  getRecords(year, month) {
     let params = {
-      month: String(targetDate)
+      year: String(year),
+      month: String(month)
     }
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
 
   destroyRecordCallback() {
-    this.getRecords(this.state.month)
+    this.getRecords(this.state.year, this.state.month)
     this.noticeDestroyedMessage()
   }
 
@@ -90,7 +92,10 @@ class RecordsCardBody extends React.Component {
             <button className='btn btn-primary btn-sm float-left' onClick={this.handleClickPreviousButton}>
               <i className='fas fa-chevron-left' />
             </button>
-            <span><DateMonthFormat targetDate={moment(this.state.month)} /></span>
+            <span>
+              <DateYearFormat year={this.state.year} />
+              <DateMonthFormat month={this.state.month} />
+            </span>
             <button className='btn btn-primary btn-sm float-right' onClick={this.handleClickNextButton}>
               <i className='fas fa-chevron-right' />
             </button>
@@ -111,8 +116,8 @@ class RecordsCardBody extends React.Component {
 }
 
 RecordsCardBody.propTypes = {
-  year: PropTypes.string,
-  month: PropTypes.string,
+  year: PropTypes.number,
+  month: PropTypes.number,
   records: PropTypes.array.isRequired
 }
 

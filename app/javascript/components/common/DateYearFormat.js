@@ -23,7 +23,7 @@ class DateYearFormat extends React.Component {
 }
 
 DateYearFormat.propTypes = {
-  year: PropTypes.string.isRequired
+  year: PropTypes.number.isRequired
 }
 
 export default DateYearFormat
