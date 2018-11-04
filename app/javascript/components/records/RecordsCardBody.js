@@ -34,13 +34,17 @@ class RecordsCardBody extends React.Component {
   }
 
   handleClickPreviousButton() {
-    let m = moment(this.state.year + '-' + this.state.month + '-01')
+    let m = moment(this.state.year + '-' + this.state.month + '-01', 'YYYY-MM-DD')
     let month = m.add(-1, 'months').month() + 1
     let year = m.year()
     if (month == -1) {
       year -= 1
     }
-    location.href = 'records?year=' + year + '&month=' + month
+    this.setState({
+      year: year,
+      month: month
+    })
+    this.getRecords(year, month)
   }
 
   handleClickNextButton() {
@@ -50,7 +54,11 @@ class RecordsCardBody extends React.Component {
     if (month == 13) {
       year += 1
     }
-    location.href = 'records?year=' + year + '&month=' + month
+    this.setState({
+      year: year,
+      month: month
+    })
+    this.getRecords(year, month)
   }
 
   getRecordsCallback(res) {
