@@ -2,6 +2,8 @@ nav.navbar.navbar-expand-lg.navbar-light
   = link_to root_path, class: 'navbar-brand'
     = image_tag 'pig.gif'
     span.brand-name = t('brand.name')
+  button.navbar-toggler type='button' for='navbar-button'
+    span.navbar-toggler-icon
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       li.nav-item class=active_class(root_path)

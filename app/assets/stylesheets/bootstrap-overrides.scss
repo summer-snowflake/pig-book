@@ -140,3 +140,8 @@ $lighten-green: lighten($green, 15%);
   color: rgba($white, .8);
   font-family: sans-serif;
 }
+
+nav button:focus::after ~ .collapse:not(.show) {
+  display: block;
+  transition: 3s;
+}
