@@ -1,66 +1,68 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
 ruby '2.5.3'
 
-gem 'rails', '~> 5.2.2'
+gem 'active_model_serializers'
+gem 'bootstrap'
+gem 'coffee-rails'
+gem 'devise'
+gem 'dotenv-rails'
+gem 'draper'
+gem 'jbuilder'
+gem 'omniauth-twitter'
 gem 'pg'
 gem 'puma'
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
-gem 'turbolinks'
-gem 'jbuilder'
-gem 'active_model_serializers'
-gem 'slim-rails'
+gem 'rails', '~> 5.2.2'
 gem 'rails-i18n'
-gem 'bootstrap'
-gem 'devise'
-gem 'omniauth-twitter'
-gem 'draper'
 gem 'react-rails'
-gem 'webpacker'
-gem 'dotenv-rails'
+gem 'sass-rails'
 gem 'slack-notifier'
+gem 'slim-rails'
+gem 'turbolinks'
+gem 'uglifier'
+gem 'webpacker'
 
 group :development, :test do
-  gem 'rubocop'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'letter_opener'
   gem 'letter_opener_web'
+  gem 'rubocop'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console'
   gem 'listen'
+  gem 'scss_lint', require: false
+  gem 'slim_lint', require: false
   gem 'spring'
   gem 'spring-watcher-listen'
-  gem 'slim_lint', require: false
-  gem 'scss_lint', require: false
+  gem 'web-console'
 end
 
 group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
+  gem 'chromedriver-helper'
+  gem 'codecov', require: false
+  gem 'database_rewinder'
   gem 'faker'
+  gem 'json_spec'
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
-  gem 'database_rewinder'
-  gem 'chromedriver-helper'
   gem 'simplecov', require: false
-  gem 'codecov', require: false
-  gem 'json_spec'
 end
 
 group :production do
@@ -68,4 +70,4 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
