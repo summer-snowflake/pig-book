@@ -47,13 +47,13 @@ group :development do
 end
 
 group :test do
-  gem 'faker'
-  gem 'rspec-rails'
-  gem 'rspec_junit_formatter'
-  gem 'rspec-retry'
   gem 'capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'rspec-retry'
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'database_rewinder'
