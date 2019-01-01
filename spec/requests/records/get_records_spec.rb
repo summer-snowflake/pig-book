@@ -3,45 +3,13 @@
 require 'rails_helper'
 
 describe 'GET /api/records' do
-  let!(:today) { Time.zone.today }
-  let!(:yesterday) { Time.zone.yesterday }
+  before do
+    Timecop.freeze(Time.local(2018, 9, 10, 12, 0, 0))
+  end
 
-  let!(:user) { create(:user) }
-  let!(:category) { create(:category, user: user) }
-  let!(:place) { create(:place, user: user) }
-  let!(:breakdown) { create(:breakdown, category: category) }
-  let!(:categorized_place) do
-    create(:categorized_place, place: place, category: category)
+  after do
+    Timecop.return
   end
-  let!(:tag1) { create(:tag, user: user) }
-  let!(:tag2) { create(:tag, user: user) }
-
-  let!(:record1) do
-    create(:record, user: user, published_at: today,
-                    category: category, currency: :dollar)
-  end
-  let!(:record2) do
-    create(:record, user: user, published_at: today,
-                    category: category, place: place, currency: :yen)
-  end
-  let!(:record3) do
-    create(:record, user: user, published_at: yesterday,
-                    category: category, currency: :yen)
-  end
-  let!(:record4) do
-    create(:record, user: user, published_at: 2.months.ago,
-                    category: category, breakdown: breakdown, currency: :yen)
-  end
-  let!(:record5) do
-    create(:record, user: user, published_at: 1.years.ago, currency: :yen)
-  end
-  let!(:tagged_record1) do
-    create(:tagged_record, record: record1, tag: tag1)
-  end
-  let!(:tagged_record2) do
-    create(:tagged_record, record: record1, tag: tag2)
-  end
-  let!(:params) { { last_request_at: Time.zone.now } }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
@@ -56,6 +24,45 @@ describe 'GET /api/records' do
   end
 
   context 'ログインしていた場合' do
+    let!(:today) { Time.zone.today }
+    let!(:yesterday) { Time.zone.yesterday }
+
+    let!(:user) { create(:user) }
+    let!(:category) { create(:category, user: user) }
+    let!(:place) { create(:place, user: user) }
+    let!(:breakdown) { create(:breakdown, category: category) }
+    let!(:categorized_place) do
+      create(:categorized_place, place: place, category: category)
+    end
+    let!(:tag1) { create(:tag, user: user) }
+    let!(:tag2) { create(:tag, user: user) }
+
+    let!(:record1) do
+      create(:record, user: user, published_at: today,
+                      category: category, currency: :dollar)
+    end
+    let!(:record2) do
+      create(:record, user: user, published_at: today + 10.seconds,
+                      category: category, place: place, currency: :yen)
+    end
+    let!(:record3) do
+      create(:record, user: user, published_at: yesterday,
+                      category: category, currency: :yen)
+    end
+    let!(:record4) do
+      create(:record, user: user, published_at: 2.months.ago,
+                      category: category, breakdown: breakdown, currency: :yen)
+    end
+    let!(:record5) do
+      create(:record, user: user, published_at: 1.years.ago, currency: :yen)
+    end
+    let!(:tagged_record1) do
+      create(:tagged_record, record: record1, tag: tag1)
+    end
+    let!(:tagged_record2) do
+      create(:tagged_record, record: record1, tag: tag2)
+    end
+
     context '検索条件がない場合' do
       let(:params) { { last_request_at: Time.zone.now } }
 
@@ -109,7 +116,6 @@ describe 'GET /api/records' do
               }
             ]
           },
-
           {
             id: record3.id,
             balance_of_payments: record3.category.balance_of_payments,

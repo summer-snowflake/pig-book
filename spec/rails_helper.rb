@@ -72,6 +72,7 @@ RSpec.configure do |config|
   config.include JsonSpec::Helpers
   config.include FeatureSpecHelper, type: :feature
   config.include RequestSpecHelper, type: :request
+  config.include ActiveSupport::Testing::TimeHelpers
 
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
