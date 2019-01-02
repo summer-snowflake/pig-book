@@ -32,7 +32,7 @@ class NewRecordCardBody extends React.Component {
       selectedCategoryId: undefined,
       selectedBreakdownId: undefined,
       selectedBalanceOfPayments: undefined,
-      selectedPlaceId: undefined,
+      selectedPlaceId: '',
       selectedTemplateId: undefined,
       selectedTags: [],
       selectedGenerateTags: {},
@@ -114,7 +114,7 @@ class NewRecordCardBody extends React.Component {
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
-      selectedPlaceId: undefined,
+      selectedPlaceId: '',
       selectedTemplateId: undefined,
       breakdowns: (category || {}).breakdowns || [],
       templates: (category || {}).templates || [],
@@ -128,7 +128,7 @@ class NewRecordCardBody extends React.Component {
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
-      selectedPlaceId: undefined,
+      selectedPlaceId: '',
       selectedTemplateId: undefined,
       breakdowns: (category || {}).breakdowns || [],
       templates: (category || {}).templates || [],
@@ -167,7 +167,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectPlace(place) {
     this.setState({
-      selectedPlaceId: (place || {}).id
+      selectedPlaceId: place ? String(place.id) : ''
     })
   }
 
@@ -326,7 +326,7 @@ class NewRecordCardBody extends React.Component {
       selectedCategoryId: record.category_id,
       selectedBreakdownId: record.breakdown_id || undefined,
       selectedTemplateId: record.template_id || undefined,
-      selectedPlaceId: record.place_id || undefined,
+      selectedPlaceId: String(record.place_id) || '',
       selectedTags: tags.map(tag =>
         <Tag key={tag.id} tag={tag} />
       ),
@@ -371,7 +371,7 @@ class NewRecordCardBody extends React.Component {
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: (category || {}).id,
       selectedBreakdownId: undefined,
-      selectedPlaceId: undefined,
+      selectedPlaceId: '',
       selectedTemplateId: undefined,
       breakdowns: (category || {}).breakdowns || [],
       templates: (category || {}).templates || [],

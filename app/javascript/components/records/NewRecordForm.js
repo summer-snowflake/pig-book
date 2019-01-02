@@ -198,7 +198,7 @@ NewRecordForm.propTypes = {
   selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.number,
   selectedBalanceOfPayments: PropTypes.bool,
-  selectedPlaceId: PropTypes.number,
+  selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
   selectedTemplateId: PropTypes.number,

@@ -31,7 +31,7 @@ class PlacesSelectBox extends React.Component {
 PlacesSelectBox.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   places: PropTypes.array.isRequired,
-  selectedPlaceId: PropTypes.number,
+  selectedPlaceId: PropTypes.string,
   handleSelectPlace: PropTypes.func.isRequired
 }
 
