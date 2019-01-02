@@ -11,7 +11,7 @@ services:
 
   redis:
     container_name: pig-book_redis
-    image: redis:2.8.19
+    image: redis:4.0.9
     ports:
       - 6379:6379
     volumes:

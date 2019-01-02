@@ -30,18 +30,20 @@ This tool is for a household account book.
 ### Version & Environment
 
 - Ruby
-  - v2.5+
-  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L8)
-
-- Ruby on Rails
-  - v5.1+
+  - v2.6+
   - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L10)
 
+- Ruby on Rails
+  - v5.2+
+  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L22)
+
 - PostgreSQL
-  - v10.4
+  - v11.1
+  - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker/Dockerfile#L1)
 
 - Redis
   - v4.0.9
+  - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker-compose.yml#L44)
 
 ### Coding Rule
 
@@ -94,11 +96,10 @@ rbenv install 2.5.1
 rbenv rehash
 ```
 
-- PostgreSQL and Start postgresql server
+- Start postgresql server and Redis Server
 
 ```
-brew install postgres
-postgres -D /usr/local/var/postgres
+docker-compose up
 ```
 
 ### Get pig-book Code
