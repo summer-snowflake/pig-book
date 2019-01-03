@@ -232,7 +232,8 @@ describe 'GET /api/records' do
 
     context '日付（月）が指定されていた場合' do
       let(:params) do
-        { last_request_at: Time.zone.now, month: Time.zone.now }
+        { last_request_at: Time.zone.now,
+          year: Time.zone.now.year, month: Time.zone.now.month }
       end
 
       it '200とデータが返ってくること' do

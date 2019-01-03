@@ -19,7 +19,7 @@ class RecordsCard extends React.Component {
     return (
       <div className='records-card-component'>
         <ErrorBoundary>
-          <RecordsCardBody month={this.props.month} records={this.props.records} />
+          <RecordsCardBody month={this.props.month} records={this.props.records} year={this.props.year} />
         </ErrorBoundary>
       </div>
     )
@@ -27,7 +27,8 @@ class RecordsCard extends React.Component {
 }
 
 RecordsCard.propTypes = {
-  month: PropTypes.string,
+  year: PropTypes.number,
+  month: PropTypes.number,
   records: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
