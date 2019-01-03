@@ -24,9 +24,9 @@ feature 'MYPAGE', js: true do
   context 'When there are some records.' do
     let!(:record1) do
       create(:record, user: user,
-                      charge: 2_000, currency: :yen, created_at: 2.hours.ago)
+                      charge: 2_000, created_at: 2.hours.ago)
     end
-    let!(:record2) { create(:record, user: user, charge: 400, currency: :yen) }
+    let!(:record2) { create(:record, user: user, charge: 400) }
 
     scenario 'Display the recently records.' do
       visit mypage_path

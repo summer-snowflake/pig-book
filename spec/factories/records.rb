@@ -13,6 +13,10 @@ FactoryBot.define do
     charge { random.rand(10..8000) }
     point { 10 }
     sequence(:memo) { |n| "メモ#{n}" }
-    currency { %i[yen dollar].sample }
+    currency { :yen }
+
+    trait :dollar do
+      currency { :dollar }
+    end
   end
 end

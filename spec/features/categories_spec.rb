@@ -46,7 +46,7 @@ feature 'CATEGORY', js: true do
       # 支出のカテゴリ追加
       add_category(name: 'カテゴリ名')
       within '.alert.alert-success' do
-        expect(page).to have_content 'message.add'
+        expect(page).to have_content '追加しました'
       end
       category = user.categories.last
 
@@ -66,7 +66,7 @@ feature 'CATEGORY', js: true do
       # 収入のカテゴリ追加
       add_category(balance_of_payments: true, name: 'カテゴリ名２')
       within '.alert.alert-success' do
-        expect(page).to have_content 'message.add'
+        expect(page).to have_content '追加しました'
       end
       category = user.categories.last
 
@@ -110,7 +110,7 @@ feature 'CATEGORY', js: true do
         find('button#submit').click
       end
       within '.alert.alert-success' do
-        expect(page).to have_content 'message.destroyed'
+        expect(page).to have_content '削除しました'
       end
       within '.card-body' do
         expect(page).to have_no_content category2.name
