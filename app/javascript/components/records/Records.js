@@ -81,7 +81,7 @@ class Records extends React.Component {
 Records.propTypes = {
   isListPage: PropTypes.bool,
   records: PropTypes.array.isRequired,
-  editingRecordId: PropTypes.number,
+  editingRecordId: PropTypes.string,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickEditIcon: PropTypes.func.isRequired
 }

@@ -171,12 +171,12 @@ class NewRecordForm extends React.Component {
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
-          {this.props.editingRecordId == undefined ? (
+          {this.props.editingRecordId == '' ? (
             <CreateButton onClickButton={this.handleClickSubmitButton} />
           ) : (
             <UpdateButton onClickButton={this.handleClickUpdateButton} />
           )}
-          {this.props.editingRecordId != undefined && (
+          {this.props.editingRecordId != '' && (
             <CopyButton onClickButton={this.handleClickCopyButton} />
           )}
         </div>
@@ -190,18 +190,18 @@ NewRecordForm.propTypes = {
   categories: PropTypes.array.isRequired,
   checkedPointDisabled: PropTypes.bool.isRequired,
   breakdowns: PropTypes.array.isRequired,
-  editingRecordId: PropTypes.number,
+  editingRecordId: PropTypes.string,
   places: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
   checkedPoint: PropTypes.bool.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
-  selectedCategoryId: PropTypes.number,
-  selectedBreakdownId: PropTypes.number,
+  selectedCategoryId: PropTypes.string,
+  selectedBreakdownId: PropTypes.string,
   selectedBalanceOfPayments: PropTypes.bool,
-  selectedPlaceId: PropTypes.number,
+  selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
-  selectedTemplateId: PropTypes.number,
+  selectedTemplateId: PropTypes.string,
   templates: PropTypes.array.isRequired,
   inputCharge: PropTypes.string,
   inputPoint: PropTypes.string,

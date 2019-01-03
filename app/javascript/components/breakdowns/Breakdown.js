@@ -16,7 +16,7 @@ class Breakdown extends React.Component {
     this.state = {
       isEditing: false,
       name: this.props.breakdown.name,
-      categoryId: this.props.breakdown.category_id,
+      categoryId: String(this.props.breakdown.category_id),
       selectedBalanceOfPayments: undefined,
       errorMessages: {}
     }
@@ -79,7 +79,7 @@ class Breakdown extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      categoryId: category.id,
+      categoryId: String(category.id),
       selectedBalanceOfPayments: category.balance_of_payments
     })
   }
