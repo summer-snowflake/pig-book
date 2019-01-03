@@ -1,5 +1,7 @@
 AllCops:
   Exclude:
+    - config.ru
+    - Rakefile
     - 'test/**/*'
     - 'bin/**/*'
     - 'db/**/*'
