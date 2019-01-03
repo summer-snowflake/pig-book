@@ -62,7 +62,7 @@ feature 'LIST', js: true do
           expect(page).to have_content "#{Time.zone.today.month}月"
         end
 
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           expect(page).to have_content "#{Time.zone.today.year}年"
           expect(page).to have_content "#{Time.zone.today.month}月"
         end
@@ -93,7 +93,7 @@ feature 'LIST', js: true do
           expect(page).to have_content "#{Time.zone.today.month - 1}月"
         end
 
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           expect(page).to have_content "#{Time.zone.today.year}年"
           expect(page).to have_content "#{Time.zone.today.month - 1}月"
         end
@@ -118,7 +118,7 @@ feature 'LIST', js: true do
           expect(page).to have_content "#{Time.zone.today.month + 1}月"
         end
 
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           expect(page).to have_content "#{Time.zone.today.year}年"
           expect(page).to have_content "#{Time.zone.today.month + 1}月"
         end
@@ -130,7 +130,7 @@ feature 'LIST', js: true do
     context 'when remove month search tag' do
       background do
         visit records_path
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           find('.fa-times').click
         end
       end
@@ -141,7 +141,7 @@ feature 'LIST', js: true do
           expect(page).to have_no_content "#{Time.zone.today.month}月"
         end
 
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           expect(page).to have_content "#{Time.zone.today.year}年"
           expect(page).to have_no_content "#{Time.zone.today.month}月"
         end
@@ -178,7 +178,7 @@ feature 'LIST', js: true do
           expect(page).to have_no_content '月'
         end
 
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           expect(page).to have_content "#{Time.zone.today.year - 1}年"
           expect(page).to have_no_content '月'
         end
@@ -203,7 +203,7 @@ feature 'LIST', js: true do
           expect(page).to have_no_content '月'
         end
 
-        within '.records-tag-component' do
+        within '.search-keywords-component' do
           expect(page).to have_content "#{Time.zone.today.year + 1}年"
           expect(page).to have_no_content '月'
         end

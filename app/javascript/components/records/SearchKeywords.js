@@ -11,7 +11,7 @@ class SearchKeywords extends React.Component {
 
   render() {
     return (
-      <span className='records-tag-component'>
+      <span className='search-keywords-component'>
         <span className='search-keyword-button'>
           <DateYearFormat year={this.props.year} />
         </span>
