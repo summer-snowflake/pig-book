@@ -13,7 +13,7 @@ class TemplateForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedCategoryId: null,
+      selectedCategoryId: '',
       selectedBalanceOfPayments: undefined,
       selectedBreakdownId: '',
       selectedTagId: null,
@@ -39,7 +39,7 @@ class TemplateForm extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: (category || {}).id,
+      selectedCategoryId: category ? category.id : '',
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
       breakdowns: (category || {}).breakdowns || []
     })

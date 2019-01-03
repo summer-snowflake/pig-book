@@ -10,7 +10,7 @@ class BreakdownForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedCategoryId: null,
+      selectedCategoryId: '',
       selectedBalanceOfPayments: undefined
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
@@ -24,7 +24,7 @@ class BreakdownForm extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: (category || {}).id,
+      selectedCategoryId: category ? String(category.id) : '',
       selectedBalanceOfPayments: (category || {}).balance_of_payments
     })
   }

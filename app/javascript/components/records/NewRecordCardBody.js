@@ -19,7 +19,7 @@ class NewRecordCardBody extends React.Component {
     super(props)
     this.state = {
       errorMessages: {},
-      editingRecordId: undefined,
+      editingRecordId: '',
       baseSetting: {},
       categories: [],
       breakdowns: [],
@@ -29,11 +29,11 @@ class NewRecordCardBody extends React.Component {
       checkedPoint: false,
       checkedPointDisabled: true,
       selectedPublishedAt: moment(),
-      selectedCategoryId: undefined,
-      selectedBreakdownId: undefined,
+      selectedCategoryId: '',
+      selectedBreakdownId: '',
       selectedBalanceOfPayments: undefined,
       selectedPlaceId: '',
-      selectedTemplateId: undefined,
+      selectedTemplateId: '',
       selectedTags: [],
       selectedGenerateTags: {},
       inputCharge: '',
@@ -92,7 +92,7 @@ class NewRecordCardBody extends React.Component {
 
   onCancelEditing() {
     this.setState({
-      editingRecordId: undefined,
+      editingRecordId: '',
     })
   }
 
@@ -112,10 +112,10 @@ class NewRecordCardBody extends React.Component {
   onSelectCategory(category) {
     this.setState({
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
-      selectedCategoryId: (category || {}).id,
-      selectedBreakdownId: undefined,
+      selectedCategoryId: category ? String(category.id) : '',
+      selectedBreakdownId: '',
       selectedPlaceId: '',
-      selectedTemplateId: undefined,
+      selectedTemplateId: '',
       breakdowns: (category || {}).breakdowns || [],
       templates: (category || {}).templates || [],
       places: (category || {}).places || []
@@ -126,10 +126,10 @@ class NewRecordCardBody extends React.Component {
     this.getCategories()
     this.setState({
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
-      selectedCategoryId: (category || {}).id,
-      selectedBreakdownId: undefined,
+      selectedCategoryId: category ? String(category.id) : '',
+      selectedBreakdownId: '',
       selectedPlaceId: '',
-      selectedTemplateId: undefined,
+      selectedTemplateId: '',
       breakdowns: (category || {}).breakdowns || [],
       templates: (category || {}).templates || [],
       places: (category || {}).places || []
@@ -138,7 +138,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectBreakdown(breakdown) {
     this.setState({
-      selectedBreakdownId: (breakdown || {}).id
+      selectedBreakdownId: breakdown ? String(breakdown.id) : ''
     })
   }
 
@@ -154,10 +154,10 @@ class NewRecordCardBody extends React.Component {
       {}
     )
     this.setState({
-      selectedTemplateId: (template || {}).id,
-      selectedBreakdownId: (template || {}).breakdown_id,
-      inputCharge: String((template || {}).charge),
-      inputMemo: (template || {}).memo,
+      selectedTemplateId: template ? String(template.id) : '',
+      selectedBreakdownId: template ? String(template.breakdown_id) : '',
+      inputCharge: template ? String(template.charge) : '',
+      inputMemo: template ? String(template.memo) : '',
       selectedTags: tags.map(tag =>
         <Tag key={tag.id} tag={tag} />
       ),
@@ -232,7 +232,7 @@ class NewRecordCardBody extends React.Component {
       checkedPoint: false,
       selectedTags: [],
       selectedGenerateTags: {},
-      editingRecordId: undefined
+      editingRecordId: ''
     })
   }
 
@@ -323,10 +323,10 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       selectedBalanceOfPayments: record.balance_of_payments,
       selectedPublishedAt: moment(record.published_at),
-      selectedCategoryId: record.category_id,
-      selectedBreakdownId: record.breakdown_id || undefined,
-      selectedTemplateId: record.template_id || undefined,
-      selectedPlaceId: String(record.place_id) || '',
+      selectedCategoryId: record.category_id ? String(record.category_id) : '',
+      selectedBreakdownId: record.breakdown_id ? String(record.breakdown_id) : '',
+      selectedTemplateId: record.template_id ? String(record.template_id) : '',
+      selectedPlaceId: record.place_id ? String(record.place_id) : '',
       selectedTags: tags.map(tag =>
         <Tag key={tag.id} tag={tag} />
       ),
@@ -337,7 +337,7 @@ class NewRecordCardBody extends React.Component {
       inputMemo: record.memo,
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || [],
-      editingRecordId: record.id
+      editingRecordId: String(record.id)
     })
   }
 
@@ -369,10 +369,10 @@ class NewRecordCardBody extends React.Component {
   setCategory(category) {
     this.setState({
       selectedBalanceOfPayments: (category || {}).balance_of_payments,
-      selectedCategoryId: (category || {}).id,
-      selectedBreakdownId: undefined,
+      selectedCategoryId: category ? String(category.id) : '',
+      selectedBreakdownId: '',
       selectedPlaceId: '',
-      selectedTemplateId: undefined,
+      selectedTemplateId: '',
       breakdowns: (category || {}).breakdowns || [],
       templates: (category || {}).templates || [],
       places: (category || {}).places || []
@@ -392,9 +392,9 @@ class NewRecordCardBody extends React.Component {
     )
     this.setState({
       selectedBalanceOfPayments: category.balance_of_payments,
-      selectedCategoryId: template.category_id,
-      selectedBreakdownId: template.breakdown_id,
-      selectedTemplateId: template.id,
+      selectedCategoryId: String(template.category_id),
+      selectedBreakdownId: String(template.breakdown_id),
+      selectedTemplateId: String(template.id),
       breakdowns: category.breakdowns || [],
       templates: category.templates || [],
       places: category.places || [],

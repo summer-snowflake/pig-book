@@ -18,8 +18,8 @@ class Template extends React.Component {
       name: this.props.template.name,
       charge: this.props.template.charge,
       memo: this.props.template.memo,
-      categoryId: this.props.template.category_id,
-      breakdownId: this.props.template.breakdown_id,
+      categoryId: String(this.props.template.category_id),
+      breakdownId: String(this.props.template.breakdown_id),
       breakdowns: [],
       errorMessages: {}
     }
@@ -100,14 +100,14 @@ class Template extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      categoryId: category.id,
+      categoryId: String(category.id),
       breakdowns: category.breakdowns
     })
   }
 
   onSelectBreakdown(breakdown) {
     this.setState({
-      breakdownId: breakdown ? breakdown.id : ''
+      breakdownId: breakdown ? String(breakdown.id) : ''
     })
   }
 

@@ -26,7 +26,7 @@ class SelectCategoryModal extends React.Component {
     super(props)
     this.state = {
       category: {},
-      selectedCategoryId: undefined,
+      selectedCategoryId: '',
       selectedBalanceOfPayments: undefined
     }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
@@ -36,21 +36,21 @@ class SelectCategoryModal extends React.Component {
 
   onClickCloseButton() {
     this.setState({
-      selectedCategoryId: undefined
+      selectedCategoryId: ''
     })
     this.props.handleClickCloseButton()
   }
 
   onClickSubmitButton() {
     this.setState({
-      selectedCategoryId: undefined
+      selectedCategoryId: ''
     })
     this.props.handleClickSubmitButton(this.props.place.id, this.state.selectedCategoryId)
   }
 
   onSelectCategory(category) {
     this.setState({
-      selectedCategoryId: (category || {}).id,
+      selectedCategoryId: category ? String(category.id) : '',
       selectedBalanceOfPayments: (category || {}).balance_of_payments
     })
   }
