@@ -74,7 +74,7 @@ jobs:
       - run: npm run eslint app/javascripts/components/**/*.js
 
       # Run rubocop
-      - run: bundle exec rubocop app/ lib/ spec/
+      - run: bundle exec rubocop
 
       # Run slim-lint
       - run: bundle exec slim-lint app/views/
