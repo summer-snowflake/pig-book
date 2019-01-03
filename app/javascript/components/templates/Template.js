@@ -171,6 +171,11 @@ class Template extends React.Component {
         ) : (
           <td className='center-edit-target' />
         )}
+        <td className='center-edit-target icon-td'>
+          {this.props.template.picker_enabled && (
+            <i className='fas fa-check' />
+          )}
+        </td>
         {this.state.isEditing ? (
           <td className='right-edit-target icon-td' onClick={this.handleClickCancelIcon}>
             <i className='fas fa-times' />

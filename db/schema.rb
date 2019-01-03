@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_192509) do
+ActiveRecord::Schema.define(version: 2018_10_11_100654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_192509) do
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "picker_enabled", default: false
     t.index ["breakdown_id"], name: "index_templates_on_breakdown_id"
     t.index ["category_id"], name: "index_templates_on_category_id"
     t.index ["tag_id"], name: "index_templates_on_tag_id"
