@@ -11,16 +11,14 @@ i18n
     fallbackLng: {
       'en-US': 'en'
     },
+    lng: 'en',
     debug: true,
     interpolation: {
       escapeValue: false, // not needed for react!!
     },
     // react i18next special options (optional)
     react: {
-      wait: process.env.RAILS_ENV != 'test',
-      bindI18n: 'languageChanged loaded',
-      bindStore: 'added removed',
-      nsMode: 'default'
+      wait: true
     }
   })
 

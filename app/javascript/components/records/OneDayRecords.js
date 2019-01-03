@@ -43,7 +43,7 @@ class OneDayRecords extends React.Component {
 OneDayRecords.propTypes = {
   targetDate: PropTypes.object.isRequired,
   records: PropTypes.array.isRequired,
-  editingRecordId: PropTypes.number,
+  editingRecordId: PropTypes.string,
   handleClickEditIcon: PropTypes.func.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickChangeDateButton: PropTypes.func.isRequired

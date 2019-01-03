@@ -48,7 +48,7 @@ feature 'BREAKDOWN', js: true do
       fill_in 'breakdown_name', with: '内訳の内容'
       trigger_click('#add-button')
       within '.alert.alert-success' do
-        expect(page).to have_content 'message.add'
+        expect(page).to have_content '追加しました'
       end
       breakdown = user.breakdowns.last
 

@@ -1,10 +1,14 @@
 AllCops:
+  TargetRubyVersion: 2.6
   Exclude:
+    - config.ru
+    - Rakefile
     - 'test/**/*'
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
+    - 'vendor/**/*'
     - !ruby/regexp /old_and_unused\.rb$/
 
 # 日本語でのコメントを許可

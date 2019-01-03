@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/pig-book
     docker:
-      - image: circleci/ruby:2.5.3-node-browsers
+      - image: circleci/ruby:2.6.0-node-browsers
         environment:
           RAILS_ENV: test
           NODE_ENV: test
@@ -74,7 +74,7 @@ jobs:
       - run: npm run eslint app/javascripts/components/**/*.js
 
       # Run rubocop
-      - run: bundle exec rubocop app/ lib/ spec/
+      - run: bundle exec rubocop
 
       # Run slim-lint
       - run: bundle exec slim-lint app/views/

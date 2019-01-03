@@ -29,7 +29,7 @@ module FeatureSpecHelper
       select place_name, from: 'selectable-places'
       fill_in 'record_charge', with: charge
       fill_in 'record_memo', with: memo
-      click_on 'button.create'
+      click_on '登録する'
     end
   end
 

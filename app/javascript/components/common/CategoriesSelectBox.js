@@ -70,7 +70,7 @@ class CategoriesSelectBox extends React.Component {
 CategoriesSelectBox.propTypes = {
   categories: PropTypes.array.isRequired,
   selectedBalanceOfPayments: PropTypes.bool,
-  selectedCategoryId: PropTypes.number,
+  selectedCategoryId: PropTypes.string,
   plusButton: PropTypes.bool.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectNewCategory: PropTypes.func
