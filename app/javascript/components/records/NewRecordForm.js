@@ -196,7 +196,7 @@ NewRecordForm.propTypes = {
   checkedPoint: PropTypes.bool.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
   selectedCategoryId: PropTypes.number,
-  selectedBreakdownId: PropTypes.number,
+  selectedBreakdownId: PropTypes.string,
   selectedBalanceOfPayments: PropTypes.bool,
   selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,

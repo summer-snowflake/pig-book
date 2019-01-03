@@ -107,7 +107,7 @@ class Template extends React.Component {
 
   onSelectBreakdown(breakdown) {
     this.setState({
-      breakdownId: (breakdown || {}).id
+      breakdownId: breakdown ? breakdown.id : ''
     })
   }
 
