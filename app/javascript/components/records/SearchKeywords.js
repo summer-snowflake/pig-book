@@ -15,7 +15,7 @@ class SearchKeywords extends React.Component {
         <span className='search-keyword-button'>
           <DateYearFormat year={this.props.year} />
         </span>
-        {(this.props.month || !this.props.month == NaN) && (
+        {(this.props.month || this.props.month != 0) && (
           <span className='search-keyword-button'>
             <DateMonthFormat month={this.props.month} />
             <i className='fas fa-times right-icon' onClick={this.props.handleClickMonthTagButton} />
