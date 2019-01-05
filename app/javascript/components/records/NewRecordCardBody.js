@@ -303,7 +303,7 @@ class NewRecordCardBody extends React.Component {
   }
 
   onClickChangeDateButton(days) {
-    const changeDate = this.state.targetDate.add('days', days)
+    const changeDate = this.state.targetDate.add(days, 'days')
     this.setState({
       targetDate: changeDate
     })
