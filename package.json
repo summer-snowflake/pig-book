@@ -20,7 +20,7 @@
     "react-datepicker": "1.8.0",
     "react-dom": "16.7.0",
     "react-dropzone": "^5.0.1",
-    "react-i18next": "^7.13.0",
+    "react-i18next": "8.3.9",
     "react-mixin": "^5.0.0",
     "react-modal": "^3.8.1",
     "react-native": "^0.55.4",
