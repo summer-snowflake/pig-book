@@ -9,6 +9,7 @@ import DateYearFormat from './../common/DateYearFormat'
 import DateMonthFormat from './../common/DateMonthFormat'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import SearchKeywords from './SearchKeywords'
+import SearchFormsField from './SearchFormsField'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class RecordsCardBody extends React.Component {
     this.handleClickNextButton = this.handleClickNextButton.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
     this.onClickMonthTagButton = this.onClickMonthTagButton.bind(this)
+    this.onChangeMonth = this.onChangeMonth.bind(this)
   }
 
   componentWillMount() {
@@ -36,7 +38,7 @@ class RecordsCardBody extends React.Component {
 
   onClickMonthTagButton() {
     this.setState({
-      month: undefined
+      month: 0
     })
     this.getRecords(this.state.year)
   }
@@ -119,6 +121,13 @@ class RecordsCardBody extends React.Component {
     // TODO
   }
 
+  onChangeMonth(month) {
+    this.setState({
+      month: month
+    })
+    this.getRecords(this.props.year, month)
+  }
+
   render() {
     return (
       <div className='records-card-body-component'>
@@ -130,7 +139,9 @@ class RecordsCardBody extends React.Component {
             </button>
             <span>
               <DateYearFormat year={this.state.year} />
-              <DateMonthFormat month={this.state.month} />
+              {this.state.month > 0 && (
+                <DateMonthFormat month={this.state.month} />
+              )}
             </span>
             <button className='btn btn-primary btn-sm float-right' onClick={this.handleClickNextButton}>
               <i className='fas fa-chevron-right' />
@@ -138,7 +149,10 @@ class RecordsCardBody extends React.Component {
           </div>
         )}
         {this.props.year && (
-          <SearchKeywords handleClickMonthTagButton={this.onClickMonthTagButton} month={this.state.month} year={this.state.year} />
+          <div>
+            <SearchFormsField handleChangeMonth={this.onChangeMonth} month={this.state.month} year={this.state.year} />
+            <SearchKeywords handleClickMonthTagButton={this.onClickMonthTagButton} month={this.state.month} year={this.state.year} />
+          </div>
         )}
         <Records
           handleClickDestroyButton={this.destroyRecord}

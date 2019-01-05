@@ -135,6 +135,35 @@ feature 'LIST', js: true do
         end
       end
 
+      context 'when select the last month' do
+        scenario 'Display the records of the current month.' do
+          within '.search-keyword-selectbox .form-control' do
+            select 9
+          end
+
+          within '.records-list-title' do
+            expect(page).to have_content "#{Time.zone.today.year}年"
+            expect(page).to have_content '09月'
+          end
+
+          within '.search-keywords-component' do
+            expect(page).to have_content "#{Time.zone.today.year}年"
+            expect(page).to have_content '09月'
+          end
+
+          within '.records-component' do
+            expect(page).to have_css('.record-component', count: 1)
+
+            within '.record-component' do
+              expect(page).to have_content '消耗品費'
+              expect(page).to have_content '日用品'
+              expect(page).to have_no_content '食費'
+              expect(page).to have_no_content '朝食'
+            end
+          end
+        end
+      end
+
       scenario 'Display the records of the current month.' do
         within '.records-list-title' do
           expect(page).to have_content "#{Time.zone.today.year}年"
