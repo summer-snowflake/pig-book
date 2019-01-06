@@ -8,5 +8,9 @@
     &.place-top::after {
       border-top-color: $green;
     }
+
+    &.place-bottom::after {
+      border-bottom-color: $green;
+    }
   }
 }
