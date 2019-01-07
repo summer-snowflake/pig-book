@@ -10,8 +10,9 @@ class MonthlyBalanceTable::Updater
 
   def update!
     @grouping_records.each do |key, records|
-      monthly = MonthlyBalanceTable
-                .find_or_initialize_by(user: @user, beginning_at: key)
+      monthly = MonthlyBalanceTable.find_or_initialize_by(
+        user: @user, year_and_month: key.to_s.slice(0..6)
+      )
       monthly.update!(
         currency: @user.base_setting.currency,
         income: sum_charge(incomes(records)),

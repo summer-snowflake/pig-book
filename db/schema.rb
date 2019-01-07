@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_192509) do
+ActiveRecord::Schema.define(version: 2019_01_07_090554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_192509) do
 
   create_table "monthly_balance_tables", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.datetime "beginning_at", null: false
+    t.string "year_and_month", null: false
     t.integer "income", default: 0, null: false
     t.integer "expenditure", default: 0, null: false
     t.datetime "created_at", null: false

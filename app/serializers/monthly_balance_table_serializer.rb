@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MonthlyBalanceTableSerializer < ActiveModel::Serializer
-  attributes :id, :beginning_at, :income, :human_income,
+  attributes :id, :year_and_month, :income, :human_income,
              :expenditure, :human_expenditure
 
   def human_income
