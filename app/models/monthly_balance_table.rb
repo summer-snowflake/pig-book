@@ -16,6 +16,6 @@ class MonthlyBalanceTable < ApplicationRecord
   }
 
   scope :the_year, lambda { |year|
-    where("year_and_month like '" + year.to_s + "-%'").sort
+    where("year_and_month like '" + year.to_s + "-%'").order(:year_and_month)
   }
 end
