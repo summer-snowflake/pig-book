@@ -54,8 +54,8 @@ class MonthlyBalanceTable::Updater
   end
 
   def empty_months
-    oldest_date = to_date(@grouping_records.keys.min)
-    newest_date = to_date(@grouping_records.keys.max)
+    oldest_date = Date.new(@grouping_records.keys.min.slice(0..3).to_i, 1, 1)
+    newest_date = Date.new(@grouping_records.keys.max.slice(0..3).to_i, 12, 1)
     all_months = (oldest_date..newest_date)
                  .map(&:beginning_of_month).uniq.map { |b| b.to_s.slice(0..6) }
 
