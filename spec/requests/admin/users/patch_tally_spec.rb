@@ -23,16 +23,48 @@ describe 'GET /api/admin/users/:user_id/tally' do
   context 'ログインしていた場合' do
     let(:params) { { last_request_at: Time.zone.now } }
 
-    it '200とデータが返ってくること' do
-      patch "/api/admin/users/#{user.id}/tally",
-            params: params, headers: login_headers(admin_user)
+    context '登録されている集計対象のデータがある場合' do
+      let!(:record1) do
+        create(:record, user: user, published_at: Time.zone.local(2018, 2, 1))
+      end
+      let!(:record2) do
+        create(:record, user: user, published_at: Time.zone.local(2018, 4, 4))
+      end
+      let!(:record3) do
+        create(:record, user: user, published_at: Time.zone.local(2018, 4, 5))
+      end
 
-      expect(response.status).to eq 200
-      event = user.events.last
-      json = {
-        last_tally_at: event.updated_at
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+      it '200とデータが返ってくること' do
+        expect(user.monthly_balance_tables.count).to eq 0
+
+        patch "/api/admin/users/#{user.id}/tally",
+              params: params, headers: login_headers(admin_user)
+
+        expect(response.status).to eq 200
+        event = user.events.last
+        json = {
+          last_tally_at: event.updated_at
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+        expect(user.monthly_balance_tables.count).to eq 3
+        expect(user.monthly_balance_tables.pluck(:year_and_month))
+          .to eq ['2018-02', '2018-04', '2018-03']
+      end
+    end
+
+    context '登録されている集計対象のデータがない場合' do
+      it '200とデータが返ってくること' do
+        patch "/api/admin/users/#{user.id}/tally",
+              params: params, headers: login_headers(admin_user)
+
+        expect(response.status).to eq 200
+        event = user.events.last
+        json = {
+          last_tally_at: event.updated_at
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+        expect(user.monthly_balance_tables.count).to eq 0
+      end
     end
   end
 end

@@ -6,4 +6,67 @@ RSpec.describe MonthlyBalanceTable, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:user) }
   end
+
+  describe '#target_years' do
+    let!(:user) { create(:user) }
+
+    subject { user.monthly_balance_tables.target_years }
+
+    context 'when exist data with some years' do
+      let!(:monthly_balance_table1) do
+        create(:monthly_balance_table, user: user, year_and_month: '2017-10')
+      end
+      let!(:monthly_balance_table2) do
+        create(:monthly_balance_table, user: user, year_and_month: '2019-03')
+      end
+
+      it 'return some years array' do
+        expect(subject).to eq [2019, 2018, 2017]
+      end
+    end
+
+    context 'when not exist data' do
+      it 'return this year array' do
+        expect(subject).to eq [Time.zone.today.year]
+      end
+    end
+  end
+
+  describe '#the_year' do
+    let!(:user) { create(:user) }
+    let!(:monthly_balance_table1) do
+      create(:monthly_balance_table, user: user, year_and_month: '2017-10')
+    end
+    let!(:monthly_balance_table2) do
+      create(:monthly_balance_table, user: user, year_and_month: '2019-03')
+    end
+    let!(:monthly_balance_table3) do
+      create(:monthly_balance_table, user: user, year_and_month: '2017-03')
+    end
+    subject { user.monthly_balance_tables.the_year(year) }
+
+    context 'the year is 2017' do
+      let(:year) { '2017' }
+
+      it 'return some data of 2017' do
+        expect(subject).to eq [monthly_balance_table3, monthly_balance_table1]
+      end
+    end
+
+    context 'the year is 2018' do
+      let(:year) { '2018' }
+
+      it 'return some data of 2018' do
+        expect(subject).to eq []
+      end
+    end
+
+    context 'the year is 2019' do
+      let(:year) { '2019' }
+
+      it 'return some data of 2019' do
+        expect(subject).to eq [monthly_balance_table2]
+      end
+    end
+  end
 end
