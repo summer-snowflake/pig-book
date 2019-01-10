@@ -1,4 +1,7 @@
 en:
+  time:
+    formats:
+      month: '%m'
   brand:
     name: Account Book -beta-
     subtitle: the household account application displays graphs.

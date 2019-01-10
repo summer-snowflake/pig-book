@@ -19,6 +19,10 @@ class MonthlyBalanceTableDecorator < ApplicationDecorator
                                     format: '%u%n', precision: precision)
   end
 
+  def human_month
+    I18n.l(date, format: :month)
+  end
+
   private
 
   def human_currency

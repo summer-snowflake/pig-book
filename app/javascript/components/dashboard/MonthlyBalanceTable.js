@@ -8,13 +8,14 @@ import MonthlyTotalIncome from './MonthlyTotalIncome'
 import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
 import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
+import MonthlyChart from './MonthlyChart'
 import { monthlyBalanceTablesAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      monthlyBalanceTable: this.props.monthlyBalanceTable,
+      tally: this.props.tally,
       year: this.props.year || moment().year()
     }
     this.getMonthlyBalanceTables = this.getMonthlyBalanceTables.bind(this)
@@ -28,7 +29,7 @@ class MonthlyBalanceTable extends React.Component {
 
   getMonthlyBalanceTablesCallback(res) {
     this.setState({
-      monthlyBalanceTable: res.data
+      tally: res.data
     })
   }
 
@@ -60,21 +61,22 @@ class MonthlyBalanceTable extends React.Component {
             <tr>
               {monthlyKeys.map((index) =>
                 (<td key={index}>
-                  <MonthlyTotalIncome month={index + 1} tally={this.state.monthlyBalanceTable} />
-                  <MonthlyTotalExpenditure month={index + 1} tally={this.state.monthlyBalanceTable} />
+                  <MonthlyTotalIncome month={index + 1} tally={this.state.tally} />
+                  <MonthlyTotalExpenditure month={index + 1} tally={this.state.tally} />
                 </td>)
               )}
-              <MonthlyTotal tally={this.state.monthlyBalanceTable} />
+              <MonthlyTotal tally={this.state.tally} />
             </tr>
           </tbody>
         </table>
+        <MonthlyChart tally={this.state.tally} />
       </div>
     )
   }
 }
 
 MonthlyBalanceTable.propTypes = {
-  monthlyBalanceTable: PropTypes.array,
+  tally: PropTypes.array,
   year: PropTypes.number
 }
 

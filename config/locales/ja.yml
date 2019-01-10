@@ -1,4 +1,7 @@
 ja:
+  time:
+    formats:
+      month: '%m月'
   brand:
     name: おこづかいちょうβ
     subtitle: かわいい家計簿アプリ
