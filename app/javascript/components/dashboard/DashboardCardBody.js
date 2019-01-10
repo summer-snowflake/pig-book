@@ -11,7 +11,7 @@ class DashboardCardBody extends React.Component {
   render() {
     return (
       <div className='dashboard-card-body-component'>
-        <MonthlyBalanceTable monthlyBalanceTable={this.props.monthly_balance_table} />
+        <MonthlyBalanceTable tally={this.props.monthly_balance_table} />
       </div>
     )
   }

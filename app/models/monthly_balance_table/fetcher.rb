@@ -5,15 +5,13 @@ class MonthlyBalanceTable::Fetcher
     @user = user
   end
 
-  def self.all_of_year(user:, date:)
-    new(user: user).all_of_year(date: date)
+  def self.all_of_year(user:, year:)
+    new(user: user).all_of_year(year: year)
   end
 
-  def all_of_year(date:)
+  def all_of_year(year:)
     @user.monthly_balance_tables
          .where(currency: @user.base_setting.currency)
-         .where('beginning_at >= ? and beginning_at <= ?',
-                date.beginning_of_year, date.end_of_year)
-         .order(:beginning_at)
+         .the_year(year)
   end
 end

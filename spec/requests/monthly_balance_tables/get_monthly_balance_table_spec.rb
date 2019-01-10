@@ -4,16 +4,8 @@ require 'rails_helper'
 
 describe 'GET /api/monthly_balance_tables/:year' do
   let!(:user) { create(:user) }
-  let!(:monthly_balance_table1) do
-    create(:monthly_balance_table,
-           user: user,
-           beginning_at: Time.zone.today.beginning_of_month)
-  end
-  let!(:monthly_balance_table2) do
-    create(:monthly_balance_table,
-           user: user,
-           beginning_at: Time.zone.today.beginning_of_month)
-  end
+  let!(:monthly_balance_table1) { create(:monthly_balance_table, user: user) }
+  let!(:monthly_balance_table2) { create(:monthly_balance_table, user: user) }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
@@ -36,18 +28,22 @@ describe 'GET /api/monthly_balance_tables/:year' do
       expect(response.status).to eq 200
       json = [
         {
-          beginning_at: monthly_balance_table1.beginning_at,
+          year_and_month: monthly_balance_table1.year_and_month,
           income: monthly_balance_table1.income,
           human_income: monthly_balance_table1.decorate.human_income,
           expenditure: monthly_balance_table1.expenditure,
-          human_expenditure: monthly_balance_table1.decorate.human_expenditure
+          human_month: I18n.l(Time.zone.now, format: :month),
+          human_expenditure: monthly_balance_table1.decorate.human_expenditure,
+          month: Time.zone.now.month
         },
         {
-          beginning_at: monthly_balance_table2.beginning_at,
+          year_and_month: monthly_balance_table2.year_and_month,
           income: monthly_balance_table2.income,
           human_income: monthly_balance_table2.decorate.human_income,
+          human_month: I18n.l(Time.zone.now, format: :month),
           expenditure: monthly_balance_table2.expenditure,
-          human_expenditure: monthly_balance_table2.decorate.human_expenditure
+          human_expenditure: monthly_balance_table2.decorate.human_expenditure,
+          month: Time.zone.now.month
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

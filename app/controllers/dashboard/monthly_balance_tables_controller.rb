@@ -5,12 +5,9 @@ class Dashboard::MonthlyBalanceTablesController < ApplicationController
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
-    target = current_user.monthly_balance_tables
+    @years = current_user.monthly_balance_tables
                          .where(currency: current_user.base_setting.currency)
-    oldest_year = target.minimum(:beginning_at)&.year
-    this_year = Time.zone.today.year
-    range = oldest_year ? [*oldest_year..this_year] : [this_year]
-    @years = range.reverse
+                         .target_years
     @params = {
       user_token: @access_token,
       last_request_at: @last_request_at

@@ -384,6 +384,20 @@ $twitter-border-color: #2e6da4;
   }
 }
 
+.search-keyword-button {
+  background-color: rgba($white, .7);
+  border: solid 1px $green;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-left: 10px;
+  padding: 4px 8px;
+
+  i {
+    cursor: pointer;
+  }
+}
+
 .picker-label {
   display: block;
   padding: 5px 10px;
