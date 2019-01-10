@@ -1,30 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 
 class MonthlyTotalIncome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      monthlyTotal: (this.props.tally || []).find( data => (moment(data.beginning_at).month() + 1) == this.props.month )
+      monthlyTotal: { human_income: '¥0' }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.tally == undefined) {
-      this.setState({
-        monthlyTotal: nextProps.tally.find( data => (moment(data.beginning_at).month() + 1) == this.props.month )
-      })
-    }
+    this.setState({
+      monthlyTotal: nextProps.tally.find( data => data.month == this.props.month )
+    })
   }
 
   render() {
-    let defaultNumber = { income: 0, expenditure: 0 }
-
     return (
       <div className='monthly-total-income-component'>
         <i className='fas fa-plus-square left-icon blue' />
-        {(this.state.monthlyTotal || {}).human_income || (this.state.monthlyTotal || defaultNumber).income}
+        {this.state.monthlyTotal.human_income}
       </div>
     )
   }

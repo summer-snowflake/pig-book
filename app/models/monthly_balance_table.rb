@@ -18,4 +18,12 @@ class MonthlyBalanceTable < ApplicationRecord
   scope :the_year, lambda { |year|
     where("year_and_month like '" + year.to_s + "-%'").order(:year_and_month)
   }
+
+  def month
+    year_and_month.slice(5, 2).to_i
+  end
+
+  def date
+    Time.zone.local(year_and_month.slice(0..3).to_i, month, 1)
+  end
 end
