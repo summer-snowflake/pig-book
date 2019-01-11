@@ -14,10 +14,10 @@ RSpec.describe MonthlyBalanceTable, type: :model do
 
     context 'when exist data with some years' do
       let!(:monthly_balance_table1) do
-        create(:monthly_balance_table, user: user, year_and_month: '2017-10')
+        create(:monthly_balance_table, user: user, year: 2017, month: 10)
       end
       let!(:monthly_balance_table2) do
-        create(:monthly_balance_table, user: user, year_and_month: '2019-03')
+        create(:monthly_balance_table, user: user, year: 2019, month: 3)
       end
 
       it 'return some years array' do
@@ -35,13 +35,13 @@ RSpec.describe MonthlyBalanceTable, type: :model do
   describe '#the_year' do
     let!(:user) { create(:user) }
     let!(:monthly_balance_table1) do
-      create(:monthly_balance_table, user: user, year_and_month: '2017-10')
+      create(:monthly_balance_table, user: user, year: 2017, month: 10)
     end
     let!(:monthly_balance_table2) do
-      create(:monthly_balance_table, user: user, year_and_month: '2019-03')
+      create(:monthly_balance_table, user: user, year: 2019, month: 3)
     end
     let!(:monthly_balance_table3) do
-      create(:monthly_balance_table, user: user, year_and_month: '2017-03')
+      create(:monthly_balance_table, user: user, year: 2017, month: 3)
     end
     subject { user.monthly_balance_tables.the_year(year) }
 
