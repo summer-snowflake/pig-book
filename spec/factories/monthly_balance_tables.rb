@@ -4,6 +4,8 @@ FactoryBot.define do
   random = Random.new
   factory :monthly_balance_table do
     user
+    year { Time.zone.now.year }
+    month { Time.zone.now.month }
     year_and_month { Time.zone.now.beginning_of_month.to_s.slice(0..6) }
     income { random.rand(0..10_000) }
     expenditure { random.rand(0..10_000) }
