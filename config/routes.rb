@@ -39,7 +39,9 @@ Rails.application.routes.draw do
     resources :categorized_places, only: %w[create]
     resources :records, only: %w[index show create update destroy]
     resources :templates, only: %w[index create update destroy]
-    resources :monthly_balance_tables, param: :year, only: %w[index show]
+    resources :monthly_balance_tables, param: :year, only: %w[index show total] do
+      get :total, on: :member
+    end
     resources :import_histories, only: %w[index create update destroy] do
       get :unregistered_count, on: :collection
       post :create_category
