@@ -7,6 +7,11 @@ RSpec.describe MonthlyBalanceTable, type: :model do
     it { is_expected.to belong_to(:user) }
   end
 
+  describe 'validation' do
+    it { is_expected.to validate_presence_of(:year) }
+    it { is_expected.to validate_presence_of(:month) }
+  end
+
   describe '#target_years' do
     let!(:user) { create(:user) }
 
