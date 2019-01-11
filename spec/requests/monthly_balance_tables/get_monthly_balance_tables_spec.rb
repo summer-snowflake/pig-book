@@ -20,13 +20,13 @@ describe 'GET /api/monthly_balance_tables' do
   context 'ログインしていた場合' do
     context 'データがある場合' do
       let!(:monthly_balance_table1) do
-        create(:monthly_balance_table, user: user, year_and_month: '2018-07')
+        create(:monthly_balance_table, user: user, year: 2018, month: 7)
       end
       let!(:monthly_balance_table2) do
-        create(:monthly_balance_table, user: user, year_and_month: '2018-09')
+        create(:monthly_balance_table, user: user, year: 2018, month: 9)
       end
       let!(:monthly_balance_table3) do
-        create(:monthly_balance_table, user: user, year_and_month: '2016-02')
+        create(:monthly_balance_table, user: user, year: 2016, month: 2)
       end
 
       it '200とデータが返ってくること' do

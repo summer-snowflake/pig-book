@@ -24,6 +24,10 @@ class Record < ApplicationRecord
   scope :current_currency,
         ->(user) { where(currency: user.base_setting.currency) }
 
+  def year_and_month
+    published_at.to_s.slice(0..6)
+  end
+
   private
 
   def set_tagged_records
