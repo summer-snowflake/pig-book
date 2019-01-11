@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::MonthlyBalanceTablesController < Api::BaseController
-  before_action :set_monthly_balance_table, only: %i[show total]
+  before_action :set_monthly_balance_tables, only: %i[show total]
 
   # NOTE: データは、各年度ごとに取得するため、このメソッドでは年度のみを返す
   def index
@@ -12,22 +12,22 @@ class Api::MonthlyBalanceTablesController < Api::BaseController
   end
 
   def show
-    render json: @monthly_balance_table
+    render json: @monthly_balance_tables
   end
 
   def total
     total_of_year = {
-      total_income: @monthly_balance_table.total_income,
-      total_expenditure: @monthly_balance_table.total_expenditure
+      total_income: @monthly_balance_tables.total_income,
+      total_expenditure: @monthly_balance_tables.total_expenditure
     }
     render json: total_of_year
   end
 
   private
 
-  def set_monthly_balance_table
+  def set_monthly_balance_tables
     year = params[:year].to_s
-    @monthly_balance_table =
+    @monthly_balance_tables =
       MonthlyBalanceTable::Fetcher.all_of_year(user: current_user, year: year)
   end
 end
