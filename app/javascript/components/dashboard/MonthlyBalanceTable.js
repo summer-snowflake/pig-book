@@ -9,7 +9,7 @@ import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
 import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import MonthlyChart from './MonthlyChart'
-import { monthlyBalanceTablesAxios } from './../mixins/requests/DashboardMixin'
+import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
@@ -17,9 +17,13 @@ class MonthlyBalanceTable extends React.Component {
     this.state = {
       tally: this.props.tally,
       year: this.props.year || moment().year(),
+      totalIncome: '¥0',
+      totalExpenditure: '¥0'
     }
     this.getMonthlyBalanceTables = this.getMonthlyBalanceTables.bind(this)
     this.getMonthlyBalanceTablesCallback = this.getMonthlyBalanceTablesCallback.bind(this)
+    this.getMonthlyBalanceTablesTotal = this.getMonthlyBalanceTablesTotal.bind(this)
+    this.getMonthlyBalanceTablesTotalCallback = this.getMonthlyBalanceTablesTotalCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
@@ -31,10 +35,22 @@ class MonthlyBalanceTable extends React.Component {
     this.setState({
       tally: res.data
     })
+    this.getMonthlyBalanceTablesTotal()
+  }
+
+  getMonthlyBalanceTablesTotalCallback(res) {
+    this.setState({
+      totalIncome: res.data.human_total_income,
+      totalExpenditure: res.data.human_total_expenditure
+    })
   }
 
   getMonthlyBalanceTables() {
     monthlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesCallback, this.noticeErrorMessages)
+  }
+
+  getMonthlyBalanceTablesTotal() {
+    yearlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesTotalCallback, this.noticeErrorMessages)
   }
 
   render() {
@@ -65,7 +81,7 @@ class MonthlyBalanceTable extends React.Component {
                   <MonthlyTotalExpenditure month={index + 1} tally={this.state.tally} />
                 </td>)
               )}
-              <MonthlyTotal tally={this.state.tally} />
+              <MonthlyTotal totalExpenditure={this.state.totalExpenditure} totalIncome={this.state.totalIncome} />
             </tr>
           </tbody>
         </table>

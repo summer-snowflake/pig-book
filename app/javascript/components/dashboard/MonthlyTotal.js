@@ -4,19 +4,6 @@ import PropTypes from 'prop-types'
 class MonthlyTotal extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      incomeTotal: 0,
-      expenditureTotal: 0
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if ((nextProps.tally || []).map ((t) => t.income).length != 0) {
-      this.setState({
-        incomeTotal: nextProps.tally.map ((t) => t.income).reduce((acc, cur) => acc + cur),
-        expenditureTotal: nextProps.tally.map ((t) => t.expenditure).reduce((acc, cur) => acc + cur)
-      })
-    }
   }
 
   render() {
@@ -24,11 +11,11 @@ class MonthlyTotal extends React.Component {
       <td className='monthly-total-component'>
         <div>
           <i className='fas fa-plus-square left-icon blue' />
-          {this.state.incomeTotal}
+          {this.props.totalIncome}
         </div>
         <div>
           <i className='fas fa-minus-square left-icon red' />
-          {this.state.expenditureTotal}
+          {this.props.totalExpenditure}
         </div>
       </td>
     )
@@ -36,7 +23,8 @@ class MonthlyTotal extends React.Component {
 }
 
 MonthlyTotal.propTypes = {
-  tally: PropTypes.array
+  totalIncome: PropTypes.string.isRequired,
+  totalExpenditure: PropTypes.string.isRequired
 }
 
 export default MonthlyTotal
