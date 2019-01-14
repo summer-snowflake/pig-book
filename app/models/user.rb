@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :templates, through: :categories
   has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
+  has_many :yearly_balance_tables, dependent: :destroy
   has_many :monthly_balance_tables, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :import_histories, dependent: :destroy

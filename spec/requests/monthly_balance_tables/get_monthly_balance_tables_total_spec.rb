@@ -20,24 +20,9 @@ describe 'GET /api/monthly_balance_tables/:year/total' do
 
   context 'ログインしていた場合' do
     context 'データがある場合' do
-      let!(:monthly_balance_table1) do
-        create(:monthly_balance_table,
-               user: user, year: 2018, month: 7, income: 250, expenditure: 0)
-      end
-      let!(:monthly_balance_table2) do
-        create(:monthly_balance_table,
-               user: user,
-               year: 2018, month: 9, income: 500, expenditure: 0)
-      end
-      let!(:monthly_balance_table3) do
-        create(:monthly_balance_table,
-               user: user,
-               year: 2016, month: 2, income: 0, expenditure: 900)
-      end
-      let!(:monthly_balance_table4) do
-        create(:monthly_balance_table,
-               user: user,
-               year: 2018, month: 11, income: 0, expenditure: 300)
+      let!(:yearly_balance_table) do
+        create(:yearly_balance_table,
+               user: user, year: 2018, income: 3000, expenditure: 3400)
       end
 
       it '200とデータが返ってくること' do
@@ -47,8 +32,8 @@ describe 'GET /api/monthly_balance_tables/:year/total' do
 
         expect(response.status).to eq 200
         json = {
-          total_income: 750,
-          total_expenditure: 300
+          human_total_income: '¥3,000',
+          human_total_expenditure: '¥3,400'
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -62,8 +47,8 @@ describe 'GET /api/monthly_balance_tables/:year/total' do
 
         expect(response.status).to eq 200
         json = {
-          total_income: 0,
-          total_expenditure: 0
+          human_total_income: '¥0',
+          human_total_expenditure: '¥0'
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

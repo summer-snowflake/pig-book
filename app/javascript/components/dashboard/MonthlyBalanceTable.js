@@ -16,7 +16,7 @@ class MonthlyBalanceTable extends React.Component {
     super(props)
     this.state = {
       tally: this.props.tally,
-      year: this.props.year || moment().year()
+      year: this.props.year || moment().year(),
     }
     this.getMonthlyBalanceTables = this.getMonthlyBalanceTables.bind(this)
     this.getMonthlyBalanceTablesCallback = this.getMonthlyBalanceTablesCallback.bind(this)
