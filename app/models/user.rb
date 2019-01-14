@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :templates, through: :categories
   has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
+  has_many :yearly_balance_tables, dependent: :destroy
   has_many :monthly_balance_tables, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :import_histories, dependent: :destroy
@@ -55,6 +56,10 @@ class User < ApplicationRecord
   def recently_used_tags
     tagged_records = TaggedRecord.where(record: recently_records.pluck(:id))
     tags.where(id: tagged_records.pluck(:tag_id))
+  end
+
+  def present_years
+    monthly_balance_tables.where(currency: base_setting.currency).target_years
   end
 
   private

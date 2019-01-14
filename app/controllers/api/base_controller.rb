@@ -29,6 +29,10 @@ class Api::BaseController < ApplicationController
     end
   end
 
+  def current_currency
+    current_user.base_setting.currency
+  end
+
   def last_request_at
     last_request_at = params[:last_request_at]
     if /^[0-9]+$/.match?(last_request_at)

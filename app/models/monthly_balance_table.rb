@@ -20,6 +20,18 @@ class MonthlyBalanceTable < ApplicationRecord
     where(year: year).order(:month)
   }
 
+  scope :total_income, lambda {
+    return 0 if blank?
+
+    sum(:income)
+  }
+
+  scope :total_expenditure, lambda {
+    return 0 if blank?
+
+    sum(:expenditure)
+  }
+
   def year_and_month
     "#{year}-#{format('%02d', month)}"
   end

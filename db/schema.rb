@@ -175,6 +175,17 @@ ActiveRecord::Schema.define(version: 2019_01_11_172816) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "yearly_balance_tables", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "year", null: false
+    t.integer "income", default: 0, null: false
+    t.integer "expenditure", default: 0, null: false
+    t.integer "currency", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_yearly_balance_tables_on_user_id"
+  end
+
   add_foreign_key "admins", "users"
   add_foreign_key "breakdowns", "categories"
   add_foreign_key "categories", "users"
@@ -196,4 +207,5 @@ ActiveRecord::Schema.define(version: 2019_01_11_172816) do
   add_foreign_key "templates", "breakdowns"
   add_foreign_key "templates", "categories"
   add_foreign_key "templates", "tags"
+  add_foreign_key "yearly_balance_tables", "users"
 end
