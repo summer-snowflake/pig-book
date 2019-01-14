@@ -15,11 +15,6 @@ class Api::MonthlyBalanceTablesController < Api::BaseController
     render json: @monthly_balance_tables
   end
 
-  def total
-    yearly_balance_table = current_user.yearly_balance_tables.find_or_initialize_by(year: params[:year].to_i, currency: current_user.base_setting.currency)
-    render json: yearly_balance_table
-  end
-
   private
 
   def set_monthly_balance_tables

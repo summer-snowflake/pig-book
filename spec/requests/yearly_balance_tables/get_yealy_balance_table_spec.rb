@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe 'GET /api/monthly_balance_tables/:year/total' do
+describe 'GET /api/yearly_balance_tables/:year' do
   let!(:user) { create(:user) }
   let!(:year) { Time.zone.today.year }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
-      get '/api/monthly_balance_tables/2018/total'
+      get '/api/yearly_balance_tables/2018'
 
       expect(response.status).to eq 401
       json = {
@@ -27,7 +27,7 @@ describe 'GET /api/monthly_balance_tables/:year/total' do
 
       it '200とデータが返ってくること' do
         params = { last_request_at: Time.zone.now, date: Date.current.to_s }
-        get '/api/monthly_balance_tables/2018/total',
+        get '/api/yearly_balance_tables/2018',
             params: params, headers: login_headers(user)
 
         expect(response.status).to eq 200
@@ -42,7 +42,7 @@ describe 'GET /api/monthly_balance_tables/:year/total' do
     context 'データがない場合' do
       it '200とデータが返ってくること' do
         params = { last_request_at: Time.zone.now, date: Date.current.to_s }
-        get '/api/monthly_balance_tables/2018/total',
+        get '/api/yearly_balance_tables/2018',
             params: params, headers: login_headers(user)
 
         expect(response.status).to eq 200
