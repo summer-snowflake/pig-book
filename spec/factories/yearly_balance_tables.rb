@@ -8,5 +8,9 @@ FactoryBot.define do
     income { random.rand(0..10_000) }
     expenditure { random.rand(0..10_000) }
     currency { :yen }
+
+    trait :with_category do
+      category
+    end
   end
 end
