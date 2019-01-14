@@ -11,9 +11,13 @@ namespace :tally do
     raise 'operator is not administrator' unless operator.admin?
 
     ActiveRecord::Base.transaction do
-      updator = MonthlyBalanceTable::Updater.new(user: user)
-      updator.update!
-      updator.update_empty!
+      updater = MonthlyBalanceTable::Updater.new(user: user)
+      updater.update!
+      updater.update_empty!
+
+      updater = YearlyBalanceTable::Updater.new(user: user)
+      updater.update!
+
       user.events.where('created_at < ?', 1.month.ago).destroy_all
       user.events.create!(category: :tally_monthly, operator: operator)
     end

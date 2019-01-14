@@ -15,4 +15,12 @@ class MonthlyBalanceTable::Fetcher
          .where(currency: @user.base_setting.currency)
          .the_year(@year)
   end
+
+  def total_income
+    all_of_year.total_income
+  end
+
+  def total_expenditure
+    all_of_year.total_expenditure
+  end
 end

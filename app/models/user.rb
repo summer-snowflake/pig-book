@@ -57,6 +57,10 @@ class User < ApplicationRecord
     tags.where(id: tagged_records.pluck(:tag_id))
   end
 
+  def present_years
+    monthly_balance_tables.where(currency: base_setting.currency).target_years
+  end
+
   private
 
   def generate_authentication_token
