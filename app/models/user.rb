@@ -34,6 +34,10 @@ class User < ApplicationRecord
     profile || Profile.create!(user: self)
   end
 
+  def current_currency
+    base_setting.currency
+  end
+
   def last_tally_at
     events.tally_monthly.last&.created_at
   end

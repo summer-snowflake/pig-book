@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_172816) do
+ActiveRecord::Schema.define(version: 2019_01_14_165854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(version: 2019_01_11_172816) do
     t.integer "currency", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_yearly_balance_tables_on_category_id"
     t.index ["user_id"], name: "index_yearly_balance_tables_on_user_id"
   end
 
@@ -207,5 +209,6 @@ ActiveRecord::Schema.define(version: 2019_01_11_172816) do
   add_foreign_key "templates", "breakdowns"
   add_foreign_key "templates", "categories"
   add_foreign_key "templates", "tags"
+  add_foreign_key "yearly_balance_tables", "categories"
   add_foreign_key "yearly_balance_tables", "users"
 end

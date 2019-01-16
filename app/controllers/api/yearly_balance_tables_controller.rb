@@ -13,6 +13,7 @@ class Api::YearlyBalanceTablesController < Api::BaseController
     @yearly_balance_table =
       current_user
       .yearly_balance_tables
+      .totals
       .find_or_initialize_by(
         year: params[:year].to_s,
         currency: current_currency
