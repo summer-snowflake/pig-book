@@ -8,7 +8,9 @@ class YearlyBalanceTable < ApplicationRecord
 
   validates :year, presence: true
 
-  scope :totals, lambda {
-    where(category: nil)
-  }
+  class << self
+    def totals(year)
+      where(category: nil, year: year)
+    end
+  end
 end

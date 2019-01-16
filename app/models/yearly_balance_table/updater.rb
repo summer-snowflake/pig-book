@@ -8,7 +8,6 @@ class YearlyBalanceTable::Updater
   def update!
     @user.present_years.each do |year|
       update_total!(year)
-      update_category_total!(year)
     end
   end
 
@@ -17,11 +16,11 @@ class YearlyBalanceTable::Updater
   def update_total!(year)
     fetcher =
       MonthlyBalanceTable::Fetcher.new(user: @user, year: year)
-    yearly = find_yearly(year: year)
-    yearly.update!(
-      income: fetcher.total_income,
-      expenditure: fetcher.total_expenditure
-    )
+    yearly = find_yearly(year: year, balance_of_payments: true)
+    yearly.update!(charge: fetcher.total_income)
+
+    yearly = find_yearly(year: year, balance_of_payments: false)
+    yearly.update!(charge: fetcher.total_expenditure)
   end
 
   def update_category_total!(year)
@@ -37,9 +36,10 @@ class YearlyBalanceTable::Updater
     end
   end
 
-  def find_yearly(year:, category: nil)
+  def find_yearly(year:, balance_of_payments:, category: nil)
     @user.yearly_balance_tables.find_or_initialize_by(
       year: year,
+      balance_of_payments: balance_of_payments,
       category: category,
       currency: @user.base_setting.currency
     )

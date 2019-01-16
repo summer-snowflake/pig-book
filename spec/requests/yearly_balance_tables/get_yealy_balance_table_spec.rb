@@ -20,20 +20,26 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
   context 'ログインしていた場合' do
     context 'データがある場合' do
-      let!(:yearly_balance_table) do
+      before do
+        create(:yearly_balance_table, :income,
+               user: user, year: 2018, charge: 3000)
         create(:yearly_balance_table,
-               user: user, year: 2018, income: 3000, expenditure: 3400)
+               user: user, year: 2018, charge: 3400)
       end
 
       it '200とデータが返ってくること' do
-        params = { last_request_at: Time.zone.now, date: Date.current.to_s }
+        params = { last_request_at: Time.zone.now, year: 2018 }
         get '/api/yearly_balance_tables/2018',
             params: params, headers: login_headers(user)
 
         expect(response.status).to eq 200
         json = {
-          human_total_income: '¥3,000',
-          human_total_expenditure: '¥3,400'
+          income: [
+            { human_charge: '¥3,000' }
+          ],
+          expenditure: [
+            { human_charge: '¥3,400' }
+          ]
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -41,14 +47,18 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
     context 'データがない場合' do
       it '200とデータが返ってくること' do
-        params = { last_request_at: Time.zone.now, date: Date.current.to_s }
+        params = { last_request_at: Time.zone.now, year: 2018 }
         get '/api/yearly_balance_tables/2018',
             params: params, headers: login_headers(user)
 
         expect(response.status).to eq 200
         json = {
-          human_total_income: '¥0',
-          human_total_expenditure: '¥0'
+          income: [
+            { human_charge: '¥0' }
+          ],
+          expenditure: [
+            { human_charge: '¥0' }
+          ]
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
