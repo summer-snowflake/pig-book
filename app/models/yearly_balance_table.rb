@@ -12,5 +12,9 @@ class YearlyBalanceTable < ApplicationRecord
     def totals(year)
       where(category: nil, year: year)
     end
+
+    def category_totals(year)
+      where(year: year).where.not(category: nil)
+    end
   end
 end

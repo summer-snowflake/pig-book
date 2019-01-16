@@ -7,4 +7,8 @@ class YearlyBalanceTableDecorator < ApplicationDecorator
   def human_charge
     with_format(charge)
   end
+
+  def category_name
+    category&.name
+  end
 end

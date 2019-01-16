@@ -14,6 +14,15 @@ class Api::BaseController < ApplicationController
 
   private
 
+  def to_serializers(items)
+    serializer = ActiveModel::Serializer.serializer_for(items.first)
+
+    ActiveModel::Serializer::CollectionSerializer.new(
+      items,
+      each_serializer: serializer
+    )
+  end
+
   def authenticate_with_user_token
     render_authentication_error && return unless current_user && last_request_at
     return unless current_user.timedout?(last_request_at)

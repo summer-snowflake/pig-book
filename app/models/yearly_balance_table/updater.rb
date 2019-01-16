@@ -8,6 +8,7 @@ class YearlyBalanceTable::Updater
   def update!
     @user.present_years.each do |year|
       update_total!(year)
+      update_category_total!(year)
     end
   end
 
@@ -27,12 +28,9 @@ class YearlyBalanceTable::Updater
     grouping_records = the_year_records(year).group_by(&:category_id)
     grouping_records.each do |key, records|
       yearly = @user.yearly_balance_tables.find_or_initialize_by(
-        year: year, currency: @user.current_currency, category_id: key
+        year: year, currency: @user.current_currency, category_id: key,
       )
-      yearly.update!(
-        income: sum_charge(incomes(records)),
-        expenditure: sum_charge(expenditure(records))
-      )
+      yearly.update!(charge: sum_charge(records), balance_of_payments: yearly.category.balance_of_payments)
     end
   end
 
@@ -47,14 +45,6 @@ class YearlyBalanceTable::Updater
 
   def the_year_records(year)
     @user.records.current_currency(@user).the_year(year)
-  end
-
-  def incomes(records)
-    records.select { |record| record.category.balance_of_payments? }
-  end
-
-  def expenditure(records)
-    records.reject { |record| record.category.balance_of_payments? }
   end
 
   def sum_charge(records)
