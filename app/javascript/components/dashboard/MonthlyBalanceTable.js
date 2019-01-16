@@ -9,7 +9,7 @@ import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
 import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import MonthlyChart from './MonthlyChart'
-import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios } from './../mixins/requests/DashboardMixin'
+import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios, yearlyBalanceTablesCategoryAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
@@ -24,6 +24,8 @@ class MonthlyBalanceTable extends React.Component {
     this.getMonthlyBalanceTablesCallback = this.getMonthlyBalanceTablesCallback.bind(this)
     this.getMonthlyBalanceTablesTotal = this.getMonthlyBalanceTablesTotal.bind(this)
     this.getMonthlyBalanceTablesTotalCallback = this.getMonthlyBalanceTablesTotalCallback.bind(this)
+    this.getYearlyBalanceTablesCategory = this.getYearlyBalanceTablesCategory.bind(this)
+    this.getYearlyBalanceTablesCategoryCallback = this.getYearlyBalanceTablesCategoryCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
@@ -36,6 +38,7 @@ class MonthlyBalanceTable extends React.Component {
       tally: res.data
     })
     this.getMonthlyBalanceTablesTotal()
+    this.getYearlyBalanceTablesCategory()
   }
 
   getMonthlyBalanceTablesTotalCallback(res) {
@@ -45,12 +48,20 @@ class MonthlyBalanceTable extends React.Component {
     })
   }
 
+  getYearlyBalanceTablesCategoryCallback(res) {
+    console.log(res)
+  }
+
   getMonthlyBalanceTables() {
     monthlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesCallback, this.noticeErrorMessages)
   }
 
   getMonthlyBalanceTablesTotal() {
     yearlyBalanceTablesAxios.get(this.state.year, this.getMonthlyBalanceTablesTotalCallback, this.noticeErrorMessages)
+  }
+
+  getYearlyBalanceTablesCategory() {
+    yearlyBalanceTablesCategoryAxios.get(this.state.year, this.getYearlyBalanceTablesCategoryCallback, this.noticeErrorMessages)
   }
 
   render() {
