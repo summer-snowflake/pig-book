@@ -35,10 +35,16 @@ describe 'GET /api/yearly_balance_tables/:year' do
         expect(response.status).to eq 200
         json = {
           income: [
-            { human_charge: '¥3,000' }
+            {
+              charge: 3000,
+              human_charge: '¥3,000'
+            }
           ],
           expenditure: [
-            { human_charge: '¥3,400' }
+            {
+              charge: 3400,
+              human_charge: '¥3,400'
+            }
           ]
         }.to_json
         expect(response.body).to be_json_eql(json)
@@ -54,10 +60,16 @@ describe 'GET /api/yearly_balance_tables/:year' do
         expect(response.status).to eq 200
         json = {
           income: [
-            { human_charge: '¥0' }
+            {
+              charge: 0,
+              human_charge: '¥0'
+            }
           ],
           expenditure: [
-            { human_charge: '¥0' }
+            {
+              charge: 0,
+              human_charge: '¥0'
+            }
           ]
         }.to_json
         expect(response.body).to be_json_eql(json)
@@ -107,15 +119,47 @@ describe 'GET /api/yearly_balance_tables/:year/category' do
 
         expect(response.status).to eq 200
         json = {
-          income: [],
+          income: [
+            {
+              charge: 0,
+              human_charge: '¥0'
+            }
+          ],
           expenditure: [
             {
               category_name: '消耗品費',
+              charge: 2500,
               human_charge: '¥2,500'
             },
             {
               category_name: '食費',
+              charge: 3500,
               human_charge: '¥3,500'
+            }
+          ]
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
+    end
+
+    context 'データがない場合' do
+      it '200とデータが返ってくること' do
+        params = { last_request_at: Time.zone.now, year: 2018 }
+        get '/api/yearly_balance_tables/2018/category',
+            params: params, headers: login_headers(user)
+
+        expect(response.status).to eq 200
+        json = {
+          income: [
+            {
+              charge: 0,
+              human_charge: '¥0'
+            }
+          ],
+          expenditure: [
+            {
+              charge: 0,
+              human_charge: '¥0'
             }
           ]
         }.to_json

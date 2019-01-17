@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class YearlyBalanceTableSerializer < ActiveModel::Serializer
-  attributes :id, :human_charge
+  attributes :id, :human_charge, :charge
   attribute :category_name, if: -> { category? }
 
   def human_charge

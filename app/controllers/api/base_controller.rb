@@ -15,12 +15,15 @@ class Api::BaseController < ApplicationController
   private
 
   def to_serializers(items)
-    serializer = ActiveModel::Serializer.serializer_for(items.first)
-
-    ActiveModel::Serializer::CollectionSerializer.new(
-      items,
-      each_serializer: serializer
-    )
+    if items.class.name == 'ActiveRecord::Relation'
+      serializer = ActiveModel::Serializer.serializer_for(items.first)
+      ActiveModel::Serializer::CollectionSerializer.new(
+        obj,
+        each_serializer: serializer
+      )
+    else
+      ActiveModel::Serializer.serializer_for(items).new(items)
+    end
   end
 
   def authenticate_with_user_token
