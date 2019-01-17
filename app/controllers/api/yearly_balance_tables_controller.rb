@@ -6,13 +6,10 @@ class Api::YearlyBalanceTablesController < Api::BaseController
   def show
     totals = @yearly_balance_tables.totals(params[:year].to_i)
 
-    income = totals.find_or_initialize_by(balance_of_payments: true)
-    expenditure = totals.find_or_initialize_by(balance_of_payments: false)
-    json = {
-      income: [YearlyBalanceTableSerializer.new(income)],
-      expenditure: [YearlyBalanceTableSerializer.new(expenditure)]
+    render json: {
+      income: to_serializers(totals.income),
+      expenditure: to_serializers(totals.expenditure)
     }.to_json
-    render json: json
   end
 
   def category

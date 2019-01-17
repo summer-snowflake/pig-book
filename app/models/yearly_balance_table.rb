@@ -14,13 +14,11 @@ class YearlyBalanceTable < ApplicationRecord
     end
 
     def income
-      tables = where(balance_of_payments: true)
-      tables.present? ? tables : [YearlyBalanceTable.new]
+      where(balance_of_payments: true)
     end
 
     def expenditure
-      tables = where(balance_of_payments: false)
-      tables.present? ? tables : [YearlyBalanceTable.new]
+      where(balance_of_payments: false)
     end
 
     def category_totals(year)

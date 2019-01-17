@@ -59,18 +59,8 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
         expect(response.status).to eq 200
         json = {
-          income: [
-            {
-              charge: 0,
-              human_charge: '¥0'
-            }
-          ],
-          expenditure: [
-            {
-              charge: 0,
-              human_charge: '¥0'
-            }
-          ]
+          income: [],
+          expenditure: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -119,12 +109,7 @@ describe 'GET /api/yearly_balance_tables/:year/category' do
 
         expect(response.status).to eq 200
         json = {
-          income: [
-            {
-              charge: 0,
-              human_charge: '¥0'
-            }
-          ],
+          income: [],
           expenditure: [
             {
               category_name: '消耗品費',
@@ -150,18 +135,8 @@ describe 'GET /api/yearly_balance_tables/:year/category' do
 
         expect(response.status).to eq 200
         json = {
-          income: [
-            {
-              charge: 0,
-              human_charge: '¥0'
-            }
-          ],
-          expenditure: [
-            {
-              charge: 0,
-              human_charge: '¥0'
-            }
-          ]
+          income: [],
+          expenditure: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
