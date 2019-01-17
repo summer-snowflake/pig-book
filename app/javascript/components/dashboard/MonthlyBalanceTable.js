@@ -9,6 +9,7 @@ import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
 import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import MonthlyChart from './MonthlyChart'
+import CategoryPieChart from './CategoryPieChart'
 import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios, yearlyBalanceTablesCategoryAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
@@ -16,6 +17,10 @@ class MonthlyBalanceTable extends React.Component {
     super(props)
     this.state = {
       tally: this.props.tally,
+      categoryTally: {
+        income: [],
+        expenditure: []
+      },
       year: this.props.year || moment().year(),
       totalIncome: '¥0',
       totalExpenditure: '¥0'
@@ -49,7 +54,9 @@ class MonthlyBalanceTable extends React.Component {
   }
 
   getYearlyBalanceTablesCategoryCallback(res) {
-    console.log(res)
+    this.setState({
+      categoryTally: res.data
+    })
   }
 
   getMonthlyBalanceTables() {
@@ -97,6 +104,8 @@ class MonthlyBalanceTable extends React.Component {
           </tbody>
         </table>
         <MonthlyChart tally={this.state.tally} />
+        <CategoryPieChart balanceOfPayments={true} tally={this.state.categoryTally.income} />
+        <CategoryPieChart balanceOfPayments={false} tally={this.state.categoryTally.expenditure} />
       </div>
     )
   }
