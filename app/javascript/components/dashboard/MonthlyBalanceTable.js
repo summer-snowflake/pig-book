@@ -104,7 +104,7 @@ class MonthlyBalanceTable extends React.Component {
           </tbody>
         </table>
         <MonthlyChart tally={this.state.tally} />
-        <CategoryPieChart balanceOfPayments={true} tally={this.state.categoryTally.income} />
+        <CategoryPieChart balanceOfPayments tally={this.state.categoryTally.income} />
         <CategoryPieChart balanceOfPayments={false} tally={this.state.categoryTally.expenditure} />
       </div>
     )

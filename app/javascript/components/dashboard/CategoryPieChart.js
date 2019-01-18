@@ -34,6 +34,11 @@ class CategoryPieChart extends React.Component {
   render() {
     let total = this.state.tally.length > 0 ? this.state.tally.map ((t) => t.charge).reduce((acc, cur) => acc + cur) : 0
     let formatTooltip = (value, name, payload, index) => this.state.tally[index].human_charge + ' (Rate: ' + (value / total * 100).toFixed(0) + '%)'
+    let colors = this.props.balanceOfPayments ? (
+      ['#8884d8', '#d0ed57', '#a4de6c', '#82ca9d', '#8dd1e1', '#83a6ed']
+    ) : (
+      ['#d88884', '#edbf57', '#de6cdd', '#ca82af', '#e18dd1', '#ed9583']
+    )
 
     return (
       <div className='category-pie-chart-component'>
@@ -42,8 +47,12 @@ class CategoryPieChart extends React.Component {
             {this.props.balanceOfPayments ? '収入' : '支出' }
           </text>
           <Tooltip formatter={formatTooltip} />
-          <Pie cx='50%' cy='50%' data={this.state.tally} dataKey='charge' fill='#61abbb' innerRadius={80} nameKey='category_name' />
-          <Pie cx='50%' cy='50%' data={this.state.tally} dataKey='charge' fill='#ffd351' innerRadius={40} label={this.renderCustomizedLabel} labelLine={false} nameKey='category_name' outerRadius={75} />
+          <Pie cx='50%' cy='50%' data={this.state.tally} dataKey='charge' fill='#61abbb' innerRadius={80} nameKey='category_name'>
+            {this.props.tally.map((entry, index) => <Cell fill={colors[index % colors.length]} key={index} />)}
+          </Pie>
+          <Pie cx='50%' cy='50%' data={this.state.tally} dataKey='charge' fill='#ffd351' innerRadius={40} label={this.renderCustomizedLabel} labelLine={false} nameKey='category_name' outerRadius={75}>
+            {this.props.tally.map((entry, index) => <Cell fill={colors[index % colors.length]} key={index} />)}
+          </Pie>
         </PieChart>
       </div>
     )
