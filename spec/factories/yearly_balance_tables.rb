@@ -5,12 +5,15 @@ FactoryBot.define do
   factory :yearly_balance_table do
     user
     year { Time.zone.now.year }
-    income { random.rand(0..10_000) }
-    expenditure { random.rand(0..10_000) }
+    balance_of_payments { false }
+    charge { random.rand(0..10_000) }
     currency { :yen }
 
     trait :with_category do
       category
+    end
+    trait :income do
+      balance_of_payments { true }
     end
   end
 end

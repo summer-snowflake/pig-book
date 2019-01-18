@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 namespace :tally do
-  desc 'Calculate the records on monthly.'
-  task :monthly, %i[user_id operator_id] => :environment do |_task, args|
+  desc 'Calculate the records.'
+  task :update, %i[user_id operator_id] => :environment do |_task, args|
     raise '[:user_id] is not found.' unless args[:user_id]
     raise '[:operator_id] is not found.' unless args[:operator_id]
 

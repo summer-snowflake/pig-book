@@ -4,11 +4,11 @@ class YearlyBalanceTableDecorator < ApplicationDecorator
   delegate_all
   include CurrencyFormatter
 
-  def human_total_income
-    with_format(income)
+  def human_charge
+    with_format(charge)
   end
 
-  def human_total_expenditure
-    with_format(expenditure)
+  def category_name
+    category&.name
   end
 end

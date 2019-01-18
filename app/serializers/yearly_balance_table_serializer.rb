@@ -1,13 +1,20 @@
 # frozen_string_literal: true
 
 class YearlyBalanceTableSerializer < ActiveModel::Serializer
-  attributes :id, :human_total_income, :human_total_expenditure
+  attributes :id, :human_charge, :charge
+  attribute :category_name, if: -> { category? }
 
-  def human_total_income
-    object.decorate.human_total_income
+  def human_charge
+    object.decorate.human_charge
   end
 
-  def human_total_expenditure
-    object.decorate.human_total_expenditure
+  def category_name
+    object.decorate.category_name
+  end
+
+  private
+
+  def category?
+    object.category.present?
   end
 end

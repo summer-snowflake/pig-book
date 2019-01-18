@@ -17,11 +17,11 @@ class YearlyBalanceTable::Updater
   def update_total!(year)
     fetcher =
       MonthlyBalanceTable::Fetcher.new(user: @user, year: year)
-    yearly = find_yearly(year: year)
-    yearly.update!(
-      income: fetcher.total_income,
-      expenditure: fetcher.total_expenditure
-    )
+    yearly = find_yearly(year: year, balance_of_payments: true)
+    yearly.update!(charge: fetcher.total_income)
+
+    yearly = find_yearly(year: year, balance_of_payments: false)
+    yearly.update!(charge: fetcher.total_expenditure)
   end
 
   def update_category_total!(year)
@@ -30,16 +30,15 @@ class YearlyBalanceTable::Updater
       yearly = @user.yearly_balance_tables.find_or_initialize_by(
         year: year, currency: @user.current_currency, category_id: key
       )
-      yearly.update!(
-        income: sum_charge(incomes(records)),
-        expenditure: sum_charge(expenditure(records))
-      )
+      yearly.update!(charge: sum_charge(records),
+                     balance_of_payments: yearly.category.balance_of_payments)
     end
   end
 
-  def find_yearly(year:, category: nil)
+  def find_yearly(year:, balance_of_payments:, category: nil)
     @user.yearly_balance_tables.find_or_initialize_by(
       year: year,
+      balance_of_payments: balance_of_payments,
       category: category,
       currency: @user.base_setting.currency
     )
@@ -47,14 +46,6 @@ class YearlyBalanceTable::Updater
 
   def the_year_records(year)
     @user.records.current_currency(@user).the_year(year)
-  end
-
-  def incomes(records)
-    records.select { |record| record.category.balance_of_payments? }
-  end
-
-  def expenditure(records)
-    records.reject { |record| record.category.balance_of_payments? }
   end
 
   def sum_charge(records)

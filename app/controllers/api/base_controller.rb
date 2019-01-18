@@ -14,6 +14,18 @@ class Api::BaseController < ApplicationController
 
   private
 
+  def to_serializers(items)
+    if items.class.name == 'ActiveRecord::Relation'
+      serializer = ActiveModel::Serializer.serializer_for(items.first)
+      ActiveModel::Serializer::CollectionSerializer.new(
+        obj,
+        each_serializer: serializer
+      )
+    else
+      ActiveModel::Serializer.serializer_for(items).new(items)
+    end
+  end
+
   def authenticate_with_user_token
     render_authentication_error && return unless current_user && last_request_at
     return unless current_user.timedout?(last_request_at)
