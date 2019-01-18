@@ -5,3 +5,7 @@
 .monthly-chart-component {
   display: inline-block;
 }
+
+.recharts-layer.recharts-pie-sector .recharts-sector:hover {
+  cursor: pointer;
+}
