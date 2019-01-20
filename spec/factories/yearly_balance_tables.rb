@@ -8,6 +8,7 @@ FactoryBot.define do
     balance_of_payments { false }
     charge { random.rand(0..10_000) }
     currency { :yen }
+    other { false }
 
     trait :with_category do
       category
