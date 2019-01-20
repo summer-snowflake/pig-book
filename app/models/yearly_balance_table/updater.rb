@@ -33,6 +33,19 @@ class YearlyBalanceTable::Updater
       yearly.update!(charge: sum_charge(records),
                      balance_of_payments: yearly.category.balance_of_payments)
     end
+    update_category_other!(year)
+  end
+
+  def update_category_other!(year)
+    totals = @user.yearly_balance_tables
+                  .where(currency: @user.base_setting.currency)
+                  .category_totals(year)
+    income_charge = sum_charge(totals.income.offset(5))
+    expenditure_charge = sum_charge(totals.expenditure.offset(5))
+    totals.income.create!(charge: income_charge,
+                          balance_of_payments: true, other: true)
+    totals.expenditure.create!(charge: expenditure_charge,
+                               balance_of_payments: false, other: true)
   end
 
   def find_yearly(year:, balance_of_payments:, category: nil)
