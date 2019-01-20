@@ -24,6 +24,16 @@ class Record < ApplicationRecord
   scope :current_currency,
         ->(user) { where(currency: user.base_setting.currency) }
 
+  scope :the_year, lambda { |year|
+    time = Time.zone.local(year, 1, 1)
+    where('published_at > ? and published_at < ?',
+          time.beginning_of_year, time.end_of_year)
+  }
+
+  def year_and_month
+    published_at.to_s.slice(0..6)
+  end
+
   private
 
   def set_tagged_records

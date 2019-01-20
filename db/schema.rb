@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_134317) do
+ActiveRecord::Schema.define(version: 2019_01_16_195958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,14 +70,13 @@ ActiveRecord::Schema.define(version: 2019_01_11_134317) do
 
   create_table "monthly_balance_tables", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "year_and_month", null: false
     t.integer "income", default: 0, null: false
     t.integer "expenditure", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "currency", default: 0, null: false
-    t.integer "year"
-    t.integer "month"
+    t.integer "year", null: false
+    t.integer "month", null: false
     t.index ["user_id"], name: "index_monthly_balance_tables_on_user_id"
   end
 
@@ -176,6 +175,19 @@ ActiveRecord::Schema.define(version: 2019_01_11_134317) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "yearly_balance_tables", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "year", null: false
+    t.integer "currency", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.integer "charge", default: 0, null: false
+    t.boolean "balance_of_payments", default: false, null: false
+    t.index ["category_id"], name: "index_yearly_balance_tables_on_category_id"
+    t.index ["user_id"], name: "index_yearly_balance_tables_on_user_id"
+  end
+
   add_foreign_key "admins", "users"
   add_foreign_key "breakdowns", "categories"
   add_foreign_key "categories", "users"
@@ -197,4 +209,6 @@ ActiveRecord::Schema.define(version: 2019_01_11_134317) do
   add_foreign_key "templates", "breakdowns"
   add_foreign_key "templates", "categories"
   add_foreign_key "templates", "tags"
+  add_foreign_key "yearly_balance_tables", "categories"
+  add_foreign_key "yearly_balance_tables", "users"
 end

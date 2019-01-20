@@ -5,16 +5,16 @@ class MonthlyBalanceTable::Updater
     @user = user
     @grouping_records =
       @user.records.current_currency(user).includes(:category)
-           .group_by { |record| record.published_at.to_s.slice(0..6) }
+           .group_by(&:year_and_month)
   end
 
   def update!
     @grouping_records.each do |key, records|
       monthly = MonthlyBalanceTable.find_or_initialize_by(
-        user: @user, year_and_month: key
+        user: @user, year: key.slice(0..3).to_i, month: key.slice(5, 2).to_i,
+        currency: @user.current_currency
       )
       monthly.update!(
-        currency: @user.base_setting.currency,
         income: sum_charge(incomes(records)),
         expenditure: sum_charge(expenditure(records))
       )
@@ -24,14 +24,12 @@ class MonthlyBalanceTable::Updater
   def update_empty!
     return if @grouping_records.blank?
 
-    empty_months.each do |empty_month|
+    empty_months.each do |date|
       monthly = MonthlyBalanceTable.find_or_initialize_by(
-        user: @user, year_and_month: empty_month
+        user: @user, year: date.slice(0..4).to_i, month: date.slice(5, 2).to_i,
+        currency: @user.current_currency
       )
-      monthly.update!(
-        currency: @user.base_setting.currency,
-        income: 0, expenditure: 0
-      )
+      monthly.update!(income: 0, expenditure: 0)
     end
   end
 
