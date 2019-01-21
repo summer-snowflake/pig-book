@@ -10,7 +10,7 @@ class YearlyBalanceTable < ApplicationRecord
 
   class << self
     def totals(year)
-      where(category: nil, year: year)
+      where(category: nil, other: false, year: year)
     end
 
     def income
