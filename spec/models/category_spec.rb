@@ -11,7 +11,7 @@ RSpec.describe Category, type: :model do
     it { is_expected.to have_many(:records).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:templates).dependent(:restrict_with_error) }
     it do
-      is_expected.to have_many(:yearly_balance_tables)
+      is_expected.to have_many(:yearly_category_balance_tables)
         .dependent(:restrict_with_error)
     end
   end

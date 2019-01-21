@@ -2,9 +2,9 @@
 
 class YearlyBalanceTable < ApplicationRecord
   include EnumDefinedCurrency
+  include YearlyStiable
 
   belongs_to :user
-  belongs_to :category, optional: true
 
   validates :year, presence: true
 

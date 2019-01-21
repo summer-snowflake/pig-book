@@ -10,7 +10,13 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:templates).through(:categories) }
     it { is_expected.to have_many(:tags).dependent(:destroy) }
     it { is_expected.to have_many(:records).dependent(:destroy) }
-    it { is_expected.to have_many(:yearly_balance_tables).dependent(:destroy) }
+    it do
+      is_expected.to have_many(:yearly_all_balance_tables).dependent(:destroy)
+    end
+    it do
+      is_expected
+        .to have_many(:yearly_category_balance_tables).dependent(:destroy)
+    end
     it { is_expected.to have_many(:monthly_balance_tables).dependent(:destroy) }
     it { is_expected.to have_many(:events).dependent(:destroy) }
     it { is_expected.to have_many(:import_histories).dependent(:destroy) }
