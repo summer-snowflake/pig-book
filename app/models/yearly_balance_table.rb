@@ -22,7 +22,7 @@ class YearlyBalanceTable < ApplicationRecord
     end
 
     def category_totals(year)
-      where(year: year).where.not(category: nil)
+      where(year: year).where.not(category: nil).order(charge: :desc)
     end
   end
 end
