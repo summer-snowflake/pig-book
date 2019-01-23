@@ -15,6 +15,6 @@ class YearlyBalanceTableSerializer < ActiveModel::Serializer
   private
 
   def category?
-    object.category.present?
+    object.category_type?
   end
 end

@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe YearlyBalanceTable, type: :model do
   describe 'relationship' do
     it { is_expected.to belong_to(:user) }
-    it { is_expected.to belong_to(:category).optional }
   end
 
   describe 'validation' do

@@ -3,21 +3,32 @@
 module YearlyStiable
   extend ActiveSupport::Concern
 
+  ALL_TYPE_NUMBER = 1
+  CATEGORY_TYPE_NUMBER = 2
+
   module ClassMethods
     def find_sti_class(type_name)
       case type_name
-      when 1 then YearlyAllBalanceTable
-      when 2 then YearlyCategoryBalanceTable
+      when ALL_TYPE_NUMBER then YearlyAllBalanceTable
+      when CATEGORY_TYPE_NUMBER then YearlyCategoryBalanceTable
       else self
       end
     end
 
     def sti_name
       case to_s
-      when 'YearlyAllBalanceTable' then 1
-      when 'YearlyCategoryBalanceTable' then 2
+      when 'YearlyAllBalanceTable' then ALL_TYPE_NUMBER
+      when 'YearlyCategoryBalanceTable' then CATEGORY_TYPE_NUMBER
       else 0
       end
     end
+  end
+
+  def all_type?
+    type == ALL_TYPE_NUMBER
+  end
+
+  def category_type?
+    type == CATEGORY_TYPE_NUMBER
   end
 end

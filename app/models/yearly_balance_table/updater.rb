@@ -27,7 +27,7 @@ class YearlyBalanceTable::Updater
   def update_category_total!(year)
     grouping_records = the_year_records(year).group_by(&:category_id)
     grouping_records.each do |key, records|
-      yearly = @user.yearly_balance_tables.find_or_initialize_by(
+      yearly = @user.yearly_category_balance_tables.find_or_initialize_by(
         year: year, currency: @user.current_currency, category_id: key
       )
       yearly.update!(charge: sum_charge(records),
@@ -37,24 +37,28 @@ class YearlyBalanceTable::Updater
   end
 
   def update_category_other!(year)
-    totals = @user.yearly_balance_tables
+    totals = @user.yearly_category_balance_tables
                   .where(currency: @user.base_setting.currency)
-                  .category_totals(year)
-    income_charge = sum_charge(totals.income.offset(5))
-    expenditure_charge = sum_charge(totals.expenditure.offset(5))
-    totals.income.create!(charge: income_charge,
-                          balance_of_payments: true, other: true)
-    totals.expenditure.create!(charge: expenditure_charge,
-                               balance_of_payments: false, other: true)
+                  .where(year: year)
+                  .order(charge: :desc)
+    update_or_create(totals.income)
+    update_or_create(totals.expenditure)
   end
 
-  def find_yearly(year:, balance_of_payments:, category: nil)
-    @user.yearly_balance_tables.find_or_initialize_by(
+  def find_yearly(year:, balance_of_payments:)
+    @user.yearly_all_balance_tables.find_or_initialize_by(
       year: year,
       balance_of_payments: balance_of_payments,
-      category: category,
       currency: @user.base_setting.currency
     )
+  end
+
+  def update_or_create(yearly)
+    charge = sum_charge(yearly.offset(5))
+    return unless charge.positive?
+
+    other_yearly = yearly.find_or_initialize_by(other: true)
+    other_yearly.update(charge: charge)
   end
 
   def the_year_records(year)
