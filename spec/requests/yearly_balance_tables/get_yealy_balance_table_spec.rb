@@ -21,9 +21,9 @@ describe 'GET /api/yearly_balance_tables/:year' do
   context 'ログインしていた場合' do
     context 'データがある場合' do
       before do
-        create(:yearly_balance_table, :income,
+        create(:yearly_all_balance_table, :income,
                user: user, year: 2018, charge: 3000)
-        create(:yearly_balance_table,
+        create(:yearly_all_balance_table,
                user: user, year: 2018, charge: 3400)
       end
 
@@ -89,15 +89,15 @@ describe 'GET /api/yearly_balance_tables/:year/category' do
       let!(:category1) { create(:category, user: user, name: '消耗品費') }
       let!(:category2) { create(:category, user: user, name: '食費') }
       before do
-        create(:yearly_balance_table,
+        create(:yearly_category_balance_table,
                user: user, category: category1, year: 2018, charge: 2500)
-        create(:yearly_balance_table,
+        create(:yearly_category_balance_table,
                user: user, category: category2, year: 2018, charge: 3500)
-        create(:yearly_balance_table,
+        create(:yearly_category_balance_table,
                user: user, category: category1, year: 2019, charge: 2000)
-        create(:yearly_balance_table,
+        create(:yearly_category_balance_table,
                user: user, category: category2, year: 2019, charge: 3400)
-        create(:yearly_balance_table,
+        create(:yearly_all_balance_table,
                user: user, year: 2018, charge: 3400)
       end
 
@@ -112,14 +112,14 @@ describe 'GET /api/yearly_balance_tables/:year/category' do
           income: [],
           expenditure: [
             {
-              category_name: '消耗品費',
-              charge: 2500,
-              human_charge: '¥2,500'
-            },
-            {
               category_name: '食費',
               charge: 3500,
               human_charge: '¥3,500'
+            },
+            {
+              category_name: '消耗品費',
+              charge: 2500,
+              human_charge: '¥2,500'
             }
           ]
         }.to_json

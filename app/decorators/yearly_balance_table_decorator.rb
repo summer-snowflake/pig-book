@@ -9,6 +9,6 @@ class YearlyBalanceTableDecorator < ApplicationDecorator
   end
 
   def category_name
-    category&.name
+    category&.name || (other? ? 'その他' : '')
   end
 end
