@@ -83,6 +83,9 @@ GEM
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
     builder (3.2.3)
+    bullet (5.9.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (10.0.2)
     capybara (3.12.0)
       addressable
@@ -368,6 +371,7 @@ GEM
     uglifier (4.1.19)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.1)
+    uniform_notifier (1.12.1)
     url (0.3.2)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -394,6 +398,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap
+  bullet
   byebug
   capybara
   capybara-email

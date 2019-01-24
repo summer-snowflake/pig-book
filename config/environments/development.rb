@@ -58,4 +58,11 @@ Rails.application.configure do
   # Genrate URL for devise mailer
   config.action_mailer.default_url_options = { host: 'localhost', port: ENV['PORT'] }
   config.action_mailer.delivery_method = :letter_opener
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+  end
 end
