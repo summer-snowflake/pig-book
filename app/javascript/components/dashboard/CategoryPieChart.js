@@ -35,9 +35,9 @@ class CategoryPieChart extends React.Component {
     let total = this.state.tally.length > 0 ? this.state.tally.map ((t) => t.charge).reduce((acc, cur) => acc + cur) : 0
     let formatTooltip = (value, name, props) => props.payload.human_charge + ' (Rate: ' + (value / total * 100).toFixed(0) + '%)'
     let colors = this.props.balanceOfPayments ? (
-      ['#8884d8', '#d0ed57', '#a4de6c', '#82ca9d', '#8dd1e1', '#83a6ed']
+      ['#8094bd', '#94bd80', '#80bda9', '#80b3bd', '#8dcae1', '#80bd8a', '#70a1b4']
     ) : (
-      ['#d88884', '#edbf57', '#de6cdd', '#ca82af', '#e18dd1', '#ed9583']
+      ['#d78ea5', '#d78ecf', '#ed9f96', '#e18dd1', '#f4c430', '#ed9583', '#ed96b9']
     )
 
     return (
