@@ -49,7 +49,7 @@ class User < ApplicationRecord
 
   # NOTE: 登録したデータの直近100件で利用されているカテゴリ
   def recently_used_categories
-    recently_records.includes(category: [:breakdowns, :places, templates: :tag])
+    recently_records.includes(category: %i[breakdowns places templates])
                     .map(&:category)
                     .uniq
   end
