@@ -14,6 +14,10 @@ RSpec.describe Category, type: :model do
       is_expected.to have_many(:yearly_category_balance_tables)
         .dependent(:restrict_with_error)
     end
+    it do
+      is_expected.to have_many(:yearly_breakdown_balance_tables)
+        .dependent(:restrict_with_error)
+    end
   end
 
   describe 'validation' do
