@@ -41,6 +41,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
   gem 'listen'
   gem 'scss_lint', require: false
   gem 'slim_lint', require: false
