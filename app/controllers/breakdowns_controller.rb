@@ -5,7 +5,7 @@ class BreakdownsController < ApplicationController
   before_action :set_last_request_at, :set_authentication_token, only: %i[index]
 
   def index
-    @breakdowns = current_user.breakdowns.includes(:category)
+    @breakdowns = current_user.breakdowns
     @params = {
       breakdowns: @breakdowns,
       user_token: @access_token,

@@ -7,7 +7,7 @@ class YearlyCategoryBalanceTable < YearlyBalanceTable
     def with_other
       ids = where(other: false).limit(6).pluck(:id) +
             where(other: true).pluck(:id)
-      where(id: ids)
+      where(id: ids).includes(:category)
     end
   end
 end

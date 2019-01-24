@@ -61,8 +61,8 @@ Rails.application.configure do
 
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = true
     Bullet.bullet_logger = true
     Bullet.console = true
+    Bullet.slack = { webhook_url: ENV['SLACK_WEBHOOK_URL'], channel: '#rails-error-test', username: 'bullet' }
   end
 end
