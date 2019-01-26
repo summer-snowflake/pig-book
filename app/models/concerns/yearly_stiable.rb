@@ -34,4 +34,8 @@ module YearlyStiable
   def category_type?
     type == CATEGORY_TYPE_NUMBER
   end
+
+  def breakdown_type?
+    type == BREAKDOWN_TYPE_NUMBER
+  end
 end
