@@ -29,8 +29,8 @@ class Api::YearlyBalanceTablesController < Api::BaseController
              .where(year: params[:year].to_i).order(charge: :desc)
 
     render json: {
-      income: to_serializers(totals.income),
-      expenditure: to_serializers(totals.expenditure)
+      income: to_serializers(totals.income.with_other),
+      expenditure: to_serializers(totals.expenditure.with_other)
     }.to_json
   end
 
