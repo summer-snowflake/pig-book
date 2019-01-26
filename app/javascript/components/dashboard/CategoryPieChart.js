@@ -44,7 +44,7 @@ class CategoryPieChart extends React.Component {
     let breakdownColors = this.props.balanceOfPayments ? (
       ['#667697', '#769766', '#669787', '#668f97', '#70A1B4', '#66976e', '#598090']
     ) : (
-      ['#ac7184', '#ac71a5', '#bd7f78', '#b470a7', '#c39c26', '#bd7768', '#bd7894']
+      ['#c17f94', '#c17fba', '#d58f87', '#ca7ebc', '#dbb02b', '#d58675', '#d587a6']
     )
 
     return (
