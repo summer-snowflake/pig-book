@@ -3,6 +3,7 @@
 class Api::YearlyBalanceTablesController < Api::BaseController
   before_action :set_yearly_all_balance_tables, only: %i[show]
   before_action :set_yearly_category_balance_tables, only: %i[category]
+  before_action :set_yearly_breakdown_balance_tables, only: %i[breakdown]
 
   def show
     totals = @yearly_all_balance_tables.where(year: params[:year].to_i)
@@ -23,6 +24,16 @@ class Api::YearlyBalanceTablesController < Api::BaseController
     }.to_json
   end
 
+  def breakdown
+    totals = @yearly_breakdown_balance_tables
+             .where(year: params[:year].to_i).order(charge: :desc)
+
+    render json: {
+      income: to_serializers(totals.income.with_other),
+      expenditure: to_serializers(totals.expenditure.with_other)
+    }.to_json
+  end
+
   private
 
   def set_yearly_all_balance_tables
@@ -33,6 +44,12 @@ class Api::YearlyBalanceTablesController < Api::BaseController
   def set_yearly_category_balance_tables
     @yearly_category_balance_tables =
       current_user.yearly_category_balance_tables
+                  .where(currency: current_currency)
+  end
+
+  def set_yearly_breakdown_balance_tables
+    @yearly_breakdown_balance_tables =
+      current_user.yearly_breakdown_balance_tables
                   .where(currency: current_currency)
   end
 end

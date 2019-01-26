@@ -26,4 +26,12 @@ FactoryBot.define do
     other { false }
     category
   end
+
+  factory :yearly_breakdown_balance_table, \
+          class: YearlyBreakdownBalanceTable, parent: :yearly_balance_table do
+    type { 3 }
+    other { false }
+    category
+    breakdown
+  end
 end

@@ -10,6 +10,7 @@ class Category < ApplicationRecord
   has_many :records, dependent: :restrict_with_error
   has_many :templates, dependent: :restrict_with_error
   has_many :yearly_category_balance_tables, dependent: :restrict_with_error
+  has_many :yearly_breakdown_balance_tables, dependent: :restrict_with_error
 
   validates :balance_of_payments, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 30 },
