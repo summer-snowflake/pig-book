@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class YearlyBalanceTable::Updater
-  CATEGORY_OFFSET_NUMBER = 5
+  CATEGORY_OFFSET_NUMBER = 7
   BREAKDOWN_OFFSET_NUMBER = 9
 
   def initialize(user:)
