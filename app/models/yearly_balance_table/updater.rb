@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class YearlyBalanceTable::Updater
+  CATEGORY_OFFSET_NUMBER = 5
+  BREAKDOWN_OFFSET_NUMBER = 9
+
   def initialize(user:)
     @user = user
   end
@@ -32,6 +35,7 @@ class YearlyBalanceTable::Updater
       )
       yearly.update!(charge: sum_charge(records),
                      balance_of_payments: yearly.category.balance_of_payments)
+      update_breakdown_total!(year, key, records)
     end
     update_category_other!(year)
   end
@@ -41,8 +45,31 @@ class YearlyBalanceTable::Updater
                   .where(currency: @user.base_setting.currency)
                   .where(year: year)
                   .order(charge: :desc)
-    update_or_create(totals.income)
-    update_or_create(totals.expenditure)
+    update_or_create(totals.income, CATEGORY_OFFSET_NUMBER)
+    update_or_create(totals.expenditure, CATEGORY_OFFSET_NUMBER)
+  end
+
+  def update_breakdown_total!(year, category_id, category_records)
+    category_records.group_by(&:breakdown_id).each do |key, records|
+      next if key.nil?
+
+      yearly = @user.yearly_breakdown_balance_tables.find_or_initialize_by(
+        year: year, currency: @user.current_currency,
+        category_id: category_id, breakdown_id: key
+      )
+      yearly.update!(charge: sum_charge(records),
+                     balance_of_payments: yearly.category.balance_of_payments)
+    end
+    update_breakdown_other!(year)
+  end
+
+  def update_breakdown_other!(year)
+    totals = @user.yearly_breakdown_balance_tables
+                  .where(currency: @user.base_setting.currency)
+                  .where(year: year)
+                  .order(charge: :desc)
+    update_or_create(totals.income, BREAKDOWN_OFFSET_NUMBER)
+    update_or_create(totals.expenditure, BREAKDOWN_OFFSET_NUMBER)
   end
 
   def find_yearly(year:, balance_of_payments:)
@@ -53,8 +80,8 @@ class YearlyBalanceTable::Updater
     )
   end
 
-  def update_or_create(yearly)
-    charge = sum_charge(yearly.offset(5))
+  def update_or_create(yearly, offset_num)
+    charge = sum_charge(yearly.offset(offset_num))
     return unless charge.positive?
 
     other_yearly = yearly.find_or_initialize_by(other: true)

@@ -58,4 +58,11 @@ Rails.application.configure do
   # Genrate URL for devise mailer
   config.action_mailer.default_url_options = { host: 'localhost', port: ENV['PORT'] }
   config.action_mailer.delivery_method = :letter_opener
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.slack = { webhook_url: ENV['SLACK_WEBHOOK_URL'], channel: '#rails-error-test', username: 'bullet' }
+  end
 end

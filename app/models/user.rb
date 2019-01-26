@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :records, dependent: :destroy
   has_many :yearly_all_balance_tables, dependent: :destroy
   has_many :yearly_category_balance_tables, dependent: :destroy
+  has_many :yearly_breakdown_balance_tables, dependent: :destroy
   has_many :monthly_balance_tables, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :import_histories, dependent: :destroy
@@ -49,7 +50,7 @@ class User < ApplicationRecord
 
   # NOTE: 登録したデータの直近100件で利用されているカテゴリ
   def recently_used_categories
-    recently_records.includes(category: [:breakdowns, :places, templates: :tag])
+    recently_records.includes(category: %i[breakdowns places templates])
                     .map(&:category)
                     .uniq
   end
