@@ -2,7 +2,8 @@
 
 class Api::YearlyBalanceTablesController < Api::BaseController
   before_action :set_yearly_all_balance_tables, only: %i[show]
-  before_action :set_yearly_category_balance_tables, only: %i[category]
+  before_action :set_yearly_category_balance_tables,
+                only: %i[category breakdown]
   before_action :set_yearly_breakdown_balance_tables, only: %i[breakdown]
 
   def show
@@ -25,12 +26,17 @@ class Api::YearlyBalanceTablesController < Api::BaseController
   end
 
   def breakdown
-    totals = @yearly_breakdown_balance_tables
-             .where(year: params[:year].to_i).order(charge: :desc)
+    category_totals = @yearly_category_balance_tables
+                      .where(year: params[:year].to_i).order(charge: :desc)
+
+    totals = @yearly_breakdown_balance_tables.where(year: params[:year].to_i)
+    income_totals = totals.income.sort_category(category_totals.income)
+    expenditure_totals =
+      totals.expenditure.sort_category(category_totals.expenditure)
 
     render json: {
-      income: to_serializers(totals.income.with_other),
-      expenditure: to_serializers(totals.expenditure.with_other)
+      income: to_serializers(income_totals),
+      expenditure: to_serializers(expenditure_totals)
     }.to_json
   end
 

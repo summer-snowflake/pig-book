@@ -2,6 +2,7 @@
 
 class YearlyBalanceTableSerializer < ActiveModel::Serializer
   attributes :id, :human_charge, :charge
+  attribute :category_id, if: -> { category? || breakdown? }
   attribute :category_name, if: -> { category? || breakdown? }
   attribute :breakdown_name, if: -> { breakdown? }
 
