@@ -54,11 +54,11 @@ class CategoryPieChart extends React.Component {
             {this.props.balanceOfPayments ? '収入' : '支出' }
           </text>
           <Tooltip formatter={formatTooltip} />
-          <Pie cx='50%' cy='50%' data={this.state.categoryTally} dataKey='charge' innerRadius={80} nameKey='category_name'>
-            {this.props.categoryTally.map((entry, index) => <Cell fill={breakdownColors[index % breakdownColors.length]} key={index} />)}
+          <Pie cx='50%' cy='50%' data={this.state.breakdownTally} dataKey='charge' innerRadius={80} nameKey='breakdown_name'>
+            {this.state.breakdownTally.map((entry, index) => <Cell fill={breakdownColors[(this.state.categoryTally.findIndex(({category_id})=> category_id === entry.category_id)) % breakdownColors.length]} key={index} />)}
           </Pie>
           <Pie cx='50%' cy='50%' data={this.state.categoryTally} dataKey='charge' innerRadius={40} label={this.renderCustomizedLabel} labelLine={false} nameKey='category_name' outerRadius={75}>
-            {this.props.categoryTally.map((entry, index) => <Cell fill={categoryColors[index % categoryColors.length]} key={index} />)}
+            {this.state.categoryTally.map((entry, index) => <Cell fill={categoryColors[index % categoryColors.length]} key={index} />)}
           </Pie>
         </PieChart>
       </div>

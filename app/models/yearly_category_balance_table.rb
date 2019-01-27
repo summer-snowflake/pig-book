@@ -7,7 +7,8 @@ class YearlyCategoryBalanceTable < YearlyBalanceTable
     def with_other
       ids = where(other: false).limit(6).pluck(:id) +
             where(other: true).pluck(:id)
-      where(id: ids).includes(:category)
+      yearly = where(id: ids).includes(:category)
+      ids.collect { |id| yearly.detect { |x| x.id == id.to_i } }
     end
   end
 end

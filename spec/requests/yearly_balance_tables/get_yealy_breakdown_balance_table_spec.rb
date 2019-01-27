@@ -29,6 +29,12 @@ describe 'GET /api/yearly_balance_tables/:year/breakdown' do
         create(:breakdown, category: category2, name: '飲み物')
       end
       before do
+        create(:yearly_category_balance_table,
+               user: user, category: category1, year: 2018, charge: 5500)
+        create(:yearly_category_balance_table,
+               user: user, category: category2, year: 2018, charge: 3200)
+        create(:yearly_all_balance_table,
+               user: user, year: 2018, charge: 3400)
         create(:yearly_breakdown_balance_table,
                user: user, category: category1, breakdown: breakdown1,
                year: 2018, charge: 5500)
@@ -51,12 +57,14 @@ describe 'GET /api/yearly_balance_tables/:year/breakdown' do
           income: [],
           expenditure: [
             {
+              category_id: category1.id,
               category_name: '消耗品費',
               breakdown_name: '日用品',
               charge: 5500,
               human_charge: '¥5,500'
             },
             {
+              category_id: category2.id,
               category_name: '食費',
               breakdown_name: '飲み物',
               charge: 3200,

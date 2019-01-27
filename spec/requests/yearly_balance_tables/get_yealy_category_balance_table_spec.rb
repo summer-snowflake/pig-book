@@ -46,11 +46,13 @@ describe 'GET /api/yearly_balance_tables/:year/category' do
           income: [],
           expenditure: [
             {
+              category_id: category2.id,
               category_name: '食費',
               charge: 3500,
               human_charge: '¥3,500'
             },
             {
+              category_id: category1.id,
               category_name: '消耗品費',
               charge: 2500,
               human_charge: '¥2,500'
