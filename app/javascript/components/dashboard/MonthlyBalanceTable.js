@@ -10,7 +10,7 @@ import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import MonthlyChart from './MonthlyChart'
 import CategoryPieChart from './CategoryPieChart'
-import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios, yearlyBalanceTablesCategoryAxios, yearlyBalanceTablesBreakdownAxios } from './../mixins/requests/DashboardMixin'
+import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios, yearlyBalanceTablesCategoryAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
@@ -35,8 +35,6 @@ class MonthlyBalanceTable extends React.Component {
     this.getMonthlyBalanceTablesTotalCallback = this.getMonthlyBalanceTablesTotalCallback.bind(this)
     this.getYearlyBalanceTablesCategory = this.getYearlyBalanceTablesCategory.bind(this)
     this.getYearlyBalanceTablesCategoryCallback = this.getYearlyBalanceTablesCategoryCallback.bind(this)
-    this.getYearlyBalanceTablesBreakdown = this.getYearlyBalanceTablesBreakdown.bind(this)
-    this.getYearlyBalanceTablesBreakdownCallback = this.getYearlyBalanceTablesBreakdownCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
@@ -50,7 +48,6 @@ class MonthlyBalanceTable extends React.Component {
     })
     this.getMonthlyBalanceTablesTotal()
     this.getYearlyBalanceTablesCategory()
-    this.getYearlyBalanceTablesBreakdown()
   }
 
   getMonthlyBalanceTablesTotalCallback(res) {
@@ -62,13 +59,8 @@ class MonthlyBalanceTable extends React.Component {
 
   getYearlyBalanceTablesCategoryCallback(res) {
     this.setState({
-      categoryTally: res.data
-    })
-  }
-
-  getYearlyBalanceTablesBreakdownCallback(res) {
-    this.setState({
-      breakdownTally: res.data
+      categoryTally: res.data.category,
+      breakdownTally: res.data.breakdown
     })
   }
 
@@ -82,10 +74,6 @@ class MonthlyBalanceTable extends React.Component {
 
   getYearlyBalanceTablesCategory() {
     yearlyBalanceTablesCategoryAxios.get(this.state.year, this.getYearlyBalanceTablesCategoryCallback, this.noticeErrorMessages)
-  }
-
-  getYearlyBalanceTablesBreakdown() {
-    yearlyBalanceTablesBreakdownAxios.get(this.state.year, this.getYearlyBalanceTablesBreakdownCallback, this.noticeErrorMessages)
   }
 
   render() {

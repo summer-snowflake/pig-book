@@ -3,8 +3,8 @@
 class Api::YearlyBalanceTablesController < Api::BaseController
   before_action :set_yearly_all_balance_tables, only: %i[show]
   before_action :set_yearly_category_balance_tables,
-                only: %i[category breakdown]
-  before_action :set_yearly_breakdown_balance_tables, only: %i[breakdown]
+                only: %i[category]
+  before_action :set_yearly_breakdown_balance_tables, only: %i[category]
 
   def show
     render json: {
@@ -18,27 +18,15 @@ class Api::YearlyBalanceTablesController < Api::BaseController
   end
 
   def category
-    totals = @yearly_category_balance_tables
-             .where(year: params[:year].to_i).order(charge: :desc)
-
     render json: {
-      income: to_serializers(totals.income.with_other),
-      expenditure: to_serializers(totals.expenditure.with_other)
-    }.to_json
-  end
-
-  def breakdown
-    category_totals = @yearly_category_balance_tables
-                      .where(year: params[:year].to_i).order(charge: :desc)
-
-    totals = @yearly_breakdown_balance_tables.where(year: params[:year].to_i)
-    income_totals = totals.income.sort_category(category_totals.income)
-    expenditure_totals =
-      totals.expenditure.sort_category(category_totals.expenditure)
-
-    render json: {
-      income: to_serializers(income_totals),
-      expenditure: to_serializers(expenditure_totals)
+      category: {
+        income: to_serializers(@category_totals_income.with_other),
+        expenditure: to_serializers(@category_totals_expenditure.with_other)
+      },
+      breakdown: {
+        income: to_serializers(@breakdown_totals_income),
+        expenditure: to_serializers(@breakdown_totals_expenditure)
+      }
     }.to_json
   end
 
@@ -52,14 +40,26 @@ class Api::YearlyBalanceTablesController < Api::BaseController
   end
 
   def set_yearly_category_balance_tables
-    @yearly_category_balance_tables =
-      current_user.yearly_category_balance_tables
-                  .where(currency: current_currency)
+    category_totals =
+      current_user
+      .yearly_category_balance_tables
+      .where(currency: current_currency)
+      .where(year: params[:year].to_i)
+      .order(charge: :desc)
+    @category_totals_income = category_totals.income
+    @category_totals_expenditure = category_totals.expenditure
   end
 
   def set_yearly_breakdown_balance_tables
-    @yearly_breakdown_balance_tables =
-      current_user.yearly_breakdown_balance_tables
-                  .where(currency: current_currency)
+    breakdown_totals =
+      current_user
+      .yearly_breakdown_balance_tables
+      .where(currency: current_currency)
+      .where(year: params[:year].to_i)
+      .order(charge: :desc)
+    @breakdown_totals_income =
+      breakdown_totals.income.sort_category(@category_totals_income)
+    @breakdown_totals_expenditure =
+      breakdown_totals.expenditure.sort_category(@category_totals_expenditure)
   end
 end
