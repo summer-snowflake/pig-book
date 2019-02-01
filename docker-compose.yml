@@ -5,7 +5,7 @@ services:
     container_name: pig-book_postgres
     build: ./docker
     ports:
-      - 5434:5432
+      - 5433:5432
     volumes:
       - postgresql:/var/lib/postgresql/data
 
