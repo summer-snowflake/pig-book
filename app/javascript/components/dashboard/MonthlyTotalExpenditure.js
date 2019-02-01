@@ -19,7 +19,7 @@ class MonthlyTotalExpenditure extends React.Component {
     return (
       <div className='monthly-total-expenditure-component'>
         <i className='fas fa-minus-square left-icon red' />
-        {this.state.monthlyTotal.human_expenditure}
+        {(this.state.monthlyTotal || {}).human_expenditure}
       </div>
     )
   }

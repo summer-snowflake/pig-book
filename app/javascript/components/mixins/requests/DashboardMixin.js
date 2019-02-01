@@ -20,10 +20,3 @@ export const yearlyBalanceTablesCategoryAxios = {
     axiosMixin.request('GET', callback, errorCallback, url)
   }
 }
-
-export const yearlyBalanceTablesBreakdownAxios = {
-  get : (year, callback, errorCallback) => {
-    let url = '/api/yearly_balance_tables/' + year + '/breakdown'
-    axiosMixin.request('GET', callback, errorCallback, url)
-  }
-}
