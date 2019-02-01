@@ -19,7 +19,7 @@ class MonthlyTotalIncome extends React.Component {
     return (
       <div className='monthly-total-income-component'>
         <i className='fas fa-plus-square left-icon blue' />
-        {this.state.monthlyTotal.human_income}
+        {(this.state.monthlyTotal || {}).human_income}
       </div>
     )
   }

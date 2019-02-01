@@ -55,8 +55,8 @@ class MonthlyBalanceTable extends React.Component {
 
   getMonthlyBalanceTablesTotalCallback(res) {
     this.setState({
-      totalIncome: res.data.income[0].human_charge,
-      totalExpenditure: res.data.expenditure[0].human_charge
+      totalIncome: res.data.totals.income.human_charge,
+      totalExpenditure: res.data.totals.expenditure.human_charge
     })
   }
 
