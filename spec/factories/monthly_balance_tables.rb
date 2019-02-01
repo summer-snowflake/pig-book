@@ -9,5 +9,6 @@ FactoryBot.define do
     income { random.rand(0..10_000) }
     expenditure { random.rand(0..10_000) }
     currency { :yen }
+    point { 0 }
   end
 end

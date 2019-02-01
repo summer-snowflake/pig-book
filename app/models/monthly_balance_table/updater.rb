@@ -10,14 +10,7 @@ class MonthlyBalanceTable::Updater
 
   def update!
     @grouping_records.each do |key, records|
-      monthly = MonthlyBalanceTable.find_or_initialize_by(
-        user: @user, year: key.slice(0..3).to_i, month: key.slice(5, 2).to_i,
-        currency: @user.current_currency
-      )
-      monthly.update!(
-        income: sum_charge(incomes(records)),
-        expenditure: sum_charge(expenditure(records))
-      )
+      update_monthly!(key, records)
     end
   end
 
@@ -35,7 +28,19 @@ class MonthlyBalanceTable::Updater
 
   private
 
-  def incomes(records)
+  def update_monthly!(date, records)
+    monthly = MonthlyBalanceTable.find_or_initialize_by(
+      user: @user, year: date.slice(0..3).to_i, month: date.slice(5, 2).to_i,
+      currency: @user.current_currency
+    )
+    monthly.update!(
+      income: sum_charge(income(records)),
+      expenditure: sum_charge(expenditure(records)),
+      point: sum_point(records)
+    )
+  end
+
+  def income(records)
     records.select { |record| record.category.balance_of_payments? }
   end
 
@@ -45,6 +50,10 @@ class MonthlyBalanceTable::Updater
 
   def sum_charge(records)
     records.inject(0) { |sum, record| sum + record.charge }
+  end
+
+  def sum_point(records)
+    records.inject(0) { |sum, record| sum + record.point }
   end
 
   def to_date(date)
