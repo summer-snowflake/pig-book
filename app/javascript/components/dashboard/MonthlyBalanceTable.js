@@ -6,6 +6,7 @@ import reactMixin from 'react-mixin'
 import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
 import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
+import MonthlyTotalPoint from './MonthlyTotalPoint'
 import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import MonthlyChart from './MonthlyChart'
@@ -102,6 +103,7 @@ class MonthlyBalanceTable extends React.Component {
                 (<td key={index}>
                   <MonthlyTotalIncome month={index + 1} tally={this.state.tally} />
                   <MonthlyTotalExpenditure month={index + 1} tally={this.state.tally} />
+                  <MonthlyTotalPoint month={index + 1} tally={this.state.tally} />
                 </td>)
               )}
               <MonthlyTotal totalExpenditure={this.state.totalExpenditure} totalIncome={this.state.totalIncome} />
