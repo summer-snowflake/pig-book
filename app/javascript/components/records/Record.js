@@ -11,8 +11,13 @@ class Record extends React.Component {
   constructor(props) {
     super(props)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
+    this.handleClickCategory = this.handleClickCategory.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
+  }
+
+  handleClickCategory() {
+    this.props.onClickCategory(this.props.record.category_id, this.props.record.category_name)
   }
 
   onClickTrashIcon(record) {
@@ -47,7 +52,9 @@ class Record extends React.Component {
         )}
         <td>
           <i className='fas fa-th-large left-icon yellow' />
-          {this.props.record.category_name}
+          <span className='search-keyword-link' onClick={this.handleClickCategory}>
+            {this.props.record.category_name}
+          </span>
         </td>
         <td>
           {this.props.record.breakdown_name ? (
@@ -80,6 +87,7 @@ Record.propTypes = {
   isListPage: PropTypes.bool,
   editingRecordId: PropTypes.string,
   record: PropTypes.object.isRequired,
+  onClickCategory: PropTypes.func.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   onClickInfoIcon: PropTypes.func.isRequired,
   onClickEditIcon: PropTypes.func.isRequired
