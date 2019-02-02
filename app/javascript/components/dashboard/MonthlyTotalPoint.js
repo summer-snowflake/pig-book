@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class MonthlyTotalExpenditure extends React.Component {
+class MonthlyTotalPoint extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      monthlyTotal: { human_expenditure: '¥0' }
+      monthlyTotal: { point: '0' }
     }
   }
 
@@ -17,17 +17,17 @@ class MonthlyTotalExpenditure extends React.Component {
 
   render() {
     return (
-      <div className='monthly-total-expenditure-component'>
-        <i className='fas fa-minus-square left-icon red' />
-        {(this.state.monthlyTotal || {}).human_expenditure}
+      <div className='monthly-total-point-component'>
+        <i className='fas fa-parking left-icon green' />
+        {(this.state.monthlyTotal || {}).point}
       </div>
     )
   }
 }
 
-MonthlyTotalExpenditure.propTypes = {
+MonthlyTotalPoint.propTypes = {
   month: PropTypes.number.isRequired,
   tally: PropTypes.array
 }
 
-export default MonthlyTotalExpenditure
+export default MonthlyTotalPoint

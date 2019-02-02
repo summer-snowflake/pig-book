@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_24_172916) do
+ActiveRecord::Schema.define(version: 2019_02_01_201132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_01_24_172916) do
     t.integer "currency", default: 0, null: false
     t.integer "year", null: false
     t.integer "month", null: false
+    t.integer "point", default: 0, null: false
     t.index ["user_id"], name: "index_monthly_balance_tables_on_user_id"
   end
 

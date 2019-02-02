@@ -14,11 +14,16 @@ class Records extends React.Component {
         id: null
       }
     }
+    this.handleClickCategory = this.handleClickCategory.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
+  }
+
+  handleClickCategory(categoryId, categoryName) {
+    this.props.handleClickCategory(categoryId, categoryName)
   }
 
   handleClickTrashIcon(record) {
@@ -63,6 +68,7 @@ class Records extends React.Component {
                 editingRecordId={this.props.editingRecordId}
                 isListPage={this.props.isListPage}
                 key={record.id}
+                onClickCategory={this.handleClickCategory}
                 onClickEditIcon={this.handleClickEditIcon}
                 onClickInfoIcon={this.handleClickInfoIcon}
                 onClickTrashIcon={this.handleClickTrashIcon}
@@ -82,6 +88,7 @@ Records.propTypes = {
   isListPage: PropTypes.bool,
   records: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,
+  handleClickCategory: PropTypes.func,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickEditIcon: PropTypes.func.isRequired
 }

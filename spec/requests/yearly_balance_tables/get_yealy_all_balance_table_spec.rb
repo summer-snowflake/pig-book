@@ -34,18 +34,16 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
         expect(response.status).to eq 200
         json = {
-          income: [
-            {
+          totals: {
+            income: {
               charge: 3000,
               human_charge: '¥3,000'
-            }
-          ],
-          expenditure: [
-            {
+            },
+            expenditure: {
               charge: 3400,
               human_charge: '¥3,400'
             }
-          ]
+          }
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -59,8 +57,16 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
         expect(response.status).to eq 200
         json = {
-          income: [],
-          expenditure: []
+          totals: {
+            income: {
+              charge: 0,
+              human_charge: '¥0'
+            },
+            expenditure: {
+              charge: 0,
+              human_charge: '¥0'
+            }
+          }
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

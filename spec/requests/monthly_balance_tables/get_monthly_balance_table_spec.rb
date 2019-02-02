@@ -34,7 +34,8 @@ describe 'GET /api/monthly_balance_tables/:year' do
           expenditure: monthly_balance_table1.expenditure,
           human_month: I18n.l(Time.zone.now, format: :month),
           human_expenditure: monthly_balance_table1.decorate.human_expenditure,
-          month: Time.zone.now.month
+          month: Time.zone.now.month,
+          point: 0
         },
         {
           year_and_month: monthly_balance_table2.year_and_month,
@@ -43,7 +44,8 @@ describe 'GET /api/monthly_balance_tables/:year' do
           human_month: I18n.l(Time.zone.now, format: :month),
           expenditure: monthly_balance_table2.expenditure,
           human_expenditure: monthly_balance_table2.decorate.human_expenditure,
-          month: Time.zone.now.month
+          month: Time.zone.now.month,
+          point: 0
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

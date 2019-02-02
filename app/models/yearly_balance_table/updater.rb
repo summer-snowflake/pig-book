@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class YearlyBalanceTable::Updater
-  CATEGORY_OFFSET_NUMBER = 5
-  BREAKDOWN_OFFSET_NUMBER = 9
+  CATEGORY_OFFSET_NUMBER = 7
 
   def initialize(user:)
     @user = user
@@ -47,12 +46,11 @@ class YearlyBalanceTable::Updater
                   .order(charge: :desc)
     update_or_create(totals.income, CATEGORY_OFFSET_NUMBER)
     update_or_create(totals.expenditure, CATEGORY_OFFSET_NUMBER)
+    update_breakdown_other!(year, totals)
   end
 
   def update_breakdown_total!(year, category_id, category_records)
     category_records.group_by(&:breakdown_id).each do |key, records|
-      next if key.nil?
-
       yearly = @user.yearly_breakdown_balance_tables.find_or_initialize_by(
         year: year, currency: @user.current_currency,
         category_id: category_id, breakdown_id: key
@@ -60,16 +58,21 @@ class YearlyBalanceTable::Updater
       yearly.update!(charge: sum_charge(records),
                      balance_of_payments: yearly.category.balance_of_payments)
     end
-    update_breakdown_other!(year)
   end
 
-  def update_breakdown_other!(year)
-    totals = @user.yearly_breakdown_balance_tables
+  def update_breakdown_other!(year, category_totals)
+    yearly = @user.yearly_breakdown_balance_tables
                   .where(currency: @user.base_setting.currency)
                   .where(year: year)
-                  .order(charge: :desc)
-    update_or_create(totals.income, BREAKDOWN_OFFSET_NUMBER)
-    update_or_create(totals.expenditure, BREAKDOWN_OFFSET_NUMBER)
+
+    income_totals = category_totals.income.offset(CATEGORY_OFFSET_NUMBER)
+    yearly.income.find_or_initialize_by(other: true)
+          .update(charge: sum_charge(income_totals))
+
+    expenditure_totals =
+      category_totals.expenditure.offset(CATEGORY_OFFSET_NUMBER)
+    yearly.expenditure.find_or_initialize_by(other: true)
+          .update(charge: sum_charge(expenditure_totals))
   end
 
   def find_yearly(year:, balance_of_payments:)

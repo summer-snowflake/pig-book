@@ -17,6 +17,8 @@ class RecordsCardBody extends React.Component {
     this.state = {
       year: this.props.year,
       month: this.props.month,
+      categoryId: null,
+      categoryName: '',
       errorMessages: {},
       records: this.props.records
     }
@@ -28,8 +30,10 @@ class RecordsCardBody extends React.Component {
     this.handleClickPreviousButton = this.handleClickPreviousButton.bind(this)
     this.handleClickNextButton = this.handleClickNextButton.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
+    this.onClickCategoryTagButton = this.onClickCategoryTagButton.bind(this)
     this.onClickMonthTagButton = this.onClickMonthTagButton.bind(this)
     this.onChangeMonth = this.onChangeMonth.bind(this)
+    this.onClickCategory = this.onClickCategory.bind(this)
   }
 
   componentWillMount() {
@@ -40,7 +44,23 @@ class RecordsCardBody extends React.Component {
     this.setState({
       month: 0
     })
-    this.getRecords(this.state.year)
+    this.getRecords(this.state.year, 0, this.state.categoryId)
+  }
+
+  onClickCategoryTagButton() {
+    this.setState({
+      categoryName: '',
+      categoryId: null
+    })
+    this.getRecords(this.state.year, this.state.month)
+  }
+
+  onClickCategory(categoryId, categoryName) {
+    this.setState({
+      categoryName: categoryName,
+      categoryId: categoryId
+    })
+    this.getRecords(this.state.year, this.state.month, categoryId)
   }
 
   handleClickPreviousButton() {
@@ -95,12 +115,15 @@ class RecordsCardBody extends React.Component {
     })
   }
 
-  getRecords(year, month) {
+  getRecords(year, month, categoryId) {
     let params = {
       year: String(year)
     }
     if (month) {
       Object.assign(params, { month: String(month) })
+    }
+    if (categoryId) {
+      Object.assign(params, { category_id: categoryId })
     }
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
@@ -151,10 +174,11 @@ class RecordsCardBody extends React.Component {
         {this.props.year && (
           <div>
             <SearchFormsField handleChangeMonth={this.onChangeMonth} month={this.state.month} year={this.state.year} />
-            <SearchKeywords handleClickMonthTagButton={this.onClickMonthTagButton} month={this.state.month} year={this.state.year} />
+            <SearchKeywords categoryName={this.state.categoryName} handleClickCategoryTagButton={this.onClickCategoryTagButton} handleClickMonthTagButton={this.onClickMonthTagButton} month={this.state.month} year={this.state.year} />
           </div>
         )}
         <Records
+          handleClickCategory={this.onClickCategory}
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}
           isListPage

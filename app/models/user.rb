@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :authentication_token, uniqueness: true, allow_nil: true
 
   def admin?
-    !admin.nil?
+    admin.present?
   end
 
   def ensure_authentication_token

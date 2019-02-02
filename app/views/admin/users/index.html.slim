@@ -6,12 +6,16 @@
   table.table
     thead
       tr
+        th
         th = User.human_attribute_name :email
         th = User.human_attribute_name :last_sign_in_at
         th = t('label.event')
     tbody
       - @users.each do |user|
         tr
+          td
+            - if user.admin?
+              i.fas.fa-crown.red
           td = user.email
           td = user.last_sign_in_at
           td

@@ -6,11 +6,12 @@ import reactMixin from 'react-mixin'
 import MonthName from './../common/MonthName'
 import MonthlyTotalIncome from './MonthlyTotalIncome'
 import MonthlyTotalExpenditure from './MonthlyTotalExpenditure'
+import MonthlyTotalPoint from './MonthlyTotalPoint'
 import MonthlyTotal from './MonthlyTotal'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import MonthlyChart from './MonthlyChart'
 import CategoryPieChart from './CategoryPieChart'
-import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios, yearlyBalanceTablesCategoryAxios, yearlyBalanceTablesBreakdownAxios } from './../mixins/requests/DashboardMixin'
+import { monthlyBalanceTablesAxios, yearlyBalanceTablesAxios, yearlyBalanceTablesCategoryAxios } from './../mixins/requests/DashboardMixin'
 
 class MonthlyBalanceTable extends React.Component {
   constructor(props) {
@@ -35,8 +36,6 @@ class MonthlyBalanceTable extends React.Component {
     this.getMonthlyBalanceTablesTotalCallback = this.getMonthlyBalanceTablesTotalCallback.bind(this)
     this.getYearlyBalanceTablesCategory = this.getYearlyBalanceTablesCategory.bind(this)
     this.getYearlyBalanceTablesCategoryCallback = this.getYearlyBalanceTablesCategoryCallback.bind(this)
-    this.getYearlyBalanceTablesBreakdown = this.getYearlyBalanceTablesBreakdown.bind(this)
-    this.getYearlyBalanceTablesBreakdownCallback = this.getYearlyBalanceTablesBreakdownCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
   }
 
@@ -50,25 +49,19 @@ class MonthlyBalanceTable extends React.Component {
     })
     this.getMonthlyBalanceTablesTotal()
     this.getYearlyBalanceTablesCategory()
-    this.getYearlyBalanceTablesBreakdown()
   }
 
   getMonthlyBalanceTablesTotalCallback(res) {
     this.setState({
-      totalIncome: res.data.income[0].human_charge,
-      totalExpenditure: res.data.expenditure[0].human_charge
+      totalIncome: res.data.totals.income.human_charge,
+      totalExpenditure: res.data.totals.expenditure.human_charge
     })
   }
 
   getYearlyBalanceTablesCategoryCallback(res) {
     this.setState({
-      categoryTally: res.data
-    })
-  }
-
-  getYearlyBalanceTablesBreakdownCallback(res) {
-    this.setState({
-      breakdownTally: res.data
+      categoryTally: res.data.category,
+      breakdownTally: res.data.breakdown
     })
   }
 
@@ -82,10 +75,6 @@ class MonthlyBalanceTable extends React.Component {
 
   getYearlyBalanceTablesCategory() {
     yearlyBalanceTablesCategoryAxios.get(this.state.year, this.getYearlyBalanceTablesCategoryCallback, this.noticeErrorMessages)
-  }
-
-  getYearlyBalanceTablesBreakdown() {
-    yearlyBalanceTablesBreakdownAxios.get(this.state.year, this.getYearlyBalanceTablesBreakdownCallback, this.noticeErrorMessages)
   }
 
   render() {
@@ -114,6 +103,7 @@ class MonthlyBalanceTable extends React.Component {
                 (<td key={index}>
                   <MonthlyTotalIncome month={index + 1} tally={this.state.tally} />
                   <MonthlyTotalExpenditure month={index + 1} tally={this.state.tally} />
+                  <MonthlyTotalPoint month={index + 1} tally={this.state.tally} />
                 </td>)
               )}
               <MonthlyTotal totalExpenditure={this.state.totalExpenditure} totalIncome={this.state.totalIncome} />
