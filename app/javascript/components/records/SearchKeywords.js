@@ -23,6 +23,7 @@ class SearchKeywords extends React.Component {
         )}
         {(this.props.categoryName.length > 0) && (
           <span className='search-keyword-button'>
+            <i className='fas fa-th-large left-icon yellow' />
             {this.props.categoryName}
             <i className='fas fa-times right-icon' onClick={this.props.handleClickCategoryTagButton} />
           </span>
