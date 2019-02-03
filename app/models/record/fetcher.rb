@@ -16,6 +16,7 @@ class Record::Fetcher
     @records = @user.records
     @records = @records.where(published_at: @range) if @range
     @records = @records.where(category: @category) if @category
+    @records = @records.where(breakdown: @breakdown) if @breakdown
     @records.includes(:category, :place, :breakdown, tagged_records: :tag)
             .order("#{@order}": :desc, created_at: :desc).limit(@limit)
   end
@@ -42,6 +43,8 @@ class Record::Fetcher
   def build_params(params)
     category_id = params[:category_id]
     @category = @user.categories.find(category_id) if category_id
+    breakdown_id = params[:breakdown_id]
+    @breakdown = @user.breakdowns.find(breakdown_id) if breakdown_id
     @range = generate_range if @date || @year || @month
   end
 end

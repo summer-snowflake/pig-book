@@ -7,7 +7,6 @@ class RecordsTotals extends React.Component {
   }
 
   render() {
-    console.log(this.props.totals)
     return (
       <span className='records-totals-component float-right'>
         <table className='table table-bordered records-totals-table'>
