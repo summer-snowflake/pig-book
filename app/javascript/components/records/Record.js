@@ -12,8 +12,14 @@ class Record extends React.Component {
     super(props)
     this.onClickTrashIcon = this.onClickTrashIcon.bind(this)
     this.handleClickCategory = this.handleClickCategory.bind(this)
+    this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
+    this.handleClickPlace = this.handleClickPlace.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
+  }
+
+  handleClickBreakdown() {
+    this.props.onClickBreakdown(this.props.record.breakdown_id, this.props.record.breakdown_name)
   }
 
   handleClickCategory() {
@@ -22,6 +28,10 @@ class Record extends React.Component {
 
   onClickTrashIcon(record) {
     this.props.onClickTrashIcon(record)
+  }
+
+  handleClickPlace() {
+    this.props.onClickPlace(this.props.record.place_id, this.props.record.place_name)
   }
 
   handleClickEditIcon() {
@@ -60,13 +70,17 @@ class Record extends React.Component {
           {this.props.record.breakdown_name ? (
             <i className='fas fa-list left-icon light-blue' />
           ) : (null)}
-          {this.props.record.breakdown_name}
+          <span className='search-keyword-link' onClick={this.handleClickBreakdown}>
+            {this.props.record.breakdown_name}
+          </span>
         </td>
         <td>
           {this.props.record.place_name ? (
             <i className='fas fa-map-marker-alt left-icon purple' />
           ) : (null)}
-          {this.props.record.place_name}
+          <span className='search-keyword-link' onClick={this.handleClickPlace}>
+            {this.props.record.place_name}
+          </span>
         </td>
         {this.props.record.tagged_records && (
           <TagsIcons tags={this.props.record.tagged_records} />
@@ -87,7 +101,9 @@ Record.propTypes = {
   isListPage: PropTypes.bool,
   editingRecordId: PropTypes.string,
   record: PropTypes.object.isRequired,
+  onClickBreakdown: PropTypes.func.isRequired,
   onClickCategory: PropTypes.func.isRequired,
+  onClickPlace: PropTypes.func.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   onClickInfoIcon: PropTypes.func.isRequired,
   onClickEditIcon: PropTypes.func.isRequired

@@ -13,9 +13,9 @@ class Record::Fetcher
   def find_all_by(params)
     init_params(params) && build_params(params)
 
-    @records = @user.records
-    @records = @records.where(published_at: @range) if @range
-    @records = @records.where(category: @category) if @category
+    range = generate_range if @date || @year || @month
+    @records = search_records
+    @records = @records.where(published_at: range) if range
     @records.includes(:category, :place, :breakdown, tagged_records: :tag)
             .order("#{@order}": :desc, created_at: :desc).limit(@limit)
   end
@@ -42,6 +42,16 @@ class Record::Fetcher
   def build_params(params)
     category_id = params[:category_id]
     @category = @user.categories.find(category_id) if category_id
-    @range = generate_range if @date || @year || @month
+    breakdown_id = params[:breakdown_id]
+    @breakdown = @user.breakdowns.find(breakdown_id) if breakdown_id
+    @place = @user.places.find(params[:place_id]) if params[:place_id]
+  end
+
+  def search_records
+    records = @user.records
+    records = records.where(category: @category) if @category
+    records = records.where(breakdown: @breakdown) if @breakdown
+    records = records.where(place: @place) if @place
+    records
   end
 end
