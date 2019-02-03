@@ -28,6 +28,20 @@ class SearchKeywords extends React.Component {
             <i className='fas fa-times right-icon' onClick={this.props.handleClickCategoryTagButton} />
           </span>
         )}
+        {(this.props.breakdownName.length > 0) && (
+          <span className='search-keyword-button'>
+            <i className='fas fa-list left-icon light-blue' />
+            {this.props.breakdownName}
+            <i className='fas fa-times right-icon' onClick={this.props.handleClickBreakdownTagButton} />
+          </span>
+        )}
+        {(this.props.placeName.length > 0) && (
+          <span className='search-keyword-button'>
+            <i className='fas fa-map-marker-alt left-icon purple' />
+            {this.props.placeName}
+            <i className='fas fa-times right-icon' onClick={this.props.handleClickPlaceTagButton} />
+          </span>
+        )}
       </span>
     )
   }
@@ -37,8 +51,12 @@ SearchKeywords.propTypes = {
   year: PropTypes.number.isRequired,
   month: PropTypes.number,
   categoryName: PropTypes.string,
+  breakdownName: PropTypes.string,
+  placeName: PropTypes.string,
   handleClickMonthTagButton: PropTypes.func.isRequired,
-  handleClickCategoryTagButton: PropTypes.func.isRequired
+  handleClickCategoryTagButton: PropTypes.func.isRequired,
+  handleClickBreakdownTagButton: PropTypes.func.isRequired,
+  handleClickPlaceTagButton: PropTypes.func.isRequired
 }
 
 export default SearchKeywords

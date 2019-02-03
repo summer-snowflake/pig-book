@@ -14,7 +14,9 @@ class Records extends React.Component {
         id: null
       }
     }
+    this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
     this.handleClickCategory = this.handleClickCategory.bind(this)
+    this.handleClickPlace = this.handleClickPlace.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
@@ -22,8 +24,16 @@ class Records extends React.Component {
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
   }
 
+  handleClickBreakdown(breakdownId, breakdownName) {
+    this.props.handleClickBreakdown(breakdownId, breakdownName)
+  }
+
   handleClickCategory(categoryId, categoryName) {
     this.props.handleClickCategory(categoryId, categoryName)
+  }
+
+  handleClickPlace(placeId, placeName) {
+    this.props.handleClickPlace(placeId, placeName)
   }
 
   handleClickTrashIcon(record) {
@@ -68,9 +78,11 @@ class Records extends React.Component {
                 editingRecordId={this.props.editingRecordId}
                 isListPage={this.props.isListPage}
                 key={record.id}
+                onClickBreakdown={this.handleClickBreakdown}
                 onClickCategory={this.handleClickCategory}
                 onClickEditIcon={this.handleClickEditIcon}
                 onClickInfoIcon={this.handleClickInfoIcon}
+                onClickPlace={this.handleClickPlace}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 record={record}
               />
@@ -89,6 +101,8 @@ Records.propTypes = {
   records: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,
   handleClickCategory: PropTypes.func,
+  handleClickPlace: PropTypes.func,
+  handleClickBreakdown: PropTypes.func,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickEditIcon: PropTypes.func.isRequired
 }

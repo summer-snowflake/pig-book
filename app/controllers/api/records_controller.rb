@@ -6,7 +6,10 @@ class Api::RecordsController < Api::BaseController
   def index
     fetcher = Record::Fetcher.new(user: current_user)
     @records = fetcher.find_all_by(records_params)
-    render json: @records
+    render json: {
+      records: to_serializers(@records),
+      totals: to_serializers(fetcher.totals)
+    }
   end
 
   def show
@@ -47,7 +50,8 @@ class Api::RecordsController < Api::BaseController
   end
 
   def records_params
-    params.permit(:date, :year, :month, :category_id, :limit, :order)
+    params.permit(:date, :year, :month, :category_id, :breakdown_id, :place_id,
+                  :limit, :order)
   end
 
   def set_record
