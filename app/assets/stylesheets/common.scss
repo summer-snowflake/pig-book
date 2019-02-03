@@ -466,3 +466,12 @@ $twitter-border-color: #2e6da4;
 .search-keyword-link {
   cursor: pointer;
 }
+
+.records-totals-table {
+  text-align: right;
+  width: 400px;
+
+  td {
+    width: 100px;
+  }
+}

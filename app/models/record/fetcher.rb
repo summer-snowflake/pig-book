@@ -20,6 +20,15 @@ class Record::Fetcher
             .order("#{@order}": :desc, created_at: :desc).limit(@limit)
   end
 
+  def totals
+    MonthlyBalanceTable.new(
+      user: @user,
+      income: @records.income.sum(:charge),
+      expenditure: @records.expenditure.sum(:charge),
+      point: @records.sum(:point)
+    )
+  end
+
   private
 
   def init_params(params)

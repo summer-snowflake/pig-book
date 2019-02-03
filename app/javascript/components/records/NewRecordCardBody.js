@@ -184,7 +184,7 @@ class NewRecordCardBody extends React.Component {
   getRecordsCallback(res) {
     this.getTags()
     this.setState({
-      records: res.data,
+      records: res.data.records,
       targetDate: this.state.targetDate
     })
   }

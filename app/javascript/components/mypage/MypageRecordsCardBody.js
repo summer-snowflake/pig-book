@@ -27,7 +27,7 @@ class MypageRecordsCardBody extends React.Component {
 
   getRecordsCallback(res) {
     this.setState({
-      records: res.data
+      records: res.data.records
     })
   }
 
