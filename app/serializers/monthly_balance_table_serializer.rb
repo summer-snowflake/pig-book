@@ -13,6 +13,6 @@ class MonthlyBalanceTableSerializer < ActiveModel::Serializer
   end
 
   def human_month
-    object.decorate.human_month
+    object.decorate.human_month if object.month
   end
 end

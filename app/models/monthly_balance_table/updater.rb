@@ -22,7 +22,7 @@ class MonthlyBalanceTable::Updater
         user: @user, year: date.slice(0..4).to_i, month: date.slice(5, 2).to_i,
         currency: @user.current_currency
       )
-      monthly.update!(income: 0, expenditure: 0)
+      monthly.update!(income: 0, expenditure: 0, point: 0)
     end
   end
 

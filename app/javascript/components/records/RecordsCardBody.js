@@ -10,6 +10,7 @@ import DateMonthFormat from './../common/DateMonthFormat'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import SearchKeywords from './SearchKeywords'
 import SearchFormsField from './SearchFormsField'
+import RecordsTotals from './RecordsTotals'
 
 class RecordsCardBody extends React.Component {
   constructor(props) {
@@ -20,7 +21,12 @@ class RecordsCardBody extends React.Component {
       categoryId: null,
       categoryName: '',
       errorMessages: {},
-      records: this.props.records
+      records: this.props.records,
+      totals: {
+        income: '¥0',
+        expenditure: '¥0',
+        point: 0
+      }
     }
     this.getRecords = this.getRecords.bind(this)
     this.getRecordsCallback = this.getRecordsCallback.bind(this)
@@ -111,7 +117,8 @@ class RecordsCardBody extends React.Component {
 
   getRecordsCallback(res) {
     this.setState({
-      records: res.data
+      records: res.data.records,
+      totals: res.data.totals,
     })
   }
 
@@ -184,6 +191,7 @@ class RecordsCardBody extends React.Component {
           isListPage
           records={this.state.records}
         />
+        <RecordsTotals totals={this.state.totals} />
       </div>
     )
   }

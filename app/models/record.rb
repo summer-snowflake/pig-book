@@ -30,6 +30,16 @@ class Record < ApplicationRecord
           time.beginning_of_year, time.end_of_year)
   }
 
+  class << self
+    def income
+      eager_load(:category).where(categories: { balance_of_payments: true })
+    end
+
+    def expenditure
+      eager_load(:category).where(categories: { balance_of_payments: false })
+    end
+  end
+
   def year_and_month
     published_at.to_s.slice(0..6)
   end
