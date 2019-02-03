@@ -50,7 +50,7 @@ class Api::RecordsController < Api::BaseController
   end
 
   def records_params
-    params.permit(:date, :year, :month, :category_id, :breakdown_id,
+    params.permit(:date, :year, :month, :category_id, :breakdown_id, :place_id,
                   :limit, :order)
   end
 

@@ -22,6 +22,8 @@ class RecordsCardBody extends React.Component {
       categoryName: '',
       breakdownId: null,
       breakdownName: '',
+      placeId: null,
+      placeName: '',
       errorMessages: {},
       records: this.props.records,
       totals: {
@@ -40,10 +42,12 @@ class RecordsCardBody extends React.Component {
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
     this.onClickBreakdownTagButton = this.onClickBreakdownTagButton.bind(this)
     this.onClickCategoryTagButton = this.onClickCategoryTagButton.bind(this)
+    this.onClickPlaceTagButton = this.onClickPlaceTagButton.bind(this)
     this.onClickMonthTagButton = this.onClickMonthTagButton.bind(this)
     this.onChangeMonth = this.onChangeMonth.bind(this)
     this.onClickCategory = this.onClickCategory.bind(this)
     this.onClickBreakdown = this.onClickBreakdown.bind(this)
+    this.onClickPlace = this.onClickPlace.bind(this)
   }
 
   componentWillMount() {
@@ -54,7 +58,7 @@ class RecordsCardBody extends React.Component {
     this.setState({
       month: 0
     })
-    this.getRecords(this.state.year, 0, this.state.categoryId)
+    this.getRecords(this.state.year, 0, this.state.categoryId, this.state.breakdownId, this.state.placeId)
   }
 
   onClickCategoryTagButton() {
@@ -62,7 +66,7 @@ class RecordsCardBody extends React.Component {
       categoryName: '',
       categoryId: null
     })
-    this.getRecords(this.state.year, this.state.month, null, this.state.breakdownId)
+    this.getRecords(this.state.year, this.state.month, null, this.state.breakdownId, this.state.placeId)
   }
 
   onClickBreakdownTagButton() {
@@ -70,7 +74,15 @@ class RecordsCardBody extends React.Component {
       breakdownName: '',
       breakdownId: null
     })
-    this.getRecords(this.state.year, this.state.month, this.state.categoryId)
+    this.getRecords(this.state.year, this.state.month, this.state.categoryId, null, this.state.placeId)
+  }
+
+  onClickPlaceTagButton() {
+    this.setState({
+      placeName: '',
+      placeId: null
+    })
+    this.getRecords(this.state.year, this.state.month, this.state.categoryId, this.state.breakdownId, null)
   }
 
   onClickCategory(categoryId, categoryName) {
@@ -78,7 +90,7 @@ class RecordsCardBody extends React.Component {
       categoryName: categoryName,
       categoryId: categoryId
     })
-    this.getRecords(this.state.year, this.state.month, categoryId, this.state.breakdownId)
+    this.getRecords(this.state.year, this.state.month, categoryId, this.state.breakdownId, this.state.placeId)
   }
 
   onClickBreakdown(breakdownId, breakdownName) {
@@ -86,7 +98,15 @@ class RecordsCardBody extends React.Component {
       breakdownName: breakdownName,
       breakdownId: breakdownId
     })
-    this.getRecords(this.state.year, this.state.month, this.state.categoryId, breakdownId)
+    this.getRecords(this.state.year, this.state.month, this.state.categoryId, breakdownId, this.state.placeId)
+  }
+
+  onClickPlace(placeId, placeName) {
+    this.setState({
+      placeName: placeName,
+      placeId: placeId
+    })
+    this.getRecords(this.state.year, this.state.month, this.state.categoryId, this.state.breakdownId, placeId)
   }
 
   handleClickPreviousButton() {
@@ -101,14 +121,14 @@ class RecordsCardBody extends React.Component {
         year: year,
         month: month
       })
-      this.getRecords(year, month)
+      this.getRecords(year, month, this.state.categoryId, this.state.breakdownId, this.state.placeId)
     } else {
       let year = this.state.year
       year -= 1
       this.setState({
         year: year
       })
-      this.getRecords(year)
+      this.getRecords(year, 0, this.state.categoryId, this.state.breakdownId, this.state.placeId)
     }
   }
 
@@ -124,14 +144,14 @@ class RecordsCardBody extends React.Component {
         year: year,
         month: month
       })
-      this.getRecords(year, month)
+      this.getRecords(year, month, this.state.categoryId, this.state.breakdownId, this.state.placeId)
     } else {
       let year = this.state.year
       year += 1
       this.setState({
         year: year
       })
-      this.getRecords(year)
+      this.getRecords(year, 0, this.state.categoryId, this.state.breakdownId, this.state.placeId)
     }
   }
 
@@ -142,7 +162,7 @@ class RecordsCardBody extends React.Component {
     })
   }
 
-  getRecords(year, month, categoryId, breakdownId) {
+  getRecords(year, month, categoryId, breakdownId, placeId) {
     let params = {
       year: String(year)
     }
@@ -155,11 +175,14 @@ class RecordsCardBody extends React.Component {
     if (breakdownId) {
       Object.assign(params, { breakdown_id: breakdownId })
     }
+    if (placeId) {
+      Object.assign(params, { place_id: placeId })
+    }
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
 
   destroyRecordCallback() {
-    this.getRecords(this.state.year, this.state.month)
+    this.getRecords(this.state.year, this.state.month, this.state.categoryId, this.state.breakdownId, this.state.placeId)
     this.noticeDestroyedMessage()
   }
 
@@ -178,7 +201,7 @@ class RecordsCardBody extends React.Component {
     this.setState({
       month: month
     })
-    this.getRecords(this.props.year, month)
+    this.getRecords(this.state.year, month, this.state.categoryId, this.state.breakdownId, this.state.placeId)
   }
 
   render() {
@@ -204,7 +227,17 @@ class RecordsCardBody extends React.Component {
         {this.props.year && (
           <div>
             <SearchFormsField handleChangeMonth={this.onChangeMonth} month={this.state.month} year={this.state.year} />
-            <SearchKeywords breakdownName={this.state.breakdownName} categoryName={this.state.categoryName} handleClickBreakdownTagButton={this.onClickBreakdownTagButton} handleClickCategoryTagButton={this.onClickCategoryTagButton} handleClickMonthTagButton={this.onClickMonthTagButton} month={this.state.month} year={this.state.year} />
+            <SearchKeywords
+              breakdownName={this.state.breakdownName}
+              categoryName={this.state.categoryName}
+              handleClickBreakdownTagButton={this.onClickBreakdownTagButton}
+              handleClickCategoryTagButton={this.onClickCategoryTagButton}
+              handleClickMonthTagButton={this.onClickMonthTagButton}
+              handleClickPlaceTagButton={this.onClickPlaceTagButton}
+              month={this.state.month}
+              placeName={this.state.placeName}
+              year={this.state.year}
+            />
           </div>
         )}
         <Records
@@ -212,6 +245,7 @@ class RecordsCardBody extends React.Component {
           handleClickCategory={this.onClickCategory}
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}
+          handleClickPlace={this.onClickPlace}
           isListPage
           records={this.state.records}
         />
