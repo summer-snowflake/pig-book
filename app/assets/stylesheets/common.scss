@@ -2,6 +2,7 @@ $green: #76891a;
 $darken-green: darken($green, 10%);
 $purple: #9b7ec9;
 $pink: #ac5e9f;
+$light-green: #c8d0a3;
 
 body {
   background-image: image-url('background-wood.png');
@@ -470,6 +471,14 @@ $twitter-border-color: #2e6da4;
 .records-totals-table {
   text-align: right;
   width: 400px;
+
+  th {
+    background-color: rgba($light-green, .5);
+  }
+
+  tr {
+    height: auto;
+  }
 
   td {
     width: 100px;
