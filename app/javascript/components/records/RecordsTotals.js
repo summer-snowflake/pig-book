@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Label from './../common/Label'
+
 class RecordsTotals extends React.Component {
   constructor(props) {
     super(props)
@@ -12,7 +14,7 @@ class RecordsTotals extends React.Component {
         <table className='table table-bordered records-totals-table'>
           <tbody>
             <tr>
-              <td>{'計'}</td>
+              <th><Label label='total' /></th>
               <td>
                 <i className='fas fa-plus-square left-icon blue' />
                 {this.props.totals.human_income}
