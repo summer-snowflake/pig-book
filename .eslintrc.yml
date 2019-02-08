@@ -8,6 +8,7 @@ parserOptions:
   ecmaFeatures:
     jsx: true
   sourceType: module
+parser: 'babel-eslint'
 globals:
   React: true
   process: true
