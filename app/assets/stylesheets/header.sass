@@ -1,6 +1,14 @@
 nav
+  padding: 0
+  .navbar-collapse
+    height: 0
+    padding: 0
+    overflow: hidden
+    opacity: 0
+    transition: 0.8s
   input
     display: none
-  input:checked ~ .collapse.navbar-collapse
-    display: block
-    transition: 3s
+  input:checked ~ .navbar-collapse
+    padding: 10px 0
+    height: auto
+    opacity: 1
