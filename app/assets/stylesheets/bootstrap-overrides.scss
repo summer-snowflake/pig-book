@@ -141,7 +141,8 @@ $lighten-green: lighten($green, 15%);
   font-family: sans-serif;
 }
 
-nav button:focus::after ~ .collapse:not(.show) {
+//nav button:focus::after ~ .collapse:not(.show) {
+nav input:checked ~ .collapse.navbar-collapse {
   display: block;
   transition: 3s;
 }
