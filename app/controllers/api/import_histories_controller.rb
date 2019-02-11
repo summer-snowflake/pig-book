@@ -6,14 +6,6 @@ class Api::ImportHistoriesController < Api::BaseController
     create_category create_breakdown create_place create_tags create_record
   ]
 
-  def index
-    import_histories = current_user
-                       .import_histories
-                       .order(:created_at)
-                       .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
-    render json: import_histories
-  end
-
   def show
     import_histories = current_user
                        .import_histories
