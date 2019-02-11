@@ -417,13 +417,6 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.records-list-title {
-  font-size: 16px;
-  margin: auto;
-  text-align: center;
-  width: 200px;
-}
-
 .categories-select-box-component {
   button {
     margin: 5px 8px;
@@ -466,21 +459,4 @@ $twitter-border-color: #2e6da4;
 
 .search-keyword-link {
   cursor: pointer;
-}
-
-.records-totals-table {
-  text-align: right;
-  width: 400px;
-
-  th {
-    background-color: rgba($light-green, .5);
-  }
-
-  tr {
-    height: auto;
-  }
-
-  td {
-    width: 100px;
-  }
 }
