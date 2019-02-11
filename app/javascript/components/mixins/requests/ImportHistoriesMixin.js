@@ -52,6 +52,10 @@ export const importHistoriesAxios = {
   getWithStatus : (statusName, callback, errorCallback) => {
     let url = '/api/import_histories/' + statusName
     axiosMixin.request('GET', callback, errorCallback, url)
+  },
+  post : (params, callback, errorCallback) => {
+    let url = '/api/import_histories/rename_rows'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   }
 }
 
