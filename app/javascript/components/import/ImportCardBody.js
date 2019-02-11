@@ -25,7 +25,6 @@ class ImportCardBody extends React.Component {
     if (files[0] != undefined) {
       let formData = new FormData()
       formData.append('file', files[0])
-      formData.append('last_request_at', this.state.lastRequestAt)
       this.postFile(formData)
     }
   }
