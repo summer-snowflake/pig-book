@@ -6,6 +6,7 @@ export const fileAxios = {
   post : (fileParams, callback, errorCallback) => {
     let url = origin + '/api/import_histories'
     let headers = { 'Authorization': 'Token token=' + LocalStorageMixin.getUserToken() }
+    fileParams.append('last_request_at', LocalStorageMixin.getLastRequestAt())
     axios.post(url, fileParams, { headers: headers })
       .then(() => {
         callback()
