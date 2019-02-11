@@ -49,10 +49,6 @@ export const importHistoryAxios = {
 }
 
 export const importHistoriesAxios = {
-  get : (callback, errorCallback) => {
-    let url = '/api/import_histories'
-    axiosMixin.request('GET', callback, errorCallback, url)
-  },
   getWithStatus : (statusName, callback, errorCallback) => {
     let url = '/api/import_histories/' + statusName
     axiosMixin.request('GET', callback, errorCallback, url)

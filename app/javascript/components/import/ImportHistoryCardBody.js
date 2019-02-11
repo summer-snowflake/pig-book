@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
@@ -10,10 +9,10 @@ class ImportHistoryCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      histories: this.props.histories,
-      activeLink: 'all',
+      histories: [],
+      activeLink: 'unregistered',
       unregisteredLength: 0,
-      isLoadingList: false,
+      isLoadingList: true,
       isLoadingButton: false
     }
     this.getImportHistories = this.getImportHistories.bind(this)
@@ -22,7 +21,6 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesWithStatusCallback = this.getImportHistoriesWithStatusCallback.bind(this)
     this.getImportHistoriesCount = this.getImportHistoriesCount.bind(this)
     this.getImportHistoriesCountCallback = this.getImportHistoriesCountCallback.bind(this)
-    this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
     this.handleLoad = this.handleLoad.bind(this)
@@ -30,21 +28,13 @@ class ImportHistoryCardBody extends React.Component {
   }
 
   componentWillMount() {
-    this.getImportHistories()
+    this.getImportHistoriesWithStatus('unregistered')
   }
 
   handleLoad() {
     this.setState({
       isLoadingButton: true
     })
-  }
-
-  handleClickAllTab() {
-    this.setState({
-      activeLink: 'all',
-      isLoadingList: true
-    })
-    this.getImportHistories()
   }
 
   handleClickUnregisteredTab() {
@@ -104,11 +94,6 @@ class ImportHistoryCardBody extends React.Component {
       <div className='import-history-card-body-component'>
         <ul className='nav nav-tabs'>
           <li className='nav-item'>
-            <a className={'nav-link' + (this.state.activeLink == 'all' ? ' active' : '')} href='#' onClick={this.handleClickAllTab}>
-              {'すべて'}
-            </a>
-          </li>
-          <li className='nav-item'>
             <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
               {'未登録'}
               {this.state.unregisteredLength > 0 && (
@@ -130,10 +115,6 @@ class ImportHistoryCardBody extends React.Component {
       </div>
     )
   }
-}
-
-ImportHistoryCardBody.propTypes = {
-  histories: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(ImportHistoryCardBody, MessageNotifierMixin)
