@@ -73,6 +73,7 @@ class ImportHistories extends React.Component {
                 key={history.id}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 onLoad={this.props.onLoad}
+                updated={this.props.updatedIds.some((id) => id === history.id)}
               />
             ))}
           </tbody>
@@ -87,6 +88,7 @@ ImportHistories.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   activeLink: PropTypes.string.isRequired,
   histories: PropTypes.array.isRequired,
+  updatedIds: PropTypes.array.isRequired,
   getImportHistories: PropTypes.func.isRequired,
   getImportHistoriesWithStatus: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired

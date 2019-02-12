@@ -110,8 +110,11 @@ class ImportHistoryCardBody extends React.Component {
   postImportHistoriesCallback(res) {
     this.setState({
       isEditing: false,
-      updatedIds: res.data
+      updatedIds: res.data,
+      activeLink: 'unregistered',
+      isLoadingList: true
     })
+    this.getImportHistoriesWithStatus('unregistered')
   }
 
   render() {
@@ -136,7 +139,15 @@ class ImportHistoryCardBody extends React.Component {
         {this.state.isLoadingList ? (
           <div className='pig-loading-image' />
         ) : (
-          <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} isLoading={this.state.isLoadingButton} onLoad={this.handleLoad} />
+          <ImportHistories
+            activeLink={this.state.activeLink}
+            getImportHistories={this.getImportHistories}
+            getImportHistoriesWithStatus={this.getImportHistoriesWithStatus}
+            histories={this.state.histories}
+            isLoading={this.state.isLoadingButton}
+            onLoad={this.handleLoad}
+            updatedIds={this.state.updatedIds}
+          />
         )}
       </div>
     )

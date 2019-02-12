@@ -219,7 +219,10 @@ class ImportHistory extends React.Component {
             <FormErrorMessages column='row' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
-          <td className='left-edit-target'>
+          <td className={'left-edit-target ' + (this.props.updated ? 'bold' : '')}>
+            {this.props.updated && (
+              <i className='fas fa-check-circle left-icon' />
+            )}
             {this.props.history.row}
           </td>
         )}
@@ -315,7 +318,8 @@ ImportHistory.propTypes = {
   getImportHistoriesWithStatus: PropTypes.func.isRequired,
   activeLink: PropTypes.string.isRequired,
   onLoad: PropTypes.func.isRequired,
-  onClickTrashIcon: PropTypes.func.isRequired
+  onClickTrashIcon: PropTypes.func.isRequired,
+  updated: PropTypes.bool.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)
