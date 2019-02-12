@@ -1,0 +1,15 @@
+nav
+  padding: 0
+  @media (max-width: 992px)
+    .navbar-collapse
+      height: 0
+      padding: 0
+      overflow: hidden
+      opacity: 0
+      transition: 0.8s
+  input
+    display: none
+  input:checked ~ .navbar-collapse
+    padding: 10px 0
+    height: auto
+    opacity: 1

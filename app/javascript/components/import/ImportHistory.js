@@ -61,6 +61,7 @@ class ImportHistory extends React.Component {
 
   onClickTrashIcon() {
     this.props.onClickTrashIcon(this.props.history)
+    this.props.onUpdate()
   }
 
   handleClickEditIcon() {
@@ -96,6 +97,7 @@ class ImportHistory extends React.Component {
     })
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeUpdatedMessage()
+    this.props.onUpdate('id', this.props.history.id)
   }
 
   patchImportHistory() {
@@ -117,6 +119,7 @@ class ImportHistory extends React.Component {
   postCategoryCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
+    this.props.onUpdate('categoryName', this.props.history.category_name)
   }
 
   postCategory() {
@@ -135,6 +138,7 @@ class ImportHistory extends React.Component {
   postBreakdownCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
+    this.props.onUpdate('breakdownName', this.props.history.breakdown_name)
   }
 
   postBreakdown() {
@@ -158,6 +162,7 @@ class ImportHistory extends React.Component {
   postRecordCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
+    this.props.onUpdate()
   }
 
   getRecordCallback(res) {
@@ -182,6 +187,7 @@ class ImportHistory extends React.Component {
   postPlaceCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
+    this.props.onUpdate('placeName', this.props.history.place_name)
   }
 
   postPlace() {
@@ -200,6 +206,7 @@ class ImportHistory extends React.Component {
   postTagsCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
+    this.props.onUpdate('tagsName', this.props.history.tags_name)
   }
 
   postTags() {
@@ -219,7 +226,10 @@ class ImportHistory extends React.Component {
             <FormErrorMessages column='row' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
-          <td className='left-edit-target'>
+          <td className={'left-edit-target ' + (this.props.updated ? 'bold' : '')}>
+            {this.props.updated && (
+              <i className='fas fa-check-circle left-icon' />
+            )}
             {this.props.history.row}
           </td>
         )}
@@ -315,7 +325,9 @@ ImportHistory.propTypes = {
   getImportHistoriesWithStatus: PropTypes.func.isRequired,
   activeLink: PropTypes.string.isRequired,
   onLoad: PropTypes.func.isRequired,
-  onClickTrashIcon: PropTypes.func.isRequired
+  onClickTrashIcon: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  updated: PropTypes.bool.isRequired
 }
 
 reactMixin.onClass(ImportHistory, MessageNotifierMixin)

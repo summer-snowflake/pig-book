@@ -19,6 +19,7 @@ en:
       balance_of_payments: BoP
       records:
       last_tally_at: last tally at
+      total: Total
     currency: $
     date:
       year_format: YYYY

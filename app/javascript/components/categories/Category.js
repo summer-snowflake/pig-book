@@ -147,7 +147,9 @@ class Category extends React.Component {
           </span>
         </td>
         <td className='icon-td'>
-          <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
+          {(this.props.category.places || {}).length == 0 && (this.props.category.breakdowns || {}).length == 0 && (this.props.category.templates || {}).length == 0 && (
+            <Trash handleClick={this.onClickTrashIcon} item={this.props.category} />
+          )}
           {this.renderAlertMessage()}
         </td>
       </tr>

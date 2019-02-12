@@ -6,6 +6,7 @@ export const fileAxios = {
   post : (fileParams, callback, errorCallback) => {
     let url = origin + '/api/import_histories'
     let headers = { 'Authorization': 'Token token=' + LocalStorageMixin.getUserToken() }
+    fileParams.append('last_request_at', LocalStorageMixin.getLastRequestAt())
     axios.post(url, fileParams, { headers: headers })
       .then(() => {
         callback()
@@ -48,13 +49,13 @@ export const importHistoryAxios = {
 }
 
 export const importHistoriesAxios = {
-  get : (callback, errorCallback) => {
-    let url = '/api/import_histories'
-    axiosMixin.request('GET', callback, errorCallback, url)
-  },
   getWithStatus : (statusName, callback, errorCallback) => {
     let url = '/api/import_histories/' + statusName
     axiosMixin.request('GET', callback, errorCallback, url)
+  },
+  post : (params, callback, errorCallback) => {
+    let url = '/api/import_histories/rename_rows'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   }
 }
 

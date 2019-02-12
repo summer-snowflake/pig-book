@@ -1,20 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import ImportHistories from './ImportHistories'
+import ImportHistoriesRenameForm from './ImportHistoriesRenameForm'
 import { importHistoriesAxios, importHistoriesCountAxios } from './../mixins/requests/ImportHistoriesMixin'
 
 class ImportHistoryCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      histories: this.props.histories,
-      activeLink: 'all',
+      isEditing: false,
+      histories: [],
+      activeLink: 'unregistered',
       unregisteredLength: 0,
-      isLoadingList: false,
-      isLoadingButton: false
+      isLoadingList: true,
+      isLoadingButton: false,
+      updatedIds: [],
+      errorMessages: {}
     }
     this.getImportHistories = this.getImportHistories.bind(this)
     this.getImportHistoriesCallback = this.getImportHistoriesCallback.bind(this)
@@ -22,29 +25,24 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesWithStatusCallback = this.getImportHistoriesWithStatusCallback.bind(this)
     this.getImportHistoriesCount = this.getImportHistoriesCount.bind(this)
     this.getImportHistoriesCountCallback = this.getImportHistoriesCountCallback.bind(this)
-    this.handleClickAllTab = this.handleClickAllTab.bind(this)
     this.handleClickUnregisteredTab = this.handleClickUnregisteredTab.bind(this)
     this.handleClickRegisteredTab = this.handleClickRegisteredTab.bind(this)
     this.handleLoad = this.handleLoad.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
+    this.handleClickRenameButton = this.handleClickRenameButton.bind(this)
+    this.postImportHistories = this.postImportHistories.bind(this)
+    this.postImportHistoriesCallback = this.postImportHistoriesCallback.bind(this)
+    this.handleUpdateIds = this.handleUpdateIds.bind(this)
   }
 
   componentWillMount() {
-    this.getImportHistories()
+    this.getImportHistoriesWithStatus('unregistered')
   }
 
   handleLoad() {
     this.setState({
       isLoadingButton: true
     })
-  }
-
-  handleClickAllTab() {
-    this.setState({
-      activeLink: 'all',
-      isLoadingList: true
-    })
-    this.getImportHistories()
   }
 
   handleClickUnregisteredTab() {
@@ -99,15 +97,38 @@ class ImportHistoryCardBody extends React.Component {
     importHistoriesAxios.getWithStatus(statusName, this.getImportHistoriesWithStatusCallback, this.noticeErrorMessages)
   }
 
+  handleClickRenameButton(params) {
+    this.setState({
+      isEditing: true
+    })
+    this.postImportHistories(params)
+  }
+
+  postImportHistories(params) {
+    importHistoriesAxios.post(params, this.postImportHistoriesCallback, this.noticeErrorMessages)
+  }
+
+  postImportHistoriesCallback(res) {
+    this.setState({
+      isEditing: false,
+      updatedIds: res.data,
+      activeLink: 'unregistered',
+      isLoadingList: true
+    })
+    this.getImportHistoriesWithStatus('unregistered')
+  }
+
+  handleUpdateIds(ids) {
+    this.setState({
+      updatedIds: ids
+    })
+  }
+
   render() {
     return (
       <div className='import-history-card-body-component'>
+        <ImportHistoriesRenameForm errorMessages={this.state.errorMessages} isEditing={this.state.isEditing} onClickButton={this.handleClickRenameButton} updatedIds={this.state.updatedIds} />
         <ul className='nav nav-tabs'>
-          <li className='nav-item'>
-            <a className={'nav-link' + (this.state.activeLink == 'all' ? ' active' : '')} href='#' onClick={this.handleClickAllTab}>
-              {'すべて'}
-            </a>
-          </li>
           <li className='nav-item'>
             <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
               {'未登録'}
@@ -125,15 +146,20 @@ class ImportHistoryCardBody extends React.Component {
         {this.state.isLoadingList ? (
           <div className='pig-loading-image' />
         ) : (
-          <ImportHistories activeLink={this.state.activeLink} getImportHistories={this.getImportHistories} getImportHistoriesWithStatus={this.getImportHistoriesWithStatus} histories={this.state.histories} isLoading={this.state.isLoadingButton} onLoad={this.handleLoad} />
+          <ImportHistories
+            activeLink={this.state.activeLink}
+            getImportHistories={this.getImportHistories}
+            getImportHistoriesWithStatus={this.getImportHistoriesWithStatus}
+            histories={this.state.histories}
+            onUpdate={this.handleUpdateIds}
+            isLoading={this.state.isLoadingButton}
+            onLoad={this.handleLoad}
+            updatedIds={this.state.updatedIds}
+          />
         )}
       </div>
     )
   }
-}
-
-ImportHistoryCardBody.propTypes = {
-  histories: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(ImportHistoryCardBody, MessageNotifierMixin)

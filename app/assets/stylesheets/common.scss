@@ -2,6 +2,7 @@ $green: #76891a;
 $darken-green: darken($green, 10%);
 $purple: #9b7ec9;
 $pink: #ac5e9f;
+$light-green: #c8d0a3;
 
 body {
   background-image: image-url('background-wood.png');
@@ -35,6 +36,10 @@ button {
 
 .light-blue {
   color: $info;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .input-menu {
@@ -416,13 +421,6 @@ $twitter-border-color: #2e6da4;
   }
 }
 
-.records-list-title {
-  font-size: 16px;
-  margin: auto;
-  text-align: center;
-  width: 200px;
-}
-
 .categories-select-box-component {
   button {
     margin: 5px 8px;
@@ -465,13 +463,4 @@ $twitter-border-color: #2e6da4;
 
 .search-keyword-link {
   cursor: pointer;
-}
-
-.records-totals-table {
-  text-align: right;
-  width: 400px;
-
-  td {
-    width: 100px;
-  }
 }

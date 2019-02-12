@@ -19,7 +19,7 @@ class ImportHistoryCard extends React.Component {
     return (
       <div className='import-card-component'>
         <ErrorBoundary>
-          <ImportHistoryCardBody histories={this.props.histories} />
+          <ImportHistoryCardBody />
         </ErrorBoundary>
       </div>
     )
@@ -27,7 +27,6 @@ class ImportHistoryCard extends React.Component {
 }
 
 ImportHistoryCard.propTypes = {
-  histories: PropTypes.array.isRequired,
   user_token: PropTypes.string.isRequired,
   last_request_at: PropTypes.number.isRequired
 }
