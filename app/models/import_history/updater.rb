@@ -3,6 +3,8 @@
 require 'csv'
 
 class ImportHistory::Updater
+  attr_reader :updated_ids
+
   def initialize(user:)
     @user = user
   end
@@ -26,6 +28,18 @@ class ImportHistory::Updater
     record = @user.import_histories.find(params[:id])
     record.update!(row: params[:row],
                    messages: error_messages(params[:row].split(',')))
+  end
+
+  def rename_rows(before, after)
+    records = @user.import_histories.where('row like ?', "%,#{before},%")
+    records.each do |record|
+      record.update!(row: record.row.gsub(/#{before}/, after))
+    end
+    @updated_ids = records.pluck(:id)
+    true
+  rescue ActiveRecord::RecordInvalid => e
+    errors[:base] << e.message
+    false
   end
 
   private

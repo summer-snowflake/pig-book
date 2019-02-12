@@ -9,8 +9,7 @@ class Api::ImportHistoriesController < Api::BaseController
   def show
     import_histories = current_user
                        .import_histories
-                       .send(status_params)
-                       .order(:created_at)
+                       .send(status_params).order(:created_at)
                        .limit(ImportHistory::DISPLAY_LIMIT_COUNT)
     render json: import_histories
   end
@@ -87,6 +86,15 @@ class Api::ImportHistoriesController < Api::BaseController
     import_histories_count =
       current_user.import_histories.send(:unregistered).order(:created_at).count
     render json: import_histories_count
+  end
+
+  def rename_rows
+    updater = ImportHistory::Updater.new(user: current_user)
+    if updater.rename_rows(params[:before], params[:after])
+      render json: updater.updated_ids
+    else
+      render_validation_error updater
+    end
   end
 
   private
