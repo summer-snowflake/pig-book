@@ -32,6 +32,7 @@ class ImportHistoryCardBody extends React.Component {
     this.handleClickRenameButton = this.handleClickRenameButton.bind(this)
     this.postImportHistories = this.postImportHistories.bind(this)
     this.postImportHistoriesCallback = this.postImportHistoriesCallback.bind(this)
+    this.handleUpdateIds = this.handleUpdateIds.bind(this)
   }
 
   componentWillMount() {
@@ -117,6 +118,12 @@ class ImportHistoryCardBody extends React.Component {
     this.getImportHistoriesWithStatus('unregistered')
   }
 
+  handleUpdateIds(ids) {
+    this.setState({
+      updatedIds: ids
+    })
+  }
+
   render() {
     return (
       <div className='import-history-card-body-component'>
@@ -144,6 +151,7 @@ class ImportHistoryCardBody extends React.Component {
             getImportHistories={this.getImportHistories}
             getImportHistoriesWithStatus={this.getImportHistoriesWithStatus}
             histories={this.state.histories}
+            onUpdate={this.handleUpdateIds}
             isLoading={this.state.isLoadingButton}
             onLoad={this.handleLoad}
             updatedIds={this.state.updatedIds}

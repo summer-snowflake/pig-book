@@ -23,6 +23,7 @@ class ImportHistories extends React.Component {
     this.deleteImportHistory = this.deleteImportHistory.bind(this)
     this.deleteImportHistoryCallback = this.deleteImportHistoryCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
+    this.onUpdate = this.onUpdate.bind(this)
   }
 
   getImportHistoriesWithStatus(activeLink) {
@@ -58,6 +59,28 @@ class ImportHistories extends React.Component {
     importHistoryAxios.delete(this.state.importHistory.id, this.deleteImportHistoryCallback, this.noticeErrorMessages)
   }
 
+  onUpdate(col, value) {
+    let ids = []
+    switch(col) {
+    case 'id':
+      ids = [value]
+      break
+    case 'categoryName':
+      ids = this.props.histories.filter((history) => history.category_name == value).map((history) => history.id)
+      break
+    case 'breakdownName':
+      ids = this.props.histories.filter((history) => history.breakdown_name == value).map((history) => history.id)
+      break
+    case 'placeName':
+      ids = this.props.histories.filter((history) => history.place_name == value).map((history) => history.id)
+      break
+    case 'tagsName':
+      ids = this.props.histories.filter((history) => history.tags_name == value).map((history) => history.id)
+      break
+    }
+    this.props.onUpdate(ids)
+  }
+
   render() {
     return (
       <div className='import-histories-component'>
@@ -73,6 +96,7 @@ class ImportHistories extends React.Component {
                 key={history.id}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 onLoad={this.props.onLoad}
+                onUpdate={this.onUpdate}
                 updated={this.props.updatedIds.some((id) => id === history.id)}
               />
             ))}
@@ -89,6 +113,7 @@ ImportHistories.propTypes = {
   activeLink: PropTypes.string.isRequired,
   histories: PropTypes.array.isRequired,
   updatedIds: PropTypes.array.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   getImportHistories: PropTypes.func.isRequired,
   getImportHistoriesWithStatus: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired
