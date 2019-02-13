@@ -116,6 +116,8 @@ class ImportHistoryCardBody extends React.Component {
       isLoadingList: true
     })
     this.getImportHistoriesWithStatus('unregistered')
+    this.refs.import_histories_rename_form.refs.before.value = ''
+    this.refs.import_histories_rename_form.refs.after.value = ''
   }
 
   handleUpdateIds(ids) {
@@ -127,7 +129,7 @@ class ImportHistoryCardBody extends React.Component {
   render() {
     return (
       <div className='import-history-card-body-component'>
-        <ImportHistoriesRenameForm errorMessages={this.state.errorMessages} isEditing={this.state.isEditing} onClickButton={this.handleClickRenameButton} updatedIds={this.state.updatedIds} />
+        <ImportHistoriesRenameForm errorMessages={this.state.errorMessages} isEditing={this.state.isEditing} onClickButton={this.handleClickRenameButton} ref='import_histories_rename_form' updatedIds={this.state.updatedIds} />
         <ul className='nav nav-tabs'>
           <li className='nav-item'>
             <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
