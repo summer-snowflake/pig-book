@@ -1,0 +1,110 @@
+$pink: #ac5e9f
+$darken-pink: darken($pink, 10%)
+$green: #76891a
+$darken-green: darken($green, 10%)
+$lighten-green: lighten($green, 15%)
+
+.btn
+  font-size: 14px
+
+.btn-light
+  border-color: darken($light, 10%)
+
+.list-group-item
+  color: $pink
+  font-size: 12px
+  a
+    color: $pink
+
+.list-group-item:hover
+  color: $darken-pink
+
+.card-header
+  background-color: rgba($white, 0.5)
+  color: $darken-green
+  font-size: 14px
+  padding: 10px 15px
+
+.card-body
+  font-size: 12px
+
+.form-control
+  font-size: 14px
+
+.alert
+  animation: fadeout 1s linear 1s 1
+  animation-fill-mode: forwards
+  bottom: 50px
+  color: $white
+  position: fixed
+  right: 30px
+  text-align: left
+  width: 300px
+  z-index: 3
+
+.alert-success
+  background-color: rgba($green, 0.6)
+  border-color: $green
+
+.alert-danger
+  background-color: rgba($pink, 0.6)
+  border-color: $pink
+
+@keyframes fadeout
+  0%
+    bottom: 50px
+    opacity: 1
+  40%
+    bottom: 10px
+    opacity: 1
+  100%
+    bottom: 0
+    opacity: 0
+
+
+.modal-body
+  padding: 10px
+
+.modal-footer
+  border-top: 0
+  padding: 20px 0 0
+
+.table th, .table td
+  border-bottom: 1px solid $lighten-green
+  border-top: 0
+
+.navbar-light .navbar-nav .nav-link
+  background: transparent
+  border: 0
+  cursor: pointer
+  font-size: 14px
+  outline: none
+
+.nav-tabs
+  border-bottom: 1px solid $lighten-green
+  .nav-link
+    margin-left: 4px
+    &.active
+      background-color: rgba($white, 0.5)
+      border-bottom: 1px solid rgba($lighten-green, 0.1)
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus, .nav-tabs .nav-link:visited
+  background-color: rgba($white, 0.5)
+  border: 1px solid $green
+  border-bottom: 1px solid rgba($lighten-green, 0.1)
+
+.input-group-text
+  font-size: 14px
+
+.btn-sm, .btn-group-sm > .btn
+  padding: 0 6px
+
+.monthly-table.table
+  tr
+    height: 0
+    padding: 10px
+
+.badge-light
+  background-color: $pink
+  color: rgba($white, 0.8)
+  font-family: sans-serif
