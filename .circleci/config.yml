@@ -70,6 +70,9 @@ jobs:
       # Run scss-lint
       - run: bundle exec scss-lint app/assets/stylesheets/
 
+      # Run sass-lint
+      - run: npm run sass-lint
+
       # Run ESLint
       - run: npm run eslint
 
