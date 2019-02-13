@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'POST /api/import_histories/:import_history_id/create_record' do
+describe 'POST /api/import_histories/:import_history_id/record' do
   let!(:user) { create(:user) }
   let!(:import_history) { create(:import_history, user: user) }
   # NOTE: import_historyに設定されているrowの値はすでに登録済みであること
@@ -16,7 +16,7 @@ describe 'POST /api/import_histories/:import_history_id/create_record' do
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
-      post "/api/import_histories/#{import_history.id}/create_record"
+      post "/api/import_histories/#{import_history.id}/record"
 
       expect(response.status).to eq 401
       json = {
@@ -31,7 +31,7 @@ describe 'POST /api/import_histories/:import_history_id/create_record' do
       params = {
         last_request_at: Time.zone.now
       }
-      post "/api/import_histories/#{import_history.id}/create_record",
+      post "/api/import_histories/#{import_history.id}/record",
            params: params, headers: login_headers(user)
 
       expect(response.status).to eq 201

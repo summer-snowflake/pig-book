@@ -3,7 +3,7 @@
 class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
   before_action :set_creator, only: %i[
-    create_category create_breakdown create_place create_tags create_record
+    create_category create_breakdown create_place create_tags
   ]
 
   def show
@@ -49,14 +49,6 @@ class Api::ImportHistoriesController < Api::BaseController
 
   def create_tags
     if @creator.create_tags
-      head :created
-    else
-      render_validation_error @creator
-    end
-  end
-
-  def create_record
-    if @creator.create_record
       head :created
     else
       render_validation_error @creator

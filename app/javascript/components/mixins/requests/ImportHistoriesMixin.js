@@ -43,7 +43,7 @@ export const importHistoryAxios = {
     axiosMixin.request('POST', callback, errorCallback, url)
   },
   postRecord : (importHistoryId, callback, errorCallback) => {
-    let url = '/api/import_histories/' + importHistoryId + '/create_record'
+    let url = '/api/import_histories/' + importHistoryId + '/record'
     axiosMixin.request('POST', callback, errorCallback, url)
   }
 }
