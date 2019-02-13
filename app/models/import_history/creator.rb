@@ -1,23 +1,27 @@
 # frozen_string_literal: true
 
 class ImportHistory::Creator
+  include ActiveModel::Model
+  include ValidationErrorMessagesBuilder
+
+  attr_reader :record
+
   def initialize(user:, import_history_id:)
     @user = user
     @import_history = @user.import_histories.find(import_history_id)
   end
 
   def create_record
-    return false unless @import_history.unregistered?
+    check_import_history
+    return false if errors.messages.present?
 
     ActiveRecord::Base.transaction do
-      record_validator = ImportHistory::RecordValidator.new(
-        user: @user,
-        row: @import_history.row.split(',')
-      )
-      return false unless record_validator.valid?
-
-      record = @user.records.new(record_validator.params)
-      @import_history.update(record_id: record.id) if record.save
+      record = @user.records.new(@record_validator.params)
+      @import_history.update!(record_id: record.id) if record.save
+      true
+    rescue StandardError => e
+      errors.add(:record, e.message)
+      false
     end
   end
 
@@ -62,5 +66,18 @@ class ImportHistory::Creator
     return color_code if @user.tags.find_by(color_code: color_code).nil?
 
     generate_color_code
+  end
+
+  def check_import_history
+    errors.add(:record, :registered) && return if @import_history.registered?
+    @record_validator = ImportHistory::RecordValidator.new(
+      user: @user,
+      row: @import_history.row.split(',')
+    )
+    if @record_validator.invalid?
+      @record_validator.errors.each do |key, msg|
+        errors.add(key, msg)
+      end
+    end && return
   end
 end

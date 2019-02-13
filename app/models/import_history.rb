@@ -16,7 +16,7 @@ class ImportHistory < ApplicationRecord
     record_id.nil? ? 'unregistered' : 'registered'
   end
 
-  def registered
+  def registered?
     status_name == 'registered'
   end
 
