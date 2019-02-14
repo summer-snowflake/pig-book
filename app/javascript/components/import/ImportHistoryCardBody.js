@@ -153,9 +153,9 @@ class ImportHistoryCardBody extends React.Component {
             getImportHistories={this.getImportHistories}
             getImportHistoriesWithStatus={this.getImportHistoriesWithStatus}
             histories={this.state.histories}
-            onUpdate={this.handleUpdateIds}
             isLoading={this.state.isLoadingButton}
             onLoad={this.handleLoad}
+            onUpdate={this.handleUpdateIds}
             updatedIds={this.state.updatedIds}
           />
         )}

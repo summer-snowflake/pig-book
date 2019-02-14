@@ -162,7 +162,6 @@ class ImportHistory extends React.Component {
   postRecordCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
-    this.props.onUpdate()
   }
 
   getRecordCallback(res) {
