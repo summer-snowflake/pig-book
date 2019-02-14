@@ -4,6 +4,8 @@ class ImportHistory::Creator
   include ActiveModel::Model
   include ValidationErrorMessagesBuilder
 
+  UPDATE_RECORDS_MAX_COUNT = 20
+
   attr_reader :record
 
   def initialize(user:, import_history_id:)
@@ -13,6 +15,14 @@ class ImportHistory::Creator
 
   def create_record
     create_record_and_update_history(@import_history)
+  end
+
+  def create_records
+    @user.import_histories
+         .registable
+         .limit(UPDATE_RECORDS_MAX_COUNT).each do |history|
+      return false unless create_record_and_update_history(history)
+    end
   end
 
   def create_category

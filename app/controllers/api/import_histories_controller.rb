@@ -3,7 +3,7 @@
 class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
   before_action :set_creator, only: %i[
-    create_category create_breakdown create_place create_tags
+    create_category create_breakdown create_place create_tags create_records
   ]
 
   def show
@@ -86,6 +86,14 @@ class Api::ImportHistoriesController < Api::BaseController
       render json: updater.updated_ids
     else
       render_validation_error updater
+    end
+  end
+
+  def create_records
+    if @creator.create_records
+      head :created
+    else
+      render_validation_error @creator
     end
   end
 
