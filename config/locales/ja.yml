@@ -100,6 +100,10 @@ ja:
         charge: 金額
         memo: メモ
         tags: ラベル名
+      import_history/creator:
+        category_name: カテゴリ
+        breakdown_name: 内訳
+        record: 対象の記録
     errors:
       models:
         import_history/record_validator:
@@ -112,3 +116,7 @@ ja:
               unregistered: が登録されていません
             tags:
               unregistered: が登録されていません
+        import_history/creator:
+          attributes:
+            record:
+              registered: はすでに登録されています

@@ -3,6 +3,7 @@ $darken-green: darken($green, 10%);
 $purple: #9b7ec9;
 $pink: #ac5e9f;
 $light-green: #c8d0a3;
+$light-green-translucent: rgba($light-green, .5);
 
 body {
   background-image: image-url('background-wood.png');

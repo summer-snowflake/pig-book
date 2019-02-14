@@ -46,11 +46,12 @@ Rails.application.routes.draw do
     resources :import_histories, only: %w[index create update destroy] do
       get :unregistered_count, on: :collection
       post :rename_rows, on: :collection
+      post :create_records, on: :collection
       post :create_category
       post :create_breakdown
       post :create_place
       post :create_tags
-      post :create_record
+      resource :record, only: %w[create], module: :import_history
     end
     resources :import_histories, param: :status, only: %w[show]
 

@@ -100,6 +100,10 @@ en:
         charge: Charge
         memo: Memo
         tags: Tags Name
+      import_history/creator:
+        category_name: Category
+        breakdown_name: Breakdown
+        record: The record
     errors:
       models:
         import_history/record_validator:
@@ -112,3 +116,7 @@ en:
               unregistered: is not registered
             tags:
               unregistered: is not registered
+        import_history/creator:
+          attributes:
+            record:
+              registered: is already registered
