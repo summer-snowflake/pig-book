@@ -12,17 +12,7 @@ class ImportHistory::Creator
   end
 
   def create_record
-    record_validator = check_import_history(@import_history)
-    return false if errors.messages.present?
-
-    ActiveRecord::Base.transaction do
-      record = @user.records.new(record_validator.params)
-      @import_history.update!(record_id: record.id) if record.save
-      true
-    rescue StandardError => e
-      errors.add(:record, e.message)
-      false
-    end
+    create_record_and_update_history(@import_history)
   end
 
   def create_category
@@ -79,5 +69,17 @@ class ImportHistory::Creator
       end
     end
     record_validator
+  end
+
+  def create_record_and_update_history(import_history)
+    record_validator = check_import_history(import_history)
+    return false if errors.messages.present?
+
+    record = @user.records.new(record_validator.params)
+    @import_history.update!(record_id: record.id) if record.save
+    true
+  rescue StandardError => e
+    errors.add(:record, e.message)
+    false
   end
 end
