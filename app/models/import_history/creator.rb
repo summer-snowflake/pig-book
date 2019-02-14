@@ -8,9 +8,10 @@ class ImportHistory::Creator
 
   attr_reader :record
 
-  def initialize(user:, import_history_id:)
+  def initialize(user:, import_history_id: nil)
     @user = user
-    @import_history = @user.import_histories.find(import_history_id)
+    @import_history =
+      import_history_id ? @user.import_histories.find(import_history_id) : nil
   end
 
   def create_record
@@ -20,6 +21,7 @@ class ImportHistory::Creator
   def create_records
     @user.import_histories
          .registable
+         .order(:created_at)
          .limit(UPDATE_RECORDS_MAX_COUNT).each do |history|
       return false unless create_record_and_update_history(history)
     end
@@ -86,7 +88,7 @@ class ImportHistory::Creator
     return false if errors.messages.present?
 
     record = @user.records.new(record_validator.params)
-    @import_history.update!(record_id: record.id) if record.save
+    import_history.update!(record_id: record.id) if record.save
     true
   rescue StandardError => e
     errors.add(:record, e.message)

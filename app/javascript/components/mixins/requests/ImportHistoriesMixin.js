@@ -56,6 +56,10 @@ export const importHistoriesAxios = {
   post : (params, callback, errorCallback) => {
     let url = '/api/import_histories/rename_rows'
     axiosMixin.request('POST', callback, errorCallback, url, params)
+  },
+  postRecords : (callback, errorCallback) => {
+    let url = '/api/import_histories/create_records'
+    axiosMixin.request('POST', callback, errorCallback, url)
   }
 }
 

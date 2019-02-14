@@ -3,7 +3,7 @@
 class Api::ImportHistoriesController < Api::BaseController
   protect_from_forgery except: :create
   before_action :set_creator, only: %i[
-    create_category create_breakdown create_place create_tags create_records
+    create_category create_breakdown create_place create_tags
   ]
 
   def show
@@ -90,6 +90,7 @@ class Api::ImportHistoriesController < Api::BaseController
   end
 
   def create_records
+    @creator = ImportHistory::Creator.new(user: current_user)
     if @creator.create_records
       head :created
     else
@@ -113,8 +114,7 @@ class Api::ImportHistoriesController < Api::BaseController
 
   def set_creator
     @creator = ImportHistory::Creator.new(
-      user: current_user,
-      import_history_id: params[:import_history_id]
+      user: current_user, import_history_id: params[:import_history_id]
     )
   end
 end
