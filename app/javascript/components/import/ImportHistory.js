@@ -162,7 +162,6 @@ class ImportHistory extends React.Component {
   postRecordCallback() {
     this.props.getImportHistoriesWithStatus(this.props.activeLink)
     this.noticeAddMessage()
-    this.props.onUpdate()
   }
 
   getRecordCallback(res) {
@@ -256,7 +255,7 @@ class ImportHistory extends React.Component {
           </td>
         )}
         <td>
-          {this.props.history.messages || this.props.activeLink == 'registered' || (this.props.history.status_name == 'registered' && this.props.activeLink == 'all') ? (
+          {this.props.history.messages || this.props.activeLink == 'registered' || this.props.history.status_name == 'registered' ? (
             <span>{this.props.history.messages}</span>
           ) : (
             <CreateButton isDisabled={this.props.isLoading} onClickButton={this.handleClickCreateRecordButton} />

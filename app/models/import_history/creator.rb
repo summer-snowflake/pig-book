@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
 class ImportHistory::Creator
-  def initialize(user:, import_history_id:)
+  include ActiveModel::Model
+  include ValidationErrorMessagesBuilder
+
+  UPDATE_RECORDS_MAX_COUNT = 20
+
+  attr_reader :record
+
+  def initialize(user:, import_history_id: nil)
     @user = user
-    @import_history = @user.import_histories.find(import_history_id)
+    @import_history =
+      import_history_id ? @user.import_histories.find(import_history_id) : nil
   end
 
   def create_record
-    return false unless @import_history.unregistered?
+    create_record_and_update_history(@import_history)
+  end
 
-    ActiveRecord::Base.transaction do
-      record_validator = ImportHistory::RecordValidator.new(
-        user: @user,
-        row: @import_history.row.split(',')
-      )
-      return false unless record_validator.valid?
-
-      record = @user.records.new(record_validator.params)
-      @import_history.update(record_id: record.id) if record.save
+  def create_records
+    @user.import_histories
+         .registable
+         .order(:created_at)
+         .limit(UPDATE_RECORDS_MAX_COUNT).each do |history|
+      return false unless create_record_and_update_history(history)
     end
   end
 
@@ -62,5 +68,30 @@ class ImportHistory::Creator
     return color_code if @user.tags.find_by(color_code: color_code).nil?
 
     generate_color_code
+  end
+
+  def check_import_history(import_history)
+    errors.add(:record, :registered) && return if import_history.registered?
+    record_validator = ImportHistory::RecordValidator.new(
+      user: @user, row: import_history.row.split(',')
+    )
+    if record_validator.invalid?
+      record_validator.errors.each do |key, msg|
+        errors.add(key, msg)
+      end
+    end
+    record_validator
+  end
+
+  def create_record_and_update_history(import_history)
+    record_validator = check_import_history(import_history)
+    return false if errors.messages.present?
+
+    record = @user.records.new(record_validator.params)
+    import_history.update!(record_id: record.id) if record.save
+    true
+  rescue StandardError => e
+    errors.add(:record, e.message)
+    false
   end
 end

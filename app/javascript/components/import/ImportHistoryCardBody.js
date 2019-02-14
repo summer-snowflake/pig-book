@@ -4,6 +4,7 @@ import reactMixin from 'react-mixin'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import ImportHistories from './ImportHistories'
 import ImportHistoriesRenameForm from './ImportHistoriesRenameForm'
+import Button from './../common/Button'
 import { importHistoriesAxios, importHistoriesCountAxios } from './../mixins/requests/ImportHistoriesMixin'
 
 class ImportHistoryCardBody extends React.Component {
@@ -33,6 +34,8 @@ class ImportHistoryCardBody extends React.Component {
     this.postImportHistories = this.postImportHistories.bind(this)
     this.postImportHistoriesCallback = this.postImportHistoriesCallback.bind(this)
     this.handleUpdateIds = this.handleUpdateIds.bind(this)
+    this.handleClickBulkButton = this.handleClickBulkButton.bind(this)
+    this.postImportHistoriesBulkCallback = this.postImportHistoriesBulkCallback.bind(this)
   }
 
   componentWillMount() {
@@ -126,10 +129,30 @@ class ImportHistoryCardBody extends React.Component {
     })
   }
 
+  handleClickBulkButton() {
+    this.setState({
+      isEditing: true,
+      message: '',
+      errorMessages: {}
+    })
+    importHistoriesAxios.postRecords(this.postImportHistoriesBulkCallback, this.noticeErrorMessages)
+  }
+
+  postImportHistoriesBulkCallback() {
+    this.setState({
+      isEditing: false,
+      activeLink: 'unregistered'
+    })
+    this.getImportHistoriesWithStatus('unregistered')
+    this.noticeAddMessage()
+  }
+
   render() {
     return (
       <div className='import-history-card-body-component'>
+        {this.renderAlertMessage()}
         <ImportHistoriesRenameForm errorMessages={this.state.errorMessages} isEditing={this.state.isEditing} onClickButton={this.handleClickRenameButton} ref='import_histories_rename_form' updatedIds={this.state.updatedIds} />
+        <Button humanValueName='一括登録する' isDisabled={this.state.isEditing} onClickButton={this.handleClickBulkButton} valueName='update' />
         <ul className='nav nav-tabs'>
           <li className='nav-item'>
             <a className={'nav-link' + (this.state.activeLink == 'unregistered' ? ' active' : '')} href='#' onClick={this.handleClickUnregisteredTab}>
@@ -153,9 +176,9 @@ class ImportHistoryCardBody extends React.Component {
             getImportHistories={this.getImportHistories}
             getImportHistoriesWithStatus={this.getImportHistoriesWithStatus}
             histories={this.state.histories}
-            onUpdate={this.handleUpdateIds}
             isLoading={this.state.isLoadingButton}
             onLoad={this.handleLoad}
+            onUpdate={this.handleUpdateIds}
             updatedIds={this.state.updatedIds}
           />
         )}
