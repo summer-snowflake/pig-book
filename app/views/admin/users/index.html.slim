@@ -10,14 +10,23 @@
         th = User.human_attribute_name :email
         th = User.human_attribute_name :last_sign_in_at
         th = t('label.event')
+        th
     tbody
       - @users.each do |user|
         tr
           td
             - if user.admin?
               i.fas.fa-crown.red
-          td = user.email
-          td = user.last_sign_in_at
+          td
+            i.far.fa-envelope.left-icon
+            = user.email
+          td
+            - if user.last_sign_in_at
+              i.fas.fa-clock.left-icon
+              = l(user.last_sign_in_at)
           td
             - params = @params.merge(user_id: user.id, last_tally_at: user.last_tally_at)
             = react_component('TallyButtonTableRecord', params)
+          td
+            i.fas.fa-database.left-icon
+            = user.records.count

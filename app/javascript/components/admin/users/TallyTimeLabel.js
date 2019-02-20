@@ -14,8 +14,7 @@ class TallyTimeLabel extends React.Component {
       <I18n>{(t) => {
         return (
           <span className='last-tally-at'>
-            {t('label.last_tally_at')}
-            {' : '}
+            <i className='far fa-clock left-icon' />
             {this.props.lastTallyAt && this.props.lastTallyAt.format(t('time.format'))}
           </span>
         )
