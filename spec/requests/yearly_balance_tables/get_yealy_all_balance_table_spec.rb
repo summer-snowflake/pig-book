@@ -21,10 +21,10 @@ describe 'GET /api/yearly_balance_tables/:year' do
   context 'ログインしていた場合' do
     context 'データがある場合' do
       before do
-        create(:yearly_all_balance_table, :income,
-               user: user, year: 2018, charge: 3000)
         create(:yearly_all_balance_table,
-               user: user, year: 2018, charge: 3400)
+               user: user, year: 2018, income: 3000, expenditure: 3400)
+        create(:yearly_all_balance_table,
+               user: user, year: 2019, income: 2000, expenditure: 1000)
       end
 
       it '200とデータが返ってくること' do
@@ -34,16 +34,11 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
         expect(response.status).to eq 200
         json = {
-          totals: {
-            income: {
-              charge: 3000,
-              human_charge: '¥3,000'
-            },
-            expenditure: {
-              charge: 3400,
-              human_charge: '¥3,400'
-            }
-          }
+          year: 2018,
+          income: 3000,
+          human_income: '¥3,000',
+          expenditure: 3400,
+          human_expenditure: '¥3,400'
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -57,16 +52,11 @@ describe 'GET /api/yearly_balance_tables/:year' do
 
         expect(response.status).to eq 200
         json = {
-          totals: {
-            income: {
-              charge: 0,
-              human_charge: '¥0'
-            },
-            expenditure: {
-              charge: 0,
-              human_charge: '¥0'
-            }
-          }
+          year: 2018,
+          income: 0,
+          human_income: '¥0',
+          expenditure: 0,
+          human_expenditure: '¥0'
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
