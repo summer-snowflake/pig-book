@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class Api::YearlyBalanceTablesController < Api::BaseController
-  before_action :set_yearly_all_balance_tables, only: %i[show]
+  before_action :set_yearly_all_balance_tables, only: %i[index show]
   before_action :set_yearly_category_balance_tables,
                 only: %i[category]
   before_action :set_yearly_breakdown_balance_tables, only: %i[category]
+
+  def index
+    render json: @yearly_all
+  end
 
   def show
     year = params[:year].to_i
