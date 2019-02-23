@@ -8,6 +8,7 @@ class Dashboard::MonthlyBalanceTablesController < ApplicationController
     @years = current_user.monthly_balance_tables
                          .where(currency: current_user.base_setting.currency)
                          .target_years
+    @yearly = current_user.yearly_all_balance_tables.order(:year)
     @params = {
       user_token: @access_token,
       last_request_at: @last_request_at

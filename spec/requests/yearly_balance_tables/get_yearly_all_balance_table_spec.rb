@@ -27,20 +27,40 @@ describe 'GET /api/yearly_balance_tables/:year' do
                user: user, year: 2019, income: 2000, expenditure: 1000)
       end
 
-      it '200とデータが返ってくること' do
-        params = { last_request_at: Time.zone.now, year: 2018 }
-        get '/api/yearly_balance_tables/2018',
-            params: params, headers: login_headers(user)
+      context '2018' do
+        it '200とデータが返ってくること' do
+          params = { last_request_at: Time.zone.now, year: 2018 }
+          get '/api/yearly_balance_tables/2018',
+              params: params, headers: login_headers(user)
 
-        expect(response.status).to eq 200
-        json = {
-          year: 2018,
-          income: 3000,
-          human_income: '¥3,000',
-          expenditure: 3400,
-          human_expenditure: '¥3,400'
-        }.to_json
-        expect(response.body).to be_json_eql(json)
+          expect(response.status).to eq 200
+          json = {
+            year: 2018,
+            income: 3000,
+            human_income: '¥3,000',
+            expenditure: 3400,
+            human_expenditure: '¥3,400'
+          }.to_json
+          expect(response.body).to be_json_eql(json)
+        end
+      end
+
+      context '2019' do
+        it '200とデータが返ってくること' do
+          params = { last_request_at: Time.zone.now, year: 2019 }
+          get '/api/yearly_balance_tables/2019',
+              params: params, headers: login_headers(user)
+
+          expect(response.status).to eq 200
+          json = {
+            year: 2019,
+            income: 2000,
+            human_income: '¥2,000',
+            expenditure: 1000,
+            human_expenditure: '¥1,000'
+          }.to_json
+          expect(response.body).to be_json_eql(json)
+        end
       end
     end
 

@@ -3,6 +3,7 @@
   = t('menu.dashboard')
 
 = render layout: 'content_panel'
+  = react_component('DashboardYearlyChartCard', @params.merge(yearly: @yearly))
   -  @years.each do |year|
     = react_component('DashboardMonthlyBalanceTablesCard', @params.merge(year: year))
     br
