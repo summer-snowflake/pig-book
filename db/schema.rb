@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_201132) do
+ActiveRecord::Schema.define(version: 2019_02_23_154049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,8 @@ ActiveRecord::Schema.define(version: 2019_02_01_201132) do
     t.boolean "other", default: false, null: false
     t.integer "type", default: 0, null: false
     t.bigint "breakdown_id"
+    t.integer "income", default: 0, null: false
+    t.integer "expenditure", default: 0, null: false
     t.index ["breakdown_id"], name: "index_yearly_balance_tables_on_breakdown_id"
     t.index ["category_id"], name: "index_yearly_balance_tables_on_category_id"
     t.index ["type"], name: "index_yearly_balance_tables_on_type"

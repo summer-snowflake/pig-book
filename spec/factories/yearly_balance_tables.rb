@@ -18,6 +18,9 @@ FactoryBot.define do
   factory :yearly_all_balance_table, \
           class: YearlyAllBalanceTable, parent: :yearly_balance_table do
     type { 1 }
+    charge { 0 }
+    income { random.rand(0..10_000) }
+    expenditure { random.rand(0..10_000) }
   end
 
   factory :yearly_category_balance_table, \
