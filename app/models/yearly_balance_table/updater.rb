@@ -19,11 +19,14 @@ class YearlyBalanceTable::Updater
   def update_total!(year)
     fetcher =
       MonthlyBalanceTable::Fetcher.new(user: @user, year: year)
-    yearly = find_yearly(year: year, balance_of_payments: true)
-    yearly.update!(charge: fetcher.total_income)
-
-    yearly = find_yearly(year: year, balance_of_payments: false)
-    yearly.update!(charge: fetcher.total_expenditure)
+    yearly = @user.yearly_all_balance_tables.find_or_initialize_by(
+      year: year, currency: @user.base_setting.currency
+    )
+    yearly.update!(
+      year: year,
+      income: fetcher.total_income,
+      expenditure: fetcher.total_expenditure
+    )
   end
 
   def update_category_total!(year)
