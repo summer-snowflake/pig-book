@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 class Api::YearlyBalanceTablesController < Api::BaseController
+  before_action :set_yearly_balance_tables, only: %i[index]
   before_action :set_yearly_all_balance_tables, only: %i[show]
   before_action :set_yearly_category_balance_tables,
                 only: %i[category]
   before_action :set_yearly_breakdown_balance_tables, only: %i[category]
+
+  def index
+    render json: @yearly_balance_tables
+  end
 
   def show
     render json: {
@@ -31,6 +36,11 @@ class Api::YearlyBalanceTablesController < Api::BaseController
   end
 
   private
+
+  def set_yearly_balance_tables
+    @yearly_balance_tables =
+      YearlyAllBalanceTable::Fetcher.all(user: current_user)
+  end
 
   def set_yearly_all_balance_tables
     @totals = current_user
