@@ -108,5 +108,5 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
-  config.action_mailer.default_url_options = { host: "#{ENV['HEROKU_APP_NAME']}.#{ENV['DOMAIN_NAME']}" }
+  config.action_mailer.default_url_options = { host: "#{ENV['APP_NAME']}.#{ENV['DOMAIN_NAME']}" }
 end
