@@ -41,4 +41,20 @@ class MonthlyBalanceTable < ApplicationRecord
   def date
     Time.zone.local(year, month, 1) if year && month
   end
+
+  def previous_year_income
+    previous_year&.income
+  end
+
+  def previous_year_expenditure
+    previous_year&.expenditure
+  end
+
+  private
+
+  def previous_year
+    return if year && month
+
+    user.monthly_balance_tables.where(year: year - 1, month: month)&.first
+  end
 end
