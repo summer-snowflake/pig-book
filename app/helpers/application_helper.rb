@@ -20,4 +20,8 @@ module ApplicationHelper
       concat messages.join(', ')
     end
   end
+
+  def admin_page?
+    controller.class.name.deconstantize.casecmp('admin').zero?
+  end
 end
