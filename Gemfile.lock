@@ -176,6 +176,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
+    libv8 (6.7.288.46.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -196,6 +197,8 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
+    mini_racer (0.2.4)
+      libv8 (>= 6.3)
     minitest (5.11.3)
     multi_json (1.13.1)
     nio4r (2.3.1)
@@ -418,6 +421,7 @@ DEPENDENCIES
   letter_opener_web
   listen
   lograge
+  mini_racer
   omniauth-twitter
   pg
   puma
