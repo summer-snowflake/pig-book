@@ -56,5 +56,7 @@ environment ENV.fetch('RAILS_ENV') { 'development' }
 plugin :tmp_restart
 
 # NOTE: production environments on EC2
-pidfile "/home/ec2-user/pig-book/tmp/pids/puma.pid"
-bind "unix:///home/ec2-user/pig-book/tmp/sockets/puma.sock"
+if Rails.env.production?
+  pidfile "/home/ec2-user/pig-book/tmp/pids/puma.pid"
+  bind "unix:///home/ec2-user/pig-book/tmp/sockets/puma.sock"
+end
