@@ -4,16 +4,16 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
 #
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port        ENV.fetch("PORT") { ENV['PORT'] }
+port        ENV.fetch('PORT') { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -55,5 +55,5 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-pidfile "/home/ec2-user/pig-book/tmp/pids/puma.pid"
-bind "unix:///home/ec2-user/pig-book/tmp/sockets/puma.sock"
+pidfile ENV.fetch('PID_FILE_PATH')
+bind ENV.fetch('SOCKET_FILE_PATH')
