@@ -55,5 +55,6 @@ environment ENV.fetch('RAILS_ENV') { 'development' }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-pidfile ENV.fetch('PID_FILE_PATH')
-bind ENV.fetch('SOCKET_FILE_PATH')
+# NOTE: production environments on EC2
+pidfile "/home/ec2-user/pig-book/tmp/pids/puma.pid"
+bind "unix:///home/ec2-user/pig-book/tmp/sockets/puma.sock"
