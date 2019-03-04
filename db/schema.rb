@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_154049) do
+ActiveRecord::Schema.define(version: 2019_03_04_034134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 2019_02_23_154049) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_categorized_places_on_category_id"
     t.index ["place_id"], name: "index_categorized_places_on_place_id"
+  end
+
+  create_table "csv_files", force: :cascade do |t|
+    t.text "csv_data", null: false
+    t.string "conditions", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
