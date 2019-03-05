@@ -5,16 +5,17 @@ class RecordsController < ApplicationController
   before_action :set_last_request_at, :set_authentication_token, :set_fetcher,
                 only: %i[index new]
 
+  # NOTE:
+  # 年/月の指定が無い場合は「リスト」リンクからの今月へのアクセスとなる
   def index
-    year = params[:year]&.to_i || Time.zone.today.year
-    month = params[:month]&.to_i || Time.zone.today.month
-    date = Date.new(year, month, 1).to_s
+    today = Time.zone.today
+    year = params[:year] || today.year
+    month = params[:month] || today.month
     @params = {
       year: year,
       month: month,
-      records: @fetcher.find_all_by(month: date),
-      user_token: @access_token,
-      last_request_at: @last_request_at
+      records: @fetcher.find_all_by(year: year, month: month),
+      user_token: @access_token, last_request_at: @last_request_at
     }
   end
 
