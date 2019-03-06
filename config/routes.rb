@@ -37,7 +37,9 @@ Rails.application.routes.draw do
     end
     resources :tags, only: %w[index create update destroy]
     resources :categorized_places, only: %w[create]
-    resources :records, only: %w[index show create update destroy]
+    resources :records, only: %w[index show create update destroy] do
+      post :upload, on: :collection
+    end
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, param: :year, only: %w[index show]
     resources :yearly_balance_tables, param: :year, only: %w[index show] do

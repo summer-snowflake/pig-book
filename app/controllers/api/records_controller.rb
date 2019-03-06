@@ -42,6 +42,8 @@ class Api::RecordsController < Api::BaseController
     end
   end
 
+  def upload; end
+
   private
 
   def record_params
