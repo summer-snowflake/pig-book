@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class Record::Fetcher
   include ActiveModel::Model
   include TimeRangeGenerator
@@ -29,6 +31,10 @@ class Record::Fetcher
     )
   end
 
+  def generate_csv_file
+    upload_file(csv_file)
+  end
+
   private
 
   def init_params(params)
@@ -52,5 +58,28 @@ class Record::Fetcher
     records = records.where(breakdown: @breakdown) if @breakdown
     records = records.where(place: @place) if @place
     records
+  end
+
+  def csv_file
+    bom = %w[EF BB BF].map { |e| e.hex.chr }.join
+    CSV.generate(bom) do |csv|
+      @records.includes(:category, :breakdown, :place, :tagged_records)
+              .each do |record|
+        csv << Record::CsvRow.create(record: record)
+      end
+    end
+  end
+
+  def upload_file(file)
+    now = DateTime.now.strftime('%Y%m%d%H%M%S')
+    if Rails.env.production?
+      bucket = Aws::S3::Resource.new.bucket(ENV['AWS_BUCKET_NAME'])
+      object_path = "downloads/#{@user.id}/#{now}.csv"
+      object = bucket.object(object_path)
+      object.put(body: file)
+    else
+      file_path = File.join(Rails.root, 'tmp', 'downloads', "#{now}.csv")
+      File.open(file_path, 'w:ASCII-8BIT:utf-8') { |f| f.write(file) }
+    end
   end
 end

@@ -42,7 +42,11 @@ class Api::RecordsController < Api::BaseController
     end
   end
 
-  def upload; end
+  def upload
+    fetcher = Record::Fetcher.new(user: current_user)
+    fetcher.find_all_by(records_params)
+    fetcher.generate_csv_file
+  end
 
   private
 
