@@ -17,7 +17,7 @@ class Record::Fetcher
     @records = search_records
     @records = @records.where(published_at: range) if range
     @records.includes(:category, :place, :breakdown, tagged_records: :tag)
-            .order("#{@order}": :desc, created_at: :desc).limit(@limit)
+            .order("#{@order}": :desc, created_at: :desc)
   end
 
   def totals
@@ -35,7 +35,6 @@ class Record::Fetcher
     @date = params[:date]
     @year = params[:year]
     @month = params[:month]
-    @limit = params[:limit] || 100
     @order = params[:order] || :published_at
   end
 
