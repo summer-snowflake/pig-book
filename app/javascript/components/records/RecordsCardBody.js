@@ -207,8 +207,11 @@ class RecordsCardBody extends React.Component {
     this.getRecords(this.state.year, month, this.state.categoryId, this.state.breakdownId, this.state.placeId)
   }
 
-  postRecordsUploadCallback(res) {
-    console.log(res)
+  postRecordsUploadCallback() {
+    this.setState({
+      uploading: false
+    })
+    this.noticeCompletedMessage()
   }
 
   handleClickUploadButton() {
@@ -280,21 +283,21 @@ class RecordsCardBody extends React.Component {
         />
         <RecordsTotals totals={this.state.totals} />
         {this.state.records.length > 0 && (
-          <button className='btn btn-primary' disabled={this.state.uploading} onClick={this.handleClickUploadButton}>
-            {'ダウンロードファイル生成'}
-          </button>
-        )}
-        {this.state.uploading && (
-          <p className='file-uploaded-message'>
-            {'ダウンロードファイルは、'}
-            <b>
-              <a href='/mypage'>
-                <i className='fas fa-user left-icon' />
-                {'マイページ'}
-              </a>
-            </b>
-            {' からダウンロードできます'}
-          </p>
+          <div>
+            <button className='btn btn-primary' disabled={this.state.uploading} onClick={this.handleClickUploadButton}>
+              {'ダウンロードファイル生成'}
+            </button>
+            <p className='file-uploaded-message'>
+              {'ダウンロードファイルは、'}
+              <b>
+                <a href='/mypage'>
+                  <i className='fas fa-user left-icon' />
+                  {'マイページ'}
+                </a>
+              </b>
+              {' からダウンロードできます'}
+            </p>
+          </div>
         )}
       </div>
     )
