@@ -74,8 +74,7 @@ describe 'GET /api/records' do
         expect(response.status).to eq 200
 
         expenditure_sum = [
-          record1.charge, record2.charge, record3.charge,
-          record4.charge, record5.charge
+          record2.charge, record3.charge, record4.charge, record5.charge
         ].sum
 
         json = {
@@ -95,35 +94,6 @@ describe 'GET /api/records' do
               point: 10,
               published_at: record2.published_at,
               tagged_records: []
-            },
-            {
-              id: record1.id,
-              balance_of_payments: record1.category.balance_of_payments,
-              breakdown_id: record1.breakdown.id,
-              breakdown_name: record1.breakdown.name,
-              category_id: record1.category.id,
-              category_name: record1.category.name,
-              charge: record1.charge,
-              human_charge: record1.decorate.human_charge,
-              memo: record1.memo,
-              place_id: record1.place.id,
-              place_name: record1.place.name,
-              point: 10,
-              published_at: record1.published_at,
-              tagged_records: [
-                {
-                  id: tagged_record1.id,
-                  tag_id: tag1.id,
-                  tag_name: tag1.name,
-                  tag_color_code: tag1.color_code
-                },
-                {
-                  id: tagged_record2.id,
-                  tag_id: tag2.id,
-                  tag_name: tag2.name,
-                  tag_color_code: tag2.color_code
-                }
-              ]
             },
             {
               id: record3.id,
@@ -181,7 +151,7 @@ describe 'GET /api/records' do
             human_expenditure: number_to_currency(
               expenditure_sum, unit: '¥', format: '%u%n'
             ),
-            point: 50,
+            point: 40,
             month: nil,
             human_month: nil,
             year_and_month: nil
@@ -217,45 +187,16 @@ describe 'GET /api/records' do
               point: 10,
               published_at: record2.published_at,
               tagged_records: []
-            },
-            {
-              id: record1.id,
-              balance_of_payments: record1.category.balance_of_payments,
-              breakdown_id: record1.breakdown.id,
-              breakdown_name: record1.breakdown.name,
-              category_id: record1.category.id,
-              category_name: record1.category.name,
-              charge: record1.charge,
-              human_charge: record1.decorate.human_charge,
-              memo: record1.memo,
-              place_id: record1.place.id,
-              place_name: record1.place.name,
-              point: 10,
-              published_at: record1.published_at,
-              tagged_records: [
-                {
-                  id: tagged_record1.id,
-                  tag_id: tag1.id,
-                  tag_name: tag1.name,
-                  tag_color_code: tag1.color_code
-                },
-                {
-                  id: tagged_record2.id,
-                  tag_id: tag2.id,
-                  tag_name: tag2.name,
-                  tag_color_code: tag2.color_code
-                }
-              ]
             }
           ],
           totals: {
             income: 0,
             human_income: '¥0',
-            expenditure: [record1.charge, record2.charge].sum,
+            expenditure: record2.charge,
             human_expenditure: number_to_currency(
-              [record1.charge, record2.charge].sum, unit: '¥', format: '%u%n'
+              record2.charge, unit: '¥', format: '%u%n'
             ),
-            point: 20,
+            point: 10,
             month: nil,
             human_month: nil,
             year_and_month: nil
@@ -294,35 +235,6 @@ describe 'GET /api/records' do
               tagged_records: []
             },
             {
-              id: record1.id,
-              balance_of_payments: record1.category.balance_of_payments,
-              breakdown_id: record1.breakdown.id,
-              breakdown_name: record1.breakdown.name,
-              category_id: record1.category.id,
-              category_name: record1.category.name,
-              charge: record1.charge,
-              human_charge: record1.decorate.human_charge,
-              memo: record1.memo,
-              place_id: record1.place.id,
-              place_name: record1.place.name,
-              point: 10,
-              published_at: record1.published_at,
-              tagged_records: [
-                {
-                  id: tagged_record1.id,
-                  tag_id: tag1.id,
-                  tag_name: tag1.name,
-                  tag_color_code: tag1.color_code
-                },
-                {
-                  id: tagged_record2.id,
-                  tag_id: tag2.id,
-                  tag_name: tag2.name,
-                  tag_color_code: tag2.color_code
-                }
-              ]
-            },
-            {
               id: record3.id,
               balance_of_payments: record3.category.balance_of_payments,
               breakdown_id: record3.breakdown.id,
@@ -342,12 +254,12 @@ describe 'GET /api/records' do
           totals: {
             income: 0,
             human_income: '¥0',
-            expenditure: [record1.charge, record2.charge, record3.charge].sum,
+            expenditure: [record2.charge, record3.charge].sum,
             human_expenditure: number_to_currency(
-              [record1.charge, record2.charge, record3.charge].sum,
+              [record2.charge, record3.charge].sum,
               unit: '¥', format: '%u%n'
             ),
-            point: 30,
+            point: 20,
             month: nil,
             human_month: nil,
             year_and_month: nil

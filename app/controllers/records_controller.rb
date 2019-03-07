@@ -11,24 +11,25 @@ class RecordsController < ApplicationController
     today = Time.zone.today
     year = params[:year] || today.year
     month = params[:month] || today.month
+    @fetcher.find_all_by(year: year, month: month)
     @params = {
       year: year,
       month: month,
-      records: @fetcher.find_all_by(year: year, month: month),
+      records: @fetcher.records,
       user_token: @access_token, last_request_at: @last_request_at
     }
   end
 
   def new
+    @fetcher.find_all_by(date: Time.zone.today.to_s)
     @params = {
-      records: @fetcher.find_all_by(date: Time.zone.today.to_s),
+      records: @fetcher.records,
       recently_used: {
         recently_used_categories: current_user.recently_used_categories,
         recently_used_templates: current_user.recently_used_templates,
         recently_used_tags: current_user.recently_used_tags
       },
-      user_token: @access_token,
-      last_request_at: @last_request_at
+      user_token: @access_token, last_request_at: @last_request_at
     }
   end
 

@@ -7,6 +7,7 @@ class Record::Fetcher
   include TimeRangeGenerator
 
   attr_accessor :date
+  attr_reader :records
 
   def initialize(user:)
     @user = user
@@ -16,10 +17,13 @@ class Record::Fetcher
     init_params(params)
 
     range = generate_range if @date || @year || @month
-    @records = search_records
+    @records = search_records.current_currency(@user)
     @records = @records.where(published_at: range) if range
-    @records.includes(:category, :place, :breakdown, tagged_records: :tag)
-            .order("#{@order}": :desc, created_at: :desc)
+    @records = @records
+               .includes(:category, :place, :breakdown, tagged_records: :tag)
+               .order("#{@order}": :desc, created_at: :desc)
+    @records = @records.limit(@limit) if @limit
+    @records
   end
 
   def totals
@@ -41,6 +45,7 @@ class Record::Fetcher
     @date = params[:date]
     @year = params[:year]
     @month = params[:month]
+    @limit = params[:limit]
     @order = params[:order] || :published_at
 
     build_params(params)
