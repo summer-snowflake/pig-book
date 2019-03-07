@@ -13,7 +13,7 @@ class Record::Fetcher
   end
 
   def find_all_by(params)
-    init_params(params) && build_params(params)
+    init_params(params)
 
     range = generate_range if @date || @year || @month
     @records = search_records
@@ -42,6 +42,8 @@ class Record::Fetcher
     @year = params[:year]
     @month = params[:month]
     @order = params[:order] || :published_at
+
+    build_params(params)
   end
 
   def build_params(params)
