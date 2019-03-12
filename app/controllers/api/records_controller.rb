@@ -46,6 +46,9 @@ class Api::RecordsController < Api::BaseController
     fetcher = Record::Fetcher.new(user: current_user)
     fetcher.find_all_by(records_params)
     fetcher.generate_csv_file
+    head :no_content
+  rescue StandardError => e
+    render_exception_error e
   end
 
   private

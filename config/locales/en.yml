@@ -47,6 +47,7 @@ en:
       system_error: 500 System Error. You need to contact the system administrator.
       unauthenticate_admin: You need to sign in or sign up as administrator before continuing.
       failed_update: Failed update.
+      failed_upload: Failed upload file.
     notice:
       add: Created successfully.
       update: Updated successfully.

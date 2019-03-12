@@ -47,6 +47,7 @@ ja:
       system_error: 500 System Error. システムエラーが発生しました。管理者に問い合わせてください。
       unauthenticate_admin: アクセスできません。管理者でログインしてください。
       failed_update: 更新に失敗しました。
+      failed_upload: ファイルの登録に失敗しました。しばらくしてからもう一度お試しください。
     notice:
       add: 追加しました。
       update: 更新しました。

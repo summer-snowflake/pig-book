@@ -5,6 +5,7 @@ require 'csv'
 class Record::Fetcher
   include ActiveModel::Model
   include TimeRangeGenerator
+  include ValidationErrorMessagesBuilder
 
   attr_accessor :date
   attr_reader :records
@@ -78,15 +79,41 @@ class Record::Fetcher
   end
 
   def upload_file(file)
-    now = DateTime.now.strftime('%Y%m%d%H%M%S')
     if Rails.env.production?
-      bucket = Aws::S3::Resource.new.bucket(ENV['AWS_BUCKET_NAME'])
-      object_path = "downloads/#{@user.id}/#{now}.csv"
-      object = bucket.object(object_path)
-      object.put(body: file)
+      save_in_s3(file)
     else
-      file_path = File.join(Rails.root, 'tmp', 'downloads', "#{now}.csv")
-      File.open(file_path, 'w:ASCII-8BIT:utf-8') { |f| f.write(file) }
+      save_in_local(file)
     end
+  end
+
+  def save_in_s3(file)
+    now = DateTime.now.strftime('%Y%m%d%H%M%S')
+    s3 = Aws::S3::Resource.new
+    bucket = s3.bucket(ENV['AWS_BUCKET_NAME'])
+    object_path = "downloads/#{@user.id}/#{now}.csv"
+    object = bucket.object(object_path)
+    object.put(body: file)
+
+    save_download_file(filename: "#{now}.csv", path: object_path)
+  rescue StandardError => _e
+    raise I18n.t('messages.alert.failed_upload')
+  end
+
+  def save_in_local(file)
+    downloads_dir = File.join(Rails.root, 'downloads')
+    Dir.mkdir(downloads_dir) unless Dir.exist?(downloads_dir)
+
+    user_dir = File.join(Rails.root, 'downloads', @user.id.to_s)
+    Dir.mkdir(user_dir) unless Dir.exist?(user_dir)
+
+    now = DateTime.now.strftime('%Y%m%d%H%M%S')
+    file_path = File.join(Rails.root, 'downloads', @user.id.to_s, "#{now}.csv")
+    File.open(file_path, 'w:ASCII-8BIT:utf-8') { |f| f.write(file) }
+
+    save_download_file(filename: "#{now}.csv", path: file_path)
+  end
+
+  def save_download_file(filename:, path:)
+    @user.download_files.create!(filename: filename, path: path)
   end
 end
