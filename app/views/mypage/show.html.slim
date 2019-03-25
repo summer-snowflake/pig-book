@@ -4,5 +4,12 @@
   i.fas.fa-list-ul.left-icon
   = t('title.recent_list')
 
-= render layout: 'content_panel_with_sidemenu'
-  = react_component('MypageRecordsCard', @records_params)
+.container
+  .row
+    .col-3
+      = yield :sidemenu
+    .col
+      = render layout: 'content_panel'
+        = react_component('MypageRecordsCard', @records_params)
+      = render layout: 'content_panel'
+        = react_component('DownloadFilesCard', @download_files_params)

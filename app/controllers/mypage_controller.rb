@@ -13,5 +13,7 @@ class MypageController < ApplicationController
     }
     @memo_params = auth_params.merge(memo: current_user.profile.memo)
     @records_params = auth_params.merge(records: fetcher.records)
+    @download_files_params =
+      auth_params.merge(download_files: current_user.download_files)
   end
 end
