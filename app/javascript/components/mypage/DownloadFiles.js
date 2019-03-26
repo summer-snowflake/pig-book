@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import DownloadFile from './DownloadFile'
+
 class DownloadFiles extends React.Component {
   constructor(props) {
     super(props)
@@ -10,14 +12,13 @@ class DownloadFiles extends React.Component {
     return (
       <tbody className='download-files-component'>
         {this.props.downloadFiles.map((downloadFile) => (
-          <tr key={downloadFile.id}>
-            <td>{downloadFile.filename}</td>
-          </tr>
+          <DownloadFile downloadFile={downloadFile} key={downloadFile.id} />
         ))}
       </tbody>
     )
   }
 }
+
 DownloadFiles.propTypes = {
   downloadFiles: PropTypes.array.isRequired
 }

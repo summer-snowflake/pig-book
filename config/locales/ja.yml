@@ -19,6 +19,7 @@ ja:
     admin: 管理
   title:
     recent_list: 最近の入力リスト
+    download_files_list: ダウンロードファイル一覧
     base_settings: 基本設定
     category_list: カテゴリ一覧
     breakdown_list: 内訳一覧
@@ -37,6 +38,7 @@ ja:
     expenditure: 支出
     income: 収入
     event: 操作
+    expired_label: 有効期限切れ
   link:
     all_monthly_balance_tables: すべての年度を確認
   messages:

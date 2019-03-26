@@ -1,15 +1,19 @@
 - content_for :sidemenu do
   = render 'mypage_menu'
-- content_for :title do
-  i.fas.fa-list-ul.left-icon
-  = t('title.recent_list')
 
 .container
   .row
     .col-3
       = yield :sidemenu
     .col
-      = render layout: 'content_panel'
+      - content_for :recent_list_title do
+        i.fas.fa-list-ul.left-icon
+        = t('title.recent_list')
+      = render layout: 'content_panel', locals: { title: (yield :recent_list_title) }
         = react_component('MypageRecordsCard', @records_params)
-      = render layout: 'content_panel'
+
+      - content_for :file_list_title do
+        i.far.fa-file-alt.left-icon
+        = t('title.download_files_list')
+      = render layout: 'content_panel', locals: { title: (yield :file_list_title) }
         = react_component('DownloadFilesCard', @download_files_params)

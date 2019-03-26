@@ -3,5 +3,5 @@
     .col-3
       = yield :sidemenu
     .col
-      = render layout: 'content_panel'
+      = render layout: 'content_panel', locals: { title: (yield :title) }
         = yield

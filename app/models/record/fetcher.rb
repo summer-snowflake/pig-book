@@ -7,6 +7,8 @@ class Record::Fetcher
   include TimeRangeGenerator
   include ValidationErrorMessagesBuilder
 
+  AWS_S3_EXPIRES_IN = 86_400
+
   attr_accessor :date
   attr_reader :records
 
@@ -90,11 +92,11 @@ class Record::Fetcher
     now = DateTime.now.strftime('%Y%m%d%H%M%S')
     s3 = Aws::S3::Resource.new
     bucket = s3.bucket(ENV['AWS_BUCKET_NAME'])
-    object_path = "downloads/#{@user.id}/#{now}.csv"
-    object = bucket.object(object_path)
+    object = bucket.object("downloads/#{@user.id}/#{now}.csv")
     object.put(body: file)
 
-    save_download_file(filename: "#{now}.csv", path: object_path)
+    object_url = object.presigned_url(:get, expires_in: AWS_S3_EXPIRES_IN)
+    save_download_file(filename: "#{now}.csv", path: URI.parse(object_url))
   rescue StandardError => _e
     raise I18n.t('messages.alert.failed_upload')
   end

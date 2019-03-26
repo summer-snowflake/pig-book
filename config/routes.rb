@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root to: 'welcome#show'
   get '/mypage', to: 'mypage#show'
+  resources :download_files, only: %w[show]
   resources :csv_files, only: %w[index]
   resources :import_histories, only: %w[index]
 
@@ -40,7 +41,6 @@ Rails.application.routes.draw do
     resources :records, only: %w[index show create update destroy] do
       post :upload, on: :collection
     end
-    resources :download_files, only: %w[index]
     resources :templates, only: %w[index create update destroy]
     resources :monthly_balance_tables, param: :year, only: %w[index show]
     resources :yearly_balance_tables, param: :year, only: %w[index show] do
