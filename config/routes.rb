@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       resource :record, only: %w[create], module: :import_history
     end
     resources :import_histories, param: :status, only: %w[show]
+    resources :download_files, only: %w[index]
 
     namespace :admin do
       resources :users, only: :none do
