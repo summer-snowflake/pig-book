@@ -19,10 +19,10 @@ class DownloadFile extends React.Component {
           {this.props.downloadFile.filename}
         </td>
         <td>
-          {this.props.downloadFile.active ? (
-            <a href={'/download_files/' + this.props.downloadFile.id}>{'ダウンロード'}</a>
-          ) : (
+          {this.props.downloadFile.expired_label ? (
             <span>{this.props.downloadFile.expired_label}</span>
+          ) : (
+            <a href={'/download_files/' + this.props.downloadFile.id}>{'ダウンロード'}</a>
           )}
         </td>
       </tr>

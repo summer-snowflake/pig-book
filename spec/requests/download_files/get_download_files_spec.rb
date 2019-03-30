@@ -31,13 +31,11 @@ describe 'GET /api/download_files' do
 
       json = [
         {
-          active: true,
           expired_label: nil,
           path: download_file1.path,
           filename: download_file1.filename
         },
         {
-          active: false,
           expired_label: '有効期限切れ',
           path: download_file2.path,
           filename: download_file2.filename
