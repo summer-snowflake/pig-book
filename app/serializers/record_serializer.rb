@@ -11,18 +11,6 @@ class RecordSerializer < ActiveModel::Serializer
     object.category.balance_of_payments
   end
 
-  def category_name
-    object.category.name
-  end
-
-  def breakdown_name
-    object.breakdown&.name
-  end
-
-  def place_name
-    object.place&.name
-  end
-
   def human_charge
     object.decorate.human_charge
   end

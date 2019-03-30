@@ -30,7 +30,8 @@ class RecordsCardBody extends React.Component {
         income: '¥0',
         expenditure: '¥0',
         point: 0
-      }
+      },
+      uploading: false
     }
     this.getRecords = this.getRecords.bind(this)
     this.getRecordsCallback = this.getRecordsCallback.bind(this)
@@ -40,6 +41,7 @@ class RecordsCardBody extends React.Component {
     this.handleClickPreviousButton = this.handleClickPreviousButton.bind(this)
     this.handleClickNextButton = this.handleClickNextButton.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
+    this.postRecordsUploadCallback = this.postRecordsUploadCallback.bind(this)
     this.onClickBreakdownTagButton = this.onClickBreakdownTagButton.bind(this)
     this.onClickCategoryTagButton = this.onClickCategoryTagButton.bind(this)
     this.onClickPlaceTagButton = this.onClickPlaceTagButton.bind(this)
@@ -48,6 +50,7 @@ class RecordsCardBody extends React.Component {
     this.onClickCategory = this.onClickCategory.bind(this)
     this.onClickBreakdown = this.onClickBreakdown.bind(this)
     this.onClickPlace = this.onClickPlace.bind(this)
+    this.handleClickUploadButton = this.handleClickUploadButton.bind(this)
   }
 
   componentWillMount() {
@@ -204,6 +207,35 @@ class RecordsCardBody extends React.Component {
     this.getRecords(this.state.year, month, this.state.categoryId, this.state.breakdownId, this.state.placeId)
   }
 
+  postRecordsUploadCallback() {
+    this.setState({
+      uploading: false
+    })
+    this.noticeCompletedMessage()
+  }
+
+  handleClickUploadButton() {
+    this.setState({
+      uploading: true
+    })
+    let params = {
+      year: String(this.state.year)
+    }
+    if (this.state.month) {
+      Object.assign(params, { month: String(this.state.month) })
+    }
+    if (this.state.categoryId) {
+      Object.assign(params, { category_id: this.state.categoryId })
+    }
+    if (this.state.breakdownId) {
+      Object.assign(params, { breakdown_id: this.state.breakdownId })
+    }
+    if (this.state.placeId) {
+      Object.assign(params, { place_id: this.state.placeId })
+    }
+    recordsAxios.upload(params, this.postRecordsUploadCallback, this.noticeErrorMessages)
+  }
+
   render() {
     return (
       <div className='records-card-body-component'>
@@ -250,6 +282,23 @@ class RecordsCardBody extends React.Component {
           records={this.state.records}
         />
         <RecordsTotals totals={this.state.totals} />
+        {this.state.records.length > 0 && (
+          <div>
+            <button className='btn btn-primary' disabled={this.state.uploading} onClick={this.handleClickUploadButton}>
+              {'ダウンロードファイル生成'}
+            </button>
+            <p className='file-uploaded-message'>
+              {'ダウンロードファイルは、'}
+              <b>
+                <a href='/mypage'>
+                  <i className='fas fa-user left-icon' />
+                  {'マイページ'}
+                </a>
+              </b>
+              {' からダウンロードできます'}
+            </p>
+          </div>
+        )}
       </div>
     )
   }

@@ -10,6 +10,7 @@ end
 ruby '2.6.0'
 
 gem 'active_model_serializers'
+gem 'aws-sdk'
 gem 'bootstrap'
 gem 'coffee-rails'
 gem 'devise'

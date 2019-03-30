@@ -4,6 +4,10 @@ export const recordsAxios = {
   get : (params={}, callback, errorCallback) => {
     let url = '/api/records'
     axiosMixin.request('GET', callback, errorCallback, url, params)
+  },
+  upload: (params, callback, errorCallback) => {
+    let url = '/api/records/upload'
+    axiosMixin.request('POST', callback, errorCallback, url, params)
   }
 }
 

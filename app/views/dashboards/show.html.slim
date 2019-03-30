@@ -2,7 +2,7 @@
   i.fas.fa-chart-bar.left-icon
   = t('menu.dashboard')
 
-= render layout: 'content_panel'
+= render layout: 'content_panel', locals: { title: (yield :title) }
   = react_component('DashboardCard', @params)
 
   p.text-right = link_to I18n.t('link.all_monthly_balance_tables'), dashboard_monthly_balance_tables_path

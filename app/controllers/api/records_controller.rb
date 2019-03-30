@@ -5,9 +5,9 @@ class Api::RecordsController < Api::BaseController
 
   def index
     fetcher = Record::Fetcher.new(user: current_user)
-    @records = fetcher.find_all_by(records_params)
+    fetcher.find_all_by(records_params)
     render json: {
-      records: to_serializers(@records),
+      records: to_serializers(fetcher.records),
       totals: to_serializers(fetcher.totals)
     }
   end
@@ -40,6 +40,15 @@ class Api::RecordsController < Api::BaseController
     else
       render_not_found_error
     end
+  end
+
+  def upload
+    fetcher = Record::Fetcher.new(user: current_user)
+    fetcher.find_all_by(records_params)
+    fetcher.generate_csv_file
+    head :no_content
+  rescue StandardError => e
+    render_exception_error e
   end
 
   private

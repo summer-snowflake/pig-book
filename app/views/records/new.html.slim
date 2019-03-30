@@ -2,5 +2,5 @@
   i.fas.fa-palette.left-icon
   = t('menu.input')
 
-= render layout: 'content_panel'
+= render layout: 'content_panel', locals: { title: (yield :title) }
   = react_component('NewRecordCard', @params)

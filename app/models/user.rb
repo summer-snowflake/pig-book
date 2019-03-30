@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :monthly_balance_tables, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :import_histories, dependent: :destroy
+  has_many :download_files, -> { order(created_at: :desc) }, dependent: :destroy
   has_one :admin, dependent: :destroy
   has_one :profile, dependent: :destroy
 
