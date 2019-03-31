@@ -44,6 +44,26 @@ class Record < ApplicationRecord
     published_at.to_s.slice(0..6)
   end
 
+  def published_date
+    Date.parse(published_at.to_s)
+  end
+
+  def category_name
+    category.name
+  end
+
+  def breakdown_name
+    breakdown&.name
+  end
+
+  def place_name
+    place&.name
+  end
+
+  def tag_names
+    tagged_records.map { |tagged| tagged.tag.name }
+  end
+
   private
 
   def set_tagged_records

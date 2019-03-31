@@ -2,7 +2,7 @@
   i.fas.fa-user.left-icon
   = t('title.admin.users')
 
-= render layout: 'content_panel'
+= render layout: 'content_panel', locals: { title: (yield :title) }
   table.table
     thead
       tr
