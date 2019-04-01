@@ -89,6 +89,14 @@ class Record extends React.Component {
           <SquareIcon balanceOfPayments={this.props.record.balance_of_payments} />
           {this.props.record.human_charge}
         </td>
+        <td>
+          {this.props.isListPage && this.props.record.point > 0 && (
+            <span>
+              <i className='fas fa-parking left-icon green' />
+              {this.props.record.point}
+            </span>
+          )}
+        </td>
         <td className='trash-icon-td'>
           <Trash handleClick={this.onClickTrashIcon} item={this.props.record} />
         </td>
