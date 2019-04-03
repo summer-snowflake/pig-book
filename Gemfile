@@ -56,7 +56,6 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
-  gem 'chromedriver-helper'
   gem 'codecov', require: false
   gem 'database_rewinder'
   gem 'faker'
@@ -67,6 +66,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webdriver'
 end
 
 group :production do
