@@ -5,6 +5,7 @@ class Template < ApplicationRecord
 
   belongs_to :category
   belongs_to :breakdown, optional: true
+  #has_many :tagged_records, dependent: :destroy
   belongs_to :tag, optional: true
 
   validates :name, presence: true, length: { maximum: 250 }

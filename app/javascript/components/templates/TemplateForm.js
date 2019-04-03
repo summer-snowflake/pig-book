@@ -61,13 +61,15 @@ class TemplateForm extends React.Component {
     return (
       <div className='template-form-component'>
         <div className='form-row'>
+          <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
+            <input className='form-control' name='template_name' placeholder='テンプレートタイトル' ref='name' type='text' />
+            <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
+          </div>
+        </div>
+        <div className='form-row'>
           <div className='form-group col-auto mb-3'>
             <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
             <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
-          </div>
-          <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-            <input className='form-control' name='template_name' ref='name' type='text' />
-            <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
           </div>
         </div>
         <div className='form-row without-error'>
