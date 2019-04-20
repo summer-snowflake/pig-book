@@ -96,7 +96,7 @@ class Record::Fetcher
     expires_in = DownloadFile::AWS_S3_EXPIRES_IN
     object_url = object.presigned_url(:get, expires_in: expires_in)
     save_download_file(filename: "#{now}.csv", path: URI.parse(object_url))
-  rescue StandardError => _e
+  rescue StandardError
     raise I18n.t('messages.alert.failed_upload')
   end
 
