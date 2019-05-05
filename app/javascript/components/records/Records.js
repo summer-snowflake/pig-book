@@ -82,13 +82,13 @@ class Records extends React.Component {
               <Record
                 copyable={this.props.copyable}
                 editingRecordId={this.props.editingRecordId}
-                longEnabled={this.props.longEnabled}
                 key={record.id}
+                longEnabled={this.props.longEnabled}
                 onClickBreakdown={this.handleClickBreakdown}
                 onClickCategory={this.handleClickCategory}
+                onClickCopyIcon={this.handleClickCopyIcon}
                 onClickEditIcon={this.handleClickEditIcon}
                 onClickInfoIcon={this.handleClickInfoIcon}
-                onClickCopyIcon={this.handleClickCopyIcon}
                 onClickPlace={this.handleClickPlace}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 record={record}

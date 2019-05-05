@@ -500,9 +500,9 @@ class NewRecordCardBody extends React.Component {
         <RelatedRecords
           editingRecordId={this.state.editingRecordId}
           handleClickChangeDateButton={this.onClickChangeDateButton}
+          handleClickCopyIcon={this.getRecordCopy}
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.getRecord}
-          handleClickCopyIcon={this.getRecordCopy}
           records={this.state.records}
           recordsByCategory={this.state.recordsByCategory}
           targetDate={this.state.targetDate}

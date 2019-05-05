@@ -47,8 +47,8 @@ class RelatedRecords extends React.Component {
             </div>
             <Records
               copyable
-              handleClickDestroyButton={this.onClickDestroyButton}
               handleClickCopyIcon={this.onClickCopyIcon}
+              handleClickDestroyButton={this.onClickDestroyButton}
               longEnabled
               records={this.props.recordsByCategory}
             />
