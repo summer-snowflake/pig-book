@@ -16,6 +16,7 @@ class Record extends React.Component {
     this.handleClickPlace = this.handleClickPlace.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
+    this.handleClickCopyIcon = this.handleClickCopyIcon.bind(this)
   }
 
   handleClickBreakdown() {
@@ -42,6 +43,10 @@ class Record extends React.Component {
     this.props.onClickInfoIcon(this.props.record)
   }
 
+  handleClickCopyIcon() {
+    this.props.onClickCopyIcon(this.props.record.id)
+  }
+
   render() {
     let editing = this.props.editingRecordId == this.props.record.id ? 'is-editing-tr' : ''
 
@@ -50,12 +55,17 @@ class Record extends React.Component {
         <td className='icon-td'>
           <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
         </td>
-        {!this.props.isListPage && (
+        {this.props.copyable && (
+          <td className='icon-td'>
+            <i className='far fa-copy' onClick={this.handleClickCopyIcon} />
+          </td>
+        )}
+        {!this.props.longEnabled && (
           <td className='icon-td'>
             <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
           </td>
         )}
-        {this.props.isListPage && (
+        {this.props.longEnabled && (
           <td>
             <DateFormat targetDate={moment(this.props.record.published_at)} />
           </td>
@@ -90,7 +100,7 @@ class Record extends React.Component {
           {this.props.record.human_charge}
         </td>
         <td>
-          {this.props.isListPage && this.props.record.point > 0 && (
+          {this.props.longEnabled && this.props.record.point > 0 && (
             <span>
               <i className='fas fa-parking left-icon green' />
               {this.props.record.point}
@@ -106,7 +116,8 @@ class Record extends React.Component {
 }
 
 Record.propTypes = {
-  isListPage: PropTypes.bool,
+  copyable: PropTypes.bool,
+  longEnabled: PropTypes.bool,
   editingRecordId: PropTypes.string,
   record: PropTypes.object.isRequired,
   onClickBreakdown: PropTypes.func.isRequired,
@@ -114,6 +125,7 @@ Record.propTypes = {
   onClickPlace: PropTypes.func.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   onClickInfoIcon: PropTypes.func.isRequired,
+  onClickCopyIcon: PropTypes.func.isRequired,
   onClickEditIcon: PropTypes.func.isRequired
 }
 

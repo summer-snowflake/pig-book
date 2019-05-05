@@ -20,6 +20,7 @@ class Records extends React.Component {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickInfoIcon = this.handleClickInfoIcon.bind(this)
+    this.handleClickCopyIcon = this.handleClickCopyIcon.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
   }
@@ -54,6 +55,10 @@ class Records extends React.Component {
     })
   }
 
+  handleClickCopyIcon(recordId) {
+    this.props.handleClickCopyIcon(recordId)
+  }
+
   onClickDestroyButton(recordId) {
     this.setState({
       destroyModalIsOpen: false
@@ -75,13 +80,15 @@ class Records extends React.Component {
           <tbody>
             {this.props.records.map((record) => (
               <Record
+                copyable={this.props.copyable}
                 editingRecordId={this.props.editingRecordId}
-                isListPage={this.props.isListPage}
+                longEnabled={this.props.longEnabled}
                 key={record.id}
                 onClickBreakdown={this.handleClickBreakdown}
                 onClickCategory={this.handleClickCategory}
                 onClickEditIcon={this.handleClickEditIcon}
                 onClickInfoIcon={this.handleClickInfoIcon}
+                onClickCopyIcon={this.handleClickCopyIcon}
                 onClickPlace={this.handleClickPlace}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 record={record}
@@ -97,14 +104,16 @@ class Records extends React.Component {
 }
 
 Records.propTypes = {
-  isListPage: PropTypes.bool,
+  copyable: PropTypes.bool,
+  longEnabled: PropTypes.bool,
   records: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,
   handleClickCategory: PropTypes.func,
   handleClickPlace: PropTypes.func,
   handleClickBreakdown: PropTypes.func,
   handleClickDestroyButton: PropTypes.func.isRequired,
-  handleClickEditIcon: PropTypes.func.isRequired
+  handleClickEditIcon: PropTypes.func,
+  handleClickCopyIcon: PropTypes.func
 }
 
 export default Records

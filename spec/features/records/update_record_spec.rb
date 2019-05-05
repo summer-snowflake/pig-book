@@ -26,7 +26,7 @@ feature 'Update RECORD', js: true do
         expect(page).to have_content '入力する'
       end
 
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         within "#record-#{record1.id}" do
           expect(page).to have_content '¥100'
         end
@@ -37,7 +37,7 @@ feature 'Update RECORD', js: true do
     end
 
     scenario 'Update the record charge' do
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         within "#record-#{record2.id}" do
           find('.fa-edit').click
         end
@@ -48,7 +48,7 @@ feature 'Update RECORD', js: true do
       fill_in 'record_charge', with: '300'
       click_on '更新する'
 
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         within "#record-#{record1.id}" do
           expect(page).to have_content '¥100'
         end
