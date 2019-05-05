@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import DateFormat from './../common/DateFormat'
+import DateFormat from './../../common/DateFormat'
 
 class DateOfRecords extends React.Component {
   constructor(props) {

@@ -6,7 +6,7 @@ import moment from 'moment'
 import NewRecordForm from './NewRecordForm'
 import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import OneDayRecords from './OneDayRecords'
+import RelatedRecords from './related_records/RelatedRecords'
 import Tag from './Tag'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
@@ -472,7 +472,7 @@ class NewRecordCardBody extends React.Component {
           tags={this.state.tags}
           templates={this.state.templates}
         />
-        <OneDayRecords
+        <RelatedRecords
           editingRecordId={this.state.editingRecordId}
           handleClickChangeDateButton={this.onClickChangeDateButton}
           handleClickDestroyButton={this.destroyRecord}

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Records from './Records'
+import Records from './../Records'
 import DateOfRecords from './DateOfRecords'
 
-class OneDayRecords extends React.Component {
+class RelatedRecords extends React.Component {
   constructor(props) {
     super(props)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
@@ -25,7 +25,7 @@ class OneDayRecords extends React.Component {
 
   render() {
     return (
-      <div className='card col one-day-records-component'>
+      <div className='card col related-records-component'>
         <div className='card-body'>
           <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.props.targetDate} />
           <Records
@@ -40,7 +40,7 @@ class OneDayRecords extends React.Component {
   }
 }
 
-OneDayRecords.propTypes = {
+RelatedRecords.propTypes = {
   targetDate: PropTypes.object.isRequired,
   records: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,
@@ -49,4 +49,4 @@ OneDayRecords.propTypes = {
   handleClickChangeDateButton: PropTypes.func.isRequired
 }
 
-export default OneDayRecords
+export default RelatedRecords
