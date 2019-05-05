@@ -219,11 +219,11 @@ $twitter-border-color: #2e6da4;
     width: 110px;
   }
 
-  .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit, .fas.fa-info-circle {
+  .far.fa-trash-alt, .fas.fa-times, .fas.fa-edit, .fas.fa-info-circle, .far.fa-copy {
     padding: 6px;
   }
 
-  .far.fa-trash-alt:hover, .fas.fa-times:hover, .fas.fa-edit:hover, .fas.fa-info-circle:hover {
+  .far.fa-trash-alt:hover, .fas.fa-times:hover, .fas.fa-edit:hover, .fas.fa-info-circle:hover, .far.fa-copy:hover {
     background-color: rgba(lighten($green, 15%), .3);
     border-radius: 4px;
     cursor: pointer;
@@ -315,11 +315,6 @@ $twitter-border-color: #2e6da4;
 
   td {
     padding: 7px;
-  }
-
-  .date-of-records-component {
-    padding: 20px 10px 10px;
-    text-align: center;
   }
 
   .charge-td {

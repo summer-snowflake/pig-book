@@ -278,7 +278,7 @@ class RecordsCardBody extends React.Component {
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}
           handleClickPlace={this.onClickPlace}
-          isListPage
+          longEnabled
           records={this.state.records}
         />
         <RecordsTotals totals={this.state.totals} />

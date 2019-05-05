@@ -6,7 +6,7 @@ import moment from 'moment'
 import NewRecordForm from './NewRecordForm'
 import PickerField from './PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import OneDayRecords from './OneDayRecords'
+import RelatedRecords from './related_records/RelatedRecords'
 import Tag from './Tag'
 import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
@@ -40,11 +40,14 @@ class NewRecordCardBody extends React.Component {
       inputPoint: '0',
       inputMemo: '',
       records: this.props.records,
+      recordsByCategory: [],
       targetDate: moment(),
       recentlyUsed: this.props.recentlyUsed
     }
     this.getRecords = this.getRecords.bind(this)
     this.getRecordsCallback = this.getRecordsCallback.bind(this)
+    this.getRecordsByCategory = this.getRecordsByCategory.bind(this)
+    this.getRecordsByCategoryCallback = this.getRecordsByCategoryCallback.bind(this)
     this.postRecord = this.postRecord.bind(this)
     this.postRecordCallback = this.postRecordCallback.bind(this)
     this.patchRecord = this.patchRecord.bind(this)
@@ -63,6 +66,7 @@ class NewRecordCardBody extends React.Component {
     this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.getRecord = this.getRecord.bind(this)
+    this.getRecordCopy = this.getRecordCopy.bind(this)
     this.getRecordCallback = this.getRecordCallback.bind(this)
     this.destroyRecord = this.destroyRecord.bind(this)
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
@@ -120,6 +124,7 @@ class NewRecordCardBody extends React.Component {
       templates: (category || {}).templates || [],
       places: (category || {}).places || []
     })
+    this.getRecordsByCategory()
   }
 
   onSelectNewCategory(category) {
@@ -198,6 +203,17 @@ class NewRecordCardBody extends React.Component {
       date: String(targetDate)
     }
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
+  }
+
+  getRecordsByCategory() {
+    let params = { limit: 10 }
+    recordsAxios.get(params, this.getRecordsByCategoryCallback, this.noticeErrorMessages)
+  }
+
+  getRecordsByCategoryCallback(res) {
+    this.setState({
+      recordsByCategory: res.data.records
+    })
   }
 
   postRecordCallback(res) {
@@ -336,12 +352,21 @@ class NewRecordCardBody extends React.Component {
       checkedPoint: record.point == 0 ? false : true,
       inputMemo: record.memo,
       breakdowns: (category || {}).breakdowns || [],
-      places: (category || {}).places || [],
-      editingRecordId: String(record.id)
+      places: (category || {}).places || []
     })
   }
 
   getRecord(recordId) {
+    this.setState({
+      editingRecordId: String(recordId)
+    })
+    recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessages)
+  }
+
+  getRecordCopy(recordId) {
+    this.setState({
+      editingRecordId: ''
+    })
     recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessages)
   }
 
@@ -472,12 +497,14 @@ class NewRecordCardBody extends React.Component {
           tags={this.state.tags}
           templates={this.state.templates}
         />
-        <OneDayRecords
+        <RelatedRecords
           editingRecordId={this.state.editingRecordId}
           handleClickChangeDateButton={this.onClickChangeDateButton}
+          handleClickCopyIcon={this.getRecordCopy}
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.getRecord}
           records={this.state.records}
+          recordsByCategory={this.state.recordsByCategory}
           targetDate={this.state.targetDate}
         />
       </div>

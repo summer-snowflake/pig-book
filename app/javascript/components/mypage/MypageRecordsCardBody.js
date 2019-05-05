@@ -62,7 +62,7 @@ class MypageRecordsCardBody extends React.Component {
         <Records
           handleClickDestroyButton={this.destroyRecord}
           handleClickEditIcon={this.onClickEditIcon}
-          isListPage
+          longEnabled
           records={this.state.records}
         />
       </div>

@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Records from './Records'
+import Records from './../Records'
 import DateOfRecords from './DateOfRecords'
 
-class OneDayRecords extends React.Component {
+class RelatedRecords extends React.Component {
   constructor(props) {
     super(props)
     this.onClickDestroyButton = this.onClickDestroyButton.bind(this)
     this.handleClickChangeDateButton = this.handleClickChangeDateButton.bind(this)
     this.onClickEditIcon = this.onClickEditIcon.bind(this)
+    this.onClickCopyIcon = this.onClickCopyIcon.bind(this)
   }
 
   handleClickChangeDateButton(days) {
@@ -23,9 +24,13 @@ class OneDayRecords extends React.Component {
     this.props.handleClickEditIcon(recordId)
   }
 
+  onClickCopyIcon(recordId) {
+    this.props.handleClickCopyIcon(recordId)
+  }
+
   render() {
     return (
-      <div className='card col one-day-records-component'>
+      <div className='card col related-records-component'>
         <div className='card-body'>
           <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.props.targetDate} />
           <Records
@@ -35,18 +40,34 @@ class OneDayRecords extends React.Component {
             records={this.props.records}
           />
         </div>
+        {this.props.recordsByCategory.length > 0 && (
+          <div className='card-body'>
+            <div className='category-records-title'>
+              {this.props.recordsByCategory[0].category_name}
+            </div>
+            <Records
+              copyable
+              handleClickCopyIcon={this.onClickCopyIcon}
+              handleClickDestroyButton={this.onClickDestroyButton}
+              longEnabled
+              records={this.props.recordsByCategory}
+            />
+          </div>
+        )}
       </div>
     )
   }
 }
 
-OneDayRecords.propTypes = {
+RelatedRecords.propTypes = {
   targetDate: PropTypes.object.isRequired,
   records: PropTypes.array.isRequired,
+  recordsByCategory: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,
   handleClickEditIcon: PropTypes.func.isRequired,
+  handleClickCopyIcon: PropTypes.func.isRequired,
   handleClickDestroyButton: PropTypes.func.isRequired,
   handleClickChangeDateButton: PropTypes.func.isRequired
 }
 
-export default OneDayRecords
+export default RelatedRecords
