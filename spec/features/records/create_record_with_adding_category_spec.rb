@@ -39,7 +39,7 @@ feature 'Create RECORD via Picker Buttons and Add form', js: true do
         expect(records_dom[0]).to have_content '400'
         expect(records_dom[1]).to have_content '収入カテゴリ'
         expect(records_dom[2]).to have_content '支出カテゴリ'
-        expect(records_dom.count).to eq 4
+        expect(records_dom.count).to eq 3
       end
     end
   end

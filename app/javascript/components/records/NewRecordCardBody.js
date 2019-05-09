@@ -124,7 +124,7 @@ class NewRecordCardBody extends React.Component {
       templates: (category || {}).templates || [],
       places: (category || {}).places || []
     })
-    this.getRecordsByCategory()
+    this.getRecordsByCategory(category)
   }
 
   onSelectNewCategory(category) {
@@ -205,8 +205,8 @@ class NewRecordCardBody extends React.Component {
     recordsAxios.get(params, this.getRecordsCallback, this.noticeErrorMessages)
   }
 
-  getRecordsByCategory() {
-    let params = { limit: 10 }
+  getRecordsByCategory(category) {
+    let params = { limit: 10, category_id: category.id }
     recordsAxios.get(params, this.getRecordsByCategoryCallback, this.noticeErrorMessages)
   }
 
