@@ -9,6 +9,7 @@
     "@rails/webpacker": "~4.0.2",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "core-js": "3.0.1",
     "dotenv": "^6.0.0",
     "i18next": "^14.1.1",
     "i18next-browser-languagedetector": "^2.2.0",
