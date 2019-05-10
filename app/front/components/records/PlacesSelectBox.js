@@ -16,7 +16,7 @@ class PlacesSelectBox extends React.Component {
     return (
       <span className='places-select-box-component'>
         <div className='input-group mb-1'>
-          <select className='form-control' disabled={this.props.isDisabled} id='selectable-places' onChange={this.handleSelectPlace} ref='place' value={this.props.selectedPlaceId || ''}>
+          <select className='form-control' disabled={this.props.isDisabled} id='selectable-places' onChange={this.handleSelectPlace} value={this.props.selectedPlaceId || ''}>
             <option value='' >{'- お店・施設 -'}</option>
             {this.props.places.map ((place) =>
               <option key={place.id} value={place.id}>{place.name}</option>

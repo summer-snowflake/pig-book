@@ -23,7 +23,7 @@ class ImportHistories extends React.Component {
     this.deleteImportHistory = this.deleteImportHistory.bind(this)
     this.deleteImportHistoryCallback = this.deleteImportHistoryCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-    this.onUpdate = this.onUpdate.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   getImportHistoriesWithStatus(activeLink) {
@@ -59,7 +59,7 @@ class ImportHistories extends React.Component {
     importHistoryAxios.delete(this.state.importHistory.id, this.deleteImportHistoryCallback, this.noticeErrorMessages)
   }
 
-  onUpdate(col, value) {
+  handleUpdate(col, value) {
     let ids = []
     switch(col) {
     case 'id':
@@ -96,7 +96,7 @@ class ImportHistories extends React.Component {
                 key={history.id}
                 onClickTrashIcon={this.handleClickTrashIcon}
                 onLoad={this.props.onLoad}
-                onUpdate={this.onUpdate}
+                onUpdate={this.handleUpdate}
                 updated={this.props.updatedIds.some((id) => id === history.id)}
               />
             ))}

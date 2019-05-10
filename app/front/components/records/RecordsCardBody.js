@@ -51,9 +51,6 @@ class RecordsCardBody extends React.Component {
     this.onClickBreakdown = this.onClickBreakdown.bind(this)
     this.onClickPlace = this.onClickPlace.bind(this)
     this.handleClickUploadButton = this.handleClickUploadButton.bind(this)
-  }
-
-  componentWillMount() {
     this.getRecords(this.props.year, this.props.month)
   }
 

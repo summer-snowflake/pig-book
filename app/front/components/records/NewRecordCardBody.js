@@ -81,9 +81,6 @@ class NewRecordCardBody extends React.Component {
     this.setTemplate = this.setTemplate.bind(this)
     this.setTag = this.setTag.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-  }
-
-  componentWillMount() {
     this.getBaseSetting()
   }
 
@@ -485,7 +482,6 @@ class NewRecordCardBody extends React.Component {
           inputPoint={this.state.inputPoint}
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}
-          ref='form'
           selectedBalanceOfPayments={this.state.selectedBalanceOfPayments}
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}

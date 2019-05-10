@@ -25,9 +25,6 @@ class BreakdownCardBody extends React.Component {
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-  }
-
-  componentWillMount() {
     this.getBreakdowns()
   }
 

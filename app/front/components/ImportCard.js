@@ -9,9 +9,6 @@ import LocalStorageMixin from './mixins/LocalStorageMixin'
 class ImportCard extends React.Component {
   constructor(props) {
     super(props)
-  }
-
-  componentWillMount() {
     this.saveAuthenticationData(this.props.last_request_at, this.props.user_token)
   }
 

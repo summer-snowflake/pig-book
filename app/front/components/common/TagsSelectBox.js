@@ -16,7 +16,7 @@ class TagsSelectBox extends React.Component {
     return (
       <span className='tags-select-box-component'>
         <div className='input-group mb-1'>
-          <select className='form-control' id='selectable-tags' onChange={this.handleSelectTag} ref='tag' value={this.props.selectedTagId || ''}>
+          <select className='form-control' id='selectable-tags' onChange={this.handleSelectTag} value={this.props.selectedTagId || ''}>
             <option value='' >{'- ラベル -'}</option>
             {this.props.tags.map ((tag) =>
               <option key={tag.id} value={tag.id}>{tag.name}</option>

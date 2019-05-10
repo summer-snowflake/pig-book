@@ -14,11 +14,12 @@ class CategoryForm extends React.Component {
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.categoryName = React.createRef()
   }
 
   handleClickSubmitButton() {
-    this.props.handleSendForm({name: this.refs.name.value, balance_of_payments: this.state.balanceOfPaymentsValue})
-    this.refs.name.value = ''
+    this.props.handleSendForm({name: this.categoryName.current.value, balance_of_payments: this.state.balanceOfPaymentsValue})
+    this.categoryName.current.value = ''
   }
 
   handleChangeBalanceOfPayments(e) {
@@ -47,7 +48,7 @@ class CategoryForm extends React.Component {
           </div>
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-          <input className='form-control' name='category_name' ref='name' type='text' />
+          <input className='form-control' name='category_name' ref={this.categoryName} type='text' />
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>

@@ -13,7 +13,7 @@ class CategoryPieChart extends React.Component {
     this.renderCustomizedLabel = this.renderCustomizedLabel.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       categoryTally: nextProps.categoryTally,
       breakdownTally: nextProps.breakdownTally

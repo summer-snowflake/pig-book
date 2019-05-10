@@ -36,9 +36,6 @@ class ImportHistoryCardBody extends React.Component {
     this.handleUpdateIds = this.handleUpdateIds.bind(this)
     this.handleClickBulkButton = this.handleClickBulkButton.bind(this)
     this.postImportHistoriesBulkCallback = this.postImportHistoriesBulkCallback.bind(this)
-  }
-
-  componentWillMount() {
     this.getImportHistoriesWithStatus('unregistered')
   }
 
@@ -119,8 +116,6 @@ class ImportHistoryCardBody extends React.Component {
       isLoadingList: true
     })
     this.getImportHistoriesWithStatus('unregistered')
-    this.refs.import_histories_rename_form.refs.before.value = ''
-    this.refs.import_histories_rename_form.refs.after.value = ''
   }
 
   handleUpdateIds(ids) {
@@ -151,7 +146,7 @@ class ImportHistoryCardBody extends React.Component {
     return (
       <div className='import-history-card-body-component'>
         {this.renderAlertMessage()}
-        <ImportHistoriesRenameForm errorMessages={this.state.errorMessages} isEditing={this.state.isEditing} onClickButton={this.handleClickRenameButton} ref='import_histories_rename_form' updatedIds={this.state.updatedIds} />
+        <ImportHistoriesRenameForm errorMessages={this.state.errorMessages} isEditing={this.state.isEditing} onClickButton={this.handleClickRenameButton} updatedIds={this.state.updatedIds} />
         <Button humanValueName='一括登録する' isDisabled={this.state.isEditing} onClickButton={this.handleClickBulkButton} valueName='update' />
         <ul className='nav nav-tabs'>
           <li className='nav-item'>

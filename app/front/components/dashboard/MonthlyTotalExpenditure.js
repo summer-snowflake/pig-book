@@ -9,7 +9,7 @@ class MonthlyTotalExpenditure extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       monthlyTotal: nextProps.tally.find( data => data.month == this.props.month )
     })

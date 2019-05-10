@@ -37,6 +37,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'letter_opener_web'
   gem 'rubocop'
+  gem 'rubocop-performance'
   gem 'timecop'
 end
 

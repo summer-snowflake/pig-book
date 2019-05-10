@@ -29,9 +29,6 @@ class TemplateCardBody extends React.Component {
     this.getTags = this.getTags.bind(this)
     this.getTagsCallback = this.getTagsCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-  }
-
-  componentWillMount() {
     this.getTags()
   }
 

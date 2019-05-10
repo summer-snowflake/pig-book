@@ -26,9 +26,6 @@ class PlaceCardBody extends React.Component {
     this.postCategorizedPlace = this.postCategorizedPlace.bind(this)
     this.postCategorizedPlaceCallback = this.postCategorizedPlaceCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-  }
-
-  componentWillMount() {
     this.getPlaces()
   }
 

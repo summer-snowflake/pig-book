@@ -18,11 +18,12 @@ class TagForm extends React.Component {
     this.handleChangeComplete = this.handleChangeComplete.bind(this)
     this.handleClickColorBox = this.handleClickColorBox.bind(this)
     this.getRandomColor = this.getRandomColor.bind(this)
+    this.tagName = React.createRef()
   }
 
   handleClickSubmitButton() {
-    this.props.handleSendForm({name: this.refs.name.value, color_code: this.state.colorCode})
-    this.refs.name.value = ''
+    this.props.handleSendForm({name: this.tagName.current.value, color_code: this.state.colorCode})
+    this.tagName.current.value = ''
   }
 
   handleChangeComplete(color) {
@@ -69,7 +70,7 @@ class TagForm extends React.Component {
           </div>
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-          <input className='form-control' name='tag_name' ref='name' type='text' />
+          <input className='form-control' name='tag_name' ref={this.tagName} type='text' />
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>

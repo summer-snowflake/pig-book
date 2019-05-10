@@ -19,9 +19,6 @@ class MypageRecordsCardBody extends React.Component {
     this.destroyRecordCallback = this.destroyRecordCallback.bind(this)
     this.onClickEditIcon = this.onClickEditIcon.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-  }
-
-  componentWillMount() {
     this.getRecords()
   }
 

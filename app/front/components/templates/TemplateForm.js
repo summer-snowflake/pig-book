@@ -23,18 +23,21 @@ class TemplateForm extends React.Component {
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
     this.onSelectTag = this.onSelectTag.bind(this)
+    this.templateName = React.createRef()
+    this.templateCharge = React.createRef()
+    this.templateMemo = React.createRef()
   }
 
   handleClickSubmitButton() {
     this.props.handleSendForm({
-      name: this.refs.name.value,
+      name: this.templateName.current.value,
       category_id: this.state.selectedCategoryId,
       breakdown_id: this.state.selectedBreakdownId,
       tag_id: this.state.selectedTagId,
-      charge: this.refs.charge.value,
-      memo: this.refs.memo.value
+      charge: this.templateCharge.current.value,
+      memo: this.templateMemo.current.value
     })
-    this.refs.name.value = ''
+    this.templateName.current.value = ''
   }
 
   onSelectCategory(category) {
@@ -47,7 +50,7 @@ class TemplateForm extends React.Component {
 
   onSelectBreakdown(breakdown) {
     this.setState({
-      selectedBreakdownId: breakdown ? breakdown.id : ''
+      selectedBreakdownId: breakdown ? String(breakdown.id) : ''
     })
   }
 
@@ -66,7 +69,7 @@ class TemplateForm extends React.Component {
             <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
           </div>
           <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-            <input className='form-control' name='template_name' ref='name' type='text' />
+            <input className='form-control' name='template_name' ref={this.templateName} type='text' />
             <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
           </div>
         </div>
@@ -80,11 +83,11 @@ class TemplateForm extends React.Component {
         </div>
         <div className='form-row'>
           <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('charge')}>
-            <input className='form-control' name='template_name' ref='charge' type='number' />
+            <input className='form-control' name='template_name' ref={this.templateCharge} type='number' />
             <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
           </div>
           <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('memo')}>
-            <input className='form-control' name='template_name' ref='memo' type='text' />
+            <input className='form-control' name='template_name' ref={this.templateMemo} type='text' />
             <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
           </div>
           <div className='form-group col-auto mb-3'>
