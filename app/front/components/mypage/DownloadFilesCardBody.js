@@ -15,9 +15,6 @@ class DownloadFilesCardBody extends React.Component {
     this.getDownloadFiles = this.getDownloadFiles.bind(this)
     this.getDownloadFilesCallback = this.getDownloadFilesCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
-  }
-
-  componentWillMount() {
     this.getDownloadFiles()
   }
 

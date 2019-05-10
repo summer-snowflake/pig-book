@@ -15,11 +15,12 @@ class BreakdownForm extends React.Component {
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
+    this.breakdownName = React.createRef()
   }
 
   handleClickSubmitButton() {
-    this.props.handleSendForm({name: this.refs.name.value, category_id: this.state.selectedCategoryId})
-    this.refs.name.value = ''
+    this.props.handleSendForm({name: this.breakdownName.current.value, category_id: this.state.selectedCategoryId})
+    this.breakdownName.current.value = ''
   }
 
   onSelectCategory(category) {
@@ -37,7 +38,7 @@ class BreakdownForm extends React.Component {
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
-          <input className='form-control' name='breakdown_name' ref='name' type='text' />
+          <input className='form-control' name='breakdown_name' ref={this.breakdownName} type='text' />
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>

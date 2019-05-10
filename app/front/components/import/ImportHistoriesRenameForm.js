@@ -10,17 +10,19 @@ class ImportHistoriesRenameForm extends React.Component {
   constructor(props) {
     super(props)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
+    this.beforeText = React.createRef()
+    this.afterText = React.createRef()
   }
 
   handleClickSubmitButton() {
-    this.props.onClickButton({ before: this.refs.before.value, after: this.refs.after.value })
+    this.props.onClickButton({ before: this.beforeText.current.value, after: this.afterText.current.value })
   }
 
   render() {
     return (
       <div className='import-histories-rename-field-component form-row'>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('before')}>
-          <input className='form-control' name='before' placeholder='before' ref='before' type='text' />
+          <input className='form-control' name='before' placeholder='before' ref={this.beforeText} type='text' />
           <FormErrorMessages column='before' errorMessages={this.props.errorMessages} />
           {this.props.updatedIds.length > 0 && (
             <span className='form-text updated-message'>
@@ -29,7 +31,7 @@ class ImportHistoriesRenameForm extends React.Component {
           )}
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('after')}>
-          <input className='form-control' name='after' placeholder='after' ref='after' type='text' />
+          <input className='form-control' name='after' placeholder='after' ref={this.afterText} type='text' />
           <FormErrorMessages column='after' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group col-auto mb-3'>

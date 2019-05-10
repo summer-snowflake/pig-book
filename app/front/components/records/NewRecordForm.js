@@ -34,6 +34,9 @@ class NewRecordForm extends React.Component {
     this.handleChangePoint = this.handleChangePoint.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
     this.handleClickCopyButton = this.handleClickCopyButton.bind(this)
+    this.recordCharge = React.createRef()
+    this.recordPoint = React.createRef()
+    this.recordMemo = React.createRef()
   }
 
   handleClickSubmitButton() {
@@ -44,9 +47,9 @@ class NewRecordForm extends React.Component {
       place_id: this.props.selectedPlaceId,
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
-      charge: this.refs.charge.value,
+      charge: this.recordCharge.current.value,
       point: this.props.inputPoint,
-      memo: this.refs.memo.value
+      memo: this.recordMemo.value
     })
   }
 
@@ -59,9 +62,9 @@ class NewRecordForm extends React.Component {
       place_id: this.props.selectedPlaceId,
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
-      charge: this.refs.charge.value,
+      charge: this.recordCharge.current.value,
       point: this.props.inputPoint,
-      memo: this.refs.memo.value
+      memo: this.recordMemo.current.value
     })
   }
 
@@ -103,7 +106,7 @@ class NewRecordForm extends React.Component {
   }
 
   handleClickPointCheckBox(e) {
-    this.props.handleChangePoint(this.refs.charge.value, e.target.checked)
+    this.props.handleChangePoint(this.recordCharge.current.value, e.target.checked)
   }
 
   handleChangeCharge(e) {
@@ -152,7 +155,7 @@ class NewRecordForm extends React.Component {
                   )}
                 </div>
               </div>
-              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref='charge' type='number' value={this.props.inputCharge} />
+              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='number' value={this.props.inputCharge} />
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
@@ -160,14 +163,14 @@ class NewRecordForm extends React.Component {
                   <input checked={this.props.checkedPoint} disabled={this.props.checkedPointDisabled} onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} />
                 </div>
               </div>
-              <input className='form-control' disabled={!this.props.checkedPoint} name='record_point' onChange={this.handleChangePoint} ref='point' type='number' value={this.props.inputPoint} />
+              <input className='form-control' disabled={!this.props.checkedPoint} name='record_point' onChange={this.handleChangePoint} ref={this.recordPoint} type='number' value={this.props.inputPoint} />
             </div>
           </div>
           <FormErrorMessages column='charge' errorMessages={this.props.errorMessages} />
           <FormErrorMessages column='point' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('memo')}>
-          <textarea className='form-control' name='record_memo' onChange={this.handleChangeMemo} ref='memo' rows='3' value={this.props.inputMemo} />
+          <textarea className='form-control' name='record_memo' onChange={this.handleChangeMemo} ref={this.recordMemo} rows='3' value={this.props.inputMemo} />
           <FormErrorMessages column='memo' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
