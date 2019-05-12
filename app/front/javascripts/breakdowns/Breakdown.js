@@ -113,11 +113,11 @@ class Breakdown extends React.Component {
           </td>
         )}
         {this.state.isEditing ? (
-          <td className='center-edit-target'>
+          <td className='center-edit-target button-td'>
             <UpdateButton onClickButton={this.handleClickButton} />
           </td>
         ) : (
-          <td className='center-edit-target' />
+          <td className='center-edit-target empty-td' />
         )}
         {this.state.isEditing ? (
           <td className='right-edit-target icon-td' onClick={this.handleClickCancelIcon}>
