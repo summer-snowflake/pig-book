@@ -30,7 +30,7 @@ This tool is for a household account book.
 ### Version & Environment
 
 - Ruby
-  - v2.6+
+  - v2.6.3
   - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L10)
 
 - Ruby on Rails
@@ -44,6 +44,10 @@ This tool is for a household account book.
 - Redis
   - v4.0.9
   - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker-compose.yml#L44)
+
+- node (yarn packages)
+  - node v10.15.3
+  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/package.json)
 
 ### Coding Rule
 
@@ -135,4 +139,8 @@ rails db:migrate
 
 ```
 bin/rails s
+```
+
+```
+bin/webpack-dev-server
 ```
