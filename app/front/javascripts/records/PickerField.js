@@ -27,7 +27,7 @@ class PickerField extends React.Component {
 
   render() {
     return (
-      <div className='picker-form-component col-md-3'>
+      <div className='picker-form-component col-md-2'>
         <span className='picker-label'>
           <i className='fas fa-th-large left-icon' />
           {'カテゴリ'}
