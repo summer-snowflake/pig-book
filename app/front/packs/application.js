@@ -8,8 +8,10 @@
 // layout file, like app/views/layouts/application.html.erb
 
 // Support component names relative to this directory:
+
+import '../stylesheets/application'
+require.context('../images', true, /\.(png|jpg|jpeg|svg)$/)
+
 var componentRequireContext = require.context('javascripts', true)
 var ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
-
-import '../stylesheets/application'
