@@ -11,3 +11,5 @@
 var componentRequireContext = require.context('javascripts', true)
 var ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
+
+import '../stylesheets/application'

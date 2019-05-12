@@ -9,7 +9,7 @@ nav.navbar.navbar-expand-lg.navbar-light
     ul.navbar-nav.mr-auto
       li.nav-item class=active_class(root_path)
         = link_to root_path, class: 'nav-link'
-          span.oi.oi-home.left-icon
+          i.fas.fa-home.left-icon
           span = t('menu.home')
       - if current_user
         li.nav-item class=active_class(new_record_path)

@@ -28,7 +28,7 @@ class FileField extends React.Component {
         <Dropzone className={'file-upload-field ' + (this.props.isDragOver ? 'is-dragover' : '')} onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDrop={this.handleDropFile}>
           <p>
             {this.props.uploading ? (
-              <span className='loading-image' />
+              <span className='file-field-loading-image' />
             ) : (
               <span>
                 <i className='fas fa-file left-icon' />
