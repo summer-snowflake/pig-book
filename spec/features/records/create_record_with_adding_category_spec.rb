@@ -33,7 +33,7 @@ feature 'Create RECORD via Picker Buttons and Add form', js: true do
       click_on '登録する'
       sleep 0.5
 
-      within '.one-day-records-component' do
+      within '.related-records-component' do
         records_dom = all('table.table tr.record-component')
         expect(records_dom[0]).to have_content '収入カテゴリ'
         expect(records_dom[0]).to have_content '400'

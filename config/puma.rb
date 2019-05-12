@@ -57,6 +57,6 @@ plugin :tmp_restart
 
 # NOTE: production environments on EC2
 if Rails.env.production? && !ENV['HEROKU_APP_NAME']
-  pidfile "/home/ec2-user/pig-book/tmp/pids/puma.pid"
-  bind "unix:///home/ec2-user/pig-book/tmp/sockets/puma.sock"
+  pidfile ENV.fetch('PID_FILE_PATH') { "#{Dir.pwd}/tmp/pids/puma.pid" }
+  bind ENV.fetch('SOCKET_FILE_PATH') { "unix://#{Dir.pwd}/tmp/sockets/puma.sock" }
 end

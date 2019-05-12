@@ -24,7 +24,7 @@ feature 'Destroy RECORD', js: true do
     end
 
     scenario 'Destroy the target record' do
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         within "#record-#{record2.id}" do
           find('i.far.fa-trash-alt').click
         end
@@ -39,7 +39,7 @@ feature 'Destroy RECORD', js: true do
         find('button#cancel').click
       end
 
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         within "#record-#{record2.id}" do
           find('.far.fa-trash-alt').click
         end
@@ -53,7 +53,7 @@ feature 'Destroy RECORD', js: true do
       within '.modal-footer' do
         find('button#submit').click
       end
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         expect(page).to have_no_content record2.human_charge
       end
     end

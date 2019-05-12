@@ -2,6 +2,11 @@
   .file-uploaded-message
     margin-top: 10px
 
+.date-of-records-component,
+.category-records-title
+  padding: 20px 10px 10px
+  text-align: center
+
 .records-list-title
   font-size: 16px
   margin: auto
@@ -20,3 +25,76 @@
 
   td
     width: 100px
+
+.update-button-component + .copy-button-component,
+.update-button-component + .cancel-button-component
+  padding-left: 10px
+
+.today-button-component
+  padding-left: 10px
+  position: absolute
+
+.card
+  .card
+    margin: 12px
+
+    .card-body
+      padding: 0
+
+    tr
+      height: 0
+
+    td
+      padding: 7px
+
+    .charge-td
+      width: 80px
+
+.picker-label
+  display: block
+  padding: 5px 10px
+
+.picker-button
+  background-color: $rgba7-white
+  border: solid 1px $green
+  border-radius: 2px
+  cursor: pointer
+  display: inline-block
+  margin-bottom: 8px
+  margin-left: 10px
+  padding: 4px 8px
+
+  &:hover
+    background-color: $rgba2-lighten-green
+
+.search-keyword-button
+  background-color: $rgba7-white
+  border: solid 1px $green
+  border-radius: 2px
+  display: inline-block
+  margin-bottom: 8px
+  margin-left: 10px
+  padding: 4px 8px
+
+i
+  &.fas
+    &.fa-times
+      cursor: pointer
+
+.search-keyword-link
+  cursor: pointer
+
+.table
+  .is-editing-tr
+    animation: flash 1.5s infinite linear
+    background-color: $rgba2-lighten-green
+
+  @keyframes flash
+    0%
+      opacity: .2
+
+    50%
+      opacity: 1
+
+    100%
+      opacity: .2

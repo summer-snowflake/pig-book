@@ -22,7 +22,7 @@ feature 'Create RECORD', js: true do
                  place_name: place.name, charge: 9000, memo: 'メモ')
       sleep 0.5
       expect(find('input[name=record_charge]').value).to eq ''
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         expect(page).to have_content category.name
         expect(page).to have_content breakdown.name
         expect(page).to have_content place.name
@@ -47,7 +47,7 @@ feature 'Create RECORD', js: true do
 
       sleep 0.5
       expect(find('input[name=record_charge]').value).to eq ''
-      within '.one-day-records-component .card-body' do
+      within '.related-records-component .card-body' do
         expect(page).to have_content category.name
         expect(page).to have_content breakdown.name
         expect(page).to have_content place.name

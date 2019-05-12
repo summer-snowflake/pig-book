@@ -2,13 +2,14 @@
   "name": "pig-book",
   "private": true,
   "scripts": {
-    "eslint": "eslint app/javascript/components/**/*.js",
+    "eslint": "eslint app/front/javascripts/**/*.js",
     "sass-lint": "sass-lint -c .sass-lint.yml -v"
   },
   "dependencies": {
-    "@rails/webpacker": "3.5.5",
+    "@rails/webpacker": "~4.0.2",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "core-js": "3.0.1",
     "dotenv": "^6.0.0",
     "i18next": "^14.1.1",
     "i18next-browser-languagedetector": "^2.2.0",
@@ -30,13 +31,14 @@
     "react_ujs": "^2.4.4",
     "reactcss": "^1.2.3",
     "recharts": "^1.4.2",
-    "sass-lint": "^1.12.1"
+    "sass-lint": "1.13.1",
+    "webpack-dev-middleware": "^3.6.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.13.0",
+    "eslint": "5.15.3",
     "eslint-plugin-react": "7.12.4",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "~3.3.1"
   },
   "version": "1.12.3"
 }
