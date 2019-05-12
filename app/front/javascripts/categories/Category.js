@@ -119,7 +119,7 @@ class Category extends React.Component {
             <UpdateButton onClickButton={this.handleClickUpdateButton} />
           </td>
         ) : (
-          <td className='right-edit-target' />
+          <td className='empty-td center-edit-target' />
         )}
         {this.state.isEditing ? (
           <td className='right-edit-target icon-td' onClick={this.handleClickCancelIcon}>
