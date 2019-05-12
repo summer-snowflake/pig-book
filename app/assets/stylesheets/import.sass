@@ -2,3 +2,30 @@
   .nav
     &.nav-tabs
       padding-top: 10px
+
+.import-history-component
+  .target-name-line + .target-name-line
+    padding-top: 5px
+
+  .target-name
+    padding-right: 10px
+
+.file-field-loading-image
+  background-image: image-url('pig-loading.gif')
+  background-size: contain
+  display: inline-block
+  height: 20px
+  width: 20%
+
+.file-upload-field
+  border: dotted 1px $green
+  cursor: pointer
+  height: 100px
+  width: 100%
+
+  p
+    padding-top: 35px
+    text-align: center
+
+  &.is-dragover
+    background-color: $rgba2-lighten-green
