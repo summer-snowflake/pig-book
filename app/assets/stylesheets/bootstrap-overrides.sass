@@ -14,9 +14,15 @@ $placeholder-color: #ccc
 .btn
   font-size: 14px
 
-  &.btn-light
-    background-color: $white
-    border-color: darken($lighten-green, 10%)
+.btn-light
+  background-color: $white
+  border-color: darken($lighten-green, 10%)
+
+  &:active
+    &:hover
+      background-color: $rgba2-lighten-green
+  &:hover
+    background-color: $rgba2-lighten-green
 
 .list-group-item
   color: $pink

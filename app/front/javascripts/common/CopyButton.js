@@ -18,7 +18,7 @@ class CopyButton extends React.Component {
     return (
       <I18n>{(t) => {
         return (
-          <Button buttonType='default' humanValueName={t('button.copy')} onClickButton={this.handleClickButton} valueName='copy' />
+          <Button buttonType='ligth' humanValueName={t('button.copy')} onClickButton={this.handleClickButton} valueName='copy' />
         )
       }}</I18n>
     )
