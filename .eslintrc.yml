@@ -15,6 +15,20 @@ globals:
   process: true
 plugins:
   - react
+settings:
+  react:
+    createClass: 'createReactClass'
+    pragma: 'React'
+    version: 'detect'
+    flowVersion: '0.53'
+  propWrapperFunctions:
+    forbidExtraProps: true
+    property: 'freeze'
+    object: 'Object'
+  linkComponents:
+    Hyperlink: true
+    name: 'Link'
+    linkAttribute: 'to'
 rules:
   indent:
     - error
@@ -30,7 +44,7 @@ rules:
     - never
   no-unused-vars:
     - error
-    - varsIgnorePattern: '.Component|i18n|addTag'
+    - varsIgnorePattern: 'i18n|addTag'
   no-console:
     - off
   react/display-name: 1
