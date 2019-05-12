@@ -31,7 +31,7 @@
     "react_ujs": "^2.4.4",
     "reactcss": "^1.2.3",
     "recharts": "^1.4.2",
-    "sass-lint": "^1.12.1",
+    "sass-lint": "1.13.1",
     "webpack-dev-middleware": "^3.6.2"
   },
   "devDependencies": {
