@@ -123,7 +123,7 @@ class NewRecordForm extends React.Component {
 
   render() {
     return (
-      <div className='new-record-form-component col'>
+      <div className='new-record-form-component col-md-4'>
         <div className='form-group date-picker'>
           <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.props.selectedPublishedAt} />
           <TodayButton onClickButton={this.handleClickTodayButton} />
