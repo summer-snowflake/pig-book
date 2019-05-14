@@ -456,6 +456,7 @@ class NewRecordCardBody extends React.Component {
           handleClickTagPickerButton={this.setTag}
           handleClickTemplatePickerButton={this.setTemplate}
           recentlyUsed={this.state.recentlyUsed}
+          templates={this.state.templates}
         />
         <NewRecordForm
           baseSetting={this.state.baseSetting}

@@ -38,7 +38,7 @@ class PickerField extends React.Component {
           <i className='fas fa-subway left-icon' />
           {'テンプレート'}
         </span>
-        <TemplatePickers onClickPickerButton={this.handleClickTemplatePickerButton} templates={this.props.recentlyUsed.recently_used_templates} />
+        <TemplatePickers onClickPickerButton={this.handleClickTemplatePickerButton} templates={this.props.templates} />
         <span className='picker-label'>
           <i className='fas fa-tags left-icon' />
           {'ラベル'}
@@ -54,6 +54,7 @@ PickerField.propTypes = {
   handleClickCategoryPickerButton: PropTypes.func.isRequired,
   handleClickTemplatePickerButton: PropTypes.func.isRequired,
   handleClickTagPickerButton: PropTypes.func.isRequired,
+  templates: PropTypes.array.isRequired,
   recentlyUsed: PropTypes.object.isRequired
 }
 
