@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 
-import MessageNotifierMixin from './../../mixins/MessageNotifierMixin'
-import TemplatePickers from './../pickers/TemplatePickers'
-import { templatesAxios } from './../../mixins/requests/TemplatesMixin'
+import MessageNotifierMixin from '../../mixins/MessageNotifierMixin'
+import TemplatePickers from './TemplatePickers'
+import { templatesAxios } from '../../mixins/requests/TemplatesMixin'
 
 class AllTemplates extends React.Component {
   constructor(props) {
@@ -43,16 +43,18 @@ class AllTemplates extends React.Component {
   render() {
     return (
       <div className='all-templates-component'>
-        {this.state.isOpen ? (
-          <span className='caret-icon'>
-            <i className='fas fa-caret-down left-icon' />
-          </span>
-        ) : (
-          <span className='caret-icon'>
-            <i className='fas fa-caret-right left-icon' />
-          </span>
-        )}
-        <span className='link' onClick={this.handleClickOpenLink}>{'すべて表示'}</span>
+        <span className='link' onClick={this.handleClickOpenLink}>
+          {this.state.isOpen ? (
+            <span className='caret-icon'>
+              <i className='fas fa-caret-down left-icon' />
+            </span>
+          ) : (
+            <span className='caret-icon'>
+              <i className='fas fa-caret-right left-icon' />
+            </span>
+          )}
+          {'すべて表示'}
+        </span>
         <TemplatePickers onClickPickerButton={this.props.onClickPickerButton} templates={this.state.templates} />
       </div>
     )
