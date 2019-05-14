@@ -3,19 +3,40 @@ import PropTypes from 'prop-types'
 import reactMixin from 'react-mixin'
 
 import MessageNotifierMixin from './../../mixins/MessageNotifierMixin'
+import TemplatePickers from './../pickers/TemplatePickers'
+import { templatesAxios } from './../../mixins/requests/TemplatesMixin'
 
 class AllTemplates extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isOpen: false
+      isOpen: false,
+      templates: []
     }
     this.handleClickOpenLink = this.handleClickOpenLink.bind(this)
+    this.getTemplates = this.getTemplates.bind(this)
+    this.getTemplatesCallback = this.getTemplatesCallback.bind(this)
   }
 
   handleClickOpenLink() {
+    if (!this.state.isOpen) {
+      this.getTemplates()
+    } else {
+      this.setState({
+        isOpen: false,
+        templates: []
+      })
+    }
+  }
+
+  getTemplates() {
+    templatesAxios.get(this.getTemplatesCallback, this.noticeErrorMessages)
+  }
+
+  getTemplatesCallback(res) {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: true,
+      templates: res.data
     })
   }
 
@@ -32,6 +53,7 @@ class AllTemplates extends React.Component {
           </span>
         )}
         <span className='link' onClick={this.handleClickOpenLink}>{'すべて表示'}</span>
+        <TemplatePickers onClickPickerButton={this.props.onClickPickerButton} templates={this.state.templates} />
       </div>
     )
   }
@@ -39,4 +61,7 @@ class AllTemplates extends React.Component {
 
 reactMixin.onClass(AllTemplates, MessageNotifierMixin)
 
+AllTemplates.propTypes = {
+  onClickPickerButton: PropTypes.func.isRequired
+}
 export default AllTemplates

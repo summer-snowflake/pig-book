@@ -44,7 +44,7 @@ class PickerField extends React.Component {
           {'ラベル'}
         </span>
         <TagPickers onClickPickerButton={this.handleClickTagPickerButton} tags={this.props.recentlyUsed.recently_used_tags} />
-        <AllTemplates />
+        <AllTemplates onClickPickerButton={this.handleClickTemplatePickerButton} />
       </div>
     )
   }
