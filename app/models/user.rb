@@ -49,22 +49,6 @@ class User < ApplicationRecord
     records.order(created_at: :desc).limit(RECENTLY_RECORDS_LIMIT_COUNT)
   end
 
-  # NOTE: 登録したデータの直近100件で利用されているカテゴリ
-  def recently_used_categories
-    recently_records.includes(category: %i[breakdowns places templates])
-                    .map(&:category)
-                    .uniq
-  end
-
-  def recently_used_templates
-    templates.where(category_id: recently_used_categories.pluck(:id))
-  end
-
-  def recently_used_tags
-    tagged_records = TaggedRecord.where(record: recently_records.pluck(:id))
-    tags.where(id: tagged_records.pluck(:tag_id))
-  end
-
   def present_years
     monthly_balance_tables.where(currency: base_setting.currency).target_years
   end

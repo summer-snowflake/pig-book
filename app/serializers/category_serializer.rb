@@ -22,7 +22,6 @@ class CategorySerializer < ActiveModel::Serializer
   private
 
   def categories_list?
-    instance_options[:prefixes][0] == 'api/categories' ||
-      instance_options[:prefixes][0] == 'api/recently_used'
+    instance_options[:prefixes][0] == 'api/categories'
   end
 end

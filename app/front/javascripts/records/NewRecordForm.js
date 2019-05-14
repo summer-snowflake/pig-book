@@ -8,7 +8,6 @@ import FormMixin from './../mixins/FormMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
-import TemplatesSelectBox from './../common/TemplatesSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
 import UpdateButton from './../common/UpdateButton'
@@ -24,7 +23,6 @@ class NewRecordForm extends React.Component {
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
-    this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
@@ -89,10 +87,6 @@ class NewRecordForm extends React.Component {
     this.props.handleSelectBreakdown(breakdown)
   }
 
-  onSelectTemplate(template) {
-    this.props.handleSelectTemplate(template)
-  }
-
   onSelectPlace(place) {
     this.props.handleSelectPlace(place)
   }
@@ -131,9 +125,6 @@ class NewRecordForm extends React.Component {
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} handleSelectNewCategory={this.onSelectNewCategory} plusButton selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
-        </div>
-        <div className='form-group'>
-          <TemplatesSelectBox handleSelectTemplate={this.onSelectTemplate} isDisabled={!this.props.selectedCategoryId} selectedTemplateId={this.props.selectedTemplateId} templates={this.props.templates} />
         </div>
         <div className='form-group'>
           <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
@@ -204,8 +195,6 @@ NewRecordForm.propTypes = {
   selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
-  selectedTemplateId: PropTypes.string,
-  templates: PropTypes.array.isRequired,
   inputCharge: PropTypes.string,
   inputPoint: PropTypes.string,
   inputMemo: PropTypes.string,
@@ -216,7 +205,6 @@ NewRecordForm.propTypes = {
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectNewCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
-  handleSelectTemplate: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
   handleChangeCharge: PropTypes.func.isRequired,
