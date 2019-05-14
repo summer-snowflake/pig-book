@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import CategoryPickers from './pickers/CategoryPickers'
 import TemplatePickers from './pickers/TemplatePickers'
 import TagPickers from './pickers/TagPickers'
+import AllTemplates from './template_pickers/AllTemplates'
 
 class PickerField extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class PickerField extends React.Component {
           {'ラベル'}
         </span>
         <TagPickers onClickPickerButton={this.handleClickTagPickerButton} tags={this.props.recentlyUsed.recently_used_tags} />
+        <AllTemplates />
       </div>
     )
   }
