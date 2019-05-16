@@ -38,6 +38,13 @@ class NewRecordForm extends React.Component {
   }
 
   handleClickSubmitButton() {
+    // 半角へ変換
+    let charge = this.recordCharge.current.value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (v) =>
+      String.fromCharCode(v.charCodeAt(0) - 65248)
+    )
+    // カンマの削除
+    charge = charge.replace(/,|，/g, '')
+
     this.props.handleSendForm({
       published_at: this.props.selectedPublishedAt,
       category_id: this.props.selectedCategoryId,
@@ -45,13 +52,20 @@ class NewRecordForm extends React.Component {
       place_id: this.props.selectedPlaceId,
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
-      charge: this.recordCharge.current.value,
+      charge: charge,
       point: this.props.inputPoint,
-      memo: this.recordMemo.value
+      memo: this.recordMemo.current.value
     })
   }
 
   handleClickUpdateButton() {
+    // 半角へ変換
+    let charge = this.recordCharge.current.value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (v) =>
+      String.fromCharCode(v.charCodeAt(0) - 65248)
+    )
+    // カンマの削除
+    charge = charge.replace(/,|，/g, '')
+
     this.props.handleUpdateForm({
       id: this.props.editingRecordId,
       published_at: this.props.selectedPublishedAt,
@@ -60,7 +74,7 @@ class NewRecordForm extends React.Component {
       place_id: this.props.selectedPlaceId,
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
-      charge: this.recordCharge.current.value,
+      charge: charge,
       point: this.props.inputPoint,
       memo: this.recordMemo.current.value
     })
@@ -146,7 +160,7 @@ class NewRecordForm extends React.Component {
                   )}
                 </div>
               </div>
-              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='number' value={this.props.inputCharge} />
+              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='text' value={this.props.inputCharge} />
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
