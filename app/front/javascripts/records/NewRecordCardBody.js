@@ -331,7 +331,7 @@ class NewRecordCardBody extends React.Component {
       inputCharge: String(record.charge),
       inputPoint: String(record.point),
       checkedPoint: record.point == 0 ? false : true,
-      inputMemo: record.memo,
+      inputMemo: record.memo || '',
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
     })
