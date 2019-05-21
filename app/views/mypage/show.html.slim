@@ -12,8 +12,9 @@
       = render layout: 'content_panel', locals: { title: (yield :recent_list_title) }
         = react_component('MypageRecordsCard', @records_params)
 
-      - content_for :file_list_title do
-        i.far.fa-file-alt.left-icon
-        = t('title.download_files_list')
-      = render layout: 'content_panel', locals: { title: (yield :file_list_title) }
-        = react_component('DownloadFilesCard', @download_files_params)
+      - if @download_files.count.positive?
+        - content_for :file_list_title do
+          i.far.fa-file-alt.left-icon
+          = t('title.download_files_list')
+        = render layout: 'content_panel', locals: { title: (yield :file_list_title) }
+          = react_component('DownloadFilesCard', @download_files_params)
