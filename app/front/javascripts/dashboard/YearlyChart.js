@@ -18,9 +18,11 @@ class YearlyChart extends React.Component {
   }
 
   render() {
+    let width = this.state.tally.length * 40 + 180
+
     return (
       <div className='yearly-chart-component'>
-        <ComposedChart className='yearly-chart' data={this.state.tally} height={300} margin={{ top: 20, right: 60, bottom: 0, left: 0 }} width={680}>
+        <ComposedChart className='yearly-chart' data={this.state.tally} height={300} margin={{ top: 20, right: 60, bottom: 0, left: 0 }} width={width}>
           <XAxis dataKey='year' />
           <YAxis />
           <Tooltip />
