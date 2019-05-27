@@ -4,7 +4,7 @@ import reactMixin from 'react-mixin'
 import moment from 'moment'
 
 import NewRecordForm from './NewRecordForm'
-import PickerField from './PickerField'
+import PickerField from './pickers/PickerField'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import RelatedRecords from './related_records/RelatedRecords'
 import Tag from './Tag'
@@ -12,7 +12,6 @@ import { recordsAxios, recordAxios } from './../mixins/requests/RecordsMixin'
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { tagsAxios } from './../mixins/requests/TagsMixin'
 import { profileAxios } from './../mixins/requests/BaseSettingMixin'
-import { recentlyUsedAxios } from './../mixins/requests/RecentlyUsedMixin'
 
 class NewRecordCardBody extends React.Component {
   constructor(props) {
@@ -41,8 +40,7 @@ class NewRecordCardBody extends React.Component {
       inputMemo: '',
       records: this.props.records,
       recordsByCategory: [],
-      targetDate: moment(),
-      recentlyUsed: this.props.recentlyUsed
+      targetDate: moment()
     }
     this.getRecords = this.getRecords.bind(this)
     this.getRecordsCallback = this.getRecordsCallback.bind(this)
@@ -56,8 +54,6 @@ class NewRecordCardBody extends React.Component {
     this.getBaseSettingCallback = this.getBaseSettingCallback.bind(this)
     this.getCategories = this.getCategories.bind(this)
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
-    this.getRecentlyUsed = this.getRecentlyUsed.bind(this)
-    this.getRecentlyUsedCallback = this.getRecentlyUsedCallback.bind(this)
     this.getTags = this.getTags.bind(this)
     this.getTagsCallback = this.getTagsCallback.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
@@ -214,7 +210,6 @@ class NewRecordCardBody extends React.Component {
   }
 
   postRecordCallback(res) {
-    this.getRecentlyUsed()
     this.getRecords(moment(res.data.published_at))
     this.noticeAddMessage()
     this.setState({
@@ -270,7 +265,6 @@ class NewRecordCardBody extends React.Component {
   }
 
   getCategoriesCallback(res) {
-    this.getRecentlyUsed()
     this.setState({
       categories: res.data
     })
@@ -278,16 +272,6 @@ class NewRecordCardBody extends React.Component {
 
   getCategories() {
     categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
-  }
-
-  getRecentlyUsedCallback(res) {
-    this.setState({
-      recentlyUsed: res.data
-    })
-  }
-
-  getRecentlyUsed() {
-    recentlyUsedAxios.get(this.getRecentlyUsedCallback, this.noticeErrorMessages)
   }
 
   getTagsCallback(res) {
@@ -347,7 +331,7 @@ class NewRecordCardBody extends React.Component {
       inputCharge: String(record.charge),
       inputPoint: String(record.point),
       checkedPoint: record.point == 0 ? false : true,
-      inputMemo: record.memo,
+      inputMemo: record.memo || '',
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
     })
@@ -455,7 +439,7 @@ class NewRecordCardBody extends React.Component {
           handleClickCategoryPickerButton={this.setCategory}
           handleClickTagPickerButton={this.setTag}
           handleClickTemplatePickerButton={this.setTemplate}
-          recentlyUsed={this.state.recentlyUsed}
+          templates={this.state.templates}
         />
         <NewRecordForm
           baseSetting={this.state.baseSetting}
@@ -509,8 +493,7 @@ class NewRecordCardBody extends React.Component {
 }
 
 NewRecordCardBody.propTypes = {
-  records: PropTypes.array.isRequired,
-  recentlyUsed: PropTypes.object.isRequired
+  records: PropTypes.array.isRequired
 }
 
 reactMixin.onClass(NewRecordCardBody, MessageNotifierMixin)

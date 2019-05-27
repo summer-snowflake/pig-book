@@ -6,9 +6,9 @@ class CsvFilesController < ApplicationController
 
   def index
     @params = {
-      memo: current_user.profile.memo,
       user_token: @access_token,
       last_request_at: @last_request_at
     }
+    @memo_params = @params.merge(memo: current_user.profile.memo)
   end
 end

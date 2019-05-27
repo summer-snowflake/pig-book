@@ -24,12 +24,8 @@ class RecordsController < ApplicationController
     @fetcher.find_all_by(date: Time.zone.today.to_s)
     @params = {
       records: @fetcher.records,
-      recently_used: {
-        recently_used_categories: current_user.recently_used_categories,
-        recently_used_templates: current_user.recently_used_templates,
-        recently_used_tags: current_user.recently_used_tags
-      },
-      user_token: @access_token, last_request_at: @last_request_at
+      user_token: @access_token,
+      last_request_at: @last_request_at
     }
   end
 

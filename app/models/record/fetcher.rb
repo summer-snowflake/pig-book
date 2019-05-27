@@ -22,7 +22,7 @@ class Record::Fetcher
     @records = @records.where(published_at: range) if range
     @records = @records
                .includes(:category, :place, :breakdown, tagged_records: :tag)
-               .order("#{@order}": :desc, created_at: :desc)
+               .order("#{@order}": :desc, updated_at: :desc)
     @records = @records.limit(@limit) if @limit
     @records
   end

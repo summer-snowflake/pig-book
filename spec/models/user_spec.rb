@@ -44,17 +44,4 @@ RSpec.describe User, type: :model do
       expect(user.profile).not_to be_nil
     end
   end
-
-  describe '#recently_used_categories' do
-    let!(:user) { create(:user) }
-    let!(:category1) { create(:category, user: user, name: 'かてごり１') }
-    let!(:category2) { create(:category, user: user, name: 'かてごり２') }
-    let!(:category3) { create(:category, user: user, name: 'かてごり３') }
-    let!(:record1) { create(:record, user: user, category: category1) }
-    let!(:record2) { create(:record, user: user, category: category1) }
-    let!(:record3) { create(:record, user: user, category: category2) }
-    subject { user.recently_used_categories }
-
-    it { is_expected.to eq [category2, category1] }
-  end
 end

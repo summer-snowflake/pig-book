@@ -164,7 +164,7 @@ class ImportHistoryCardBody extends React.Component {
           </li>
         </ul>
         {this.state.isLoadingList ? (
-          <div className='pig-loading-image' />
+          <div className='loading-image' />
         ) : (
           <ImportHistories
             activeLink={this.state.activeLink}

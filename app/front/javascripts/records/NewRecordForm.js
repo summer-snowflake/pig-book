@@ -8,7 +8,6 @@ import FormMixin from './../mixins/FormMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
 import BreakdownsSelectBox from './../common/BreakdownsSelectBox'
-import TemplatesSelectBox from './../common/TemplatesSelectBox'
 import PlacesSelectBox from './PlacesSelectBox'
 import CreateButton from './../common/CreateButton'
 import UpdateButton from './../common/UpdateButton'
@@ -24,7 +23,6 @@ class NewRecordForm extends React.Component {
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
-    this.onSelectTemplate = this.onSelectTemplate.bind(this)
     this.onSelectPlace = this.onSelectPlace.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
@@ -40,6 +38,13 @@ class NewRecordForm extends React.Component {
   }
 
   handleClickSubmitButton() {
+    // 半角へ変換
+    let charge = this.recordCharge.current.value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (v) =>
+      String.fromCharCode(v.charCodeAt(0) - 65248)
+    )
+    // カンマの削除
+    charge = charge.replace(/,|，/g, '')
+
     this.props.handleSendForm({
       published_at: this.props.selectedPublishedAt,
       category_id: this.props.selectedCategoryId,
@@ -47,13 +52,20 @@ class NewRecordForm extends React.Component {
       place_id: this.props.selectedPlaceId,
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
-      charge: this.recordCharge.current.value,
+      charge: charge,
       point: this.props.inputPoint,
-      memo: this.recordMemo.value
+      memo: this.recordMemo.current.value
     })
   }
 
   handleClickUpdateButton() {
+    // 半角へ変換
+    let charge = this.recordCharge.current.value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (v) =>
+      String.fromCharCode(v.charCodeAt(0) - 65248)
+    )
+    // カンマの削除
+    charge = charge.replace(/,|，/g, '')
+
     this.props.handleUpdateForm({
       id: this.props.editingRecordId,
       published_at: this.props.selectedPublishedAt,
@@ -62,7 +74,7 @@ class NewRecordForm extends React.Component {
       place_id: this.props.selectedPlaceId,
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
-      charge: this.recordCharge.current.value,
+      charge: charge,
       point: this.props.inputPoint,
       memo: this.recordMemo.current.value
     })
@@ -87,10 +99,6 @@ class NewRecordForm extends React.Component {
 
   onSelectBreakdown(breakdown) {
     this.props.handleSelectBreakdown(breakdown)
-  }
-
-  onSelectTemplate(template) {
-    this.props.handleSelectTemplate(template)
   }
 
   onSelectPlace(place) {
@@ -123,7 +131,7 @@ class NewRecordForm extends React.Component {
 
   render() {
     return (
-      <div className='new-record-form-component col'>
+      <div className='new-record-form-component col-md-4'>
         <div className='form-group date-picker'>
           <DatePicker className='form-control' dateFormat='YYYY/MM/DD' onChange={this.handleChangePublishedOn} selected={this.props.selectedPublishedAt} />
           <TodayButton onClickButton={this.handleClickTodayButton} />
@@ -131,9 +139,6 @@ class NewRecordForm extends React.Component {
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} handleSelectNewCategory={this.onSelectNewCategory} plusButton selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
-        </div>
-        <div className='form-group'>
-          <TemplatesSelectBox handleSelectTemplate={this.onSelectTemplate} isDisabled={!this.props.selectedCategoryId} selectedTemplateId={this.props.selectedTemplateId} templates={this.props.templates} />
         </div>
         <div className='form-group'>
           <BreakdownsSelectBox breakdowns={this.props.breakdowns} handleSelectBreakdown={this.onSelectBreakdown} isDisabled={!this.props.selectedCategoryId} selectedBreakdownId={this.props.selectedBreakdownId} />
@@ -155,7 +160,7 @@ class NewRecordForm extends React.Component {
                   )}
                 </div>
               </div>
-              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='number' value={this.props.inputCharge} />
+              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='text' value={this.props.inputCharge} />
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
@@ -204,8 +209,6 @@ NewRecordForm.propTypes = {
   selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
-  selectedTemplateId: PropTypes.string,
-  templates: PropTypes.array.isRequired,
   inputCharge: PropTypes.string,
   inputPoint: PropTypes.string,
   inputMemo: PropTypes.string,
@@ -216,7 +219,6 @@ NewRecordForm.propTypes = {
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectNewCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,
-  handleSelectTemplate: PropTypes.func.isRequired,
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
   handleChangeCharge: PropTypes.func.isRequired,
