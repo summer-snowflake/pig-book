@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BreakdownSerializer < ActiveModel::Serializer
-  attributes :id, :name, :category_name
+  attributes :id, :name, :category_id, :category_name
 
   attribute :category_human_balance_of_payments, if: -> { breakdowns_list? }
   attribute :category_success_or_danger_style_class, if: -> { breakdowns_list? }

@@ -1,29 +1,73 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import reactMixin from 'react-mixin'
 
-import HumanBalanceOfPayments from './HumanBalanceOfPayments'
+import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import AddCategoryModal from './../common/AddCategoryModal'
+import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class CategoriesSelectBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      addCategoryModalIsOpen: false
+      addCategoryModalIsOpen: false,
+      selectedCategory: undefined,
+      selectedBalanceOfPayments: undefined,
+      categories: []
     }
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
     this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
+    this.handleClickPlusIcon = this.handleClickPlusIcon.bind(this)
+    this.handleClickMinusIcon = this.handleClickMinusIcon.bind(this)
     this.onAddCategory = this.onAddCategory.bind(this)
     this.onClickCloseButton = this.onClickCloseButton.bind(this)
+    this.getCategories = this.getCategories.bind(this)
+    this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
+    this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
+    this.getCategories()
+  }
+
+  getCategories() {
+    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
+  }
+
+  getCategoriesCallback(res) {
+    this.setState({
+      categories: res.data
+    })
+    if(this.props.selectedCategoryId) {
+      let category = res.data.find( category => category.id == this.props.selectedCategoryId )
+      this.setState({
+        selectedCategory: category,
+        selectedBalanceOfPayments: category.balance_of_payments
+      })
+    }
   }
 
   handleSelectCategory(e) {
-    let category = this.props.categories.find( category => category.id == e.target.value )
+    let category = this.state.categories.find( category => category.id == e.target.value )
+    this.setState({
+      selectedCategory: category,
+      selectedBalanceOfPayments: category.balance_of_payments
+    })
     this.props.handleSelectCategory(category)
   }
 
   handleClickPlusButton() {
     this.setState({
       addCategoryModalIsOpen: true
+    })
+  }
+
+  handleClickPlusIcon() {
+    this.setState({
+      selectedBalanceOfPayments: true
+    })
+  }
+
+  handleClickMinusIcon() {
+    this.setState({
+      selectedBalanceOfPayments: false
     })
   }
 
@@ -35,8 +79,11 @@ class CategoriesSelectBox extends React.Component {
 
   onAddCategory(category) {
     this.props.handleSelectNewCategory(category)
+    this.getCategories()
     this.setState({
-      addCategoryModalIsOpen: false
+      addCategoryModalIsOpen: false,
+      selectedBalanceOfPayments: category.balance_of_payments,
+      selectedCategory: category
     })
   }
 
@@ -44,14 +91,13 @@ class CategoriesSelectBox extends React.Component {
     return (
       <span className='categories-select-box-component'>
         <div className='input-group mb-1'>
-          <div className="input-group-prepend">
-            <div className="input-group-text" htmlFor='selectable-categories'>
-              <HumanBalanceOfPayments balanceOfPayments={this.props.selectedBalanceOfPayments} />
-            </div>
+          <div className='balance-of-payments-buttons'>
+            <i className={'fas fa-plus-square ' + (this.state.selectedBalanceOfPayments == true ? 'blue' : 'gray')} onClick={this.handleClickPlusIcon} />
+            <i className={'fas fa-minus-square ' + (this.state.selectedBalanceOfPayments == false ? 'red' : 'gray')} onClick={this.handleClickMinusIcon} />
           </div>
-          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} value={this.props.selectedCategoryId}>
-            {!this.props.selectedCategoryId && <option value='' >{'- カテゴリ -'}</option>}
-            {this.props.categories.map ((category) =>
+          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} value={(this.state.selectedCategory || {}).id}>
+            {!(this.state.selectedCategory || {}).id && <option value='' >{'- カテゴリ -'}</option>}
+            {this.state.categories.map ((category) =>
               <option key={category.id} value={category.id}>{category.name}</option>
             )}
           </select>
@@ -68,12 +114,12 @@ class CategoriesSelectBox extends React.Component {
 }
 
 CategoriesSelectBox.propTypes = {
-  categories: PropTypes.array.isRequired,
-  selectedBalanceOfPayments: PropTypes.bool,
-  selectedCategoryId: PropTypes.string,
-  plusButton: PropTypes.bool.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
-  handleSelectNewCategory: PropTypes.func
+  handleSelectNewCategory: PropTypes.func,
+  plusButton: PropTypes.bool.isRequired,
+  selectedCategoryId: PropTypes.number
 }
+
+reactMixin.onClass(CategoriesSelectBox, MessageNotifierMixin)
 
 export default CategoriesSelectBox

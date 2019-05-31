@@ -28,9 +28,9 @@ class NewRecordCardBody extends React.Component {
       checkedPoint: false,
       checkedPointDisabled: true,
       selectedPublishedAt: moment(),
+      selectedCategory: undefined,
       selectedCategoryId: '',
       selectedBreakdownId: '',
-      selectedBalanceOfPayments: undefined,
       selectedPlaceId: '',
       selectedTemplateId: '',
       selectedTags: [],
@@ -108,7 +108,7 @@ class NewRecordCardBody extends React.Component {
 
   onSelectCategory(category) {
     this.setState({
-      selectedBalanceOfPayments: (category || {}).balance_of_payments,
+      selectedCategory: category,
       selectedCategoryId: category ? String(category.id) : '',
       selectedBreakdownId: '',
       selectedPlaceId: '',
@@ -123,7 +123,6 @@ class NewRecordCardBody extends React.Component {
   onSelectNewCategory(category) {
     this.getCategories()
     this.setState({
-      selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: category ? String(category.id) : '',
       selectedBreakdownId: '',
       selectedPlaceId: '',
@@ -318,7 +317,6 @@ class NewRecordCardBody extends React.Component {
       {}
     )
     this.setState({
-      selectedBalanceOfPayments: record.balance_of_payments,
       selectedCategoryId: record.category_id ? String(record.category_id) : '',
       selectedBreakdownId: record.breakdown_id ? String(record.breakdown_id) : '',
       selectedTemplateId: record.template_id ? String(record.template_id) : '',
@@ -379,7 +377,6 @@ class NewRecordCardBody extends React.Component {
 
   setCategory(category) {
     this.setState({
-      selectedBalanceOfPayments: (category || {}).balance_of_payments,
       selectedCategoryId: category ? String(category.id) : '',
       selectedBreakdownId: '',
       selectedPlaceId: '',
@@ -402,7 +399,6 @@ class NewRecordCardBody extends React.Component {
       {}
     )
     this.setState({
-      selectedBalanceOfPayments: category.balance_of_payments,
       selectedCategoryId: String(template.category_id),
       selectedBreakdownId: String(template.breakdown_id),
       selectedTemplateId: String(template.id),
@@ -471,7 +467,6 @@ class NewRecordCardBody extends React.Component {
           inputPoint={this.state.inputPoint}
           onUpdateTags={this.handleUpdateTags}
           places={this.state.places}
-          selectedBalanceOfPayments={this.state.selectedBalanceOfPayments}
           selectedBreakdownId={this.state.selectedBreakdownId}
           selectedCategoryId={this.state.selectedCategoryId}
           selectedGenerateTags={this.state.selectedGenerateTags}

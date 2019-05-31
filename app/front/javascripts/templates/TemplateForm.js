@@ -65,7 +65,10 @@ class TemplateForm extends React.Component {
       <div className='template-form-component'>
         <div className='form-row'>
           <div className='form-group col-auto mb-3'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
+            <CategoriesSelectBox
+              handleSelectCategory={this.onSelectCategory}
+              plusButton={false}
+            />
             <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
           </div>
           <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
@@ -100,7 +103,6 @@ class TemplateForm extends React.Component {
 }
 
 TemplateForm.propTypes = {
-  categories: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
   errorMessages: PropTypes.object.isRequired,
   handleSendForm: PropTypes.func.isRequired

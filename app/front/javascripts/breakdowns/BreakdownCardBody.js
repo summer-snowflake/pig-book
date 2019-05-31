@@ -5,14 +5,12 @@ import reactMixin from 'react-mixin'
 import BreakdownForm from './BreakdownForm'
 import Breakdowns from './Breakdowns'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
-import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import { breakdownsAxios, breakdownAxios } from './../mixins/requests/BreakdownsMixin'
 
 class BreakdownCardBody extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      categories: [],
       breakdowns: this.props.breakdowns,
       errorMessages: {}
     }
@@ -22,24 +20,11 @@ class BreakdownCardBody extends React.Component {
     this.postBreakdownCallback = this.postBreakdownCallback.bind(this)
     this.destroyBreakdown = this.destroyBreakdown.bind(this)
     this.destroyBreakdownCallback = this.destroyBreakdownCallback.bind(this)
-    this.getCategories = this.getCategories.bind(this)
-    this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.noticeErrorMessages = this.noticeErrorMessages.bind(this)
     this.getBreakdowns()
   }
 
-  getCategoriesCallback(res) {
-    this.setState({
-      categories: res.data
-    })
-  }
-
-  getCategories() {
-    categoriesAxios.get(this.getCategoriesCallback, this.noticeErrorMessages)
-  }
-
   getBreakdownsCallback(res) {
-    this.getCategories()
     this.setState({
       breakdowns: res.data
     })
@@ -78,8 +63,8 @@ class BreakdownCardBody extends React.Component {
     return (
       <div className='breakdown-card-body-component'>
         {this.renderAlertMessage()}
-        <BreakdownForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
-        <Breakdowns breakdowns={this.state.breakdowns} categories={this.state.categories} getBreakdowns={this.getBreakdowns} handleClickDestroyButton={this.destroyBreakdown} />
+        <BreakdownForm errorMessages={this.state.errorMessages} handleSendForm={this.postBreakdown} />
+        <Breakdowns breakdowns={this.state.breakdowns} getBreakdowns={this.getBreakdowns} handleClickDestroyButton={this.destroyBreakdown} />
       </div>
     )
   }

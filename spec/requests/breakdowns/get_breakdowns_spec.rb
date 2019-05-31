@@ -29,12 +29,14 @@ describe 'GET /api/breakdowns' do
       expect(response.status).to eq 200
       json = [
         {
+          category_id: category.id,
           category_human_balance_of_payments: '収入',
           category_name: category.name,
           category_success_or_danger_style_class: 'success',
           name: breakdown2.name
         },
         {
+          category_id: category.id,
           category_human_balance_of_payments: '収入',
           category_name: category.name,
           category_success_or_danger_style_class: 'success',

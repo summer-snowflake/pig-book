@@ -52,10 +52,12 @@ describe 'GET /api/categories' do
           places: [],
           breakdowns: [
             {
+              category_id: category1.id,
               category_name: category1.name,
               name: breakdown1.name
             },
             {
+              category_id: category1.id,
               category_name: category1.name,
               name: breakdown2.name
             }
