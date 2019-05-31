@@ -11,6 +11,7 @@ feature 'Create RECORD', js: true do
 
   context 'Create a new record.' do
     let!(:category) { create(:category, user: user) }
+    let!(:category_income) { create(:category, :income, user: user) }
     let!(:breakdown) { create(:breakdown, category: category) }
     let!(:place) { create(:place, user: user) }
     let!(:categorized_place) do
@@ -27,6 +28,26 @@ feature 'Create RECORD', js: true do
         expect(page).to have_content breakdown.name
         expect(page).to have_content place.name
         expect(page).to have_content '9,000'
+      end
+    end
+
+    scenario 'categories selectable' do
+      visit new_record_path
+      within '.new-record-form-component' do
+        # 支出のカテゴリを選択
+        find('.fas.fa-minus-square.red').click
+        select category.name, from: 'selectable-categories'
+        expect(page).to have_no_css 'fas.fa-plus-square.gray'
+        expect(page).to have_no_css 'fas.fa-minus-square.red'
+        expect(page).to have_css 'fas.fa-plus-square.blue'
+        expect(page).to have_css 'fas.fa-minus-square.gray'
+
+        # 収入のカテゴリを選択
+        select category_income.name, from: 'selectable-categories'
+        expect(page).to have_css 'fas.fa-plus-square.gray'
+        expect(page).to have_css 'fas.fa-minus-square.red'
+        expect(page).to have_no_css 'fas.fa-plus-square.blue'
+        expect(page).to have_no_css 'fas.fa-minus-square.gray'
       end
     end
 

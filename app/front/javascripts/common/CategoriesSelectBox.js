@@ -95,6 +95,17 @@ class CategoriesSelectBox extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedCategoryId !== prevProps.selectedCategoryId) {
+      let category =  this.state.originalCategories.find( (category) => category.id == this.props.selectedCategoryId )
+      this.setState({
+        selectedBalanceOfPayments: category.balance_of_payments,
+        selectedCategory: category,
+        categories: this.state.originalCategories.filter( resCategory => resCategory.balance_of_payments == category.balance_of_payments )
+      })
+    }
+  }
+
   render() {
     return (
       <span className='categories-select-box-component'>
@@ -104,8 +115,8 @@ class CategoriesSelectBox extends React.Component {
             onClickPlusIcon={this.handleClickPlusIcon}
             selectedBalanceOfPayments={this.state.selectedBalanceOfPayments}
           />
-          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} value={this.props.selectedCategoryId || (this.state.selectedCategory || {}).id}>
-            {!(this.props.selectedCategoryId || (this.state.selectedCategory || {}).id) && <option value='' >{'- カテゴリ -'}</option>}
+          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} value={(this.state.selectedCategory || {}).id}>
+            {!(this.state.selectedCategory || {}).id && <option value='' >{'- カテゴリ -'}</option>}
             {this.state.categories.map ((category) =>
               <option key={category.id} value={category.id}>{category.name}</option>
             )}
