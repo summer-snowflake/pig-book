@@ -10,13 +10,12 @@ class DateFormat extends React.Component {
 
   render() {
     let date = new Date(this.props.targetDate)
-    let day = '日月火水木金土'.charAt(date.getDay())
     return (
       <I18n>{(t) => {
         return (
           <span>
             {this.props.targetDate.format(t('date.format'))}
-            {'(' + day + ')'}
+            {t('day_of_the_week.' + date.getDay())}
             {this.props.displayLabel && t('label.records') }
           </span>
         )
