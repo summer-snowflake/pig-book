@@ -29,7 +29,7 @@ class NewRecordCardBody extends React.Component {
       checkedPointDisabled: true,
       selectedPublishedAt: moment(),
       selectedCategory: undefined,
-      selectedCategoryId: '',
+      selectedCategoryId: undefined,
       selectedBreakdownId: '',
       selectedPlaceId: '',
       selectedTemplateId: '',
@@ -109,7 +109,7 @@ class NewRecordCardBody extends React.Component {
   onSelectCategory(category) {
     this.setState({
       selectedCategory: category,
-      selectedCategoryId: category ? String(category.id) : '',
+      selectedCategoryId: category ? category.id : undefined,
       selectedBreakdownId: '',
       selectedPlaceId: '',
       selectedTemplateId: '',
@@ -123,7 +123,7 @@ class NewRecordCardBody extends React.Component {
   onSelectNewCategory(category) {
     this.getCategories()
     this.setState({
-      selectedCategoryId: category ? String(category.id) : '',
+      selectedCategoryId: category ? category.id : undefined,
       selectedBreakdownId: '',
       selectedPlaceId: '',
       selectedTemplateId: '',
@@ -317,7 +317,7 @@ class NewRecordCardBody extends React.Component {
       {}
     )
     this.setState({
-      selectedCategoryId: record.category_id ? String(record.category_id) : '',
+      selectedCategoryId: record.category_id ? record.category_id : undefined,
       selectedBreakdownId: record.breakdown_id ? String(record.breakdown_id) : '',
       selectedTemplateId: record.template_id ? String(record.template_id) : '',
       selectedPlaceId: record.place_id ? String(record.place_id) : '',
@@ -377,7 +377,7 @@ class NewRecordCardBody extends React.Component {
 
   setCategory(category) {
     this.setState({
-      selectedCategoryId: category ? String(category.id) : '',
+      selectedCategoryId: category ? category.id : undefined,
       selectedBreakdownId: '',
       selectedPlaceId: '',
       selectedTemplateId: '',
@@ -399,7 +399,7 @@ class NewRecordCardBody extends React.Component {
       {}
     )
     this.setState({
-      selectedCategoryId: String(template.category_id),
+      selectedCategoryId: template.category_id,
       selectedBreakdownId: String(template.breakdown_id),
       selectedTemplateId: String(template.id),
       breakdowns: category.breakdowns || [],

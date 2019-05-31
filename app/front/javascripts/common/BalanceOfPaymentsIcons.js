@@ -7,18 +7,25 @@ class BalanceOfPaymentsIcons extends React.Component {
   }
 
   render() {
+    let balanceOfPayments = this.props.selectedBalanceOfPayments
     return (
       <div className='balance-of-payments-icons-component'>
-        <i className={'fas fa-plus-square ' + (this.props.selectedBalanceOfPayments == true ? 'blue' : 'gray')} onClick={this.props.handleClickPlusIcon} />
-        <i className={'fas fa-minus-square ' + (this.props.selectedBalanceOfPayments == false ? 'red' : 'gray')} onClick={this.props.handleClickMinusIcon} />
+        <i
+          className={'fas fa-plus-square ' + (balanceOfPayments == true ? 'blue' : 'gray')}
+          onClick={this.props.onClickPlusIcon}
+        />
+        <i
+          className={'fas fa-minus-square ' + (balanceOfPayments == false ? 'red' : 'gray')}
+          onClick={this.props.onClickMinusIcon}
+        />
       </div>
     )
   }
 }
 
 BalanceOfPaymentsIcons.propTypes = {
-  handleClickMinusIcon: PropTypes.func.isRequired,
-  handleClickPlusIcon: PropTypes.func.isRequired,
+  onClickMinusIcon: PropTypes.func.isRequired,
+  onClickPlusIcon: PropTypes.func.isRequired,
   selectedBalanceOfPayments: PropTypes.bool.isRequired,
 }
 

@@ -141,6 +141,7 @@ class NewRecordForm extends React.Component {
             handleSelectCategory={this.onSelectCategory}
             handleSelectNewCategory={this.onSelectNewCategory}
             plusButton
+            selectedCategoryId={this.props.selectedCategoryId}
           />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
@@ -206,7 +207,7 @@ NewRecordForm.propTypes = {
   tags: PropTypes.array.isRequired,
   checkedPoint: PropTypes.bool.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
-  selectedCategoryId: PropTypes.string,
+  selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.string,
   selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,
