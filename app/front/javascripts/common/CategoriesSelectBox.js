@@ -4,6 +4,7 @@ import reactMixin from 'react-mixin'
 
 import { categoriesAxios } from './../mixins/requests/CategoriesMixin'
 import AddCategoryModal from './../common/AddCategoryModal'
+import BalanceOfPaymentsIcons from './../common/BalanceOfPaymentsIcons'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 
 class CategoriesSelectBox extends React.Component {
@@ -12,7 +13,7 @@ class CategoriesSelectBox extends React.Component {
     this.state = {
       addCategoryModalIsOpen: false,
       selectedCategory: undefined,
-      selectedBalanceOfPayments: undefined,
+      selectedBalanceOfPayments: false,
       originalCategories: [],
       categories: []
     }
@@ -35,7 +36,7 @@ class CategoriesSelectBox extends React.Component {
   getCategoriesCallback(res) {
     this.setState({
       originalCategories: res.data,
-      categories: res.data
+      categories: res.data.filter( category => category.balance_of_payments == false )
     })
     if(this.props.selectedCategoryId) {
       let category = res.data.find( category => category.id == this.props.selectedCategoryId )
@@ -98,10 +99,11 @@ class CategoriesSelectBox extends React.Component {
     return (
       <span className='categories-select-box-component'>
         <div className='input-group mb-1'>
-          <div className='balance-of-payments-buttons'>
-            <i className={'fas fa-plus-square ' + (this.state.selectedBalanceOfPayments == true ? 'blue' : 'gray')} onClick={this.handleClickPlusIcon} />
-            <i className={'fas fa-minus-square ' + (this.state.selectedBalanceOfPayments == false ? 'red' : 'gray')} onClick={this.handleClickMinusIcon} />
-          </div>
+          <BalanceOfPaymentsIcons
+            handleClickMinusIcon={this.handleClickMinusIcon}
+            handleClickPlusIcon={this.handleClickPlusIcon}
+            selectedBalanceOfPayments={this.state.selectedBalanceOfPayments}
+          />
           <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} value={(this.state.selectedCategory || {}).id}>
             {!(this.state.selectedCategory || {}).id && <option value='' >{'- カテゴリ -'}</option>}
             {this.state.categories.map ((category) =>
