@@ -13,6 +13,7 @@ class CategoriesSelectBox extends React.Component {
       addCategoryModalIsOpen: false,
       selectedCategory: undefined,
       selectedBalanceOfPayments: undefined,
+      originalCategories: [],
       categories: []
     }
     this.handleSelectCategory = this.handleSelectCategory.bind(this)
@@ -33,13 +34,16 @@ class CategoriesSelectBox extends React.Component {
 
   getCategoriesCallback(res) {
     this.setState({
+      originalCategories: res.data,
       categories: res.data
     })
     if(this.props.selectedCategoryId) {
       let category = res.data.find( category => category.id == this.props.selectedCategoryId )
+      console.log(category)
       this.setState({
         selectedCategory: category,
-        selectedBalanceOfPayments: category.balance_of_payments
+        selectedBalanceOfPayments: category.balance_of_payments,
+        categories: res.data.filter( resCategory => resCategory.balance_of_payments == category.balance_of_payments )
       })
     }
   }
@@ -47,6 +51,7 @@ class CategoriesSelectBox extends React.Component {
   handleSelectCategory(e) {
     let category = this.state.categories.find( category => category.id == e.target.value )
     this.setState({
+      categories: this.state.originalCategories.filter( resCategory => resCategory.balance_of_payments == category.balance_of_payments ),
       selectedCategory: category,
       selectedBalanceOfPayments: category.balance_of_payments
     })
@@ -61,13 +66,15 @@ class CategoriesSelectBox extends React.Component {
 
   handleClickPlusIcon() {
     this.setState({
-      selectedBalanceOfPayments: true
+      selectedBalanceOfPayments: true,
+      categories: this.state.originalCategories.filter( category => category.balance_of_payments == true )
     })
   }
 
   handleClickMinusIcon() {
     this.setState({
-      selectedBalanceOfPayments: false
+      selectedBalanceOfPayments: false,
+      categories: this.state.originalCategories.filter( category => category.balance_of_payments == false )
     })
   }
 
