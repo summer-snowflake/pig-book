@@ -16,7 +16,7 @@ feature 'Create RECORD via Picker Buttons and Add form', js: true do
       expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
 
       within '.categories-select-box-component' do
-        find('.fas.fa-plus').click
+        find('button .fas.fa-plus').click
       end
 
       expect(page).to have_css '.modal-body'

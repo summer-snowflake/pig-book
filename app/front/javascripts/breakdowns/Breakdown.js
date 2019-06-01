@@ -94,7 +94,11 @@ class Breakdown extends React.Component {
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target breakdown-category-td' colSpan='2'>
-            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} selectedCategoryId={this.state.categoryId} />
+            <CategoriesSelectBox
+              handleSelectCategory={this.onSelectCategory}
+              plusButton={false}
+              selectedCategoryId={this.props.breakdown.category_id}
+            />
             <FormErrorMessages column='category' errorMessages={this.state.errorMessages} />
           </td>
         ) : (
@@ -138,7 +142,6 @@ class Breakdown extends React.Component {
 }
 
 Breakdown.propTypes = {
-  categories: PropTypes.array.isRequired,
   breakdown: PropTypes.object.isRequired,
   onClickTrashIcon: PropTypes.func.isRequired,
   getBreakdowns: PropTypes.func.isRequired

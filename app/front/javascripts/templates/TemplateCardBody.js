@@ -93,7 +93,11 @@ class TemplateCardBody extends React.Component {
     return (
       <div className='template-card-body-component'>
         {this.renderAlertMessage()}
-        <TemplateForm categories={this.state.categories} errorMessages={this.state.errorMessages} handleSendForm={this.postTemplate} tags={this.state.tags} />
+        <TemplateForm
+          errorMessages={this.state.errorMessages}
+          handleSendForm={this.postTemplate}
+          tags={this.state.tags}
+        />
         <Templates categories={this.state.categories} getTemplates={this.getTemplates} handleClickDestroyButton={this.destroyTemplate} templates={this.state.templates} />
       </div>
     )

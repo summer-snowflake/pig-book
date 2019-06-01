@@ -137,7 +137,12 @@ class NewRecordForm extends React.Component {
           <TodayButton onClickButton={this.handleClickTodayButton} />
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} handleSelectNewCategory={this.onSelectNewCategory} plusButton selectedBalanceOfPayments={this.props.selectedBalanceOfPayments} selectedCategoryId={this.props.selectedCategoryId} />
+          <CategoriesSelectBox
+            handleSelectCategory={this.onSelectCategory}
+            handleSelectNewCategory={this.onSelectNewCategory}
+            plusButton
+            selectedCategoryId={this.props.selectedCategoryId}
+          />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className='form-group'>
@@ -195,7 +200,6 @@ class NewRecordForm extends React.Component {
 
 NewRecordForm.propTypes = {
   baseSetting: PropTypes.object.isRequired,
-  categories: PropTypes.array.isRequired,
   checkedPointDisabled: PropTypes.bool.isRequired,
   breakdowns: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,
@@ -203,9 +207,8 @@ NewRecordForm.propTypes = {
   tags: PropTypes.array.isRequired,
   checkedPoint: PropTypes.bool.isRequired,
   selectedPublishedAt: PropTypes.object.isRequired,
-  selectedCategoryId: PropTypes.string,
+  selectedCategoryId: PropTypes.number,
   selectedBreakdownId: PropTypes.string,
-  selectedBalanceOfPayments: PropTypes.bool,
   selectedPlaceId: PropTypes.string,
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
