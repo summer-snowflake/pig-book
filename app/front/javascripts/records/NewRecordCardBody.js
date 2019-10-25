@@ -319,7 +319,6 @@ class NewRecordCardBody extends React.Component {
     )
     this.setState({
       selectedBalanceOfPayments: record.balance_of_payments,
-      selectedPublishedAt: moment(record.published_at),
       selectedCategoryId: record.category_id ? String(record.category_id) : '',
       selectedBreakdownId: record.breakdown_id ? String(record.breakdown_id) : '',
       selectedTemplateId: record.template_id ? String(record.template_id) : '',
@@ -335,6 +334,12 @@ class NewRecordCardBody extends React.Component {
       breakdowns: (category || {}).breakdowns || [],
       places: (category || {}).places || []
     })
+    // NOTE: コピーの場合は日付をコピーしない
+    if(this.state.editingRecordId != '') {
+      this.setState({
+        selectedPublishedAt: moment(record.published_at)
+      })
+    }
   }
 
   getRecord(recordId) {

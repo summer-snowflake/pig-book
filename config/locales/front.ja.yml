@@ -27,6 +27,14 @@ ja:
       format: YYYY年MM月DD日
     time:
       format: YYYY/MM/DD HH:mm:ss
+    day_of_the_week:
+      0: (日)
+      1: (月)
+      2: (火)
+      3: (水)
+      4: (木)
+      5: (金)
+      6: (土)
     month:
       1: 1月
       2: 2月

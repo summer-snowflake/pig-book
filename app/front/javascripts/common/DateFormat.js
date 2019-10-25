@@ -9,11 +9,13 @@ class DateFormat extends React.Component {
   }
 
   render() {
+    let date = new Date(this.props.targetDate)
     return (
       <I18n>{(t) => {
         return (
           <span>
             {this.props.targetDate.format(t('date.format'))}
+            {t('day_of_the_week.' + date.getDay())}
             {this.props.displayLabel && t('label.records') }
           </span>
         )
