@@ -859,8 +859,7 @@ GEM
       launchy
     case_transform (0.2)
       activesupport
-    childprocess (1.0.1)
-      rake (< 13.0)
+    childprocess (3.0.0)
     codecov (0.1.15)
       json
       simplecov
@@ -1066,7 +1065,7 @@ GEM
       rubocop (>= 0.71.0)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
-    rubyzip (1.2.3)
+    rubyzip (2.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -1090,9 +1089,9 @@ GEM
     scss_lint (0.58.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5, >= 3.5.5)
-    selenium-webdriver (3.142.3)
-      childprocess (>= 0.5, < 2.0)
-      rubyzip (~> 1.2, >= 1.2.2)
+    selenium-webdriver (3.142.6)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
