@@ -68,11 +68,15 @@ class MemoCardBody extends React.Component {
   render() {
     return (
       <div className='memo-card-body-component'>
+        <span className='memo-title'>
+          <i className='fas fa-book-open left-icon' />
+          {'MEMO'}
+        </span>
         {this.renderAlertMessage()}
         {this.state.isEditing ? (
           <div className='mypage-memo'>
             <div className='form-group'>
-              <textarea className='form-control' onChange={this.handleChangeMemo} rows='4' value={this.state.editingMemo} />
+              <textarea className='form-control' onChange={this.handleChangeMemo} rows='5' value={this.state.editingMemo} />
             </div>
             <div className='form-group'>
               <UpdateButton onClickButton={this.handleClickSubmitButton} />
@@ -86,7 +90,9 @@ class MemoCardBody extends React.Component {
                 <i className='fas fa-edit' />
               </span>
             </div>
-            <span><pre>{this.state.memo}</pre></span>
+            <div className='memo-body'>
+              <pre>{this.state.memo}</pre>
+            </div>
           </div>
         )}
       </div>
