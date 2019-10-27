@@ -35,7 +35,7 @@ class MonthlyBalanceTable < ApplicationRecord
   # NOTE: year と month は必須ではあるが、
   # new したものを返す場合にはデータがない場合があるため if で判定
   def year_and_month
-    "#{year}-#{format('%02d', month)}" if year && month
+    "#{year}-#{format('%<month>02d', month: month)}" if year && month
   end
 
   def date
