@@ -1209,7 +1209,6 @@ DEPENDENCIES
   spring-watcher-listen
   timecop
   turbolinks
-  tzinfo-data
   uglifier
   web-console
   webdriver
