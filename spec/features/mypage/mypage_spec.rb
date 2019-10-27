@@ -9,6 +9,10 @@ feature 'MYPAGE', js: true do
     sign_in(user)
   end
 
+  after do
+    logout(:user)
+  end
+
   scenario 'Link to mypage.' do
     visit root_path
     click_link user.email
@@ -44,7 +48,27 @@ feature 'MYPAGE', js: true do
     end
   end
 
-  after do
-    logout(:user)
+  describe 'MEMO' do
+    scenario 'Display the memo on mypage' do
+      visit mypage_path
+      within '.memo-card-component' do
+        expect(page).to have_content 'MEMO'
+      end
+    end
+
+    scenario 'Save the memo' do
+      visit mypage_path
+
+      within '.memo-card-component' do
+        trigger_click('.memo-edit-icon')
+        find('.form-control').set('お小遣いに関するメモ')
+        click_on '更新する'
+      end
+      expect(page).to have_content '更新しました'
+      within '.memo-card-component' do
+        expect(page).to have_css '.memo-edit-icon'
+        expect(page).to have_content 'お小遣いに関するメモ'
+      end
+    end
   end
 end
