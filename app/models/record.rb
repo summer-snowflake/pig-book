@@ -87,7 +87,7 @@ class Record < ApplicationRecord
   end
 
   def generate_color_code
-    color_code = '#' + format('%06x', (rand * 0xffffff))
+    color_code = '#' + format('%<color>06x', color: (rand * 0xffffff))
     return color_code if user.tags.find_by(color_code: color_code).nil?
 
     generate_color_code
