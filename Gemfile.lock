@@ -1084,8 +1084,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scss_lint (0.58.0)
-      rake (>= 0.9, < 13)
+    scss_lint (0.59.0)
       sass (~> 3.5, >= 3.5.5)
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
