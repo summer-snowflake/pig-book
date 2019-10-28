@@ -30,7 +30,7 @@
     "react-tooltip": "^3.9.2",
     "react_ujs": "^2.4.4",
     "reactcss": "^1.2.3",
-    "recharts": "^1.4.2",
+    "recharts": "^1.8.5",
     "sass-lint": "1.13.1",
     "webpack-dev-middleware": "^3.6.2"
   },
