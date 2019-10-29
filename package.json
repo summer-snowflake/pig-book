@@ -32,7 +32,7 @@
     "reactcss": "^1.2.3",
     "recharts": "^1.8.5",
     "sass-lint": "1.13.1",
-    "webpack-dev-middleware": "^3.6.2"
+    "webpack-dev-middleware": "^3.7.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
