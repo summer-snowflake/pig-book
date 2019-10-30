@@ -14,7 +14,11 @@ module FeatureSpecHelper
 
   def add_category(balance_of_payments: false, name:)
     visit categories_path
-    choose I18n.t('label.income') if balance_of_payments
+    if balance_of_payments
+      within '.category-form-component' do
+        trigger_click('.form-check-label[for=income]')
+      end
+    end
     fill_in 'category_name', with: name
     trigger_click('#add-button')
   end
