@@ -49,25 +49,42 @@ feature 'MYPAGE', js: true do
   end
 
   describe 'MEMO' do
-    scenario 'Display the memo on mypage' do
+    background do
       visit mypage_path
+    end
+
+    scenario 'Display the memo on mypage' do
       within '.memo-card-component' do
         expect(page).to have_content 'MEMO'
       end
     end
 
-    scenario 'Save the memo' do
-      visit mypage_path
-
-      within '.memo-card-component' do
-        trigger_click('.memo-edit-icon')
-        find('.form-control').set('お小遣いに関するメモ')
-        click_on '更新する'
+    context 'when update memo' do
+      scenario 'Save the memo' do
+        within '.memo-card-component' do
+          trigger_click('.memo-edit-icon')
+          find('.form-control').set('お小遣いに関するメモ')
+          click_on '更新する'
+        end
+        expect(page).to have_content '更新しました'
+        within '.memo-card-component' do
+          expect(page).to have_css '.memo-edit-icon'
+          expect(page).to have_content 'お小遣いに関するメモ'
+        end
       end
-      expect(page).to have_content '更新しました'
-      within '.memo-card-component' do
-        expect(page).to have_css '.memo-edit-icon'
-        expect(page).to have_content 'お小遣いに関するメモ'
+    end
+
+    context 'when NOT update memo' do
+      scenario 'dont Save the memo' do
+        within '.memo-card-component' do
+          trigger_click('.memo-edit-icon')
+          find('.form-control').set('お小遣いに関するメモ')
+          click_on 'キャンセル'
+        end
+        within '.memo-card-component' do
+          expect(page).to have_css '.memo-edit-icon'
+          expect(page).to have_no_content 'お小遣いに関するメモ'
+        end
       end
     end
   end
