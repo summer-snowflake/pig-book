@@ -6,8 +6,11 @@ class Api::RecordsController < Api::BaseController
   def index
     fetcher = Record::Fetcher.new(user: current_user)
     fetcher.find_all_by(records_params)
+    records = fetcher.records.includes(
+      :category, :place, :breakdown, tagged_records: :tag
+    )
     render json: {
-      records: to_serializers(fetcher.records),
+      records: to_serializers(records),
       totals: to_serializers(fetcher.totals)
     }
   end

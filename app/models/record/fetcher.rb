@@ -21,7 +21,6 @@ class Record::Fetcher
     @records = search_records.current_currency(@user)
     @records = @records.where(published_at: range) if range
     @records = @records
-               .includes(:category, :place, :breakdown, tagged_records: :tag)
                .order("#{@order}": :desc, updated_at: :desc)
     @records = @records.limit(@limit) if @limit
     @records
