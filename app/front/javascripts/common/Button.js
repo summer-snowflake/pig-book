@@ -5,7 +5,7 @@ class Button extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      buttonType: this.props.buttonType || 'secondary'
+      buttonType: this.props.buttonType || 'warning'
     }
     this.handleClickButton = this.handleClickButton.bind(this)
   }
