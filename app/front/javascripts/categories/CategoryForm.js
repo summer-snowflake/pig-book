@@ -5,6 +5,7 @@ import reactMixin from 'react-mixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import Button from './../common/Button'
 import FormMixin from './../mixins/FormMixin'
+import BalanceOfPaymentsRadioButtons from './../common/BalanceOfPaymentsRadioButtons'
 
 class CategoryForm extends React.Component {
   constructor(props) {
@@ -31,22 +32,7 @@ class CategoryForm extends React.Component {
   render() {
     return (
       <div className='category-form-component form-row'>
-        <div className='form-check'>
-          <div className='form-group col-auto mb-1'>
-            <input className='form-check-input' id='income' name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='true' />
-            <label className='form-check-label' htmlFor='income'>
-              {'収入'}
-            </label>
-          </div>
-        </div>
-        <div className='form-check'>
-          <div className='form-group col-auto mb-1'>
-            <input className='form-check-input' id='expenditure' name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='false' />
-            <label className='form-check-label' htmlFor='expenditure'>
-              {'支出'}
-            </label>
-          </div>
-        </div>
+        <BalanceOfPaymentsRadioButtons />
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
           <input className='form-control' name='category_name' ref={this.categoryName} type='text' />
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />
