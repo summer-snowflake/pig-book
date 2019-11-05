@@ -32,7 +32,7 @@ class CategoryForm extends React.Component {
   render() {
     return (
       <div className='category-form-component form-row'>
-        <BalanceOfPaymentsRadioButtons onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments} value={this.state.balanceOfPaymentsValue} />
+        <BalanceOfPaymentsRadioButtons id={0} onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments} value={this.state.balanceOfPaymentsValue} />
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>
           <input className='form-control' name='category_name' ref={this.categoryName} type='text' />
           <FormErrorMessages column='name' errorMessages={this.props.errorMessages} />

@@ -16,7 +16,7 @@ module FeatureSpecHelper
     visit categories_path
     if balance_of_payments
       within '.category-form-component' do
-        trigger_click('.form-check-label[for=income]')
+        trigger_click('.form-check-label.income')
       end
     end
     fill_in 'category_name', with: name

@@ -15,8 +15,8 @@ class BalanceOfPaymentsRadioButtons extends React.Component {
     return (
       <span className='form-group balance-of-payments-radio-buttons-component'>
         <div className='form-check'>
-          <input className='form-check-input' id='income' name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='true' />
-          <label className='form-check-label' htmlFor='income'>
+          <input className='form-check-input' id={'income-' + this.props.id} name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='true' />
+          <label className='form-check-label income' htmlFor={'income-' + this.props.id}>
             <span className={'badge-pill-component badge badge-pill badge-' + (this.props.value ? 'success' : 'secondary')}>
               <i className={'fas fa-check left-icon ' + (this.props.value ? '' : 'non-display')} />
               {'収入'}
@@ -24,8 +24,8 @@ class BalanceOfPaymentsRadioButtons extends React.Component {
           </label>
         </div>
         <div className='form-check'>
-          <input className='form-check-input' id='expenditure' name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='false' />
-          <label className='form-check-label' htmlFor='expenditure'>
+          <input className='form-check-input' id={'expenditure-' + this.props.id} name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='false' />
+          <label className='form-check-label expenditure' htmlFor={'expenditure-' + this.props.id}>
             <span className={'badge-pill-component badge badge-pill badge-' + (this.props.value ? 'secondary' : 'danger')}>
               <i className={'fas fa-check left-icon ' + (this.props.value ? 'non-display' : '')} />
               {'支出'}
@@ -38,6 +38,7 @@ class BalanceOfPaymentsRadioButtons extends React.Component {
 }
 
 BalanceOfPaymentsRadioButtons.propTypes = {
+  id: PropTypes.number.isRequired,
   value: PropTypes.bool,
   onChangeBalanceOfPayments: PropTypes.func
 }
