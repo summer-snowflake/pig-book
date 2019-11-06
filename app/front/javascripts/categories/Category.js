@@ -6,6 +6,7 @@ import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
 import BadgePill from './../common/BadgePill'
 import FormErrorMessages from './../common/FormErrorMessages'
+import BalanceOfPaymentsRadioButtons from './../common/BalanceOfPaymentsRadioButtons'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import { categoryAxios } from './../mixins/requests/CategoriesMixin'
 
@@ -86,18 +87,7 @@ class Category extends React.Component {
       <tr className='category-component' id={'category-' + this.props.category.id}>
         {this.state.isEditing ? (
           <td className='radio-td left-edit-target'>
-            <span className='form-group col-auto'>
-              <input checked={this.state.balance_of_payments} className='form-check-input' id={'income-' + this.props.category.id} name={'balance_of_payments' + this.props.category.id} onChange={this.handleChangeBalanceOfPayments} type='radio' value={this.state.balance_of_payments} />
-              <label className='form-check-label' htmlFor={'income-' + this.props.category.id}>
-                {'収入'}
-              </label>
-            </span>
-            <span className='form-group col-auto'>
-              <input checked={!this.state.balance_of_payments} className='form-check-input' id={'expenditure-' + this.props.category.id} name={'balance_of_payments' + this.props.category.id} onChange={this.handleChangeBalanceOfPayments} type='radio' value={this.state.balance_of_payments} />
-              <label className='form-check-label' htmlFor={'expenditure-' + this.props.category.id}>
-                {'支出'}
-              </label>
-            </span>
+            <BalanceOfPaymentsRadioButtons id={this.props.category.id} onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments} value={this.state.balance_of_payments} />
           </td>
         ) : (
           <td className='left-edit-target radio-td'>
