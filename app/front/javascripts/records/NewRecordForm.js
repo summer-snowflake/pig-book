@@ -152,15 +152,13 @@ class NewRecordForm extends React.Component {
         <div className='form-group'>
           <div className='row'>
             <div className={'col-sm-8 input-group ' + this.fieldWithErrors('charge')}>
-              <div className='input-group-prepend'>
-                <div className="input-group-text" htmlFor='record_charge'>
-                  {this.props.baseSetting.human_currency}
-                  {this.props.baseSetting.length > 0 && (
-                    <input name={this.props.baseSetting.currency} type='hidden' value={this.props.baseSetting.currency} />
-                  )}
-                </div>
-              </div>
-              <input className='form-control' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='text' value={this.props.inputCharge} />
+              <span className='badge badge-pill badge-secondary currency'>
+                <i className={'fas fa-' + this.props.baseSetting.currency + '-sign'} />
+              </span>
+              {this.props.baseSetting.length > 0 && (
+                <input name={this.props.baseSetting.currency} type='hidden' value={this.props.baseSetting.currency} />
+              )}
+              <input className='form-control record-charge' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='text' value={this.props.inputCharge} />
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
