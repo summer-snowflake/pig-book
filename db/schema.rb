@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_27_125829) do
+ActiveRecord::Schema.define(version: 2019_11_06_121948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2019_10_27_125829) do
     t.datetime "updated_at", null: false
     t.integer "currency", default: 0, null: false
     t.integer "point", default: 0
+    t.integer "cashless_charge"
     t.index ["breakdown_id"], name: "index_records_on_breakdown_id"
     t.index ["category_id"], name: "index_records_on_category_id"
     t.index ["place_id"], name: "index_records_on_place_id"
