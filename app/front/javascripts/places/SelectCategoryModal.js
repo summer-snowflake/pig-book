@@ -64,8 +64,8 @@ class SelectCategoryModal extends React.Component {
               <b>{this.props.place.name}</b>
               {'に追加するカテゴリを選択してください。'}
             </p>
+            <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
           </div>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
           <div className='modal-footer'>
             <SubmitButton handleClickButton={this.onClickSubmitButton} isDisabled={!this.state.selectedCategoryId}/>
             <CloseButton handleClickButton={this.onClickCloseButton} />
