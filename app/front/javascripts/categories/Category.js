@@ -4,8 +4,8 @@ import reactMixin from 'react-mixin'
 
 import Trash from './../common/Trash'
 import UpdateButton from './../common/UpdateButton'
-import BadgePill from './../common/BadgePill'
 import FormErrorMessages from './../common/FormErrorMessages'
+import SquareIcon from './../common/SquareIcon'
 import BalanceOfPaymentsRadioButtons from './../common/BalanceOfPaymentsRadioButtons'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import { categoryAxios } from './../mixins/requests/CategoriesMixin'
@@ -90,9 +90,7 @@ class Category extends React.Component {
             <BalanceOfPaymentsRadioButtons id={this.props.category.id} onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments} value={this.state.balance_of_payments} />
           </td>
         ) : (
-          <td className='left-edit-target radio-td'>
-            <BadgePill label={this.props.category.human_balance_of_payments} successOrDanger={this.props.category.success_or_danger_style_class} />
-          </td>
+          <td className='left-edit-target radio-td' />
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target'>
@@ -101,6 +99,7 @@ class Category extends React.Component {
           </td>
         ) : (
           <td className='center-edit-target'>
+            <SquareIcon balanceOfPayments={this.props.category.balance_of_payments} />
             {this.props.category.name}
           </td>
         )}
