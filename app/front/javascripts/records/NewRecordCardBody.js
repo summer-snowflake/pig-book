@@ -36,6 +36,7 @@ class NewRecordCardBody extends React.Component {
       selectedTags: [],
       selectedGenerateTags: {},
       inputCharge: '',
+      inputCashlessCharge: '',
       inputPoint: '0',
       inputMemo: '',
       records: this.props.records,
@@ -71,6 +72,7 @@ class NewRecordCardBody extends React.Component {
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.onCancelEditing = this.onCancelEditing.bind(this)
     this.onChangeCharge = this.onChangeCharge.bind(this)
+    this.onChangeCashlessCharge = this.onChangeCashlessCharge.bind(this)
     this.onChangePoint = this.onChangePoint.bind(this)
     this.onChangeMemo = this.onChangeMemo.bind(this)
     this.setCategory = this.setCategory.bind(this)
@@ -84,6 +86,12 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       checkedPointDisabled: charge > 0 ? false : true,
       inputCharge: charge
+    })
+  }
+
+  onChangeCashlessCharge(charge) {
+    this.setState({
+      inputCashlessCharge: charge
     })
   }
 
@@ -155,6 +163,7 @@ class NewRecordCardBody extends React.Component {
       selectedTemplateId: template ? String(template.id) : '',
       selectedBreakdownId: template ? String(template.breakdown_id) : '',
       inputCharge: template ? String(template.charge) : '',
+      inputCashlessCharge: template ? String(template.cashless_charge) : '',
       inputMemo: template ? String(template.memo) : '',
       selectedTags: tags.map(tag =>
         <Tag key={tag.id} tag={tag} />
@@ -215,6 +224,7 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       inputMemo: '',
       inputCharge: '',
+      inputCashlessCharge: '',
       inputPoint: '0',
       checkedPoint: false,
       selectedTags: [],
@@ -236,6 +246,7 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       inputMemo: '',
       inputCharge: '',
+      inputCashlessCharge: '',
       inputPoint: '0',
       checkedPoint: false,
       selectedTags: [],
@@ -328,6 +339,7 @@ class NewRecordCardBody extends React.Component {
       ),
       selectedGenerateTags: generateTags,
       inputCharge: String(record.charge),
+      inputCashlessCharge: String(record.cashless_charge),
       inputPoint: String(record.point),
       checkedPoint: record.point == 0 ? false : true,
       inputMemo: record.memo || '',
@@ -410,6 +422,7 @@ class NewRecordCardBody extends React.Component {
       templates: category.templates || [],
       places: category.places || [],
       inputCharge: String(template.charge),
+      inputCashlessCharge: String(template.cashless_charge),
       inputMemo: template.memo,
       selectedTags: tags.map(tag =>
         <Tag key={tag.id} tag={tag} />
@@ -455,6 +468,7 @@ class NewRecordCardBody extends React.Component {
           editingRecordId={this.state.editingRecordId}
           errorMessages={this.state.errorMessages}
           handleCancelEditing={this.onCancelEditing}
+          handleChangeCashlessCharge={this.onChangeCashlessCharge}
           handleChangeCharge={this.onChangeCharge}
           handleChangeMemo={this.onChangeMemo}
           handleChangePoint={this.onChangePoint}
@@ -466,6 +480,7 @@ class NewRecordCardBody extends React.Component {
           handleSelectTemplate={this.onSelectTemplate}
           handleSendForm={this.postRecord}
           handleUpdateForm={this.patchRecord}
+          inputCashlessCharge={this.state.inputCashlessCharge}
           inputCharge={this.state.inputCharge}
           inputMemo={this.state.inputMemo}
           inputPoint={this.state.inputPoint}

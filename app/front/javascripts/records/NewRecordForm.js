@@ -29,10 +29,12 @@ class NewRecordForm extends React.Component {
     this.handleUpdateTags = this.handleUpdateTags.bind(this)
     this.handleClickPointCheckBox = this.handleClickPointCheckBox.bind(this)
     this.handleChangeCharge = this.handleChangeCharge.bind(this)
+    this.handleChangeCashlessCharge = this.handleChangeCashlessCharge.bind(this)
     this.handleChangePoint = this.handleChangePoint.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
     this.handleClickCopyButton = this.handleClickCopyButton.bind(this)
     this.recordCharge = React.createRef()
+    this.recordCashlessCharge = React.createRef()
     this.recordPoint = React.createRef()
     this.recordMemo = React.createRef()
   }
@@ -53,6 +55,7 @@ class NewRecordForm extends React.Component {
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
       charge: charge,
+      cashless_charge: this.props.inputCashlessCharge,
       point: this.props.inputPoint,
       memo: this.recordMemo.current.value
     })
@@ -75,6 +78,7 @@ class NewRecordForm extends React.Component {
       tags: this.props.selectedGenerateTags,
       currency: this.props.baseSetting.currency,
       charge: charge,
+      cashless_charge: this.props.inputCashlessCharge,
       point: this.props.inputPoint,
       memo: this.recordMemo.current.value
     })
@@ -121,6 +125,10 @@ class NewRecordForm extends React.Component {
     this.props.handleChangeCharge(e.target.value)
   }
 
+  handleChangeCashlessCharge(e) {
+    this.props.handleChangeCashlessCharge(e.target.value)
+  }
+
   handleChangePoint(e) {
     this.props.handleChangePoint(e.target.value, true)
   }
@@ -151,7 +159,7 @@ class NewRecordForm extends React.Component {
         </div>
         <div className='form-group'>
           <div className='row'>
-            <div className={'col-sm-8 input-group ' + this.fieldWithErrors('charge')}>
+            <div className={'col-sm-5 charge-input-group input-group ' + this.fieldWithErrors('charge')}>
               <span className='badge badge-pill badge-secondary currency'>
                 <i className={'fas fa-' + this.props.baseSetting.currency + '-sign'} />
               </span>
@@ -159,6 +167,12 @@ class NewRecordForm extends React.Component {
                 <input name={this.props.baseSetting.currency} type='hidden' value={this.props.baseSetting.currency} />
               )}
               <input className='form-control record-charge' name='record_charge' onChange={this.handleChangeCharge} ref={this.recordCharge} type='text' value={this.props.inputCharge} />
+            </div>
+            <div className={'col-sm-3 charge-input-group input-group ' + this.fieldWithErrors('cashless_charge')}>
+              <span className='badge badge-secondary currency'>
+                <i className='far fa-check-square' />
+              </span>
+              <input className='form-control record-charge' name='record_cashless_charge' onChange={this.handleChangeCashlessCharge} ref={this.recordCashlessCharge} type='number' value={this.props.inputCashlessCharge} />
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
@@ -208,6 +222,7 @@ NewRecordForm.propTypes = {
   selectedTags: PropTypes.array.isRequired,
   selectedGenerateTags: PropTypes.object.isRequired,
   inputCharge: PropTypes.string,
+  inputCashlessCharge: PropTypes.string,
   inputPoint: PropTypes.string,
   inputMemo: PropTypes.string,
   errorMessages: PropTypes.object.isRequired,
@@ -220,6 +235,7 @@ NewRecordForm.propTypes = {
   handleSelectPlace: PropTypes.func.isRequired,
   handleChangePublishedOn: PropTypes.func.isRequired,
   handleChangeCharge: PropTypes.func.isRequired,
+  handleChangeCashlessCharge: PropTypes.func.isRequired,
   handleChangePoint: PropTypes.func.isRequired,
   handleChangeMemo: PropTypes.func.isRequired,
   handleCancelEditing: PropTypes.func.isRequired
