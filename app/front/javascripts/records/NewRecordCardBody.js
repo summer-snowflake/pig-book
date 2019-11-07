@@ -356,14 +356,16 @@ class NewRecordCardBody extends React.Component {
 
   getRecord(recordId) {
     this.setState({
-      editingRecordId: String(recordId)
+      editingRecordId: String(recordId),
+      checkedPointDisabled: false
     })
     recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessages)
   }
 
   getRecordCopy(recordId) {
     this.setState({
-      editingRecordId: ''
+      editingRecordId: '',
+      checkedPointDisabled: false
     })
     recordAxios.get(recordId, this.getRecordCallback, this.noticeErrorMessages)
   }
