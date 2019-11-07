@@ -176,10 +176,13 @@ class NewRecordForm extends React.Component {
             </div>
             <div className='col-sm-4 input-group'>
               <div className='input-group-prepend'>
-                <div className='input-group-text'>
+                <div className={'input-group-text ' + (this.props.checkedPoint ? 'background-white' : '')}>
                   <input checked={this.props.checkedPoint} disabled={this.props.checkedPointDisabled} onClick={this.handleClickPointCheckBox} type='checkbox' value={this.props.checkedPoint} />
                 </div>
               </div>
+              <span className='form-point-icon'>
+                <i className='fas fa-parking left-icon green' />
+              </span>
               <input className='form-control' disabled={!this.props.checkedPoint} name='record_point' onChange={this.handleChangePoint} ref={this.recordPoint} type='number' value={this.props.inputPoint} />
             </div>
           </div>
