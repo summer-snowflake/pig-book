@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.3'
+ruby '2.6.5'
 
 gem 'active_model_serializers'
 gem 'aws-sdk'
@@ -24,7 +24,7 @@ gem 'puma'
 gem 'rails', '~> 5.2.2'
 gem 'rails-i18n'
 gem 'react-rails'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'slack-notifier'
 gem 'slim-rails'
 gem 'turbolinks'
@@ -74,5 +74,3 @@ group :production do
   gem 'lograge'
   gem 'rails_12factor'
 end
-
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

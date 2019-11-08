@@ -108,6 +108,53 @@ feature 'PLACE', js: true do
         expect(page).to have_no_content place2.name
       end
     end
+
+    describe 'place categories list' do
+      let!(:category1) { create(:category, user: user, name: '旅費交通費') }
+      let!(:category2) { create(:category, :income, user: user, name: '臨時収入') }
+
+      scenario 'Set category to the place' do
+        within "#place-#{place1.id}" do
+          trigger_click('.badge.badge-info span .fas.fa-plus')
+        end
+        within '.modal-body' do
+          select '旅費交通費', from: 'category'
+        end
+        within '.modal-footer' do
+          trigger_click('#submit')
+        end
+        expect(page).to have_content '追加しました'
+        within "#place-#{place1.id}" do
+          expect(page).to have_content '旅費交通費'
+        end
+        within "#place-#{place2.id}" do
+          expect(page).not_to have_content '旅費交通費'
+        end
+
+        # モーダル上のカテゴリリストの確認
+        within "#place-#{place1.id}" do
+          trigger_click('.badge.badge-info span .fas.fa-plus')
+        end
+        within '.modal-body' do
+          options = find_field('category').find_all('option').map(&:text)
+          expect(options).to eq %w[-\ カテゴリ\ - 臨時収入]
+        end
+        within '.modal-footer' do
+          trigger_click('#cancel')
+        end
+
+        within "#place-#{place2.id}" do
+          trigger_click('.badge.badge-info span .fas.fa-plus')
+        end
+        within '.modal-body' do
+          options = find_field('category').find_all('option').map(&:text)
+          expect(options).to eq %w[-\ カテゴリ\ - 旅費交通費 臨時収入]
+        end
+        within '.modal-footer' do
+          trigger_click('#cancel')
+        end
+      end
+    end
   end
 
   after do

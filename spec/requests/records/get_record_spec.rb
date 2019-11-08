@@ -58,6 +58,7 @@ describe 'GET /api/record' do
         category_name: record.category.name,
         charge: record.charge,
         human_charge: record.decorate.human_charge,
+        cashless_charge: record.cashless_charge,
         memo: record.memo,
         place_id: record.place.id,
         place_name: record.place.name,

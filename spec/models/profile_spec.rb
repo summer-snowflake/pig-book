@@ -8,7 +8,7 @@ RSpec.describe Profile, type: :model do
   end
 
   describe 'validation' do
-    it { is_expected.to validate_length_of(:memo).is_at_most(250) }
+    it { is_expected.to validate_length_of(:memo).is_at_most(1000) }
   end
 
   describe '#locale' do

@@ -49,7 +49,7 @@ class CategoriesSelectBox extends React.Component {
               <HumanBalanceOfPayments balanceOfPayments={this.props.selectedBalanceOfPayments} />
             </div>
           </div>
-          <select className='form-control' id='selectable-categories' onChange={this.handleSelectCategory} value={this.props.selectedCategoryId}>
+          <select className='form-control' id='selectable-categories' name='category' onChange={this.handleSelectCategory} value={this.props.selectedCategoryId}>
             {!this.props.selectedCategoryId && <option value='' >{'- カテゴリ -'}</option>}
             {this.props.categories.map ((category) =>
               <option key={category.id} value={category.id}>{category.name}</option>

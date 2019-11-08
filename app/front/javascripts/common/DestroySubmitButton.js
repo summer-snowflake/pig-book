@@ -14,7 +14,7 @@ class DestroySubmitButton extends React.Component {
   render() {
     return (
       <span className='submit-button-component'>
-        <button className='btn btn-secondary' id='submit' onClick={this.handleClickButton}>
+        <button className='btn btn-warning' id='submit' onClick={this.handleClickButton}>
           <i className='far fa-trash-alt left-icon' />
           {'はい'}
         </button>

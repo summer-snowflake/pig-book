@@ -32,10 +32,8 @@ describe 'PATCH /api/breakdowns' do
       expect(response.status).to eq 200
       json = {
         name: '編集した内訳',
-        category_human_balance_of_payments: '支出',
-        category_name: category.name,
-        category_success_or_danger_style_class: \
-          category.decorate.success_or_danger_style_class
+        category_balance_of_payments: false,
+        category_name: category.name
       }.to_json
       expect(response.body).to be_json_eql(json)
     end

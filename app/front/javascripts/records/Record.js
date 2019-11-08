@@ -100,6 +100,14 @@ class Record extends React.Component {
           {this.props.record.human_charge}
         </td>
         <td>
+          {this.props.longEnabled && this.props.record.cashless_charge > 0 && (
+            <span>
+              <i className='fas fa-copyright left-icon green' />
+              {this.props.record.cashless_charge}
+            </span>
+          )}
+        </td>
+        <td>
           {this.props.longEnabled && this.props.record.point > 0 && (
             <span>
               <i className='fas fa-parking left-icon green' />
