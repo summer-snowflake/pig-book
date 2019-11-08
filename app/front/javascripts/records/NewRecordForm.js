@@ -20,6 +20,7 @@ class NewRecordForm extends React.Component {
     super(props)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
+    this.onSelectBalanceOfPayments = this.onSelectBalanceOfPayments.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
@@ -93,6 +94,10 @@ class NewRecordForm extends React.Component {
     this.props.handleCancelEditing()
   }
 
+  onSelectBalanceOfPayments(balanceOfPaymentsValue) {
+    this.props.handleSelectBalanceOfPayments(balanceOfPaymentsValue)
+  }
+
   onSelectCategory(category) {
     this.props.handleSelectCategory(category)
   }
@@ -147,6 +152,7 @@ class NewRecordForm extends React.Component {
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox
             categories={this.props.categories}
+            handleSelectBalanceOfPayments={this.onSelectBalanceOfPayments}
             handleSelectCategory={this.onSelectCategory}
             handleSelectNewCategory={this.onSelectNewCategory}
             plusButton
@@ -239,6 +245,7 @@ NewRecordForm.propTypes = {
   onUpdateTags: PropTypes.func.isRequired,
   handleSendForm: PropTypes.func.isRequired,
   handleUpdateForm: PropTypes.func.isRequired,
+  handleSelectBalanceOfPayments: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectNewCategory: PropTypes.func.isRequired,
   handleSelectBreakdown: PropTypes.func.isRequired,

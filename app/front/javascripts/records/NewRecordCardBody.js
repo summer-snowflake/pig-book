@@ -57,6 +57,7 @@ class NewRecordCardBody extends React.Component {
     this.getCategoriesCallback = this.getCategoriesCallback.bind(this)
     this.getTags = this.getTags.bind(this)
     this.getTagsCallback = this.getTagsCallback.bind(this)
+    this.onSelectBalanceOfPayments = this.onSelectBalanceOfPayments.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.onSelectNewCategory = this.onSelectNewCategory.bind(this)
     this.onSelectBreakdown = this.onSelectBreakdown.bind(this)
@@ -112,6 +113,22 @@ class NewRecordCardBody extends React.Component {
     this.setState({
       inputMemo: memo
     })
+  }
+
+  onSelectBalanceOfPayments(balanceOfPaymentsValue) {
+    if (balanceOfPaymentsValue != String(this.state.selectedBalanceOfPayments)) {
+      this.setState({
+        selectedBalanceOfPayments: (balanceOfPaymentsValue == 'true'),
+        selectedCategoryId: '',
+        selectedBreakdownId: '',
+        selectedPlaceId: '',
+        selectedTemplateId: '',
+        breakdowns: [],
+        templates: [],
+        places: [],
+        recordsByCategory: []
+      })
+    }
   }
 
   onSelectCategory(category) {
@@ -208,8 +225,14 @@ class NewRecordCardBody extends React.Component {
   }
 
   getRecordsByCategory(category) {
-    let params = { limit: 10, category_id: category.id }
-    recordsAxios.get(params, this.getRecordsByCategoryCallback, this.noticeErrorMessages)
+    if (category) {
+      let params = { limit: 10, category_id: category.id }
+      recordsAxios.get(params, this.getRecordsByCategoryCallback, this.noticeErrorMessages)
+    } else {
+      this.setState({
+        recordsByCategory: []
+      })
+    }
   }
 
   getRecordsByCategoryCallback(res) {
@@ -476,6 +499,7 @@ class NewRecordCardBody extends React.Component {
           handleChangePoint={this.onChangePoint}
           handleChangePublishedOn={this.setStateDate}
           handleSelectBreakdown={this.onSelectBreakdown}
+          handleSelectBalanceOfPayments={this.onSelectBalanceOfPayments}
           handleSelectCategory={this.onSelectCategory}
           handleSelectNewCategory={this.onSelectNewCategory}
           handleSelectPlace={this.onSelectPlace}

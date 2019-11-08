@@ -13,7 +13,7 @@ feature 'Create RECORD via Picker Buttons and Add form', js: true do
     scenario 'Add a new category.' do
       visit new_record_path
 
-      expect(all('#selectable-categories').map(&:text)).to eq ['- カテゴリ -']
+      expect(all('#selectable-categories').map(&:text)).to eq %w[-\ カテゴリ\ -]
 
       within '.categories-select-box-component' do
         find('.fas.fa-plus').click
@@ -26,7 +26,8 @@ feature 'Create RECORD via Picker Buttons and Add form', js: true do
       end
 
       sleep 0.5
-      expect(all('#selectable-categories').map(&:text)).to eq ['新しいカテゴリ名']
+      options = find_field('category').find_all('option').map(&:text)
+      expect(options).to eq %w[-\ カテゴリ\ - 新しいカテゴリ名]
     end
   end
 

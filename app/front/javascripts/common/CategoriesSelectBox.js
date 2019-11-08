@@ -48,9 +48,9 @@ class CategoriesSelectBox extends React.Component {
       return String(category.balance_of_payments) == e.target.value
     })
     this.setState({
-      selectedBalanceOfPayments: e.target.value == 'true',
       filteredCategories: categories
     })
+    this.props.handleSelectBalanceOfPayments(e.target.value)
   }
 
   render() {
@@ -62,9 +62,9 @@ class CategoriesSelectBox extends React.Component {
     return (
       <span className='categories-select-box-component'>
         <div className='input-group mb-1'>
-          <BalanceOfPaymentsRadioButtons id={1} onChangeBalanceOfPayments={this.handleSelectBalanceOfPayments} value={this.state.selectedBalanceOfPayments} />
+          <BalanceOfPaymentsRadioButtons id={1} onChangeBalanceOfPayments={this.handleSelectBalanceOfPayments} value={this.props.selectedBalanceOfPayments} />
           <select className='form-control' id='selectable-categories' name='category' onChange={this.handleSelectCategory} value={this.props.selectedCategoryId}>
-            {!this.props.selectedCategoryId && <option value='' >{'- カテゴリ -'}</option>}
+            <option value=''>{'- カテゴリ -'}</option>
             {categories.map ((category) =>
               <option key={category.id} value={category.id}>{category.name}</option>
             )}
@@ -86,6 +86,7 @@ CategoriesSelectBox.propTypes = {
   selectedBalanceOfPayments: PropTypes.bool,
   selectedCategoryId: PropTypes.string,
   plusButton: PropTypes.bool.isRequired,
+  handleSelectBalanceOfPayments: PropTypes.func.isRequired,
   handleSelectCategory: PropTypes.func.isRequired,
   handleSelectNewCategory: PropTypes.func
 }
