@@ -55,16 +55,12 @@ class Record extends React.Component {
         <td className='icon-td'>
           <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
         </td>
-        {this.props.copyable && (
-          <td className='icon-td'>
-            <i className='far fa-copy' onClick={this.handleClickCopyIcon} />
-          </td>
-        )}
-        {!this.props.longEnabled && (
-          <td className='icon-td'>
-            <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
-          </td>
-        )}
+        <td className='icon-td'>
+          <i className='far fa-copy' onClick={this.handleClickCopyIcon} />
+        </td>
+        <td className='icon-td'>
+          <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+        </td>
         {this.props.longEnabled && (
           <td>
             <DateFormat targetDate={moment(this.props.record.published_at)} />
@@ -124,7 +120,6 @@ class Record extends React.Component {
 }
 
 Record.propTypes = {
-  copyable: PropTypes.bool,
   longEnabled: PropTypes.bool,
   editingRecordId: PropTypes.string,
   record: PropTypes.object.isRequired,

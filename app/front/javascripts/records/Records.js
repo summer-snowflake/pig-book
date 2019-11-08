@@ -80,7 +80,6 @@ class Records extends React.Component {
           <tbody>
             {this.props.records.map((record) => (
               <Record
-                copyable={this.props.copyable}
                 editingRecordId={this.props.editingRecordId}
                 key={record.id}
                 longEnabled={this.props.longEnabled}
@@ -104,7 +103,6 @@ class Records extends React.Component {
 }
 
 Records.propTypes = {
-  copyable: PropTypes.bool,
   longEnabled: PropTypes.bool,
   records: PropTypes.array.isRequired,
   editingRecordId: PropTypes.string,

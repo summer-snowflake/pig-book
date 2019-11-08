@@ -35,6 +35,7 @@ class RelatedRecords extends React.Component {
           <DateOfRecords onClickChangeDateButton={this.handleClickChangeDateButton} targetDate={this.props.targetDate} />
           <Records
             editingRecordId={this.props.editingRecordId}
+            handleClickCopyIcon={this.onClickCopyIcon}
             handleClickDestroyButton={this.onClickDestroyButton}
             handleClickEditIcon={this.onClickEditIcon}
             records={this.props.records}
@@ -46,9 +47,9 @@ class RelatedRecords extends React.Component {
               {this.props.recordsByCategory[0].category_name}
             </div>
             <Records
-              copyable
               handleClickCopyIcon={this.onClickCopyIcon}
               handleClickDestroyButton={this.onClickDestroyButton}
+              handleClickEditIcon={this.onClickEditIcon}
               longEnabled
               records={this.props.recordsByCategory}
             />
