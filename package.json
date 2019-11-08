@@ -24,7 +24,7 @@
     "react-dropzone": "5.1.1",
     "react-i18next": "9.0.10",
     "react-mixin": "^5.0.0",
-    "react-modal": "^3.8.1",
+    "react-modal": "3.11.1",
     "react-native": "0.58.4",
     "react-tagsinput": "^3.19.0",
     "react-tooltip": "^3.11.1",
