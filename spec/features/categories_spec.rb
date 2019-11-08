@@ -32,11 +32,11 @@ feature 'CATEGORY', js: true do
       expect(page).to have_content I18n.t('title.category_list')
       within '.card-body' do
         within "#category-#{category1.id}" do
-          expect(page).to have_content I18n.t('label.expenditure')
+          expect(page).to have_css '.fas.fa-minus-square.left-icon.red'
           expect(page).to have_content category1.name
         end
         within "#category-#{category2.id}" do
-          expect(page).to have_content I18n.t('label.income')
+          expect(page).to have_css '.fas.fa-plus-square.left-icon.blue'
           expect(page).to have_content category2.name
         end
       end
@@ -51,7 +51,7 @@ feature 'CATEGORY', js: true do
       category = user.categories.last
 
       within "#category-#{category.id}" do
-        expect(page).to have_content '支出'
+        expect(page).to have_css '.fas.fa-minus-square.left-icon.red'
         expect(page).to have_content 'カテゴリ名'
       end
       expect(all('table.table tr.category-component').count).to eq 3
@@ -71,7 +71,7 @@ feature 'CATEGORY', js: true do
       category = user.categories.last
 
       within "#category-#{category.id}" do
-        expect(page).to have_content '収入'
+        expect(page).to have_css '.fas.fa-plus-square.left-icon.blue'
         expect(page).to have_content 'カテゴリ名２'
       end
       expect(all('table.table tr.category-component').count).to eq 4

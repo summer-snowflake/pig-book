@@ -7,7 +7,7 @@ import UpdateButton from './../common/UpdateButton'
 import MessageNotifierMixin from './../mixins/MessageNotifierMixin'
 import FormErrorMessages from './../common/FormErrorMessages'
 import CategoriesSelectBox from './../common/CategoriesSelectBox'
-import BadgePill from './../common/BadgePill'
+import SquareIcon from './../common/SquareIcon'
 import { breakdownAxios } from './../mixins/requests/BreakdownsMixin'
 
 class Breakdown extends React.Component {
@@ -88,9 +88,7 @@ class Breakdown extends React.Component {
     return (
       <tr className='breakdown-component' id={'breakdown-' + this.props.breakdown.id}>
         {!this.state.isEditing && (
-          <td className='left-edit-target breakdown-category-td'>
-            <BadgePill label={this.props.breakdown.category_human_balance_of_payments} successOrDanger={this.props.breakdown.category_success_or_danger_style_class} />
-          </td>
+          <td className='left-edit-target breakdown-category-td' />
         )}
         {this.state.isEditing ? (
           <td className='center-edit-target breakdown-category-td' colSpan='2'>
@@ -99,6 +97,7 @@ class Breakdown extends React.Component {
           </td>
         ) : (
           <td className='center-edit-target breakdown-category-td'>
+            <SquareIcon balanceOfPayments={this.props.breakdown.category_balance_of_payments} />
             {this.props.breakdown.category_name}
           </td>
         )}
