@@ -14,6 +14,7 @@ class BreakdownForm extends React.Component {
       selectedBalanceOfPayments: undefined
     }
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
+    this.onSelectBalanceOfPayments = this.onSelectBalanceOfPayments.bind(this)
     this.onSelectCategory = this.onSelectCategory.bind(this)
     this.breakdownName = React.createRef()
   }
@@ -21,6 +22,9 @@ class BreakdownForm extends React.Component {
   handleClickSubmitButton() {
     this.props.handleSendForm({name: this.breakdownName.current.value, category_id: this.state.selectedCategoryId})
     this.breakdownName.current.value = ''
+  }
+
+  onSelectBalanceOfPayments(balanceOfPayments) {
   }
 
   onSelectCategory(category) {
@@ -34,7 +38,7 @@ class BreakdownForm extends React.Component {
     return (
       <div className='breakdown-form-component form-row'>
         <div className='form-group col-auto mb-3'>
-          <CategoriesSelectBox categories={this.props.categories} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
+          <CategoriesSelectBox categories={this.props.categories} handleSelectBalanceOfPayments={this.onSelectBalanceOfPayments} handleSelectCategory={this.onSelectCategory} plusButton={false} selectedBalanceOfPayments={this.state.selectedBalanceOfPayments} />
           <FormErrorMessages column='category' errorMessages={this.props.errorMessages} />
         </div>
         <div className={'form-group col-md-4 mb-3 ' + this.fieldWithErrors('name')}>

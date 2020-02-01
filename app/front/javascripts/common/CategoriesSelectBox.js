@@ -44,28 +44,17 @@ class CategoriesSelectBox extends React.Component {
   }
 
   handleSelectBalanceOfPayments(e) {
-    let categories = this.props.categories.filter((category) => {
-      return String(category.balance_of_payments) == e.target.value
-    })
-    this.setState({
-      filteredCategories: categories
-    })
     this.props.handleSelectBalanceOfPayments(e.target.value)
   }
 
   render() {
-    let categories = this.props.categories.filter((category) => {
-      return String(category.balance_of_payments) == 'false'
-    })
-    categories = this.state.filteredCategories.length == 0 ? categories : this.state.filteredCategories
-
     return (
       <span className='categories-select-box-component'>
         <div className='input-group mb-1'>
           <BalanceOfPaymentsRadioButtons id={1} onChangeBalanceOfPayments={this.handleSelectBalanceOfPayments} value={this.props.selectedBalanceOfPayments} />
           <select className='form-control' id='selectable-categories' name='category' onChange={this.handleSelectCategory} value={this.props.selectedCategoryId}>
             <option value=''>{'- カテゴリ -'}</option>
-            {categories.map ((category) =>
+            {this.props.categories.map ((category) =>
               <option key={category.id} value={category.id}>{category.name}</option>
             )}
           </select>

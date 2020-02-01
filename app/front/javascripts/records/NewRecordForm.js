@@ -151,7 +151,7 @@ class NewRecordForm extends React.Component {
         </div>
         <div className={'form-group ' + this.fieldWithErrors('category')}>
           <CategoriesSelectBox
-            categories={this.props.categories}
+            categories={this.props.filteredCategories}
             handleSelectBalanceOfPayments={this.onSelectBalanceOfPayments}
             handleSelectCategory={this.onSelectCategory}
             handleSelectNewCategory={this.onSelectNewCategory}
@@ -223,6 +223,7 @@ class NewRecordForm extends React.Component {
 
 NewRecordForm.propTypes = {
   baseSetting: PropTypes.object.isRequired,
+  filteredCategories: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
   checkedPointDisabled: PropTypes.bool.isRequired,
   breakdowns: PropTypes.array.isRequired,

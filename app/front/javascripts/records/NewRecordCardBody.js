@@ -21,6 +21,7 @@ class NewRecordCardBody extends React.Component {
       editingRecordId: '',
       baseSetting: {},
       categories: [],
+      filteredCategories: [],
       breakdowns: [],
       places: [],
       tags: [],
@@ -117,7 +118,11 @@ class NewRecordCardBody extends React.Component {
 
   onSelectBalanceOfPayments(balanceOfPaymentsValue) {
     if (balanceOfPaymentsValue != String(this.state.selectedBalanceOfPayments)) {
+      let categories = this.state.categories.filter((category) => {
+        return String(category.balance_of_payments) == balanceOfPaymentsValue
+      })
       this.setState({
+        filteredCategories: categories,
         selectedBalanceOfPayments: (balanceOfPaymentsValue == 'true'),
         selectedCategoryId: '',
         selectedBreakdownId: '',
@@ -351,7 +356,12 @@ class NewRecordCardBody extends React.Component {
       (map, tag, index) => Object.assign(map, { [index]: tag }),
       {}
     )
+    let categories = this.state.categories.filter((category) => {
+      return String(category.balance_of_payments) == 'false'
+    })
+
     this.setState({
+      filteredCategories: categories,
       selectedBalanceOfPayments: record.balance_of_payments,
       selectedCategoryId: record.category_id ? String(record.category_id) : '',
       selectedBreakdownId: record.breakdown_id ? String(record.breakdown_id) : '',
@@ -375,6 +385,7 @@ class NewRecordCardBody extends React.Component {
         selectedPublishedAt: moment(record.published_at)
       })
     }
+    this.getRecordsByCategory(category)
   }
 
   getRecord(recordId) {
@@ -475,6 +486,11 @@ class NewRecordCardBody extends React.Component {
   }
 
   render() {
+    let categories = this.state.categories.filter((category) => {
+      return String(category.balance_of_payments) == 'false'
+    })
+    categories = this.state.filteredCategories.length == 0 ? categories : this.state.filteredCategories
+
     return (
       <div className='new-record-card-body-component row'>
         {this.renderAlertMessage()}
@@ -492,14 +508,15 @@ class NewRecordCardBody extends React.Component {
           checkedPointDisabled={this.state.checkedPointDisabled}
           editingRecordId={this.state.editingRecordId}
           errorMessages={this.state.errorMessages}
+          filteredCategories={categories}
           handleCancelEditing={this.onCancelEditing}
           handleChangeCashlessCharge={this.onChangeCashlessCharge}
           handleChangeCharge={this.onChangeCharge}
           handleChangeMemo={this.onChangeMemo}
           handleChangePoint={this.onChangePoint}
           handleChangePublishedOn={this.setStateDate}
-          handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectBalanceOfPayments={this.onSelectBalanceOfPayments}
+          handleSelectBreakdown={this.onSelectBreakdown}
           handleSelectCategory={this.onSelectCategory}
           handleSelectNewCategory={this.onSelectNewCategory}
           handleSelectPlace={this.onSelectPlace}
