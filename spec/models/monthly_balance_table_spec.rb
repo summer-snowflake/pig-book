@@ -26,7 +26,7 @@ RSpec.describe MonthlyBalanceTable, type: :model do
       end
 
       it 'return some years array' do
-        expect(subject).to eq [2019, 2018, 2017]
+        expect(subject).to eq [*2017..Time.zone.today.year].reverse
       end
     end
 
