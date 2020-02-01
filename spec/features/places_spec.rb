@@ -137,6 +137,9 @@ feature 'PLACE', js: true do
         end
         within '.modal-body' do
           options = find_field('category').find_all('option').map(&:text)
+          expect(options).to eq %w[-\ カテゴリ\ -]
+          trigger_click('span.badge-secondary')
+          options = find_field('category').find_all('option').map(&:text)
           expect(options).to eq %w[-\ カテゴリ\ - 臨時収入]
         end
         within '.modal-footer' do
@@ -148,7 +151,10 @@ feature 'PLACE', js: true do
         end
         within '.modal-body' do
           options = find_field('category').find_all('option').map(&:text)
-          expect(options).to eq %w[-\ カテゴリ\ - 旅費交通費 臨時収入]
+          expect(options).to eq %w[-\ カテゴリ\ - 旅費交通費]
+          trigger_click('span.badge-secondary')
+          options = find_field('category').find_all('option').map(&:text)
+          expect(options).to eq %w[-\ カテゴリ\ - 臨時収入]
         end
         within '.modal-footer' do
           trigger_click('#cancel')
