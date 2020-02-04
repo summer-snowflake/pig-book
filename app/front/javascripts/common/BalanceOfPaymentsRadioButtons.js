@@ -24,7 +24,7 @@ class BalanceOfPaymentsRadioButtons extends React.Component {
           </label>
         </div>
         <div className='form-check'>
-          <input className='form-check-input' id={'expenditure-' + this.props.id} name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='false' />
+          <input className='form-check-input' defaultChecked id={'expenditure-' + this.props.id} name='balance_of_payments' onChange={this.handleChangeBalanceOfPayments} type='radio' value='false' />
           <label className='form-check-label expenditure' htmlFor={'expenditure-' + this.props.id}>
             <span className={'badge-pill-component badge badge-pill badge-' + (this.props.value ? 'secondary' : 'danger')}>
               <i className={'fas fa-check left-icon ' + (this.props.value ? 'non-display' : '')} />
