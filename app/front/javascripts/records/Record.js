@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import ReactTooltip from 'react-tooltip'
 
 import Trash from './../common/Trash'
 import TagsIcons from './TagsIcons'
@@ -61,13 +62,16 @@ class Record extends React.Component {
           )}
         </td>
         <td className='icon-td'>
-          <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
+          <ReactTooltip />
+          <i className='fas fa-info-circle' data-tip={'詳細'} onClick={this.handleClickInfoIcon}/>
         </td>
         <td className='icon-td'>
-          <i className='far fa-copy' onClick={this.handleClickCopyIcon} />
+          <ReactTooltip />
+          <i className='far fa-copy' data-tip={'コピー'} onClick={this.handleClickCopyIcon} />
         </td>
         <td className='icon-td'>
-          <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+          <ReactTooltip />
+          <i className='fas fa-edit' data-tip={'編集'} onClick={this.handleClickEditIcon}/>
         </td>
         {this.props.longEnabled && (
           <td>
