@@ -55,8 +55,8 @@ class Record extends React.Component {
         <td className='editing-label'>
           {this.props.editingRecordId == this.props.record.id && (
             <span className='badge badge-info'>
-              <i className='fas fa-angle-double-left left-icon' />
-              {'編集中'}
+              {'...'}
+              <i className='fas fa-pen right-icon' />
             </span>
           )}
         </td>
