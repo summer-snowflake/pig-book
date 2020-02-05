@@ -55,8 +55,8 @@ class Record extends React.Component {
         <td className='editing-label'>
           {this.props.editingRecordId == this.props.record.id && (
             <span className='badge badge-info'>
-              <i className='fas fa-angle-double-left left-icon' />
-              {'編集中'}
+              {'...'}
+              <i className='fas fa-pen right-icon' />
             </span>
           )}
         </td>
@@ -104,7 +104,7 @@ class Record extends React.Component {
           {this.props.record.human_charge}
         </td>
         <td>
-          {this.props.longEnabled && this.props.record.cashless_charge > 0 && (
+          {this.props.record.cashless_charge > 0 && (
             <span>
               <i className='fas fa-copyright left-icon green' />
               {this.props.record.cashless_charge}
@@ -112,7 +112,7 @@ class Record extends React.Component {
           )}
         </td>
         <td>
-          {this.props.longEnabled && this.props.record.point > 0 && (
+          {this.props.record.point > 0 && (
             <span>
               <i className='fas fa-parking left-icon green' />
               {this.props.record.point}
