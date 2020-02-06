@@ -2,6 +2,7 @@ en:
   time:
     formats:
       month: '%m'
+      long: '%m/%d/%Y %H:%M:%S'
   brand:
     name: Account Book -beta-
     subtitle: the household account application displays graphs.

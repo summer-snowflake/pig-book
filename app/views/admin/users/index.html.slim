@@ -23,7 +23,7 @@
           td
             - if user.last_sign_in_at
               i.fas.fa-clock.left-icon
-              = l(user.last_sign_in_at)
+              = l(user.last_sign_in_at, format: :long)
           td
             - params = @params.merge(user_id: user.id, last_tally_at: user.last_tally_at)
             = react_component('TallyButtonTableRecord', params)
