@@ -30,7 +30,7 @@ class NewRecordCardBody extends React.Component {
       selectedPublishedAt: moment(),
       selectedCategoryId: '',
       selectedBreakdownId: '',
-      selectedBalanceOfPayments: undefined,
+      selectedBalanceOfPayments: false,
       selectedPlaceId: '',
       selectedTemplateId: '',
       selectedTags: [],
