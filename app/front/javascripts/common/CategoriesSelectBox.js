@@ -53,9 +53,8 @@ class CategoriesSelectBox extends React.Component {
 
   render() {
     let categories = this.props.categories.filter((category) => {
-      return String(category.balance_of_payments) == 'false'
+      return category.balance_of_payments == this.props.selectedBalanceOfPayments
     })
-    categories = this.state.filteredCategories.length == 0 ? categories : this.state.filteredCategories
 
     return (
       <span className='categories-select-box-component'>
