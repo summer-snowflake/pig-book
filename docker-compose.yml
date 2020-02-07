@@ -17,6 +17,15 @@ services:
     volumes:
       - redis:/var/lib/redis/data
 
+  client:
+    container_name: pig-book_react
+    build: ./client
+    command: "npm run start"
+    volumes:
+      - ./client:/myapp/client
+    ports:
+      - "${CLIENT_PORT}:3000"
+
 volumes:
   postgresql:
     driver: local
