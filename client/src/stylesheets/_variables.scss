@@ -1,0 +1,14 @@
+$green: #76891a;
+$red: #ac5e78;
+$blue: #5e78ac;
+$yellow: #ffd351;
+$darken-green: darken($green, 10%);
+$purple: #9b7ec9;
+$pink: #ac5e9f;
+$rgba3-pink: rgba($pink, .3);
+$light-green: #c8d0a3;
+$light-green-translucent: rgba($light-green, .5);
+$lighten-green: lighten($green, 15%);
+$rgba2-lighten-green: rgba($lighten-green, .2);
+
+$info: #61abbb;
