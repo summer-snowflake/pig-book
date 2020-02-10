@@ -7,7 +7,7 @@ import brandImage from 'images/pig.gif';
 class Header extends Component {
   render() {
     return (
-      <header className='header'>
+      <header className='header-component header'>
         <nav className='navbar navbar-expand'>
           <Link className='nav-brand nav-link' to='/'>
             <img alt='おこづかいちょうβ' className='brand-image' src={brandImage} />
