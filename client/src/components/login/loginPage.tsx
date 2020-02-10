@@ -8,11 +8,17 @@ import SignUp from 'components/login/signUp'
 class LoginPage extends Component {
   render() {
     return (
-      <div className="login-page-component">
+      <div className="login-page-component container">
         <Router>
-          <LoginMenu />
-          <Route path='/users/sign_in' exact component={SignIn} />
-          <Route path='/users/sign_up' exact component={SignUp} />
+          <div className='row'>
+            <div className='col-3'>
+              <LoginMenu />
+            </div>
+            <div className='col'>
+              <Route path='/users/sign_in' exact component={SignIn} />
+              <Route path='/users/sign_up' exact component={SignUp} />
+            </div>
+          </div>
         </Router>
       </div>
     );
