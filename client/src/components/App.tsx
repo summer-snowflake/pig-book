@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from 'components/header';
 import TopPage from 'components/top/topPage';
@@ -12,8 +12,10 @@ class App extends Component {
       <div className='app-component'>
         <Router>
           <Header />
-          <Route path='/' exact component={TopPage} />
-          <Route path='/users/sign_in' exact component={LoginPage} />
+          <Switch>
+            <Route path='/' exact component={TopPage} />
+            <Route path='/users/sign_in' component={LoginPage} />
+          </Switch>
         </Router>
         <Footer />
       </div>
