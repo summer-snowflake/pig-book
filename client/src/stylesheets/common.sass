@@ -11,5 +11,51 @@ body
 .left-icon
   margin-right: 5px
 
+.list-group-item
+  background-color: $translucent
+  border: 1px solid $green
+
 .navbar
   padding-top: 0
+
+.card
+  border-color: $green
+  background: $translucent
+
+.card-header
+  background-color: $translucent
+  border-color: $green
+  font-size: 14px
+  padding: 10px 15px
+
+.card-body
+  border-color: $green
+
+  &.with-background-image
+    background-image: url('../images/filter-pig.gif')
+    background-repeat: no-repeat
+    background-size: 120% auto
+
+.form-control
+  font-size: 14px
+  border-color: $light-green
+
+  &:focus
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
+
+.btn
+  font-size: 13px
+
+.btn-primary
+  background-color: $pink
+  border-color: $pink
+  color: $white
+
+  &:hover
+    background-color: $darken-pink
+    border-color: $darken-pink
+
+  &:focus, &.focus
+    @extend :hover
+    box-shadow: 0 0 0 3px $rgba3-pink
