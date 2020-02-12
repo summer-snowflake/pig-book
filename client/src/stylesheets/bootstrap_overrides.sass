@@ -1,5 +1,13 @@
 @import 'variables'
 
-.list-group-item
-  background-color: rgba($white, .5)
-  border: 1px solid #76891a
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle
+  background-color: $darken-pink
+  border-color: $darken-pink
+  box-shadow: 0 0 0 3px $rgba3-pink
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus
+  box-shadow: 0 0 0 3px $rgba3-pink
