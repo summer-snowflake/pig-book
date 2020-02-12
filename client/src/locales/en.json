@@ -3,16 +3,19 @@
   "menu": {
     "home": "HOME",
     "login": "Sign In",
-    "sign_up": "Sign Up"
+    "signUp": "Sign Up"
   },
   "title": {
-    "login": "Sign In"
+    "login": "Sign In",
+    "signUp": "Sign Up"
   },
   "label": {
     "email": "E-mail",
-    "password": "Password"
+    "password": "Password",
+    "passwordConfirmation": "Password Confirmation"
   },
   "button": {
-    "login": "Sign In"
+    "login": "Sign In",
+    "create": "Create"
   }
 }
