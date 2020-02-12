@@ -1,4 +1,7 @@
 {
-  "name": "説明",
-  "name2": "説明2"
+  "brand_name": "おこづかいちょうβ",
+  "menu": {
+    "home": "HOME",
+    "login": "ログイン"
+  }
 }
