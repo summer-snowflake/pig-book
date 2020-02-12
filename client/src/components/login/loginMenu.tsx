@@ -1,6 +1,6 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next';
 
 import 'stylesheets/menu.sass';
 
