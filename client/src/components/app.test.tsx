@@ -1,9 +1,22 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import 'plugins/i18n'
+
 import App from 'components/app';
 
-test('renders learn react link', () => {
+it('renders content.', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/welcome/i);
-  expect(linkElement).toBeInTheDocument();
+
+  const welcomeText = getByText(/welcome/i);
+  expect(welcomeText).toBeInTheDocument();
+});
+
+it('renders header menu.', () => {
+  const { getByText } = render(<App />);
+
+  const homeMenu = getByText(/HOME/i);
+  expect(homeMenu).toBeInTheDocument();
+
+  const loginMenu = getByText(/ログイン/i);
+  expect(loginMenu).toBeInTheDocument();
 });
