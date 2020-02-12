@@ -4,5 +4,15 @@
     "home": "HOME",
     "login": "Sign In",
     "sign_up": "Sign Up"
+  },
+  "title": {
+    "login": "Sign In"
+  },
+  "label": {
+    "email": "E-mail",
+    "password": "Password"
+  },
+  "button": {
+    "login": "Sign In"
   }
 }

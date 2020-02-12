@@ -4,5 +4,15 @@
     "home": "HOME",
     "login": "ログイン",
     "sign_up": "アカウント登録"
+  },
+  "title": {
+    "login": "ログイン"
+  },
+  "label": {
+    "email": "メールアドレス",
+    "password": "パスワード"
+  },
+  "button": {
+    "login": "ログインする"
   }
 }
