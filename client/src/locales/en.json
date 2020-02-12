@@ -2,6 +2,7 @@
   "brand_name": "おこづかいちょうβ",
   "menu": {
     "home": "HOME",
-    "login": "Sign In"
+    "login": "Sign In",
+    "sign_up": "Sign Up"
   }
 }
