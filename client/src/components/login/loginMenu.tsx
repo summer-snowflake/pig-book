@@ -16,7 +16,7 @@ class loginMenu extends Component<i18nProps> {
         </NavLink>
         <NavLink activeClassName='active-link-menu' className='list-group-item' to='/users/sign_up'>
           <i className='fa fa-heart left-icon' />
-          {t('menu.sign_up')}
+          {t('menu.signUp')}
         </NavLink>
       </div>
     );

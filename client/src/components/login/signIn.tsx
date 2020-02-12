@@ -12,24 +12,26 @@ class SignIn extends Component<i18nProps> {
           {t('title.login')}
         </div>
         <div className='card-body with-background-image'>
-          { /* メールアドレス */ }
-          <div className='form-group'>
-            <label className='required' htmlFor='user_email'>
-              {t('label.email')}
-            </label>
-            <input autoFocus autoComplete='email' className='form-control' id='user_email' type='email' />
-          </div>
-          { /* パスワード */ }
-          <div className='form-group'>
-            <label className='required' htmlFor='user_password'>
-              {t('label.password')}
-            </label>
-            <input autoComplete='password' className='form-control' id='user_password' type='password' />
-          </div>
+          <form>
+            { /* メールアドレス */ }
+            <div className='form-group'>
+              <label className='required' htmlFor='user_email'>
+                {t('label.email')}
+              </label>
+              <input autoFocus autoComplete='email' className='form-control' id='user_email' type='email' />
+            </div>
+            { /* パスワード */ }
+            <div className='form-group'>
+              <label className='required' htmlFor='user_password'>
+                {t('label.password')}
+              </label>
+              <input autoComplete='password' className='form-control' id='user_password' type='password' />
+            </div>
 
-          <button className='btn btn-primary' type='submit'>
-            {t('button.login')}
-          </button>
+            <button className='btn btn-primary' type='submit'>
+              {t('button.login')}
+            </button>
+          </form>
         </div>
       </div>
     );

@@ -3,16 +3,19 @@
   "menu": {
     "home": "HOME",
     "login": "ログイン",
-    "sign_up": "アカウント登録"
+    "signUp": "アカウント登録"
   },
   "title": {
-    "login": "ログイン"
+    "login": "ログイン",
+    "signUp": "アカウント登録"
   },
   "label": {
     "email": "メールアドレス",
-    "password": "パスワード"
+    "password": "パスワード",
+    "passwordConfirmation": "パスワード（確認）"
   },
   "button": {
-    "login": "ログインする"
+    "login": "ログインする",
+    "create": "登録する"
   }
 }
