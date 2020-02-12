@@ -9,4 +9,6 @@ import 'stylesheets/bootstrap.min.css';
 import 'stylesheets/bootstrap_overrides.sass';
 import 'stylesheets/common.sass';
 
+import 'plugins/i18n'
+
 ReactDOM.render(<App />, document.getElementById('root'));
