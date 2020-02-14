@@ -11,12 +11,12 @@ class Header extends Component<i18nProps> {
 
     return (
       <header className='header-component header'>
-        <nav className='navbar navbar-expand'>
+        <nav className='navbar navbar-expand-lg'>
           <NavLink className='nav-brand nav-link' to='/'>
             <img alt={t('brand_name')} className='brand-image' src={brandImage} />
             <span className='brand-name'>{t('brand_name')}</span>
           </NavLink>
-          <div className='navbar-collapse'>
+          <div className='collapse navbar-collapse'>
             <ul className='navbar-nav mr-auto'>
               <li className='nav-item'>
                 <NavLink activeClassName='active-link-menu' className='nav-link' to='/'>
