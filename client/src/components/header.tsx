@@ -1,7 +1,9 @@
 import React, { Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
+import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 
+import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import 'stylesheets/header.sass';
 import brandImage from 'images/pig.gif';
 
@@ -16,6 +18,27 @@ class Header extends Component<i18nProps> {
             <img alt={t('brand_name')} className='brand-image' src={brandImage} />
             <span className='brand-name'>{t('brand_name')}</span>
           </NavLink>
+          <SideNav className='navbar-toggler'>
+            <Toggle />
+            <SideNav.Nav>
+              <NavItem eventKey='home'>
+                <NavIcon>
+                  <i className='fas fa-home' />
+                </NavIcon>
+                <NavText>
+                  {t('menu.home')}
+                </NavText>
+              </NavItem>
+              <NavItem eventKey='login'>
+                <NavIcon>
+                  <i className='fas fa-leaf' />
+                </NavIcon>
+                <NavText>
+                  {t('menu.login')}
+                </NavText>
+              </NavItem>
+            </SideNav.Nav>
+          </SideNav>
           <div className='collapse navbar-collapse'>
             <ul className='navbar-nav mr-auto'>
               <li className='nav-item'>
