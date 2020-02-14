@@ -10,6 +10,16 @@ import brandImage from 'images/pig.gif';
 import { RouteComponentProps } from 'types/react-router';
 
 class Header extends Component<i18nProps & RouteComponentProps> {
+  constructor(props: i18nProps & RouteComponentProps) {
+    super(props);
+
+    this.handleClickMenu = this.handleClickMenu.bind(this);
+  }
+
+  handleClickMenu(arg: any) {
+    this.props.history.push(arg)
+  }
+
   render() {
     const { t } = this.props;
 
@@ -20,10 +30,10 @@ class Header extends Component<i18nProps & RouteComponentProps> {
             <img alt={t('brand_name')} className='brand-image' src={brandImage} />
             <span className='brand-name'>{t('brand_name')}</span>
           </NavLink>
-          <SideNav className='navbar-toggler'>
+          <SideNav className='navbar-toggler' onSelect={this.handleClickMenu}>
             <Toggle />
             <SideNav.Nav>
-              <NavItem eventKey='home'>
+              <NavItem eventKey='/'>
                 <NavIcon>
                   <i className='fas fa-home' />
                 </NavIcon>
@@ -31,7 +41,7 @@ class Header extends Component<i18nProps & RouteComponentProps> {
                   {t('menu.home')}
                 </NavText>
               </NavItem>
-              <NavItem eventKey='login'>
+              <NavItem eventKey='/users/sign_in'>
                 <NavIcon>
                   <i className='fas fa-leaf' />
                 </NavIcon>
