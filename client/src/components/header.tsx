@@ -5,18 +5,42 @@ import { withTranslation } from 'react-i18next';
 import 'stylesheets/header.sass';
 import brandImage from 'images/pig.gif';
 
+import bsn from 'bootstrap.native';
+import { Collapse } from 'bootstrap.native';
+
 class Header extends Component<i18nProps> {
+  constructor(props: i18nProps) {
+    super(props)
+
+    this.handleClickMenu = this.handleClickMenu.bind(this);
+  }
+
+  handleClickMenu() {
+    var collapseLink = document.getElementById('collapseLink');
+    console.log(collapseLink);
+    var  a = new Collapse(collapseLink);
+    a.show();
+
+
+    var collapseButton: HTMLElement | null = document.getElementById('NavberLink');
+    new Collapse(collapseButton);
+  }
+
   render() {
     const { t } = this.props;
 
     return (
       <header className='header-component header'>
-        <nav className='navbar navbar-expand'>
+        <nav className='navbar navbar-expand-lg navbar-light'>
           <NavLink className='nav-brand nav-link' to='/'>
             <img alt={t('brand_name')} className='brand-image' src={brandImage} />
             <span className='brand-name'>{t('brand_name')}</span>
           </NavLink>
-          <div className='navbar-collapse'>
+
+          <a id='NavberLink' onClick={this.handleClickMenu} type="button" className="navbar-toggler" data-toggle="collapse" data-target="#NavberLink" aria-controls="NavberLink" aria-expanded="false" aria-label="ナビゲーションの切替">
+            <span className="navbar-toggler-icon"></span>
+          </a>
+          <div className='collapse navbar-collapse' id='Navber'>
             <ul className='navbar-nav mr-auto'>
               <li className='nav-item'>
                 <NavLink activeClassName='active-link-menu' className='nav-link' to='/'>
