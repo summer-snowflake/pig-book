@@ -17,7 +17,12 @@ class Header extends Component<i18nProps & RouteComponentProps> {
   }
 
   handleClickMenu(arg: any) {
-    this.props.history.push(arg)
+    this.props.history.push(arg);
+
+    // HACK: リロードする
+    if (arg === '/users/sign_up') {
+      this.props.history.go(0);
+    }
   }
 
   render() {
@@ -49,6 +54,16 @@ class Header extends Component<i18nProps & RouteComponentProps> {
                   {t('menu.login')}
                 </NavText>
               </NavItem>
+              {(this.props.location.pathname === '/users/sign_in' || this.props.location.pathname === '/users/sign_up') && (
+                <NavItem eventKey='/users/sign_up'>
+                  <NavIcon>
+                    <i className='fas fa-heart' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.signUp')}
+                  </NavText>
+                </NavItem>
+              )}
             </SideNav.Nav>
           </SideNav>
           <div className='collapse navbar-collapse'>
