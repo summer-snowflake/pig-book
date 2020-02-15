@@ -14,7 +14,8 @@ class App extends Component {
           <Header />
           <Switch>
             <Route path='/' exact component={TopPage} />
-            <Route path='/users/sign_in' component={LoginPage} />
+            <Route path='/users/sign_in' exact component={LoginPage} />
+            <Route path='/users/sign_up' exact component={LoginPage} />
           </Switch>
         </Router>
         <Footer />
