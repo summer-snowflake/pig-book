@@ -17,5 +17,8 @@
   "button": {
     "login": "Sign In",
     "create": "Create"
+  },
+  "message": {
+    "pageNotFound": "Page not found."
   }
 }
