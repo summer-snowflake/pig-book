@@ -16,7 +16,7 @@ class Header extends Component<i18nProps & RouteComponentProps> {
     this.handleClickMenu = this.handleClickMenu.bind(this);
   }
 
-  handleClickMenu(arg: any) {
+  handleClickMenu(arg: string) {
     this.props.history.push(arg);
 
     // HACK: リロードする
