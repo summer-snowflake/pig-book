@@ -15,6 +15,7 @@ class Page404 extends Component<i18nProps> {
           404
         </div>
         <blockquote className='error-message'>
+          <i className='fas fa-exclamation-triangle left-icon' />
           {t('message.pageNotFound')}
         </blockquote>
       </div>
