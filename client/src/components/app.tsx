@@ -5,6 +5,7 @@ import Header from 'components/header';
 import TopPage from 'components/top/topPage';
 import LoginPage from 'components/login/loginPage';
 import Footer from 'components/footer';
+import Page404 from 'components/errors/Page404';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
             <Route path='/' exact component={TopPage} />
             <Route path='/users/sign_in' exact component={LoginPage} />
             <Route path='/users/sign_up' exact component={LoginPage} />
+            <Route exact component={Page404} />
           </Switch>
         </Router>
         <Footer />
