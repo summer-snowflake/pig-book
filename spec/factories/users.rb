@@ -6,5 +6,7 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { password }
     authentication_token { SecureRandom.urlsafe_base64(24) }
+    provider { 'email' }
+    uid { email }
   end
 end
