@@ -7,13 +7,15 @@ import pigImage from 'images/pig-footprints-both.gif'
 
 class Page404 extends Component<i18nProps> {
   render() {
+    const { t } = this.props;
+
     return (
       <div className='page-404-component container'>
         <div className='status-code'>
           404
         </div>
         <blockquote className='error-message'>
-          お探しのページは見つかりませんでした。
+          {t('message.pageNotFound')}
         </blockquote>
       </div>
     );

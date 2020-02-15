@@ -17,5 +17,8 @@
   "button": {
     "login": "ログインする",
     "create": "登録する"
+  },
+  "message": {
+    "pageNotFound": "お探しのページは見つかりませんでした。"
   }
 }
