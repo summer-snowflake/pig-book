@@ -8,5 +8,9 @@ FactoryBot.define do
     authentication_token { SecureRandom.urlsafe_base64(24) }
     provider { 'email' }
     uid { email }
+
+    trait :active do
+      confirmed_at { Time.zone.now }
+    end
   end
 end
