@@ -65,8 +65,10 @@ Rails.application.routes.draw do
       end
     end
 
-    scope :v2 do
+    namespace :v2 do
       mount_devise_token_auth_for 'User', at: 'auth'
+
+      resource :base_setting, only: %w[show]
     end
   end
 
