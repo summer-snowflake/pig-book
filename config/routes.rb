@@ -64,6 +64,12 @@ Rails.application.routes.draw do
         patch :tally
       end
     end
+
+    namespace :v2 do
+      mount_devise_token_auth_for 'User', at: 'auth'
+
+      resource :base_setting, only: %w[show]
+    end
   end
 
   namespace :locales, format: :json do
