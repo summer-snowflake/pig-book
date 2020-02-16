@@ -6,10 +6,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def destroy
-    users = Devise.mappings.keys.map do |scope|
-      warden.user(scope: scope, run_callbacks: false)
-    end
-    users.each { |user| user.update(authentication_token: nil) }
+    current_user.update(authentication_token: nil)
     super
   end
 end
