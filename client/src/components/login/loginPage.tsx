@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import LoginMenu from 'components/login/loginMenu'
-import SignIn from 'components/login/signIn'
+import SignInContainer from 'components/login/signInContainer'
 import SignUp from 'components/login/signUp'
 
 class LoginPage extends Component {
@@ -17,7 +17,7 @@ class LoginPage extends Component {
             <div className='col-1 d-lg-none'>
             </div>
             <div className='col'>
-              <Route path='/users/sign_in' exact component={SignIn} />
+              <Route path='/users/sign_in' exact component={SignInContainer} />
               <Route path='/users/sign_up' exact component={SignUp} />
             </div>
           </div>
