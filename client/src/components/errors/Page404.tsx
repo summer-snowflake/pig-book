@@ -3,8 +3,6 @@ import { withTranslation } from 'react-i18next';
 
 import 'stylesheets/errors.sass';
 
-import pigImage from 'images/pig-footprints-both.gif'
-
 class Page404 extends Component<i18nProps> {
   render() {
     const { t } = this.props;
