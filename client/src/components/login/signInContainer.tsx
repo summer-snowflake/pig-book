@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
-import { loginRequest } from 'actions/sessionActions';
+import { login } from 'actions/sessionActions';
 
 interface Props {
   login: any,
@@ -67,7 +67,7 @@ function mapState(state: any) {
 function mapDispatch(dispatch: any) {
   return {
     login() {
-      dispatch(loginRequest());
+      dispatch(login());
     }
   }
 }
