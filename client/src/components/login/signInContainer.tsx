@@ -1,7 +1,27 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
 
-class SignIn extends Component<i18nProps> {
+import { login } from 'actions/sessionActions';
+
+interface Props {
+  login: any,
+  session: {
+    isLoading: boolean
+  }
+}
+
+class SignInContainer extends Component<i18nProps & Props> {
+  constructor(props: i18nProps & Props) {
+    super(props)
+
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin() {
+    this.props.login();
+  }
+
   render() {
     const { t } = this.props;
 
@@ -28,7 +48,7 @@ class SignIn extends Component<i18nProps> {
               <input autoComplete='password' className='form-control' id='user_password' type='password' />
             </div>
 
-            <button className='btn btn-primary' type='submit'>
+            <button className='btn btn-primary' disabled={this.props.session.isLoading}onClick={this.handleLogin} type='submit'>
               {t('button.login')}
             </button>
           </form>
@@ -38,4 +58,18 @@ class SignIn extends Component<i18nProps> {
   }
 }
 
-export default withTranslation()(SignIn);
+function mapState(state: any) {
+  return {
+    session: state.session
+  };
+}
+
+function mapDispatch(dispatch: any) {
+  return {
+    login() {
+      dispatch(login());
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(withTranslation()(SignInContainer));
