@@ -20,9 +20,10 @@ services:
   client:
     container_name: pig-book_react
     build: ./client
-    command: "npm run start"
+    command: "npm start"
     volumes:
-      - ./client:/myapp/client
+      - ./client:/pig-book/client
+      - /pig-book/client/node_modules
     ports:
       - "${CLIENT_PORT}:3000"
 
