@@ -27,6 +27,18 @@ services:
     ports:
       - "${CLIENT_PORT}:3000"
 
+  server:
+    build: ./server
+    command: "bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - ./server:/pig-book/server
+    ports:
+      - "${SERVER_PORT}:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres:servers@db:5432
+    depends_on:
+      - db
+
 volumes:
   postgresql:
     driver: local
