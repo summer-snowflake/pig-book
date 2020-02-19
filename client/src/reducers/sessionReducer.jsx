@@ -10,6 +10,14 @@ const sessionReducer = (state = initialState, action) => {
       return {
         isLoading: true
       }
+    case actionTypes.LOGIN_SUCCESS:
+      return {
+        isLoading: false
+      }
+    case actionTypes.LOGIN_FAILURE:
+      return {
+        isLoading: false
+      }
     default:
       return state;
   }
