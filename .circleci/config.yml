@@ -1,119 +1,123 @@
+defaults: &defaults
+  docker:
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        RAILS_ENV: test
+        NODE_ENV: test
+        DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
+        DB_PASS: password
+        DB_USER: postgres
+        DB_HOST: localhost
+        REDIS_HOST: redis
+        TZ: Asia/Tokyo
+    - image: postgres:10.4-alpine
+      environment:
+        POSTGRES_PASSWORD: ""
+        POSTGRES_DB: pig_book_test
+    - image: redis:4.0.9-alpine
+  steps:
+    - checkout
+
+    # Install fonts-migmix
+    - run: sudo apt-get install fonts-migmix
+
+    # Restore bundle cache
+    - type: cache-restore
+      key: pig_book-{{ checksum "Gemfile.lock" }}
+
+    # Bundle install dependencies
+    - run: gem update bundler
+    - run: bundle install --path vendor/bundle --clean
+
+    # Store bundle cache
+    - type: cache-save
+      key: pig_book-{{ checksum "Gemfile.lock" }}
+      paths:
+        - vendor/bundle
+
+    # Upgrade npm
+    - run: npm install npm@latest
+
+    # Restore npm cache
+    - restore_cache:
+        name: Restore npm cache
+        keys:
+          - npm-5.4.2-{{ checksum "package.json" }}
+
+    - run:
+        name: Run npm install
+        command: npm install
+
+    - run:
+        name: Update Chromedriver
+        command: |
+          sudo apt-get update
+          sudo apt-get install google-chrome-stable
+
+    - save_cache:
+        name: Store npm cache
+        key: npm-5.4.2-{{ checksum "package.json" }}
+        paths:
+          - ./frontend/node_modules
+
+    # Database setup
+    - run: bundle exec rake db:create
+    - run: bundle exec rake db:schema:load
+
+    # Run scss-lint
+    - run: bundle exec scss-lint app/assets/stylesheets/*.scss
+
+    # Run sass-lint
+    - run: npm run sass-lint
+
+    # Run ESLint
+    - run: npm run eslint
+
+    # Run rubocop
+    - run: bundle exec rubocop
+
+    # Run slim-lint
+    - run: bundle exec slim-lint app/views/
+
+    # Run precompile
+    - run: bundle exec rake assets:precompile
+
+    # Run rspec in parallel
+    - type: shell
+      command: |
+        bundle exec rspec \
+          --format RspecJunitFormatter \
+          --out /tmp/test-results/rspec.xml \
+          --format progress \
+          $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+    # Export Report of test coverage
+    # - run: ruby ./bin/coverage_report.rb
+
+    # Save artifacts
+    - store_artifacts:
+        path: ./tmp/capybara
+        destination: capybara-screenshot
+
+    #- store_artifacts:
+    #    path: ./coverage
+    #    destination: coverage
+
+    #- store_test_results:
+    #    path: /tmp/test-results
+
 version: 2
 jobs:
   build:
+    <<: *defaults
     working_directory: ~/pig-book
-    docker:
-      - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          RAILS_ENV: test
-          NODE_ENV: test
-          DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
-          DB_PASS: password
-          DB_USER: postgres
-          DB_HOST: localhost
-          REDIS_HOST: redis
-          TZ: Asia/Tokyo
-      - image: postgres:10.4-alpine
-        environment:
-          POSTGRES_PASSWORD: ""
-          POSTGRES_DB: pig_book_test
-      - image: redis:4.0.9-alpine
-    steps:
-      - checkout
+  build_on_server:
+    <<: *defaults
+    working_directory: ~/pig-book/server
 
-      # Install fonts-migmix
-      - run: sudo apt-get install fonts-migmix
-
-      # Restore bundle cache
-      - type: cache-restore
-        key: pig_book-{{ checksum "Gemfile.lock" }}
-
-      # Bundle install dependencies
-      - run: gem update bundler
-      - run: bundle install --path vendor/bundle --clean
-
-      # Store bundle cache
-      - type: cache-save
-        key: pig_book-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
-
-      # Upgrade npm
-      - run: npm install npm@latest
-
-      # Restore npm cache
-      - restore_cache:
-          name: Restore npm cache
-          keys:
-            - npm-5.4.2-{{ checksum "package.json" }}
-
-      - run:
-          name: Run npm install
-          command: npm install
-
-      - run:
-          name: Update Chromedriver
-          command: |
-            sudo apt-get update
-            sudo apt-get install google-chrome-stable
-
-      - save_cache:
-          name: Store npm cache
-          key: npm-5.4.2-{{ checksum "package.json" }}
-          paths:
-            - ./frontend/node_modules
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-
-      # Run scss-lint
-      - run: bundle exec scss-lint app/assets/stylesheets/*.scss
-
-      # Run sass-lint
-      - run: npm run sass-lint
-
-      # Run ESLint
-      - run: npm run eslint
-
-      # Run rubocop
-      - run: bundle exec rubocop
-
-      # Run slim-lint
-      - run: bundle exec slim-lint app/views/
-
-      # Run precompile
-      - run: bundle exec rake assets:precompile
-
-      # Run rspec in parallel
-      - type: shell
-        command: |
-          bundle exec rspec \
-            --format RspecJunitFormatter \
-            --out /tmp/test-results/rspec.xml \
-            --format progress \
-            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
-      # Run rspec on server directory
-      - type: shell
-        command: |
-          bundle exec rspec \
-            --format RspecJunitFormatter \
-            --out /tmp/test-results/rspec.xml \
-            --format progress \
-            $(circleci tests glob "server/spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
-      # Export Report of test coverage
-      # - run: ruby ./bin/coverage_report.rb
-
-      # Save artifacts
-      - store_artifacts:
-          path: ./tmp/capybara
-          destination: capybara-screenshot
-
-      #- store_artifacts:
-      #    path: ./coverage
-      #    destination: coverage
-
-      #- store_test_results:
-      #    path: /tmp/test-results
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - build_on_server
