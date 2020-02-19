@@ -1,24 +1,39 @@
 import axios from 'axios';
 import * as actionTypes from 'utils/actionTypes';
 
+const SERVER_PORT = process.env.REACT_APP_SERVER_PORT;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.baseURL = 'http://localhost:' + SERVER_PORT;
+
 export const loginRequest = () => {
   return {
     type: actionTypes.LOGIN_REQUEST
   }
 };
 
-export const login = () => {
+export const loginSuccess = (data) => {
+  return {
+    type: actionTypes.LOGIN_SUCCESS,
+    data
+  }
+};
+
+export const loginFailure = (err) => {
+  return {
+    type: actionTypes.LOGIN_FAILURE,
+    err
+  }
+};
+
+export const login = (params) => {
   return async (dispatch) => {
     dispatch(loginRequest())
-    axios.defaults.headers.post['Content-Type'] = 'application/json'
-    axios.defaults.baseURL = 'http://localhost:3001';
     try {
-      const res = await axios.post('/api/v2/auth/sign_in');
-      console.log('abc');
+      const res = await axios.post('/api/auth/sign_in', params);
+      return dispatch(loginSuccess(res.data));
     }
     catch(err) {
-      console.log(err);
-      console.log('error');
+      return dispatch(loginFailure(err));
     }
   }
 }
