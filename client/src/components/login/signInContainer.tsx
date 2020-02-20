@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
@@ -16,8 +17,8 @@ interface State {
   password: string
 }
 
-class SignInContainer extends Component<i18nProps & Props, State> {
-  constructor(props: i18nProps & Props) {
+class SignInContainer extends Component<i18nProps & RouteComponentProps & Props, State> {
+  constructor(props: i18nProps & RouteComponentProps & Props) {
     super(props)
     this.state = {
       email: '',
@@ -34,7 +35,8 @@ class SignInContainer extends Component<i18nProps & Props, State> {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.login(params);
+    const { push } = this.props.history;
+    this.props.login(params, push);
   }
 
   handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -106,10 +108,12 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    login() {
-      dispatch(login());
+    login(params: State, push: any) {
+      dispatch(login(params)).then((_e: any) => {
+        push('/');
+      });
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(SignInContainer));
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(SignInContainer)));
