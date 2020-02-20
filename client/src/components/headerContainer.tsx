@@ -10,9 +10,11 @@ import 'stylesheets/header.sass';
 import brandImage from 'images/pig.gif';
 import { RouteComponentProps } from 'types/react-router';
 import { getUserStatus } from 'actions/userStatusActions';
+import { logout } from 'actions/sessionActions';
 
 interface Props {
   getUserStatus: any,
+  logout: any,
   userStatus: {
     isLoading: boolean,
     isLogged: boolean
@@ -24,12 +26,22 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
     super(props);
 
     this.handleClickMenu = this.handleClickMenu.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
 
     this.props.getUserStatus();
   }
 
   handleClickMenu(arg: string) {
-    this.props.history.push(arg);
+    if (arg === '/logout') {
+      this.handleLogout();
+    } else {
+      this.props.history.push(arg);
+    }
+  }
+
+  handleLogout() {
+    this.props.logout();
+    this.props.history.push('/users/sign_in');
   }
 
   render() {
@@ -73,6 +85,16 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
                   </NavText>
                 </NavItem>
               )}
+              {this.props.userStatus.isLogged && (
+                <NavItem eventKey='/logout'>
+                  <NavIcon>
+                    <i className='fas fa-sign-out-alt' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.logout')}
+                  </NavText>
+                </NavItem>
+              )}
               {(this.props.location.pathname === '/users/sign_in' || this.props.location.pathname === '/users/sign_up') && !this.props.userStatus.isLogged && (
                 <NavItem eventKey='/users/sign_up'>
                   <NavIcon>
@@ -111,6 +133,14 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
                   </NavLink>
                 </li>
               )}
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <a className='nav-link' href='/users/sign_in' onClick={this.handleLogout}>
+                    <i className='fas fa-sign-out-alt left-icon' />
+                    {t('menu.logout')}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </nav>
@@ -129,6 +159,9 @@ function mapDispatch(dispatch: any) {
   return {
     getUserStatus() {
       dispatch(getUserStatus());
+    },
+    logout() {
+      dispatch(logout());
     }
   }
 }
