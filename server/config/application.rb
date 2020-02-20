@@ -36,8 +36,9 @@ module Server
 
     config.action_dispatch.default_headers = {
       'Access-Control-Allow-Credentials' => 'true',
-      'Access-Control-Allow-Origin' => 'http://localhost:4020',
-      'Access-Control-Request-Method' => '*'
+      'Access-Control-Allow-Origin' => "http://localhost:#{ENV['CLIENT_PORT']}",
+      'Access-Control-Request-Method' => '*',
+      'Access-Control-Expose-Headers' => 'Access-Token,Uid,Client'
     }
   end
 end
