@@ -5,7 +5,7 @@ import userStatusReducer from 'reducers/userStatusReducer'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  loginStatus: userStatusReducer
+  userStatus: userStatusReducer
 })
 
 export default rootReducer;

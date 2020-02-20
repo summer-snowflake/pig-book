@@ -12,6 +12,16 @@ const userStatusReducer = (state = initialState, action) => {
         isLoading: true,
         isLogged: false
       }
+    case actionTypes.GET_USER_STATUS_SUCCESS:
+      return {
+        isLoading: false,
+        isLogged: true
+      }
+    case actionTypes.GET_USER_STATUS_FAILURE:
+      return {
+        isLoading: false,
+        isLogged: false
+      }
     default:
       return state;
   }
