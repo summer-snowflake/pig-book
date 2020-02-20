@@ -31,7 +31,9 @@ export const getUserStatus = () => {
     cookies.forEach((c) => {
       headers[c[0]] = c[1]
     })
-    const ready = Object.keys(headers).includes('client') && Object.keys(headers).includes('access-token') && Object.keys(headers).includes('uid')
+    const ready = ['client', 'uid', 'access-token'].every((key) => {
+      return Object.keys(headers).includes(key)
+    })
 
     try {
       if(ready) {
