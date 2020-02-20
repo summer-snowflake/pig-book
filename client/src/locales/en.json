@@ -3,7 +3,8 @@
   "menu": {
     "home": "HOME",
     "login": "Sign In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "mypageTop": "Mypage TOP"
   },
   "title": {
     "login": "Sign In",

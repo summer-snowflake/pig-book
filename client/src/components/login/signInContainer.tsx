@@ -109,8 +109,8 @@ function mapState(state: any) {
 function mapDispatch(dispatch: any) {
   return {
     login(params: State, push: any) {
-      dispatch(login(params)).then((_e: any) => {
-        push('/');
+      dispatch(login(params)).then(() => {
+        push('/mypage');
       });
     }
   }
