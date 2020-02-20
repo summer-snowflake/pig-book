@@ -43,8 +43,8 @@ export const getUserStatus = () => {
         dispatch(getUserStatusFailure());
       }
     }
-    catch(err) {
-      console.log(err);
+    catch {
+      dispatch(getUserStatusFailure());
     }
   }
 }
