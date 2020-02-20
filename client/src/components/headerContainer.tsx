@@ -53,6 +53,16 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
                   {t('menu.home')}
                 </NavText>
               </NavItem>
+              {this.props.userStatus.isLogged && (
+                <NavItem eventKey='/mypage'>
+                  <NavIcon>
+                    <i className='fas fa-user' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.mypage')}
+                  </NavText>
+                </NavItem>
+              )}
               {!this.props.userStatus.isLogged && (
                 <NavItem eventKey='/users/sign_in'>
                   <NavIcon>
