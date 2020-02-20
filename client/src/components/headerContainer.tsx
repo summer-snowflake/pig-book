@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import 'stylesheets/header.sass';
 import brandImage from 'images/pig.gif';
 import { RouteComponentProps } from 'types/react-router';
 
-class Header extends Component<i18nProps & RouteComponentProps> {
+class HeaderContainer extends Component<i18nProps & RouteComponentProps> {
   constructor(props: i18nProps & RouteComponentProps) {
     super(props);
 
@@ -90,4 +91,18 @@ class Header extends Component<i18nProps & RouteComponentProps> {
   }
 }
 
-export default withTranslation()(withRouter(Header));
+function mapState(state: any) {
+  return {
+    loginStatus: state.loginStatus
+  };
+}
+
+function mapDispatch(dispatch: any) {
+  return {
+    //login() {
+    //  //dispatch(loginStatus());
+    //}
+  }
+}
+
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(HeaderContainer)));
