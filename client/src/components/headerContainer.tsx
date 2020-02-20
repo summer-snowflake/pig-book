@@ -9,12 +9,23 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import 'stylesheets/header.sass';
 import brandImage from 'images/pig.gif';
 import { RouteComponentProps } from 'types/react-router';
+import { getUserStatus } from 'actions/userStatusActions';
 
-class HeaderContainer extends Component<i18nProps & RouteComponentProps> {
-  constructor(props: i18nProps & RouteComponentProps) {
+interface Props {
+  getUserStatus: any,
+  userStatus: {
+    isLoading: boolean,
+    isLogged: boolean
+  }
+}
+
+class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props> {
+  constructor(props: i18nProps & RouteComponentProps & Props) {
     super(props);
 
     this.handleClickMenu = this.handleClickMenu.bind(this);
+
+    this.props.getUserStatus();
   }
 
   handleClickMenu(arg: string) {
@@ -72,18 +83,22 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps> {
               </li>
             </ul>
             <ul className='navbar-nav justify-content-end'>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
-                  <i className='fas fa-user left-icon' />
-                  {t('menu.mypage')}
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/users/sign_in'>
-                  <i className='fas fa-leaf left-icon' />
-                  {t('menu.login')}
-                </NavLink>
-              </li>
+              {this.props.userStatus?.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
+                    <i className='fas fa-user left-icon' />
+                    {t('menu.mypage')}
+                  </NavLink>
+                </li>
+              )}
+              {!this.props.userStatus?.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/users/sign_in'>
+                    <i className='fas fa-leaf left-icon' />
+                    {t('menu.login')}
+                  </NavLink>
+                </li>
+              )}
             </ul>
           </div>
         </nav>
@@ -100,9 +115,9 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    //login() {
-    //  //dispatch(loginStatus());
-    //}
+    getUserStatus() {
+      dispatch(getUserStatus());
+    }
   }
 }
 
