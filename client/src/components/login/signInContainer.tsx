@@ -35,8 +35,7 @@ class SignInContainer extends Component<i18nProps & RouteComponentProps & Props,
       email: this.state.email,
       password: this.state.password
     }
-    const { push } = this.props.history;
-    this.props.login(params, push);
+    this.props.login(params, this.props.history);
   }
 
   handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -108,9 +107,10 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    login(params: State, push: any) {
+    login(params: State, history: any) {
       dispatch(login(params)).then(() => {
-        push('/mypage');
+        history.push('/mypage');
+        history.go();
       });
     }
   }
