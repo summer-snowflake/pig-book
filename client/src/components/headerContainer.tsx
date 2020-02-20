@@ -53,15 +53,17 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
                   {t('menu.home')}
                 </NavText>
               </NavItem>
-              <NavItem eventKey='/users/sign_in'>
-                <NavIcon>
-                  <i className='fas fa-leaf' />
-                </NavIcon>
-                <NavText>
-                  {t('menu.login')}
-                </NavText>
-              </NavItem>
-              {(this.props.location.pathname === '/users/sign_in' || this.props.location.pathname === '/users/sign_up') && (
+              {!this.props.userStatus.isLogged && (
+                <NavItem eventKey='/users/sign_in'>
+                  <NavIcon>
+                    <i className='fas fa-leaf' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.login')}
+                  </NavText>
+                </NavItem>
+              )}
+              {(this.props.location.pathname === '/users/sign_in' || this.props.location.pathname === '/users/sign_up') && !this.props.userStatus.isLogged && (
                 <NavItem eventKey='/users/sign_up'>
                   <NavIcon>
                     <i className='fas fa-heart' />
@@ -83,7 +85,7 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
               </li>
             </ul>
             <ul className='navbar-nav justify-content-end'>
-              {this.props.userStatus?.isLogged && (
+              {this.props.userStatus.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
                     <i className='fas fa-user left-icon' />
@@ -91,7 +93,7 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
                   </NavLink>
                 </li>
               )}
-              {!this.props.userStatus?.isLogged && (
+              {!this.props.userStatus.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/users/sign_in'>
                     <i className='fas fa-leaf left-icon' />
@@ -109,7 +111,7 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
 
 function mapState(state: any) {
   return {
-    loginStatus: state.loginStatus
+    userStatus: state.userStatus
   };
 }
 
