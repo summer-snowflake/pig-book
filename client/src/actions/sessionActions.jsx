@@ -11,7 +11,10 @@ export const loginRequest = () => {
   }
 };
 
-export const loginSuccess = (data) => {
+export const loginSuccess = (data, headers) => {
+  document.cookie = `uid=${headers['uid']}`
+  document.cookie = `client=${headers['client']}`
+  document.cookie = `access-token=${headers['access-token']}`
   return {
     type: actionTypes.LOGIN_SUCCESS,
     data
@@ -30,7 +33,7 @@ export const login = (params) => {
     dispatch(loginRequest())
     try {
       const res = await axios.post('/api/auth/sign_in', params);
-      return dispatch(loginSuccess(res.data));
+      return dispatch(loginSuccess(res.data, res.headers));
     }
     catch(err) {
       return dispatch(loginFailure(err));
