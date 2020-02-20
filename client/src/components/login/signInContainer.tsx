@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
@@ -11,15 +12,43 @@ interface Props {
   }
 }
 
-class SignInContainer extends Component<i18nProps & Props> {
-  constructor(props: i18nProps & Props) {
+interface State {
+  email: string,
+  password: string
+}
+
+class SignInContainer extends Component<i18nProps & RouteComponentProps & Props, State> {
+  constructor(props: i18nProps & RouteComponentProps & Props) {
     super(props)
+    this.state = {
+      email: '',
+      password: ''
+    }
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
   }
 
   handleLogin() {
-    this.props.login();
+    const params = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    const { push } = this.props.history;
+    this.props.login(params, push);
+  }
+
+  handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      email: e.target.value
+    })
+  }
+
+  handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      password: e.target.value
+    })
   }
 
   render() {
@@ -38,14 +67,27 @@ class SignInContainer extends Component<i18nProps & Props> {
               <label className='required' htmlFor='user_email'>
                 {t('label.email')}
               </label>
-              <input autoFocus autoComplete='email' className='form-control' id='user_email' type='email' />
+              <input
+                autoFocus
+                autoComplete='email'
+                className='form-control'
+                id='user_email'
+                onChange={this.handleChangeEmail}
+                type='email'
+                value={this.state.email} />
             </div>
             { /* パスワード */ }
             <div className='form-group'>
               <label className='required' htmlFor='user_password'>
                 {t('label.password')}
               </label>
-              <input autoComplete='password' className='form-control' id='user_password' type='password' />
+              <input
+                autoComplete='password'
+                className='form-control'
+                id='user_password'
+                onChange={this.handleChangePassword}
+                type='password'
+                value={this.state.password} />
             </div>
 
             <button className='btn btn-primary' disabled={this.props.session.isLoading}onClick={this.handleLogin} type='submit'>
@@ -66,10 +108,12 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    login() {
-      dispatch(login());
+    login(params: State, push: any) {
+      dispatch(login(params)).then((_e: any) => {
+        push('/');
+      });
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(SignInContainer));
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(SignInContainer)));
