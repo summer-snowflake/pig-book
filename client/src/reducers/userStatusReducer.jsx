@@ -7,6 +7,16 @@ const initialState = {
 
 const userStatusReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.LOGIN_SUCCESS:
+      return {
+        isLoading: false,
+        isLogged: true
+      }
+    case actionTypes.LOGOUT_SUCCESS:
+      return {
+        isLoading: false,
+        isLogged: false
+      }
     case actionTypes.GET_USER_STATUS_REQUEST:
       return {
         isLoading: true,

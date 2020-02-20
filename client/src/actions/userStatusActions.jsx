@@ -27,10 +27,14 @@ export const getUserStatus = () => {
   return async (dispatch) => {
     dispatch(getUserStatusRequest());
     const cookies = document.cookie.split(';').map((f) => f.split('=').map((s) => s.trim()));
+    const cookieObjects = {}
     const headers = {}
     cookies.forEach((c) => {
-      headers[c[0]] = c[1]
-    })
+      cookieObjects[c[0]] = c[1]
+    });
+    ['client', 'uid', 'access-token'].forEach((c) => {
+      headers[c] = cookieObjects[c]
+    });
     const ready = ['client', 'uid', 'access-token'].every((key) => {
       return Object.keys(headers).includes(key)
     })
@@ -48,4 +52,3 @@ export const getUserStatus = () => {
     }
   }
 }
-
