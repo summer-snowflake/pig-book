@@ -19,11 +19,6 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps> {
 
   handleClickMenu(arg: string) {
     this.props.history.push(arg);
-
-    // HACK: リロードする
-    if (arg === '/users/sign_up') {
-      this.props.history.go(0);
-    }
   }
 
   render() {
