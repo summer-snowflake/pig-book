@@ -3,6 +3,7 @@
   "menu": {
     "home": "HOME",
     "login": "Sign In",
+    "logout": "Sign out",
     "signUp": "Sign Up",
     "mypage": "Mypage",
     "mypageTop": "Mypage TOP"

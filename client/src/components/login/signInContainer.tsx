@@ -110,7 +110,6 @@ function mapDispatch(dispatch: any) {
     login(params: State, history: any) {
       dispatch(login(params)).then(() => {
         history.push('/mypage');
-        history.go();
       });
     }
   }
