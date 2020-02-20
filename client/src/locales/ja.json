@@ -3,7 +3,9 @@
   "menu": {
     "home": "HOME",
     "login": "ログイン",
-    "signUp": "アカウント登録"
+    "signUp": "アカウント登録",
+    "mypage": "マイページ",
+    "mypageTop": "マイページTOP"
   },
   "title": {
     "login": "ログイン",

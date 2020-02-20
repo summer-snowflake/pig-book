@@ -19,11 +19,6 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps> {
 
   handleClickMenu(arg: string) {
     this.props.history.push(arg);
-
-    // HACK: リロードする
-    if (arg === '/users/sign_up') {
-      this.props.history.go(0);
-    }
   }
 
   render() {
@@ -77,6 +72,12 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps> {
               </li>
             </ul>
             <ul className='navbar-nav justify-content-end'>
+              <li className='nav-item'>
+                <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
+                  <i className='fas fa-user left-icon' />
+                  {t('menu.mypage')}
+                </NavLink>
+              </li>
               <li className='nav-item'>
                 <NavLink activeClassName='active-link-menu' className='nav-link' to='/users/sign_in'>
                   <i className='fas fa-leaf left-icon' />
