@@ -21,22 +21,23 @@ export const loginSuccess = (data, headers) => {
   }
 };
 
-export const loginFailure = (err) => {
+export const loginFailure = (data) => {
   return {
     type: actionTypes.LOGIN_FAILURE,
-    err
+    data
   }
 };
 
-export const login = (params) => {
+export const login = (params, history) => {
   return async (dispatch) => {
     dispatch(loginRequest())
     try {
       const res = await axios.post('/api/auth/sign_in', params);
+      history.push('/mypage');
       return dispatch(loginSuccess(res.data, res.headers));
     }
     catch(err) {
-      return dispatch(loginFailure(err));
+      return dispatch(loginFailure(err.response.data));
     }
   }
 }
