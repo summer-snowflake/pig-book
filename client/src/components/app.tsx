@@ -7,7 +7,7 @@ import SignInPage from 'components/login/signInPage';
 import SignUpPage from 'components/login/signUpPage';
 import MypageTopPage from 'components/mypage/mypageTopPage';
 import Footer from 'components/footer';
-import Page404 from 'components/errors/Page404';
+import Page404 from 'components/errors/page404';
 
 class App extends Component {
   render() {
