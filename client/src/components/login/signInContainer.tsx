@@ -108,9 +108,7 @@ function mapState(state: any) {
 function mapDispatch(dispatch: any) {
   return {
     login(params: State, history: any) {
-      dispatch(login(params)).then(() => {
-        history.push('/mypage');
-      });
+      dispatch(login(params, history));
     }
   }
 }
