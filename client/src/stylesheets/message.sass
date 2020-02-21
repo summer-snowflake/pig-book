@@ -1,2 +1,32 @@
 @import 'variables'
 
+.alert
+  width: 300px
+  top: 63px
+  left: 60px
+  z-index: 3
+  //animation: fadeout 1s linear 1s 1
+  //animation-fill-mode: forwards
+
+  &.alert-success
+    background-color: $green-translucent
+    border-color: $green
+
+  &.alert-danger
+    background-color: $pink-translucent
+    border-color: $pink
+
+  &.hide
+    animation: fadeout 1s linear 1s 1
+    animation-fill-mode: forwards
+
+@keyframes fadeout
+  0%
+    bottom: 50px
+    opacity: 1
+  40%
+    bottom: 10px
+    opacity: 1
+  100%
+    bottom: 0
+    opacity: 0

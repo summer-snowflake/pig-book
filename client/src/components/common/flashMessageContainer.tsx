@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
-
-import 'stylesheets/message.sass';
 import { connect } from 'react-redux';
 
+import 'stylesheets/message.sass';
+
+import { setFlashMessageStyleClass } from 'actions/flashMessageActions';
+
 interface Props {
+  setFlashMessageStyleClass: any,
   flashMessage: {
+    id: number,
     message: string,
-    messageType: string
+    messageType: string,
   }
 }
 
 class FlashMessageContainer extends Component<Props> {
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.flashMessage.message != prevProps.flashMessage.message) {
+      setTimeout(() => {
+        console.log('a');
+        //this.props.setFlashMessageStyleClass();
+      }, 2000)
+    }
+  }
+
   render() {
     return (
-      <div className='flash-message-component'>
+      <div id={'id-' + this.props.flashMessage.id} className='flash-message-component'>
         {this.props.flashMessage.message && (
-          <div className={'alert alert-' + this.props.flashMessage.messageType}>
+          <div id={'id-' + this.props.flashMessage.id} className={'alert alert-' + this.props.flashMessage.messageType}>
             <i className='fas fa-check-circle left-icon' />
             {this.props.flashMessage.message}
           </div>
@@ -32,7 +45,11 @@ function mapState(state: any) {
 }
 
 function mapDispatch(dispatch: any) {
-  return {}
+  return {
+    setFlashMessageStyleClass() {
+      dispatch(setFlashMessageStyleClass());
+    }
+  }
 }
 
 
