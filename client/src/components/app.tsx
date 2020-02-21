@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import FlashMessageContainer from 'components/common/flashMessageContainer';
 import Header from 'components/headerContainer';
 import TopPage from 'components/top/topPage';
 import SignInPage from 'components/login/signInPage';
@@ -14,6 +15,7 @@ class App extends Component {
     return (
       <div className='app-component'>
         <Router>
+          <FlashMessageContainer />
           <Header />
           <Switch>
             <Route path='/' exact component={TopPage} />

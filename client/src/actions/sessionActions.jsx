@@ -12,9 +12,9 @@ export const loginRequest = () => {
 };
 
 export const loginSuccess = (data, headers) => {
-  document.cookie = `uid=${headers['uid']};`
-  document.cookie = `client=${headers['client']};`
-  document.cookie = `access-token=${headers['access-token']};`
+  document.cookie = `uid=${headers['uid']};path=/`
+  document.cookie = `client=${headers['client']};path=/`
+  document.cookie = `access-token=${headers['access-token']};path=/`
   return {
     type: actionTypes.LOGIN_SUCCESS,
     data
@@ -42,9 +42,9 @@ export const login = (params) => {
 }
 
 export const logout = () => {
-  document.cookie = `client=;path=/users`
-  document.cookie = `access-token=;path=/users`
-  document.cookie = `uid=;path=/users`
+  document.cookie = `client=;path=/`
+  document.cookie = `access-token=;path=/`
+  document.cookie = `uid=;path=/`
   return {
     type: actionTypes.LOGOUT_SUCCESS
   }

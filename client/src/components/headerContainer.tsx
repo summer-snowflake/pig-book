@@ -135,7 +135,7 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
               )}
               {this.props.userStatus.isLogged && (
                 <li className='nav-item'>
-                  <a className='nav-link' href='/users/sign_in' onClick={this.handleLogout}>
+                  <a className='nav-link' href='#' onClick={this.handleLogout}>
                     <i className='fas fa-sign-out-alt left-icon' />
                     {t('menu.logout')}
                   </a>
