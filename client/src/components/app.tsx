@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 
 import Header from 'components/headerContainer';
 import TopPage from 'components/top/topPage';
@@ -9,11 +10,14 @@ import MypageTopPage from 'components/mypage/mypageTopPage';
 import Footer from 'components/footer';
 import Page404 from 'components/errors/page404';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 class App extends Component {
   render() {
     return (
       <div className='app-component'>
         <Router>
+          <ToastContainer />
           <Header />
           <Switch>
             <Route path='/' exact component={TopPage} />
