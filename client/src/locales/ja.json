@@ -22,6 +22,9 @@
     "create": "登録する"
   },
   "message": {
-    "pageNotFound": "お探しのページは見つかりませんでした。"
+    "pageNotFound": "お探しのページは見つかりませんでした。",
+    "logout": "ログアウトしました",
+    "loginSuccess": "ログインしました",
+    "loginFailure": "ログインに失敗しました"
   }
 }
