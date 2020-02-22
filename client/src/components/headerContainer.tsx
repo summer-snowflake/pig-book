@@ -119,6 +119,14 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
             <ul className='navbar-nav justify-content-end'>
               {this.props.userStatus.isLogged && (
                 <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/base_settings'>
+                    <i className='fas fa-cog left-icon' />
+                    {t('menu.setting')}
+                  </NavLink>
+                </li>
+              )}
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
                     <i className='fas fa-user left-icon' />
                     {t('menu.mypage')}
