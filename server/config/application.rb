@@ -34,6 +34,11 @@ module Server
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.i18n.available_locales = %i[ja en]
+    config.i18n.enforce_available_locales = true
+    config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
+
     config.action_dispatch.default_headers = {
       'Access-Control-Allow-Credentials' => 'true',
       'Access-Control-Allow-Origin' => "http://localhost:#{ENV['CLIENT_PORT']}",
