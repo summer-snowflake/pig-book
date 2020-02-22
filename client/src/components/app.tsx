@@ -11,6 +11,7 @@ import Footer from 'components/footer';
 import Page404 from 'components/errors/page404';
 
 import 'react-toastify/dist/ReactToastify.css';
+import 'stylesheets/toastify.sass'
 
 class App extends Component {
   render() {
