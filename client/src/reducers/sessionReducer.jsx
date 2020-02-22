@@ -1,4 +1,5 @@
 import * as actionTypes from 'utils/actionTypes';
+import { toast } from "react-toastify";
 
 const initialState = {
   isLoading: false
@@ -12,6 +13,7 @@ const sessionReducer = (state = initialState, action) => {
         isLoading: true
       }
     case actionTypes.LOGIN_SUCCESS:
+      toast('ログインしました');
       return {
         ...state,
         isLoading: false
@@ -20,6 +22,11 @@ const sessionReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false
+      }
+    case actionTypes.LOGOUT_SUCCESS:
+      toast('ログアウトしました');
+      return {
+        ...state
       }
     default:
       return state;
