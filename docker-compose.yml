@@ -4,6 +4,7 @@ services:
   db:
     container_name: pig-book_postgres
     build: ./docker
+    hostname: db
     ports:
       - 5433:5432
     volumes:
@@ -11,6 +12,7 @@ services:
 
   redis:
     container_name: pig-book_redis
+    hostname: redis
     image: redis:4.0.14
     ports:
       - 6379:6379
@@ -19,6 +21,7 @@ services:
 
   client:
     container_name: pig-book_react
+    hostname: client
     build: ./client
     command: "npm start"
     volumes:
@@ -29,6 +32,7 @@ services:
 
   server:
     build: ./server
+    hostname: server
     command: "bundle exec rails server -b 0.0.0.0"
     volumes:
       - ./server:/pig-book/server
