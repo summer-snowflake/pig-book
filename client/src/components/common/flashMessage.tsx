@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next'
 
 import 'stylesheets/errors.sass';
 
@@ -7,21 +8,22 @@ interface Props {
   messageType: string
 }
 
-class FlashMessage extends Component<Props> {
+class FlashMessage extends Component<i18nProps & Props> {
   render() {
+    const { t } = this.props;
     let msg = '';
     switch (this.props.message) {
       case 'logout':
-        msg = 'ログアウトしました'
+        msg = t('message.logout');
         break;
       case 'login_success':
-        msg = 'ログインしました'
+        msg = t('message.loginSuccess');
         break;
       case 'login_failure':
-        msg = 'ログインに失敗しました'
+        msg = t('message.loginFailure');
         break;
     }
-    console.log(msg);
+
     return (
       <div className='flash-message-component'>
         {this.props.messageType === 'success' && (
@@ -36,4 +38,4 @@ class FlashMessage extends Component<Props> {
   }
 }
 
-export default FlashMessage;
+export default withTranslation()(FlashMessage);

@@ -22,6 +22,9 @@
     "create": "Create"
   },
   "message": {
-    "pageNotFound": "Page not found."
+    "pageNotFound": "Page not found.",
+    "logout": "Logout",
+    "loginSuccess": "Login Successfully",
+    "loginFailure": "Login Failed"
   }
 }
