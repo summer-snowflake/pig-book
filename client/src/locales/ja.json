@@ -6,7 +6,8 @@
     "logout": "ログアウト",
     "signUp": "アカウント登録",
     "mypage": "マイページ",
-    "mypageTop": "マイページTOP"
+    "mypageTop": "マイページTOP",
+    "setting": "各種設定"
   },
   "title": {
     "login": "ログイン",

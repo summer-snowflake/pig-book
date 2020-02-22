@@ -6,7 +6,8 @@
     "logout": "Sign out",
     "signUp": "Sign Up",
     "mypage": "Mypage",
-    "mypageTop": "Mypage TOP"
+    "mypageTop": "Mypage TOP",
+    "setting": "Setting"
   },
   "title": {
     "login": "Sign In",
