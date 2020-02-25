@@ -12,16 +12,24 @@
   },
   "title": {
     "login": "Sign In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "editing": "Now editing"
   },
   "label": {
     "email": "E-mail",
     "password": "Password",
-    "passwordConfirmation": "Password Confirmation"
+    "passwordConfirmation": "Password Confirmation",
+    "language": "Language",
+    "language-ja": "Japanese",
+    "language-en": "English",
+    "currency": "Currency",
+    "currency-yen": "¥ (yen)",
+    "currency-dollar": "$ (dollar)"
   },
   "button": {
     "login": "Sign In",
-    "create": "Create"
+    "create": "Create",
+    "update": "Update"
   },
   "message": {
     "pageNotFound": "Page not found.",
