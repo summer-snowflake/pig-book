@@ -37,7 +37,7 @@ export const login = (params, history) => {
       return dispatch(loginSuccess(res.data, res.headers));
     }
     catch(err) {
-      return dispatch(loginFailure(err.response.data));
+      return dispatch(loginFailure(err.response?.data));
     }
   }
 }
