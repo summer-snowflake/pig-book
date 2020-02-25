@@ -12,16 +12,24 @@
   },
   "title": {
     "login": "ログイン",
-    "signUp": "アカウント登録"
+    "signUp": "アカウント登録",
+    "editing": "編集中"
   },
   "label": {
     "email": "メールアドレス",
     "password": "パスワード",
-    "passwordConfirmation": "パスワード（確認）"
+    "passwordConfirmation": "パスワード（確認）",
+    "language": "使用言語",
+    "language-ja": "日本語",
+    "language-en": "英語",
+    "currency": "通貨の単位",
+    "currency-yen": "¥（円）",
+    "currency-dollar": "$（ドル）"
   },
   "button": {
     "login": "ログインする",
-    "create": "登録する"
+    "create": "登録する",
+    "update": "更新する"
   },
   "message": {
     "pageNotFound": "お探しのページは見つかりませんでした。",
