@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     mount_devise_token_auth_for 'User', at: 'auth'
 
     resource :user, only: %i[show]
+    resource :profile, only: %i[show]
   end
 end
