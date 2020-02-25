@@ -7,7 +7,8 @@
     "signUp": "Sign Up",
     "mypage": "Mypage",
     "mypageTop": "Mypage TOP",
-    "setting": "Setting"
+    "settings": "Setting",
+    "settingsTop": "Setting TOP"
   },
   "title": {
     "login": "Sign In",
