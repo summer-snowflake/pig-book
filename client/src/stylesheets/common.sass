@@ -11,6 +11,9 @@ body
 .left-icon
   margin-right: 5px
 
+.right-icon
+  margin-left: 5px
+
 .list-group-item
   background-color: $translucent
   border: 1px solid $green
@@ -69,3 +72,27 @@ body
   &:disabled
     background-color: $pink
     border-color: $pink
+
+.editing-badge
+  background-color: #61ABB3
+  top: 59px
+  right: 60px
+  position: absolute
+  padding: 5px
+
+.icon-field
+  margin-top: -8px
+
+  .fa-edit
+    cursor: pointer
+    width: 30px
+    height: 30px
+    padding: 6px 6px 6px 8px
+    border-radius: 3px
+
+    &:hover
+      background-color: $rgba2-lighten-green
+
+  .fa-times
+    @extend .fa-edit
+    padding: 7px

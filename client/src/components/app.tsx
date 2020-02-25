@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+
 import Header from 'components/headerContainer';
 import TopPage from 'components/top/topPage';
 import SignInPage from 'components/login/signInPage';
@@ -12,7 +17,9 @@ import Footer from 'components/footer';
 import Page404 from 'components/errors/page404';
 
 import 'react-toastify/dist/ReactToastify.css';
-import 'stylesheets/toastify.sass'
+import 'stylesheets/toastify.sass';
+
+library.add(fab, fas, far);
 
 class App extends Component {
   render() {
