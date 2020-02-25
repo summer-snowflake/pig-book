@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 
-import MypageMenu from 'components/mypage/mypageMenu'
-import MypageTop from 'components/mypage/mypageTop'
+import SettingsMenu from 'components/settings/settingsMenu'
+import SettingsTop from 'components/settings/settingsTop'
 
-class MypageTopPage extends Component {
+class SettingsTopPage extends Component {
   render() {
     return (
-      <div className="mypage-top-page-component container">
+      <div className="settings-top-page-component container">
         <div className='row'>
           <div className='col-3 d-none d-lg-block'>
-            <MypageMenu />
+            <SettingsMenu />
           </div>
           <div className='col-1 d-lg-none'>
           </div>
           <div className='col'>
-            <MypageTop />
+            <SettingsTop />
           </div>
         </div>
       </div>
@@ -22,4 +22,4 @@ class MypageTopPage extends Component {
   }
 }
 
-export default MypageTopPage;
+export default SettingsTopPage;

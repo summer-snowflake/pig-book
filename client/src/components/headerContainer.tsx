@@ -66,6 +66,16 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
                 </NavText>
               </NavItem>
               {this.props.userStatus.isLogged && (
+                <NavItem eventKey='/settings'>
+                  <NavIcon>
+                    <i className='fas fa-cog' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.settings')}
+                  </NavText>
+                </NavItem>
+              )}
+              {this.props.userStatus.isLogged && (
                 <NavItem eventKey='/mypage'>
                   <NavIcon>
                     <i className='fas fa-user' />
@@ -117,6 +127,14 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
               </li>
             </ul>
             <ul className='navbar-nav justify-content-end'>
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/settings'>
+                    <i className='fas fa-cog left-icon' />
+                    {t('menu.settings')}
+                  </NavLink>
+                </li>
+              )}
               {this.props.userStatus.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
