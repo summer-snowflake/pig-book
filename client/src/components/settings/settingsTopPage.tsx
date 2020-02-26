@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import SettingsMenu from 'components/settings/settingsMenu'
-import SettingsTop from 'components/settings/settingsTop'
+import SettingsTop from 'components/settings/settingsTopContainer'
 
 class SettingsTopPage extends Component {
   render() {
