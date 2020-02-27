@@ -8,7 +8,9 @@ import { getSettings, changeSettingsLocale, changeSettingsCurrency } from 'actio
 import 'stylesheets/settings.sass';
 
 interface State {
-  editing: boolean
+  editing: boolean,
+  locale: string,
+  currency: string
 }
 
 interface Props {
@@ -27,7 +29,9 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     super(props);
 
     this.state = {
-      editing: false
+      editing: false,
+      locale: 'ja',
+      currency: 'yen'
     }
 
     this.handleClickIcon = this.handleClickIcon.bind(this)
@@ -38,8 +42,13 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
   }
 
   handleClickIcon() {
+    if (this.state.editing && (this.state.locale !== this.props.settings.locale || this.state.currency !== this.props.settings.currency)) {
+      // popup
+    }
     this.setState({
-      editing: !this.state.editing
+      editing: !this.state.editing,
+      locale: this.props.settings.locale,
+      currency: this.props.settings.currency
     })
   }
 
@@ -80,55 +89,71 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 <label className='label'>
                   {t('label.language')}
                 </label>
-                <input
-                  className=''
-                  checked={this.props.settings.locale === 'ja'}
-                  onChange={this.handleChangeLocale}
-                  name='profile[locale]'
-                  value='ja'
-                  id='profile_locale_ja'
-                  type='radio' />
-                <label className='' htmlFor='profile_locale_ja'>
-                  {t('label.language-ja')}
-                </label>
-                <input
-                  className=''
-                  checked={this.props.settings.locale === 'en'}
-                  onChange={this.handleChangeLocale}
-                  name='profile[locale]'
-                  value='en'
-                  id='profile_locale_en'
-                  type='radio' />
-                <label className='' htmlFor='profile_locale_en'>
-                  {t('label.language-en')}
-                </label>
+                {this.state.editing ? (
+                  <span>
+                    <input
+                      className=''
+                      checked={this.props.settings.locale === 'ja'}
+                      onChange={this.handleChangeLocale}
+                      name='profile[locale]'
+                      value='ja'
+                      id='profile_locale_ja'
+                      type='radio' />
+                    <label className='' htmlFor='profile_locale_ja'>
+                      {t('label.language-ja')}
+                    </label>
+                    <input
+                      className=''
+                      checked={this.props.settings.locale === 'en'}
+                      onChange={this.handleChangeLocale}
+                      name='profile[locale]'
+                      value='en'
+                      id='profile_locale_en'
+                      type='radio' />
+                    <label className='' htmlFor='profile_locale_en'>
+                      {t('label.language-en')}
+                    </label>
+                  </span>
+                ) : (
+                  <span>
+                    {t('label.language-' + this.props.settings.locale)}
+                  </span>
+                )}
               </div>
               <div className='form-group'>
                 <label className='label'>
                   {t('label.currency')}
                 </label>
-                <input
-                  className=''
-                  checked={this.props.settings.currency === 'yen'}
-                  onChange={this.handleChangeCurrency}
-                  name='profile[currency]'
-                  id='profile_currency_yen'
-                  value='yen'
-                  type='radio' />
-                <label className='' htmlFor='profile_currency_yen'>
-                  {t('label.currency-yen')}
-                </label>
-                <input
-                  className=''
-                  checked={this.props.settings.currency === 'dollar'}
-                  onChange={this.handleChangeCurrency}
-                  name='profile[currency]'
-                  id='profile_currency_dollar'
-                  value='dollar'
-                  type='radio' />
-                <label className='' htmlFor='profile_currency_dollar'>
-                  {t('label.currency-dollar')}
-                </label>
+                {this.state.editing ? (
+                  <span>
+                    <input
+                      className=''
+                      checked={this.props.settings.currency === 'yen'}
+                      onChange={this.handleChangeCurrency}
+                      name='profile[currency]'
+                      id='profile_currency_yen'
+                      value='yen'
+                      type='radio' />
+                    <label className='' htmlFor='profile_currency_yen'>
+                      {t('label.currency-yen')}
+                    </label>
+                    <input
+                      className=''
+                      checked={this.props.settings.currency === 'dollar'}
+                      onChange={this.handleChangeCurrency}
+                      name='profile[currency]'
+                      id='profile_currency_dollar'
+                      value='dollar'
+                      type='radio' />
+                    <label className='' htmlFor='profile_currency_dollar'>
+                      {t('label.currency-dollar')}
+                    </label>
+                  </span>
+                ) : (
+                  <span>
+                    {t('label.currency-' + this.props.settings.currency)}
+                  </span>
+                )}
               </div>
 
               <button className='btn btn-primary' type='submit'>
