@@ -29,12 +29,15 @@
   "button": {
     "login": "Sign In",
     "create": "Create",
-    "update": "Update"
+    "update": "Update",
+    "cancel": "Cancel",
+    "close": "Close"
   },
   "message": {
     "pageNotFound": "Page not found.",
     "logout": "Logout",
     "loginSuccess": "Login Successfully",
-    "loginFailure": "Login Failed"
+    "loginFailure": "Login Failed",
+    "cancelUpdate": "Cancel?"
   }
 }
