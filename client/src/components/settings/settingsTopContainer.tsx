@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import { getSettings, changeSettingsLocale, changeSettingsCurrency } from 'actions/settingsActions';
 
 import 'stylesheets/settings.sass';
+import CancelUpdateModal from 'components/common/cancelUpdateModal';
 
 interface State {
   editing: boolean,
+  isOpenCancelModal: boolean,
   locale: string,
   currency: string
 }
@@ -30,6 +32,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
 
     this.state = {
       editing: false,
+      isOpenCancelModal: false,
       locale: 'ja',
       currency: 'yen'
     }
@@ -37,19 +40,24 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     this.handleClickIcon = this.handleClickIcon.bind(this)
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
     this.handleChangeCurrency = this.handleChangeCurrency.bind(this)
+    this.handleClickCancel = this.handleClickCancel.bind(this)
+    this.handleClickClose = this.handleClickClose.bind(this)
 
     this.props.getSettings();
   }
 
   handleClickIcon() {
     if (this.state.editing && (this.state.locale !== this.props.settings.locale || this.state.currency !== this.props.settings.currency)) {
-      // popup
+      this.setState({
+        isOpenCancelModal: true
+      })
+    } else {
+      this.setState({
+        editing: !this.state.editing,
+        locale: this.props.settings.locale,
+        currency: this.props.settings.currency
+      })
     }
-    this.setState({
-      editing: !this.state.editing,
-      locale: this.props.settings.locale,
-      currency: this.props.settings.currency
-    })
   }
 
   handleChangeLocale(e: any) {
@@ -60,11 +68,30 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     this.props.changeSettingsCurrency(e.target.value);
   }
 
+  handleClickCancel() {
+    this.props.changeSettingsLocale(this.state.locale);
+    this.props.changeSettingsCurrency(this.state.currency);
+    this.setState({
+      isOpenCancelModal: false,
+      editing: false
+    })
+  }
+
+  handleClickClose() {
+    this.setState({
+      isOpenCancelModal: false
+    })
+  }
+
   render() {
     const { t } = this.props;
 
     return (
       <div className='settings-top-component container'>
+        <CancelUpdateModal
+          isOpen={this.state.isOpenCancelModal}
+          handleClickCancel={this.handleClickCancel}
+          handleClickClose={this.handleClickClose} />
         <div className='card'>
           <div className='card-header'>
             <i className='fas fa-user-cog left-icon' />
@@ -156,10 +183,12 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 )}
               </div>
 
-              <button className='btn btn-primary' type='submit'>
-                {t('button.update')}
-              </button>
-            </form>
+              {this.state.editing && (
+                <button className='btn btn-primary' type='submit'>
+                  {t('button.update')}
+                </button>
+              )}
+           </form>
           </div>
         </div>
       </div>

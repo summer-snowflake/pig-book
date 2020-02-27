@@ -29,12 +29,15 @@
   "button": {
     "login": "ログインする",
     "create": "登録する",
-    "update": "更新する"
+    "update": "更新する",
+    "cancel": "取り消す",
+    "close": "閉じる"
   },
   "message": {
     "pageNotFound": "お探しのページは見つかりませんでした。",
     "logout": "ログアウトしました",
     "loginSuccess": "ログインしました",
-    "loginFailure": "ログインに失敗しました"
+    "loginFailure": "ログインに失敗しました",
+    "cancelUpdate": "更新を取り消しますか？"
   }
 }
