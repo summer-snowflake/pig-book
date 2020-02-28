@@ -1,5 +1,6 @@
 import * as actionTypes from 'utils/actionTypes';
 import { setting as axios } from 'config/axios';
+import { setCookies, clearCookies } from 'utils/cookies';
 
 export const loginRequest = () => {
   return {
@@ -8,9 +9,7 @@ export const loginRequest = () => {
 };
 
 export const loginSuccess = (data, headers) => {
-  document.cookie = `uid=${headers['uid']};`
-  document.cookie = `client=${headers['client']};`
-  document.cookie = `access-token=${headers['access-token']};`
+  setCookies(headers);
   return {
     type: actionTypes.LOGIN_SUCCESS,
     data
@@ -39,9 +38,7 @@ export const login = (params, history) => {
 }
 
 export const logout = () => {
-  document.cookie = `client=;path=/users`
-  document.cookie = `access-token=;path=/users`
-  document.cookie = `uid=;path=/users`
+  clearCookies();
   return {
     type: actionTypes.LOGOUT_SUCCESS
   }
