@@ -136,30 +136,34 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 </label>
                 {this.props.settings.editing ? (
                   <span>
-                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.locale, 'ja')} />
-                    <input
-                      className=''
-                      checked={this.props.settings.locale === 'ja'}
-                      onChange={this.handleChangeLocale}
-                      name='profile[locale]'
-                      value='ja'
-                      id='profile_locale_ja'
-                      type='radio' />
-                    <label className='' htmlFor='profile_locale_ja'>
-                      {t('label.language-ja')}
-                    </label>
-                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.locale, 'en')} />
-                    <input
-                      className=''
-                      checked={this.props.settings.locale === 'en'}
-                      onChange={this.handleChangeLocale}
-                      name='profile[locale]'
-                      value='en'
-                      id='profile_locale_en'
-                      type='radio' />
-                    <label className='' htmlFor='profile_locale_en'>
-                      {t('label.language-en')}
-                    </label>
+                    <span className='radio-span'>
+                      <input
+                        className='radio-input'
+                        checked={this.props.settings.locale === 'ja'}
+                        onChange={this.handleChangeLocale}
+                        name='profile[locale]'
+                        value='ja'
+                        id='profile_locale_ja'
+                        type='radio' />
+                      <label className='radio-label' htmlFor='profile_locale_ja'>
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.locale, 'ja')} />
+                        {t('label.language-ja')}
+                      </label>
+                    </span>
+                    <span className='radio-span'>
+                      <input
+                        className='radio-input'
+                        checked={this.props.settings.locale === 'en'}
+                        onChange={this.handleChangeLocale}
+                        name='profile[locale]'
+                        value='en'
+                        id='profile_locale_en'
+                        type='radio' />
+                      <label className='radio-label' htmlFor='profile_locale_en'>
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.locale, 'en')} />
+                        {t('label.language-en')}
+                      </label>
+                    </span>
                   </span>
                 ) : (
                   <span>
@@ -173,30 +177,34 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 </label>
                 {this.props.settings.editing ? (
                   <span>
-                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.currency, 'yen')} />
-                    <input
-                      className=''
-                      checked={this.props.settings.currency === 'yen'}
-                      onChange={this.handleChangeCurrency}
-                      name='profile[currency]'
-                      id='profile_currency_yen'
-                      value='yen'
-                      type='radio' />
-                    <label className='' htmlFor='profile_currency_yen'>
-                      {t('label.currency-yen')}
-                    </label>
-                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.currency, 'dollar')} />
-                    <input
-                      className=''
-                      checked={this.props.settings.currency === 'dollar'}
-                      onChange={this.handleChangeCurrency}
-                      name='profile[currency]'
-                      id='profile_currency_dollar'
-                      value='dollar'
-                      type='radio' />
-                    <label className='' htmlFor='profile_currency_dollar'>
-                      {t('label.currency-dollar')}
-                    </label>
+                    <span className='radio-span'>
+                      <input
+                        className='radio-input'
+                        checked={this.props.settings.currency === 'yen'}
+                        onChange={this.handleChangeCurrency}
+                        name='profile[currency]'
+                        id='profile_currency_yen'
+                        value='yen'
+                        type='radio' />
+                      <label className='radio-label' htmlFor='profile_currency_yen'>
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.currency, 'yen')} />
+                        {t('label.currency-yen')}
+                      </label>
+                    </span>
+                    <span className='radio-span'>
+                      <input
+                        className='radio-input'
+                        checked={this.props.settings.currency === 'dollar'}
+                        onChange={this.handleChangeCurrency}
+                        name='profile[currency]'
+                        id='profile_currency_dollar'
+                        value='dollar'
+                        type='radio' />
+                      <label className='radio-label' htmlFor='profile_currency_dollar'>
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.currency, 'dollar')} />
+                        {t('label.currency-dollar')}
+                      </label>
+                    </span>
                   </span>
                 ) : (
                   <span>
@@ -207,7 +215,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
 
               {this.props.settings.editing && (
                 <button
-                  className='btn btn-primary'
+                  className={'btn btn-primary' + (this.props.settings.isLoading || !this.diff() ? ' disabled' : '')}
                   disabled={this.props.settings.isLoading || !this.diff()}
                   onClick={this.handleClickSubmitButton}
                   type='button'>
