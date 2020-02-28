@@ -4,14 +4,16 @@ const initialState = {
   editing: false,
   isLoading: false,
   locale: 'ja',
-  currency: 'yen'
+  currency: 'yen',
+  memo: ''
 }
 
 interface Action {
   type: string,
-  data: { locale: string, currency: string },
+  data: { locale: string, currency: string, memo: string },
   locale?: string,
-  currency?: string
+  currency?: string,
+  memo?: string,
   editing?: boolean
 }
 
@@ -32,15 +34,16 @@ const settingsReducer = (state = initialState, action: Action) => {
         ...state,
         isLoading: false,
         locale: action.data?.locale,
-        currency: action.data?.currency
+        currency: action.data?.currency,
+        memo: action.data?.memo
       }
     case actionTypes.PATCH_SETTINGS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         editing: false,
-        locale: state.locale,
-        currency: state.currency
+        locale: action.data?.locale,
+        currency: action.data?.currency
       }
     case actionTypes.GET_SETTINGS_FAILURE:
       return {
