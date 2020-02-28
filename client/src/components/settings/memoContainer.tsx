@@ -87,7 +87,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
     const { t } = this.props;
 
     return (
-      <div className='memo-component container'>
+      <div className='memo-component'>
         <CancelUpdateModal
           isOpen={this.state.isOpenCancelModal}
           handleClickCancel={this.handleClickCancel}

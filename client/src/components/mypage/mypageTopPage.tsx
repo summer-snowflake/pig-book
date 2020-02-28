@@ -6,7 +6,7 @@ import MypageTop from 'components/mypage/mypageTop'
 class MypageTopPage extends Component {
   render() {
     return (
-      <div className="mypage-top-page-component container">
+      <div className='mypage-top-page-component container'>
         <div className='row'>
           <div className='col-3 d-none d-lg-block'>
             <MypageMenu />
