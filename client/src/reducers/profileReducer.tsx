@@ -2,6 +2,7 @@ import * as actionTypes from 'utils/actionTypes';
 
 const initialState = {
   editing: false,
+  editingMemo: false,
   isLoading: false,
   locale: 'ja',
   currency: 'yen',
@@ -14,7 +15,8 @@ interface Action {
   locale?: string,
   currency?: string,
   memo?: string,
-  editing?: boolean
+  editing?: boolean,
+  editingMemo?: boolean
 }
 
 const settingsReducer = (state = initialState, action: Action) => {
@@ -42,6 +44,7 @@ const settingsReducer = (state = initialState, action: Action) => {
         ...state,
         isLoading: false,
         editing: false,
+        editingMemo: false,
         locale: action.data?.locale,
         currency: action.data?.currency,
         memo: action.data?.memo
@@ -70,6 +73,11 @@ const settingsReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         editing: action.editing
+      }
+    case actionTypes.SET_EDITING_MEMO:
+      return {
+        ...state,
+        editingMemo: action.editingMemo
       }
     default:
       return state;
