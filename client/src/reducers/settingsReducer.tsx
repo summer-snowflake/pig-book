@@ -43,7 +43,8 @@ const settingsReducer = (state = initialState, action: Action) => {
         isLoading: false,
         editing: false,
         locale: action.data?.locale,
-        currency: action.data?.currency
+        currency: action.data?.currency,
+        memo: action.data?.memo
       }
     case actionTypes.GET_SETTINGS_FAILURE:
       return {
