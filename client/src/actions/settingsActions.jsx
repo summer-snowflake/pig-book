@@ -94,3 +94,10 @@ export const setEditing = (editing) => {
     editing
   }
 }
+
+export const setEditingMemo = (editingMemo) => {
+  return {
+    type: actionTypes.SET_EDITING_MEMO,
+    editingMemo
+  }
+}

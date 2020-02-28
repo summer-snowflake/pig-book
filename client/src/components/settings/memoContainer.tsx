@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 
 import EditAndCancel from 'components/common/editAndCancel';
 import CancelUpdateModal from 'components/common/cancelUpdateModal';
-import { getProfile, patchProfile, setEditing } from 'actions/settingsActions';
+import { getProfile, patchProfile, setEditingMemo } from 'actions/settingsActions';
 
 interface Props {
   getProfile: any,
   patchProfile: any,
-  setEditing: any,
+  setEditingMemo: any,
   profile: {
-    editing: boolean,
+    editingMemo: boolean,
     isLoading: boolean,
     memo: string
   }
@@ -41,7 +41,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
   }
 
   diff(): boolean {
-    return this.props.profile.editing && this.state.memo !== this.props.profile.memo;
+    return this.props.profile.editingMemo && this.state.memo !== this.props.profile.memo;
   }
 
   handleClickIcon() {
@@ -50,7 +50,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
         isOpenCancelModal: true
       })
     } else {
-      this.props.setEditing(!this.props.profile.editing)
+      this.props.setEditingMemo(!this.props.profile.editingMemo)
       this.setState({
         memo: this.props.profile.memo
       })
@@ -58,7 +58,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
   }
 
   handleClickCancel() {
-    this.props.setEditing(false)
+    this.props.setEditingMemo(false)
     this.setState({
       isOpenCancelModal: false,
     })
@@ -97,15 +97,15 @@ class MemoContainer extends Component<i18nProps & Props, State> {
             <i className='fas fa-book-open left-icon' />
             {t('title.memo')}
           </div>
-          <div className='card-body'>
-            {this.props.profile.editing && (
+          <div className='card-body with-background-image'>
+            {this.props.profile.editingMemo && (
               <span className='badge badge-info editing-badge'>
                 <i className="fas fa-pen-square left-icon"></i>
                 {t('title.editing')}
               </span>
             )}
-            <EditAndCancel editing={this.props.profile.editing} handleClickIcon={this.handleClickIcon} />
-            {this.props.profile.editing ? (
+            <EditAndCancel editing={this.props.profile.editingMemo} handleClickIcon={this.handleClickIcon} />
+            {this.props.profile.editingMemo ? (
               <form>
                 <div className='form-group'>
                   <textarea
@@ -114,7 +114,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
                     rows={8}
                     value={this.state.memo} />
                 </div>
-                {this.props.profile.editing && (
+                {this.props.profile.editingMemo && (
                   <button
                     className={'btn btn-primary' + (this.props.profile.isLoading || !this.diff() ? ' disabled' : '')}
                     disabled={this.props.profile.isLoading || !this.diff()}
@@ -150,8 +150,8 @@ function mapDispatch(dispatch: any) {
     patchProfile(params: State) {
       dispatch(patchProfile(params));
     },
-    setEditing(editing: boolean) {
-      dispatch(setEditing(editing));
+    setEditingMemo(editing: boolean) {
+      dispatch(setEditingMemo(editing));
     }
   }
 }
