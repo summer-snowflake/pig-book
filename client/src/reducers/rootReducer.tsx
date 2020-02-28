@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 
 import sessionReducer from 'reducers/sessionReducer'
 import userStatusReducer from 'reducers/userStatusReducer'
-import settingsReducer from 'reducers/settingsReducer'
+import profileReducer from 'reducers/profileReducer'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   userStatus: userStatusReducer,
-  settings: settingsReducer
+  profile: profileReducer
 })
 
 export default rootReducer;
