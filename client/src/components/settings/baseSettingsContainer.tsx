@@ -117,12 +117,6 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
             {t('title.baseSetting')}
           </div>
           <div className='card-body with-background-image'>
-            {this.props.profile.editing && (
-              <span className='badge badge-info editing-badge'>
-                <i className="fas fa-pen-square left-icon"></i>
-                {t('title.editing')}
-              </span>
-            )}
             <EditAndCancel editing={this.props.profile.editing} handleClickIcon={this.handleClickIcon} />
             <form>
               <div className='form-group'>
