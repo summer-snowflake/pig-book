@@ -106,7 +106,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
     const { t } = this.props;
 
     return (
-      <div className='settings-top-component container'>
+      <div className='settings-top-component'>
         <CancelUpdateModal
           isOpen={this.state.isOpenCancelModal}
           handleClickCancel={this.handleClickCancel}
