@@ -8,7 +8,8 @@
     "mypage": "マイページ",
     "mypageTop": "マイページTOP",
     "settings": "各種設定",
-    "settingsTop": "ユーザー設定"
+    "settingsTop": "ユーザー設定",
+    "category": "カテゴリ設定"
   },
   "title": {
     "login": "ログイン",
