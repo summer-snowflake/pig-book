@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
+import EditAndCancel from 'components/common/editAndCancel';
 import { getSettings, patchSettings, changeSettingsLocale, changeSettingsCurrency, setEditing } from 'actions/settingsActions';
 
 import 'stylesheets/settings.sass';
@@ -122,13 +123,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 {t('title.editing')}
               </span>
             )}
-            <span className='icon-field float-right' onClick={this.handleClickIcon}>
-              {this.props.settings.editing ? (
-                <FontAwesomeIcon icon={['fas', 'times']} />
-              ) : (
-                <FontAwesomeIcon icon={['fas', 'edit']} />
-              )}
-            </span>
+            <EditAndCancel editing={this.props.settings.editing} handleClickIcon={this.handleClickIcon} />
             <form>
               <div className='form-group'>
                 <label className='label'>
