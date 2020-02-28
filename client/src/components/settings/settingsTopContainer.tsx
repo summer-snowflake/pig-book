@@ -52,6 +52,10 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     return this.props.settings.editing && (this.state.locale !== this.props.settings.locale || this.state.currency !== this.props.settings.currency);
   }
 
+  checkIconClass(target: string, value: string): string {
+    return target === value ? 'dark-green' : 'light-green'
+  }
+
   handleClickIcon() {
     if (this.diff()) {
       this.setState({
@@ -132,6 +136,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 </label>
                 {this.props.settings.editing ? (
                   <span>
+                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.locale, 'ja')} />
                     <input
                       className=''
                       checked={this.props.settings.locale === 'ja'}
@@ -143,6 +148,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                     <label className='' htmlFor='profile_locale_ja'>
                       {t('label.language-ja')}
                     </label>
+                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.locale, 'en')} />
                     <input
                       className=''
                       checked={this.props.settings.locale === 'en'}
@@ -167,6 +173,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 </label>
                 {this.props.settings.editing ? (
                   <span>
+                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.currency, 'yen')} />
                     <input
                       className=''
                       checked={this.props.settings.currency === 'yen'}
@@ -178,6 +185,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                     <label className='' htmlFor='profile_currency_yen'>
                       {t('label.currency-yen')}
                     </label>
+                    <FontAwesomeIcon icon={['fas', 'check']} className={this.checkIconClass(this.props.settings.currency, 'dollar')} />
                     <input
                       className=''
                       checked={this.props.settings.currency === 'dollar'}

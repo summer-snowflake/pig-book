@@ -1,5 +1,4 @@
 import * as actionTypes from 'utils/actionTypes';
-import { string } from 'prop-types';
 
 const initialState = {
   editing: false,
