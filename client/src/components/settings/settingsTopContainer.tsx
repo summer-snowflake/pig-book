@@ -71,11 +71,11 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     }
   }
 
-  handleChangeLocale(e: any) {
+  handleChangeLocale(e: React.ChangeEvent<HTMLInputElement>) {
     this.props.changeSettingsLocale(e.target.value);
   }
 
-  handleChangeCurrency(e: any) {
+  handleChangeCurrency(e: React.ChangeEvent<HTMLInputElement>) {
     this.props.changeSettingsCurrency(e.target.value);
   }
 

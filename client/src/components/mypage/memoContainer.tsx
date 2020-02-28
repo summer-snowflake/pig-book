@@ -32,8 +32,10 @@ class MemoContainer extends Component<i18nProps & Props, State> {
     }
 
     this.handleClickIcon = this.handleClickIcon.bind(this);
-    this.handleClickCancel = this.handleClickCancel.bind(this)
-    this.handleClickClose = this.handleClickClose.bind(this)
+    this.handleClickCancel = this.handleClickCancel.bind(this);
+    this.handleClickClose = this.handleClickClose.bind(this);
+    this.handleChangeMemo = this.handleChangeMemo.bind(this);
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this);
 
     this.props.getSettings();
   }
@@ -68,6 +70,19 @@ class MemoContainer extends Component<i18nProps & Props, State> {
     })
   }
 
+  handleChangeMemo(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    this.setState({
+      memo: e.target.value
+    })
+  }
+
+  handleClickSubmitButton() {
+    const params = {
+      memo: this.state.memo
+    }
+    this.props.patchSettings(params);
+  }
+
   render() {
     const { t } = this.props;
 
@@ -83,7 +98,30 @@ class MemoContainer extends Component<i18nProps & Props, State> {
             MEMO
           </span>
           <EditAndCancel editing={this.props.settings.editing} handleClickIcon={this.handleClickIcon} />
-          {this.props.settings.memo}
+          {this.props.settings.editing ? (
+            <form>
+              <div className='form-group'>
+                <textarea
+                  className='form-control'
+                  onChange={this.handleChangeMemo}
+                  rows={5}
+                  value={this.state.memo} />
+              </div>
+              {this.props.settings.editing && (
+                <button
+                  className={'btn btn-primary' + (this.props.settings.isLoading || !this.diff() ? ' disabled' : '')}
+                  disabled={this.props.settings.isLoading || !this.diff()}
+                  onClick={this.handleClickSubmitButton}
+                  type='button'>
+                  {t('button.update')}
+                </button>
+              )}
+            </form>
+          ) : (
+            <div className='memo'>
+              {this.props.settings.memo}
+            </div>
+          )}
         </div>
       </div>
     );
