@@ -13,3 +13,15 @@ export const clearCookies = () => {
   Cookies.remove('client');
   Cookies.remove('access-token');
 }
+
+export const ready = () => {
+  const uid: string | undefined = Cookies.get('uid');
+  const client: string | undefined = Cookies.get('client');
+  const accessToken: string | undefined = Cookies.get('access-token');
+
+  return !!uid && !!client && !!accessToken;
+}
+
+export const loginHeaders = () => {
+  return Cookies.get();
+}
