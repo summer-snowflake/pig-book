@@ -98,12 +98,6 @@ class MemoContainer extends Component<i18nProps & Props, State> {
             {t('title.memo')}
           </div>
           <div className='card-body with-background-image'>
-            {this.props.profile.editingMemo && (
-              <span className='badge badge-info editing-badge'>
-                <i className="fas fa-pen-square left-icon"></i>
-                {t('title.editing')}
-              </span>
-            )}
             <EditAndCancel editing={this.props.profile.editingMemo} handleClickIcon={this.handleClickIcon} />
             {this.props.profile.editingMemo ? (
               <form>
