@@ -19,17 +19,17 @@ interface Action {
 
 const settingsReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case actionTypes.GET_SETTINGS_REQUEST:
+    case actionTypes.GET_PROFILE_REQUEST:
       return {
         ...state,
         isLoading: true
       }
-    case actionTypes.PATCH_SETTINGS_REQUEST:
+    case actionTypes.PATCH_PROFILE_REQUEST:
       return {
         ...state,
         isLoading: true
       }
-    case actionTypes.GET_SETTINGS_SUCCESS:
+    case actionTypes.GET_PROFILE_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -37,7 +37,7 @@ const settingsReducer = (state = initialState, action: Action) => {
         currency: action.data?.currency,
         memo: action.data?.memo
       }
-    case actionTypes.PATCH_SETTINGS_SUCCESS:
+    case actionTypes.PATCH_PROFILE_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -46,22 +46,22 @@ const settingsReducer = (state = initialState, action: Action) => {
         currency: action.data?.currency,
         memo: action.data?.memo
       }
-    case actionTypes.GET_SETTINGS_FAILURE:
+    case actionTypes.GET_PROFILE_FAILURE:
       return {
         ...state,
         isLoading: false
       }
-    case actionTypes.PATCH_SETTINGS_FAILURE:
+    case actionTypes.PATCH_PROFILE_FAILURE:
       return {
         ...state,
         isLoading: false
       }
-    case actionTypes.CHANGE_SETTINGS_LOCALE:
+    case actionTypes.CHANGE_PROFILE_LOCALE:
       return {
         ...state,
         locale: action.locale
       }
-    case actionTypes.CHANGE_SETTINGS_CURRENCY:
+    case actionTypes.CHANGE_PROFILE_CURRENCY:
       return {
         ...state,
         currency: action.currency

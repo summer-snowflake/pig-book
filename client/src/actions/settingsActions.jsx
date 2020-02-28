@@ -4,20 +4,20 @@ import { ready, loginHeaders } from 'utils/cookies';
 
 export const getSettingsRequest = () => {
   return {
-    type: actionTypes.GET_SETTINGS_REQUEST
+    type: actionTypes.GET_PROFILE_REQUEST
   }
 }
 
 export const getSettingsSuccess = (data) => {
   return {
-    type: actionTypes.GET_SETTINGS_SUCCESS,
+    type: actionTypes.GET_PROFILE_SUCCESS,
     data
   }
 }
 
 export const getSettingsFailure = () => {
   return {
-    type: actionTypes.GET_SETTINGS_FAILURE
+    type: actionTypes.GET_PROFILE_FAILURE
   }
 }
 
@@ -40,34 +40,34 @@ export const getSettings = () => {
 
 export const changeSettingsLocale = (locale) => {
   return {
-    type: actionTypes.CHANGE_SETTINGS_LOCALE,
+    type: actionTypes.CHANGE_PROFILE_LOCALE,
     locale: locale
   }
 }
 
 export const changeSettingsCurrency = (currency) => {
   return {
-    type: actionTypes.CHANGE_SETTINGS_CURRENCY,
+    type: actionTypes.CHANGE_PROFILE_CURRENCY,
     currency: currency
   }
 }
 
 export const patchSettingsRequest = () => {
   return {
-    type: actionTypes.PATCH_SETTINGS_REQUEST
+    type: actionTypes.PATCH_PROFILE_REQUEST
   }
 }
 
 export const patchSettingsSuccess = (data) => {
   return {
-    type: actionTypes.PATCH_SETTINGS_SUCCESS,
+    type: actionTypes.PATCH_PROFILE_SUCCESS,
     data
   }
 }
 
 export const patchSettingsFailure = () => {
   return {
-    type: actionTypes.PATCH_SETTINGS_FAILURE
+    type: actionTypes.PATCH_PROFILE_FAILURE
   }
 }
 
