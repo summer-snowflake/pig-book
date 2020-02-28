@@ -1,6 +1,8 @@
 import * as actionTypes from 'utils/actionTypes';
+import { string } from 'prop-types';
 
 const initialState = {
+  editing: false,
   isLoading: false,
   locale: 'ja',
   currency: 'yen'
@@ -8,8 +10,10 @@ const initialState = {
 
 interface Action {
   type: string,
+  data: { locale: string, currency: string },
   locale?: string,
   currency?: string
+  editing?: boolean
 }
 
 const settingsReducer = (state = initialState, action: Action) => {
@@ -19,14 +23,32 @@ const settingsReducer = (state = initialState, action: Action) => {
         ...state,
         isLoading: true
       }
+    case actionTypes.PATCH_SETTINGS_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      }
     case actionTypes.GET_SETTINGS_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        locale: action.data?.locale,
+        currency: action.data?.currency
+      }
+    case actionTypes.PATCH_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        editing: false,
         locale: state.locale,
         currency: state.currency
       }
     case actionTypes.GET_SETTINGS_FAILURE:
+      return {
+        ...state,
+        isLoading: false
+      }
+    case actionTypes.PATCH_SETTINGS_FAILURE:
       return {
         ...state,
         isLoading: false
@@ -40,6 +62,11 @@ const settingsReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         currency: action.currency
+      }
+    case actionTypes.SET_EDITING:
+      return {
+        ...state,
+        editing: action.editing
       }
     default:
       return state;
