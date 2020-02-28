@@ -1,5 +1,6 @@
 import * as actionTypes from 'utils/actionTypes';
 import { setting as axios } from 'config/axios';
+import { ready, loginHeaders } from 'utils/cookies';
 
 export const getSettingsRequest = () => {
   return {
@@ -22,29 +23,16 @@ export const getSettingsFailure = () => {
 export const getSettings = () => {
   return async (dispatch) => {
     dispatch(getSettingsRequest());
-    const cookies = document.cookie.split(';').map((f) => f.split('=').map((s) => s.trim()));
-    const cookieObjects = {}
-    const headers = {}
-    cookies.forEach((c) => {
-      cookieObjects[c[0]] = c[1]
-    });
-    ['client', 'uid', 'access-token'].forEach((c) => {
-      headers[c] = cookieObjects[c]
-    });
-    const ready = ['client', 'uid', 'access-token'].every((key) => {
-      return Object.keys(headers).includes(key)
-    })
-
     try {
-      if(ready) {
-        const res = await axios.get('/api/profile', { headers: headers });
+      if(ready()) {
+        const res = await axios.get('/api/profile', { headers: loginHeaders() });
         dispatch(getSettingsSuccess(res));
       } else {
         dispatch(getSettingsFailure());
       }
     }
-    catch {
-      dispatch(getSettingsFailure());
+    catch (err) {
+      console.error(err);
     }
   }
 }
