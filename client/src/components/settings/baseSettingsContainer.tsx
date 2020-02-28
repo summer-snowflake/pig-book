@@ -29,7 +29,7 @@ interface Props {
   }
 }
 
-class SettingsTopContainer extends Component<i18nProps & Props, State> {
+class BaseSettingsContainer extends Component<i18nProps & Props, State> {
   constructor(props: i18nProps & Props) {
     super(props);
 
@@ -114,7 +114,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
         <div className='card'>
           <div className='card-header'>
             <i className='fas fa-user-cog left-icon' />
-            {t('menu.settingsTop')}
+            {t('title.baseSetting')}
           </div>
           <div className='card-body with-background-image'>
             {this.props.settings.editing && (
@@ -251,4 +251,4 @@ function mapDispatch(dispatch: any) {
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(SettingsTopContainer));
+export default connect(mapState, mapDispatch)(withTranslation()(BaseSettingsContainer));

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 
-import Memo from 'components/mypage/memoContainer';
-
 import 'stylesheets/menu.sass';
 
 class MypageMenu extends Component<i18nProps> {
@@ -18,7 +16,6 @@ class MypageMenu extends Component<i18nProps> {
             {t('menu.mypageTop')}
           </NavLink>
         </div>
-        <Memo />
       </div>
     );
   }

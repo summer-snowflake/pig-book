@@ -8,12 +8,14 @@
     "mypage": "マイページ",
     "mypageTop": "マイページTOP",
     "settings": "各種設定",
-    "settingsTop": "基本設定"
+    "settingsTop": "ユーザー設定"
   },
   "title": {
     "login": "ログイン",
     "signUp": "アカウント登録",
-    "editing": "編集中"
+    "editing": "編集中",
+    "baseSetting": "基本設定",
+    "memo": "メモ"
   },
   "label": {
     "email": "メールアドレス",
