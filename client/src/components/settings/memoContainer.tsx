@@ -10,7 +10,7 @@ interface Props {
   getSettings: any,
   patchSettings: any,
   setEditing: any,
-  settings: {
+  profile: {
     editing: boolean,
     isLoading: boolean,
     memo: string
@@ -41,7 +41,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
   }
 
   diff(): boolean {
-    return this.props.settings.editing && this.state.memo !== this.props.settings.memo;
+    return this.props.profile.editing && this.state.memo !== this.props.profile.memo;
   }
 
   handleClickIcon() {
@@ -50,9 +50,9 @@ class MemoContainer extends Component<i18nProps & Props, State> {
         isOpenCancelModal: true
       })
     } else {
-      this.props.setEditing(!this.props.settings.editing)
+      this.props.setEditing(!this.props.profile.editing)
       this.setState({
-        memo: this.props.settings.memo
+        memo: this.props.profile.memo
       })
     }
   }
@@ -98,14 +98,14 @@ class MemoContainer extends Component<i18nProps & Props, State> {
             {t('title.memo')}
           </div>
           <div className='card-body'>
-            {this.props.settings.editing && (
+            {this.props.profile.editing && (
               <span className='badge badge-info editing-badge'>
                 <i className="fas fa-pen-square left-icon"></i>
                 {t('title.editing')}
               </span>
             )}
-            <EditAndCancel editing={this.props.settings.editing} handleClickIcon={this.handleClickIcon} />
-            {this.props.settings.editing ? (
+            <EditAndCancel editing={this.props.profile.editing} handleClickIcon={this.handleClickIcon} />
+            {this.props.profile.editing ? (
               <form>
                 <div className='form-group'>
                   <textarea
@@ -114,10 +114,10 @@ class MemoContainer extends Component<i18nProps & Props, State> {
                     rows={8}
                     value={this.state.memo} />
                 </div>
-                {this.props.settings.editing && (
+                {this.props.profile.editing && (
                   <button
-                    className={'btn btn-primary' + (this.props.settings.isLoading || !this.diff() ? ' disabled' : '')}
-                    disabled={this.props.settings.isLoading || !this.diff()}
+                    className={'btn btn-primary' + (this.props.profile.isLoading || !this.diff() ? ' disabled' : '')}
+                    disabled={this.props.profile.isLoading || !this.diff()}
                     onClick={this.handleClickSubmitButton}
                     type='button'>
                     {t('button.update')}
@@ -126,7 +126,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
               </form>
             ) : (
               <div className='memo'>
-                {this.props.settings.memo}
+                {this.props.profile.memo}
               </div>
             )}
           </div>
@@ -138,7 +138,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
 
 function mapState(state: any) {
   return {
-    settings: state.settings
+    profile: state.profile
   };
 }
 

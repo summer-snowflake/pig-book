@@ -21,7 +21,7 @@ interface Props {
   changeSettingsCurrency: any,
   patchSettings: any,
   setEditing: any,
-  settings: {
+  profile: {
     editing: boolean,
     isLoading: boolean,
     locale: string,
@@ -50,7 +50,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
   }
 
   diff(): boolean {
-    return this.props.settings.editing && (this.state.locale !== this.props.settings.locale || this.state.currency !== this.props.settings.currency);
+    return this.props.profile.editing && (this.state.locale !== this.props.profile.locale || this.state.currency !== this.props.profile.currency);
   }
 
   checkIconClass(target: string, value: string): string {
@@ -63,10 +63,10 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
         isOpenCancelModal: true
       })
     } else {
-      this.props.setEditing(!this.props.settings.editing)
+      this.props.setEditing(!this.props.profile.editing)
       this.setState({
-        locale: this.props.settings.locale,
-        currency: this.props.settings.currency
+        locale: this.props.profile.locale,
+        currency: this.props.profile.currency
       })
     }
   }
@@ -96,8 +96,8 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
 
   handleClickSubmitButton() {
     const params = {
-      locale: this.props.settings.locale,
-      currency: this.props.settings.currency
+      locale: this.props.profile.locale,
+      currency: this.props.profile.currency
     }
     this.props.patchSettings(params);
   }
@@ -117,52 +117,52 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
             {t('title.baseSetting')}
           </div>
           <div className='card-body with-background-image'>
-            {this.props.settings.editing && (
+            {this.props.profile.editing && (
               <span className='badge badge-info editing-badge'>
                 <i className="fas fa-pen-square left-icon"></i>
                 {t('title.editing')}
               </span>
             )}
-            <EditAndCancel editing={this.props.settings.editing} handleClickIcon={this.handleClickIcon} />
+            <EditAndCancel editing={this.props.profile.editing} handleClickIcon={this.handleClickIcon} />
             <form>
               <div className='form-group'>
                 <label className='label'>
                   {t('label.language')}
                 </label>
-                {this.props.settings.editing ? (
+                {this.props.profile.editing ? (
                   <span>
                     <span className='radio-span'>
                       <input
                         className='radio-input'
-                        checked={this.props.settings.locale === 'ja'}
+                        checked={this.props.profile.locale === 'ja'}
                         onChange={this.handleChangeLocale}
                         name='profile[locale]'
                         value='ja'
                         id='profile_locale_ja'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_locale_ja'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.locale, 'ja')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.locale, 'ja')} />
                         {t('label.language-ja')}
                       </label>
                     </span>
                     <span className='radio-span'>
                       <input
                         className='radio-input'
-                        checked={this.props.settings.locale === 'en'}
+                        checked={this.props.profile.locale === 'en'}
                         onChange={this.handleChangeLocale}
                         name='profile[locale]'
                         value='en'
                         id='profile_locale_en'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_locale_en'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.locale, 'en')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.locale, 'en')} />
                         {t('label.language-en')}
                       </label>
                     </span>
                   </span>
                 ) : (
                   <span>
-                    {t('label.language-' + this.props.settings.locale)}
+                    {t('label.language-' + this.props.profile.locale)}
                   </span>
                 )}
               </div>
@@ -170,48 +170,48 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                 <label className='label'>
                   {t('label.currency')}
                 </label>
-                {this.props.settings.editing ? (
+                {this.props.profile.editing ? (
                   <span>
                     <span className='radio-span'>
                       <input
                         className='radio-input'
-                        checked={this.props.settings.currency === 'yen'}
+                        checked={this.props.profile.currency === 'yen'}
                         onChange={this.handleChangeCurrency}
                         name='profile[currency]'
                         id='profile_currency_yen'
                         value='yen'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_currency_yen'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.currency, 'yen')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.currency, 'yen')} />
                         {t('label.currency-yen')}
                       </label>
                     </span>
                     <span className='radio-span'>
                       <input
                         className='radio-input'
-                        checked={this.props.settings.currency === 'dollar'}
+                        checked={this.props.profile.currency === 'dollar'}
                         onChange={this.handleChangeCurrency}
                         name='profile[currency]'
                         id='profile_currency_dollar'
                         value='dollar'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_currency_dollar'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.settings.currency, 'dollar')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.currency, 'dollar')} />
                         {t('label.currency-dollar')}
                       </label>
                     </span>
                   </span>
                 ) : (
                   <span>
-                    {t('label.currency-' + this.props.settings.currency)}
+                    {t('label.currency-' + this.props.profile.currency)}
                   </span>
                 )}
               </div>
 
-              {this.props.settings.editing && (
+              {this.props.profile.editing && (
                 <button
-                  className={'btn btn-primary' + (this.props.settings.isLoading || !this.diff() ? ' disabled' : '')}
-                  disabled={this.props.settings.isLoading || !this.diff()}
+                  className={'btn btn-primary' + (this.props.profile.isLoading || !this.diff() ? ' disabled' : '')}
+                  disabled={this.props.profile.isLoading || !this.diff()}
                   onClick={this.handleClickSubmitButton}
                   type='button'>
                   {t('button.update')}
@@ -227,7 +227,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
 
 function mapState(state: any) {
   return {
-    settings: state.settings
+    profile: state.profile
   };
 }
 
