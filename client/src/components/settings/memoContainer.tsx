@@ -23,7 +23,7 @@ interface State {
 }
 
 class MemoContainer extends Component<i18nProps & Props, State> {
-  constructor(props: i18nProps & Props, state: State) {
+  constructor(props: i18nProps & Props) {
     super(props);
 
     this.state = {
@@ -87,41 +87,49 @@ class MemoContainer extends Component<i18nProps & Props, State> {
     const { t } = this.props;
 
     return (
-      <div className='memo-component card'>
+      <div className='memo-component container'>
         <CancelUpdateModal
           isOpen={this.state.isOpenCancelModal}
           handleClickCancel={this.handleClickCancel}
           handleClickClose={this.handleClickClose} />
-        <div className='card-body'>
-          <span className='memo-title'>
+        <div className='card'>
+          <div className='card-header'>
             <i className='fas fa-book-open left-icon' />
-            MEMO
-          </span>
-          <EditAndCancel editing={this.props.settings.editing} handleClickIcon={this.handleClickIcon} />
-          {this.props.settings.editing ? (
-            <form>
-              <div className='form-group'>
-                <textarea
-                  className='form-control'
-                  onChange={this.handleChangeMemo}
-                  rows={5}
-                  value={this.state.memo} />
+            {t('title.memo')}
+          </div>
+          <div className='card-body'>
+            {this.props.settings.editing && (
+              <span className='badge badge-info editing-badge'>
+                <i className="fas fa-pen-square left-icon"></i>
+                {t('title.editing')}
+              </span>
+            )}
+            <EditAndCancel editing={this.props.settings.editing} handleClickIcon={this.handleClickIcon} />
+            {this.props.settings.editing ? (
+              <form>
+                <div className='form-group'>
+                  <textarea
+                    className='form-control'
+                    onChange={this.handleChangeMemo}
+                    rows={8}
+                    value={this.state.memo} />
+                </div>
+                {this.props.settings.editing && (
+                  <button
+                    className={'btn btn-primary' + (this.props.settings.isLoading || !this.diff() ? ' disabled' : '')}
+                    disabled={this.props.settings.isLoading || !this.diff()}
+                    onClick={this.handleClickSubmitButton}
+                    type='button'>
+                    {t('button.update')}
+                  </button>
+                )}
+              </form>
+            ) : (
+              <div className='memo'>
+                {this.props.settings.memo}
               </div>
-              {this.props.settings.editing && (
-                <button
-                  className={'btn btn-primary' + (this.props.settings.isLoading || !this.diff() ? ' disabled' : '')}
-                  disabled={this.props.settings.isLoading || !this.diff()}
-                  onClick={this.handleClickSubmitButton}
-                  type='button'>
-                  {t('button.update')}
-                </button>
-              )}
-            </form>
-          ) : (
-            <div className='memo'>
-              {this.props.settings.memo}
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     );
