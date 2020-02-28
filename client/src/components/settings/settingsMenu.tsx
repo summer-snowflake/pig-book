@@ -14,6 +14,10 @@ class SettingsMenu extends Component<i18nProps> {
           <i className='fas fa-user-cog left-icon' />
           {t('menu.settingsTop')}
         </NavLink>
+        <NavLink activeClassName='active-link-menu' className='list-group-item' to='/categories'>
+          <i className='fas fa-th-large left-icon' />
+          {t('menu.category')}
+        </NavLink>
       </div>
     );
   }

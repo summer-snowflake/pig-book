@@ -8,7 +8,8 @@
     "mypage": "Mypage",
     "mypageTop": "Mypage TOP",
     "settings": "Setting",
-    "settingsTop": "Setting TOP"
+    "settingsTop": "Setting TOP",
+    "category": "Category"
   },
   "title": {
     "login": "Sign In",
