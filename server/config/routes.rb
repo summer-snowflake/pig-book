@@ -6,6 +6,6 @@ Rails.application.routes.draw do
 
     resource :user, only: %i[show]
     resource :profile, only: %i[show update]
-    resources :categories, only: %i[index]
+    resources :categories, only: %i[index create]
   end
 end
