@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
 import EditAndCancel from 'components/common/editAndCancel';
-import { getSettings, patchSettings, changeSettingsLocale, changeSettingsCurrency, setEditing } from 'actions/settingsActions';
+import { getProfile, patchProfile, changeProfileLocale, changeProfileCurrency, setEditing } from 'actions/settingsActions';
 
 import 'stylesheets/settings.sass';
 import CancelUpdateModal from 'components/common/cancelUpdateModal';
@@ -16,10 +16,10 @@ interface State {
 }
 
 interface Props {
-  getSettings: any,
-  changeSettingsLocale: any,
-  changeSettingsCurrency: any,
-  patchSettings: any,
+  getProfile: any,
+  changeProfileLocale: any,
+  changeProfileCurrency: any,
+  patchProfile: any,
   setEditing: any,
   profile: {
     editing: boolean,
@@ -46,7 +46,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
 
-    this.props.getSettings();
+    this.props.getProfile();
   }
 
   diff(): boolean {
@@ -72,16 +72,16 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
   }
 
   handleChangeLocale(e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.changeSettingsLocale(e.target.value);
+    this.props.changeProfileLocale(e.target.value);
   }
 
   handleChangeCurrency(e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.changeSettingsCurrency(e.target.value);
+    this.props.changeProfileCurrency(e.target.value);
   }
 
   handleClickCancel() {
-    this.props.changeSettingsLocale(this.state.locale);
-    this.props.changeSettingsCurrency(this.state.currency);
+    this.props.changeProfileLocale(this.state.locale);
+    this.props.changeProfileCurrency(this.state.currency);
     this.props.setEditing(false)
     this.setState({
       isOpenCancelModal: false,
@@ -99,7 +99,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
       locale: this.props.profile.locale,
       currency: this.props.profile.currency
     }
-    this.props.patchSettings(params);
+    this.props.patchProfile(params);
   }
 
   render() {
@@ -233,17 +233,17 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    getSettings() {
-      dispatch(getSettings());
+    getProfile() {
+      dispatch(getProfile());
     },
-    changeSettingsLocale(locale: string) {
-      dispatch(changeSettingsLocale(locale))
+    changeProfileLocale(locale: string) {
+      dispatch(changeProfileLocale(locale))
     },
-    changeSettingsCurrency(locale: string) {
-      dispatch(changeSettingsCurrency(locale))
+    changeProfileCurrency(locale: string) {
+      dispatch(changeProfileCurrency(locale))
     },
-    patchSettings(params: State) {
-      dispatch(patchSettings(params));
+    patchProfile(params: State) {
+      dispatch(patchProfile(params));
     },
     setEditing(editing: boolean) {
       dispatch(setEditing(editing));

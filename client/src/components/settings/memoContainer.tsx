@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 import EditAndCancel from 'components/common/editAndCancel';
 import CancelUpdateModal from 'components/common/cancelUpdateModal';
-import { getSettings, patchSettings, setEditing } from 'actions/settingsActions';
+import { getProfile, patchProfile, setEditing } from 'actions/settingsActions';
 
 interface Props {
-  getSettings: any,
-  patchSettings: any,
+  getProfile: any,
+  patchProfile: any,
   setEditing: any,
   profile: {
     editing: boolean,
@@ -37,7 +37,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
     this.handleChangeMemo = this.handleChangeMemo.bind(this);
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this);
 
-    this.props.getSettings();
+    this.props.getProfile();
   }
 
   diff(): boolean {
@@ -80,7 +80,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
     const params = {
       memo: this.state.memo
     }
-    this.props.patchSettings(params);
+    this.props.patchProfile(params);
   }
 
   render() {
@@ -144,11 +144,11 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    getSettings() {
-      dispatch(getSettings());
+    getProfile() {
+      dispatch(getProfile());
     },
-    patchSettings(params: State) {
-      dispatch(patchSettings(params));
+    patchProfile(params: State) {
+      dispatch(patchProfile(params));
     },
     setEditing(editing: boolean) {
       dispatch(setEditing(editing));
