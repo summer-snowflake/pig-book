@@ -1,6 +1,6 @@
 class OptionsRequestController < ApplicationController
   ACCESS_CONTROL_ALLOW_HEADERS = %i[Accept Origin Content-Type Authorization client access-token uid].freeze
-  ACCESS_CONTROL_ALLOW_METHODS = %i[GET OPTIONS].freeze
+  ACCESS_CONTROL_ALLOW_METHODS = %i[GET PATCH OPTIONS].freeze
 
   def preflight
     set_preflight_headers!

@@ -89,7 +89,7 @@ class SignInContainer extends Component<i18nProps & RouteComponentProps & Props,
                 value={this.state.password} />
             </div>
 
-            <button className='btn btn-primary' disabled={this.props.session.isLoading}onClick={this.handleLogin} type='submit'>
+            <button className='btn btn-primary' disabled={this.props.session.isLoading} onClick={this.handleLogin} type='submit'>
               {t('button.login')}
             </button>
           </form>

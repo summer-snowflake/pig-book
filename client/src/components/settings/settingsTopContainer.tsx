@@ -3,13 +3,12 @@ import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
-import { getSettings, changeSettingsLocale, changeSettingsCurrency } from 'actions/settingsActions';
+import { getSettings, patchSettings, changeSettingsLocale, changeSettingsCurrency, setEditing } from 'actions/settingsActions';
 
 import 'stylesheets/settings.sass';
 import CancelUpdateModal from 'components/common/cancelUpdateModal';
 
 interface State {
-  editing: boolean,
   isOpenCancelModal: boolean,
   locale: string,
   currency: string
@@ -19,7 +18,10 @@ interface Props {
   getSettings: any,
   changeSettingsLocale: any,
   changeSettingsCurrency: any,
+  patchSettings: any,
+  setEditing: any,
   settings: {
+    editing: boolean,
     isLoading: boolean,
     locale: string,
     currency: string
@@ -31,7 +33,6 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     super(props);
 
     this.state = {
-      editing: false,
       isOpenCancelModal: false,
       locale: 'ja',
       currency: 'yen'
@@ -42,18 +43,23 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     this.handleChangeCurrency = this.handleChangeCurrency.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
 
     this.props.getSettings();
   }
 
+  diff(): boolean {
+    return this.props.settings.editing && (this.state.locale !== this.props.settings.locale || this.state.currency !== this.props.settings.currency);
+  }
+
   handleClickIcon() {
-    if (this.state.editing && (this.state.locale !== this.props.settings.locale || this.state.currency !== this.props.settings.currency)) {
+    if (this.diff()) {
       this.setState({
         isOpenCancelModal: true
       })
     } else {
+      this.props.setEditing(!this.props.settings.editing)
       this.setState({
-        editing: !this.state.editing,
         locale: this.props.settings.locale,
         currency: this.props.settings.currency
       })
@@ -71,9 +77,9 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
   handleClickCancel() {
     this.props.changeSettingsLocale(this.state.locale);
     this.props.changeSettingsCurrency(this.state.currency);
+    this.props.setEditing(false)
     this.setState({
       isOpenCancelModal: false,
-      editing: false
     })
   }
 
@@ -81,6 +87,14 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
     this.setState({
       isOpenCancelModal: false
     })
+  }
+
+  handleClickSubmitButton() {
+    const params = {
+      locale: this.props.settings.locale,
+      currency: this.props.settings.currency
+    }
+    this.props.patchSettings(params);
   }
 
   render() {
@@ -98,14 +112,14 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
             {t('menu.settingsTop')}
           </div>
           <div className='card-body with-background-image'>
-            {this.state.editing && (
+            {this.props.settings.editing && (
               <span className='badge badge-info editing-badge'>
                 <i className="fas fa-pen-square left-icon"></i>
                 {t('title.editing')}
               </span>
             )}
             <span className='icon-field float-right' onClick={this.handleClickIcon}>
-              {this.state.editing ? (
+              {this.props.settings.editing ? (
                 <FontAwesomeIcon icon={['fas', 'times']} />
               ) : (
                 <FontAwesomeIcon icon={['fas', 'edit']} />
@@ -116,7 +130,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 <label className='label'>
                   {t('label.language')}
                 </label>
-                {this.state.editing ? (
+                {this.props.settings.editing ? (
                   <span>
                     <input
                       className=''
@@ -151,7 +165,7 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 <label className='label'>
                   {t('label.currency')}
                 </label>
-                {this.state.editing ? (
+                {this.props.settings.editing ? (
                   <span>
                     <input
                       className=''
@@ -183,8 +197,12 @@ class SettingsTopContainer extends Component<i18nProps & Props, State> {
                 )}
               </div>
 
-              {this.state.editing && (
-                <button className='btn btn-primary' type='submit'>
+              {this.props.settings.editing && (
+                <button
+                  className='btn btn-primary'
+                  disabled={this.props.settings.isLoading || !this.diff()}
+                  onClick={this.handleClickSubmitButton}
+                  type='button'>
                   {t('button.update')}
                 </button>
               )}
@@ -212,6 +230,12 @@ function mapDispatch(dispatch: any) {
     },
     changeSettingsCurrency(locale: string) {
       dispatch(changeSettingsCurrency(locale))
+    },
+    patchSettings(params: State) {
+      dispatch(patchSettings(params));
+    },
+    setEditing(editing: boolean) {
+      dispatch(setEditing(editing));
     }
   }
 }

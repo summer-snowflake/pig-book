@@ -8,9 +8,10 @@ export const getSettingsRequest = () => {
   }
 }
 
-export const getSettingsSuccess = () => {
+export const getSettingsSuccess = (data) => {
   return {
-    type: actionTypes.GET_SETTINGS_SUCCESS
+    type: actionTypes.GET_SETTINGS_SUCCESS,
+    data
   }
 }
 
@@ -26,7 +27,7 @@ export const getSettings = () => {
     try {
       if(ready()) {
         const res = await axios.get('/api/profile', { headers: loginHeaders() });
-        dispatch(getSettingsSuccess(res));
+        dispatch(getSettingsSuccess(res.data));
       } else {
         dispatch(getSettingsFailure());
       }
@@ -48,5 +49,48 @@ export const changeSettingsCurrency = (currency) => {
   return {
     type: actionTypes.CHANGE_SETTINGS_CURRENCY,
     currency: currency
+  }
+}
+
+export const patchSettingsRequest = () => {
+  return {
+    type: actionTypes.PATCH_SETTINGS_REQUEST
+  }
+}
+
+export const patchSettingsSuccess = (data) => {
+  return {
+    type: actionTypes.PATCH_SETTINGS_SUCCESS,
+    data
+  }
+}
+
+export const patchSettingsFailure = () => {
+  return {
+    type: actionTypes.PATCH_SETTINGS_FAILURE
+  }
+}
+
+export const patchSettings = (params) => {
+  return async (dispatch) => {
+    dispatch(patchSettingsRequest());
+    try {
+      if(ready()) {
+        const res = await axios.patch('/api/profile', params, { headers: loginHeaders() });
+        dispatch(patchSettingsSuccess(res.data));
+      } else {
+        dispatch(getSettingsFailure());
+      }
+    }
+    catch (err) {
+      console.error(err);
+    }
+  }
+}
+
+export const setEditing = (editing) => {
+  return {
+    type: actionTypes.SET_EDITING,
+    editing
   }
 }
