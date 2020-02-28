@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import SettingsMenu from 'components/settings/settingsMenu'
-import SettingsTop from 'components/settings/settingsTopContainer'
+import SettingsMenu from 'components/settings/settingsMenu';
+import BaseSettingsContainer from 'components/settings/baseSettingsContainer';
+import MemoContainer from 'components/settings/memoContainer';
 
 class SettingsTopPage extends Component {
   render() {
@@ -14,7 +15,8 @@ class SettingsTopPage extends Component {
           <div className='col-1 d-lg-none'>
           </div>
           <div className='col'>
-            <SettingsTop />
+            <BaseSettingsContainer />
+            <MemoContainer />
           </div>
         </div>
       </div>

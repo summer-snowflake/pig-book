@@ -1,6 +1,12 @@
 @import variables
 
+.settings-top-component + .memo-component
+  padding-top: 30px
+
 .settings-top-component
+  .card
+    min-height: 210px
+
   .form-group
     .label
       width: 100px
@@ -13,3 +19,17 @@
 
     .radio-label
       cursor: pointer
+
+.memo-component
+  min-height: 210px
+
+  .memo
+    margin-top: 30px
+    white-space: pre-line
+    width: 100%
+
+  textarea
+    background-color: $translucent
+
+    &:focus
+      background-color: $translucent

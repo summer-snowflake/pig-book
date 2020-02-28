@@ -2,34 +2,34 @@ import * as actionTypes from 'utils/actionTypes';
 import { setting as axios } from 'config/axios';
 import { ready, loginHeaders } from 'utils/cookies';
 
-export const getSettingsRequest = () => {
+const getProfileRequest = () => {
   return {
-    type: actionTypes.GET_SETTINGS_REQUEST
+    type: actionTypes.GET_PROFILE_REQUEST
   }
 }
 
-export const getSettingsSuccess = (data) => {
+const getProfileSuccess = (data) => {
   return {
-    type: actionTypes.GET_SETTINGS_SUCCESS,
+    type: actionTypes.GET_PROFILE_SUCCESS,
     data
   }
 }
 
-export const getSettingsFailure = () => {
+const getProfileFailure = () => {
   return {
-    type: actionTypes.GET_SETTINGS_FAILURE
+    type: actionTypes.GET_PROFILE_FAILURE
   }
 }
 
-export const getSettings = () => {
+export const getProfile = () => {
   return async (dispatch) => {
-    dispatch(getSettingsRequest());
+    dispatch(getProfileRequest());
     try {
       if(ready()) {
         const res = await axios.get('/api/profile', { headers: loginHeaders() });
-        dispatch(getSettingsSuccess(res.data));
+        dispatch(getProfileSuccess(res.data));
       } else {
-        dispatch(getSettingsFailure());
+        dispatch(getProfileFailure());
       }
     }
     catch (err) {
@@ -38,48 +38,48 @@ export const getSettings = () => {
   }
 }
 
-export const changeSettingsLocale = (locale) => {
+export const changeProfileLocale = (locale) => {
   return {
-    type: actionTypes.CHANGE_SETTINGS_LOCALE,
+    type: actionTypes.CHANGE_PROFILE_LOCALE,
     locale: locale
   }
 }
 
-export const changeSettingsCurrency = (currency) => {
+export const changeProfileCurrency = (currency) => {
   return {
-    type: actionTypes.CHANGE_SETTINGS_CURRENCY,
+    type: actionTypes.CHANGE_PROFILE_CURRENCY,
     currency: currency
   }
 }
 
-export const patchSettingsRequest = () => {
+const patchProfileRequest = () => {
   return {
-    type: actionTypes.PATCH_SETTINGS_REQUEST
+    type: actionTypes.PATCH_PROFILE_REQUEST
   }
 }
 
-export const patchSettingsSuccess = (data) => {
+const patchProfileSuccess = (data) => {
   return {
-    type: actionTypes.PATCH_SETTINGS_SUCCESS,
+    type: actionTypes.PATCH_PROFILE_SUCCESS,
     data
   }
 }
 
-export const patchSettingsFailure = () => {
+const patchProfileFailure = () => {
   return {
-    type: actionTypes.PATCH_SETTINGS_FAILURE
+    type: actionTypes.PATCH_PROFILE_FAILURE
   }
 }
 
-export const patchSettings = (params) => {
+export const patchProfile = (params) => {
   return async (dispatch) => {
-    dispatch(patchSettingsRequest());
+    dispatch(patchProfileRequest());
     try {
       if(ready()) {
         const res = await axios.patch('/api/profile', params, { headers: loginHeaders() });
-        dispatch(patchSettingsSuccess(res.data));
+        dispatch(patchProfileSuccess(res.data));
       } else {
-        dispatch(getSettingsFailure());
+        dispatch(patchProfileFailure());
       }
     }
     catch (err) {
@@ -92,5 +92,12 @@ export const setEditing = (editing) => {
   return {
     type: actionTypes.SET_EDITING,
     editing
+  }
+}
+
+export const setEditingMemo = (editingMemo) => {
+  return {
+    type: actionTypes.SET_EDITING_MEMO,
+    editingMemo
   }
 }

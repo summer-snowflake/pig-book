@@ -13,7 +13,9 @@
   "title": {
     "login": "Sign In",
     "signUp": "Sign Up",
-    "editing": "Now editing"
+    "editing": "Now editing",
+    "baseSetting": "Base Setting",
+    "memo": "Note"
   },
   "label": {
     "email": "E-mail",
