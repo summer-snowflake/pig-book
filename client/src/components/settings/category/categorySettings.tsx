@@ -17,7 +17,6 @@ class CategorySettings extends Component<i18nProps> {
           </div>
           <div className='card-body with-background-image'>
             <CategoryCreateFormContainer />
-            <hr />
             <CategoriesListContainer />
           </div>
         </div>
