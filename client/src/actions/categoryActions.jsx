@@ -15,9 +15,10 @@ const postCategorySuccess = (data) => {
   }
 }
 
-const postCategoryFailure = () => {
+const postCategoryFailure = (data) => {
   return {
-    type: actionTypes.POST_CATEGORY_FAILURE
+    type: actionTypes.POST_CATEGORY_FAILURE,
+    data
   }
 }
 
@@ -33,6 +34,9 @@ export const postCategory = (params) => {
       }
     }
     catch (err) {
+      if (err.response.status === 422) {
+        dispatch(postCategoryFailure(err.response.data));
+      }
       console.error(err);
     }
   }
