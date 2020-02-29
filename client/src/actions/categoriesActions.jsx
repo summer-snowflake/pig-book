@@ -17,7 +17,7 @@ const getCategoriesSuccess = (data) => {
 
 const getCategoriesFailure = () => {
   return {
-    type: actionTypes.POST_CATEGORY_FAILURE
+    type: actionTypes.GET_CATEGORIES_FAILURE
   }
 }
 
@@ -35,5 +35,53 @@ export const getCategories = () => {
     catch (err) {
       console.error(err);
     }
+  }
+}
+
+const patchCategoryRequest = () => {
+  return {
+    type: actionTypes.PATCH_CATEGORY_REQUEST
+  }
+}
+
+const patchCategorySuccess = () => {
+  return {
+    type: actionTypes.PATCH_CATEGORY_SUCCESS
+  }
+}
+
+const patchCategoryFailure = (data) => {
+  return {
+    type: actionTypes.PATCH_CATEGORY_FAILURE,
+    data
+  }
+}
+
+export const patchCategory = (id, params) => {
+  return async (dispatch) => {
+    dispatch(patchCategoryRequest());
+
+    try {
+      if(ready()) {
+        const res = await axios.patch('/api/categories/' + id, params, { headers: loginHeaders() });
+        dispatch(patchCategorySuccess(res.data));
+        dispatch(getCategories());
+      } else {
+        dispatch(patchCategoryFailure());
+      }
+    }
+    catch (err) {
+      if (err.response.status === 422) {
+        dispatch(patchCategoryFailure(err.response.data));
+      }
+      console.error(err);
+    }
+  }
+}
+
+export const switchEditing = (editingId) => {
+  return {
+    type: actionTypes.SWITCH_EDITING,
+    editingId
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getCategories } from 'actions/categoriesActions';
-import CategoryTableRecord from 'components/settings/category/categoryTableRecord';
+import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer';
 
 interface Props {
   getCategories: any,
@@ -21,7 +21,7 @@ class CategoriesListContainer extends Component<Props> {
       <table className='table categories-list-component'>
         <tbody>
           {this.props.categories.categories.map((category: { id: number, name: string, balance_of_payments: boolean }) => (
-            <CategoryTableRecord category={category} key={category.id} />
+            <CategoryTableRecordContainer category={category} key={category.id} />
           ))}
         </tbody>
       </table>

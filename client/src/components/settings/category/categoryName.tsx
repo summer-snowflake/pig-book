@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
   category: {
@@ -12,9 +13,9 @@ class CategoryName extends Component<Props> {
     return (
       <span className='category-name-component'>
         {this.props.category.balance_of_payments === true ? (
-          <i className='fas fa-plus-square left-icon blue' />
+          <FontAwesomeIcon icon={['fas', 'plus-square']} className='left-icon blue' />
         ) : (
-          <i className='fas fa-minus-square left-icon red' />
+          <FontAwesomeIcon icon={['fas', 'minus-square']} className='left-icon red' />
         )}
         {this.props.category.name}
       </span>
