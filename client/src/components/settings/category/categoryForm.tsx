@@ -33,7 +33,7 @@ class CategoryForm extends Component<i18nProps & Props> {
               type='radio' />
             <label className='radio-label' htmlFor={'category_balance_of_payments_income-' + this.props.category.id}>
               <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
-              <i className='fas fa-plus-square left-icon blue' />
+              <FontAwesomeIcon icon={['fas', 'plus-square']} className='left-icon blue' />
               {t('label.income')}
             </label>
           </span>
@@ -48,7 +48,7 @@ class CategoryForm extends Component<i18nProps & Props> {
               type='radio' />
             <label className='radio-label' htmlFor={'category_balance_of_payments_outgo-' + this.props.category.id}>
               <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
-              <i className='fas fa-minus-square left-icon red' />
+              <FontAwesomeIcon icon={['fas', 'minus-square']} className='left-icon red' />
               {t('label.outgo')}
             </label>
           </span>
