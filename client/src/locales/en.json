@@ -27,20 +27,24 @@
     "language-en": "English",
     "currency": "Currency",
     "currency-yen": "¥ (yen)",
-    "currency-dollar": "$ (dollar)"
+    "currency-dollar": "$ (dollar)",
+    "income": "Income",
+    "outgo": "Outgo"
   },
   "button": {
     "login": "Sign In",
     "create": "Create",
     "update": "Update",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "add": "Add"
   },
   "message": {
     "pageNotFound": "Page not found.",
     "logout": "Logout",
     "loginSuccess": "Login Successfully",
     "loginFailure": "Login Failed",
+    "postCategorySuccess": "Category created successfully",
     "cancelUpdate": "Cancel?"
   }
 }

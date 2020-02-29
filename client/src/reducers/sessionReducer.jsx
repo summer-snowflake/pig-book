@@ -16,19 +16,19 @@ const sessionReducer = (state = initialState, action) => {
         isLoading: true
       }
     case actionTypes.LOGIN_SUCCESS:
-      toast.success(<FlashMessage message='login_success' messageType='success' />);
+      toast.success(<FlashMessage actionType={actionTypes.LOGIN_SUCCESS} />);
       return {
         ...state,
         isLoading: false
       }
     case actionTypes.LOGIN_FAILURE:
-      toast.error(<FlashMessage message='login_failure' messageType='error' />);
+      toast.error(<FlashMessage actionType={actionTypes.LOGIN_FAILURE} />);
       return {
         ...state,
         isLoading: false
       }
     case actionTypes.LOGOUT_SUCCESS:
-      toast.success(<FlashMessage message='logout' messageType='success' />);
+      toast.success(<FlashMessage actionType={actionTypes.LOGOUT_SUCCESS} />);
       return {
         ...state
       }
