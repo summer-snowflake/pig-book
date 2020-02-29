@@ -24,6 +24,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
 
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this);
   }
 
@@ -43,9 +44,17 @@ class CategoryPostForm extends Component<i18nProps & Props> {
     this.props.changeCategoryName(e.target.value);
   }
 
+  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    var ENTER = 13;
+    if (e.keyCode == ENTER) {
+      e.preventDefault();
+      this.handleClickSubmitButton();
+    }
+  }
+
   handleClickSubmitButton() {
     const params = {
-      balanceOfPayments: this.props.category.balanceOfPayments,
+      balance_of_payments: this.props.category.balanceOfPayments,
       name: this.props.category.name
     }
 
@@ -96,6 +105,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
               className='form-control'
               name='category_name'
               value={this.props.category.name}
+              onKeyDown={this.handleKeyDown}
               onChange={this.handleChangeName} />
           </div>
           <div className='form-group col-auto'>

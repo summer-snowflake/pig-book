@@ -5,5 +5,5 @@ class Category < ApplicationRecord
 
   validates :balance_of_payments, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 30 },
-            uniqueness: { scope: :user }
+            uniqueness: { scope: [:user, :balance_of_payments] }
 end
