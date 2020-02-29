@@ -46,7 +46,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
 
   handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     var ENTER = 13;
-    if (e.keyCode == ENTER) {
+    if (e.keyCode === ENTER) {
       e.preventDefault();
       this.handleClickSubmitButton();
     }

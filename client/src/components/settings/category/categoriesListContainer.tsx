@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { getCategories } from 'actions/categoriesActions';
@@ -11,16 +10,14 @@ interface Props {
   categories: any
 }
 
-class CategoriesListContainer extends Component<i18nProps & Props> {
-  constructor(props: i18nProps & Props) {
+class CategoriesListContainer extends Component<Props> {
+  constructor(props: Props) {
     super(props);
 
     this.props.getCategories();
   }
 
   render() {
-    const { t } = this.props;
-
     return (
       <table className='table categories-list-component'>
         <tbody>
@@ -56,4 +53,4 @@ function mapDispatch(dispatch: any) {
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(CategoriesListContainer));
+export default connect(mapState, mapDispatch)(CategoriesListContainer);

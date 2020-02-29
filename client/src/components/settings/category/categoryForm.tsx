@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import EditAndCancel from 'components/common/editAndCancel';
+
 interface Props {
   category: {
     id: number,
@@ -9,6 +11,16 @@ interface Props {
 }
 
 class CategoryForm extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    this.handleClickIcon = this.handleClickIcon.bind(this);
+  }
+
+  handleClickIcon() {
+
+  }
+
   render() {
     return (
       <tr className='category-form-component'>
@@ -18,7 +30,12 @@ class CategoryForm extends Component<Props> {
           ) : (
             <i className='fas fa-minus-square left-icon red' />
           )}
-          {this.props.category.name}
+          <span className='align-middle'>
+            {this.props.category.name}
+          </span>
+        </td>
+        <td>
+          <EditAndCancel editing={false} handleClickIcon={this.handleClickIcon} />
         </td>
       </tr>
     );
