@@ -8,4 +8,5 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_one :profile
+  has_many :categories
 end

@@ -8,7 +8,8 @@
     "mypage": "マイページ",
     "mypageTop": "マイページTOP",
     "settings": "各種設定",
-    "settingsTop": "ユーザー設定"
+    "settingsTop": "ユーザー設定",
+    "category": "カテゴリ設定"
   },
   "title": {
     "login": "ログイン",
@@ -26,20 +27,24 @@
     "language-en": "英語",
     "currency": "通貨の単位",
     "currency-yen": "¥（円）",
-    "currency-dollar": "$（ドル）"
+    "currency-dollar": "$（ドル）",
+    "income": "収入",
+    "outgo": "支出"
   },
   "button": {
     "login": "ログインする",
     "create": "登録する",
     "update": "更新する",
     "cancel": "取り消す",
-    "close": "閉じる"
+    "close": "閉じる",
+    "add": "追加する"
   },
   "message": {
     "pageNotFound": "お探しのページは見つかりませんでした。",
     "logout": "ログアウトしました",
     "loginSuccess": "ログインしました",
     "loginFailure": "ログインに失敗しました",
+    "postCategorySuccess": "カテゴリを追加しました",
     "cancelUpdate": "更新を取り消しますか？"
   }
 }

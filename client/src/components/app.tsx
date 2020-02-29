@@ -13,6 +13,7 @@ import SignInPage from 'components/login/signInPage';
 import SignUpPage from 'components/login/signUpPage';
 import MypageTopPage from 'components/mypage/mypageTopPage';
 import SettingsTopPage from 'components/settings/settingsTopPage';
+import CategoryPage from 'components/settings/category/categoryPage';
 import Footer from 'components/footer';
 import Page404 from 'components/errors/page404';
 
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path='/users/sign_up' exact component={SignUpPage} />
             <Route path='/mypage' exact component={MypageTopPage} />
             <Route path='/settings' exact component={SettingsTopPage} />
+            <Route path='/categories' exact component={CategoryPage} />
             <Route exact component={Page404} />
           </Switch>
         </Router>
