@@ -110,7 +110,7 @@ class MemoContainer extends Component<i18nProps & Props, State> {
                 </div>
                 {this.props.profile.editingMemo && (
                   <button
-                    className={'btn btn-primary' + (this.props.profile.isLoading || !this.diff() ? ' disabled' : '')}
+                    className='btn btn-primary'
                     disabled={this.props.profile.isLoading || !this.diff()}
                     onClick={this.handleClickSubmitButton}
                     type='button'>

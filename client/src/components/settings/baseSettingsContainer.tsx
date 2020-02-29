@@ -204,7 +204,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
 
               {this.props.profile.editing && (
                 <button
-                  className={'btn btn-primary' + (this.props.profile.isLoading || !this.diff() ? ' disabled' : '')}
+                  className='btn btn-primary'
                   disabled={this.props.profile.isLoading || !this.diff()}
                   onClick={this.handleClickSubmitButton}
                   type='button'>
