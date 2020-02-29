@@ -1,6 +1,7 @@
 import * as actionTypes from 'utils/actionTypes';
 import { setting as axios } from 'config/axios';
 import { ready, loginHeaders } from 'utils/cookies';
+import { getCategories } from 'actions/categoriesActions';
 
 const postCategoryRequest = () => {
   return {
@@ -29,6 +30,7 @@ export const postCategory = (params) => {
       if(ready()) {
         const res = await axios.post('/api/categories', params, { headers: loginHeaders() });
         dispatch(postCategorySuccess(res.data));
+        dispatch(getCategories());
       } else {
         dispatch(postCategoryFailure());
       }
@@ -42,10 +44,10 @@ export const postCategory = (params) => {
   }
 }
 
-export const changeCategoryBalanceOfPayments = (balanceOfPayments) => {
+export const changeCategoryBalanceOfPayments = (balance_of_payments) => {
   return {
     type: actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS,
-    balanceOfPayments
+    balance_of_payments
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 
 import CategoryCreateFormContainer from 'components/settings/category/categoryCreateFormContainer';
+import CategoriesListContainer from 'components/settings/category/categoriesListContainer';
 
 class CategorySettings extends Component<i18nProps> {
   render() {
@@ -16,6 +17,7 @@ class CategorySettings extends Component<i18nProps> {
           </div>
           <div className='card-body with-background-image'>
             <CategoryCreateFormContainer />
+            <CategoriesListContainer />
           </div>
         </div>
       </div>

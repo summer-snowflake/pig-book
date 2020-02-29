@@ -6,54 +6,48 @@ import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
-  balance_of_payments: false,
-  name: '',
+  editingId: 0,
   errors: []
 }
 
 interface Action {
   type: string,
-  balance_of_payments?: boolean,
-  name: string,
+  editingId: number,
   data: {
     errors: string[]
   }
 }
 
-const categoryReducer = (state = initialState, action: Action) => {
+const editCategoryReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case actionTypes.POST_CATEGORY_REQUEST:
+    case actionTypes.PATCH_CATEGORY_REQUEST:
       return {
         ...state,
         isLoading: true
       }
-    case actionTypes.POST_CATEGORY_SUCCESS:
+    case actionTypes.PATCH_CATEGORY_SUCCESS:
       toast.success(<FlashMessage actionType={action.type} />);
       return {
         ...state,
         isLoading: false,
-        name: '',
+        editingId: 0,
         errors: []
       }
-    case actionTypes.POST_CATEGORY_FAILURE:
+    case actionTypes.PATCH_CATEGORY_FAILURE:
       return {
         ...state,
         isLoading: false,
         errors: action.data.errors
       }
-    case actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS:
+    case actionTypes.SWITCH_EDITING:
       return {
         ...state,
-        balance_of_payments: action.balance_of_payments
-      }
-    case actionTypes.CHANGE_CATEGORY_NAME:
-      return {
-        ...state,
-        name: action.name
+        editingId: action.editingId,
+        errors: []
       }
     default:
       return state;
   }
 }
 
-export default categoryReducer;
+export default editCategoryReducer;
