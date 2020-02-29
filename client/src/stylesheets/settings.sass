@@ -1,27 +1,43 @@
 @import variables
 
+.radio-span
+  padding: 0 10px 0 0
+
+  .radio-input
+    visibility: hidden
+
+    &:checked + .radio-label
+      border: 1px solid $green-translucent
+
+      svg.fa-check
+        color: $darken-green
+
+  .radio-label
+    cursor: pointer
+    border: 1px solid transparent
+    padding: 5px
+    border-radius: 5px
+
+    svg.fa-check
+      color: $green-translucent
+
 .settings-top-component + .memo-component
   padding-top: 30px
 
 .settings-top-component
   .card
-    min-height: 210px
+    min-height: 230px
 
   .form-group
     .label
       width: 100px
 
-    .radio-span
-      padding: 0 10px 0 0
-
-    .radio-input
-      visibility: hidden
-
     .radio-label
       cursor: pointer
 
 .memo-component
-  min-height: 210px
+  .card
+    min-height: 350px
 
   .memo
     margin-top: 30px
@@ -33,3 +49,7 @@
 
     &:focus
       background-color: $translucent
+
+.new-category
+  .category-radio
+    padding-top: 3px

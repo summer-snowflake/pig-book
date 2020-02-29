@@ -135,7 +135,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                         id='profile_locale_ja'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_locale_ja'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.locale, 'ja')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
                         {t('label.language-ja')}
                       </label>
                     </span>
@@ -149,7 +149,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                         id='profile_locale_en'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_locale_en'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.locale, 'en')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
                         {t('label.language-en')}
                       </label>
                     </span>
@@ -176,7 +176,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                         value='yen'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_currency_yen'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.currency, 'yen')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
                         {t('label.currency-yen')}
                       </label>
                     </span>
@@ -190,7 +190,7 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                         value='dollar'
                         type='radio' />
                       <label className='radio-label' htmlFor='profile_currency_dollar'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className={'left-icon ' + this.checkIconClass(this.props.profile.currency, 'dollar')} />
+                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
                         {t('label.currency-dollar')}
                       </label>
                     </span>
