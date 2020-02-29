@@ -22,7 +22,7 @@ class CategoriesListContainer extends Component<i18nProps & Props> {
     const { t } = this.props;
 
     return (
-      <table className='categories-list-component'>
+      <table className='table categories-list-component'>
         <tbody>
           {this.props.categories.categories.map((category: { id: number, name: string, balance_of_payments: boolean }) => (
             <CategoryForm category={category} key={category.id} />
