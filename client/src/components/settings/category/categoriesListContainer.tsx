@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getCategories } from 'actions/categoriesActions';
-import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions';
 import CategoryTableRecord from 'components/settings/category/categoryTableRecord';
 
 interface Props {
@@ -40,15 +39,6 @@ function mapDispatch(dispatch: any) {
   return {
     getCategories() {
       dispatch(getCategories());
-    },
-    postCategory(params: { category: { balanceOfPayments: boolean, name: string } }) {
-      dispatch(postCategory(params));
-    },
-    changeCategoryBalanceOfPayments(balanceOfPayments: boolean) {
-      dispatch(changeCategoryBalanceOfPayments(balanceOfPayments));
-    },
-    changeCategoryName(name: string) {
-      dispatch(changeCategoryName(name));
     }
   }
 }
