@@ -7,13 +7,17 @@ import FlashMessage from 'components/common/flashMessage'
 const initialState = {
   isLoading: false,
   balanceOfPayments: false,
-  name: ''
+  name: '',
+  errors: []
 }
 
 interface Action {
   type: string,
   balanceOfPayments?: boolean,
-  name: string
+  name: string,
+  data: {
+    errors: string[]
+  }
 }
 
 const categoryReducer = (state = initialState, action: Action) => {
@@ -28,12 +32,14 @@ const categoryReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         isLoading: false,
-        name: ''
+        name: '',
+        errors: []
       }
     case actionTypes.POST_CATEGORY_FAILURE:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        errors: action.data.errors
       }
     case actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS:
       return {

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
 import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions';
+import ValidationErrorMessages from 'components/common/validationErrorMessages';
 
 interface Props {
   postCategory: any,
@@ -12,7 +13,8 @@ interface Props {
   category: {
     isLoading: boolean,
     name: string,
-    balanceOfPayments: boolean
+    balanceOfPayments: boolean,
+    errors: string[]
   }
 }
 
@@ -54,9 +56,9 @@ class CategoryPostForm extends Component<i18nProps & Props> {
     const { t } = this.props;
 
     return (
-      <div className='category-post-form-component'>
+      <div className='category-create-form-component'>
         <form className='new-category form-row'>
-          <div className='form-group col-md-3 mb-3 category-radio'>
+          <div className='form-group col-md-3 category-radio'>
             <span className='radio-span'>
               <input
                 className='radio-input'
@@ -88,7 +90,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
               </label>
             </span>
           </div>
-          <div className='form-group col-md-4 mb-3'>
+          <div className='form-group col-md-4'>
             <input
               type='text'
               className='form-control'
@@ -96,7 +98,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
               value={this.props.category.name}
               onChange={this.handleChangeName} />
           </div>
-          <div className='form-group col-auto mb-3'>
+          <div className='form-group col-auto'>
             <button
               className='btn btn-primary'
               onClick={this.handleClickSubmitButton}
@@ -106,6 +108,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
             </button>
           </div>
         </form>
+        <ValidationErrorMessages messages={this.props.category.errors} />
       </div>
     );
   }

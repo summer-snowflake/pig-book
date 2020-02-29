@@ -1,0 +1,5 @@
+ja:
+  errors:
+    messages:
+      taken: はすでに登録されています。
+      blank: を入力してください。
