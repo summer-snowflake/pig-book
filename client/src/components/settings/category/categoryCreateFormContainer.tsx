@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
 import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions';
 import ValidationErrorMessages from 'components/common/validationErrorMessages';
+import CategoryForm from 'components/settings/category/categoryForm';
 
 interface Props {
   postCategory: any,
@@ -13,7 +13,7 @@ interface Props {
   category: {
     isLoading: boolean,
     name: string,
-    balanceOfPayments: boolean,
+    balance_of_payments: boolean,
     errors: string[]
   }
 }
@@ -54,7 +54,7 @@ class CategoryPostForm extends Component<i18nProps & Props> {
 
   handleClickSubmitButton() {
     const params = {
-      balance_of_payments: this.props.category.balanceOfPayments,
+      balance_of_payments: this.props.category.balance_of_payments,
       name: this.props.category.name
     }
 
@@ -62,62 +62,15 @@ class CategoryPostForm extends Component<i18nProps & Props> {
   }
 
   render() {
-    const { t } = this.props;
-
     return (
       <div className='category-create-form-component'>
-        <form className='new-category form-row'>
-          <div className='form-group col-md-3 category-radio'>
-            <span className='radio-span'>
-              <input
-                className='radio-input'
-                checked={this.props.category.balanceOfPayments === true}
-                onChange={this.handleChangeBalanceOfPayments}
-                name='category[balance_of_payments]'
-                id='category_balance_of_payments_income'
-                value='true'
-                type='radio' />
-              <label className='radio-label' htmlFor='category_balance_of_payments_income'>
-                <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
-                <i className='fas fa-plus-square left-icon blue' />
-                {t('label.income')}
-              </label>
-            </span>
-            <span className='radio-span'>
-              <input
-                className='radio-input'
-                checked={this.props.category.balanceOfPayments === false}
-                onChange={this.handleChangeBalanceOfPayments}
-                name='category[balance_of_payments]'
-                value='false'
-                id='category_balance_of_payments_outgo'
-                type='radio' />
-              <label className='radio-label' htmlFor='category_balance_of_payments_outgo'>
-                <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
-                <i className='fas fa-minus-square left-icon red' />
-                {t('label.outgo')}
-              </label>
-            </span>
-          </div>
-          <div className='form-group col-md-4'>
-            <input
-              type='text'
-              className='form-control'
-              name='category_name'
-              value={this.props.category.name}
-              onKeyDown={this.handleKeyDown}
-              onChange={this.handleChangeName} />
-          </div>
-          <div className='form-group col-auto'>
-            <button
-              className='btn btn-primary'
-              onClick={this.handleClickSubmitButton}
-              disabled={this.props.category.isLoading || !this.diff()}
-              type='button'>
-              {t('button.add')}
-            </button>
-          </div>
-        </form>
+        <CategoryForm
+          category={this.props.category}
+          disabled={this.props.category.isLoading || !this.diff()}
+          handleChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+          handleKeyDown={this.handleKeyDown}
+          handleChangeName={this.handleChangeName}
+          handleClickSubmitButton={this.handleClickSubmitButton} />
         <ValidationErrorMessages messages={this.props.category.errors} />
       </div>
     );
@@ -132,7 +85,7 @@ function mapState(state: any) {
 
 function mapDispatch(dispatch: any) {
   return {
-    postCategory(params: { category: { balanceOfPayments: boolean, name: string } }) {
+    postCategory(params: { category: { balance_of_payments: boolean, name: string } }) {
       dispatch(postCategory(params));
     },
     changeCategoryBalanceOfPayments(balanceOfPayments: boolean) {

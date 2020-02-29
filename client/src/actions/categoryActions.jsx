@@ -44,10 +44,10 @@ export const postCategory = (params) => {
   }
 }
 
-export const changeCategoryBalanceOfPayments = (balanceOfPayments) => {
+export const changeCategoryBalanceOfPayments = (balance_of_payments) => {
   return {
     type: actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS,
-    balanceOfPayments
+    balance_of_payments
   }
 }
 

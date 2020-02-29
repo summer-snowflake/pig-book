@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import EditAndCancel from 'components/common/editAndCancel';
 import CategoryName from 'components/settings/category/categoryName';
+import CategoryForm from 'components/settings/category/categoryForm';
 
 interface Props {
   category: {
@@ -26,6 +27,8 @@ class CategoryTableRecord extends Component<Props, State> {
     this.handleClickIcon = this.handleClickIcon.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this);
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this);
   }
 
   handleClickIcon() {
@@ -35,11 +38,15 @@ class CategoryTableRecord extends Component<Props, State> {
   }
 
   handleKeyDown() {
-
   }
 
   handleChangeName() {
+  }
 
+  handleChangeBalanceOfPayments() {
+  }
+
+  handleClickSubmitButton() {
   }
 
   render() {
@@ -47,15 +54,13 @@ class CategoryTableRecord extends Component<Props, State> {
       <tr className='category-table-record-component'>
         {this.state.editing ? (
           <td>
-            <div className='form-group'>
-              <input
-                type='text'
-                className='form-control'
-                name='category_name'
-                value={this.props.category.name}
-                onKeyDown={this.handleKeyDown}
-                onChange={this.handleChangeName} />
-            </div>
+            <CategoryForm
+              category={this.props.category}
+              disabled={false}
+              handleChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+              handleKeyDown={this.handleKeyDown}
+              handleChangeName={this.handleChangeName}
+              handleClickSubmitButton={this.handleClickSubmitButton} />
           </td>
         ) : (
           <td>

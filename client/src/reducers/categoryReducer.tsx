@@ -6,14 +6,14 @@ import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
-  balanceOfPayments: false,
+  balance_of_payments: false,
   name: '',
   errors: []
 }
 
 interface Action {
   type: string,
-  balanceOfPayments?: boolean,
+  balance_of_payments?: boolean,
   name: string,
   data: {
     errors: string[]
@@ -44,7 +44,7 @@ const categoryReducer = (state = initialState, action: Action) => {
     case actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS:
       return {
         ...state,
-        balanceOfPayments: action.balanceOfPayments
+        balance_of_payments: action.balance_of_payments
       }
     case actionTypes.CHANGE_CATEGORY_NAME:
       return {
