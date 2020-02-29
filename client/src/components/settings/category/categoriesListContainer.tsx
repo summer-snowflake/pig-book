@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { getCategories } from 'actions/categoriesActions';
 import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions';
-import CategoryForm from 'components/settings/category/categoryForm';
+import CategoryTableRecord from 'components/settings/category/categoryTableRecord';
 
 interface Props {
   getCategories: any,
@@ -22,7 +22,7 @@ class CategoriesListContainer extends Component<Props> {
       <table className='table categories-list-component'>
         <tbody>
           {this.props.categories.categories.map((category: { id: number, name: string, balance_of_payments: boolean }) => (
-            <CategoryForm category={category} key={category.id} />
+            <CategoryTableRecord category={category} key={category.id} />
           ))}
         </tbody>
       </table>
