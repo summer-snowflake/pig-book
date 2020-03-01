@@ -1,7 +1,7 @@
-import * as actionTypes from 'utils/actionTypes';
-import { setting as axios } from 'config/axios';
-import { ready, loginHeaders } from 'utils/cookies';
-import { getCategories } from 'actions/categoriesActions';
+import * as actionTypes from 'utils/actionTypes'
+import { setting as axios } from 'config/axios'
+import { ready, loginHeaders } from 'utils/cookies'
+import { getCategories } from 'actions/categoriesActions'
 
 const postCategoryRequest = () => {
   return {
@@ -25,21 +25,21 @@ const postCategoryFailure = (data) => {
 
 export const postCategory = (params) => {
   return async (dispatch) => {
-    dispatch(postCategoryRequest());
+    dispatch(postCategoryRequest())
     try {
       if(ready()) {
-        const res = await axios.post('/api/categories', params, { headers: loginHeaders() });
-        dispatch(postCategorySuccess(res.data));
-        dispatch(getCategories());
+        const res = await axios.post('/api/categories', params, { headers: loginHeaders() })
+        dispatch(postCategorySuccess(res.data))
+        dispatch(getCategories())
       } else {
-        dispatch(postCategoryFailure());
+        dispatch(postCategoryFailure())
       }
     }
     catch (err) {
       if (err.response.status === 422) {
-        dispatch(postCategoryFailure(err.response.data));
+        dispatch(postCategoryFailure(err.response.data))
       }
-      console.error(err);
+      console.error(err)
     }
   }
 }

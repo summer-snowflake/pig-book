@@ -1,6 +1,6 @@
-import React, { Component} from 'react';
+import React, { Component} from 'react'
 
-import 'stylesheets/footer.sass';
+import 'stylesheets/footer.sass'
 
 class Footer extends Component {
   render() {
@@ -10,8 +10,8 @@ class Footer extends Component {
           Copyright © 2004-2020 @kae_kasui All Rights Reserved.
         </span>
       </footer>
-    );
+    )
   }
 }
 
-export default Footer;
+export default Footer

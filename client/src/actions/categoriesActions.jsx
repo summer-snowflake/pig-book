@@ -1,6 +1,6 @@
-import * as actionTypes from 'utils/actionTypes';
-import { setting as axios } from 'config/axios';
-import { ready, loginHeaders } from 'utils/cookies';
+import * as actionTypes from 'utils/actionTypes'
+import { setting as axios } from 'config/axios'
+import { ready, loginHeaders } from 'utils/cookies'
 
 const getCategoriesRequest =() => {
   return {
@@ -23,17 +23,17 @@ const getCategoriesFailure = () => {
 
 export const getCategories = () => {
   return async (dispatch) => {
-    dispatch(getCategoriesRequest());
+    dispatch(getCategoriesRequest())
     try {
       if(ready()) {
-        const res = await axios.get('/api/categories', { headers: loginHeaders() });
-        dispatch(getCategoriesSuccess(res.data));
+        const res = await axios.get('/api/categories', { headers: loginHeaders() })
+        dispatch(getCategoriesSuccess(res.data))
       } else {
-        dispatch(getCategoriesFailure());
+        dispatch(getCategoriesFailure())
       }
     }
     catch (err) {
-      console.error(err);
+      console.error(err)
     }
   }
 }
@@ -59,22 +59,22 @@ const patchCategoryFailure = (data) => {
 
 export const patchCategory = (id, params) => {
   return async (dispatch) => {
-    dispatch(patchCategoryRequest());
+    dispatch(patchCategoryRequest())
 
     try {
       if(ready()) {
-        const res = await axios.patch('/api/categories/' + id, params, { headers: loginHeaders() });
-        dispatch(patchCategorySuccess(res.data));
-        dispatch(getCategories());
+        const res = await axios.patch('/api/categories/' + id, params, { headers: loginHeaders() })
+        dispatch(patchCategorySuccess(res.data))
+        dispatch(getCategories())
       } else {
-        dispatch(patchCategoryFailure());
+        dispatch(patchCategoryFailure())
       }
     }
     catch (err) {
       if (err.response.status === 422) {
-        dispatch(patchCategoryFailure(err.response.data));
+        dispatch(patchCategoryFailure(err.response.data))
       }
-      console.error(err);
+      console.error(err)
     }
   }
 }

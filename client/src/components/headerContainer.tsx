@@ -1,51 +1,51 @@
-import React, { Component} from 'react';
-import { NavLink } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
-import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component} from 'react'
+import { NavLink } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
+import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import 'stylesheets/header.sass';
-import brandImage from 'images/pig.gif';
-import { RouteComponentProps } from 'types/react-router';
-import { getUserStatus } from 'actions/userStatusActions';
-import { logout } from 'actions/sessionActions';
+import '@trendmicro/react-sidenav/dist/react-sidenav.css'
+import 'stylesheets/header.sass'
+import brandImage from 'images/pig.gif'
+import { RouteComponentProps } from 'types/react-router'
+import { getUserStatus } from 'actions/userStatusActions'
+import { logout } from 'actions/sessionActions'
 
 interface Props {
-  getUserStatus: any,
-  logout: any,
+  getUserStatus: any;
+  logout: any;
   userStatus: {
-    isLoading: boolean,
-    isLogged: boolean
-  }
+    isLoading: boolean;
+    isLogged: boolean;
+  };
 }
 
 class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props> {
   constructor(props: i18nProps & RouteComponentProps & Props) {
-    super(props);
+    super(props)
 
-    this.handleClickMenu = this.handleClickMenu.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
+    this.handleClickMenu = this.handleClickMenu.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
 
-    this.props.getUserStatus();
+    this.props.getUserStatus()
   }
 
   handleClickMenu(arg: string) {
     if (arg === '/logout') {
-      this.handleLogout();
+      this.handleLogout()
     } else {
-      this.props.history.push(arg);
+      this.props.history.push(arg)
     }
   }
 
   handleLogout() {
-    this.props.logout();
-    this.props.history.push('/users/sign_in');
+    this.props.logout()
+    this.props.history.push('/users/sign_in')
   }
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
 
     return (
       <header className='header-component header'>
@@ -163,25 +163,25 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
           </div>
         </nav>
       </header>
-    );
+    )
   }
 }
 
 function mapState(state: any) {
   return {
     userStatus: state.userStatus
-  };
+  }
 }
 
 function mapDispatch(dispatch: any) {
   return {
     getUserStatus() {
-      dispatch(getUserStatus());
+      dispatch(getUserStatus())
     },
     logout() {
-      dispatch(logout());
+      dispatch(logout())
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(withRouter(HeaderContainer)));
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(HeaderContainer)))
