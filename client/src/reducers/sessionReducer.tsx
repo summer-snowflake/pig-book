@@ -1,18 +1,16 @@
 import React from 'react'
+import { Action } from 'redux'
 import * as actionTypes from 'utils/actionTypes'
 import { toast } from 'react-toastify'
 
+import { SessionStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false
 }
 
-interface Action {
-  type: string;
-}
-
-const sessionReducer = (state = initialState, action: Action): {} => {
+const sessionReducer = (state: SessionStore = initialState, action: Action): {} => {
   switch (action.type) {
   case actionTypes.LOGIN_REQUEST:
     return {

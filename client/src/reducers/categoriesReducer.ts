@@ -1,19 +1,13 @@
 import * as actionTypes from 'utils/actionTypes'
+import { CategoriesStore } from 'types/store'
+import { CategoriesAction } from 'types/action'
 
 const initialState = {
   isLoading: false,
   categories: []
 }
 
-interface Action {
-  type: string;
-  data: {
-    name: string;
-    balanceOfPayments: boolean;
-  };
-}
-
-const categoriesReducer = (state = initialState, action: Action): {} => {
+const categoriesReducer = (state: CategoriesStore = initialState, action: CategoriesAction): {} => {
   switch (action.type) {
   case actionTypes.GET_CATEGORIES_REQUEST:
     return {
@@ -24,7 +18,7 @@ const categoriesReducer = (state = initialState, action: Action): {} => {
     return {
       ...state,
       isLoading: false,
-      categories: action.data
+      categories: action.categories
     }
   case actionTypes.GET_CATEGORIES_FAILURE:
     return {

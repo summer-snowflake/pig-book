@@ -23,7 +23,7 @@ import 'stylesheets/toastify.sass'
 library.add(fab, fas, far)
 
 class App extends Component {
-  render() {
+  render(): JSX.Element {
     return (
       <div className='app-component'>
         <Router>

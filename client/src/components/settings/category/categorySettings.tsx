@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
+import React, { Component } from 'react'
+import { withTranslation } from 'react-i18next'
 
-import CategoryCreateFormContainer from 'components/settings/category/categoryCreateFormContainer';
-import CategoriesListContainer from 'components/settings/category/categoriesListContainer';
+import CategoryCreateFormContainer from 'components/settings/category/categoryCreateFormContainer'
+import CategoriesListContainer from 'components/settings/category/categoriesListContainer'
 
-class CategorySettings extends Component<i18nProps> {
-  render() {
-    const { t } = this.props;
+class CategorySettings extends Component<I18nProps> {
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='category-settings-component'>
@@ -21,8 +21,8 @@ class CategorySettings extends Component<i18nProps> {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(CategorySettings);
+export default withTranslation()(CategorySettings)

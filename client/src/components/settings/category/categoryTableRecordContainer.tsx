@@ -1,73 +1,74 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Action } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
 
-import EditAndCancel from 'components/common/editAndCancel';
-import CategoryName from 'components/settings/category/categoryName';
-import CategoryForm from 'components/settings/category/categoryForm';
-import { patchCategory, switchEditing } from 'actions/categoriesActions';
-import CancelUpdateModal from 'components/common/cancelUpdateModal';
-import ValidationErrorMessages from 'components/common/validationErrorMessages';
+import { CategoryParams, Category } from 'types/api'
+import { EditCategoryStore } from 'types/store'
+import EditAndCancel from 'components/common/editAndCancel'
+import CategoryName from 'components/settings/category/categoryName'
+import CategoryForm from 'components/settings/category/categoryForm'
+import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import ValidationErrorMessages from 'components/common/validationErrorMessages'
+import { getCategories, switchEditing } from 'actions/categoriesActions'
+import { patchCategory } from 'actions/categoryActions'
+import { RootState } from 'reducers/rootReducer'
 
-interface Props {
-  switchEditing: any,
-  patchCategory: any,
-  editCategory: {
-    isLoading: boolean,
-    editingId: number,
-    errors: string[]
-  }
-  category: {
-    id: number,
-    name: string,
-    balance_of_payments: boolean
-  },
-  key: number
+interface StateProps {
+  editCategory: EditCategoryStore;
 }
 
+interface DispatchProps {
+  switchEditing: (editingId: number) => void;
+  patchCategory: (id: number, params: CategoryParams) => void;
+}
+
+interface ParentProps {
+  category: Category;
+}
+
+type Props = ParentProps & StateProps & DispatchProps
+
 interface State {
-  isOpenCancelModal: boolean,
-  category: {
-    id: number | undefined,
-    name: string,
-    balance_of_payments: boolean
-  }
+  isOpenCancelModal: boolean;
+  category: Category;
 }
 
 class CategoryTableRecordContainer extends Component<Props, State> {
   constructor(props: Props) {
-    super(props);
+    super(props)
 
     this.state = {
       isOpenCancelModal: false,
       category: {
-        id: undefined,
+        id: 0,
         name: '',
         balance_of_payments: false
       }
     }
 
-    this.handleClickIcon = this.handleClickIcon.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this);
-    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this);
-    this.handleClickCancel = this.handleClickCancel.bind(this);
-    this.handleClickClose = this.handleClickClose.bind(this);
+    this.handleClickIcon = this.handleClickIcon.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleChangeName = this.handleChangeName.bind(this)
+    this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
+    this.handleClickCancel = this.handleClickCancel.bind(this)
+    this.handleClickClose = this.handleClickClose.bind(this)
   }
 
   toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === 'true';
+    return booleanStr.toLowerCase() === 'true'
   }
 
   diff(): boolean {
     return this.props.category.name !== this.state.category.name ||
-      this.props.category.balance_of_payments !== this.state.category.balance_of_payments;
+      this.props.category.balance_of_payments !== this.state.category.balance_of_payments
   }
 
-  handleClickIcon() {
+  handleClickIcon(): void {
     // 編集中ではない編集アイコン
     if (this.props.editCategory.editingId === 0) {
-      this.props.switchEditing(this.props.category.id);
+      this.props.switchEditing(this.props.category.id)
       this.setState({
         category: this.props.category
       })
@@ -83,20 +84,20 @@ class CategoryTableRecordContainer extends Component<Props, State> {
           isOpenCancelModal: true
         })
       } else {
-        this.props.switchEditing(0);
+        this.props.switchEditing(0)
       }
     }
   }
 
-  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    var ENTER = 13;
+  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
+    const ENTER = 13
     if (e.keyCode === ENTER) {
-      e.preventDefault();
-      this.handleClickSubmitButton();
+      e.preventDefault()
+      this.handleClickSubmitButton()
     }
   }
 
-  handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     const category = {
       id: this.props.category.id,
       name: e.target.value,
@@ -107,7 +108,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     })
   }
 
-  handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
     const category = {
       id: this.props.category.id,
       name: this.state.category.name,
@@ -118,40 +119,42 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     })
   }
 
-  handleClickSubmitButton() {
-    this.props.patchCategory(this.state.category.id, this.state.category);
+  handleClickSubmitButton(): void {
+    this.props.patchCategory(this.state.category.id, this.state.category)
   }
 
-  handleClickCancel() {
+  handleClickCancel(): void {
     this.setState({
       category: this.props.category,
       isOpenCancelModal: false
     })
-    this.props.switchEditing(0);
+    this.props.switchEditing(0)
   }
 
-  handleClickClose() {
+  handleClickClose(): void {
     this.setState({
       isOpenCancelModal: false
     })
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <tr className='category-table-record-component'>
         {this.props.editCategory.editingId === this.props.category.id ? (
           <td>
             <CancelUpdateModal
-               isOpen={this.state.isOpenCancelModal}
-               handleClickCancel={this.handleClickCancel}
-               handleClickClose={this.handleClickClose} />
+              isOpen={this.state.isOpenCancelModal}
+              onClickCancel={this.handleClickCancel}
+              onClickClose={this.handleClickClose}
+            />
             <CategoryForm
               category={this.state.category}
               disabled={this.props.editCategory.isLoading || !this.diff()}
-              handleChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
-              handleKeyDown={this.handleKeyDown}
-              handleChangeName={this.handleChangeName}
-              handleClickSubmitButton={this.handleClickSubmitButton} />
+              onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+              onChangeName={this.handleChangeName}
+              onClickSubmitButton={this.handleClickSubmitButton}
+              onKeyDown={this.handleKeyDown}
+            />
             <ValidationErrorMessages messages={this.props.editCategory.errors} />
           </td>
         ) : (
@@ -160,28 +163,33 @@ class CategoryTableRecordContainer extends Component<Props, State> {
           </td>
         )}
         <td>
-          <EditAndCancel editing={this.props.editCategory.editingId === this.props.category.id} handleClickIcon={this.handleClickIcon} />
+          <EditAndCancel
+            editing={this.props.editCategory.editingId === this.props.category.id}
+            onClickIcon={this.handleClickIcon}
+          />
         </td>
       </tr>
-    );
+    )
   }
 }
 
-function mapState(state: any) {
+function mapState(state: RootState): StateProps {
   return {
     editCategory: state.editCategory
-  };
+  }
 }
 
-function mapDispatch(dispatch: any) {
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    patchCategory(id: number, category: { name: string, balance_of_payments: boolean }) {
-      dispatch(patchCategory(id, category));
+    patchCategory(id: number, category: CategoryParams): void {
+      dispatch(patchCategory(id, category)).then(() => {
+        dispatch(getCategories())
+      })
     },
-    switchEditing(editingId: number) {
-      dispatch(switchEditing(editingId));
+    switchEditing(editingId: number): void {
+      dispatch(switchEditing(editingId))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(CategoryTableRecordContainer);
+export default connect(mapState, mapDispatch)(CategoryTableRecordContainer)

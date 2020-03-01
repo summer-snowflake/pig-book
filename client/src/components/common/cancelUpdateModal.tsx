@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import Modal from 'react-modal';
-import { withTranslation } from 'react-i18next';
+import React, { Component } from 'react'
+import Modal from 'react-modal'
+import { withTranslation } from 'react-i18next'
 
 interface Props {
-  isOpen: boolean,
-  handleClickCancel: any,
-  handleClickClose: any
+  isOpen: boolean;
+  onClickCancel: () => void;
+  onClickClose: () => void;
 }
 
 const customStyles = {
@@ -23,38 +23,39 @@ const customStyles = {
   }
 }
 
-class CancelUpdateModal extends Component<i18nProps & Props> {
-  render() {
-    const { t } = this.props;
+class CancelUpdateModal extends Component<I18nProps & Props> {
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='modal cancel-update-modal-component'>
-            <div className='modal-dialog'>
-        {this.props.isOpen && (
-          <Modal
-            isOpen={this.props.isOpen}
-            ariaHideApp={false}
-            style={customStyles}
-            contentLabel="Example Modal">
+        <div className='modal-dialog'>
+          {this.props.isOpen && (
+            <Modal
+              ariaHideApp={false}
+              contentLabel="Example Modal"
+              isOpen={this.props.isOpen}
+              style={customStyles}
+            >
 
-            <div className='modal-body'>
-              <p>{t('message.cancelUpdate')}</p>
-            </div>
-            <div className='modal-footer'>
-              <button className='btn btn-primary' onClick={this.props.handleClickCancel}>
-                {t('button.cancel')}
-              </button>
-              <button className='btn btn-light' onClick={this.props.handleClickClose}>
-                <i className='fas fa-times left-icon' />
-                {t('button.close')}
+              <div className='modal-body'>
+                <p>{t('message.cancelUpdate')}</p>
+              </div>
+              <div className='modal-footer'>
+                <button className='btn btn-primary' onClick={this.props.onClickCancel}>
+                  {t('button.cancel')}
                 </button>
-            </div>
-          </Modal>
-         )}
-            </div>
+                <button className='btn btn-light' onClick={this.props.onClickClose}>
+                  <i className='fas fa-times left-icon' />
+                  {t('button.close')}
+                </button>
+              </div>
+            </Modal>
+          )}
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(CancelUpdateModal);
+export default withTranslation()(CancelUpdateModal)

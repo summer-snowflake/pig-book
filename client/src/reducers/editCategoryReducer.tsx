@@ -1,8 +1,11 @@
 import React from 'react'
+import { Action } from 'redux'
 import * as actionTypes from 'utils/actionTypes'
 import { toast } from 'react-toastify'
 
+import { EditCategoryStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
+import { ErrorsAction } from 'types/action'
 
 const initialState = {
   isLoading: false,
@@ -10,15 +13,11 @@ const initialState = {
   errors: []
 }
 
-interface Action {
-  type: string;
+interface WithEditingIdAction extends ErrorsAction {
   editingId: number;
-  data: {
-    errors: string[];
-  };
 }
 
-const editCategoryReducer = (state = initialState, action: Action): {} => {
+const editCategoryReducer = (state: EditCategoryStore = initialState, action: WithEditingIdAction): {} => {
   switch (action.type) {
   case actionTypes.PATCH_CATEGORY_REQUEST:
     return {
@@ -37,7 +36,7 @@ const editCategoryReducer = (state = initialState, action: Action): {} => {
     return {
       ...state,
       isLoading: false,
-      errors: action.data.errors
+      errors: action.errors
     }
   case actionTypes.SWITCH_EDITING:
     return {
