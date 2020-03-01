@@ -1,6 +1,6 @@
-import * as actionTypes from 'utils/actionTypes';
-import { setting as axios } from 'config/axios';
-import { ready, loginHeaders } from 'utils/cookies';
+import * as actionTypes from 'utils/actionTypes'
+import { setting as axios } from 'config/axios'
+import { ready, loginHeaders } from 'utils/cookies'
 
 const getProfileRequest = () => {
   return {
@@ -23,17 +23,17 @@ const getProfileFailure = () => {
 
 export const getProfile = () => {
   return async (dispatch) => {
-    dispatch(getProfileRequest());
+    dispatch(getProfileRequest())
     try {
       if(ready()) {
-        const res = await axios.get('/api/profile', { headers: loginHeaders() });
-        dispatch(getProfileSuccess(res.data));
+        const res = await axios.get('/api/profile', { headers: loginHeaders() })
+        dispatch(getProfileSuccess(res.data))
       } else {
-        dispatch(getProfileFailure());
+        dispatch(getProfileFailure())
       }
     }
     catch (err) {
-      console.error(err);
+      console.error(err)
     }
   }
 }
@@ -73,17 +73,17 @@ const patchProfileFailure = () => {
 
 export const patchProfile = (params) => {
   return async (dispatch) => {
-    dispatch(patchProfileRequest());
+    dispatch(patchProfileRequest())
     try {
       if(ready()) {
-        const res = await axios.patch('/api/profile', params, { headers: loginHeaders() });
-        dispatch(patchProfileSuccess(res.data));
+        const res = await axios.patch('/api/profile', params, { headers: loginHeaders() })
+        dispatch(patchProfileSuccess(res.data))
       } else {
-        dispatch(patchProfileFailure());
+        dispatch(patchProfileFailure())
       }
     }
     catch (err) {
-      console.error(err);
+      console.error(err)
     }
   }
 }

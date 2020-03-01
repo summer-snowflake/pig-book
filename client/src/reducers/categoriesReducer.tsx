@@ -1,4 +1,4 @@
-import * as actionTypes from 'utils/actionTypes';
+import * as actionTypes from 'utils/actionTypes'
 
 const initialState = {
   isLoading: false,
@@ -6,34 +6,34 @@ const initialState = {
 }
 
 interface Action {
-  type: string,
+  type: string;
   data: {
-    name: string,
-    balanceOfPayments: boolean
-  }
+    name: string;
+    balanceOfPayments: boolean;
+  };
 }
 
-const categoriesReducer = (state = initialState, action: Action) => {
+const categoriesReducer = (state = initialState, action: Action): {} => {
   switch (action.type) {
-    case actionTypes.GET_CATEGORIES_REQUEST:
-      return {
-        ...state,
-        isLoading: true
-      }
-    case actionTypes.GET_CATEGORIES_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        categories: action.data
-      }
-    case actionTypes.GET_CATEGORIES_FAILURE:
-      return {
-        ...state,
-        isLoading: false
-      }
-    default:
-      return state;
+  case actionTypes.GET_CATEGORIES_REQUEST:
+    return {
+      ...state,
+      isLoading: true
+    }
+  case actionTypes.GET_CATEGORIES_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      categories: action.data
+    }
+  case actionTypes.GET_CATEGORIES_FAILURE:
+    return {
+      ...state,
+      isLoading: false
+    }
+  default:
+    return state
   }
 }
 
-export default categoriesReducer;
+export default categoriesReducer
