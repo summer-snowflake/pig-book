@@ -1,17 +1,19 @@
+import { Action } from 'redux'
+
 import * as actionTypes from 'utils/actionTypes'
+import { ProfileStore } from 'types/store'
+import { ProfileAction } from 'types/action'
 
 const initialState = {
+  isLoading: false,
   editing: false,
   editingMemo: false,
-  isLoading: false,
   locale: 'ja',
   currency: 'yen',
   memo: ''
 }
 
-interface Action {
-  type: string;
-  data: { locale: string; currency: string; memo: string };
+interface StoreAction extends ProfileAction {
   locale?: string;
   currency?: string;
   memo?: string;
@@ -19,7 +21,7 @@ interface Action {
   editingMemo?: boolean;
 }
 
-const settingsReducer = (state = initialState, action: Action): {} => {
+const settingsReducer = (state: ProfileStore = initialState, action: StoreAction): {} => {
   switch (action.type) {
   case actionTypes.GET_PROFILE_REQUEST:
     return {
@@ -35,9 +37,9 @@ const settingsReducer = (state = initialState, action: Action): {} => {
     return {
       ...state,
       isLoading: false,
-      locale: action.data?.locale,
-      currency: action.data?.currency,
-      memo: action.data?.memo
+      locale: action.profile?.locale,
+      currency: action.profile?.currency,
+      memo: action.profile?.memo
     }
   case actionTypes.PATCH_PROFILE_SUCCESS:
     return {
@@ -45,9 +47,9 @@ const settingsReducer = (state = initialState, action: Action): {} => {
       isLoading: false,
       editing: false,
       editingMemo: false,
-      locale: action.data?.locale,
-      currency: action.data?.currency,
-      memo: action.data?.memo
+      locale: action.profile?.locale,
+      currency: action.profile?.currency,
+      memo: action.profile?.memo
     }
   case actionTypes.GET_PROFILE_FAILURE:
     return {

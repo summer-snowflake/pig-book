@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 interface Props {
-  messages: string[]
+  messages: string[];
 }
 
 class ValidationErrorMessages extends Component<Props> {
-  render() {
+  render(): JSX.Element {
     return (
       <div className='validation-error-messages-component'>
         {this.props.messages.map((message, index) => (
@@ -15,8 +15,8 @@ class ValidationErrorMessages extends Component<Props> {
           </small>
         ))}
       </div>
-    );
+    )
   }
 }
 
-export default ValidationErrorMessages;
+export default ValidationErrorMessages

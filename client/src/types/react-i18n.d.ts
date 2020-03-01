@@ -1,5 +1,5 @@
 declare module 'react-i18next'
 
-interface i18nProps {
-  t: any
+interface I18nProps {
+  t: useTranslation;
 }

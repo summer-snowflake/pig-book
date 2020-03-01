@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 
-import 'stylesheets/menu.sass';
+import 'stylesheets/menu.sass'
 
-class MypageMenu extends Component<i18nProps> {
-  render() {
-    const { t } = this.props;
+class MypageMenu extends Component<I18nProps> {
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='mypage-menu-component'>
@@ -17,8 +17,8 @@ class MypageMenu extends Component<i18nProps> {
           </NavLink>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(MypageMenu);
+export default withTranslation()(MypageMenu)

@@ -1,15 +1,14 @@
+import { Action } from 'redux'
+
 import * as actionTypes from 'utils/actionTypes'
+import { UserStatusStore } from 'types/store'
 
 const initialState = {
   isLoading: false,
   isLogged: false
 }
 
-interface Action {
-  type: string;
-}
-
-const userStatusReducer = (state = initialState, action: Action): {} => {
+const userStatusReducer = (state: UserStatusStore = initialState, action: Action): {} => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
