@@ -1,5 +1,4 @@
 import React from 'react'
-import { Action } from 'redux'
 import * as actionTypes from 'utils/actionTypes'
 import { toast } from 'react-toastify'
 

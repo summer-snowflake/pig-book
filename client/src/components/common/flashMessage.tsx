@@ -19,6 +19,9 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.PATCH_CATEGORY_SUCCESS:
       msg = t('message.patchCategorySuccess')
       break
+    case actionTypes.PATCH_PROFILE_SUCCESS:
+      msg = t('message.patchSuccess')
+      break
     case actionTypes.LOGOUT_SUCCESS:
       msg = t('message.logout')
       break

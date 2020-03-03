@@ -1,8 +1,10 @@
-import { Action } from 'redux'
+import React from 'react'
+import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
 import { ProfileStore } from 'types/store'
 import { ProfileAction } from 'types/action'
+import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
@@ -42,6 +44,8 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       memo: action.profile?.memo
     }
   case actionTypes.PATCH_PROFILE_SUCCESS:
+    toast.success(<FlashMessage actionType={action.type} />)
+
     return {
       ...state,
       isLoading: false,
