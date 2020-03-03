@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
-class SignUp extends Component<i18nProps> {
-  render() {
-    const { t } = this.props;
+class SignUp extends Component<I18nProps> {
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='sign-up-component card'>
@@ -18,7 +18,7 @@ class SignUp extends Component<i18nProps> {
               <label className='required' htmlFor='user_email'>
                 {t('label.email')}
               </label>
-              <input autoFocus autoComplete='email' className='form-control' id='user_email' type='email' />
+              <input autoComplete='email' autoFocus className='form-control' id='user_email' type='email' />
             </div>
             { /* パスワード */ }
             <div className='form-group'>
@@ -41,8 +41,8 @@ class SignUp extends Component<i18nProps> {
           </div>
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(SignUp);
+export default withTranslation()(SignUp)

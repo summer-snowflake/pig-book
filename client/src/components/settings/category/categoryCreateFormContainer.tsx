@@ -1,100 +1,109 @@
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Action } from 'redux'
+import { withTranslation } from 'react-i18next'
+import { ThunkDispatch } from 'redux-thunk'
 
-import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions';
-import ValidationErrorMessages from 'components/common/validationErrorMessages';
-import CategoryForm from 'components/settings/category/categoryForm';
+import { CategoryParams } from 'types/api'
+import { NewCategoryStore } from 'types/store'
+import ValidationErrorMessages from 'components/common/validationErrorMessages'
+import CategoryForm from 'components/settings/category/categoryForm'
+import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions'
+import { getCategories } from 'actions/categoriesActions'
+import { RootState } from 'reducers/rootReducer'
 
-interface Props {
-  postCategory: any,
-  changeCategoryBalanceOfPayments: any,
-  changeCategoryName: any,
-  category: {
-    isLoading: boolean,
-    name: string,
-    balance_of_payments: boolean,
-    errors: string[]
-  }
+interface StateProps {
+  newCategory: NewCategoryStore;
 }
 
-class CategoryPostForm extends Component<i18nProps & Props> {
-  constructor(props: i18nProps & Props) {
-    super(props);
+interface DispatchProps {
+  postCategory: (params: CategoryParams) => void;
+  changeCategoryBalanceOfPayments: (balance_of_payments: boolean) => void;
+  changeCategoryName: (name: string) => void;
+}
 
-    this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this);
+type Props = I18nProps & StateProps & DispatchProps
+
+class CategoryPostForm extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+
+    this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.handleChangeName = this.handleChangeName.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
   }
 
   diff(): boolean {
-    return this.props.category.name !== '';
+    return this.props.newCategory.name !== ''
   }
 
   toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === 'true';
+    return booleanStr.toLowerCase() === 'true'
   }
 
-  handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.changeCategoryBalanceOfPayments(this.toBoolean(e.target.value));
+  handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changeCategoryBalanceOfPayments(this.toBoolean(e.target.value))
   }
 
-  handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.changeCategoryName(e.target.value);
+  handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changeCategoryName(e.target.value)
   }
 
-  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    var ENTER = 13;
+  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
+    const ENTER = 13
     if (e.keyCode === ENTER) {
-      e.preventDefault();
-      this.handleClickSubmitButton();
+      e.preventDefault()
+      this.handleClickSubmitButton()
     }
   }
 
-  handleClickSubmitButton() {
+  handleClickSubmitButton(): void {
     const params = {
-      balance_of_payments: this.props.category.balance_of_payments,
-      name: this.props.category.name
+      balance_of_payments: this.props.newCategory.balance_of_payments,
+      name: this.props.newCategory.name
     }
 
-    this.props.postCategory(params);
+    this.props.postCategory(params)
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className='category-create-form-component'>
         <CategoryForm
-          category={this.props.category}
-          disabled={this.props.category.isLoading || !this.diff()}
-          handleChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
-          handleKeyDown={this.handleKeyDown}
-          handleChangeName={this.handleChangeName}
-          handleClickSubmitButton={this.handleClickSubmitButton} />
-        <ValidationErrorMessages messages={this.props.category.errors} />
+          category={this.props.newCategory}
+          disabled={this.props.newCategory.isLoading || !this.diff()}
+          onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+          onChangeName={this.handleChangeName}
+          onClickSubmitButton={this.handleClickSubmitButton}
+          onKeyDown={this.handleKeyDown}
+        />
+        <ValidationErrorMessages messages={this.props.newCategory.errors} />
       </div>
-    );
+    )
   }
 }
 
-function mapState(state: any) {
+function mapState(state: RootState): StateProps {
   return {
-    category: state.category
-  };
+    newCategory: state.newCategory
+  }
 }
 
-function mapDispatch(dispatch: any) {
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    postCategory(params: { category: { balance_of_payments: boolean, name: string } }) {
-      dispatch(postCategory(params));
+    postCategory(params: CategoryParams): void {
+      dispatch(postCategory(params)).then(() => {
+        dispatch(getCategories())
+      })
     },
-    changeCategoryBalanceOfPayments(balanceOfPayments: boolean) {
-      dispatch(changeCategoryBalanceOfPayments(balanceOfPayments));
+    changeCategoryBalanceOfPayments(balanceOfPayments: boolean): void {
+      dispatch(changeCategoryBalanceOfPayments(balanceOfPayments))
     },
-    changeCategoryName(name: string) {
-      dispatch(changeCategoryName(name));
+    changeCategoryName(name: string): void {
+      dispatch(changeCategoryName(name))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(CategoryPostForm));
+export default connect(mapState, mapDispatch)(withTranslation()(CategoryPostForm))

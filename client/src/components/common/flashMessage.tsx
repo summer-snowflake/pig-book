@@ -1,33 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
-import * as actionTypes from 'utils/actionTypes';
+import * as actionTypes from 'utils/actionTypes'
 
-import 'stylesheets/errors.sass';
+import 'stylesheets/errors.sass'
 
 interface Props {
-  actionType: string
+  actionType: string;
 }
 
-class FlashMessage extends Component<i18nProps & Props> {
-  render() {
-    const { t } = this.props;
-    let msg = '';
+class FlashMessage extends Component<I18nProps & Props> {
+  render(): JSX.Element {
+    const { t } = this.props
+    let msg = ''
     switch (this.props.actionType) {
-      case actionTypes.POST_CATEGORY_SUCCESS:
-        msg = t('message.postCategorySuccess');
-        break;
-      case actionTypes.PATCH_CATEGORY_SUCCESS:
-        msg = t('message.patchCategorySuccess');
-        break;
-      case actionTypes.LOGOUT_SUCCESS:
-        msg = t('message.logout');
-        break;
-      case actionTypes.LOGIN_SUCCESS:
-        msg = t('message.loginSuccess');
-        break;
-      case actionTypes.LOGIN_FAILURE:
-        msg = t('message.loginFailure');
-        break;
+    case actionTypes.POST_CATEGORY_SUCCESS:
+      msg = t('message.postCategorySuccess')
+      break
+    case actionTypes.PATCH_CATEGORY_SUCCESS:
+      msg = t('message.patchCategorySuccess')
+      break
+    case actionTypes.PATCH_PROFILE_SUCCESS:
+      msg = t('message.patchSuccess')
+      break
+    case actionTypes.LOGOUT_SUCCESS:
+      msg = t('message.logout')
+      break
+    case actionTypes.LOGIN_SUCCESS:
+      msg = t('message.loginSuccess')
+      break
+    case actionTypes.LOGIN_FAILURE:
+      msg = t('message.loginFailure')
+      break
     }
 
     return (
@@ -39,8 +42,8 @@ class FlashMessage extends Component<i18nProps & Props> {
         )}
         {msg}
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(FlashMessage);
+export default withTranslation()(FlashMessage)

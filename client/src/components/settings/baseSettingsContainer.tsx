@@ -1,37 +1,42 @@
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { Action } from 'redux'
+import { withTranslation } from 'react-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 
-import EditAndCancel from 'components/common/editAndCancel';
-import { getProfile, patchProfile, changeProfileLocale, changeProfileCurrency, setEditing } from 'actions/settingsActions';
+import { ProfileParams } from 'types/api'
+import { ProfileStore } from 'types/store'
+import EditAndCancel from 'components/common/editAndCancel'
+import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import { getProfile, patchProfile, changeProfileLocale, changeProfileCurrency, setEditing } from 'actions/settingsActions'
+import { RootState } from 'reducers/rootReducer'
 
-import 'stylesheets/settings.sass';
-import CancelUpdateModal from 'components/common/cancelUpdateModal';
+import 'stylesheets/settings.sass'
 
 interface State {
-  isOpenCancelModal: boolean,
-  locale: string,
-  currency: string
+  isOpenCancelModal: boolean;
+  locale: string;
+  currency: string;
 }
 
-interface Props {
-  getProfile: any,
-  changeProfileLocale: any,
-  changeProfileCurrency: any,
-  patchProfile: any,
-  setEditing: any,
-  profile: {
-    editing: boolean,
-    isLoading: boolean,
-    locale: string,
-    currency: string
-  }
+interface StateProps {
+  profile: ProfileStore;
 }
 
-class BaseSettingsContainer extends Component<i18nProps & Props, State> {
-  constructor(props: i18nProps & Props) {
-    super(props);
+interface DispatchProps {
+  getProfile: () => void;
+  changeProfileLocale: (locale: string) => void;
+  changeProfileCurrency: (currency: string) => void;
+  patchProfile: (params: ProfileParams) => void;
+  setEditing: (editing: boolean) => void;
+}
+
+type Props = I18nProps & StateProps & DispatchProps
+
+class BaseSettingsContainer extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
 
     this.state = {
       isOpenCancelModal: false,
@@ -46,18 +51,18 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
 
-    this.props.getProfile();
+    this.props.getProfile()
   }
 
   diff(): boolean {
-    return this.props.profile.editing && (this.state.locale !== this.props.profile.locale || this.state.currency !== this.props.profile.currency);
+    return this.props.profile.editing && (this.state.locale !== this.props.profile.locale || this.state.currency !== this.props.profile.currency)
   }
 
   checkIconClass(target: string, value: string): string {
     return target === value ? 'dark-green' : 'light-green'
   }
 
-  handleClickIcon() {
+  handleClickIcon(): void {
     if (this.diff()) {
       this.setState({
         isOpenCancelModal: true
@@ -71,53 +76,58 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
     }
   }
 
-  handleChangeLocale(e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.changeProfileLocale(e.target.value);
+  handleChangeLocale(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changeProfileLocale(e.target.value)
   }
 
-  handleChangeCurrency(e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.changeProfileCurrency(e.target.value);
+  handleChangeCurrency(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changeProfileCurrency(e.target.value)
   }
 
-  handleClickCancel() {
-    this.props.changeProfileLocale(this.state.locale);
-    this.props.changeProfileCurrency(this.state.currency);
+  handleClickCancel(): void {
+    this.props.changeProfileLocale(this.state.locale)
+    this.props.changeProfileCurrency(this.state.currency)
     this.props.setEditing(false)
     this.setState({
       isOpenCancelModal: false,
     })
   }
 
-  handleClickClose() {
+  handleClickClose(): void {
     this.setState({
       isOpenCancelModal: false
     })
   }
 
-  handleClickSubmitButton() {
+  handleClickSubmitButton(): void {
     const params = {
       locale: this.props.profile.locale,
-      currency: this.props.profile.currency
+      currency: this.props.profile.currency,
+      memo: this.props.profile.memo
     }
-    this.props.patchProfile(params);
+    this.props.patchProfile(params)
   }
 
-  render() {
-    const { t } = this.props;
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='settings-top-component'>
         <CancelUpdateModal
           isOpen={this.state.isOpenCancelModal}
-          handleClickCancel={this.handleClickCancel}
-          handleClickClose={this.handleClickClose} />
+          onClickCancel={this.handleClickCancel}
+          onClickClose={this.handleClickClose}
+        />
         <div className='card'>
           <div className='card-header'>
             <i className='fas fa-user-cog left-icon' />
             {t('title.baseSetting')}
           </div>
           <div className='card-body with-background-image'>
-            <EditAndCancel editing={this.props.profile.editing} handleClickIcon={this.handleClickIcon} />
+            <EditAndCancel
+              editing={this.props.profile.editing}
+              onClickIcon={this.handleClickIcon}
+            />
             <form>
               <div className='form-group'>
                 <label className='label'>
@@ -127,29 +137,31 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                   <span>
                     <span className='radio-span'>
                       <input
-                        className='radio-input'
                         checked={this.props.profile.locale === 'ja'}
-                        onChange={this.handleChangeLocale}
-                        name='profile[locale]'
-                        value='ja'
+                        className='radio-input'
                         id='profile_locale_ja'
-                        type='radio' />
+                        name='profile[locale]'
+                        onChange={this.handleChangeLocale}
+                        type='radio'
+                        value='ja'
+                      />
                       <label className='radio-label' htmlFor='profile_locale_ja'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
+                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
                         {t('label.language-ja')}
                       </label>
                     </span>
                     <span className='radio-span'>
                       <input
-                        className='radio-input'
                         checked={this.props.profile.locale === 'en'}
-                        onChange={this.handleChangeLocale}
-                        name='profile[locale]'
-                        value='en'
+                        className='radio-input'
                         id='profile_locale_en'
-                        type='radio' />
+                        name='profile[locale]'
+                        onChange={this.handleChangeLocale}
+                        type='radio'
+                        value='en'
+                      />
                       <label className='radio-label' htmlFor='profile_locale_en'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
+                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
                         {t('label.language-en')}
                       </label>
                     </span>
@@ -168,29 +180,31 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
                   <span>
                     <span className='radio-span'>
                       <input
-                        className='radio-input'
                         checked={this.props.profile.currency === 'yen'}
-                        onChange={this.handleChangeCurrency}
-                        name='profile[currency]'
+                        className='radio-input'
                         id='profile_currency_yen'
+                        name='profile[currency]'
+                        onChange={this.handleChangeCurrency}
+                        type='radio'
                         value='yen'
-                        type='radio' />
+                      />
                       <label className='radio-label' htmlFor='profile_currency_yen'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
+                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
                         {t('label.currency-yen')}
                       </label>
                     </span>
                     <span className='radio-span'>
                       <input
-                        className='radio-input'
                         checked={this.props.profile.currency === 'dollar'}
-                        onChange={this.handleChangeCurrency}
-                        name='profile[currency]'
+                        className='radio-input'
                         id='profile_currency_dollar'
+                        name='profile[currency]'
+                        onChange={this.handleChangeCurrency}
+                        type='radio'
                         value='dollar'
-                        type='radio' />
+                      />
                       <label className='radio-label' htmlFor='profile_currency_dollar'>
-                        <FontAwesomeIcon icon={['fas', 'check']} className='left-icon' />
+                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
                         {t('label.currency-dollar')}
                       </label>
                     </span>
@@ -204,45 +218,46 @@ class BaseSettingsContainer extends Component<i18nProps & Props, State> {
 
               {this.props.profile.editing && (
                 <button
-                  className={'btn btn-primary' + (this.props.profile.isLoading || !this.diff() ? ' disabled' : '')}
+                  className='btn btn-primary'
                   disabled={this.props.profile.isLoading || !this.diff()}
                   onClick={this.handleClickSubmitButton}
-                  type='button'>
+                  type='button'
+                >
                   {t('button.update')}
                 </button>
               )}
-           </form>
+            </form>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-function mapState(state: any) {
+function mapState(state: RootState): StateProps {
   return {
     profile: state.profile
-  };
+  }
 }
 
-function mapDispatch(dispatch: any) {
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getProfile() {
-      dispatch(getProfile());
+    getProfile(): void {
+      dispatch(getProfile())
     },
-    changeProfileLocale(locale: string) {
+    changeProfileLocale(locale: string): void {
       dispatch(changeProfileLocale(locale))
     },
-    changeProfileCurrency(locale: string) {
+    changeProfileCurrency(locale: string): void {
       dispatch(changeProfileCurrency(locale))
     },
-    patchProfile(params: State) {
-      dispatch(patchProfile(params));
+    patchProfile(params: ProfileParams): void {
+      dispatch(patchProfile(params))
     },
-    setEditing(editing: boolean) {
-      dispatch(setEditing(editing));
+    setEditing(editing: boolean): void {
+      dispatch(setEditing(editing))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(BaseSettingsContainer));
+export default connect(mapState, mapDispatch)(withTranslation()(BaseSettingsContainer))

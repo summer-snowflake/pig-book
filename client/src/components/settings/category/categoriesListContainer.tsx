@@ -1,46 +1,57 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { Action } from 'redux'
+import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 
-import { getCategories } from 'actions/categoriesActions';
-import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer';
+import { Category } from 'types/api'
+import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer'
+import { getCategories } from 'actions/categoriesActions'
+import { RootState } from 'reducers/rootReducer'
 
-interface Props {
-  getCategories: any,
-  categories: any
+interface StateProps {
+  categories: {
+    categories: Category[];
+  };
 }
+
+interface DispatchProps {
+  getCategories: () => void;
+}
+
+type Props = StateProps & DispatchProps
 
 class CategoriesListContainer extends Component<Props> {
   constructor(props: Props) {
-    super(props);
+    super(props)
 
-    this.props.getCategories();
+    this.props.getCategories()
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <table className='table categories-list-component'>
         <tbody>
-          {this.props.categories.categories.map((category: { id: number, name: string, balance_of_payments: boolean }) => (
+          {this.props.categories.categories.map((category: { id: number; name: string; balance_of_payments: boolean }) => (
             <CategoryTableRecordContainer category={category} key={category.id} />
           ))}
         </tbody>
       </table>
-    );
+    )
   }
 }
 
-function mapState(state: any) {
+function mapState(state: RootState): StateProps {
   return {
     categories: state.categories
-  };
+  }
 }
 
-function mapDispatch(dispatch: any) {
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getCategories() {
-      dispatch(getCategories());
+    getCategories(): void {
+      dispatch(getCategories())
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(CategoriesListContainer);
+export default connect(mapState, mapDispatch)(CategoriesListContainer)

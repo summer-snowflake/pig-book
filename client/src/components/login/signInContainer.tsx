@@ -1,57 +1,62 @@
-import React, { Component } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { Action } from 'redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
+import { ThunkDispatch } from 'redux-thunk'
+import { connect } from 'react-redux'
+import * as H from 'history'
 
-import { login } from 'actions/sessionActions';
+import { LoginParams } from 'types/api'
+import { SessionStore } from 'types/store'
+import { login } from 'actions/sessionActions'
+import { RootState } from 'reducers/rootReducer'
 
-interface Props {
-  login: any,
-  session: {
-    isLoading: boolean
-  }
+interface StateProps {
+  session: SessionStore;
 }
 
-interface State {
-  email: string,
-  password: string
+interface DispatchProps {
+  login: (params: LoginParams, history: H.History) => void;
 }
 
-class SignInContainer extends Component<i18nProps & RouteComponentProps & Props, State> {
-  constructor(props: i18nProps & RouteComponentProps & Props) {
+type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
+type State = LoginParams
+
+class SignInContainer extends Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     this.state = {
       email: '',
       password: ''
     }
 
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleChangeEmail = this.handleChangeEmail.bind(this)
+    this.handleChangePassword = this.handleChangePassword.bind(this)
   }
 
-  handleLogin() {
+  handleLogin(): void {
     const params = {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.login(params, this.props.history);
+    this.props.login(params, this.props.history)
   }
 
-  handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
       email: e.target.value
     })
   }
 
-  handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
       password: e.target.value
     })
   }
 
-  render() {
-    const { t } = this.props;
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='sign-in-component card'>
@@ -67,13 +72,14 @@ class SignInContainer extends Component<i18nProps & RouteComponentProps & Props,
                 {t('label.email')}
               </label>
               <input
-                autoFocus
                 autoComplete='email'
+                autoFocus
                 className='form-control'
                 id='user_email'
                 onChange={this.handleChangeEmail}
                 type='email'
-                value={this.state.email} />
+                value={this.state.email}
+              />
             </div>
             { /* パスワード */ }
             <div className='form-group'>
@@ -86,7 +92,8 @@ class SignInContainer extends Component<i18nProps & RouteComponentProps & Props,
                 id='user_password'
                 onChange={this.handleChangePassword}
                 type='password'
-                value={this.state.password} />
+                value={this.state.password}
+              />
             </div>
 
             <button className='btn btn-primary' disabled={this.props.session.isLoading} onClick={this.handleLogin} type='submit'>
@@ -95,22 +102,22 @@ class SignInContainer extends Component<i18nProps & RouteComponentProps & Props,
           </form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-function mapState(state: any) {
+function mapState(state: RootState): StateProps {
   return {
     session: state.session
-  };
+  }
 }
 
-function mapDispatch(dispatch: any) {
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    login(params: State, history: any) {
-      dispatch(login(params, history));
+    login(params: LoginParams, history: H.History): void {
+      dispatch(login(params, history))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(withRouter(SignInContainer)));
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(SignInContainer)))

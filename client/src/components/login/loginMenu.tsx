@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 
-import 'stylesheets/menu.sass';
+import 'stylesheets/menu.sass'
 
-class loginMenu extends Component<i18nProps> {
-  render() {
-    const { t } = this.props;
+class LoginMenu extends Component<I18nProps> {
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='login-menu-component list-group'>
@@ -19,8 +19,8 @@ class loginMenu extends Component<i18nProps> {
           {t('menu.signUp')}
         </NavLink>
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(loginMenu);
+export default withTranslation()(LoginMenu)

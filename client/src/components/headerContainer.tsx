@@ -1,51 +1,58 @@
-import React, { Component} from 'react';
-import { NavLink } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
-import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { Action } from 'redux'
+import { NavLink } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
+import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 
-import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import 'stylesheets/header.sass';
-import brandImage from 'images/pig.gif';
-import { RouteComponentProps } from 'types/react-router';
-import { getUserStatus } from 'actions/userStatusActions';
-import { logout } from 'actions/sessionActions';
+import { RouteComponentProps } from 'types/react-router'
+import { UserStatusStore } from 'types/store'
+import { getUserStatus } from 'actions/userStatusActions'
+import { logout } from 'actions/sessionActions'
+import { RootState } from 'reducers/rootReducer'
 
-interface Props {
-  getUserStatus: any,
-  logout: any,
-  userStatus: {
-    isLoading: boolean,
-    isLogged: boolean
-  }
+import '@trendmicro/react-sidenav/dist/react-sidenav.css'
+import 'stylesheets/header.sass'
+import brandImage from 'images/pig.gif'
+
+interface StateProps {
+  userStatus: UserStatusStore;
 }
 
-class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props> {
-  constructor(props: i18nProps & RouteComponentProps & Props) {
-    super(props);
+interface DispatchProps {
+  getUserStatus: () => void;
+  logout: () => void;
+}
 
-    this.handleClickMenu = this.handleClickMenu.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
+type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
 
-    this.props.getUserStatus();
+class HeaderContainer extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+
+    this.handleClickMenu = this.handleClickMenu.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+
+    this.props.getUserStatus()
   }
 
-  handleClickMenu(arg: string) {
+  handleClickMenu(arg: string): void {
     if (arg === '/logout') {
-      this.handleLogout();
+      this.handleLogout()
     } else {
-      this.props.history.push(arg);
+      this.props.history.push(arg)
     }
   }
 
-  handleLogout() {
-    this.props.logout();
-    this.props.history.push('/users/sign_in');
+  handleLogout(): void {
+    this.props.logout()
+    this.props.history.push('/users/sign_in')
   }
 
-  render() {
-    const { t } = this.props;
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <header className='header-component header'>
@@ -163,25 +170,25 @@ class HeaderContainer extends Component<i18nProps & RouteComponentProps & Props>
           </div>
         </nav>
       </header>
-    );
+    )
   }
 }
 
-function mapState(state: any) {
+function mapState(state: RootState): StateProps {
   return {
     userStatus: state.userStatus
-  };
+  }
 }
 
-function mapDispatch(dispatch: any) {
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getUserStatus() {
-      dispatch(getUserStatus());
+    getUserStatus(): void {
+      dispatch(getUserStatus())
     },
-    logout() {
-      dispatch(logout());
+    logout(): void {
+      dispatch(logout())
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(withRouter(HeaderContainer)));
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(HeaderContainer)))

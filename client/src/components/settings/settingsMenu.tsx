@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 
-import 'stylesheets/menu.sass';
+import 'stylesheets/menu.sass'
 
-class SettingsMenu extends Component<i18nProps> {
-  render() {
-    const { t } = this.props;
+class SettingsMenu extends Component<I18nProps> {
+  render(): JSX.Element {
+    const { t } = this.props
 
     return (
       <div className='settings-menu-component list-group'>
@@ -19,8 +19,8 @@ class SettingsMenu extends Component<i18nProps> {
           {t('menu.category')}
         </NavLink>
       </div>
-    );
+    )
   }
 }
 
-export default withTranslation()(SettingsMenu);
+export default withTranslation()(SettingsMenu)
