@@ -15,6 +15,7 @@ import { RootState } from 'reducers/rootReducer'
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 import 'stylesheets/header.sass'
+import 'stylesheets/sidenav.sass'
 import brandImage from 'images/pig.gif'
 
 interface StateProps {

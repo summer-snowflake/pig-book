@@ -43,8 +43,8 @@ body
   padding-top: 0
 
 .card
-  border-color: $green
   background: $translucent
+  border-color: $green
 
 .card-header
   background-color: $translucent
@@ -61,18 +61,19 @@ body
     background-size: 120% auto
 
 .form-control
-  font-size: 14px
   border-color: $light-green
+  font-size: 14px
 
   &:focus
     border-color: $light-green
     box-shadow: 0 0 0 3px $light-green
 
-.required::after
-  color: $pink
-  content: '*'
-  font-weight: bold
-  margin-left: 4px
+.required
+  &::after
+    color: $pink
+    content: '*'
+    font-weight: bold
+    margin-left: 4px
 
 .btn
   font-size: 13px
@@ -85,12 +86,16 @@ body
   border-color: $pink
   color: $white
 
-  &:hover
+  %btn-hover
     background-color: $darken-pink
     border-color: $darken-pink
 
-  &:focus, &.focus
-    @extend :hover
+  &:hover
+    @extend %btn-hover
+
+  &:focus,
+  &.focus
+    @extend %btn-hover
     box-shadow: 0 0 0 3px $rgba3-pink
 
   &:disabled
@@ -106,30 +111,35 @@ body
     border-color: $light-green
 
 .editing-badge
-  background-color: #61ABB3
-  top: -8px
-  right: 10px
-  position: relative
+  background-color: $info
   padding: 5px
+  position: relative
+  right: 10px
+  top: -8px
 
 .icon-field
   .fa-edit
+    @extend %cursor-icon
+
+  .fa-times
+    @extend %cursor-icon
+    padding: 7px
+
+  %cursor-icon
+    border-radius: 3px
     cursor: pointer
-    width: 30px
     height: 30px
     padding: 6px 6px 6px 8px
-    border-radius: 3px
+    width: 30px
 
     &:hover
       background-color: $rgba2-lighten-green
 
-  .fa-times
-    @extend .fa-edit
-    padding: 7px
+.table
+  td
+    border-top: 1px solid $light-green-translucent
+    height: 66px
 
-.table td
-  height: 66px
-  border-top: 1px solid $light-green-translucent
-
-.table td, .table th
-  vertical-align: middle
+  td,
+  th
+    vertical-align: middle
