@@ -1,7 +1,7 @@
 import React from 'react'
-import * as actionTypes from 'utils/actionTypes'
 import { toast } from 'react-toastify'
 
+import * as actionTypes from 'utils/actionTypes'
 import { Errors } from 'types/api'
 import { NewCategoryStore } from 'types/store'
 import { CategoryAction } from 'types/action'

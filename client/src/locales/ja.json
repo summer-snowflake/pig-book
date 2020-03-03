@@ -46,6 +46,7 @@
     "loginFailure": "ログインに失敗しました",
     "postCategorySuccess": "カテゴリを追加しました",
     "patchCategorySuccess": "カテゴリを編集しました",
-    "cancelUpdate": "更新を取り消しますか？"
+    "cancelUpdate": "更新を取り消しますか？",
+    "patchSuccess": "更新しました"
   }
 }

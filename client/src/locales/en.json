@@ -46,6 +46,7 @@
     "loginFailure": "Login Failed",
     "postCategorySuccess": "Category created successfully",
     "patchCategorySuccess": "Category updated successfully",
-    "cancelUpdate": "Cancel?"
+    "cancelUpdate": "Cancel?",
+    "patchSuccess": "Updated successfully"
   }
 }
