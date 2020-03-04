@@ -3,23 +3,23 @@
 .radio-span
   padding: 0 10px 0 0
 
-  .radio-input
-    visibility: hidden
+.radio-input
+  visibility: hidden
 
-    &:checked + .radio-label
-      border: 1px solid $green-translucent
+  &:checked + .radio-label
+    border: 1px solid $green-translucent
 
-      svg.fa-check
-        color: $darken-green
+    .fa-check
+      color: $darken-green
 
-  .radio-label
-    cursor: pointer
-    border: 1px solid transparent
-    padding: 5px
-    border-radius: 5px
+.radio-label
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  padding: 5px
 
-    svg.fa-check
-      color: $green-translucent
+  .fa-check
+    color: $green-translucent
 
 .settings-top-component + .memo-component
   padding-top: 30px
