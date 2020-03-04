@@ -3,14 +3,13 @@ AllCops:
   Exclude:
     - config.ru
     - Rakefile
-    - 'test/**/*'
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
-    - 'server/**/*'
+    - 'Gemfile'
     - !ruby/regexp /old_and_unused\.rb$/
 
 # 日本語でのコメントを許可
