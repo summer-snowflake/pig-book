@@ -1,9 +1,9 @@
-defaults: &defaults
+defaults: &server
+  working_directory: ~/pig-book
   docker:
     - image: circleci/ruby:2.6.5-node-browsers
       environment:
         RAILS_ENV: test
-        NODE_ENV: test
         DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
         DB_PASS: password
         DB_USER: postgres
@@ -18,76 +18,48 @@ defaults: &defaults
   steps:
     - checkout
 
-    # Install fonts-migmix
-    - run: sudo apt-get install fonts-migmix
-
-    # Restore bundle cache
     - type: cache-restore
-      key: pig_book-{{ checksum "Gemfile.lock" }}
+      key: pig_book-{{ checksum "server/Gemfile.lock" }}
 
-    # Bundle install dependencies
-    - run: gem update bundler
-    - run: bundle install --path vendor/bundle --clean
+    - run:
+        name: Update bundler
+        command: gem update bundler
+        working_directory: server
 
-    # Store bundle cache
+    - run:
+        name: Bundle install
+        command: bundle install --path vendor/bundle --clean
+        working_directory: server
+
     - type: cache-save
-      key: pig_book-{{ checksum "Gemfile.lock" }}
+      key: pig_book-{{ checksum "server/Gemfile.lock" }}
       paths:
         - vendor/bundle
 
-    # Upgrade npm
-    - run: npm install npm@latest
-
-    # Restore npm cache
-    - restore_cache:
-        name: Restore npm cache
-        keys:
-          - npm-5.4.2-{{ checksum "package.json" }}
-
     - run:
-        name: Run npm install
-        command: npm install
-
+        name: Create Database
+        working_directory: server
+        command: bundle exec rake db:create
     - run:
-        name: Update Chromedriver
-        command: |
-          sudo apt-get update
-          sudo apt-get install google-chrome-stable
-
-    - save_cache:
-        name: Store npm cache
-        key: npm-5.4.2-{{ checksum "package.json" }}
-        paths:
-          - ./frontend/node_modules
-
-    # Database setup
-    - run: bundle exec rake db:create
-    - run: bundle exec rake db:schema:load
-
-    # Run scss-lint
-    - run: bundle exec scss-lint app/assets/stylesheets/*.scss
-
-    # NOTE: on server では yarn を利用
-    # Run sass-lint
-    # - run: npm run sass-lint
-    - run: yarn run sass-lint
-
-    # NOTE: on server では yarn を利用
-    # Run ESLint
-    # - run: npm run eslint
-    - run: yarn run eslint
+        name: Load Database Schema
+        working_directory: server
+        command: bundle exec rake db:schema:load
 
     # Run rubocop
-    - run: bundle exec rubocop
-
-    # Run slim-lint
-    - run: bundle exec slim-lint app/views/
+    - run:
+        name: Run Rubocop
+        working_directory: server
+        command: bundle exec rubocop
 
     # Run precompile
-    - run: bundle exec rake assets:precompile
+    #- run:
+    #    name: precompile
+    #    working_directory: server
+    #    command: bundle exec rake assets:precompile
 
     # Run rspec in parallel
     - type: shell
+      working_directory: server
       command: |
         bundle exec rspec \
           --format RspecJunitFormatter \
@@ -110,19 +82,58 @@ defaults: &defaults
     #- store_test_results:
     #    path: /tmp/test-results
 
+defaults: &client
+  working_directory: ~/pig-book
+  docker:
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        RAILS_ENV: test
+        NODE_ENV: test
+        DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
+        DB_PASS: password
+        DB_USER: postgres
+        DB_HOST: localhost
+        REDIS_HOST: redis
+        TZ: Asia/Tokyo
+  steps:
+    - checkout
+
+    # Upgrade npm
+    #- run: npm install npm@latest
+
+    #- restore_cache:
+    #    name: Restore npm cache
+    #    keys: npm-5.4.2-{{ checksum "client/package.json" }}
+
+    - run:
+        name: Run yarn install
+        working_directory: client
+        command: yarn install
+
+    #- save_cache:
+    #    name: Store npm cache
+    #    key: npm-5.4.2-{{ checksum "client/package.json" }}
+
+    - run:
+        name: Run sass-lint
+        working_directory: client
+        command: yarn run sass-lint
+
+    - run:
+        name: Run ESLint
+        working_directory: client
+        command: yarn run eslint
+
 version: 2
 jobs:
-  build:
-    <<: *defaults
-    working_directory: ~/pig-book
   build_on_server:
-    <<: *defaults
-    working_directory: ~/pig-book/server
+    <<: *server
+  build_on_client:
+    <<: *client
 
 workflows:
   version: 2
   main:
     jobs:
-      # NOTE: add-client-directory branch では不要なためコメントアウト
-      # - build
       - build_on_server
+      - build_on_client
