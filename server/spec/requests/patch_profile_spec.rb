@@ -5,6 +5,10 @@ require 'rails_helper'
 describe 'PATCH /api/profile' do
   let!(:user) { create(:user, :active) }
 
+  after do
+    I18n.locale = :ja
+  end
+
   context 'when NOT logged in.' do
     it 'return status code 401 and json errors data.' do
       patch '/api/profile'
