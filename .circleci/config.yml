@@ -67,11 +67,15 @@ defaults: &defaults
     # Run scss-lint
     - run: bundle exec scss-lint app/assets/stylesheets/*.scss
 
+    # NOTE: on server では yarn を利用
     # Run sass-lint
-    - run: npm run sass-lint
+    # - run: npm run sass-lint
+    - run: yarn run sass-lint
 
+    # NOTE: on server では yarn を利用
     # Run ESLint
-    - run: npm run eslint
+    # - run: npm run eslint
+    - run: yarn run eslint
 
     # Run rubocop
     - run: bundle exec rubocop
@@ -119,5 +123,6 @@ workflows:
   version: 2
   main:
     jobs:
-      - build
+      # NOTE: add-client-directory branch では不要なためコメントアウト
+      # - build
       - build_on_server
