@@ -17,7 +17,6 @@ import 'stylesheets/common.sass'
 import 'plugins/i18n'
 
 interface ExtendedWindow extends Window {
-  [x: string]: any;
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
 }
 declare let window: ExtendedWindow
