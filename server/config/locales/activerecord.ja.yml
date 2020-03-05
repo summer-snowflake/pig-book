@@ -3,3 +3,5 @@ ja:
     attributes:
       category:
         name: カテゴリ名
+      breakdown:
+        name: 内訳
