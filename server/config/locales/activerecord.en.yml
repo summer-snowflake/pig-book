@@ -5,3 +5,4 @@ en:
         name: Category name
       breakdown:
         name: Breakdown
+        category: Category

@@ -30,7 +30,18 @@ export interface NewCategoryStore extends Errors {
   name: string;
 }
 
+export interface NewBreakdownStore extends Errors {
+  isLoading: boolean;
+  category_id: number;
+  name: string;
+}
+
 export interface EditCategoryStore extends Errors {
+  isLoading: boolean;
+  editingId: number;
+}
+
+export interface EditBreakdownStore extends Errors {
   isLoading: boolean;
   editingId: number;
 }
@@ -38,4 +49,9 @@ export interface EditCategoryStore extends Errors {
 export interface CategoriesStore {
   isLoading: boolean;
   categories: Category[];
+}
+
+export interface BreakdownsStore {
+  isLoading: boolean;
+  breakdowns: Breakdown[];
 }

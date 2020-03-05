@@ -9,7 +9,8 @@
     "mypageTop": "マイページTOP",
     "settings": "各種設定",
     "settingsTop": "ユーザー設定",
-    "category": "カテゴリ設定"
+    "category": "カテゴリ",
+    "breakdown": "内訳"
   },
   "title": {
     "login": "ログイン",
@@ -29,7 +30,8 @@
     "currency-yen": "¥（円）",
     "currency-dollar": "$（ドル）",
     "income": "収入",
-    "outgo": "支出"
+    "outgo": "支出",
+    "category": "カテゴリ"
   },
   "button": {
     "login": "ログインする",
@@ -47,7 +49,9 @@
     "postCategorySuccess": "カテゴリを追加しました",
     "patchCategorySuccess": "カテゴリを編集しました",
     "cancelUpdate": "更新を取り消しますか？",
-    "patchSuccess": "更新しました"
+    "patchSuccess": "更新しました",
+    "postBreakdownSuccess": "内訳を追加しました",
+    "patchBreakdownSuccess": "内訳を編集しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

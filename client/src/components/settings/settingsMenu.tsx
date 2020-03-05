@@ -18,6 +18,10 @@ class SettingsMenu extends Component<I18nProps> {
           <i className='fas fa-th-large left-icon' />
           {t('menu.category')}
         </NavLink>
+        <NavLink activeClassName='active-link-menu' className='list-group-item' to='/breakdowns'>
+          <i className='fas fa-list left-icon' />
+          {t('menu.breakdown')}
+        </NavLink>
       </div>
     )
   }
