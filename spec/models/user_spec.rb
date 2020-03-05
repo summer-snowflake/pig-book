@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   describe 'relationship' do
     it { is_expected.to have_many(:categories).dependent(:destroy) }
     it { is_expected.to have_many(:places).dependent(:destroy) }
-    it { is_expected.to have_many(:breakdowns).through(:categories) }
+    it { is_expected.to have_many(:breakdowns).dependent(:destroy) }
     it { is_expected.to have_many(:templates).through(:categories) }
     it { is_expected.to have_many(:tags).dependent(:destroy) }
     it { is_expected.to have_many(:records).dependent(:destroy) }
