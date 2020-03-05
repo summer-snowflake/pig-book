@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   has_many :categories, dependent: :destroy
   has_many :places, dependent: :destroy
-  has_many :breakdowns, through: :categories
+  has_many :breakdowns
   has_many :templates, through: :categories
   has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
