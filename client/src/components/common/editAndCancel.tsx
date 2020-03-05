@@ -15,7 +15,7 @@ class EditAndCancel extends Component<I18nProps & Props> {
       <div className='edit-and-cancel-component icon-field float-right'>
         <span>
           {this.props.editing && (
-            <span className='badge badge-info editing-badge'>
+            <span className='d-none d-lg-inline badge badge-info editing-badge'>
               <i className='fas fa-pen-square left-icon' />
               {t('title.editing')}
             </span>

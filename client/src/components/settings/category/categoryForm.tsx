@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Category } from 'types/api'
+import LoadingImage from 'components/common/loadingImage'
 
 interface ParentProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -10,6 +11,7 @@ interface ParentProps {
   onClickSubmitButton: () => void;
   category: Category;
   disabled: boolean;
+  isLoading: boolean;
 }
 
 type Props = ParentProps & I18nProps
@@ -78,6 +80,9 @@ class CategoryForm extends Component<Props> {
             )}
           </button>
         </div>
+        {this.props.isLoading && (
+          <LoadingImage />
+        )}
       </form>
     )
   }
