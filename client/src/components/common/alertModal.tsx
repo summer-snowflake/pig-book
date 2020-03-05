@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import { withTranslation } from 'react-i18next'
 
 import CloseButton from 'components/common/closeButton'
 
-interface Props {
+interface Props extends I18nProps {
   isOpen: boolean;
-  message: string;
+  messageType: string;
   onClickClose: () => void;
 }
 
@@ -26,6 +27,8 @@ const customStyles = {
 
 class AlertModal extends Component<Props> {
   render(): JSX.Element {
+    const { t } = this.props
+
     return (
       <div className='modal alert-modal-component'>
         <div className='modal-dialog'>
@@ -37,7 +40,7 @@ class AlertModal extends Component<Props> {
               style={customStyles}
             >
               <div className='modal-body'>
-                <p>{this.props.message}</p>
+                <p>{t('alert.' + this.props.messageType)}</p>
               </div>
               <div className='modal-footer'>
                 <CloseButton onClickClose={this.props.onClickClose} />
@@ -50,4 +53,4 @@ class AlertModal extends Component<Props> {
   }
 }
 
-export default AlertModal
+export default withTranslation()(AlertModal)

@@ -13,6 +13,7 @@ import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import { getCategories, switchEditing } from 'actions/categoriesActions'
 import { patchCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
+import AlertModal from 'components/common/alertModal'
 
 interface StateProps {
   editCategory: EditCategoryStore;
@@ -31,6 +32,7 @@ type Props = ParentProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
+  isOpenAlertModal: boolean;
   category: Category;
 }
 
@@ -40,6 +42,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
+      isOpenAlertModal: false,
       category: {
         id: 0,
         name: '',
@@ -75,7 +78,9 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     }
     // 編集中の編集アイコン
     if (this.props.editCategory.editingId !== 0 && this.props.editCategory.editingId !== this.props.category.id) {
-      alert('編集中')
+      this.setState({
+        isOpenAlertModal: true
+      })
     }
     // キャンセルアイコン
     if (this.props.editCategory.editingId === this.props.category.id) {
@@ -133,7 +138,8 @@ class CategoryTableRecordContainer extends Component<Props, State> {
 
   handleClickClose(): void {
     this.setState({
-      isOpenCancelModal: false
+      isOpenCancelModal: false,
+      isOpenAlertModal: false
     })
   }
 
@@ -159,6 +165,11 @@ class CategoryTableRecordContainer extends Component<Props, State> {
           </td>
         ) : (
           <td>
+            <AlertModal
+              isOpen={this.state.isOpenAlertModal}
+              messageType='editingOther'
+              onClickClose={this.handleClickClose}
+            />
             <CategoryName category={this.props.category} />
           </td>
         )}

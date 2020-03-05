@@ -48,5 +48,8 @@
     "patchCategorySuccess": "Category updated successfully",
     "cancelUpdate": "Cancel?",
     "patchSuccess": "Updated successfully"
+  },
+  "alert": {
+    "editingOther": "Editing now"
   }
 }
