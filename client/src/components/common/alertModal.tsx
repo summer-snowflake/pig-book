@@ -40,7 +40,10 @@ class AlertModal extends Component<Props> {
               style={customStyles}
             >
               <div className='modal-body'>
-                <p>{t('alert.' + this.props.messageType)}</p>
+                <p>
+                  <i className='fas fa-exclamation-triangle yellow left-icon' />
+                  {t('alert.' + this.props.messageType)}
+                </p>
               </div>
               <div className='modal-footer'>
                 <CloseButton onClickClose={this.props.onClickClose} />
