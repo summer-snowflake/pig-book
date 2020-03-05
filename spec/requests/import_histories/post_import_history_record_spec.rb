@@ -24,7 +24,9 @@ describe 'POST /api/import_histories/:import_history_id/record' do
   context 'ログインしていた場合' do
     context 'カテゴリが登録されいた場合' do
       let!(:category) { create(:category, user: user, name: '医療費') }
-      let!(:breakdown) { create(:breakdown, category: category, name: '診察代') }
+      let!(:breakdown) do
+        create(:breakdown, user: user, category: category, name: '診察代')
+      end
       let!(:categorized_place) do
         create(:categorized_place, category: category, place: place)
       end

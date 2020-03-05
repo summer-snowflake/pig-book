@@ -3,6 +3,7 @@
 class Breakdown < ApplicationRecord
   include ValidationErrorMessagesBuilder
 
+  belongs_to :user
   belongs_to :category
   has_many :records, dependent: :restrict_with_error
   has_many :templates

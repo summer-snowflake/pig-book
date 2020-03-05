@@ -7,7 +7,9 @@ RSpec.describe ImportHistory::RecordBuilder, type: :model do
     subject { ImportHistory::RecordBuilder.new(user: user, row: row) }
     let!(:user) { create(:user) }
     let!(:category) { create(:category, user: user, name: '飲食費') }
-    let!(:breakdown) { create(:breakdown, category: category, name: '飲み物') }
+    let!(:breakdown) do
+      create(:breakdown, user: user, category: category, name: '飲み物')
+    end
     let!(:place) { create(:place, user: user, name: 'コンビニ：サンクス') }
     let!(:categorized_place) do
       create(:categorized_place, category: category, place: place)

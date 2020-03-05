@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'PATCH /api/breakdowns' do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user) }
-  let!(:breakdown) { create(:breakdown, category: category) }
+  let!(:breakdown) { create(:breakdown, user: user, category: category) }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do

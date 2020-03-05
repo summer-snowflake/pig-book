@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :breakdown do
+    user
     category
     sequence(:name) { |n| "内訳#{n}" }
   end

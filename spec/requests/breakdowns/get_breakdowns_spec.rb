@@ -5,8 +5,8 @@ require 'rails_helper'
 describe 'GET /api/breakdowns' do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user, balance_of_payments: true) }
-  let!(:breakdown1) { create(:breakdown, category: category) }
-  let!(:breakdown2) { create(:breakdown, category: category) }
+  let!(:breakdown1) { create(:breakdown, user: user, category: category) }
+  let!(:breakdown2) { create(:breakdown, user: user, category: category) }
 
   context 'ログインしていなかった場合' do
     it '401とデータが返ってくること' do
