@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { withTranslation } from 'react-i18next'
 
+import CloseButton from 'components/common/closeButton'
+
 interface Props {
   isOpen: boolean;
   onClickCancel: () => void;
@@ -45,10 +47,7 @@ class CancelUpdateModal extends Component<I18nProps & Props> {
                 <button className='btn btn-primary' onClick={this.props.onClickCancel}>
                   {t('button.cancel')}
                 </button>
-                <button className='btn btn-light' onClick={this.props.onClickClose}>
-                  <i className='fas fa-times left-icon' />
-                  {t('button.close')}
-                </button>
+                <CloseButton onClickClose={this.props.onClickClose} />
               </div>
             </Modal>
           )}
