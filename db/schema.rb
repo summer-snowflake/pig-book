@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_165528) do
+ActiveRecord::Schema.define(version: 2020_03_05_164456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_165528) do
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["category_id"], name: "index_breakdowns_on_category_id"
+    t.index ["user_id"], name: "index_breakdowns_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -212,6 +214,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_165528) do
 
   add_foreign_key "admins", "users"
   add_foreign_key "breakdowns", "categories"
+  add_foreign_key "breakdowns", "users"
   add_foreign_key "categories", "users"
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
