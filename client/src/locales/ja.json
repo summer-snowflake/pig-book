@@ -48,5 +48,8 @@
     "patchCategorySuccess": "カテゴリを編集しました",
     "cancelUpdate": "更新を取り消しますか？",
     "patchSuccess": "更新しました"
+  },
+  "alert": {
+    "editingOther": "編集中の項目があります"
   }
 }
