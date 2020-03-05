@@ -1,26 +1,5 @@
 @import variables
 
-.radio-span
-  padding: 0 10px 0 0
-
-.radio-input
-  visibility: hidden
-
-  &:checked + .radio-label
-    border: 1px solid $green-translucent
-
-    .fa-check
-      color: $darken-green
-
-.radio-label
-  border: 1px solid transparent
-  border-radius: 5px
-  cursor: pointer
-  padding: 5px
-
-  .fa-check
-    color: $green-translucent
-
 .settings-top-component + .memo-component
   padding-top: 30px
 
@@ -55,8 +34,10 @@
     margin-bottom: .2rem
     margin-top: .2rem
 
-.category-create-form-component
+.category-create-form-component,
+.breakdown-create-form-component
   min-height: 80px
 
-.category-radio
-  padding-top: 3px
+.category-select-box-component
+  .form-control
+    min-width: 104px

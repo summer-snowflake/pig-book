@@ -3,3 +3,4 @@ en:
     messages:
       taken: has already been taken.
       blank: can't be blank.
+      required: must exist.

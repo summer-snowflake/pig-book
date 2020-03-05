@@ -3,3 +3,4 @@ ja:
     messages:
       taken: はすでに登録されています。
       blank: を入力してください。
+      required: は必須項目です。

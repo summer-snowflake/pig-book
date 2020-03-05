@@ -145,6 +145,30 @@ body
   th
     vertical-align: middle
 
+  .icon-field-td
+    width: 125px
+
 .loading-image
   margin-top: 9px
   width: 55px
+
+.radio-input
+  visibility: hidden
+
+  &:checked + .radio-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.radio-label
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
+
+.category-radio
+  padding-top: 3px
