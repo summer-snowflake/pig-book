@@ -6,12 +6,10 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Category } from 'types/api'
 import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer'
 import { getCategories } from 'actions/categoriesActions'
-import LoadingImage from 'components/common/loadingImage'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
   categories: {
-    isLoading: boolean;
     categories: Category[];
   };
 }
@@ -30,7 +28,7 @@ class CategoriesListContainer extends Component<Props> {
   }
 
   render(): JSX.Element {
-    const table = (
+    return (
       <table className='table categories-list-component'>
         <tbody>
           {this.props.categories.categories.map((category: { id: number; name: string; balance_of_payments: boolean }) => (
@@ -39,12 +37,6 @@ class CategoriesListContainer extends Component<Props> {
         </tbody>
       </table>
     )
-
-    const loading = (
-      <LoadingImage />
-    )
-
-    return this.props.categories.isLoading ? loading : table
   }
 }
 

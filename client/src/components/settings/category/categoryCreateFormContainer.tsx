@@ -72,6 +72,7 @@ class CategoryPostForm extends Component<Props> {
       <div className='category-create-form-component'>
         <CategoryForm
           category={this.props.newCategory}
+          isLoading={this.props.newCategory.isLoading}
           disabled={this.props.newCategory.isLoading || !this.diff()}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeName={this.handleChangeName}
