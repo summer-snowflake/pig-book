@@ -32,7 +32,7 @@ describe 'PATCH /api/categories' do
         json = {
           user_id: user.id,
           name: '編集したカテゴリ',
-          balance_of_payments: true,
+          balance_of_payments: true
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

@@ -11,7 +11,7 @@ module RequestSpecHelper
     )
   end
 
-  def login_headers(user, response_headers)
+  def login_headers(response_headers)
     {
       'Content-Type': 'application/json',
       'access-token': response_headers['access-token'],

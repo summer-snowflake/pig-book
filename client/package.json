@@ -44,7 +44,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "eslint": "eslint src/**/*.tsx",
+    "eslint": "eslint 'src/**/**.tsx' 'src/**/**.ts'",
     "sass-lint": "sass-lint -c .sass-lint.yml -v",
     "start": "react-scripts start",
     "build": "react-scripts build",
