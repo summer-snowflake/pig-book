@@ -15,6 +15,7 @@ import AlertModal from 'components/common/alertModal'
 import { getBreakdowns, switchEditing } from 'actions/breakdownsActions'
 import { changeCategory, patchBreakdown } from 'actions/breakdownActions'
 import { RootState } from 'reducers/rootReducer'
+import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
   editBreakdown: EditBreakdownStore;
@@ -65,10 +66,6 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
-  }
-
-  toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === 'true'
   }
 
   diff(): boolean {
@@ -130,7 +127,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
       category: {
         id: this.props.breakdown.category.id,
         name: this.props.breakdown.category.name,
-        balance_of_payments: this.toBoolean(e.target.value)
+        balance_of_payments: toBoolean(e.target.value)
       }
     }
     this.setState({
@@ -155,7 +152,6 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
   }
 
   handleClickSubmitButton(): void {
-    console.log(this.state.breakdown)
     this.props.patchBreakdown(this.state.breakdown.id, this.state.breakdown)
   }
 
@@ -176,7 +172,6 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
 
   render(): JSX.Element {
     const editing = this.props.editBreakdown.editingId === this.props.breakdown.id
-    console.log(this.state.breakdown)
 
     return (
       <tr className='breakdown-table-record-component'>

@@ -14,6 +14,7 @@ import { getCategories, switchEditing } from 'actions/categoriesActions'
 import { patchCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
+import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
   editCategory: EditCategoryStore;
@@ -57,10 +58,6 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
-  }
-
-  toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === 'true'
   }
 
   diff(): boolean {
@@ -117,7 +114,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     const category = {
       id: this.props.category.id,
       name: this.state.category.name,
-      balance_of_payments: this.toBoolean(e.target.value)
+      balance_of_payments: toBoolean(e.target.value)
     }
     this.setState({
       category: category
