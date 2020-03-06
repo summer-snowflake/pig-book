@@ -3,3 +3,6 @@ en:
     attributes:
       category:
         name: Category name
+      breakdown:
+        name: Breakdown
+        category: Category

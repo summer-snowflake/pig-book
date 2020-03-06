@@ -3,30 +3,32 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { CategoryParams, Category } from 'types/api'
-import { EditCategoryStore } from 'types/store'
+import { BreakdownParams, Breakdown, Category } from 'types/api'
+import { EditBreakdownStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import CategoryName from 'components/settings/category/categoryName'
-import CategoryForm from 'components/settings/category/categoryForm'
+import BreakdownName from 'components/settings/breakdown/breakdownName'
+import BreakdownForm from 'components/settings/breakdown/breakdownForm'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
-import { getCategories, switchEditing } from 'actions/categoriesActions'
-import { patchCategory } from 'actions/categoryActions'
-import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
+import { getBreakdowns, switchEditing } from 'actions/breakdownsActions'
+import { changeCategory, patchBreakdown } from 'actions/breakdownActions'
+import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
-  editCategory: EditCategoryStore;
+  editBreakdown: EditBreakdownStore;
 }
 
 interface DispatchProps {
   switchEditing: (editingId: number) => void;
-  patchCategory: (id: number, params: CategoryParams) => void;
+  changeCategory: (category: Category | undefined) => void;
+  patchBreakdown: (id: number, params: BreakdownParams) => void;
 }
 
 interface ParentProps {
-  category: Category;
+  breakdown: Breakdown;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -34,20 +36,25 @@ type Props = ParentProps & StateProps & DispatchProps
 interface State {
   isOpenCancelModal: boolean;
   isOpenAlertModal: boolean;
-  category: Category;
+  breakdown: Breakdown;
 }
 
-class CategoryTableRecordContainer extends Component<Props, State> {
+class BreakdownTableRecordContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
     this.state = {
       isOpenCancelModal: false,
       isOpenAlertModal: false,
-      category: {
+      breakdown: {
         id: 0,
+        category_id: 0,
         name: '',
-        balance_of_payments: false
+        category: {
+          id: 0,
+          name: '',
+          balance_of_payments: false
+        }
       }
     }
 
@@ -55,32 +62,33 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
   }
 
   diff(): boolean {
-    return this.props.category.name !== this.state.category.name ||
-      this.props.category.balance_of_payments !== this.state.category.balance_of_payments
+    return this.props.breakdown.name !== this.state.breakdown.name ||
+      this.props.breakdown.category_id !== this.state.breakdown.category_id
   }
 
   handleClickIcon(): void {
     // 編集中ではない編集アイコン
-    if (this.props.editCategory.editingId === 0) {
-      this.props.switchEditing(this.props.category.id)
+    if (this.props.editBreakdown.editingId === 0) {
+      this.props.switchEditing(this.props.breakdown.id)
       this.setState({
-        category: this.props.category
+        breakdown: this.props.breakdown
       })
     }
     // 編集中の編集アイコン
-    if (this.props.editCategory.editingId !== 0 && this.props.editCategory.editingId !== this.props.category.id) {
+    if (this.props.editBreakdown.editingId !== 0 && this.props.editBreakdown.editingId !== this.props.breakdown.id) {
       this.setState({
         isOpenAlertModal: true
       })
     }
     // キャンセルアイコン
-    if (this.props.editCategory.editingId === this.props.category.id) {
+    if (this.props.editBreakdown.editingId === this.props.breakdown.id) {
       if (this.diff()) {
         this.setState({
           isOpenCancelModal: true
@@ -100,34 +108,56 @@ class CategoryTableRecordContainer extends Component<Props, State> {
   }
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
-    const category = {
-      id: this.props.category.id,
+    const breakdown = {
+      id: this.props.breakdown.id,
+      category_id: this.state.breakdown.category_id,
       name: e.target.value,
-      balance_of_payments: this.state.category.balance_of_payments
+      category: this.state.breakdown.category
     }
     this.setState({
-      category: category
+      breakdown: breakdown
     })
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
-    const category = {
-      id: this.props.category.id,
-      name: this.state.category.name,
-      balance_of_payments: toBoolean(e.target.value)
+    const breakdown = {
+      id: this.props.breakdown.id,
+      name: this.props.breakdown.name,
+      category_id: this.props.breakdown.category.id,
+      category: {
+        id: this.props.breakdown.category.id,
+        name: this.props.breakdown.category.name,
+        balance_of_payments: toBoolean(e.target.value)
+      }
     }
     this.setState({
-      category: category
+      breakdown: breakdown
+    })
+  }
+
+  handleChangeCategory(category: Category | undefined): void {
+    const breakdown = {
+      id: this.state.breakdown.id,
+      name: this.state.breakdown.name,
+      category_id: category?.id || 0,
+      category: category || {
+        id: 0,
+        name: '',
+        balance_of_payments: false
+      }
+    }
+    this.setState({
+      breakdown: breakdown
     })
   }
 
   handleClickSubmitButton(): void {
-    this.props.patchCategory(this.state.category.id, this.state.category)
+    this.props.patchBreakdown(this.state.breakdown.id, this.state.breakdown)
   }
 
   handleClickCancel(): void {
     this.setState({
-      category: this.props.category,
+      breakdown: this.props.breakdown,
       isOpenCancelModal: false
     })
     this.props.switchEditing(0)
@@ -141,38 +171,48 @@ class CategoryTableRecordContainer extends Component<Props, State> {
   }
 
   render(): JSX.Element {
+    const editing = this.props.editBreakdown.editingId === this.props.breakdown.id
+
     return (
-      <tr className='category-table-record-component'>
-        {this.props.editCategory.editingId === this.props.category.id ? (
-          <td>
+      <tr className='breakdown-table-record-component'>
+        {editing && (
+          <td colSpan={2}>
             <CancelUpdateModal
               isOpen={this.state.isOpenCancelModal}
               onClickCancel={this.handleClickCancel}
               onClickClose={this.handleClickClose}
             />
-            <CategoryForm
-              category={this.state.category}
-              disabled={this.props.editCategory.isLoading || !this.diff()}
+            <BreakdownForm
+              breakdown={this.state.breakdown}
+              category={this.state.breakdown.category}
+              disabled={this.props.editBreakdown.isLoading || !this.diff()}
               onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+              onChangeCategory={this.handleChangeCategory}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}
             />
-            <ValidationErrorMessages messages={this.props.editCategory.errors} />
+            <ValidationErrorMessages messages={this.props.editBreakdown.errors} />
           </td>
-        ) : (
+        )}
+        {!editing && (
           <td>
+            <CategoryName category={this.props.breakdown.category} />
+          </td>
+        )}
+        {!editing && (
+          <td>
+            <BreakdownName breakdown={this.props.breakdown} />
             <AlertModal
               isOpen={this.state.isOpenAlertModal}
               messageType='editingOther'
               onClickClose={this.handleClickClose}
             />
-            <CategoryName category={this.props.category} />
           </td>
         )}
         <td className='icon-field-td'>
           <EditAndCancel
-            editing={this.props.editCategory.editingId === this.props.category.id}
+            editing={this.props.editBreakdown.editingId === this.props.breakdown.id}
             onClickIcon={this.handleClickIcon}
           />
         </td>
@@ -183,16 +223,19 @@ class CategoryTableRecordContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    editCategory: state.editCategory
+    editBreakdown: state.editBreakdown
   }
 }
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    patchCategory(id: number, category: CategoryParams): void {
-      dispatch(patchCategory(id, category)).then(() => {
-        dispatch(getCategories())
+    patchBreakdown(id: number, breakdown: BreakdownParams): void {
+      dispatch(patchBreakdown(id, breakdown)).then(() => {
+        dispatch(getBreakdowns())
       })
+    },
+    changeCategory(category: Category | undefined): void {
+      dispatch(changeCategory(category))
     },
     switchEditing(editingId: number): void {
       dispatch(switchEditing(editingId))
@@ -200,4 +243,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(CategoryTableRecordContainer)
+export default connect(mapState, mapDispatch)(BreakdownTableRecordContainer)

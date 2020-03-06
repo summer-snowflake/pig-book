@@ -9,7 +9,8 @@
     "mypageTop": "Mypage TOP",
     "settings": "Setting",
     "settingsTop": "Setting TOP",
-    "category": "Category"
+    "category": "Category",
+    "breakdown": "Breakdown"
   },
   "title": {
     "login": "Sign In",
@@ -29,7 +30,8 @@
     "currency-yen": "¥ (yen)",
     "currency-dollar": "$ (dollar)",
     "income": "Income",
-    "outgo": "Outgo"
+    "outgo": "Outgo",
+    "category": "Category"
   },
   "button": {
     "login": "Sign In",
@@ -47,7 +49,9 @@
     "postCategorySuccess": "Category created successfully",
     "patchCategorySuccess": "Category updated successfully",
     "cancelUpdate": "Cancel?",
-    "patchSuccess": "Updated successfully"
+    "patchSuccess": "Updated successfully",
+    "postBreakdownSuccess": "Breakdown created successfully",
+    "patchBreakdownSuccess": "Breakdown updated successfully"
   },
   "alert": {
     "editingOther": "Editing now"

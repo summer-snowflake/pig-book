@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "breakdowns", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_breakdowns_on_category_id"
+    t.index ["user_id"], name: "index_breakdowns_on_user_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -68,6 +78,8 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "breakdowns", "categories"
+  add_foreign_key "breakdowns", "users"
   add_foreign_key "categories", "users"
   add_foreign_key "profiles", "users"
 end

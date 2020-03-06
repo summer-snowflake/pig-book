@@ -1,4 +1,4 @@
-import { Category } from './api'
+import { Category, Breakdown } from './api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
@@ -17,6 +17,14 @@ export interface CategoryAction extends Action {
   category: Category;
 }
 
+export interface BreakdownAction extends Action {
+  breakdown: Breakdown;
+}
+
 export interface CategoriesAction extends Action {
   categories: Category[];
+}
+
+export interface BreakdownsAction extends Action {
+  breakdowns: Breakdown[];
 }

@@ -14,6 +14,7 @@ import SignUpPage from 'components/login/signUpPage'
 import MypageTopPage from 'components/mypage/mypageTopPage'
 import SettingsTopPage from 'components/settings/settingsTopPage'
 import CategoryPage from 'components/settings/category/categoryPage'
+import BreakdownPage from './settings/breakdown/breakdownPage'
 import Footer from 'components/footer'
 import Page404 from 'components/errors/page404'
 
@@ -36,6 +37,7 @@ class App extends Component {
             <Route component={MypageTopPage} exact path='/mypage' />
             <Route component={SettingsTopPage} exact path='/settings' />
             <Route component={CategoryPage} exact path='/categories' />
+            <Route component={BreakdownPage} exact path='/breakdowns' />
             <Route component={Page404} exact />
           </Switch>
         </Router>

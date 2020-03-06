@@ -31,7 +31,7 @@ class CategoriesListContainer extends Component<Props> {
     return (
       <table className='table categories-list-component'>
         <tbody>
-          {this.props.categories.categories.map((category: { id: number; name: string; balance_of_payments: boolean }) => (
+          {this.props.categories.categories.map((category: Category) => (
             <CategoryTableRecordContainer category={category} key={category.id} />
           ))}
         </tbody>
