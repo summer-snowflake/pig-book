@@ -12,6 +12,7 @@ import { postBreakdown, changeBreakdownName, changeCategory } from 'actions/brea
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { RootState } from 'reducers/rootReducer'
 import { changeCategoryBalanceOfPayments } from 'actions/categoryActions'
+import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
   newCategory: NewCategoryStore;
@@ -43,12 +44,8 @@ class BreakdownPostForm extends Component<Props> {
     return this.props.newBreakdown.name !== ''
   }
 
-  toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === 'true'
-  }
-
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changeCategoryBalanceOfPayments(this.toBoolean(e.target.value))
+    this.props.changeCategoryBalanceOfPayments(toBoolean(e.target.value))
   }
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {

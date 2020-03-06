@@ -11,6 +11,7 @@ import CategoryForm from 'components/settings/category/categoryForm'
 import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
+import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
   newCategory: NewCategoryStore;
@@ -38,12 +39,8 @@ class CategoryPostForm extends Component<Props> {
     return this.props.newCategory.name !== ''
   }
 
-  toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === 'true'
-  }
-
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changeCategoryBalanceOfPayments(this.toBoolean(e.target.value))
+    this.props.changeCategoryBalanceOfPayments(toBoolean(e.target.value))
   }
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
