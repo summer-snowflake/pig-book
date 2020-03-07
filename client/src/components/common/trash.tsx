@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 
-class Trash extends Component {
+interface Props {
+  onClickIcon: () => void;
+}
+
+class Trash extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='trash-component icon-field float-right'>
-        <i className='fas fa-trash' />
+        <span onClick={this.props.onClickIcon}>
+          <i className='fas fa-trash' />
+        </span>
       </div>
     )
   }

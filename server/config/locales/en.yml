@@ -5,3 +5,4 @@ en:
       blank: can't be blank.
       required: must exist.
     not_found: 404 Error. Not Found.
+    cannot_be_deleted: you can't be deleted because already be used.
