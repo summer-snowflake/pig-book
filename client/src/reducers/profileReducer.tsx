@@ -8,6 +8,7 @@ import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
+  isLoadingMemo: false,
   editing: false,
   editingMemo: false,
   locale: 'ja',
@@ -16,6 +17,7 @@ const initialState = {
 }
 
 interface StoreAction extends ProfileAction {
+  target?: string;
   locale?: string;
   currency?: string;
   memo?: string;
@@ -25,20 +27,27 @@ interface StoreAction extends ProfileAction {
 
 const settingsReducer = (state: ProfileStore = initialState, action: StoreAction): {} => {
   switch (action.type) {
+  case actionTypes.LOGIN_SUCCESS:
+    return {
+      initialState
+    }
   case actionTypes.GET_PROFILE_REQUEST:
     return {
       ...state,
-      isLoading: true
+      isLoading: true,
+      isLoadingMemo: true
     }
   case actionTypes.PATCH_PROFILE_REQUEST:
     return {
       ...state,
-      isLoading: true
+      isLoading: (action.target === 'base') ? true : false,
+      isLoadingMemo: (action.target === 'memo') ? true : false
     }
   case actionTypes.GET_PROFILE_SUCCESS:
     return {
       ...state,
       isLoading: false,
+      isLoadingMemo: false,
       locale: action.profile?.locale,
       currency: action.profile?.currency,
       memo: action.profile?.memo
@@ -49,6 +58,7 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
     return {
       ...state,
       isLoading: false,
+      isLoadingMemo: false,
       editing: false,
       editingMemo: false,
       locale: action.profile?.locale,
@@ -58,12 +68,14 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
   case actionTypes.GET_PROFILE_FAILURE:
     return {
       ...state,
-      isLoading: false
+      isLoading: false,
+      isLoadingMemo: false
     }
   case actionTypes.PATCH_PROFILE_FAILURE:
     return {
       ...state,
-      isLoading: false
+      isLoading: false,
+      isLoadingMemo: false
     }
   case actionTypes.CHANGE_PROFILE_LOCALE:
     return {

@@ -10,6 +10,7 @@ import EditAndCancel from 'components/common/editAndCancel'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import { getProfile, patchProfile, setEditingMemo } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
+import LoadingImage from 'components/common/loadingImage'
 
 interface StateProps {
   profile: ProfileStore;
@@ -17,7 +18,7 @@ interface StateProps {
 
 interface DispatchProps {
   getProfile: () => void;
-  patchProfile: (params: ProfileParams) => void;
+  patchProfile: (params: ProfileParams, target: string) => void;
   setEditingMemo: (editingMemo: boolean) => void;
 }
 
@@ -88,12 +89,40 @@ class MemoContainer extends Component<Props, State> {
       currency: this.props.profile.currency,
       memo: this.state.memo
     }
-    this.props.patchProfile(params)
+    this.props.patchProfile(params, 'memo')
   }
 
   render(): JSX.Element {
     const { t } = this.props
 
+    const jsx = (
+      <form>
+        {this.props.profile.editingMemo ? (
+          <div className='form-group'>
+            <textarea
+              className='form-control'
+              onChange={this.handleChangeMemo}
+              rows={8}
+              value={this.state.memo}
+            />
+          </div>
+        ) : (
+          <div className='memo'>
+            {this.props.profile.memo}
+          </div>
+        )}
+        {this.props.profile.editingMemo && (
+          <button
+            className='btn btn-primary'
+            disabled={this.props.profile.isLoading || !this.diff()}
+            onClick={this.handleClickSubmitButton}
+            type='button'
+          >
+            {t('button.update')}
+          </button>
+        )}
+      </form>
+    )
     return (
       <div className='memo-component'>
         <CancelUpdateModal
@@ -106,38 +135,19 @@ class MemoContainer extends Component<Props, State> {
             <i className='fas fa-book-open left-icon' />
             {t('title.memo')}
           </div>
-          <div className='card-body with-background-image'>
-            <EditAndCancel
-              editing={this.props.profile.editingMemo}
-              onClickIcon={this.handleClickIcon}
-            />
-            {this.props.profile.editingMemo ? (
-              <form>
-                <div className='form-group'>
-                  <textarea
-                    className='form-control'
-                    onChange={this.handleChangeMemo}
-                    rows={8}
-                    value={this.state.memo}
-                  />
-                </div>
-                {this.props.profile.editingMemo && (
-                  <button
-                    className='btn btn-primary'
-                    disabled={this.props.profile.isLoading || !this.diff()}
-                    onClick={this.handleClickSubmitButton}
-                    type='button'
-                  >
-                    {t('button.update')}
-                  </button>
-                )}
-              </form>
-            ) : (
-              <div className='memo'>
-                {this.props.profile.memo}
-              </div>
-            )}
-          </div>
+          {this.props.profile.isLoadingMemo ? (
+            <div className='card-body with-background-image'>
+              <LoadingImage />
+            </div>
+          ) : (
+            <div className='card-body with-background-image'>
+              <EditAndCancel
+                editing={this.props.profile.editingMemo}
+                onClickIcon={this.handleClickIcon}
+              />
+              {jsx}
+            </div>
+          )}
         </div>
       </div>
     )
@@ -155,8 +165,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getProfile(): void {
       dispatch(getProfile())
     },
-    patchProfile(params: ProfileParams): void {
-      dispatch(patchProfile(params))
+    patchProfile(params: ProfileParams, target: string): void {
+      dispatch(patchProfile(params, target))
     },
     setEditingMemo(editing: boolean): void {
       dispatch(setEditingMemo(editing))
