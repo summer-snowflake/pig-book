@@ -24,6 +24,10 @@ interface WithEditingMemoAction extends Action {
   editingMemo: boolean;
 }
 
+interface WithTargetAction extends Action {
+  target: string;
+}
+
 const getProfileRequest = (): Action => {
   return {
     type: actionTypes.GET_PROFILE_REQUEST
@@ -68,9 +72,10 @@ export const changeProfileCurrency = (currency: string): WithCurrencyAction => {
   }
 }
 
-const patchProfileRequest = (): Action => {
+const patchProfileRequest = (target: string): WithTargetAction => {
   return {
-    type: actionTypes.PATCH_PROFILE_REQUEST
+    type: actionTypes.PATCH_PROFILE_REQUEST,
+    target
   }
 }
 
@@ -87,9 +92,9 @@ const patchProfileFailure = (): Action => {
   }
 }
 
-export const patchProfile = (params: ProfileParams) => {
+export const patchProfile = (params: ProfileParams, target: string) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
-    dispatch(patchProfileRequest())
+    dispatch(patchProfileRequest(target))
     try {
       if(ready()) {
         const res = await axios.patch('/api/profile', params, { headers: loginHeaders() })
