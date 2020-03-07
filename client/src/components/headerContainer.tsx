@@ -55,6 +55,8 @@ class HeaderContainer extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
+    const isSettingsPath = this.props.location.pathname === '/settings' || this.props.location.pathname === '/categories' || this.props.location.pathname === '/breakdowns'
+
     return (
       <header className='header-component header'>
         <nav className='navbar navbar-expand-lg'>
@@ -83,7 +85,7 @@ class HeaderContainer extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (this.props.location.pathname === '/settings' || this.props.location.pathname === '/categories' || this.props.location.pathname === '/breakdowns') && (
+              {this.props.userStatus.isLogged && isSettingsPath && (
                 <NavItem eventKey='/categories'>
                   <NavIcon>
                     <i className='fas fa-th-large' />
@@ -93,7 +95,7 @@ class HeaderContainer extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (this.props.location.pathname === '/settings' || this.props.location.pathname === '/categories' || this.props.location.pathname === '/breakdowns') && (
+              {this.props.userStatus.isLogged && isSettingsPath && (
                 <NavItem eventKey='/breakdowns'>
                   <NavIcon>
                     <i className='fas fa-list' />
