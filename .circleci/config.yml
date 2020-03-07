@@ -97,6 +97,11 @@ defaults: &client
         working_directory: client
         command: yarn run eslint
 
+    - run:
+        name: Run Cypress
+        working_directory: client
+        command: yarn run cypress
+
 version: 2
 jobs:
   build_on_server:
