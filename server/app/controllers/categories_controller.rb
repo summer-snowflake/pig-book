@@ -27,6 +27,11 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    category = current_user.categories.find(params[:id])
+    category.destroy!
+  end
+
   private
 
   def category_params
