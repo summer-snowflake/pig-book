@@ -6,6 +6,7 @@ import 'stylesheets/errors.sass'
 
 interface Props {
   actionType: string;
+  messages?: string;
 }
 
 class FlashMessage extends Component<I18nProps & Props> {
@@ -33,6 +34,12 @@ class FlashMessage extends Component<I18nProps & Props> {
       break
     case actionTypes.LOGIN_SUCCESS:
       msg = t('message.loginSuccess')
+      break
+    case actionTypes.DELETE_CATEGORY_SUCCESS:
+      msg = t('message.deleteCategorySuccess')
+      break
+    case actionTypes.DELETE_CATEGORY_FAILURE:
+      msg = this.props.messages || ''
       break
     case actionTypes.LOGIN_FAILURE:
       msg = t('message.loginFailure')

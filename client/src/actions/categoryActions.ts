@@ -109,3 +109,41 @@ export const patchCategory = (id: number, params: CategoryParams) => {
     }
   }
 }
+
+const deleteCategoryRequest = (): Action => {
+  return {
+    type: actionTypes.DELETE_CATEGORY_REQUEST
+  }
+}
+
+const deleteCategorySuccess = (): Action => {
+  return {
+    type: actionTypes.DELETE_CATEGORY_SUCCESS
+  }
+}
+
+const deleteCategoryFailure = (errors: Errors): ErrorsAction => {
+  return {
+    type: actionTypes.DELETE_CATEGORY_FAILURE,
+    errors
+  }
+}
+
+export const deleteCategory = (categoryId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(deleteCategoryRequest())
+
+    try {
+      if(ready()) {
+        await axios.delete('/api/categories/' + categoryId, { headers: loginHeaders() })
+        dispatch(deleteCategorySuccess())
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      console.error(err)
+      dispatch(deleteCategoryFailure(err.response.data.errors))
+    }
+  }
+}

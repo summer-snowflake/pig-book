@@ -38,4 +38,19 @@ describe 'DELETE /api/categories/:id' do
       expect(response.status).to eq 404
     end
   end
+
+  context 'when already be used by breakdown' do
+    let!(:breakdown) { create(:breakdown, user: user, category: category) }
+
+    it 'returns status code 403.' do
+      delete "/api/categories/#{category.id}",
+             headers: login_headers_with_login(user)
+      expect(response.status).to eq 403
+
+      json = {
+        errors: ['使用されているため削除できません。']
+      }.to_json
+      expect(response.body).to be_json_eql(json)
+    end
+  end
 end
