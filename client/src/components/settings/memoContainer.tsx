@@ -8,6 +8,7 @@ import { ProfileParams } from 'types/api'
 import { ProfileStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import AlertModal from 'components/common/alertModal'
 import { getProfile, patchProfile, setEditingMemo } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
 import LoadingImage from 'components/common/loadingImage'
@@ -26,6 +27,7 @@ type Props = I18nProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
+  isOpenAlertModal: boolean;
   memo: string;
 }
 
@@ -35,6 +37,7 @@ class MemoContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
+      isOpenAlertModal: false,
       memo: ''
     }
 
@@ -52,15 +55,22 @@ class MemoContainer extends Component<Props, State> {
   }
 
   handleClickIcon(): void {
-    if (this.diff()) {
+    // 基本設定の編集中
+    if (this.props.profile.editing) {
       this.setState({
-        isOpenCancelModal: true
+        isOpenAlertModal: true
       })
     } else {
-      this.props.setEditingMemo(!this.props.profile.editingMemo)
-      this.setState({
-        memo: this.props.profile.memo
-      })
+      if (this.diff()) {
+        this.setState({
+          isOpenCancelModal: true
+        })
+      } else {
+        this.props.setEditingMemo(!this.props.profile.editingMemo)
+        this.setState({
+          memo: this.props.profile.memo
+        })
+      }
     }
   }
 
@@ -73,7 +83,8 @@ class MemoContainer extends Component<Props, State> {
 
   handleClickClose(): void {
     this.setState({
-      isOpenCancelModal: false
+      isOpenCancelModal: false,
+      isOpenAlertModal: false
     })
   }
 
@@ -123,6 +134,7 @@ class MemoContainer extends Component<Props, State> {
         )}
       </form>
     )
+
     return (
       <div className='memo-component'>
         <CancelUpdateModal
@@ -144,6 +156,11 @@ class MemoContainer extends Component<Props, State> {
               <EditAndCancel
                 editing={this.props.profile.editingMemo}
                 onClickIcon={this.handleClickIcon}
+              />
+              <AlertModal
+                isOpen={this.state.isOpenAlertModal}
+                messageType='editingOther'
+                onClickClose={this.handleClickClose}
               />
               {jsx}
             </div>

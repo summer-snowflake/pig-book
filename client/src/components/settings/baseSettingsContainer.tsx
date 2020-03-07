@@ -9,6 +9,7 @@ import { ProfileParams } from 'types/api'
 import { ProfileStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import AlertModal from 'components/common/alertModal'
 import { getProfile, patchProfile, changeProfileLocale, changeProfileCurrency, setEditing } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
 
@@ -17,6 +18,7 @@ import LoadingImage from 'components/common/loadingImage'
 
 interface State {
   isOpenCancelModal: boolean;
+  isOpenAlertModal: boolean;
   locale: string;
   currency: string;
 }
@@ -41,6 +43,7 @@ class BaseSettingsContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
+      isOpenAlertModal: false,
       locale: 'ja',
       currency: 'yen'
     }
@@ -64,16 +67,23 @@ class BaseSettingsContainer extends Component<Props, State> {
   }
 
   handleClickIcon(): void {
-    if (this.diff()) {
+    // メモの編集中
+    if (this.props.profile.editingMemo) {
       this.setState({
-        isOpenCancelModal: true
+        isOpenAlertModal: true
       })
     } else {
-      this.props.setEditing(!this.props.profile.editing)
-      this.setState({
-        locale: this.props.profile.locale,
-        currency: this.props.profile.currency
-      })
+      if (this.diff()) {
+        this.setState({
+          isOpenCancelModal: true
+        })
+      } else {
+        this.props.setEditing(!this.props.profile.editing)
+        this.setState({
+          locale: this.props.profile.locale,
+          currency: this.props.profile.currency
+        })
+      }
     }
   }
 
@@ -96,7 +106,8 @@ class BaseSettingsContainer extends Component<Props, State> {
 
   handleClickClose(): void {
     this.setState({
-      isOpenCancelModal: false
+      isOpenCancelModal: false,
+      isOpenAlertModal: false
     })
   }
 
@@ -235,6 +246,11 @@ class BaseSettingsContainer extends Component<Props, State> {
               <EditAndCancel
                 editing={this.props.profile.editing}
                 onClickIcon={this.handleClickIcon}
+              />
+              <AlertModal
+                isOpen={this.state.isOpenAlertModal}
+                messageType='editingOther'
+                onClickClose={this.handleClickClose}
               />
               {jsx}
             </div>
