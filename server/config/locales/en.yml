@@ -4,3 +4,4 @@ en:
       taken: has already been taken.
       blank: can't be blank.
       required: must exist.
+    not_found: 404 Error. Not Found.
