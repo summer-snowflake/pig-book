@@ -25,6 +25,12 @@ interface StoreAction extends ProfileAction {
 
 const settingsReducer = (state: ProfileStore = initialState, action: StoreAction): {} => {
   switch (action.type) {
+  case actionTypes.LOGIN_SUCCESS:
+    return {
+      ...state,
+      editing: false,
+      editingMemo: false
+    }
   case actionTypes.GET_PROFILE_REQUEST:
     return {
       ...state,
