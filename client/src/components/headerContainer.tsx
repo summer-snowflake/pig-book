@@ -83,6 +83,26 @@ class HeaderContainer extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
+              {this.props.userStatus.isLogged && (this.props.location.pathname === '/settings' || this.props.location.pathname === '/categories' || this.props.location.pathname === '/breakdowns') && (
+                <NavItem eventKey='/categories'>
+                  <NavIcon>
+                    <i className='fas fa-th-large' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.category')}
+                  </NavText>
+                </NavItem>
+              )}
+              {this.props.userStatus.isLogged && (this.props.location.pathname === '/settings' || this.props.location.pathname === '/categories' || this.props.location.pathname === '/breakdowns') && (
+                <NavItem eventKey='/breakdowns'>
+                  <NavIcon>
+                    <i className='fas fa-list' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.breakdown')}
+                  </NavText>
+                </NavItem>
+              )}
               {this.props.userStatus.isLogged && (
                 <NavItem eventKey='/mypage'>
                   <NavIcon>
