@@ -14,6 +14,7 @@ import { getCategories, switchEditing } from 'actions/categoriesActions'
 import { patchCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
+import Trash from 'components/common/trash'
 import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
@@ -175,6 +176,9 @@ class CategoryTableRecordContainer extends Component<Props, State> {
             editing={this.props.editCategory.editingId === this.props.category.id}
             onClickIcon={this.handleClickIcon}
           />
+        </td>
+        <td className='trash-field-td'>
+          <Trash />
         </td>
       </tr>
     )
