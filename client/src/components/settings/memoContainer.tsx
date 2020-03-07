@@ -8,8 +8,10 @@ import { ProfileParams } from 'types/api'
 import { ProfileStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import AlertModal from 'components/common/alertModal'
 import { getProfile, patchProfile, setEditingMemo } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
+import LoadingImage from 'components/common/loadingImage'
 
 interface StateProps {
   profile: ProfileStore;
@@ -17,7 +19,7 @@ interface StateProps {
 
 interface DispatchProps {
   getProfile: () => void;
-  patchProfile: (params: ProfileParams) => void;
+  patchProfile: (params: ProfileParams, target: string) => void;
   setEditingMemo: (editingMemo: boolean) => void;
 }
 
@@ -25,6 +27,7 @@ type Props = I18nProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
+  isOpenAlertModal: boolean;
   memo: string;
 }
 
@@ -34,6 +37,7 @@ class MemoContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
+      isOpenAlertModal: false,
       memo: ''
     }
 
@@ -51,15 +55,22 @@ class MemoContainer extends Component<Props, State> {
   }
 
   handleClickIcon(): void {
-    if (this.diff()) {
+    // 基本設定の編集中
+    if (this.props.profile.editing) {
       this.setState({
-        isOpenCancelModal: true
+        isOpenAlertModal: true
       })
     } else {
-      this.props.setEditingMemo(!this.props.profile.editingMemo)
-      this.setState({
-        memo: this.props.profile.memo
-      })
+      if (this.diff()) {
+        this.setState({
+          isOpenCancelModal: true
+        })
+      } else {
+        this.props.setEditingMemo(!this.props.profile.editingMemo)
+        this.setState({
+          memo: this.props.profile.memo
+        })
+      }
     }
   }
 
@@ -72,7 +83,8 @@ class MemoContainer extends Component<Props, State> {
 
   handleClickClose(): void {
     this.setState({
-      isOpenCancelModal: false
+      isOpenCancelModal: false,
+      isOpenAlertModal: false
     })
   }
 
@@ -88,11 +100,40 @@ class MemoContainer extends Component<Props, State> {
       currency: this.props.profile.currency,
       memo: this.state.memo
     }
-    this.props.patchProfile(params)
+    this.props.patchProfile(params, 'memo')
   }
 
   render(): JSX.Element {
     const { t } = this.props
+
+    const jsx = (
+      <form>
+        {this.props.profile.editingMemo ? (
+          <div className='form-group'>
+            <textarea
+              className='form-control'
+              onChange={this.handleChangeMemo}
+              rows={8}
+              value={this.state.memo}
+            />
+          </div>
+        ) : (
+          <div className='memo'>
+            {this.props.profile.memo}
+          </div>
+        )}
+        {this.props.profile.editingMemo && (
+          <button
+            className='btn btn-primary'
+            disabled={this.props.profile.isLoading || !this.diff()}
+            onClick={this.handleClickSubmitButton}
+            type='button'
+          >
+            {t('button.update')}
+          </button>
+        )}
+      </form>
+    )
 
     return (
       <div className='memo-component'>
@@ -106,38 +147,24 @@ class MemoContainer extends Component<Props, State> {
             <i className='fas fa-book-open left-icon' />
             {t('title.memo')}
           </div>
-          <div className='card-body with-background-image'>
-            <EditAndCancel
-              editing={this.props.profile.editingMemo}
-              onClickIcon={this.handleClickIcon}
-            />
-            {this.props.profile.editingMemo ? (
-              <form>
-                <div className='form-group'>
-                  <textarea
-                    className='form-control'
-                    onChange={this.handleChangeMemo}
-                    rows={8}
-                    value={this.state.memo}
-                  />
-                </div>
-                {this.props.profile.editingMemo && (
-                  <button
-                    className='btn btn-primary'
-                    disabled={this.props.profile.isLoading || !this.diff()}
-                    onClick={this.handleClickSubmitButton}
-                    type='button'
-                  >
-                    {t('button.update')}
-                  </button>
-                )}
-              </form>
-            ) : (
-              <div className='memo'>
-                {this.props.profile.memo}
-              </div>
-            )}
-          </div>
+          {this.props.profile.isLoadingMemo ? (
+            <div className='card-body with-background-image'>
+              <LoadingImage />
+            </div>
+          ) : (
+            <div className='card-body with-background-image'>
+              <EditAndCancel
+                editing={this.props.profile.editingMemo}
+                onClickIcon={this.handleClickIcon}
+              />
+              <AlertModal
+                isOpen={this.state.isOpenAlertModal}
+                messageType='editingOther'
+                onClickClose={this.handleClickClose}
+              />
+              {jsx}
+            </div>
+          )}
         </div>
       </div>
     )
@@ -155,8 +182,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getProfile(): void {
       dispatch(getProfile())
     },
-    patchProfile(params: ProfileParams): void {
-      dispatch(patchProfile(params))
+    patchProfile(params: ProfileParams, target: string): void {
+      dispatch(patchProfile(params, target))
     },
     setEditingMemo(editing: boolean): void {
       dispatch(setEditingMemo(editing))

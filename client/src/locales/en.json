@@ -51,7 +51,8 @@
     "cancelUpdate": "Cancel?",
     "patchSuccess": "Updated successfully",
     "postBreakdownSuccess": "Breakdown created successfully",
-    "patchBreakdownSuccess": "Breakdown updated successfully"
+    "patchBreakdownSuccess": "Breakdown updated successfully",
+    "deleteCategorySuccess": "Category deleted successfully"
   },
   "alert": {
     "editingOther": "Editing now"

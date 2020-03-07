@@ -27,6 +27,14 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    category = current_user.categories.find(params[:id])
+    category.destroy!
+  rescue ActiveRecord::InvalidForeignKey
+    render json: { errors: [I18n.t('errors.cannot_be_deleted')] },
+           status: :forbidden
+  end
+
   private
 
   def category_params

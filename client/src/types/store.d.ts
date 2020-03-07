@@ -17,6 +17,7 @@ export interface UserStatusStore {
 
 export interface ProfileStore {
   isLoading: boolean;
+  isLoadingMemo: boolean;
   editing: boolean;
   editingMemo: boolean;
   locale: string;

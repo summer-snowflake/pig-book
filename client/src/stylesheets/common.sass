@@ -121,16 +121,21 @@ body
 .icon-field
   .fa-edit
     @extend %cursor-icon
+    padding: 6px 6px 6px 8px
 
   .fa-times
     @extend %cursor-icon
     padding: 7px
 
+  .fa-trash
+    @extend %cursor-icon
+    padding: 9px
+
   %cursor-icon
     border-radius: 3px
+    color: $darken-green
     cursor: pointer
     height: 30px
-    padding: 6px 6px 6px 8px
     width: 30px
 
     &:hover
@@ -147,6 +152,9 @@ body
 
   .icon-field-td
     width: 125px
+
+  .trash-field-td
+    width: 20px
 
 .loading-image
   margin-top: 9px

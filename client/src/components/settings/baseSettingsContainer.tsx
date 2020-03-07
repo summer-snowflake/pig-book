@@ -9,13 +9,16 @@ import { ProfileParams } from 'types/api'
 import { ProfileStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import AlertModal from 'components/common/alertModal'
 import { getProfile, patchProfile, changeProfileLocale, changeProfileCurrency, setEditing } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
 
 import 'stylesheets/settings.sass'
+import LoadingImage from 'components/common/loadingImage'
 
 interface State {
   isOpenCancelModal: boolean;
+  isOpenAlertModal: boolean;
   locale: string;
   currency: string;
 }
@@ -28,7 +31,7 @@ interface DispatchProps {
   getProfile: () => void;
   changeProfileLocale: (locale: string) => void;
   changeProfileCurrency: (currency: string) => void;
-  patchProfile: (params: ProfileParams) => void;
+  patchProfile: (params: ProfileParams, target: string) => void;
   setEditing: (editing: boolean) => void;
 }
 
@@ -40,6 +43,7 @@ class BaseSettingsContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
+      isOpenAlertModal: false,
       locale: 'ja',
       currency: 'yen'
     }
@@ -63,16 +67,23 @@ class BaseSettingsContainer extends Component<Props, State> {
   }
 
   handleClickIcon(): void {
-    if (this.diff()) {
+    // メモの編集中
+    if (this.props.profile.editingMemo) {
       this.setState({
-        isOpenCancelModal: true
+        isOpenAlertModal: true
       })
     } else {
-      this.props.setEditing(!this.props.profile.editing)
-      this.setState({
-        locale: this.props.profile.locale,
-        currency: this.props.profile.currency
-      })
+      if (this.diff()) {
+        this.setState({
+          isOpenCancelModal: true
+        })
+      } else {
+        this.props.setEditing(!this.props.profile.editing)
+        this.setState({
+          locale: this.props.profile.locale,
+          currency: this.props.profile.currency
+        })
+      }
     }
   }
 
@@ -95,7 +106,8 @@ class BaseSettingsContainer extends Component<Props, State> {
 
   handleClickClose(): void {
     this.setState({
-      isOpenCancelModal: false
+      isOpenCancelModal: false,
+      isOpenAlertModal: false
     })
   }
 
@@ -105,11 +117,113 @@ class BaseSettingsContainer extends Component<Props, State> {
       currency: this.props.profile.currency,
       memo: this.props.profile.memo
     }
-    this.props.patchProfile(params)
+    this.props.patchProfile(params, 'base')
   }
 
   render(): JSX.Element {
     const { t } = this.props
+
+    const jsx = (
+      <form>
+        <div className='form-group'>
+          <label className='label'>
+            {t('label.language')}
+          </label>
+          {this.props.profile.editing ? (
+            <span>
+              <span className='radio-span'>
+                <input
+                  checked={this.props.profile.locale === 'ja'}
+                  className='radio-input'
+                  id='profile_locale_ja'
+                  name='profile[locale]'
+                  onChange={this.handleChangeLocale}
+                  type='radio'
+                  value='ja'
+                />
+                <label className='radio-label' htmlFor='profile_locale_ja'>
+                  <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
+                  {t('label.language-ja')}
+                </label>
+              </span>
+              <span className='radio-span'>
+                <input
+                  checked={this.props.profile.locale === 'en'}
+                  className='radio-input'
+                  id='profile_locale_en'
+                  name='profile[locale]'
+                  onChange={this.handleChangeLocale}
+                  type='radio'
+                  value='en'
+                />
+                <label className='radio-label' htmlFor='profile_locale_en'>
+                  <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
+                  {t('label.language-en')}
+                </label>
+              </span>
+            </span>
+          ) : (
+            <span>
+              {t('label.language-' + this.props.profile.locale)}
+            </span>
+          )}
+        </div>
+        <div className='form-group'>
+          <label className='label'>
+            {t('label.currency')}
+          </label>
+          {this.props.profile.editing ? (
+            <span>
+              <span className='radio-span'>
+                <input
+                  checked={this.props.profile.currency === 'yen'}
+                  className='radio-input'
+                  id='profile_currency_yen'
+                  name='profile[currency]'
+                  onChange={this.handleChangeCurrency}
+                  type='radio'
+                  value='yen'
+                />
+                <label className='radio-label' htmlFor='profile_currency_yen'>
+                  <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
+                  {t('label.currency-yen')}
+                </label>
+              </span>
+              <span className='radio-span'>
+                <input
+                  checked={this.props.profile.currency === 'dollar'}
+                  className='radio-input'
+                  id='profile_currency_dollar'
+                  name='profile[currency]'
+                  onChange={this.handleChangeCurrency}
+                  type='radio'
+                  value='dollar'
+                />
+                <label className='radio-label' htmlFor='profile_currency_dollar'>
+                  <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
+                  {t('label.currency-dollar')}
+                </label>
+              </span>
+            </span>
+          ) : (
+            <span>
+              {t('label.currency-' + this.props.profile.currency)}
+            </span>
+          )}
+        </div>
+
+        {this.props.profile.editing && (
+          <button
+            className='btn btn-primary'
+            disabled={this.props.profile.isLoading || !this.diff()}
+            onClick={this.handleClickSubmitButton}
+            type='button'
+          >
+            {t('button.update')}
+          </button>
+        )}
+      </form>
+    )
 
     return (
       <div className='settings-top-component'>
@@ -123,111 +237,24 @@ class BaseSettingsContainer extends Component<Props, State> {
             <i className='fas fa-user-cog left-icon' />
             {t('title.baseSetting')}
           </div>
-          <div className='card-body with-background-image'>
-            <EditAndCancel
-              editing={this.props.profile.editing}
-              onClickIcon={this.handleClickIcon}
-            />
-            <form>
-              <div className='form-group'>
-                <label className='label'>
-                  {t('label.language')}
-                </label>
-                {this.props.profile.editing ? (
-                  <span>
-                    <span className='radio-span'>
-                      <input
-                        checked={this.props.profile.locale === 'ja'}
-                        className='radio-input'
-                        id='profile_locale_ja'
-                        name='profile[locale]'
-                        onChange={this.handleChangeLocale}
-                        type='radio'
-                        value='ja'
-                      />
-                      <label className='radio-label' htmlFor='profile_locale_ja'>
-                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
-                        {t('label.language-ja')}
-                      </label>
-                    </span>
-                    <span className='radio-span'>
-                      <input
-                        checked={this.props.profile.locale === 'en'}
-                        className='radio-input'
-                        id='profile_locale_en'
-                        name='profile[locale]'
-                        onChange={this.handleChangeLocale}
-                        type='radio'
-                        value='en'
-                      />
-                      <label className='radio-label' htmlFor='profile_locale_en'>
-                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
-                        {t('label.language-en')}
-                      </label>
-                    </span>
-                  </span>
-                ) : (
-                  <span>
-                    {t('label.language-' + this.props.profile.locale)}
-                  </span>
-                )}
-              </div>
-              <div className='form-group'>
-                <label className='label'>
-                  {t('label.currency')}
-                </label>
-                {this.props.profile.editing ? (
-                  <span>
-                    <span className='radio-span'>
-                      <input
-                        checked={this.props.profile.currency === 'yen'}
-                        className='radio-input'
-                        id='profile_currency_yen'
-                        name='profile[currency]'
-                        onChange={this.handleChangeCurrency}
-                        type='radio'
-                        value='yen'
-                      />
-                      <label className='radio-label' htmlFor='profile_currency_yen'>
-                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
-                        {t('label.currency-yen')}
-                      </label>
-                    </span>
-                    <span className='radio-span'>
-                      <input
-                        checked={this.props.profile.currency === 'dollar'}
-                        className='radio-input'
-                        id='profile_currency_dollar'
-                        name='profile[currency]'
-                        onChange={this.handleChangeCurrency}
-                        type='radio'
-                        value='dollar'
-                      />
-                      <label className='radio-label' htmlFor='profile_currency_dollar'>
-                        <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
-                        {t('label.currency-dollar')}
-                      </label>
-                    </span>
-                  </span>
-                ) : (
-                  <span>
-                    {t('label.currency-' + this.props.profile.currency)}
-                  </span>
-                )}
-              </div>
-
-              {this.props.profile.editing && (
-                <button
-                  className='btn btn-primary'
-                  disabled={this.props.profile.isLoading || !this.diff()}
-                  onClick={this.handleClickSubmitButton}
-                  type='button'
-                >
-                  {t('button.update')}
-                </button>
-              )}
-            </form>
-          </div>
+          {this.props.profile.isLoading ? (
+            <div className='card-body with-background-image'>
+              <LoadingImage />
+            </div>
+          ) : (
+            <div className='card-body with-background-image'>
+              <EditAndCancel
+                editing={this.props.profile.editing}
+                onClickIcon={this.handleClickIcon}
+              />
+              <AlertModal
+                isOpen={this.state.isOpenAlertModal}
+                messageType='editingOther'
+                onClickClose={this.handleClickClose}
+              />
+              {jsx}
+            </div>
+          )}
         </div>
       </div>
     )
@@ -251,8 +278,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     changeProfileCurrency(locale: string): void {
       dispatch(changeProfileCurrency(locale))
     },
-    patchProfile(params: ProfileParams): void {
-      dispatch(patchProfile(params))
+    patchProfile(params: ProfileParams, target: string): void {
+      dispatch(patchProfile(params, target))
     },
     setEditing(editing: boolean): void {
       dispatch(setEditing(editing))
