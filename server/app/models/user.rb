@@ -7,7 +7,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_one :admin, dependent: :destroy
   has_one :profile, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :breakdowns, dependent: :destroy
+
+  def admin?
+    !admin.nil?
+  end
 end

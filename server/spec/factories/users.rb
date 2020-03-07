@@ -11,5 +11,11 @@ FactoryBot.define do
     trait :active do
       confirmed_at { Time.zone.now }
     end
+
+    trait :admin do
+      after(:create) do |user|
+        create(:admin, user: user)
+      end
+    end
   end
 end
