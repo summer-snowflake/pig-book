@@ -41,6 +41,12 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.DELETE_CATEGORY_FAILURE:
       msg = this.props.messages || ''
       break
+    case actionTypes.DELETE_BREAKDOWN_SUCCESS:
+      msg = t('message.deleteBreakdownSuccess')
+      break
+    case actionTypes.DELETE_BREAKDOWN_FAILURE:
+      msg = this.props.messages || ''
+      break
     case actionTypes.LOGIN_FAILURE:
       msg = t('message.loginFailure')
       break
