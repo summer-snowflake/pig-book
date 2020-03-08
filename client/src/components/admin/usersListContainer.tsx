@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 
-import { User } from 'types/api'
+import { AdminUser } from 'types/api'
 import UserTableRecord from 'components/admin/userTableRecord'
 import { RootState } from 'reducers/rootReducer'
 import { ThunkDispatch } from 'redux-thunk'
@@ -11,7 +11,7 @@ import { Action } from 'redux'
 
 interface StateProps {
   users: {
-    users: User[];
+    users: AdminUser[];
   };
 }
 
@@ -38,6 +38,7 @@ class UsersListContainer extends Component<Props> {
             <tr>
               <th />
               <th>{t('admin.userEmail')}</th>
+              <th />
             </tr>
             {this.props.users.users.map((user) => (
               <UserTableRecord key={user.id} user={user} />

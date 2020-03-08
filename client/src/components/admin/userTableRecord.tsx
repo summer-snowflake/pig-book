@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { User } from 'types/api'
+import { AdminUser } from 'types/api'
+
+import 'stylesheets/admin.sass'
 
 interface Props {
-  user: User;
+  user: AdminUser;
 }
 
 class UserTableRecord extends Component<Props> {
@@ -17,6 +19,16 @@ class UserTableRecord extends Component<Props> {
         <td>
           <i className='far fa-envelope left-icon' />
           {this.props.user.email}
+        </td>
+        <td>
+          <span className='total-count'>
+            <i className='fas fa-th-large left-icon yellow' />
+            {this.props.user.total.category}
+          </span>
+          <span className='total-count'>
+            <i className='fas fa-list left-icon light-blue' />
+            {this.props.user.total.breakdown}
+          </span>
         </td>
       </tr>
     )

@@ -15,4 +15,11 @@ class User < ApplicationRecord
   def admin?
     !admin.nil?
   end
+
+  def total
+    {
+      category: categories.count,
+      breakdown: breakdowns.count
+    }
+  end
 end
