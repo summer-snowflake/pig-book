@@ -31,6 +31,8 @@ describe 'GET /api/categories' do
   end
 
   context 'when logged in.' do
+    let!(:category) { create(:category, user: user) }
+
     it 'returns status code 200 and json user data.' do
       get '/api/admin/users', headers: login_headers_with_login(user2)
 
@@ -43,7 +45,11 @@ describe 'GET /api/categories' do
           name: user.name,
           nickname: user.nickname,
           provider: 'email',
-          uid: user.email
+          uid: user.email,
+          total: {
+            category: 1,
+            breakdown: 0
+          }
         },
         {
           admin: {
@@ -55,7 +61,11 @@ describe 'GET /api/categories' do
           name: user2.name,
           nickname: user2.nickname,
           provider: 'email',
-          uid: user2.email
+          uid: user2.email,
+          total: {
+            category: 0,
+            breakdown: 0
+          }
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

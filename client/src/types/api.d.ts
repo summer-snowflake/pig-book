@@ -28,6 +28,13 @@ export interface Admin {
   user_id: number;
 }
 
+export interface AdminUser extends User {
+  total: {
+    category: number;
+    breakdown: number;
+  };
+}
+
 export interface User {
   id: number;
   email: string;
