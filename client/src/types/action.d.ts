@@ -28,3 +28,7 @@ export interface CategoriesAction extends Action {
 export interface BreakdownsAction extends Action {
   breakdowns: Breakdown[];
 }
+
+export interface UsersAction extends Action {
+  users: User[];
+}

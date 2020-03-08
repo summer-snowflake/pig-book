@@ -57,3 +57,8 @@ export interface BreakdownsStore {
   isLoading: boolean;
   breakdowns: Breakdown[];
 }
+
+export interface UsersStore {
+  isLoading: boolean;
+  users: User[];
+}

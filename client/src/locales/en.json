@@ -11,7 +11,8 @@
     "settingsTop": "Setting TOP",
     "category": "Category",
     "breakdown": "Breakdown",
-    "admin": "Admin"
+    "admin": "Admin",
+    "adminUsers": "Users List"
   },
   "title": {
     "login": "Sign In",
@@ -57,5 +58,8 @@
   },
   "alert": {
     "editingOther": "Editing now"
+  },
+  "admin": {
+    "userEmail": "Email"
   }
 }
