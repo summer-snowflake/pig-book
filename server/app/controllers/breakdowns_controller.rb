@@ -27,6 +27,14 @@ class BreakdownsController < ApplicationController
     end
   end
 
+  def destroy
+    breakdown = current_user.breakdowns.find(params[:id])
+    breakdown.destroy!
+  rescue ActiveRecord::InvalidForeignKey
+    render json: { errors: [I18n.t('errors.cannot_be_deleted')] },
+           status: :forbidden
+  end
+
   private
 
   def breakdown_params

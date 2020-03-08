@@ -108,3 +108,41 @@ export const patchBreakdown = (id: number, params: BreakdownParams) => {
     }
   }
 }
+
+const deleteBreakdownRequest = (): Action => {
+  return {
+    type: actionTypes.DELETE_BREAKDOWN_REQUEST
+  }
+}
+
+const deleteBreakdownSuccess = (): Action => {
+  return {
+    type: actionTypes.DELETE_BREAKDOWN_SUCCESS
+  }
+}
+
+const deleteBreakdownFailure = (errors: Errors): ErrorsAction => {
+  return {
+    type: actionTypes.DELETE_BREAKDOWN_FAILURE,
+    errors
+  }
+}
+
+export const deleteBreakdown = (breakdownId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(deleteBreakdownRequest())
+
+    try {
+      if(ready()) {
+        await axios.delete('/api/breakdowns/' + breakdownId, { headers: loginHeaders() })
+        dispatch(deleteBreakdownSuccess())
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      console.error(err)
+      dispatch(deleteBreakdownFailure(err.response.data.errors))
+    }
+  }
+}
