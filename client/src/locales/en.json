@@ -10,7 +10,8 @@
     "settings": "Setting",
     "settingsTop": "Setting TOP",
     "category": "Category",
-    "breakdown": "Breakdown"
+    "breakdown": "Breakdown",
+    "admin": "Admin"
   },
   "title": {
     "login": "Sign In",

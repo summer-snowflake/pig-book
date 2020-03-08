@@ -10,7 +10,8 @@
     "settings": "各種設定",
     "settingsTop": "ユーザー設定",
     "category": "カテゴリ",
-    "breakdown": "内訳"
+    "breakdown": "内訳",
+    "admin": "管理"
   },
   "title": {
     "login": "ログイン",
