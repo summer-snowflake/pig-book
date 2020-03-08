@@ -37,7 +37,6 @@ describe 'GET /api/categories' do
       expect(response.status).to eq 200
       json = [
         {
-          "admin?": false,
           email: user.email,
           allow_password_change: false,
           image: user.image,
@@ -47,7 +46,9 @@ describe 'GET /api/categories' do
           uid: user.email
         },
         {
-          "admin?": true,
+          admin: {
+            user_id: user2.id
+          },
           email: user2.email,
           allow_password_change: false,
           image: user2.image,

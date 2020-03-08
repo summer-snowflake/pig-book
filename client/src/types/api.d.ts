@@ -23,10 +23,16 @@ export interface ProfileParams {
   memo: string;
 }
 
+export interface Admin {
+  id: number;
+  user_id: number;
+}
+
 export interface User {
   id: number;
   email: string;
   uid: string;
+  admin: Admin;
 }
 
 export interface Profile {

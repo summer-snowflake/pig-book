@@ -13,6 +13,7 @@ export interface SessionStore {
 export interface UserStatusStore {
   isLoading: boolean;
   isLogged: boolean;
+  admin: Admin;
 }
 
 export interface ProfileStore {
