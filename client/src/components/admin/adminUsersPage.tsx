@@ -8,13 +8,18 @@ class AdminUsersPage extends Component<I18nProps> {
 
     return (
       <div className='admin-users-page-component container-fluid'>
-        <div className='card'>
-          <div className='card-header'>
-            <i className='fas fa-user left-icon' />
-            {t('menu.adminUsers')}
-          </div>
-          <div className='card-body with-background-panel'>
-            <UsersListContainer />
+        <div className='row'>
+          <div className='col-1 d-lg-none' />
+          <div className='col'>
+            <div className='card'>
+              <div className='card-header'>
+                <i className='fas fa-user left-icon' />
+                {t('menu.adminUsers')}
+              </div>
+              <div className='card-body with-background-panel'>
+                <UsersListContainer />
+              </div>
+            </div>
           </div>
         </div>
       </div>
