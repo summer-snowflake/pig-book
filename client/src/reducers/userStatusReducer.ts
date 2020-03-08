@@ -1,14 +1,14 @@
-import { Action } from 'redux'
-
 import * as actionTypes from 'utils/actionTypes'
 import { UserStatusStore } from 'types/store'
+import { UserAction } from 'types/action'
 
 const initialState = {
   isLoading: false,
-  isLogged: false
+  isLogged: false,
+  admin: null
 }
 
-const userStatusReducer = (state: UserStatusStore = initialState, action: Action): {} => {
+const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): {} => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
@@ -32,7 +32,8 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: Action
     return {
       ...state,
       isLoading: false,
-      isLogged: true
+      isLogged: true,
+      admin: action.user.admin
     }
   case actionTypes.GET_USER_STATUS_FAILURE:
     return {

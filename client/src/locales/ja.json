@@ -10,7 +10,9 @@
     "settings": "各種設定",
     "settingsTop": "ユーザー設定",
     "category": "カテゴリ",
-    "breakdown": "内訳"
+    "breakdown": "内訳",
+    "admin": "管理",
+    "adminUsers": "ユーザの管理"
   },
   "title": {
     "login": "ログイン",
@@ -56,5 +58,8 @@
   },
   "alert": {
     "editingOther": "編集中の項目があります"
+  },
+  "admin": {
+    "userEmail": "メールアドレス"
   }
 }

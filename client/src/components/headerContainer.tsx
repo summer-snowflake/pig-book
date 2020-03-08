@@ -75,6 +75,16 @@ class HeaderContainer extends Component<Props> {
                   {t('menu.home')}
                 </NavText>
               </NavItem>
+              {this.props.userStatus.isLogged && this.props.userStatus.admin && (
+                <NavItem eventKey='/admin/users'>
+                  <NavIcon>
+                    <i className='fas fa-book' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.admin')}
+                  </NavText>
+                </NavItem>
+              )}
               {this.props.userStatus.isLogged && (
                 <NavItem eventKey='/settings'>
                   <NavIcon>
@@ -157,6 +167,14 @@ class HeaderContainer extends Component<Props> {
               </li>
             </ul>
             <ul className='navbar-nav justify-content-end'>
+              {this.props.userStatus.isLogged && this.props.userStatus.admin && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/admin/users'>
+                    <i className='fas fa-book left-icon' />
+                    {t('menu.admin')}
+                  </NavLink>
+                </li>
+              )}
               {this.props.userStatus.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/settings'>

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 
+import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import userStatusReducer from 'reducers/userStatusReducer'
 import profileReducer from 'reducers/profileReducer'
@@ -9,7 +10,7 @@ import categoriesReducer from 'reducers/categoriesReducer'
 import breakdownsReducer from './breakdownsReducer'
 import newBreakdownReducer from './newBreakdownReducer'
 import editBreakdownReducer from './editBreakdownReducer'
-import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore } from 'types/store'
+import usersReducer from './usersReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -21,6 +22,7 @@ export type RootState = {
   breakdowns: BreakdownsStore;
   newBreakdown: NewBreakdownStore;
   editBreakdown: EditBreakdownStore;
+  users: UsersStore;
 }
 
 const rootReducer = combineReducers({
@@ -32,7 +34,8 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   breakdowns: breakdownsReducer,
   newBreakdown: newBreakdownReducer,
-  editBreakdown: editBreakdownReducer
+  editBreakdown: editBreakdownReducer,
+  users: usersReducer
 })
 
 export default rootReducer
