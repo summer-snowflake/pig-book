@@ -10,12 +10,14 @@ import CategoryName from 'components/settings/category/categoryName'
 import BreakdownName from 'components/settings/breakdown/breakdownName'
 import BreakdownForm from 'components/settings/breakdown/breakdownForm'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import AlertModal from 'components/common/alertModal'
 import { getBreakdowns, switchEditing } from 'actions/breakdownsActions'
-import { changeCategory, patchBreakdown } from 'actions/breakdownActions'
+import { changeCategory, patchBreakdown, deleteBreakdown } from 'actions/breakdownActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
+import Trash from 'components/common/trash'
 
 interface StateProps {
   editBreakdown: EditBreakdownStore;
@@ -25,6 +27,7 @@ interface DispatchProps {
   switchEditing: (editingId: number) => void;
   changeCategory: (category: Category | undefined) => void;
   patchBreakdown: (id: number, params: BreakdownParams) => void;
+  deleteBreakdown: (breakdownId: number) => void;
 }
 
 interface ParentProps {
@@ -36,6 +39,7 @@ type Props = ParentProps & StateProps & DispatchProps
 interface State {
   isOpenCancelModal: boolean;
   isOpenAlertModal: boolean;
+  isOpenDestroyModal: boolean;
   breakdown: Breakdown;
 }
 
@@ -46,6 +50,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.state = {
       isOpenCancelModal: false,
       isOpenAlertModal: false,
+      isOpenDestroyModal: false,
       breakdown: {
         id: 0,
         category_id: 0,
@@ -66,6 +71,8 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
+    this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.handleClickDestroy = this.handleClickDestroy.bind(this)
   }
 
   diff(): boolean {
@@ -166,8 +173,22 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
   handleClickClose(): void {
     this.setState({
       isOpenCancelModal: false,
-      isOpenAlertModal: false
+      isOpenAlertModal: false,
+      isOpenDestroyModal: false
     })
+  }
+
+  handleClickTrashIcon(): void {
+    this.setState({
+      isOpenDestroyModal: true
+    })
+  }
+
+  handleClickDestroy(): void {
+    this.setState({
+      isOpenDestroyModal: false
+    })
+    this.props.deleteBreakdown(this.props.breakdown.id)
   }
 
   render(): JSX.Element {
@@ -216,6 +237,16 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
             onClickIcon={this.handleClickIcon}
           />
         </td>
+        <td className='trash-field-td'>
+          <DestroyModal
+            isOpen={this.state.isOpenDestroyModal}
+            onClickCancel={this.handleClickDestroy}
+            onClickClose={this.handleClickClose}
+          />
+          <Trash
+            onClickIcon={this.handleClickTrashIcon}
+          />
+        </td>
       </tr>
     )
   }
@@ -239,6 +270,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     switchEditing(editingId: number): void {
       dispatch(switchEditing(editingId))
+    },
+    deleteBreakdown(breakdownId: number): void {
+      dispatch(deleteBreakdown(breakdownId)).then(() => {
+        dispatch(getBreakdowns())
+      })
     }
   }
 }
