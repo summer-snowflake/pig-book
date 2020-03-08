@@ -4,6 +4,8 @@ import { Action } from 'redux'
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
+import { User } from 'types/api'
+import { UserAction } from 'types/action'
 
 export const getCookiesFailure = (): Action => {
   return {
@@ -17,9 +19,10 @@ export const getUserStatusRequest = (): Action => {
   }
 }
 
-export const getUserStatusSuccess = (): Action => {
+export const getUserStatusSuccess = (user: User): UserAction => {
   return {
-    type: actionTypes.GET_USER_STATUS_SUCCESS
+    type: actionTypes.GET_USER_STATUS_SUCCESS,
+    user
   }
 }
 
@@ -34,8 +37,8 @@ export const getUserStatus = () => {
     dispatch(getUserStatusRequest())
     try {
       if(ready()) {
-        await axios.get('/api/user', { headers: loginHeaders() })
-        dispatch(getUserStatusSuccess())
+        const res = await axios.get('/api/user', { headers: loginHeaders() })
+        dispatch(getUserStatusSuccess(res.data))
       } else {
         dispatch(getUserStatusFailure())
       }

@@ -1,4 +1,4 @@
-import { Category, Breakdown } from './api'
+import { Category, Breakdown, User } from './api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
