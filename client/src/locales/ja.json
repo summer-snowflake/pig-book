@@ -46,6 +46,7 @@
     "delete": "削除する"
   },
   "message": {
+    "placeCategorized": "利用するカテゴリを選択してください",
     "pageNotFound": "お探しのページは見つかりませんでした。",
     "logout": "ログアウトしました",
     "loginSuccess": "ログインしました",
