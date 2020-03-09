@@ -20,7 +20,8 @@ class User < ApplicationRecord
   def total
     {
       category: categories.count,
-      breakdown: breakdowns.count
+      breakdown: breakdowns.count,
+      place: places.count
     }
   end
 end
