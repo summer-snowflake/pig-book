@@ -22,6 +22,10 @@ class SettingsMenu extends Component<I18nProps> {
           <i className='fas fa-list left-icon' />
           {t('menu.breakdown')}
         </NavLink>
+        <NavLink activeClassName='active-link-menu' className='list-group-item' to='/places'>
+          <i className='fas fa-map-marker-alt left-icon' />
+          {t('menu.place')}
+        </NavLink>
       </div>
     )
   }
