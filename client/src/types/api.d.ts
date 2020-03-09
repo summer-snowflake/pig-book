@@ -36,6 +36,7 @@ export interface AdminUser extends User {
   total: {
     category: number;
     breakdown: number;
+    place: number;
   };
 }
 

@@ -48,7 +48,8 @@ describe 'GET /api/categories' do
           uid: user.email,
           total: {
             category: 1,
-            breakdown: 0
+            breakdown: 0,
+            place: 0
           }
         },
         {
@@ -64,7 +65,8 @@ describe 'GET /api/categories' do
           uid: user2.email,
           total: {
             category: 0,
-            breakdown: 0
+            breakdown: 0,
+            place: 0
           }
         }
       ].to_json
