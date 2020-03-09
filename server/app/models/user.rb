@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :breakdowns, dependent: :destroy
+  has_many :places, dependent: :destroy
 
   def admin?
     !admin.nil?
@@ -19,7 +20,8 @@ class User < ApplicationRecord
   def total
     {
       category: categories.count,
-      breakdown: breakdowns.count
+      breakdown: breakdowns.count,
+      place: places.count
     }
   end
 end

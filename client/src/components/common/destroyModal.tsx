@@ -41,11 +41,11 @@ class DestroyModal extends Component<I18nProps & Props> {
             >
 
               <div className='modal-body'>
-                <p>{t('message.cancelUpdate')}</p>
+                <p>{t('message.deleteItem')}</p>
               </div>
               <div className='modal-footer'>
                 <button className='btn btn-primary' onClick={this.props.onClickCancel}>
-                  {t('button.cancel')}
+                  {t('button.delete')}
                 </button>
                 <CloseButton onClickClose={this.props.onClickClose} />
               </div>

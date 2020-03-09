@@ -17,6 +17,10 @@ export interface BreakdownParams {
   name: string;
 }
 
+export interface PlaceParams {
+  name: string;
+}
+
 export interface ProfileParams {
   locale: string;
   currency: string;
@@ -32,6 +36,7 @@ export interface AdminUser extends User {
   total: {
     category: number;
     breakdown: number;
+    place: number;
   };
 }
 
@@ -60,4 +65,9 @@ export interface Breakdown {
   name: string;
   category_id: number;
   category: Category;
+}
+
+export interface Place {
+  id: number;
+  name: string;
 }

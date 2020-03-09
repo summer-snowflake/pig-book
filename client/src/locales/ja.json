@@ -11,6 +11,7 @@
     "settingsTop": "ユーザー設定",
     "category": "カテゴリ",
     "breakdown": "内訳",
+    "place": "お店・施設",
     "admin": "管理",
     "adminUsers": "ユーザの管理"
   },
@@ -41,7 +42,8 @@
     "update": "更新する",
     "cancel": "取り消す",
     "close": "閉じる",
-    "add": "追加する"
+    "add": "追加する",
+    "delete": "削除する"
   },
   "message": {
     "pageNotFound": "お探しのページは見つかりませんでした。",
@@ -50,12 +52,16 @@
     "loginFailure": "ログインに失敗しました",
     "postCategorySuccess": "カテゴリを追加しました",
     "patchCategorySuccess": "カテゴリを編集しました",
+    "deleteCategorySuccess": "カテゴリを削除しました",
     "cancelUpdate": "更新を取り消しますか？",
     "patchSuccess": "更新しました",
+    "deleteItem": "削除しますか？",
     "postBreakdownSuccess": "内訳を追加しました",
     "patchBreakdownSuccess": "内訳を編集しました",
-    "deleteCategorySuccess": "カテゴリを削除しました",
-    "deleteBreakdownSuccess": "内訳を削除しました"
+    "deleteBreakdownSuccess": "内訳を削除しました",
+    "postPlaceSuccess": "お店・施設を追加しました",
+    "patchPlaceSuccess": "お店・施設を編集しました",
+    "deletePlaceSuccess": "お店・施設を削除しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

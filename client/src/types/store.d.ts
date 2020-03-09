@@ -38,12 +38,22 @@ export interface NewBreakdownStore extends Errors {
   name: string;
 }
 
+export interface NewPlaceStore extends Errors {
+  isLoading: boolean;
+  name: string;
+}
+
 export interface EditCategoryStore extends Errors {
   isLoading: boolean;
   editingId: number;
 }
 
 export interface EditBreakdownStore extends Errors {
+  isLoading: boolean;
+  editingId: number;
+}
+
+export interface EditPlaceStore extends Errors {
   isLoading: boolean;
   editingId: number;
 }
@@ -56,6 +66,11 @@ export interface CategoriesStore {
 export interface BreakdownsStore {
   isLoading: boolean;
   breakdowns: Breakdown[];
+}
+
+export interface PlacesStore {
+  isLoading: boolean;
+  places: Place[];
 }
 
 export interface UsersStore {
