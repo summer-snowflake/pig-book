@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
+  create_table "places", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_places_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "locale", default: 0, null: false
@@ -89,5 +97,6 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
   add_foreign_key "breakdowns", "categories"
   add_foreign_key "breakdowns", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
 end

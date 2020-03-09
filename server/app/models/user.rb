@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :breakdowns, dependent: :destroy
+  has_many :places, dependent: :destroy
 
   def admin?
     !admin.nil?
