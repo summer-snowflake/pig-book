@@ -26,6 +26,14 @@ class PlacesController < ApplicationController
     end
   end
 
+  def destroy
+    place = current_user.places.find(params[:id])
+    place.destroy!
+  rescue ActiveRecord::InvalidForeignKey
+    render json: { errors: [I18n.t('errors.cannot_be_deleted')] },
+           status: :forbidden
+  end
+
   private
 
   def place_params
