@@ -166,6 +166,24 @@ body
   margin-top: 9px
   width: 55px
 
+.checkbox-input
+  visibility: hidden
+
+  &:checked + .checkbox-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.checkbox-label
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
+
 .radio-input
   visibility: hidden
 

@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { withTranslation } from 'react-i18next'
 
+import { Category } from 'types/api'
 import CloseButton from 'components/common/closeButton'
+import CategoryName from '../category/categoryName'
 
 interface Props extends I18nProps {
+  categories: Category[];
   isOpen: boolean;
   onClickClose: () => void;
 }
@@ -16,7 +19,7 @@ const customStyles = {
     right       : 'auto',
     bottom      : 'auto',
     marginRight : '-50%',
-    minWidth    : '400px',
+    maxWidth    : '600px',
     transform   : 'translate(-50%, -50%)'
   },
   overlay: {
@@ -39,9 +42,18 @@ class CategorizedModal extends Component<Props> {
               style={customStyles}
             >
               <div className='modal-body'>
-                <p>
-                  {t('message.placeCategorized')}
-                </p>
+                <p>{t('message.placeCategorized')}</p>
+                <div>
+                  {this.props.categories.map((category) => (
+                    <span key={category.id}>
+                      <input className='checkbox-input' id={'category-' + category.id} type='checkbox' />
+                      <label className='checkbox-label' htmlFor={'category-' + category.id}>
+                        <i className='fas fa-check left-icon' />
+                        <CategoryName category={category} />
+                      </label>
+                    </span>
+                  ))}
+                </div>
               </div>
               <div className='modal-footer'>
                 <CloseButton onClickClose={this.props.onClickClose} />

@@ -4,7 +4,7 @@ import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { PlaceParams, Place } from 'types/api'
-import { EditPlaceStore } from 'types/store'
+import { EditPlaceStore, CategoriesStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import PlaceName from 'components/settings/place/placeName'
 import PlaceForm from 'components/settings/place/placeForm'
@@ -18,15 +18,18 @@ import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
 import CategorizedModal from 'components/settings/place/categorizedModal'
 import Trash from 'components/common/trash'
+import { getCategories } from 'actions/categoriesActions'
 
 interface StateProps {
   editPlace: EditPlaceStore;
+  categories: CategoriesStore;
 }
 
 interface DispatchProps {
   switchEditing: (editingId: number) => void;
   patchPlace: (id: number, params: PlaceParams) => void;
   deletePlace: (placeId: number) => void;
+  getCategories: () => void;
 }
 
 interface ParentProps {
@@ -155,6 +158,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.setState({
       isOpenCategorizedModal: true
     })
+    this.props.getCategories()
   }
 
   render(): JSX.Element {
@@ -194,6 +198,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
         </td>
         <td>
           <CategorizedModal
+            categories={this.props.categories.categories}
             isOpen={this.state.isOpenCategorizedModal}
             onClickClose={this.handleClickClose}
           />
@@ -216,7 +221,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    editPlace: state.editPlace
+    editPlace: state.editPlace,
+    categories: state.categories
   }
 }
 
@@ -234,6 +240,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(deletePlace(placeId)).then(() => {
         dispatch(getPlaces())
       })
+    },
+    getCategories(): void {
+      dispatch(getCategories())
     }
   }
 }
