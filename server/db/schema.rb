@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
+  create_table "categorized_places", force: :cascade do |t|
+    t.bigint "place_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_categorized_places_on_category_id"
+    t.index ["place_id"], name: "index_categorized_places_on_place_id"
+  end
+
   create_table "places", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -97,6 +106,8 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
   add_foreign_key "breakdowns", "categories"
   add_foreign_key "breakdowns", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "categorized_places", "categories"
+  add_foreign_key "categorized_places", "places"
   add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
 end
