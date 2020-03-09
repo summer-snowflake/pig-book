@@ -11,7 +11,7 @@ class UserTableRecord extends Component<Props> {
   render(): JSX.Element {
     return (
       <tr className='user-table-record-component'>
-        <td>
+        <td className='crown-field-td'>
           {this.props.user.admin && (
             <i className='fas fa-crown red' />
           )}
