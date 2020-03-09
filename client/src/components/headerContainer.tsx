@@ -55,7 +55,11 @@ class HeaderContainer extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
-    const isSettingsPath = this.props.location.pathname === '/settings' || this.props.location.pathname === '/categories' || this.props.location.pathname === '/breakdowns'
+    const isSettingsPath =
+      this.props.location.pathname === '/settings' ||
+      this.props.location.pathname === '/categories' ||
+      this.props.location.pathname === '/breakdowns' ||
+      this.props.location.pathname === '/places'
 
     return (
       <header className='header-component header'>
@@ -112,6 +116,16 @@ class HeaderContainer extends Component<Props> {
                   </NavIcon>
                   <NavText>
                     {t('menu.breakdown')}
+                  </NavText>
+                </NavItem>
+              )}
+              {this.props.userStatus.isLogged && isSettingsPath && (
+                <NavItem eventKey='/places'>
+                  <NavIcon>
+                    <i className='fas fa-map-marker-alt' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.place')}
                   </NavText>
                 </NavItem>
               )}
