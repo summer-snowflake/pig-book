@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resource :profile, only: %i[show update]
     resources :categories, only: %i[index create update destroy]
     resources :breakdowns, only: %i[index create update destroy]
+    resources :places, only: %i[index create update destroy]
 
     namespace :admin do
       resources :users, only: %i[index]
