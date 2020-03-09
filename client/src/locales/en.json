@@ -42,7 +42,8 @@
     "update": "Update",
     "cancel": "Cancel",
     "close": "Close",
-    "add": "Add"
+    "add": "Add",
+    "delete": "Delete"
   },
   "message": {
     "pageNotFound": "Page not found.",
@@ -54,6 +55,7 @@
     "deleteCategorySuccess": "Category deleted successfully",
     "cancelUpdate": "Cancel?",
     "patchSuccess": "Updated successfully",
+    "delteItem": "Delete?",
     "postBreakdownSuccess": "Breakdown created successfully",
     "patchBreakdownSuccess": "Breakdown updated successfully",
     "deleteBreakdownSuccess": "Breakdown deleted successfully",
