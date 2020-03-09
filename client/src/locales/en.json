@@ -46,6 +46,7 @@
     "delete": "Delete"
   },
   "message": {
+    "placeCategorized": "Select Categories.",
     "pageNotFound": "Page not found.",
     "logout": "Logout",
     "loginSuccess": "Login Successfully",

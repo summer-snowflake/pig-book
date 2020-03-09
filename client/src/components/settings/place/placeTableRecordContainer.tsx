@@ -10,11 +10,13 @@ import PlaceName from 'components/settings/place/placeName'
 import PlaceForm from 'components/settings/place/placeForm'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
+import CategorizedButton from 'components/settings/place/categorizedButton'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import { getPlaces, switchEditing } from 'actions/placesActions'
 import { patchPlace, deletePlace } from 'actions/placeActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
+import CategorizedModal from 'components/settings/place/categorizedModal'
 import Trash from 'components/common/trash'
 
 interface StateProps {
@@ -37,6 +39,7 @@ interface State {
   isOpenCancelModal: boolean;
   isOpenAlertModal: boolean;
   isOpenDestroyModal: boolean;
+  isOpenCategorizedModal: boolean;
   place: Place;
 }
 
@@ -48,6 +51,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
       isOpenCancelModal: false,
       isOpenAlertModal: false,
       isOpenDestroyModal: false,
+      isOpenCategorizedModal: false,
       place: {
         id: 0,
         name: ''
@@ -62,6 +66,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
+    this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
   }
 
   diff(): boolean {
@@ -128,7 +133,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.setState({
       isOpenCancelModal: false,
       isOpenAlertModal: false,
-      isOpenDestroyModal: false
+      isOpenDestroyModal: false,
+      isOpenCategorizedModal: false,
     })
   }
 
@@ -143,6 +149,12 @@ class PlaceTableRecordContainer extends Component<Props, State> {
       isOpenDestroyModal: false
     })
     this.props.deletePlace(this.props.place.id)
+  }
+
+  handleClickPlusButton(): void {
+    this.setState({
+      isOpenCategorizedModal: true
+    })
   }
 
   render(): JSX.Element {
@@ -179,6 +191,13 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             editing={this.props.editPlace.editingId === this.props.place.id}
             onClickIcon={this.handleClickIcon}
           />
+        </td>
+        <td>
+          <CategorizedModal
+            isOpen={this.state.isOpenCategorizedModal}
+            onClickClose={this.handleClickClose}
+          />
+          <CategorizedButton onClickButton={this.handleClickPlusButton} />
         </td>
         <td className='trash-field-td'>
           <DestroyModal
