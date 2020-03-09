@@ -20,7 +20,7 @@ describe 'PATCH /api/places' do
 
   context 'when logged in.' do
     context 'name is valid' do
-      it 'returns status code 201 and json category data.' do
+      it 'returns status code 201 and json place data.' do
         params = {
           name: '編集したお店・施設'
         }.to_json

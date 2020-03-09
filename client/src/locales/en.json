@@ -11,6 +11,7 @@
     "settingsTop": "Setting TOP",
     "category": "Category",
     "breakdown": "Breakdown",
+    "place": "Shop/Facility",
     "admin": "Admin",
     "adminUsers": "Users List"
   },
@@ -50,12 +51,15 @@
     "loginFailure": "Login Failed",
     "postCategorySuccess": "Category created successfully",
     "patchCategorySuccess": "Category updated successfully",
+    "deleteCategorySuccess": "Category deleted successfully",
     "cancelUpdate": "Cancel?",
     "patchSuccess": "Updated successfully",
     "postBreakdownSuccess": "Breakdown created successfully",
     "patchBreakdownSuccess": "Breakdown updated successfully",
-    "deleteCategorySuccess": "Category deleted successfully",
-    "deleteBreakdownSuccess": "Breakdown deleted successfully"
+    "deleteBreakdownSuccess": "Breakdown deleted successfully",
+    "postPlaceSuccess": "Place created successfully",
+    "patchPlaceSuccess": "Place updated successfully",
+    "deletePlaceSuccess": "Place deleted successfully"
   },
   "alert": {
     "editingOther": "Editing now"
