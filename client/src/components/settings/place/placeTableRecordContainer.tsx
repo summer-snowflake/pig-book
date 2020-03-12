@@ -10,7 +10,7 @@ import PlaceName from 'components/settings/place/placeName'
 import PlaceForm from 'components/settings/place/placeForm'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
-import CategorizedButton from 'components/settings/place/categorizedButton'
+import CategorizedPlusButton from 'components/settings/place/categorizedPlusButton'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import { getPlaces, switchEditing } from 'actions/placesActions'
 import { patchPlace, deletePlace } from 'actions/placeActions'
@@ -29,7 +29,7 @@ interface DispatchProps {
   switchEditing: (editingId: number) => void;
   patchPlace: (id: number, params: PlaceParams) => void;
   deletePlace: (placeId: number) => void;
-  getCategories: () => void;
+  getCategories: (placeId: number) => void;
 }
 
 interface ParentProps {
@@ -158,7 +158,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.setState({
       isOpenCategorizedModal: true
     })
-    this.props.getCategories()
+    this.props.getCategories(this.props.place.id)
   }
 
   render(): JSX.Element {
@@ -201,8 +201,9 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             categories={this.props.categories.categories}
             isOpen={this.state.isOpenCategorizedModal}
             onClickClose={this.handleClickClose}
+            placeId={this.props.place.id}
           />
-          <CategorizedButton onClickButton={this.handleClickPlusButton} />
+          <CategorizedPlusButton onClickButton={this.handleClickPlusButton} />
         </td>
         <td className='trash-field-td'>
           <DestroyModal
