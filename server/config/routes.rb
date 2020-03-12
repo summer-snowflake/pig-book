@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :categories, only: %i[index create update destroy]
     resources :breakdowns, only: %i[index create update destroy]
     resources :places, only: %i[index create update destroy] do
-      resources :categories, only: %i[index], module: :place
+      resources :categories, only: %i[index create], module: :place
     end
 
     namespace :admin do
