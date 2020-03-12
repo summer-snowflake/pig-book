@@ -202,7 +202,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             <PlaceName place={this.props.place} />
           </td>
         )}
-        <td className='icons-field-td'>
+        <td className='icon-field-td'>
           <EditAndCancel
             editing={this.props.editPlace.editingId === this.props.place.id}
             onClickIcon={this.handleClickIcon}
