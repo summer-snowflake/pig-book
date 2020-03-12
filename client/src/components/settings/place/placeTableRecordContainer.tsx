@@ -19,6 +19,7 @@ import AlertModal from 'components/common/alertModal'
 import CategorizedModal from 'components/settings/place/categorizedModal'
 import Trash from 'components/common/trash'
 import { getCategories } from 'actions/categoriesActions'
+import CategoryName from 'components/settings/category/categoryName'
 
 interface StateProps {
   editPlace: EditPlaceStore;
@@ -57,7 +58,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
       isOpenCategorizedModal: false,
       place: {
         id: 0,
-        name: ''
+        name: '',
+        categories: []
       }
     }
 
@@ -113,7 +115,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     const place = {
       id: this.props.place.id,
-      name: e.target.value
+      name: e.target.value,
+      categories: this.props.place.categories
     }
     this.setState({
       place: place
@@ -165,7 +168,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     return (
       <tr className='place-table-record-component'>
         {this.props.editPlace.editingId === this.props.place.id ? (
-          <td>
+          <td className='place-field-td' colSpan={2}>
             <CancelUpdateModal
               isOpen={this.state.isOpenCancelModal}
               onClickCancel={this.handleClickCancel}
@@ -181,7 +184,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             <ValidationErrorMessages messages={this.props.editPlace.errors} />
           </td>
         ) : (
-          <td>
+          <td className='place-field-td' colSpan={2}>
             <AlertModal
               isOpen={this.state.isOpenAlertModal}
               messageType='editingOther'
@@ -190,13 +193,13 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             <PlaceName place={this.props.place} />
           </td>
         )}
-        <td className='icon-field-td'>
+        <td className='icons-field-td'>
           <EditAndCancel
             editing={this.props.editPlace.editingId === this.props.place.id}
             onClickIcon={this.handleClickIcon}
           />
         </td>
-        <td>
+        <td className='plus-field-td'>
           <CategorizedModal
             categories={this.props.categories.categories}
             isOpen={this.state.isOpenCategorizedModal}
@@ -204,6 +207,11 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             placeId={this.props.place.id}
           />
           <CategorizedPlusButton onClickButton={this.handleClickPlusButton} />
+        </td>
+        <td className='place-categories-field-td'>
+          {this.props.place.categories.map((category) => (
+            <CategoryName category={category} key={category.id} />
+          ))}
         </td>
         <td className='trash-field-td'>
           <DestroyModal

@@ -70,4 +70,5 @@ export interface Breakdown {
 export interface Place {
   id: number;
   name: string;
+  categories: Category[];
 }
