@@ -13,7 +13,7 @@ import DestroyModal from 'components/common/destroyModal'
 import CategorizedPlusButton from 'components/settings/place/categorizedPlusButton'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import { getPlaces, switchEditing } from 'actions/placesActions'
-import { patchPlace, deletePlace } from 'actions/placeActions'
+import { patchPlace, deletePlace, postPlaceCategories } from 'actions/placeActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
 import CategorizedModal from 'components/settings/place/categorizedModal'
@@ -31,6 +31,7 @@ interface DispatchProps {
   patchPlace: (id: number, params: PlaceParams) => void;
   deletePlace: (placeId: number) => void;
   getCategories: (placeId: number) => void;
+  postPlaceCategories: (placeId: number, categoryIds: number[]) => void;
 }
 
 interface ParentProps {
@@ -68,6 +69,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
+    this.handleClickSubmit = this.handleClickSubmit.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
@@ -135,12 +137,19 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.props.switchEditing(0)
   }
 
+  handleClickSubmit(categoryIds: number[]): void {
+    this.setState({
+      isOpenCategorizedModal: false
+    })
+    this.props.postPlaceCategories(this.props.place.id, categoryIds)
+  }
+
   handleClickClose(): void {
     this.setState({
       isOpenCancelModal: false,
       isOpenAlertModal: false,
       isOpenDestroyModal: false,
-      isOpenCategorizedModal: false,
+      isOpenCategorizedModal: false
     })
   }
 
@@ -204,6 +213,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             categories={this.props.categories.categories}
             isOpen={this.state.isOpenCategorizedModal}
             onClickClose={this.handleClickClose}
+            onClickSubmit={this.handleClickSubmit}
             placeId={this.props.place.id}
           />
           <CategorizedPlusButton onClickButton={this.handleClickPlusButton} />
@@ -252,6 +262,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     getCategories(): void {
       dispatch(getCategories())
+    },
+    postPlaceCategories(placeId: number, categoryIds: number[]): void {
+      dispatch(postPlaceCategories(placeId, categoryIds)).then(() => {
+        dispatch(getPlaces())
+      })
     }
   }
 }
