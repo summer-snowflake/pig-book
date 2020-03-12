@@ -75,7 +75,10 @@ class CategoryCheckboxesContainer extends Component<Props, State> {
   }
 
   deleteCheckedItem(categoryId: number): number[] {
-    const ids = this.state.checkedCategoryIds
+    let ids = this.state.checkedCategoryIds
+    if (ids.length === 0) {
+      ids = this.props.placeCategories.categories.map((c) => c.id)
+    }
     const index = ids.indexOf(categoryId)
     ids.splice(index, 1)
     const removedIds = this.state.removedPlaceCategoryIds
