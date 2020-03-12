@@ -43,7 +43,8 @@
     "cancel": "Cancel",
     "close": "Close",
     "add": "Add",
-    "delete": "Delete"
+    "delete": "Delete",
+    "set": "Set"
   },
   "message": {
     "placeCategorized": "Select Categories.",

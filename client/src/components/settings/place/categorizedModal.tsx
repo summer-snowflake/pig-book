@@ -13,6 +13,11 @@ interface Props extends I18nProps {
   onClickClose: () => void;
 }
 
+interface State {
+  placeCategoryIds: number[];
+  checkedCategoryIds: number[];
+}
+
 const customStyles = {
   content : {
     top         : '30%',
@@ -28,7 +33,35 @@ const customStyles = {
   }
 }
 
-class CategorizedModal extends Component<Props> {
+class CategorizedModal extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+
+    this.state = {
+      placeCategoryIds: [],
+      checkedCategoryIds: []
+    }
+
+    this.handleChangeChecking = this.handleChangeChecking.bind(this)
+    this.handleClickSubmit = this.handleClickSubmit.bind(this)
+  }
+
+  diff(): boolean {
+    return (this.state.checkedCategoryIds.every((c) => this.state.placeCategoryIds.includes(c))) &&
+      (this.state.placeCategoryIds.every((c) => this.state.checkedCategoryIds.includes(c)))
+  }
+
+  handleChangeChecking(placeCategoryIds: number[], checkedCategoryIds: number[]): void {
+    this.setState({
+      placeCategoryIds: placeCategoryIds,
+      checkedCategoryIds: checkedCategoryIds
+    })
+  }
+
+  handleClickSubmit(): void {
+    console.log(this.state.checkedCategoryIds)
+  }
+
   render(): JSX.Element {
     const { t } = this.props
 
@@ -46,10 +79,14 @@ class CategorizedModal extends Component<Props> {
                 <p>{t('message.placeCategorized')}</p>
                 <CategoryCheckboxesContainer
                   categories={this.props.categories}
+                  onChangeChecking={this.handleChangeChecking}
                   placeId={this.props.placeId}
                 />
               </div>
               <div className='modal-footer'>
+                <button className='btn btn-primary' disabled={this.diff()} onClick={this.handleClickSubmit}>
+                  {t('button.set')}
+                </button>
                 <CloseButton onClickClose={this.props.onClickClose} />
               </div>
             </Modal>
