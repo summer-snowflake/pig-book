@@ -4,8 +4,8 @@ import { Action } from 'redux'
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
-import { ErrorsAction, PlaceAction } from 'types/action'
-import { Place, PlaceParams, Errors } from 'types/api'
+import { ErrorsAction, PlaceAction, CategoriesAction } from 'types/action'
+import { Place, PlaceParams, Errors, Category } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
 interface WithNameAction extends Action {
@@ -133,6 +133,81 @@ export const deletePlace = (placeId: number) => {
     catch (err) {
       console.error(err)
       dispatch(deletePlaceFailure(err.response.data.errors))
+    }
+  }
+}
+
+const getPlaceCategoriesRequest = (): Action => {
+  return {
+    type: actionTypes.GET_PLACE_CATEGORIES_REQUEST
+  }
+}
+
+const getPlaceCategoriesSuccess = (categories: Category[]): CategoriesAction => {
+  return {
+    type: actionTypes.GET_PLACE_CATEGORIES_SUCCESS,
+    categories
+  }
+}
+
+const getPlaceCategoriesFailure = (): Action => {
+  return {
+    type: actionTypes.GET_PLACE_CATEGORIES_FAILURE
+  }
+}
+
+export const getPlaceCategories = (placeId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(getPlaceCategoriesRequest())
+    try {
+      if(ready()) {
+        const res = await axios.get('/api/places/' + placeId + '/categories', { headers: loginHeaders() })
+        dispatch(getPlaceCategoriesSuccess(res.data))
+      } else {
+        dispatch(getPlaceCategoriesFailure())
+      }
+    }
+    catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+const postPlaceCategoriesRequest = (): Action => {
+  return {
+    type: actionTypes.POST_PLACE_CATEGORIES_REQUEST
+  }
+}
+
+const postPlaceCategoriesSuccess = (categories: Category[]): CategoriesAction => {
+  return {
+    type: actionTypes.POST_PLACE_CATEGORIES_SUCCESS,
+    categories
+  }
+}
+
+const postPlaceCategoriesFailure = (): Action => {
+  return {
+    type: actionTypes.POST_PLACE_CATEGORIES_FAILURE
+  }
+}
+
+export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(postPlaceCategoriesRequest())
+    try {
+      if(ready()) {
+        const params = {
+          category_ids: categoryIds
+        }
+        const res = await axios.post('/api/places/' + placeId + '/categories', params, { headers: loginHeaders() })
+        dispatch(postPlaceCategoriesSuccess(res.data))
+      } else {
+        dispatch(postPlaceCategoriesFailure())
+      }
+    }
+    catch (err) {
+      console.error(err)
     }
   }
 }

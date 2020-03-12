@@ -148,6 +148,7 @@ body
   td
     border-top: 1px solid $light-green-translucent
     height: 73px
+    padding: .25rem
 
   th
     border-top: 0
@@ -157,14 +158,45 @@ body
     vertical-align: middle
 
   .icon-field-td
-    width: 125px
+    width: 30px
 
   .trash-field-td
     width: 20px
 
+  .plus-field-td
+    width: 30px
+
+  .place-field-td
+    min-width: 160px
+
+  .place-categories-field-td
+    width: 250px
+
+    .category-name-component
+      display: inline-block
+      padding: 5px 7px
+
 .loading-image
   margin-top: 9px
   width: 55px
+
+.checkbox-input
+  visibility: hidden
+
+  &:checked + .checkbox-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.checkbox-label
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
 
 .radio-input
   visibility: hidden

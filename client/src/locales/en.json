@@ -43,9 +43,11 @@
     "cancel": "Cancel",
     "close": "Close",
     "add": "Add",
-    "delete": "Delete"
+    "delete": "Delete",
+    "set": "Set"
   },
   "message": {
+    "placeCategorized": "Select Categories.",
     "pageNotFound": "Page not found.",
     "logout": "Logout",
     "loginSuccess": "Login Successfully",

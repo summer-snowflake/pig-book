@@ -21,7 +21,7 @@ class PlaceForm extends Component<Props> {
 
     return (
       <form className='place-form-component form-row'>
-        <div className='form-group col-md-4'>
+        <div className='form-group col-md-8'>
           <input
             className='form-control'
             name='place_name'

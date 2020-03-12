@@ -73,6 +73,11 @@ export interface PlacesStore {
   places: Place[];
 }
 
+export interface PlaceCategoriesStore {
+  isLoading: boolean;
+  categories: Category[];
+}
+
 export interface UsersStore {
   isLoading: boolean;
   users: User[];
