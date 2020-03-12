@@ -11,6 +11,7 @@ interface Props extends I18nProps {
   isOpen: boolean;
   placeId: number;
   onClickClose: () => void;
+  onClickSubmit: (categoryIds: number[]) => void;
 }
 
 interface State {
@@ -59,7 +60,7 @@ class CategorizedModal extends Component<Props, State> {
   }
 
   handleClickSubmit(): void {
-    console.log(this.state.checkedCategoryIds)
+    this.props.onClickSubmit(this.state.checkedCategoryIds)
   }
 
   render(): JSX.Element {

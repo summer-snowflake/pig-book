@@ -172,3 +172,42 @@ export const getPlaceCategories = (placeId: number) => {
     }
   }
 }
+
+const postPlaceCategoriesRequest = (): Action => {
+  return {
+    type: actionTypes.POST_PLACE_CATEGORIES_REQUEST
+  }
+}
+
+const postPlaceCategoriesSuccess = (categories: Category[]): CategoriesAction => {
+  return {
+    type: actionTypes.POST_PLACE_CATEGORIES_SUCCESS,
+    categories
+  }
+}
+
+const postPlaceCategoriesFailure = (): Action => {
+  return {
+    type: actionTypes.POST_PLACE_CATEGORIES_FAILURE
+  }
+}
+
+export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(postPlaceCategoriesRequest())
+    try {
+      if(ready()) {
+        const params = {
+          category_ids: categoryIds
+        }
+        const res = await axios.post('/api/places/' + placeId + '/categories', params, { headers: loginHeaders() })
+        dispatch(postPlaceCategoriesSuccess(res.data))
+      } else {
+        dispatch(postPlaceCategoriesFailure())
+      }
+    }
+    catch (err) {
+      console.error(err)
+    }
+  }
+}
