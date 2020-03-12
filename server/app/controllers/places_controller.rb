@@ -4,8 +4,8 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    places = current_user.places.order(created_at: :desc)
-    render json: places, status: :ok
+    places = current_user.places.includes(:categories).order(created_at: :desc)
+    render json: places.to_json(methods: :categories), status: :ok
   end
 
   def create

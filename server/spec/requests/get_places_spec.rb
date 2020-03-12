@@ -27,11 +27,13 @@ describe 'GET /api/places' do
       json = [
         {
           user_id: user.id,
-          name: place2.name
+          name: place2.name,
+          categories: []
         },
         {
           user_id: user.id,
-          name: place1.name
+          name: place1.name,
+          categories: []
         }
       ].to_json
       expect(response.body).to be_json_eql(json)
