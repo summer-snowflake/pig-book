@@ -4,11 +4,12 @@ import { withTranslation } from 'react-i18next'
 
 import { Category } from 'types/api'
 import CloseButton from 'components/common/closeButton'
-import CategoryName from '../category/categoryName'
+import CategoryCheckboxesContainer from 'components/settings/place/categoryCheckboxesContainer'
 
 interface Props extends I18nProps {
   categories: Category[];
   isOpen: boolean;
+  placeId: number;
   onClickClose: () => void;
 }
 
@@ -43,17 +44,10 @@ class CategorizedModal extends Component<Props> {
             >
               <div className='modal-body'>
                 <p>{t('message.placeCategorized')}</p>
-                <div>
-                  {this.props.categories.map((category) => (
-                    <span key={category.id}>
-                      <input className='checkbox-input' id={'category-' + category.id} type='checkbox' />
-                      <label className='checkbox-label' htmlFor={'category-' + category.id}>
-                        <i className='fas fa-check left-icon' />
-                        <CategoryName category={category} />
-                      </label>
-                    </span>
-                  ))}
-                </div>
+                <CategoryCheckboxesContainer
+                  categories={this.props.categories}
+                  placeId={this.props.placeId}
+                />
               </div>
               <div className='modal-footer'>
                 <CloseButton onClickClose={this.props.onClickClose} />
