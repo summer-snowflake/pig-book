@@ -40,3 +40,7 @@ export interface PlacesAction extends Action {
 export interface UsersAction extends Action {
   users: User[];
 }
+
+export interface RecordAction extends Action {
+  record: Record;
+}

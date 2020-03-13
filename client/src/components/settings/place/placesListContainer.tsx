@@ -3,14 +3,14 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { Place } from 'types/api'
+import { WithCategoriesPlace } from 'types/api'
 import PlaceTableRecordContainer from 'components/settings/place/placeTableRecordContainer'
 import { getPlaces } from 'actions/placesActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
   places: {
-    places: Place[];
+    places: WithCategoriesPlace[];
   };
 }
 
@@ -31,7 +31,7 @@ class PlacesListContainer extends Component<Props> {
     return (
       <table className='table places-list-component'>
         <tbody>
-          {this.props.places.places.map((place: Place) => (
+          {this.props.places.places.map((place: WithCategoriesPlace) => (
             <PlaceTableRecordContainer key={place.id} place={place} />
           ))}
         </tbody>
