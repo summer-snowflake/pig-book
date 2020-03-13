@@ -9,6 +9,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import Header from 'components/headerContainer'
 import TopPage from 'components/top/topPage'
+import InputPage from 'components/input/inputPage'
 import SignInPage from 'components/login/signInPage'
 import SignUpPage from 'components/login/signUpPage'
 import MypageTopPage from 'components/mypage/mypageTopPage'
@@ -36,6 +37,7 @@ class App extends Component {
             <Route component={TopPage} exact path='/' />
             <Route component={SignInPage} exact path='/users/sign_in' />
             <Route component={SignUpPage} exact path='/users/sign_up' />
+            <Route component={InputPage} exact path='/input' />
             <Route component={MypageTopPage} exact path='/mypage' />
             <Route component={SettingsTopPage} exact path='/settings' />
             <Route component={CategoryPage} exact path='/categories' />
