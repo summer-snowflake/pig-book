@@ -1,4 +1,4 @@
-defaults: &server
+server: &server
   working_directory: ~/pig-book
   docker:
     - image: circleci/ruby:2.6.5-node-browsers
@@ -72,7 +72,7 @@ defaults: &server
         path: ./tmp/capybara
         destination: capybara-screenshot
 
-defaults: &client
+client: &client
   working_directory: ~/pig-book
   docker:
     - image: circleci/ruby:2.6.5-node-browsers
