@@ -8,3 +8,5 @@ en:
         category: Category
       place:
         name: Shop/Facility
+      record:
+        point: Point

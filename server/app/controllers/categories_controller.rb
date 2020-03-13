@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
   def update
     category = current_user.categories.find(params[:id])
 
-    if category.update_attributes(category_params)
+    if category.update(category_params)
       render json: category, status: :ok
     else
       render_validation_error category

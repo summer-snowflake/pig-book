@@ -19,7 +19,7 @@ class PlacesController < ApplicationController
 
   def update
     place = current_user.places.find(params[:id])
-    if place.update_attributes(place_params)
+    if place.update(place_params)
       render json: place, status: :ok
     else
       render_validation_error place

@@ -50,7 +50,7 @@ describe 'POST /api/places' do
 
         expect(response.status).to eq 422
         json = {
-          errors: ['お店・施設 はすでに登録されています。']
+          errors: ['お店・施設はすでに登録されています']
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -66,7 +66,7 @@ describe 'POST /api/places' do
 
         expect(response.status).to eq 422
         json = {
-          errors: ['お店・施設 を入力してください。']
+          errors: ['お店・施設を入力してください']
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

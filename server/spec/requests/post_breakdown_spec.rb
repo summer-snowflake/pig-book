@@ -58,7 +58,7 @@ describe 'POST /api/categories' do
 
         expect(response.status).to eq 422
         json = {
-          errors: ['内訳 はすでに登録されています。']
+          errors: ['内訳はすでに登録されています']
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -75,7 +75,7 @@ describe 'POST /api/categories' do
 
         expect(response.status).to eq 422
         json = {
-          errors: ['内訳 を入力してください。']
+          errors: ['内訳を入力してください']
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

@@ -20,7 +20,7 @@ class BreakdownsController < ApplicationController
 
   def update
     breakdown = current_user.breakdowns.find(params[:id])
-    if breakdown.update_attributes(breakdown_params)
+    if breakdown.update(breakdown_params)
       render json: breakdown, include: :category, status: :ok
     else
       render_validation_error breakdown
