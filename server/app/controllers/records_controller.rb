@@ -12,7 +12,21 @@ class RecordsController < ApplicationController
     render json: records, status: :ok
   end
 
+  def create
+    @record = current_user.records.new(record_params)
+    if @record.save
+      render json: @record, status: :created
+    else
+      render_validation_error @record
+    end
+  end
+
   private
+
+  def record_params
+    params.permit(:published_at, :category_id, :breakdown_id, :place_id,
+                  :tags, :currency, :charge, :cashless_charge, :point, :memo)
+  end
 
   def records_params
     params.permit(:date, :year, :month, :category_id, :breakdown_id, :place_id,

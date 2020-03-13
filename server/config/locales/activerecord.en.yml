@@ -9,4 +9,10 @@ en:
       place:
         name: Shop/Facility
       record:
+        published_at: Date
+        category: Category
+        breakdown: Breakdown
+        place: Shop/Facility
+        charge: Charge
         point: Point
+        memo: Note
