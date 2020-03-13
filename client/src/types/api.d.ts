@@ -27,6 +27,11 @@ export interface ProfileParams {
   memo: string;
 }
 
+export interface RecordParams {
+  date: string;
+  category_id: number;
+}
+
 export interface Admin {
   id: number;
   user_id: number;
@@ -70,5 +75,23 @@ export interface Breakdown {
 export interface Place {
   id: number;
   name: string;
+}
+
+export interface WithCategoriesPlace extends Place {
   categories: Category[];
+}
+
+export interface Record {
+  id: number;
+  category_id: number;
+  breakdown_id: number;
+  place_id: number;
+  published_at: string;
+  charge: string;
+  point: number;
+  cashless_charge: number;
+  memo: string;
+  category: Category;
+  breakdown: Breakdown;
+  place: Place;
 }

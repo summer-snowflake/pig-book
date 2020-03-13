@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { PlaceParams, Place } from 'types/api'
+import { PlaceParams, WithCategoriesPlace } from 'types/api'
 import { EditPlaceStore, CategoriesStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import PlaceName from 'components/settings/place/placeName'
@@ -35,7 +35,7 @@ interface DispatchProps {
 }
 
 interface ParentProps {
-  place: Place;
+  place: WithCategoriesPlace;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -45,7 +45,7 @@ interface State {
   isOpenAlertModal: boolean;
   isOpenDestroyModal: boolean;
   isOpenCategorizedModal: boolean;
-  place: Place;
+  place: WithCategoriesPlace;
 }
 
 class PlaceTableRecordContainer extends Component<Props, State> {
