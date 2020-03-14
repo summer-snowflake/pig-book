@@ -114,6 +114,20 @@ body
     background-color: $light-green-translucent
     border-color: $light-green
 
+.btn-secondary
+  background-color: $button-green
+  border-color: $button-green
+
+  &:hover,
+  %btn-hover
+    background-color: $darken-button-green
+    border-color: $darken-button-green
+
+  &:focus,
+  &.focus
+    @extend %btn-hover
+    box-shadow: 0 0 0 3px $green-translucent
+
 .editing-badge
   background-color: $info
   padding: 5px

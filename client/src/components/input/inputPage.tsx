@@ -4,6 +4,8 @@ import PickerField from 'components/input/pickerField'
 import RecordsOnInput from 'components/input/recordsOnInput'
 import NewRecordFormContainer from 'components/input/newRecordFormContainer'
 
+import 'stylesheets/input.sass'
+
 class InputPage extends Component<I18nProps> {
   render(): JSX.Element {
     const { t } = this.props
@@ -18,7 +20,7 @@ class InputPage extends Component<I18nProps> {
                 <i className='fas fa-palette left-icon' />
                 {t('menu.input')}
               </div>
-              <div className='card-body with-background-panel'>
+              <div className='card-body with-background-panel row'>
                 <PickerField />
                 <NewRecordFormContainer />
                 <RecordsOnInput />

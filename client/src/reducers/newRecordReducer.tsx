@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   editing: false,
   record: {
+    published_on: new Date(),
     charge: '',
     memo: '',
     category: {
