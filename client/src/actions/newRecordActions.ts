@@ -28,6 +28,10 @@ interface WithPlaceIdAction extends Action {
   placeId: number;
 }
 
+interface WithChargeAction extends Action {
+  charge: number;
+}
+
 const postRecordRequest = (): Action => {
   return {
     type: actionTypes.POST_RECORD_REQUEST
@@ -100,5 +104,12 @@ export const changePlace = (placeId: number): WithPlaceIdAction => {
   return {
     type: actionTypes.CHANGE_RECORD_PLACE,
     placeId
+  }
+}
+
+export const changeCharge = (charge: number): WithChargeAction => {
+  return {
+    type: actionTypes.CHANGE_RECORD_CHARGE,
+    charge
   }
 }
