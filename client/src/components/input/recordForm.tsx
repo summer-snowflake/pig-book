@@ -38,7 +38,7 @@ class RecordForm extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='record-form-component'>
-        <div className='form-group row'>
+        <div className='form-group row date-picker-field'>
           <DatePicker
             className='form-control'
             dateFormat='yyyy/MM/dd'
