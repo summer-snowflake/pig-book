@@ -15,6 +15,7 @@ interface ParentProps {
 
 interface StateProps {
   categories: {
+    isLoading: boolean;
     categories: Category[];
   };
 }
@@ -44,7 +45,7 @@ class CategorySelectBoxContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <span className='category-select-box-component'>
-        <select className='form-control' defaultValue={this.props.selectedCategoryId} name='categories-list' onChange={this.handleChangeCategory}>
+        <select className='form-control' defaultValue={this.props.selectedCategoryId} disabled={this.props.categories.isLoading} name='categories-list' onChange={this.handleChangeCategory}>
           <option value={0}>{'- カテゴリ -'}</option>
           {this.props.categories.categories
             .filter((category: Category) => (
