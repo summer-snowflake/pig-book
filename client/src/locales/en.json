@@ -45,7 +45,8 @@
     "close": "Close",
     "add": "Add",
     "delete": "Delete",
-    "set": "Set"
+    "set": "Set",
+    "today": "Today"
   },
   "message": {
     "placeCategorized": "Select Categories.",

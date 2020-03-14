@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker'
 import { Record, Category } from 'types/api'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import CategorySelectBoxContainer from 'components/settings/category/categorySelectBoxContainer'
+import TodayButton from 'components/input/todayButton'
 
 import 'stylesheets/datepicker/datepicker.sass'
 import 'stylesheets/datepicker/datepicker-overrides.sass'
@@ -16,16 +17,28 @@ interface Props {
 }
 
 class RecordForm extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+
+    this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
+  }
+
+  handleClickTodayButton(): void {
+    const today = new Date()
+    this.props.onChangePublishedOn(today)
+  }
+
   render(): JSX.Element {
     return (
       <div className='record-form-component'>
-        <div className='form-group date-picker'>
+        <div className='form-group row'>
           <DatePicker
             className='form-control'
             dateFormat='yyyy/MM/dd'
             onChange={this.props.onChangePublishedOn}
             selected={this.props.record.published_on}
           />
+          <TodayButton onClickTodayButton={this.handleClickTodayButton} />
         </div>
         <div className='form-group row'>
           <div className='col-auto category-radio'>
@@ -42,6 +55,7 @@ class RecordForm extends Component<Props> {
             />
           </div>
         </div>
+        <div className='form-group' />
       </div>
     )
   }
