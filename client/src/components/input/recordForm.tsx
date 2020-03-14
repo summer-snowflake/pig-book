@@ -13,8 +13,11 @@ import 'stylesheets/datepicker/datepicker-overrides.sass'
 interface Props {
   record: Record;
   breakdowns: Breakdown[];
+  isLoading: boolean;
+  defaultBreakdownId: number;
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCategory: (category: Category | undefined) => void;
+  onChangeBreakdown: (breakdownId: number) => void;
   onChangePublishedOn: (date: Date) => void;
 }
 
@@ -60,6 +63,9 @@ class RecordForm extends Component<Props> {
         <div className='form-group'>
           <BreakdownSelectBox
             breakdowns={this.props.breakdowns}
+            defaultBreakdownId={this.props.defaultBreakdownId}
+            isLoading={this.props.isLoading}
+            onChangeBreakdown={this.props.onChangeBreakdown}
           />
         </div>
       </div>

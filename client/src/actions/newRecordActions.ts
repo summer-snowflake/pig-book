@@ -20,6 +20,10 @@ interface WithBalanceOfPaymentsAction extends Action {
   balance_of_payments: boolean;
 }
 
+interface WithBreakdownIdAction extends Action {
+  breakdownId: number;
+}
+
 const postRecordRequest = (): Action => {
   return {
     type: actionTypes.POST_RECORD_REQUEST
@@ -78,5 +82,12 @@ export const changeCategory = (category: Category | undefined): WithCategoryActi
   return {
     type: actionTypes.CHANGE_RECORD_CATEGORY,
     category
+  }
+}
+
+export const changeBreakdown = (breakdownId: number): WithBreakdownIdAction => {
+  return {
+    type: actionTypes.CHANGE_RECORD_BREAKDOWN,
+    breakdownId
   }
 }
