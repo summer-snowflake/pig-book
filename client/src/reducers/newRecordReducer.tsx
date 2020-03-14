@@ -58,7 +58,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         category: action.category || {
           id: 0,
           balance_of_payments: state.record.category.balance_of_payments
-        }
+        },
+        breakdown_id: 0
       }
     }
   case actionTypes.CHANGE_RECORD_BALANCE_OF_PAYMENTS:
@@ -71,7 +72,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         category: {
           id: 0,
           balance_of_payments: action.balance_of_payments
-        }
+        },
+        breakdown_id: 0
       }
     }
   case actionTypes.CHANGE_RECORD_PUBLISHED_ON:
@@ -81,7 +83,19 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         published_on: action.date,
         charge: state.record.charge,
         memo: state.record.memo,
-        category: state.record.category
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id
+      }
+    }
+  case actionTypes.CHANGE_RECORD_BREAKDOWN:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id
       }
     }
   case actionTypes.GET_CATEGORY_REQUEST:
