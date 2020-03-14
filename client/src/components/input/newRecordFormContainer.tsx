@@ -6,7 +6,7 @@ import { Action } from 'redux'
 import { RecordParams, Category } from 'types/api'
 import { NewRecordStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown } from 'actions/newRecordActions'
+import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import RecordForm from 'components/input/recordForm'
@@ -21,6 +21,7 @@ interface DispatchProps {
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
   changePublishedOn: (date: Date) => void;
   changeBreakdown: (breakdownId: number) => void;
+  changePlace: (placeId: number) => void;
   getCategory: (categoryId: number) => void;
 }
 
@@ -34,6 +35,7 @@ class NewRecordFormContainer extends Component<Props> {
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
     this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
     this.handleChangeBreakdown = this.handleChangeBreakdown.bind(this)
+    this.handleChangePlace = this.handleChangePlace.bind(this)
   }
 
   handleChangeCategory(category: Category | undefined): void {
@@ -55,6 +57,10 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changeBreakdown(breakdownId)
   }
 
+  handleChangePlace(placeId: number): void {
+    this.props.changePlace(placeId)
+  }
+
   render(): JSX.Element {
     return (
       <div className='new-record-form-component col-md-4'>
@@ -62,6 +68,7 @@ class NewRecordFormContainer extends Component<Props> {
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeBreakdown={this.handleChangeBreakdown}
           onChangeCategory={this.handleChangeCategory}
+          onChangePlace={this.handleChangePlace}
           onChangePublishedOn={this.handleChangePublishedOn}
           store={this.props.newRecord}
         />
@@ -95,6 +102,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeBreakdown(breakdownId: number): void {
       dispatch(changeBreakdown(breakdownId))
+    },
+    changePlace(placeId: number): void {
+      dispatch(changePlace(placeId))
     }
   }
 }

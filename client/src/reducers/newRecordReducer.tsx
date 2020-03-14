@@ -16,15 +16,18 @@ const initialState = {
     memo: '',
     category: {
       balance_of_payments: false
-    }
+    },
   },
-  breakdowns: []
+  breakdowns: [],
+  places: []
 }
 
 interface StoreAction extends RecordAction {
   category: WithRelationsCategory;
   balance_of_payments: boolean;
   date: Date;
+  breakdownId: number;
+  placeId: number;
   errors: Errors;
 }
 
@@ -95,7 +98,20 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         charge: state.record.charge,
         memo: state.record.memo,
         category: state.record.category,
-        breakdown_id: state.record.breakdown_id
+        breakdown_id: action.breakdownId,
+        place_id: state.record.place_id
+      }
+    }
+  case actionTypes.CHANGE_RECORD_PLACE:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id,
+        place_id: action.placeId
       }
     }
   case actionTypes.GET_CATEGORY_REQUEST:
@@ -107,7 +123,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       isLoading: false,
-      breakdowns: action.category.breakdowns
+      breakdowns: action.category.breakdowns,
+      places: action.category.places
     }
   case actionTypes.GET_CATEGORY_FAILURE:
     return {
