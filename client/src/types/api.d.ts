@@ -98,4 +98,5 @@ export interface Record {
 
 export interface WithRelationsCategory extends Category {
   breakdowns: Breakdown[];
+  places: Place[];
 }

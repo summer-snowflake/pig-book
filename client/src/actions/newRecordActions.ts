@@ -24,6 +24,10 @@ interface WithBreakdownIdAction extends Action {
   breakdownId: number;
 }
 
+interface WithPlaceIdAction extends Action {
+  placeId: number;
+}
+
 const postRecordRequest = (): Action => {
   return {
     type: actionTypes.POST_RECORD_REQUEST
@@ -89,5 +93,12 @@ export const changeBreakdown = (breakdownId: number): WithBreakdownIdAction => {
   return {
     type: actionTypes.CHANGE_RECORD_BREAKDOWN,
     breakdownId
+  }
+}
+
+export const changePlace = (placeId: number): WithPlaceIdAction => {
+  return {
+    type: actionTypes.CHANGE_RECORD_PLACE,
+    placeId
   }
 }

@@ -5,6 +5,7 @@ import { Category } from 'types/api'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import CategorySelectBoxContainer from 'components/settings/category/categorySelectBoxContainer'
 import BreakdownSelectBox from 'components/input/breakdownSelectBox'
+import PlaceSelectBox from 'components/input/placeSelectBox'
 import TodayButton from 'components/input/todayButton'
 
 import 'stylesheets/datepicker/datepicker.sass'
@@ -16,6 +17,7 @@ interface Props {
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCategory: (category: Category | undefined) => void;
   onChangeBreakdown: (breakdownId: number) => void;
+  onChangePlace: (placeId: number) => void;
   onChangePublishedOn: (date: Date) => void;
 }
 
@@ -64,6 +66,14 @@ class RecordForm extends Component<Props> {
             defaultBreakdownId={this.props.store.record.breakdown_id}
             isLoading={this.props.store.isLoading}
             onChangeBreakdown={this.props.onChangeBreakdown}
+          />
+        </div>
+        <div className='form-group'>
+          <PlaceSelectBox
+            defaultBreakdownId={this.props.store.record.place_id}
+            isLoading={this.props.store.isLoading}
+            onChangeBreakdown={this.props.onChangePlace}
+            places={this.props.store.places}
           />
         </div>
       </div>
