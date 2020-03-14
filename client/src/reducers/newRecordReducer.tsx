@@ -12,7 +12,7 @@ const initialState = {
   editing: false,
   record: {
     published_on: new Date(),
-    charge: '',
+    charge: 0,
     memo: '',
     category: {
       balance_of_payments: false
@@ -29,6 +29,7 @@ interface StoreAction extends RecordAction {
   breakdownId: number;
   placeId: number;
   charge: number;
+  memo: string;
   errors: Errors;
 }
 
@@ -122,6 +123,18 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         published_on: state.record.published_on,
         charge: action.charge,
         memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id
+      }
+    }
+  case actionTypes.CHANGE_RECORD_MEMO:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        memo: action.memo,
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
         place_id: state.record.place_id

@@ -6,7 +6,7 @@ import { Action } from 'redux'
 import { RecordParams, Category } from 'types/api'
 import { NewRecordStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge } from 'actions/newRecordActions'
+import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import RecordForm from 'components/input/recordForm'
@@ -17,13 +17,14 @@ interface StateProps {
 
 interface DispatchProps {
   postRecord: (params: RecordParams) => void;
+  getCategory: (categoryId: number) => void;
   changeCategory: (category: Category | undefined) => void;
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
   changePublishedOn: (date: Date) => void;
   changeBreakdown: (breakdownId: number) => void;
   changePlace: (placeId: number) => void;
   changeCharge: (charge: number) => void;
-  getCategory: (categoryId: number) => void;
+  changeMemo: (memo: string) => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -38,6 +39,7 @@ class NewRecordFormContainer extends Component<Props> {
     this.handleChangeBreakdown = this.handleChangeBreakdown.bind(this)
     this.handleChangePlace = this.handleChangePlace.bind(this)
     this.handleChangeCharge = this.handleChangeCharge.bind(this)
+    this.handleChangeMemo = this.handleChangeMemo.bind(this)
   }
 
   handleChangeCategory(category: Category | undefined): void {
@@ -70,6 +72,10 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changeCharge(Number(charge) || 0)
   }
 
+  handleChangeMemo(e: React.ChangeEvent<HTMLTextAreaElement>): void {
+    this.props.changeMemo(e.target.value)
+  }
+
   render(): JSX.Element {
     return (
       <div className='new-record-form-component col-md-4'>
@@ -78,6 +84,7 @@ class NewRecordFormContainer extends Component<Props> {
           onChangeBreakdown={this.handleChangeBreakdown}
           onChangeCategory={this.handleChangeCategory}
           onChangeCharge={this.handleChangeCharge}
+          onChangeMemo={this.handleChangeMemo}
           onChangePlace={this.handleChangePlace}
           onChangePublishedOn={this.handleChangePublishedOn}
           store={this.props.newRecord}
@@ -118,6 +125,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeCharge(charge: number): void {
       dispatch(changeCharge(charge))
+    },
+    changeMemo(memo: string): void {
+      dispatch(changeMemo(memo))
     }
   }
 }
