@@ -28,6 +28,7 @@ interface StoreAction extends RecordAction {
   date: Date;
   breakdownId: number;
   placeId: number;
+  charge: number;
   errors: Errors;
 }
 
@@ -112,6 +113,18 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
         place_id: action.placeId
+      }
+    }
+  case actionTypes.CHANGE_RECORD_CHARGE:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: action.charge,
+        memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id
       }
     }
   case actionTypes.GET_CATEGORY_REQUEST:

@@ -19,6 +19,7 @@ interface Props {
   onChangeBreakdown: (breakdownId: number) => void;
   onChangePlace: (placeId: number) => void;
   onChangePublishedOn: (date: Date) => void;
+  onChangeCharge: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class RecordForm extends Component<Props> {
@@ -72,8 +73,16 @@ class RecordForm extends Component<Props> {
           <PlaceSelectBox
             defaultBreakdownId={this.props.store.record.place_id}
             isLoading={this.props.store.isLoading}
-            onChangeBreakdown={this.props.onChangePlace}
+            onChangePlace={this.props.onChangePlace}
             places={this.props.store.places}
+          />
+        </div>
+        <div className='form-group'>
+          <input
+            className={'form-control ' + (this.props.store.record.charge === 0 ? 'zero' : '')}
+            onChange={this.props.onChangeCharge}
+            type='text'
+            value={this.props.store.record.charge}
           />
         </div>
       </div>
