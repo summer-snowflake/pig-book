@@ -6,6 +6,11 @@ describe 'GET /api/categories' do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
+  let!(:place1) { create(:place, user: user) }
+  let!(:place2) { create(:place, user: user) }
+  let!(:categorized) do
+    create(:categorized_place, category: category, place: place2)
+  end
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data.' do
@@ -34,6 +39,12 @@ describe 'GET /api/categories' do
             user_id: user.id,
             category_id: category.id,
             name: breakdown.name
+          }
+        ],
+        places: [
+          {
+            user_id: user.id,
+            name: place2.name
           }
         ]
       }.to_json
