@@ -59,14 +59,11 @@ class NewRecordFormContainer extends Component<Props> {
     return (
       <div className='new-record-form-component col-md-4'>
         <RecordForm
-          breakdowns={this.props.newRecord.breakdowns}
-          defaultBreakdownId={this.props.newRecord.record.breakdownId}
-          isLoading={this.props.newRecord.isLoading}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeBreakdown={this.handleChangeBreakdown}
           onChangeCategory={this.handleChangeCategory}
           onChangePublishedOn={this.handleChangePublishedOn}
-          record={this.props.newRecord.record}
+          store={this.props.newRecord}
         />
       </div>
     )
