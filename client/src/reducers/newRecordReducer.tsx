@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Errors, Category } from 'types/api'
+import { Errors, WithRelationsCategory } from 'types/api'
 import { NewRecordStore } from 'types/store'
 import { RecordAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
@@ -17,11 +17,12 @@ const initialState = {
     category: {
       balance_of_payments: false
     }
-  }
+  },
+  breakdowns: []
 }
 
 interface StoreAction extends RecordAction {
-  category: Category;
+  category: WithRelationsCategory;
   balance_of_payments: boolean;
   date: Date;
   errors: Errors;
@@ -82,6 +83,22 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         memo: state.record.memo,
         category: state.record.category
       }
+    }
+  case actionTypes.GET_CATEGORY_REQUEST:
+    return {
+      ...state,
+      isLoading: true
+    }
+  case actionTypes.GET_CATEGORY_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      breakdowns: action.category.breakdowns
+    }
+  case actionTypes.GET_CATEGORY_FAILURE:
+    return {
+      ...state,
+      isLoading: false
     }
   default:
     return state

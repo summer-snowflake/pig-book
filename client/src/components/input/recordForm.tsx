@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import DatePicker from 'react-datepicker'
 
-import { Record, Category } from 'types/api'
+import { Record, Category, Breakdown } from 'types/api'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import CategorySelectBoxContainer from 'components/settings/category/categorySelectBoxContainer'
+import BreakdownSelectBox from 'components/input/breakdownSelectBox'
 import TodayButton from 'components/input/todayButton'
 
 import 'stylesheets/datepicker/datepicker.sass'
@@ -11,6 +12,7 @@ import 'stylesheets/datepicker/datepicker-overrides.sass'
 
 interface Props {
   record: Record;
+  breakdowns: Breakdown[];
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCategory: (category: Category | undefined) => void;
   onChangePublishedOn: (date: Date) => void;
@@ -55,7 +57,11 @@ class RecordForm extends Component<Props> {
             />
           </div>
         </div>
-        <div className='form-group' />
+        <div className='form-group'>
+          <BreakdownSelectBox
+            breakdowns={this.props.breakdowns}
+          />
+        </div>
       </div>
     )
   }
