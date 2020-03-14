@@ -8,8 +8,8 @@ import { ErrorsAction, RecordAction } from 'types/action'
 import { Record, Errors, RecordParams, Category } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
-interface WithDateAction extends Action {
-  date: Date;
+interface WithPublishedOnAction extends Action {
+  publishedOn: Date;
 }
 
 interface WithCategoryAction extends Action {
@@ -76,10 +76,10 @@ export const postRecord = (params: RecordParams) => {
   }
 }
 
-export const changePublishedOn = (date: Date): WithDateAction => {
+export const changePublishedOn = (publishedOn: Date): WithPublishedOnAction => {
   return {
     type: actionTypes.CHANGE_RECORD_PUBLISHED_ON,
-    date
+    publishedOn
   }
 }
 

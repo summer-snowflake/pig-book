@@ -9,6 +9,7 @@ class Record < ApplicationRecord
   belongs_to :place, optional: true
 
   validates :published_at, presence: true
+  validates :currency, presence: true
   validates :charge,
             presence: true,
             numericality: { greater_than_or_equal_to: 0 }
