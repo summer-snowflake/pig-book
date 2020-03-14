@@ -22,6 +22,7 @@ const initialState = {
 interface StoreAction extends RecordAction {
   category: Category;
   balance_of_payments: boolean;
+  date: Date;
   errors: Errors;
 }
 
@@ -49,6 +50,7 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       record: {
+        published_on: state.record.published_on,
         charge: state.record.charge,
         memo: state.record.memo,
         category: action.category || {
@@ -61,12 +63,23 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       record: {
+        published_on: state.record.published_on,
         charge: state.record.charge,
         memo: state.record.memo,
         category: {
           id: 0,
           balance_of_payments: action.balance_of_payments
         }
+      }
+    }
+  case actionTypes.CHANGE_RECORD_PUBLISHED_ON:
+    return {
+      ...state,
+      record: {
+        published_on: action.date,
+        charge: state.record.charge,
+        memo: state.record.memo,
+        category: state.record.category
       }
     }
   default:
