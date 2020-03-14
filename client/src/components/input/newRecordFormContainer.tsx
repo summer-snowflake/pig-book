@@ -4,14 +4,16 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 
 import { RecordParams, Category } from 'types/api'
-import { NewRecordStore } from 'types/store'
+import { NewRecordStore, ProfileStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
+import CreateButton from 'components/common/createButton'
 import RecordForm from 'components/input/recordForm'
 
 interface StateProps {
+  profile: ProfileStore;
   newRecord: NewRecordStore;
 }
 
@@ -40,6 +42,7 @@ class NewRecordFormContainer extends Component<Props> {
     this.handleChangePlace = this.handleChangePlace.bind(this)
     this.handleChangeCharge = this.handleChangeCharge.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
+    this.handleClickCreate = this.handleClickCreate.bind(this)
   }
 
   handleChangeCategory(category: Category | undefined): void {
@@ -76,10 +79,24 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changeMemo(e.target.value)
   }
 
+  handleClickCreate(): void {
+    const params = {
+      published_at: this.props.newRecord.record.published_on,
+      category_id: this.props.newRecord.record.category.id,
+      breakdown_id: this.props.newRecord.record.breakdown_id,
+      place_id: this.props.newRecord.record.place_id,
+      currency: this.props.profile.currency,
+      charge: this.props.newRecord.record.charge,
+      memo: this.props.newRecord.record.memo
+    }
+    this.props.postRecord(params)
+  }
+
   render(): JSX.Element {
     return (
       <div className='new-record-form-component col-md-4'>
         <RecordForm
+          currency={this.props.profile.currency}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeBreakdown={this.handleChangeBreakdown}
           onChangeCategory={this.handleChangeCategory}
@@ -89,6 +106,7 @@ class NewRecordFormContainer extends Component<Props> {
           onChangePublishedOn={this.handleChangePublishedOn}
           store={this.props.newRecord}
         />
+        <CreateButton onClickCreate={this.handleClickCreate} />
       </div>
     )
   }
@@ -96,6 +114,7 @@ class NewRecordFormContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
+    profile: state.profile,
     newRecord: state.newRecord
   }
 }

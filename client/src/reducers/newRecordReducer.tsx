@@ -25,7 +25,7 @@ const initialState = {
 interface StoreAction extends RecordAction {
   category: WithRelationsCategory;
   balance_of_payments: boolean;
-  date: Date;
+  publishedOn: Date;
   breakdownId: number;
   placeId: number;
   charge: number;
@@ -85,7 +85,7 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       record: {
-        published_on: action.date,
+        published_on: action.publishedOn,
         charge: state.record.charge,
         memo: state.record.memo,
         category: state.record.category,

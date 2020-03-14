@@ -31,6 +31,8 @@
     "language-ja": "Japanese",
     "language-en": "English",
     "currency": "Currency",
+    "currency-unit-yen": "¥",
+    "currency-unit-dollar": "$",
     "currency-yen": "¥ (yen)",
     "currency-dollar": "$ (dollar)",
     "income": "Income",

@@ -9,6 +9,7 @@ RSpec.describe Record, type: :model do
   it { is_expected.to belong_to(:place).optional(true) }
 
   it { is_expected.to validate_presence_of(:published_at) }
+  it { is_expected.to validate_presence_of(:currency) }
   it { is_expected.to validate_presence_of(:charge) }
   it do
     is_expected.to validate_numericality_of(:charge)

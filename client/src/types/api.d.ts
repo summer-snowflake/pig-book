@@ -28,8 +28,12 @@ export interface ProfileParams {
 }
 
 export interface RecordParams {
-  date: string;
+  published_at: string;
   category_id: number;
+  breakdown_id: number;
+  place_id: number;
+  charge: number;
+  memo: string;
 }
 
 export interface Admin {
@@ -86,7 +90,7 @@ export interface Record {
   category_id: number;
   breakdown_id: number;
   place_id: number;
-  published_on: Date;
+  published_at: Date;
   charge: string;
   point: number;
   cashless_charge: number;

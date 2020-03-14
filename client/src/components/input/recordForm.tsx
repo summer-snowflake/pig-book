@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import DatePicker from 'react-datepicker'
 
 import { Category } from 'types/api'
+import CurrencyBadge from 'components/common/currencyBadge'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import CategorySelectBoxContainer from 'components/settings/category/categorySelectBoxContainer'
 import BreakdownSelectBox from 'components/input/breakdownSelectBox'
@@ -14,6 +15,7 @@ import { NewRecordStore } from 'types/store'
 
 interface Props {
   store: NewRecordStore;
+  currency: string;
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCategory: (category: Category | undefined) => void;
   onChangeBreakdown: (breakdownId: number) => void;
@@ -78,13 +80,18 @@ class RecordForm extends Component<Props> {
             places={this.props.store.places}
           />
         </div>
-        <div className='form-group'>
-          <input
-            className={'form-control ' + (this.props.store.record.charge === 0 ? 'zero' : '')}
-            onChange={this.props.onChangeCharge}
-            type='text'
-            value={this.props.store.record.charge}
-          />
+        <div className='form-group row'>
+          <div className='col-md-4 currency-field'>
+            <div className='currency-badge-field'>
+              <CurrencyBadge currency={this.props.currency} />
+            </div>
+            <input
+              className={'form-control ' + (this.props.store.record.charge === 0 ? 'zero' : '')}
+              onChange={this.props.onChangeCharge}
+              type='text'
+              value={this.props.store.record.charge}
+            />
+          </div>
         </div>
         <div className='form-group'>
           <textarea className='form-control' onChange={this.props.onChangeMemo} value={this.props.store.record.memo} />
