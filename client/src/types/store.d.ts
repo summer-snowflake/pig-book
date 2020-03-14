@@ -87,4 +87,5 @@ export interface NewRecordStore {
   isLoading: boolean;
   editing: boolean;
   record: Record;
+  breakdowns: Breakdown[];
 }

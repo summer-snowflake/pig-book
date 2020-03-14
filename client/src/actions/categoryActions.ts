@@ -147,3 +147,43 @@ export const deleteCategory = (categoryId: number) => {
     }
   }
 }
+
+const getCategoryRequest = (): Action => {
+  return {
+    type: actionTypes.GET_CATEGORY_REQUEST
+  }
+}
+
+const getCategorySuccess = (category: Category): CategoryAction => {
+  return {
+    type: actionTypes.GET_CATEGORY_SUCCESS,
+    category
+  }
+}
+
+const getCategoryFailure = (): Action => {
+  return {
+    type: actionTypes.GET_CATEGORY_FAILURE
+  }
+}
+
+export const getCategory = (categoryId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(getCategoryRequest())
+    try {
+      if(ready()) {
+        const res = await axios.get('/api/categories/' + categoryId, { headers: loginHeaders() })
+        dispatch(getCategorySuccess(res.data))
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      if (err.response.status === 422) {
+        dispatch(getCategoryFailure())
+      }
+      console.error(err)
+    }
+  }
+}
+

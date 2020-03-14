@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 
-import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn } from 'actions/newRecordActions'
 import { RecordParams, Category } from 'types/api'
 import { NewRecordStore } from 'types/store'
+import { toBoolean } from 'modules/toBoolean'
+import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn } from 'actions/newRecordActions'
+import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import RecordForm from 'components/input/recordForm'
 
@@ -19,6 +20,7 @@ interface DispatchProps {
   changeCategory: (category: Category | undefined) => void;
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
   changePublishedOn: (date: Date) => void;
+  getCategory: (categoryId: number) => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -34,6 +36,9 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleChangeCategory(category: Category | undefined): void {
     this.props.changeCategory(category)
+    if (category) {
+      this.props.getCategory(category.id)
+    }
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -48,6 +53,7 @@ class NewRecordFormContainer extends Component<Props> {
     return (
       <div className='new-record-form-component col-md-4'>
         <RecordForm
+          breakdowns={this.props.newRecord.breakdowns}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeCategory={this.handleChangeCategory}
           onChangePublishedOn={this.handleChangePublishedOn}
@@ -71,6 +77,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeCategory(category: Category | undefined): void {
       dispatch(changeCategory(category))
+    },
+    getCategory(categoryId: number): void {
+      dispatch(getCategory(categoryId))
     },
     changeBalanceOfPayments(balance_of_payments: boolean): void {
       dispatch(changeBalanceOfPayments(balance_of_payments))
