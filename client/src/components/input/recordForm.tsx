@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DatePicker from 'react-datepicker'
 
-import { Record, Category, Breakdown } from 'types/api'
+import { Category } from 'types/api'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import CategorySelectBoxContainer from 'components/settings/category/categorySelectBoxContainer'
 import BreakdownSelectBox from 'components/input/breakdownSelectBox'
@@ -9,12 +9,10 @@ import TodayButton from 'components/input/todayButton'
 
 import 'stylesheets/datepicker/datepicker.sass'
 import 'stylesheets/datepicker/datepicker-overrides.sass'
+import { NewRecordStore } from 'types/store'
 
 interface Props {
-  record: Record;
-  breakdowns: Breakdown[];
-  isLoading: boolean;
-  defaultBreakdownId: number;
+  store: NewRecordStore;
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCategory: (category: Category | undefined) => void;
   onChangeBreakdown: (breakdownId: number) => void;
@@ -41,30 +39,30 @@ class RecordForm extends Component<Props> {
             className='form-control'
             dateFormat='yyyy/MM/dd'
             onChange={this.props.onChangePublishedOn}
-            selected={this.props.record.published_on}
+            selected={this.props.store.record.published_on}
           />
           <TodayButton onClickTodayButton={this.handleClickTodayButton} />
         </div>
         <div className='form-group row'>
           <div className='col-auto category-radio'>
             <BalanceOfPaymentsRadios
-              category={this.props.record.category}
+              category={this.props.store.record.category}
               onChangeBalanceOfPayments={this.props.onChangeBalanceOfPayments}
             />
           </div>
           <div className='col-md-6'>
             <CategorySelectBoxContainer
-              balanceOfPayments={this.props.record.category.balance_of_payments}
+              balanceOfPayments={this.props.store.record.category.balance_of_payments}
               onChangeCategory={this.props.onChangeCategory}
-              selectedCategoryId={this.props.record.category.id}
+              selectedCategoryId={this.props.store.record.category.id}
             />
           </div>
         </div>
         <div className='form-group'>
           <BreakdownSelectBox
-            breakdowns={this.props.breakdowns}
-            defaultBreakdownId={this.props.defaultBreakdownId}
-            isLoading={this.props.isLoading}
+            breakdowns={this.props.store.breakdowns}
+            defaultBreakdownId={this.props.store.record.breakdown_id}
+            isLoading={this.props.store.isLoading}
             onChangeBreakdown={this.props.onChangeBreakdown}
           />
         </div>
