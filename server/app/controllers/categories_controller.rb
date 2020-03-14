@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
 
   def show
     category = current_user.categories.find(params[:id])
-    render json: category, include: :breakdowns, status: :ok
+    render json: category, include: %i[breakdowns places], status: :ok
   end
 
   def create
