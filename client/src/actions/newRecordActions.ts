@@ -32,6 +32,10 @@ interface WithChargeAction extends Action {
   charge: number;
 }
 
+interface WithMemoAction extends Action {
+  memo: string;
+}
+
 const postRecordRequest = (): Action => {
   return {
     type: actionTypes.POST_RECORD_REQUEST
@@ -111,5 +115,12 @@ export const changeCharge = (charge: number): WithChargeAction => {
   return {
     type: actionTypes.CHANGE_RECORD_CHARGE,
     charge
+  }
+}
+
+export const changeMemo = (memo: string): WithMemoAction => {
+  return {
+    type: actionTypes.CHANGE_RECORD_MEMO,
+    memo
   }
 }

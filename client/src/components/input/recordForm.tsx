@@ -20,6 +20,7 @@ interface Props {
   onChangePlace: (placeId: number) => void;
   onChangePublishedOn: (date: Date) => void;
   onChangeCharge: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 class RecordForm extends Component<Props> {
@@ -84,6 +85,9 @@ class RecordForm extends Component<Props> {
             type='text'
             value={this.props.store.record.charge}
           />
+        </div>
+        <div className='form-group'>
+          <textarea className='form-control' onChange={this.props.onChangeMemo} value={this.props.store.record.memo} />
         </div>
       </div>
     )
