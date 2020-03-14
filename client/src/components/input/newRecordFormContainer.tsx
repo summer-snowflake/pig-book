@@ -4,7 +4,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 
 import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments } from 'actions/newRecordActions'
+import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn } from 'actions/newRecordActions'
 import { RecordParams, Category } from 'types/api'
 import { NewRecordStore } from 'types/store'
 import { RootState } from 'reducers/rootReducer'
@@ -18,6 +18,7 @@ interface DispatchProps {
   postRecord: (params: RecordParams) => void;
   changeCategory: (category: Category | undefined) => void;
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
+  changePublishedOn: (date: Date) => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -28,6 +29,7 @@ class NewRecordFormContainer extends Component<Props> {
 
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
+    this.handleChangePublishedOn = this.handleChangePublishedOn.bind(this)
   }
 
   handleChangeCategory(category: Category | undefined): void {
@@ -38,12 +40,17 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changeBalanceOfPayments(toBoolean(e.target.value))
   }
 
+  handleChangePublishedOn(date: Date): void {
+    this.props.changePublishedOn(date)
+  }
+
   render(): JSX.Element {
     return (
       <div className='new-record-form-component col-md-4'>
         <RecordForm
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeCategory={this.handleChangeCategory}
+          onChangePublishedOn={this.handleChangePublishedOn}
           record={this.props.newRecord.record}
         />
       </div>
@@ -67,6 +74,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeBalanceOfPayments(balance_of_payments: boolean): void {
       dispatch(changeBalanceOfPayments(balance_of_payments))
+    },
+    changePublishedOn(date: Date): void {
+      dispatch(changePublishedOn(date))
     }
   }
 }

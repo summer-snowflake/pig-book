@@ -6,6 +6,7 @@ files:
   ignore:
     - 'src/stylesheets/sidenav.sass'
     - 'src/stylesheets/bootstrap_overrides.sass'
+    - 'src/stylesheets/datepicker/*'
 rules:
   # Extends
   extends-before-mixins: 1
