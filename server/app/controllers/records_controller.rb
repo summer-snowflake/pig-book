@@ -9,7 +9,9 @@ class RecordsController < ApplicationController
     records = fetcher.records.includes(
       :category, :place, :breakdown
     )
-    render json: records, status: :ok
+    render json: records,
+           include: %i[category breakdown place],
+           methods: :human_charge, status: :ok
   end
 
   def create

@@ -49,10 +49,25 @@ describe 'GET /api/records' do
             place_id: place.id,
             published_at: record2.published_at,
             charge: record2.charge,
+            human_charge: record2.human_charge,
             cashless_charge: record2.cashless_charge,
             point: record2.point,
             currency: record2.currency,
-            memo: record2.memo
+            memo: record2.memo,
+            category: {
+              balance_of_payments: category.balance_of_payments,
+              name: category.name,
+              user_id: user.id
+            },
+            breakdown: {
+              category_id: category.id,
+              name: breakdown.name,
+              user_id: user.id
+            },
+            place: {
+              name: place.name,
+              user_id: user.id
+            }
           },
           {
             user_id: user.id,
@@ -61,10 +76,25 @@ describe 'GET /api/records' do
             place_id: place.id,
             published_at: record1.published_at,
             charge: record1.charge,
+            human_charge: record1.human_charge,
             cashless_charge: record1.cashless_charge,
             point: record1.point,
             currency: record1.currency,
-            memo: record1.memo
+            memo: record1.memo,
+            category: {
+              balance_of_payments: category.balance_of_payments,
+              name: category.name,
+              user_id: user.id
+            },
+            breakdown: {
+              category_id: category.id,
+              name: breakdown.name,
+              user_id: user.id
+            },
+            place: {
+              name: place.name,
+              user_id: user.id
+            }
           }
         ].to_json
         expect(response.body).to be_json_eql(json)
@@ -89,10 +119,25 @@ describe 'GET /api/records' do
             place_id: place.id,
             published_at: record3.published_at,
             charge: record3.charge,
+            human_charge: record3.human_charge,
             cashless_charge: record3.cashless_charge,
             point: record3.point,
             currency: record3.currency,
-            memo: record3.memo
+            memo: record3.memo,
+            category: {
+              balance_of_payments: category.balance_of_payments,
+              name: category.name,
+              user_id: user.id
+            },
+            breakdown: {
+              category_id: category.id,
+              name: breakdown.name,
+              user_id: user.id
+            },
+            place: {
+              name: place.name,
+              user_id: user.id
+            }
           }
         ].to_json
         expect(response.body).to be_json_eql(json)

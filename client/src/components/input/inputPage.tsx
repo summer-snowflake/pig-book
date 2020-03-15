@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import PickerField from 'components/input/pickerField'
-import RecordsOnInput from 'components/input/recordsOnInput'
+import RecordsOnInputContainer from 'components/input/recordsOnInputContainer'
 import NewRecordFormContainer from 'components/input/newRecordFormContainer'
 
 import 'stylesheets/input.sass'
@@ -20,10 +20,12 @@ class InputPage extends Component<I18nProps> {
                 <i className='fas fa-palette left-icon' />
                 {t('menu.input')}
               </div>
-              <div className='card-body with-background-panel row'>
-                <PickerField />
-                <NewRecordFormContainer />
-                <RecordsOnInput />
+              <div className='card-body with-background-image'>
+                <div className='row'>
+                  <PickerField />
+                  <NewRecordFormContainer />
+                  <RecordsOnInputContainer />
+                </div>
               </div>
             </div>
           </div>
