@@ -209,6 +209,21 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         place_id: state.record.place_id
       }
     }
+  case actionTypes.COPY_RECORD:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: action.record.rounded_charge,
+        cashless_charge: action.record.cashless_charge,
+        point: action.record.point,
+        memo: action.record.memo,
+        category: action.record.category,
+        category_id: action.record.category.id,
+        breakdown_id: action.record.breakdown_id,
+        place_id: action.record.place_id
+      }
+    }
   case actionTypes.GET_CATEGORY_REQUEST:
     return {
       ...state,

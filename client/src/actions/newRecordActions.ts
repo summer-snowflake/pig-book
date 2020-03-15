@@ -44,6 +44,10 @@ interface WithMemoAction extends Action {
   memo: string;
 }
 
+interface WithRecordAction extends Action {
+  record: Record;
+}
+
 const postRecordRequest = (): Action => {
   return {
     type: actionTypes.POST_RECORD_REQUEST
@@ -144,5 +148,12 @@ export const changeMemo = (memo: string): WithMemoAction => {
   return {
     type: actionTypes.CHANGE_RECORD_MEMO,
     memo
+  }
+}
+
+export const copyRecord = (record: Record): WithRecordAction => {
+  return {
+    type: actionTypes.COPY_RECORD,
+    record
   }
 }

@@ -24,11 +24,20 @@ class Record < ApplicationRecord
   end
 
   def human_charge
-    integer_part, decimal_part =
-      ActiveSupport::NumberHelper
-      .number_to_rounded(charge, strip_insignificant_zeros: true).split('.')
+    integer_part, decimal_part = number_to_rounded.split('.')
 
     I18n.t('label.' + currency) +
       " #{integer_part.to_i.to_s(:delimited)}#{decimal_part}"
+  end
+
+  def rounded_charge
+    number_to_rounded
+  end
+
+  private
+
+  def number_to_rounded
+    ActiveSupport::NumberHelper
+      .number_to_rounded(charge, strip_insignificant_zeros: true)
   end
 end

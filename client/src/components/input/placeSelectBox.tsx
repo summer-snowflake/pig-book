@@ -28,10 +28,10 @@ class PlaceSelectBox extends Component<Props> {
       <div className='place-select-box-component'>
         <select
           className='form-control'
-          defaultValue={this.props.defaultPlaceId || ''}
           disabled={this.props.isLoading || this.props.places.length === 0}
           name='places-list'
           onChange={this.handleChangePlace}
+          value={this.props.defaultPlaceId || ''}
         >
           <option>{'- ' + t('menu.place') + ' -'}</option>
           {this.props.places

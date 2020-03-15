@@ -11,7 +11,7 @@ class RecordsController < ApplicationController
     )
     render json: records,
            include: %i[category breakdown place],
-           methods: :human_charge, status: :ok
+           methods: %i[human_charge rounded_charge], status: :ok
   end
 
   def create

@@ -4,12 +4,13 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
+import { RecordSearchParams, Record } from 'types/api'
 import { NewRecordStore, RecordsStore } from 'types/store'
-import { changePublishedOn } from 'actions/newRecordActions'
+import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
+import { getRecords } from 'actions/recordsActions'
+import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import Records from 'components/record/records'
-import { getRecords } from 'actions/recordsActions'
-import { RecordSearchParams } from 'types/api'
 
 interface StateProps {
   newRecord: NewRecordStore;
@@ -18,6 +19,8 @@ interface StateProps {
 
 interface DispatchProps {
   getRecords: (params: RecordSearchParams) => void;
+  copyRecord: (record: Record) => void;
+  getCategory: (categoryId: number) => void;
   changePublishedOn: (date: Date) => void;
 }
 
@@ -29,6 +32,7 @@ class RecordsOnInputContainer extends Component<Props> {
 
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
+    this.handleClickCopy = this.handleClickCopy.bind(this)
 
     const params = {
       date: this.props.newRecord.record.published_on
@@ -48,6 +52,11 @@ class RecordsOnInputContainer extends Component<Props> {
     publishedOn.setDate(publishedOn.getDate() + 1)
     this.props.changePublishedOn(publishedOn)
     this.props.getRecords({ date: publishedOn })
+  }
+
+  handleClickCopy(record: Record): void {
+    this.props.copyRecord(record)
+    this.props.getCategory(record.category.id)
   }
 
   simpleDate(date: Date): string {
@@ -76,7 +85,7 @@ class RecordsOnInputContainer extends Component<Props> {
               <i className='fas fa-chevron-right' />
             </button>
           </div>
-          <Records records={this.props.records.records} />
+          <Records onClickCopy={this.handleClickCopy} records={this.props.records.records} />
         </div>
       </div>
     )
@@ -92,6 +101,12 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
+    copyRecord(record: Record): void {
+      dispatch(copyRecord(record))
+    },
+    getCategory(categoryId: number): void {
+      dispatch(getCategory(categoryId))
+    },
     getRecords(params: RecordSearchParams): void {
       dispatch(getRecords(params))
     },
