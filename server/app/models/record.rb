@@ -22,4 +22,13 @@ class Record < ApplicationRecord
 
     errors.add(:point, :less_than_or_equal_to, count: charge.to_i)
   end
+
+  def human_charge
+    integer_part, decimal_part =
+      ActiveSupport::NumberHelper
+      .number_to_rounded(charge, strip_insignificant_zeros: true).split('.')
+
+    I18n.t('label.' + currency) +
+      " #{integer_part.to_i.to_s(:delimited)}#{decimal_part}"
+  end
 end

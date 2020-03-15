@@ -36,6 +36,10 @@ export interface RecordParams {
   memo: string;
 }
 
+export interface RecordSearchParams {
+  date: Date;
+}
+
 export interface Admin {
   id: number;
   user_id: number;
@@ -84,6 +88,22 @@ export interface Place {
 
 export interface WithCategoriesPlace extends Place {
   categories: Category[];
+}
+
+export interface ReadRecord {
+  id: number;
+  category_id: number;
+  breakdown_id: number;
+  place_id: number;
+  published_at: Date;
+  charge: string;
+  human_charge: string;
+  point: number;
+  cashless_charge: number;
+  memo: string;
+  category: Category;
+  breakdown: Breakdown;
+  place: Place;
 }
 
 export interface Record {

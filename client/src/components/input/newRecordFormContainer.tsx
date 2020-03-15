@@ -12,6 +12,7 @@ import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CreateButton from 'components/common/createButton'
 import RecordForm from 'components/input/recordForm'
+import { getRecords } from 'actions/recordsActions'
 
 interface StateProps {
   profile: ProfileStore;
@@ -19,7 +20,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  postRecord: (params: RecordParams) => void;
+  getRecords: (searchParams: { date: Date }) => void;
+  postRecord: (params: RecordParams, searchParams: { date: Date }) => void;
   getCategory: (categoryId: number) => void;
   changeCategory: (category: Category | undefined) => void;
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
@@ -63,6 +65,7 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleChangePublishedOn(date: Date): void {
     this.props.changePublishedOn(date)
+    this.props.getRecords({ date: date })
   }
 
   handleChangeBreakdown(breakdownId: number): void {
@@ -108,7 +111,7 @@ class NewRecordFormContainer extends Component<Props> {
       point: this.props.newRecord.record.point,
       memo: this.props.newRecord.record.memo
     }
-    this.props.postRecord(params)
+    this.props.postRecord(params, { date: this.props.newRecord.record.published_on })
   }
 
   render(): JSX.Element {
@@ -147,8 +150,13 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    postRecord(params: RecordParams): void {
-      dispatch(postRecord(params))
+    getRecords(searchParams: { date: Date }): void {
+      dispatch(getRecords(searchParams))
+    },
+    postRecord(params: RecordParams, searchParams: { date: Date }): void {
+      dispatch(postRecord(params)).then(() => (
+        dispatch(getRecords(searchParams))
+      ))
     },
     changeCategory(category: Category | undefined): void {
       dispatch(changeCategory(category))
