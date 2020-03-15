@@ -2,6 +2,7 @@
   "brand_name": "おこづかいちょうβ",
   "menu": {
     "home": "HOME",
+    "input": "入力する",
     "login": "ログイン",
     "logout": "ログアウト",
     "signUp": "アカウント登録",
@@ -30,6 +31,8 @@
     "language-ja": "日本語",
     "language-en": "英語",
     "currency": "通貨の単位",
+    "currency-unit-yen": "¥",
+    "currency-unit-dollar": "$",
     "currency-yen": "¥（円）",
     "currency-dollar": "$（ドル）",
     "income": "収入",
@@ -44,7 +47,8 @@
     "close": "閉じる",
     "add": "追加する",
     "delete": "削除する",
-    "set": "設定する"
+    "set": "設定する",
+    "today": "今日"
   },
   "message": {
     "placeCategorized": "利用するカテゴリを選択してください（複数可）",
@@ -57,6 +61,7 @@
     "deleteCategorySuccess": "カテゴリを削除しました",
     "cancelUpdate": "更新を取り消しますか？",
     "patchSuccess": "更新しました",
+    "postSuccess": "登録しました",
     "deleteItem": "削除しますか？",
     "postBreakdownSuccess": "内訳を追加しました",
     "patchBreakdownSuccess": "内訳を編集しました",

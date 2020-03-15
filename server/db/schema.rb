@@ -68,6 +68,25 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "records", force: :cascade do |t|
+    t.datetime "published_at"
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "breakdown_id"
+    t.bigint "place_id"
+    t.decimal "charge", null: false
+    t.string "memo"
+    t.integer "currency", null: false
+    t.integer "point", default: 0
+    t.integer "cashless_charge", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["breakdown_id"], name: "index_records_on_breakdown_id"
+    t.index ["category_id"], name: "index_records_on_category_id"
+    t.index ["place_id"], name: "index_records_on_place_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -110,4 +129,8 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
   add_foreign_key "categorized_places", "places"
   add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "records", "breakdowns"
+  add_foreign_key "records", "categories"
+  add_foreign_key "records", "places"
+  add_foreign_key "records", "users"
 end

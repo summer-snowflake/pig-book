@@ -2,6 +2,7 @@
   "brand_name": "おこづかいちょうβ",
   "menu": {
     "home": "HOME",
+    "input": "Input",
     "login": "Sign In",
     "logout": "Sign out",
     "signUp": "Sign Up",
@@ -30,6 +31,8 @@
     "language-ja": "Japanese",
     "language-en": "English",
     "currency": "Currency",
+    "currency-unit-yen": "¥",
+    "currency-unit-dollar": "$",
     "currency-yen": "¥ (yen)",
     "currency-dollar": "$ (dollar)",
     "income": "Income",
@@ -44,7 +47,8 @@
     "close": "Close",
     "add": "Add",
     "delete": "Delete",
-    "set": "Set"
+    "set": "Set",
+    "today": "Today"
   },
   "message": {
     "placeCategorized": "Select Categories.",
@@ -57,6 +61,7 @@
     "deleteCategorySuccess": "Category deleted successfully",
     "cancelUpdate": "Cancel?",
     "patchSuccess": "Updated successfully",
+    "postSuccess": "Created successfully",
     "delteItem": "Delete?",
     "postBreakdownSuccess": "Breakdown created successfully",
     "patchBreakdownSuccess": "Breakdown updated successfully",

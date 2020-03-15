@@ -74,6 +74,9 @@ body
     border-color: $light-green
     box-shadow: 0 0 0 3px $light-green
 
+  &.zero
+    color: $gray
+
 .required
   &::after
     color: $pink
@@ -114,12 +117,22 @@ body
     background-color: $light-green-translucent
     border-color: $light-green
 
-.editing-badge
-  background-color: $info
-  padding: 5px
-  position: relative
-  right: 10px
-  top: -8px
+.btn-secondary
+  background-color: $button-green
+  border-color: $button-green
+
+  &:hover,
+  %btn-hover
+    background-color: $darken-button-green
+    border-color: $darken-button-green
+
+  &:focus,
+  &.focus
+    @extend %btn-hover
+    box-shadow: 0 0 0 3px $green-translucent
+
+.badge-light
+  border: 1px solid
 
 .icon-field
   .fa-edit

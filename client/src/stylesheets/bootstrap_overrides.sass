@@ -28,13 +28,21 @@
 .show>.btn-light.dropdown-toggle:focus
   box-shadow: 0 0 0 3px $light-green-translucent
 
-.btn-secondary
-  background-color: $button-green
-  border-color: $button-green
+.btn-secondary.focus, .btn-secondary:focus
+  background-color: $darken-button-green
+  border-color: $darken-button-green
 
-  &.focus,
-  &:focus
-    box-shadow: 0 0 0 3px $rgba3-button-green
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show>.btn-secondary.dropdown-toggle
+  background-color: $darken-button-green
+  border-color: $darken-button-green
+  box-shadow: 0 0 0 3px $light-green-translucent
+
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-secondary.dropdown-toggle:focus
+  box-shadow: 0 0 0 3px $light-green-translucent
 
 .modal-footer
   border-top: 0

@@ -1,9 +1,5 @@
 en:
   errors:
-    messages:
-      taken: has already been taken.
-      blank: can't be blank.
-      required: must exist.
     not_found: 404 Error. Not Found.
     cannot_be_deleted: You can't be deleted because already be used.
     unauthorized_as_admin: You need to login as a user.

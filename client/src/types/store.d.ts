@@ -82,3 +82,12 @@ export interface UsersStore {
   isLoading: boolean;
   users: User[];
 }
+
+export interface NewRecordStore {
+  isLoading: boolean;
+  editing: boolean;
+  record: Record;
+  breakdowns: Breakdown[];
+  places: Place[];
+  errors: string[];
+}
