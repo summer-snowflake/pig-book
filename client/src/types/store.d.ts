@@ -89,4 +89,5 @@ export interface NewRecordStore {
   record: Record;
   breakdowns: Breakdown[];
   places: Place[];
+  errors: string[];
 }

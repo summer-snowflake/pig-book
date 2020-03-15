@@ -24,7 +24,8 @@ const initialState = {
     place_id: undefined
   },
   breakdowns: [],
-  places: []
+  places: [],
+  errors: []
 }
 
 interface StoreAction extends RecordAction {

@@ -12,7 +12,7 @@ class Record < ApplicationRecord
   validates :currency, presence: true
   validates :charge,
             presence: true,
-            numericality: { greater_than_or_equal_to: 0 }
+            numericality: { greater_than: 0 }
   validate :point_is_less_than_or_equal_to_charge
   validates :memo, length: { maximum: 250 }
 
