@@ -6,7 +6,7 @@ import { Place } from 'types/api'
 interface Props extends I18nProps {
   places: Place[];
   isLoading: boolean;
-  defaultPlaceId: number;
+  defaultPlaceId: number | undefined;
   onChangePlace: (placeId: number) => void;
 }
 
@@ -28,12 +28,12 @@ class PlaceSelectBox extends Component<Props> {
       <div className='place-select-box-component'>
         <select
           className='form-control'
-          defaultValue={this.props.defaultPlaceId}
+          defaultValue={this.props.defaultPlaceId || ''}
           disabled={this.props.isLoading || this.props.places.length === 0}
           name='places-list'
           onChange={this.handleChangePlace}
         >
-          <option value={0}>{'- ' + t('menu.place') + ' -'}</option>
+          <option>{'- ' + t('menu.place') + ' -'}</option>
           {this.props.places
             .map((place: Place) => (
               <option key={place.id} value={place.id}>{place.name}</option>

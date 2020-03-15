@@ -61,6 +61,7 @@
     "deleteCategorySuccess": "Category deleted successfully",
     "cancelUpdate": "Cancel?",
     "patchSuccess": "Updated successfully",
+    "postSuccess": "Created successfully",
     "delteItem": "Delete?",
     "postBreakdownSuccess": "Breakdown created successfully",
     "patchBreakdownSuccess": "Breakdown updated successfully",
