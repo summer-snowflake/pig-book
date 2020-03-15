@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { RootState } from 'reducers/rootReducer'
-import { NewRecordStore } from 'types/store'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
+
+import { NewRecordStore } from 'types/store'
 import { getCategories } from 'actions/categoriesActions'
+import { changePublishedOn } from 'actions/newRecordActions'
+import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
   newRecord: NewRecordStore;
@@ -13,11 +15,31 @@ interface StateProps {
 
 interface DispatchProps {
   getRecords: () => void;
+  changePublishedOn: (date: Date) => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
 
 class RecordsOnInputContainer extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+
+    this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
+    this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
+  }
+
+  handleClickLeftArrow(): void {
+    const publishedOn = this.props.newRecord.record.published_on
+    publishedOn.setDate(publishedOn.getDate() - 1)
+    this.props.changePublishedOn(publishedOn)
+  }
+
+  handleClickRightArrow(): void {
+    const publishedOn = this.props.newRecord.record.published_on
+    publishedOn.setDate(publishedOn.getDate() + 1)
+    this.props.changePublishedOn(publishedOn)
+  }
+
   simpleDate(date: Date): string {
     const { t } = this.props
     const format = t('format.date')
@@ -34,13 +56,13 @@ class RecordsOnInputContainer extends Component<Props> {
       <div className='records-on-input-component card col'>
         <div className='card-body'>
           <div className='date-select-field'>
-            <button className='btn btn-secondary btn-sm float-left'>
+            <button className='btn btn-secondary btn-sm float-left' onClick={this.handleClickLeftArrow}>
               <i className='fas fa-chevron-left' />
             </button>
             <span className='simple-date'>
               {this.simpleDate(this.props.newRecord.record.published_on)}
             </span>
-            <button className='btn btn-secondary btn-sm float-right'>
+            <button className='btn btn-secondary btn-sm float-right' onClick={this.handleClickRightArrow}>
               <i className='fas fa-chevron-right' />
             </button>
           </div>
@@ -60,6 +82,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     getRecords(): void {
       dispatch(getCategories())
+    },
+    changePublishedOn(date: Date): void {
+      dispatch(changePublishedOn(date))
     }
   }
 }
