@@ -33,6 +33,10 @@ class UserTableRecord extends Component<Props> {
             <i className='fas fa-map-marker-alt left-icon blue' />
             {this.props.user.total.place}
           </span>
+          <span className='total-count'>
+            <i className='fas fa-align-justify left-icon pink' />
+            {this.props.user.total.record}
+          </span>
         </td>
       </tr>
     )

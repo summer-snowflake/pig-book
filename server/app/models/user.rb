@@ -22,7 +22,8 @@ class User < ApplicationRecord
     {
       category: categories.count,
       breakdown: breakdowns.count,
-      place: places.count
+      place: places.count,
+      record: records.count
     }
   end
 end
