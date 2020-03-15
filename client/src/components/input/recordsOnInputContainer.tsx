@@ -4,17 +4,20 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
-import { NewRecordStore } from 'types/store'
-import { getCategories } from 'actions/categoriesActions'
+import { NewRecordStore, RecordsStore } from 'types/store'
 import { changePublishedOn } from 'actions/newRecordActions'
 import { RootState } from 'reducers/rootReducer'
+import Records from 'components/record/records'
+import { getRecords } from 'actions/recordsActions'
+import { RecordSearchParams } from 'types/api'
 
 interface StateProps {
   newRecord: NewRecordStore;
+  records: RecordsStore;
 }
 
 interface DispatchProps {
-  getRecords: () => void;
+  getRecords: (params: RecordSearchParams) => void;
   changePublishedOn: (date: Date) => void;
 }
 
@@ -26,18 +29,25 @@ class RecordsOnInputContainer extends Component<Props> {
 
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
+
+    const params = {
+      date: this.props.newRecord.record.published_on
+    }
+    this.props.getRecords(params)
   }
 
   handleClickLeftArrow(): void {
     const publishedOn = this.props.newRecord.record.published_on
     publishedOn.setDate(publishedOn.getDate() - 1)
     this.props.changePublishedOn(publishedOn)
+    this.props.getRecords({ date: publishedOn })
   }
 
   handleClickRightArrow(): void {
     const publishedOn = this.props.newRecord.record.published_on
     publishedOn.setDate(publishedOn.getDate() + 1)
     this.props.changePublishedOn(publishedOn)
+    this.props.getRecords({ date: publishedOn })
   }
 
   simpleDate(date: Date): string {
@@ -66,6 +76,7 @@ class RecordsOnInputContainer extends Component<Props> {
               <i className='fas fa-chevron-right' />
             </button>
           </div>
+          <Records records={this.props.records.records} />
         </div>
       </div>
     )
@@ -74,14 +85,15 @@ class RecordsOnInputContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    newRecord: state.newRecord
+    newRecord: state.newRecord,
+    records: state.records
   }
 }
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getRecords(): void {
-      dispatch(getCategories())
+    getRecords(params: RecordSearchParams): void {
+      dispatch(getRecords(params))
     },
     changePublishedOn(date: Date): void {
       dispatch(changePublishedOn(date))

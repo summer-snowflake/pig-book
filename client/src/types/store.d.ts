@@ -91,3 +91,8 @@ export interface NewRecordStore {
   places: Place[];
   errors: string[];
 }
+
+export interface RecordsStore {
+  isLoading: boolean;
+  records: Record[];
+}

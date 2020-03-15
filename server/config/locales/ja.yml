@@ -1,4 +1,7 @@
 ja:
+  label:
+    yen: ¥
+    dollar: $
   errors:
     messages:
       taken: はすでに登録されています
