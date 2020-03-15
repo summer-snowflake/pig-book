@@ -187,3 +187,41 @@ export const getCategory = (categoryId: number) => {
   }
 }
 
+const getEditRecordCategoryRequest = (): Action => {
+  return {
+    type: actionTypes.GET_EDIT_RECORD_CATEGORY_REQUEST
+  }
+}
+
+const getEditRecordCategorySuccess = (category: Category): CategoryAction => {
+  return {
+    type: actionTypes.GET_EDIT_RECORD_CATEGORY_SUCCESS,
+    category
+  }
+}
+
+const getEditRecordCategoryFailure = (): Action => {
+  return {
+    type: actionTypes.GET_EDIT_RECORD_CATEGORY_FAILURE
+  }
+}
+
+export const getEditRecordCategory = (categoryId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(getEditRecordCategoryRequest())
+    try {
+      if(ready()) {
+        const res = await axios.get('/api/categories/' + categoryId, { headers: loginHeaders() })
+        dispatch(getEditRecordCategorySuccess(res.data))
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      if (err.response.status === 422) {
+        dispatch(getEditRecordCategoryFailure())
+      }
+      console.error(err)
+    }
+  }
+}

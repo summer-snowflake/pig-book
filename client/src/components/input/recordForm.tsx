@@ -11,10 +11,10 @@ import TodayButton from 'components/input/todayButton'
 
 import 'stylesheets/datepicker/datepicker.sass'
 import 'stylesheets/datepicker/datepicker-overrides.sass'
-import { NewRecordStore } from 'types/store'
+import { NewRecordStore, EditRecordStore } from 'types/store'
 
 interface Props {
-  store: NewRecordStore;
+  store: NewRecordStore | EditRecordStore;
   currency: string;
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCategory: (category: Category | undefined) => void;
@@ -56,6 +56,7 @@ class RecordForm extends Component<Props> {
             <BalanceOfPaymentsRadios
               category={this.props.store.record.category}
               onChangeBalanceOfPayments={this.props.onChangeBalanceOfPayments}
+              recordId={this.props.store.record.id}
             />
           </div>
           <div className='col-md-6'>

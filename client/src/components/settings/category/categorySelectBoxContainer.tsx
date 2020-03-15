@@ -45,8 +45,14 @@ class CategorySelectBoxContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <span className='category-select-box-component'>
-        <select className='form-control' disabled={this.props.categories.isLoading} name='categories-list' onChange={this.handleChangeCategory} value={this.props.selectedCategoryId}>
-          <option value={0}>{'- カテゴリ -'}</option>
+        <select
+          className='form-control'
+          disabled={this.props.categories.isLoading}
+          name='categories-list'
+          onChange={this.handleChangeCategory}
+          value={this.props.selectedCategoryId}
+        >
+          <option>{'- カテゴリ -'}</option>
           {this.props.categories.categories
             .filter((category: Category) => (
               category.balance_of_payments === this.props.balanceOfPayments

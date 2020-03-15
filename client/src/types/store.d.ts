@@ -92,6 +92,15 @@ export interface NewRecordStore {
   errors: string[];
 }
 
+export interface EditRecordStore {
+  isLoading: boolean;
+  isOpenEditRecordModal: boolean;
+  record: Record;
+  breakdowns: Breakdown[];
+  places: Place[];
+  errors: string[];
+}
+
 export interface RecordsStore {
   isLoading: boolean;
   records: Record[];
