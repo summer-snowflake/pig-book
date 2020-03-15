@@ -49,7 +49,8 @@ describe 'GET /api/categories' do
           total: {
             category: 1,
             breakdown: 0,
-            place: 0
+            place: 0,
+            record: 0
           }
         },
         {
@@ -66,7 +67,8 @@ describe 'GET /api/categories' do
           total: {
             category: 0,
             breakdown: 0,
-            place: 0
+            place: 0,
+            record: 0
           }
         }
       ].to_json

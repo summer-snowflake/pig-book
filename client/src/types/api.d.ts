@@ -46,6 +46,7 @@ export interface AdminUser extends User {
     category: number;
     breakdown: number;
     place: number;
+    record: number;
   };
 }
 
