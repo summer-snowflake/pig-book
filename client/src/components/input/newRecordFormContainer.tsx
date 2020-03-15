@@ -6,7 +6,7 @@ import { Action } from 'redux'
 import { RecordParams, Category } from 'types/api'
 import { NewRecordStore, ProfileStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeMemo } from 'actions/newRecordActions'
+import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import CreateButton from 'components/common/createButton'
@@ -26,6 +26,8 @@ interface DispatchProps {
   changeBreakdown: (breakdownId: number) => void;
   changePlace: (placeId: number) => void;
   changeCharge: (charge: number) => void;
+  changePoint: (point: number) => void;
+  changeCashlessCharge: (charge: number) => void;
   changeMemo: (memo: string) => void;
 }
 
@@ -41,6 +43,8 @@ class NewRecordFormContainer extends Component<Props> {
     this.handleChangeBreakdown = this.handleChangeBreakdown.bind(this)
     this.handleChangePlace = this.handleChangePlace.bind(this)
     this.handleChangeCharge = this.handleChangeCharge.bind(this)
+    this.handleChangeCashlessCharge = this.handleChangeCashlessCharge.bind(this)
+    this.handleChangePoint = this.handleChangePoint.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
     this.handleClickCreate = this.handleClickCreate.bind(this)
   }
@@ -68,11 +72,23 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changePlace(placeId)
   }
 
-  handleChangeCharge(e: React.ChangeEvent<HTMLInputElement>): void {
-    const charge: string = e.target.value.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
+  replaceToNumber(target: string): number {
+    const value = target.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
       return String.fromCharCode(s.charCodeAt(0)-0xFEE0)
     }).replace(',', '')
-    this.props.changeCharge(Number(charge) || 0)
+    return Number(value) || 0
+  }
+
+  handleChangeCharge(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changeCharge(this.replaceToNumber(e.target.value))
+  }
+
+  handleChangeCashlessCharge(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changeCashlessCharge(this.replaceToNumber(e.target.value))
+  }
+
+  handleChangePoint(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.props.changePoint(this.replaceToNumber(e.target.value))
   }
 
   handleChangeMemo(e: React.ChangeEvent<HTMLTextAreaElement>): void {
@@ -87,6 +103,8 @@ class NewRecordFormContainer extends Component<Props> {
       place_id: this.props.newRecord.record.place_id,
       currency: this.props.profile.currency,
       charge: this.props.newRecord.record.charge,
+      cashless_charge: this.props.newRecord.record.cashless_charge,
+      point: this.props.newRecord.record.point,
       memo: this.props.newRecord.record.memo
     }
     this.props.postRecord(params)
@@ -99,10 +117,12 @@ class NewRecordFormContainer extends Component<Props> {
           currency={this.props.profile.currency}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeBreakdown={this.handleChangeBreakdown}
+          onChangeCashlessCharge={this.handleChangeCashlessCharge}
           onChangeCategory={this.handleChangeCategory}
           onChangeCharge={this.handleChangeCharge}
           onChangeMemo={this.handleChangeMemo}
           onChangePlace={this.handleChangePlace}
+          onChangePoint={this.handleChangePoint}
           onChangePublishedOn={this.handleChangePublishedOn}
           store={this.props.newRecord}
         />
@@ -144,6 +164,12 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeCharge(charge: number): void {
       dispatch(changeCharge(charge))
+    },
+    changeCashlessCharge(cashlessCharge: number): void {
+      dispatch(changeCashlessCharge(cashlessCharge))
+    },
+    changePoint(point: number): void {
+      dispatch(changePoint(point))
     },
     changeMemo(memo: string): void {
       dispatch(changeMemo(memo))

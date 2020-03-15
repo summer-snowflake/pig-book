@@ -13,6 +13,8 @@ const initialState = {
   record: {
     published_on: new Date(),
     charge: 0,
+    cashless_charge: 0,
+    point: 0,
     memo: '',
     category: {
       balance_of_payments: false
@@ -29,6 +31,8 @@ interface StoreAction extends RecordAction {
   breakdownId: number;
   placeId: number;
   charge: number;
+  cashlessCharge: number;
+  point: number;
   memo: string;
   errors: Errors;
 }
@@ -59,6 +63,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
         memo: state.record.memo,
         category: action.category || {
           id: 0,
@@ -73,12 +79,15 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
         memo: state.record.memo,
         category: {
           id: 0,
           balance_of_payments: action.balance_of_payments
         },
-        breakdown_id: 0
+        breakdown_id: 0,
+        place_id: 0
       }
     }
   case actionTypes.CHANGE_RECORD_PUBLISHED_ON:
@@ -87,9 +96,12 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: action.publishedOn,
         charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
-        breakdown_id: state.record.breakdown_id
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id
       }
     }
   case actionTypes.CHANGE_RECORD_BREAKDOWN:
@@ -98,6 +110,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
         breakdown_id: action.breakdownId,
@@ -110,6 +124,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
@@ -122,6 +138,36 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: action.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
+        memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id
+      }
+    }
+  case actionTypes.CHANGE_RECORD_CASHLESS_CHARGE:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        cashless_charge: action.cashlessCharge,
+        point: state.record.point,
+        memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id
+      }
+    }
+  case actionTypes.CHANGE_RECORD_POINT:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: action.point,
         memo: state.record.memo,
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
@@ -134,6 +180,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
         memo: action.memo,
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
