@@ -9,6 +9,7 @@ import { toBoolean } from 'modules/toBoolean'
 import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
+import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CreateButton from 'components/common/createButton'
 import RecordForm from 'components/input/recordForm'
 
@@ -113,6 +114,11 @@ class NewRecordFormContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='new-record-form-component col-md-4'>
+        {this.props.newRecord.errors.length > 0 && (
+          <div className='validation-errors-field'>
+            <ValidationErrorMessages messages={this.props.newRecord.errors} />
+          </div>
+        )}
         <RecordForm
           currency={this.props.profile.currency}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
