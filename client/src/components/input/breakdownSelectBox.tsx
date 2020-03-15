@@ -6,7 +6,7 @@ import { Breakdown } from 'types/api'
 interface Props extends I18nProps {
   breakdowns: Breakdown[];
   isLoading: boolean;
-  defaultBreakdownId: number;
+  defaultBreakdownId: number | undefined;
   onChangeBreakdown: (breakdownId: number) => void;
 }
 
@@ -28,12 +28,12 @@ class BreakdownSelectBox extends Component<Props> {
       <div className='breakdown-select-box-component'>
         <select
           className='form-control'
-          defaultValue={this.props.defaultBreakdownId}
+          defaultValue={this.props.defaultBreakdownId || ''}
           disabled={this.props.isLoading || this.props.breakdowns.length === 0}
           name='breakdowns-list'
           onChange={this.handleChangeBreakdown}
         >
-          <option value={0}>{'- ' + t('menu.breakdown') + ' -'}</option>
+          <option>{'- ' + t('menu.breakdown') + ' -'}</option>
           {this.props.breakdowns
             .map((breakdown: Breakdown) => (
               <option key={breakdown.id} value={breakdown.id}>{breakdown.name}</option>

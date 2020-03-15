@@ -76,7 +76,7 @@ class RecordForm extends Component<Props> {
         </div>
         <div className='form-group'>
           <PlaceSelectBox
-            defaultBreakdownId={this.props.store.record.place_id}
+            defaultPlaceId={this.props.store.record.place_id}
             isLoading={this.props.store.isLoading}
             onChangePlace={this.props.onChangePlace}
             places={this.props.store.places}
@@ -122,7 +122,7 @@ class RecordForm extends Component<Props> {
           </div>
         </div>
         <div className='form-group'>
-          <textarea className='form-control' onChange={this.props.onChangeMemo} value={this.props.store.record.memo} />
+          <textarea className='form-control' onChange={this.props.onChangeMemo} rows={3} value={this.props.store.record.memo} />
         </div>
       </div>
     )

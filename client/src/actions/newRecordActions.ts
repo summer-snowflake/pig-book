@@ -21,11 +21,11 @@ interface WithBalanceOfPaymentsAction extends Action {
 }
 
 interface WithBreakdownIdAction extends Action {
-  breakdownId: number;
+  breakdownId: number | undefined;
 }
 
 interface WithPlaceIdAction extends Action {
-  placeId: number;
+  placeId: number | undefined;
 }
 
 interface WithChargeAction extends Action {
@@ -76,7 +76,7 @@ export const postRecord = (params: RecordParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(postRecordFailure(err.response.data.errors))
       }
       console.error(err)
@@ -105,14 +105,14 @@ export const changeCategory = (category: Category | undefined): WithCategoryActi
   }
 }
 
-export const changeBreakdown = (breakdownId: number): WithBreakdownIdAction => {
+export const changeBreakdown = (breakdownId: number | undefined): WithBreakdownIdAction => {
   return {
     type: actionTypes.CHANGE_RECORD_BREAKDOWN,
     breakdownId
   }
 }
 
-export const changePlace = (placeId: number): WithPlaceIdAction => {
+export const changePlace = (placeId: number | undefined): WithPlaceIdAction => {
   return {
     type: actionTypes.CHANGE_RECORD_PLACE,
     placeId

@@ -61,6 +61,7 @@
     "deleteCategorySuccess": "カテゴリを削除しました",
     "cancelUpdate": "更新を取り消しますか？",
     "patchSuccess": "更新しました",
+    "postSuccess": "登録しました",
     "deleteItem": "削除しますか？",
     "postBreakdownSuccess": "内訳を追加しました",
     "patchBreakdownSuccess": "内訳を編集しました",

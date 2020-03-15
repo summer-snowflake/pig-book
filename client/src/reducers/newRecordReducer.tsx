@@ -16,9 +16,12 @@ const initialState = {
     cashless_charge: 0,
     point: 0,
     memo: '',
+    category_id: undefined,
     category: {
       balance_of_payments: false
     },
+    breakdown_id: undefined,
+    place_id: undefined
   },
   breakdowns: [],
   places: []
@@ -28,8 +31,8 @@ interface StoreAction extends RecordAction {
   category: WithRelationsCategory;
   balance_of_payments: boolean;
   publishedOn: Date;
-  breakdownId: number;
-  placeId: number;
+  breakdownId: number | undefined;
+  placeId: number | undefined;
   charge: number;
   cashlessCharge: number;
   point: number;
@@ -49,7 +52,17 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       isLoading: false,
-      errors: []
+      errors: [],
+      record: {
+        published_on: state.record.published_on,
+        charge: 0,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
+        memo: state.record.memo,
+        category: state.record.category,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id
+      }
     }
   case actionTypes.POST_RECORD_FAILURE:
     return {
@@ -67,11 +80,15 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: action.category || {
-          id: 0,
+          id: undefined,
           balance_of_payments: state.record.category.balance_of_payments
         },
-        breakdown_id: 0
-      }
+        category_id: undefined,
+        breakdown_id: undefined,
+        place_id: undefined
+      },
+      breakdowns: [],
+      places: []
     }
   case actionTypes.CHANGE_RECORD_BALANCE_OF_PAYMENTS:
     return {
@@ -83,12 +100,15 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: {
-          id: 0,
+          id: undefined,
           balance_of_payments: action.balance_of_payments
         },
-        breakdown_id: 0,
-        place_id: 0
-      }
+        category_id: undefined,
+        breakdown_id: undefined,
+        place_id: undefined
+      },
+      breakdowns: [],
+      places: []
     }
   case actionTypes.CHANGE_RECORD_PUBLISHED_ON:
     return {
