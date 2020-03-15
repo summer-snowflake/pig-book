@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
 
-import { ReadRecord } from 'types/api'
+import { ReadRecord, Record } from 'types/api'
 
 interface Props {
   record: ReadRecord;
+  onClickCopy: (record: Record) => void;
 }
 
 class RecordTableRecord extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+
+    this.handleClickCopy = this.handleClickCopy.bind(this)
+  }
+
+  handleClickCopy(): void {
+    this.props.onClickCopy(this.props.record)
+  }
+
   render(): JSX.Element {
     return (
       <tr className='record-table-record-component'>
+        <td className='icon-field-td'>
+          <span className='icon-field' onClick={this.handleClickCopy}>
+            <i className='far fa-copy' />
+          </span>
+        </td>
         <td className='record-td'>
           {this.props.record.category && (
             <span>

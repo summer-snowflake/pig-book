@@ -28,10 +28,10 @@ class BreakdownSelectBox extends Component<Props> {
       <div className='breakdown-select-box-component'>
         <select
           className='form-control'
-          defaultValue={this.props.defaultBreakdownId || ''}
           disabled={this.props.isLoading || this.props.breakdowns.length === 0}
           name='breakdowns-list'
           onChange={this.handleChangeBreakdown}
+          value={this.props.defaultBreakdownId || ''}
         >
           <option>{'- ' + t('menu.breakdown') + ' -'}</option>
           {this.props.breakdowns
