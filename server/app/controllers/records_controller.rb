@@ -32,6 +32,11 @@ class RecordsController < ApplicationController
     end
   end
 
+  def destroy
+    record = current_user.records.find(params[:id])
+    record.destroy!
+  end
+
   private
 
   def record_params
