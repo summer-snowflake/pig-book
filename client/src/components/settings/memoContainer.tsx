@@ -41,7 +41,8 @@ class MemoContainer extends Component<Props, State> {
       memo: ''
     }
 
-    this.handleClickIcon = this.handleClickIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
@@ -54,23 +55,26 @@ class MemoContainer extends Component<Props, State> {
     return this.props.profile.editingMemo && this.state.memo !== this.props.profile.memo
   }
 
-  handleClickIcon(): void {
-    // 基本設定の編集中
+  handleClickEditIcon(): void {
     if (this.props.profile.editing) {
       this.setState({
         isOpenAlertModal: true
       })
     } else {
-      if (this.diff()) {
-        this.setState({
-          isOpenCancelModal: true
-        })
-      } else {
-        this.props.setEditingMemo(!this.props.profile.editingMemo)
-        this.setState({
-          memo: this.props.profile.memo
-        })
-      }
+      this.props.setEditingMemo(!this.props.profile.editingMemo)
+      this.setState({
+        memo: this.props.profile.memo
+      })
+    }
+  }
+
+  handleClickExitIcon(): void {
+    if (this.diff()) {
+      this.setState({
+        isOpenCancelModal: true
+      })
+    } else {
+      this.props.setEditingMemo(false)
     }
   }
 
@@ -155,8 +159,8 @@ class MemoContainer extends Component<Props, State> {
             <div className='card-body with-background-image'>
               <EditAndCancel
                 editing={this.props.profile.editingMemo}
-                onClickEditIcon={this.handleClickIcon}
-                onClickExitIcon={this.handleClickIcon}
+                onClickEditIcon={this.handleClickEditIcon}
+                onClickExitIcon={this.handleClickExitIcon}
               />
               <AlertModal
                 isOpen={this.state.isOpenAlertModal}
