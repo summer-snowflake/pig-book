@@ -5,15 +5,21 @@ import { toast } from 'react-toastify'
 import { EditPlaceStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
 import { ErrorsAction } from 'types/action'
+import { Place } from 'types/api'
 
 const initialState = {
   isLoading: false,
-  editingId: 0,
+  place: {
+    id: 0,
+    name: '',
+    categories: []
+  },
   errors: []
 }
 
 interface WithEditingIdAction extends ErrorsAction {
   editingId: number;
+  place: Place;
 }
 
 const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEditingIdAction): {} => {
@@ -28,7 +34,11 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
     return {
       ...state,
       isLoading: false,
-      editingId: 0,
+      place: {
+        id: 0,
+        name: '',
+        categories: []
+      },
       errors: []
     }
   case actionTypes.PATCH_PLACE_FAILURE:
@@ -37,10 +47,20 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.SWITCH_EDITING:
+  case actionTypes.EDIT_PLACE:
     return {
       ...state,
-      editingId: action.editingId,
+      place: action.place,
+      errors: []
+    }
+  case actionTypes.EXIT_PLACE:
+    return {
+      ...state,
+      place: {
+        id: 0,
+        name: '',
+        categories: []
+      },
       errors: []
     }
   default:

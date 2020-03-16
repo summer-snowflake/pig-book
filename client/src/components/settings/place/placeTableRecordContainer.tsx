@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { PlaceParams, WithCategoriesPlace } from 'types/api'
+import { PlaceParams, WithCategoriesPlace, Place } from 'types/api'
 import { EditPlaceStore, CategoriesStore } from 'types/store'
 import EditAndCancel from 'components/common/editAndCancel'
 import PlaceName from 'components/settings/place/placeName'
@@ -12,8 +12,8 @@ import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
 import CategorizedPlusButton from 'components/settings/place/categorizedPlusButton'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
-import { getPlaces, switchEditing } from 'actions/placesActions'
-import { patchPlace, deletePlace, postPlaceCategories } from 'actions/placeActions'
+import { getPlaces } from 'actions/placesActions'
+import { patchPlace, deletePlace, postPlaceCategories, editPlace, exitPlace } from 'actions/placeActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
 import CategorizedModal from 'components/settings/place/categorizedModal'
@@ -22,12 +22,13 @@ import { getCategories } from 'actions/categoriesActions'
 import CategoryName from 'components/settings/category/categoryName'
 
 interface StateProps {
-  editPlace: EditPlaceStore;
+  editPlaceStore: EditPlaceStore;
   categories: CategoriesStore;
 }
 
 interface DispatchProps {
-  switchEditing: (editingId: number) => void;
+  editPlace: (place: Place) => void;
+  exitPlace: () => void;
   patchPlace: (id: number, params: PlaceParams) => void;
   deletePlace: (placeId: number) => void;
   getCategories: (placeId: number) => void;
@@ -64,7 +65,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
       }
     }
 
-    this.handleClickIcon = this.handleClickIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
@@ -80,29 +82,34 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     return this.props.place.name !== this.state.place.name
   }
 
-  handleClickIcon(): void {
-    // 編集中ではない編集アイコン
-    if (this.props.editPlace.editingId === 0) {
-      this.props.switchEditing(this.props.place.id)
+  editing(): boolean {
+    return this.props.place.id === this.props.editPlaceStore.place.id
+  }
+
+  handleClickEditIcon(): void {
+    // 編集中ではない場合
+    if (this.props.editPlaceStore.place.id === 0) {
+      this.props.editPlace(this.props.place)
       this.setState({
         place: this.props.place
       })
-    }
-    // 編集中の編集アイコン
-    if (this.props.editPlace.editingId !== 0 && this.props.editPlace.editingId !== this.props.place.id) {
-      this.setState({
-        isOpenAlertModal: true
-      })
-    }
-    // キャンセルアイコン
-    if (this.props.editPlace.editingId === this.props.place.id) {
-      if (this.diff()) {
+    } else {
+      // 他のアイテム編集中の場合
+      if (this.props.editPlaceStore.place.id !== this.props.place.id) {
         this.setState({
-          isOpenCancelModal: true
+          isOpenAlertModal: true
         })
-      } else {
-        this.props.switchEditing(0)
       }
+    }
+  }
+
+  handleClickExitIcon(): void {
+    if (this.diff()) {
+      this.setState({
+        isOpenCancelModal: true
+      })
+    } else {
+      this.props.exitPlace()
     }
   }
 
@@ -134,7 +141,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
       place: this.props.place,
       isOpenCancelModal: false
     })
-    this.props.switchEditing(0)
+    this.props.exitPlace()
   }
 
   handleClickSubmit(categoryIds: number[]): void {
@@ -176,7 +183,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
   render(): JSX.Element {
     return (
       <tr className='place-table-record-component'>
-        {this.props.editPlace.editingId === this.props.place.id ? (
+        {this.editing() ? (
           <td className='place-field-td' colSpan={2}>
             <CancelUpdateModal
               isOpen={this.state.isOpenCancelModal}
@@ -184,13 +191,13 @@ class PlaceTableRecordContainer extends Component<Props, State> {
               onClickClose={this.handleClickClose}
             />
             <PlaceForm
-              disabled={this.props.editPlace.isLoading || !this.diff()}
+              disabled={this.editing() && !this.diff()}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}
               place={this.state.place}
             />
-            <ValidationErrorMessages messages={this.props.editPlace.errors} />
+            <ValidationErrorMessages messages={this.props.editPlaceStore.errors} />
           </td>
         ) : (
           <td className='place-field-td' colSpan={2}>
@@ -204,9 +211,9 @@ class PlaceTableRecordContainer extends Component<Props, State> {
         )}
         <td className='icon-field-td'>
           <EditAndCancel
-            editing={this.props.editPlace.editingId === this.props.place.id}
-            onClickEditIcon={this.handleClickIcon}
-            onClickExitIcon={this.handleClickIcon}
+            editing={this.editing()}
+            onClickEditIcon={this.handleClickEditIcon}
+            onClickExitIcon={this.handleClickExitIcon}
           />
         </td>
         <td className='plus-field-td'>
@@ -241,7 +248,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    editPlace: state.editPlace,
+    editPlaceStore: state.editPlace,
     categories: state.categories
   }
 }
@@ -253,8 +260,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
         dispatch(getPlaces())
       })
     },
-    switchEditing(editingId: number): void {
-      dispatch(switchEditing(editingId))
+    editPlace(place: Place): void {
+      dispatch(editPlace(place))
+    },
+    exitPlace(): void {
+      dispatch(exitPlace())
     },
     deletePlace(placeId: number): void {
       dispatch(deletePlace(placeId)).then(() => {
