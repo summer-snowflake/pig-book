@@ -95,6 +95,7 @@ export interface NewRecordStore {
 export interface EditRecordStore {
   isLoading: boolean;
   isOpenEditRecordModal: boolean;
+  editedRecordId: number | undefined;
   record: Record;
   breakdowns: Breakdown[];
   places: Place[];

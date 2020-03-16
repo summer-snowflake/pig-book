@@ -88,6 +88,12 @@ export const patchRecord = (recordId: number, params: RecordParams) => {
   }
 }
 
+export const clearEditedRecord = (): Action => {
+  return {
+    type: actionTypes.CLEAR_EDITED_RECORD
+  }
+}
+
 export const changePublishedOn = (publishedOn: Date): WithPublishedOnAction => {
   return {
     type: actionTypes.CHANGE_EDIT_RECORD_PUBLISHED_ON,

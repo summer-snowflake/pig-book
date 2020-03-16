@@ -10,6 +10,7 @@ import FlashMessage from 'components/common/flashMessage'
 const initialState = {
   isLoading: false,
   isOpenEditRecordModal: false,
+  editedRecordId: undefined,
   record: {
     id: undefined,
     published_on: new Date(),
@@ -59,14 +60,20 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       record: {
         id: state.record.id,
         published_on: state.record.published_on,
-        charge: 0,
-        cashless_charge: 0,
-        point: 0,
-        memo: '',
+        charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
+        memo: state.record.memo,
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
         place_id: state.record.place_id
-      }
+      },
+      editedRecordId: action.record.id
+    }
+  case actionTypes.CLEAR_EDITED_RECORD:
+    return {
+      ...state,
+      editedRecordId: undefined
     }
   case actionTypes.PATCH_RECORD_FAILURE:
     return {

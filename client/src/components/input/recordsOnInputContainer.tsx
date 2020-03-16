@@ -111,6 +111,7 @@ class RecordsOnInputContainer extends Component<Props> {
             </button>
           </div>
           <Records
+            editedRecordId={this.props.editRecordStore.editedRecordId}
             onClickCopy={this.handleClickCopy}
             onClickEdit={this.handleClickEdit}
             records={this.props.records.records}

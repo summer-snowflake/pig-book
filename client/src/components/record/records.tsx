@@ -5,6 +5,7 @@ import RecordTableRecord from 'components/record/recordTableRecord'
 
 interface Props {
   records: ReadRecord[];
+  editedRecordId: number | undefined;
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
 }
@@ -31,6 +32,7 @@ class Records extends Component<Props> {
         <tbody>
           {this.props.records.map((record) => (
             <RecordTableRecord
+              editedRecordId={this.props.editedRecordId}
               key={record.id}
               onClickCopy={this.handleClickCopy}
               onClickEdit={this.handleClickEdit}
