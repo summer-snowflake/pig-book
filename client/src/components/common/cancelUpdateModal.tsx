@@ -39,7 +39,6 @@ class CancelUpdateModal extends Component<I18nProps & Props> {
               isOpen={this.props.isOpen}
               style={customStyles}
             >
-
               <div className='modal-body'>
                 <p>{t('message.cancelUpdate')}</p>
               </div>

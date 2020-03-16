@@ -4,7 +4,9 @@ import { ReadRecord, Record } from 'types/api'
 
 interface Props {
   record: ReadRecord;
+  editedRecordId: number | undefined;
   onClickCopy: (record: Record) => void;
+  onClickEdit: (record: Record) => void;
 }
 
 class RecordTableRecord extends Component<Props> {
@@ -12,18 +14,28 @@ class RecordTableRecord extends Component<Props> {
     super(props)
 
     this.handleClickCopy = this.handleClickCopy.bind(this)
+    this.handleClickEdit = this.handleClickEdit.bind(this)
   }
 
   handleClickCopy(): void {
     this.props.onClickCopy(this.props.record)
   }
 
+  handleClickEdit(): void {
+    this.props.onClickEdit(this.props.record)
+  }
+
   render(): JSX.Element {
     return (
-      <tr className='record-table-record-component'>
+      <tr className={'record-table-record-component' + (this.props.record.id === this.props.editedRecordId ? ' edited' : '')}>
         <td className='icon-field-td'>
           <span className='icon-field' onClick={this.handleClickCopy}>
             <i className='far fa-copy' />
+          </span>
+        </td>
+        <td className='icon-field-td'>
+          <span className='icon-field' onClick={this.handleClickEdit}>
+            <i className='far fa-edit' />
           </span>
         </td>
         <td className='record-td'>

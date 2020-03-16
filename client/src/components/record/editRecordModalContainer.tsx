@@ -1,29 +1,36 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
+import { connect } from 'react-redux'
+import Modal from 'react-modal'
 
 import { RecordParams, Category } from 'types/api'
-import { NewRecordStore, ProfileStore } from 'types/store'
+import { EditRecordStore, ProfileStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
-import { getCategory } from 'actions/categoryActions'
-import { clearEditedRecord } from 'actions/editRecordActions'
+import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
+import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
+import CloseButton from 'components/common/closeButton'
+import UpdateButton from 'components/common/updateButton'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
-import CreateButton from 'components/common/createButton'
 import RecordForm from 'components/input/recordForm'
+
+interface ParentProps {
+  isOpen: boolean;
+  onClickClose: () => void;
+}
 
 interface StateProps {
   profile: ProfileStore;
-  newRecord: NewRecordStore;
+  editRecord: EditRecordStore;
 }
 
 interface DispatchProps {
   getRecords: (searchParams: { date: Date }) => void;
-  postRecord: (params: RecordParams, searchParams: { date: Date }) => void;
+  patchRecord: (recordId: number, params: RecordParams, searchParams: { date: Date }) => void;
   getCategory: (categoryId: number) => void;
+  getEditRecordCategory: (categoryId: number) => void;
   changeCategory: (category: Category | undefined) => void;
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
   changePublishedOn: (date: Date) => void;
@@ -35,9 +42,24 @@ interface DispatchProps {
   changeMemo: (memo: string) => void;
 }
 
-type Props = StateProps & DispatchProps
+type Props = ParentProps & StateProps & DispatchProps
 
-class NewRecordFormContainer extends Component<Props> {
+const customStyles = {
+  content : {
+    top         : '40%',
+    left        : '50%',
+    right       : 'auto',
+    bottom      : 'auto',
+    marginRight : '-50%',
+    minWidth    : '400px',
+    transform   : 'translate(-50%, -50%)'
+  },
+  overlay: {
+    background  : 'rgba(0, 0, 0, .5)'
+  }
+}
+
+class EditRecordModalContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -50,13 +72,13 @@ class NewRecordFormContainer extends Component<Props> {
     this.handleChangeCashlessCharge = this.handleChangeCashlessCharge.bind(this)
     this.handleChangePoint = this.handleChangePoint.bind(this)
     this.handleChangeMemo = this.handleChangeMemo.bind(this)
-    this.handleClickCreate = this.handleClickCreate.bind(this)
+    this.handleClickUpdateButton = this.handleClickUpdateButton.bind(this)
   }
 
   handleChangeCategory(category: Category | undefined): void {
     this.props.changeCategory(category)
     if (category) {
-      this.props.getCategory(category.id)
+      this.props.getEditRecordCategory(category.id)
     }
   }
 
@@ -66,7 +88,6 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleChangePublishedOn(date: Date): void {
     this.props.changePublishedOn(date)
-    this.props.getRecords({ date: date })
   }
 
   handleChangeBreakdown(breakdownId: number): void {
@@ -100,43 +121,59 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changeMemo(e.target.value)
   }
 
-  handleClickCreate(): void {
+  handleClickUpdateButton(): void {
     const params = {
-      published_at: this.props.newRecord.record.published_on,
-      category_id: this.props.newRecord.record.category.id,
-      breakdown_id: this.props.newRecord.record.breakdown_id,
-      place_id: this.props.newRecord.record.place_id,
+      published_at: this.props.editRecord.record.published_on,
+      category_id: this.props.editRecord.record.category.id || NaN,
+      breakdown_id: this.props.editRecord.record.breakdown_id,
+      place_id: this.props.editRecord.record.place_id,
       currency: this.props.profile.currency,
-      charge: this.props.newRecord.record.charge,
-      cashless_charge: this.props.newRecord.record.cashless_charge,
-      point: this.props.newRecord.record.point,
-      memo: this.props.newRecord.record.memo
+      charge: this.props.editRecord.record.charge,
+      cashless_charge: this.props.editRecord.record.cashless_charge,
+      point: this.props.editRecord.record.point,
+      memo: this.props.editRecord.record.memo
     }
-    this.props.postRecord(params, { date: this.props.newRecord.record.published_on })
+    this.props.patchRecord(this.props.editRecord.record.id, params, { date: this.props.editRecord.record.published_on })
   }
 
   render(): JSX.Element {
     return (
-      <div className='new-record-form-component col-md-4'>
-        {this.props.newRecord.errors.length > 0 && (
-          <div className='validation-errors-field'>
-            <ValidationErrorMessages messages={this.props.newRecord.errors} />
-          </div>
-        )}
-        <RecordForm
-          currency={this.props.profile.currency}
-          onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
-          onChangeBreakdown={this.handleChangeBreakdown}
-          onChangeCashlessCharge={this.handleChangeCashlessCharge}
-          onChangeCategory={this.handleChangeCategory}
-          onChangeCharge={this.handleChangeCharge}
-          onChangeMemo={this.handleChangeMemo}
-          onChangePlace={this.handleChangePlace}
-          onChangePoint={this.handleChangePoint}
-          onChangePublishedOn={this.handleChangePublishedOn}
-          store={this.props.newRecord}
-        />
-        <CreateButton onClickCreate={this.handleClickCreate} />
+      <div className='edit-record-modal-component modal'>
+        <div className='modal-dialog'>
+          {this.props.isOpen && (
+            <Modal
+              ariaHideApp={false}
+              contentLabel="Example Modal"
+              isOpen={this.props.isOpen}
+              style={customStyles}
+            >
+              <div className='modal-body'>
+                {this.props.editRecord.errors.length > 0 && (
+                  <div className='validation-errors-field'>
+                    <ValidationErrorMessages messages={this.props.editRecord.errors} />
+                  </div>
+                )}
+                <RecordForm
+                  currency={this.props.profile.currency}
+                  onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+                  onChangeBreakdown={this.handleChangeBreakdown}
+                  onChangeCashlessCharge={this.handleChangeCashlessCharge}
+                  onChangeCategory={this.handleChangeCategory}
+                  onChangeCharge={this.handleChangeCharge}
+                  onChangeMemo={this.handleChangeMemo}
+                  onChangePlace={this.handleChangePlace}
+                  onChangePoint={this.handleChangePoint}
+                  onChangePublishedOn={this.handleChangePublishedOn}
+                  store={this.props.editRecord}
+                />
+              </div>
+              <div className='modal-footer'>
+                <UpdateButton onClickButton={this.handleClickUpdateButton} />
+                <CloseButton onClickClose={this.props.onClickClose} />
+              </div>
+            </Modal>
+          )}
+        </div>
       </div>
     )
   }
@@ -145,7 +182,7 @@ class NewRecordFormContainer extends Component<Props> {
 function mapState(state: RootState): StateProps {
   return {
     profile: state.profile,
-    newRecord: state.newRecord
+    editRecord: state.editRecord
   }
 }
 
@@ -154,13 +191,13 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getRecords(searchParams: { date: Date }): void {
       dispatch(getRecords(searchParams))
     },
-    postRecord(params: RecordParams, searchParams: { date: Date }): void {
-      dispatch(postRecord(params)).then(() => (
-        dispatch(getRecords(searchParams)).then(() => (
+    patchRecord(recordId: number, params: RecordParams, searchParams: { date: Date }): void {
+      dispatch(patchRecord(recordId, params)).then(() => (
+        dispatch(getRecords(searchParams)).then(() => {
           setTimeout(() => {
             dispatch(clearEditedRecord())
           }, 3000)
-        ))
+        })
       ))
     },
     changeCategory(category: Category | undefined): void {
@@ -168,6 +205,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     getCategory(categoryId: number): void {
       dispatch(getCategory(categoryId))
+    },
+    getEditRecordCategory(categoryId: number): void {
+      dispatch(getEditRecordCategory(categoryId))
     },
     changeBalanceOfPayments(balance_of_payments: boolean): void {
       dispatch(changeBalanceOfPayments(balance_of_payments))
@@ -196,4 +236,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(NewRecordFormContainer)
+export default connect(mapState, mapDispatch)(EditRecordModalContainer)
