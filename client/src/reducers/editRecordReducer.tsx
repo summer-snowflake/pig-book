@@ -70,6 +70,11 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       },
       editedRecordId: action.record.id
     }
+  case actionTypes.POST_RECORD_SUCCESS:
+    return {
+      ...state,
+      editedRecordId: action.record.id
+    }
   case actionTypes.CLEAR_EDITED_RECORD:
     return {
       ...state,
