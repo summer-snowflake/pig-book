@@ -12,6 +12,10 @@ interface WithNameAction extends Action {
   name: string;
 }
 
+interface WithPlaceAction extends Action {
+  place: Place;
+}
+
 const postPlaceRequest = (): Action => {
   return {
     type: actionTypes.POST_PLACE_REQUEST
@@ -209,5 +213,18 @@ export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
     catch (err) {
       console.error(err)
     }
+  }
+}
+
+export const editPlace = (place: Place): WithPlaceAction => {
+  return {
+    type: actionTypes.EDIT_PLACE,
+    place
+  }
+}
+
+export const exitPlace = (): Action => {
+  return {
+    type: actionTypes.EXIT_PLACE
   }
 }
