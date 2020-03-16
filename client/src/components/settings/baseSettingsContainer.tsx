@@ -48,7 +48,8 @@ class BaseSettingsContainer extends Component<Props, State> {
       currency: 'yen'
     }
 
-    this.handleClickIcon = this.handleClickIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
     this.handleChangeCurrency = this.handleChangeCurrency.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
@@ -66,24 +67,27 @@ class BaseSettingsContainer extends Component<Props, State> {
     return target === value ? 'dark-green' : 'light-green'
   }
 
-  handleClickIcon(): void {
-    // メモの編集中
+  handleClickEditIcon(): void {
     if (this.props.profile.editingMemo) {
       this.setState({
         isOpenAlertModal: true
       })
     } else {
-      if (this.diff()) {
-        this.setState({
-          isOpenCancelModal: true
-        })
-      } else {
-        this.props.setEditing(!this.props.profile.editing)
-        this.setState({
-          locale: this.props.profile.locale,
-          currency: this.props.profile.currency
-        })
-      }
+      this.props.setEditing(!this.props.profile.editing)
+      this.setState({
+        locale: this.props.profile.locale,
+        currency: this.props.profile.currency
+      })
+    }
+  }
+
+  handleClickExitIcon(): void {
+    if (this.diff()) {
+      this.setState({
+        isOpenCancelModal: true
+      })
+    } else {
+      this.props.setEditing(false)
     }
   }
 
@@ -245,8 +249,8 @@ class BaseSettingsContainer extends Component<Props, State> {
             <div className='card-body with-background-image'>
               <EditAndCancel
                 editing={this.props.profile.editing}
-                onClickEditIcon={this.handleClickIcon}
-                onClickExitIcon={this.handleClickIcon}
+                onClickEditIcon={this.handleClickEditIcon}
+                onClickExitIcon={this.handleClickExitIcon}
               />
               <AlertModal
                 isOpen={this.state.isOpenAlertModal}
