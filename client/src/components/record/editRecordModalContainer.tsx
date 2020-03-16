@@ -7,7 +7,7 @@ import Modal from 'react-modal'
 import { RecordParams, Category } from 'types/api'
 import { EditRecordStore, ProfileStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
-import { patchRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
+import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
@@ -193,7 +193,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     patchRecord(recordId: number, params: RecordParams, searchParams: { date: Date }): void {
       dispatch(patchRecord(recordId, params)).then(() => (
-        dispatch(getRecords(searchParams))
+        dispatch(getRecords(searchParams)).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedRecord())
+          }, 3000)
+        })
       ))
     },
     changeCategory(category: Category | undefined): void {

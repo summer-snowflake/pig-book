@@ -17,7 +17,9 @@ $button-green: #5e7535;
 $darken-button-green: darken($button-green, 10%);
 $rgba3-button-green: rgba($button-green, .3);
 $light-green: #c8d0a3;
+$light-green-translucent-rgba8: rgba($light-green, .8);
 $light-green-translucent: rgba($light-green, .5);
+
 $rgba5-green: rgba($green, .5);
 $lighten-green: lighten($green, 15%);
 $rgba2-lighten-green: rgba($lighten-green, .2);
