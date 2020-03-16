@@ -5,10 +5,7 @@ class RecordsController < ApplicationController
 
   def index
     fetcher = Record::Fetcher.new(user: current_user)
-    fetcher.find_all_by(records_params)
-    records = fetcher.records.includes(
-      :category, :place, :breakdown
-    )
+    records = fetcher.find_all_by(records_params)
     render json: records,
            include: %i[category breakdown place],
            methods: %i[human_charge rounded_charge], status: :ok
@@ -30,6 +27,11 @@ class RecordsController < ApplicationController
     else
       render_validation_error record
     end
+  end
+
+  def destroy
+    record = current_user.records.find(params[:id])
+    record.destroy!
   end
 
   private

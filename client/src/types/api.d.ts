@@ -107,6 +107,7 @@ export interface ReadRecord {
 }
 
 export interface Record {
+  id: number;
   published_at: Date;
   category_id: number;
   breakdown_id: number;

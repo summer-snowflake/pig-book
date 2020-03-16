@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next'
 import { RecordSearchParams, Record } from 'types/api'
 import { NewRecordStore, RecordsStore, EditRecordStore } from 'types/store'
 import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
-import { getRecords } from 'actions/recordsActions'
+import { getRecords, deleteRecord } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
@@ -28,6 +28,7 @@ interface DispatchProps {
   getEditRecordCategory: (categoryId: number) => void;
   changePublishedOn: (date: Date) => void;
   closeEditModal: () => void;
+  deleteRecord: (recordId: number, searchParams: { date: Date }) => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -41,6 +42,7 @@ class RecordsOnInputContainer extends Component<Props> {
     this.handleClickCopy = this.handleClickCopy.bind(this)
     this.handleClickEdit = this.handleClickEdit.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
+    this.handleClickDestroy = this.handleClickDestroy.bind(this)
 
     this.state = {
       isOpenEditRecordModal: false
@@ -80,6 +82,10 @@ class RecordsOnInputContainer extends Component<Props> {
     this.props.closeEditModal()
   }
 
+  handleClickDestroy(record: Record): void {
+    this.props.deleteRecord(record.id, { date: new Date(record.published_at) })
+  }
+
   simpleDate(date: Date): string {
     const { t } = this.props
     const format = t('format.date')
@@ -113,6 +119,7 @@ class RecordsOnInputContainer extends Component<Props> {
           <Records
             editedRecordId={this.props.editRecordStore.editedRecordId}
             onClickCopy={this.handleClickCopy}
+            onClickDestroy={this.handleClickDestroy}
             onClickEdit={this.handleClickEdit}
             records={this.props.records.records}
           />
@@ -152,6 +159,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     closeEditModal(): void {
       dispatch(closeEditModal())
+    },
+    deleteRecord(recordId: number, searchParams: { date: Date }): void {
+      dispatch(deleteRecord(recordId)).then(() => {
+        dispatch(getRecords(searchParams))
+      })
     }
   }
 }
