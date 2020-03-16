@@ -205,7 +205,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
         <td className='icon-field-td'>
           <EditAndCancel
             editing={this.props.editPlace.editingId === this.props.place.id}
-            onClickIcon={this.handleClickIcon}
+            onClickEditIcon={this.handleClickIcon}
+            onClickExitIcon={this.handleClickIcon}
           />
         </td>
         <td className='plus-field-td'>

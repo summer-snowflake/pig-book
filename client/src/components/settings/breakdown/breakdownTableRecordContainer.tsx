@@ -234,7 +234,8 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
         <td className='icon-field-td'>
           <EditAndCancel
             editing={this.props.editBreakdown.editingId === this.props.breakdown.id}
-            onClickIcon={this.handleClickIcon}
+            onClickEditIcon={this.handleClickIcon}
+            onClickExitIcon={this.handleClickIcon}
           />
         </td>
         <td className='trash-field-td'>

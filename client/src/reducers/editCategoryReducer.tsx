@@ -5,18 +5,23 @@ import { toast } from 'react-toastify'
 import { EditCategoryStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
 import { ErrorsAction } from 'types/action'
+import { Category } from 'types/api'
 
 const initialState = {
   isLoading: false,
-  editingId: 0,
+  category: {
+    id: 0,
+    balance_of_payments: false,
+    name: ''
+  },
   errors: []
 }
 
-interface WithEditingIdAction extends ErrorsAction {
-  editingId: number;
+interface StoreAction extends ErrorsAction {
+  category: Category;
 }
 
-const editCategoryReducer = (state: EditCategoryStore = initialState, action: WithEditingIdAction): {} => {
+const editCategoryReducer = (state: EditCategoryStore = initialState, action: StoreAction): {} => {
   switch (action.type) {
   case actionTypes.PATCH_CATEGORY_REQUEST:
     return {
@@ -28,7 +33,11 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: Wi
     return {
       ...state,
       isLoading: false,
-      editingId: 0,
+      category: {
+        id: 0,
+        name: '',
+        balance_of_payments: false
+      },
       errors: []
     }
   case actionTypes.PATCH_CATEGORY_FAILURE:
@@ -37,10 +46,20 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: Wi
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.SWITCH_EDITING:
+  case actionTypes.EDIT_CATEGORY:
     return {
       ...state,
-      editingId: action.editingId,
+      category: action.category,
+      errors: []
+    }
+  case actionTypes.EXIT_CATEGORY:
+    return {
+      ...state,
+      category: {
+        id: 0,
+        name: '',
+        balance_of_payments: false
+      },
       errors: []
     }
   default:

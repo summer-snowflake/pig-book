@@ -46,10 +46,3 @@ export const getCategories = () => {
     }
   }
 }
-
-export const switchEditing = (editingId: number): WithEditingIdAction => {
-  return {
-    type: actionTypes.SWITCH_EDITING,
-    editingId
-  }
-}

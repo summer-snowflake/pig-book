@@ -16,6 +16,10 @@ interface WithNameAction extends Action {
   name: string;
 }
 
+interface WithCategoryAction extends Action {
+  category: Category;
+}
+
 const postCategoryRequest = (): Action => {
   return {
     type: actionTypes.POST_CATEGORY_REQUEST
@@ -223,5 +227,18 @@ export const getEditRecordCategory = (categoryId: number) => {
       }
       console.error(err)
     }
+  }
+}
+
+export const editCategory = (category: Category): WithCategoryAction => {
+  return {
+    type: actionTypes.EDIT_CATEGORY,
+    category
+  }
+}
+
+export const exitCategory = (): Action => {
+  return {
+    type: actionTypes.EXIT_CATEGORY
   }
 }

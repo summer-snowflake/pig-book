@@ -245,7 +245,8 @@ class BaseSettingsContainer extends Component<Props, State> {
             <div className='card-body with-background-image'>
               <EditAndCancel
                 editing={this.props.profile.editing}
-                onClickIcon={this.handleClickIcon}
+                onClickEditIcon={this.handleClickIcon}
+                onClickExitIcon={this.handleClickIcon}
               />
               <AlertModal
                 isOpen={this.state.isOpenAlertModal}

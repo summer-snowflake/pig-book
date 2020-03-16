@@ -1,4 +1,4 @@
-import { Errors } from 'types/api'
+import { Errors, Category } from 'types/api'
 
 export interface CookiesHeader {
   uid: string;
@@ -45,7 +45,7 @@ export interface NewPlaceStore extends Errors {
 
 export interface EditCategoryStore extends Errors {
   isLoading: boolean;
-  editingId: number;
+  category: Category;
 }
 
 export interface EditBreakdownStore extends Errors {
