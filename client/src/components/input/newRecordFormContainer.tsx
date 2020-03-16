@@ -8,11 +8,12 @@ import { NewRecordStore, ProfileStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
+import { clearEditedRecord } from 'actions/editRecordActions'
+import { getRecords } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CreateButton from 'components/common/createButton'
 import RecordForm from 'components/input/recordForm'
-import { getRecords } from 'actions/recordsActions'
 
 interface StateProps {
   profile: ProfileStore;
@@ -155,7 +156,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     postRecord(params: RecordParams, searchParams: { date: Date }): void {
       dispatch(postRecord(params)).then(() => (
-        dispatch(getRecords(searchParams))
+        dispatch(getRecords(searchParams)).then(() => (
+          setTimeout(() => {
+            dispatch(clearEditedRecord())
+          }, 3000)
+        ))
       ))
     },
     changeCategory(category: Category | undefined): void {
