@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
 
 import { ReadRecord, Record } from 'types/api'
+import Trash from 'components/common/trash'
+import DestroyModal from 'components/common/destroyModal'
 
 interface Props {
   record: ReadRecord;
   editedRecordId: number | undefined;
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
+  onClickDestroy: (record: Record) => void;
 }
 
-class RecordTableRecord extends Component<Props> {
+interface State {
+  isOpenDestroyModal: boolean;
+}
+
+class RecordTableRecord extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
+    this.state = {
+      isOpenDestroyModal: false
+    }
+
     this.handleClickCopy = this.handleClickCopy.bind(this)
     this.handleClickEdit = this.handleClickEdit.bind(this)
+    this.handleClickClose = this.handleClickClose.bind(this)
+    this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.handleClickDestroy = this.handleClickDestroy.bind(this)
   }
 
   handleClickCopy(): void {
@@ -23,6 +37,25 @@ class RecordTableRecord extends Component<Props> {
 
   handleClickEdit(): void {
     this.props.onClickEdit(this.props.record)
+  }
+
+  handleClickClose(): void {
+    this.setState({
+      isOpenDestroyModal: false
+    })
+  }
+
+  handleClickTrashIcon(): void {
+    this.setState({
+      isOpenDestroyModal: true
+    })
+  }
+
+  handleClickDestroy(): void {
+    this.setState({
+      isOpenDestroyModal: false
+    })
+    this.props.onClickDestroy(this.props.record)
   }
 
   render(): JSX.Element {
@@ -69,6 +102,16 @@ class RecordTableRecord extends Component<Props> {
             <i className='fas fa-minus-square left-icon red' />
           )}
           {this.props.record.human_charge}
+        </td>
+        <td className='trash-field-td'>
+          <DestroyModal
+            isOpen={this.state.isOpenDestroyModal}
+            onClickCancel={this.handleClickDestroy}
+            onClickClose={this.handleClickClose}
+          />
+          <Trash
+            onClickIcon={this.handleClickTrashIcon}
+          />
         </td>
       </tr>
     )

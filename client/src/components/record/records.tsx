@@ -8,6 +8,7 @@ interface Props {
   editedRecordId: number | undefined;
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
+  onClickDestroy: (record: Record) => void;
 }
 
 class Records extends Component<Props> {
@@ -35,6 +36,7 @@ class Records extends Component<Props> {
               editedRecordId={this.props.editedRecordId}
               key={record.id}
               onClickCopy={this.handleClickCopy}
+              onClickDestroy={this.props.onClickDestroy}
               onClickEdit={this.handleClickEdit}
               record={record}
             />
