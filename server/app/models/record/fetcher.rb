@@ -14,17 +14,18 @@ class Record::Fetcher
   def find_all_by(params)
     init_attrs(params)
 
-    @records = search_records
+    records = search_records
+    records = records.order("#{order}": :desc) if order
+    @records = records.order(created_at: :desc)
   end
 
   def search_records
-    records = user.records
+    records = user.records.where(published_at: time_range)
     records = records.where(category: category) if category
     records = records.where(breakdown: breakdown) if breakdown
     records = records.where(place: place) if place
-    records = records.where(published_at: time_range)
+    records = records.includes(:category, :breakdown, :place)
     records = records.limit(limit) if limit
-    records = records.order("#{order}": :desc)
     records
   end
 
@@ -35,7 +36,7 @@ class Record::Fetcher
     @month = params[:month]
     @date = get_date(params)
     @limit = params[:limit]
-    @order = params[:order] || :published_at
+    @order = params[:order]
 
     @category = find_category(params[:category_id])
     @breakdown = find_breakdown(params[:breakdown_id])
