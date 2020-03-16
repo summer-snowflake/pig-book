@@ -15,11 +15,20 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record = current_user.records.new(record_params)
-    if @record.save
-      render json: @record, status: :created
+    record = current_user.records.new(record_params)
+    if record.save
+      render json: record, status: :created
     else
-      render_validation_error @record
+      render_validation_error record
+    end
+  end
+
+  def update
+    record = current_user.records.find(params[:id])
+    if record.update(record_params)
+      render json: record, status: :ok
+    else
+      render_validation_error record
     end
   end
 
