@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
 
   def index
     places = current_user.places.includes(:categories).order(created_at: :desc)
-    render json: places.to_json(methods: :categories), status: :ok
+    render json: places, include: :categories, status: :ok
   end
 
   def create
@@ -29,7 +29,7 @@ class PlacesController < ApplicationController
   def destroy
     place = current_user.places.find(params[:id])
     place.destroy!
-  rescue ActiveRecord::InvalidForeignKey
+  rescue ActiveRecord::DeleteRestrictionError
     render json: { errors: [I18n.t('errors.cannot_be_deleted')] },
            status: :forbidden
   end
