@@ -5,7 +5,7 @@ import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction } from 'types/action'
-import { BreakdownParams, Errors, Category } from 'types/api'
+import { BreakdownParams, Errors, Category, Breakdown } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
 interface WithNameAction extends Action {
@@ -14,6 +14,10 @@ interface WithNameAction extends Action {
 
 interface WithCategoryAction extends Action {
   category: Category | undefined;
+}
+
+interface WithBreakdownAction extends Action {
+  breakdown: Breakdown;
 }
 
 const postBreakdownRequest = (): Action => {
@@ -144,5 +148,18 @@ export const deleteBreakdown = (breakdownId: number) => {
       console.error(err)
       dispatch(deleteBreakdownFailure(err.response.data.errors))
     }
+  }
+}
+
+export const editBreakdown = (breakdown: Breakdown): WithBreakdownAction => {
+  return {
+    type: actionTypes.EDIT_BREAKDOWN,
+    breakdown
+  }
+}
+
+export const exitBreakdown = (): Action => {
+  return {
+    type: actionTypes.EXIT_BREAKDOWN
   }
 }
