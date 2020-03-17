@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { AdminUser } from 'types/api'
 
+import HumanTime from 'components/common/humanTime'
+
 import 'stylesheets/admin.sass'
 
 interface Props {
@@ -22,7 +24,7 @@ class UserTableRecord extends Component<Props> {
         </td>
         <td>
           <i className='fas fa-clock left-icon' />
-          {this.props.user.current_sign_in_at}
+          <HumanTime date={new Date(this.props.user.current_sign_in_at)} />
         </td>
         <td>
           <span className='total-count'>
