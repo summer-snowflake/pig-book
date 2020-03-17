@@ -12,6 +12,15 @@ interface WithNameAction extends Action {
   name: string;
 }
 
+interface WithPlaceAction extends Action {
+  place: Place;
+}
+
+interface WithPlaceCategoriesAction extends Action {
+  placeId: number;
+  categories: Category[];
+}
+
 const postPlaceRequest = (): Action => {
   return {
     type: actionTypes.POST_PLACE_REQUEST
@@ -65,9 +74,10 @@ const patchPlaceRequest = (): Action => {
   }
 }
 
-const patchPlaceSuccess = (): Action => {
+const patchPlaceSuccess = (place: Place): WithPlaceAction => {
   return {
-    type: actionTypes.PATCH_PLACE_SUCCESS
+    type: actionTypes.PATCH_PLACE_SUCCESS,
+    place
   }
 }
 
@@ -84,8 +94,8 @@ export const patchPlace = (id: number, params: PlaceParams) => {
 
     try {
       if(ready()) {
-        await axios.patch('/api/places/' + id, params, { headers: loginHeaders() })
-        dispatch(patchPlaceSuccess())
+        const res = await axios.patch('/api/places/' + id, params, { headers: loginHeaders() })
+        dispatch(patchPlaceSuccess(res.data))
       } else {
         dispatch(getCookiesFailure())
       }
@@ -179,9 +189,10 @@ const postPlaceCategoriesRequest = (): Action => {
   }
 }
 
-const postPlaceCategoriesSuccess = (categories: Category[]): CategoriesAction => {
+const postPlaceCategoriesSuccess = (placeId: number, categories: Category[]): WithPlaceCategoriesAction => {
   return {
     type: actionTypes.POST_PLACE_CATEGORIES_SUCCESS,
+    placeId,
     categories
   }
 }
@@ -201,7 +212,7 @@ export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
           category_ids: categoryIds
         }
         const res = await axios.post('/api/places/' + placeId + '/categories', params, { headers: loginHeaders() })
-        dispatch(postPlaceCategoriesSuccess(res.data))
+        dispatch(postPlaceCategoriesSuccess(placeId, res.data))
       } else {
         dispatch(postPlaceCategoriesFailure())
       }
@@ -209,5 +220,24 @@ export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
     catch (err) {
       console.error(err)
     }
+  }
+}
+
+export const editPlace = (place: Place): WithPlaceAction => {
+  return {
+    type: actionTypes.EDIT_PLACE,
+    place
+  }
+}
+
+export const exitPlace = (): Action => {
+  return {
+    type: actionTypes.EXIT_PLACE
+  }
+}
+
+export const clearEditedPlace = (): Action => {
+  return {
+    type: actionTypes.CLEAR_EDITED_PLACE
   }
 }

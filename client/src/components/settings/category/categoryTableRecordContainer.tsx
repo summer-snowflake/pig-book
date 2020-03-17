@@ -11,19 +11,20 @@ import CategoryForm from 'components/settings/category/categoryForm'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
-import { getCategories, switchEditing } from 'actions/categoriesActions'
-import { patchCategory, deleteCategory } from 'actions/categoryActions'
+import { getCategories } from 'actions/categoriesActions'
+import { patchCategory, deleteCategory, editCategory, exitCategory, clearEditedCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
 import Trash from 'components/common/trash'
 import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
-  editCategory: EditCategoryStore;
+  editCategoryStore: EditCategoryStore;
 }
 
 interface DispatchProps {
-  switchEditing: (editingId: number) => void;
+  editCategory: (category: Category) => void;
+  exitCategory: () => void;
   patchCategory: (id: number, params: CategoryParams) => void;
   deleteCategory: (categoryId: number) => void;
 }
@@ -56,7 +57,8 @@ class CategoryTableRecordContainer extends Component<Props, State> {
       }
     }
 
-    this.handleClickIcon = this.handleClickIcon.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
@@ -72,29 +74,34 @@ class CategoryTableRecordContainer extends Component<Props, State> {
       this.props.category.balance_of_payments !== this.state.category.balance_of_payments
   }
 
-  handleClickIcon(): void {
-    // 編集中ではない編集アイコン
-    if (this.props.editCategory.editingId === 0) {
-      this.props.switchEditing(this.props.category.id)
+  editing(): boolean {
+    return this.props.category.id === this.props.editCategoryStore.category.id
+  }
+
+  handleClickEditIcon(): void {
+    // 編集中ではない場合
+    if (this.props.editCategoryStore.category.id === 0) {
+      this.props.editCategory(this.props.category)
       this.setState({
         category: this.props.category
       })
-    }
-    // 編集中の編集アイコン
-    if (this.props.editCategory.editingId !== 0 && this.props.editCategory.editingId !== this.props.category.id) {
-      this.setState({
-        isOpenAlertModal: true
-      })
-    }
-    // キャンセルアイコン
-    if (this.props.editCategory.editingId === this.props.category.id) {
-      if (this.diff()) {
+    } else {
+      // 他のアイテム編集中の場合
+      if (this.props.editCategoryStore.category.id !== this.props.category.id) {
         this.setState({
-          isOpenCancelModal: true
+          isOpenAlertModal: true
         })
-      } else {
-        this.props.switchEditing(0)
       }
+    }
+  }
+
+  handleClickExitIcon(): void {
+    if (this.diff()) {
+      this.setState({
+        isOpenCancelModal: true
+      })
+    } else {
+      this.props.exitCategory()
     }
   }
 
@@ -137,7 +144,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
       category: this.props.category,
       isOpenCancelModal: false
     })
-    this.props.switchEditing(0)
+    this.props.exitCategory()
   }
 
   handleClickClose(): void {
@@ -163,8 +170,8 @@ class CategoryTableRecordContainer extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <tr className='category-table-record-component'>
-        {this.props.editCategory.editingId === this.props.category.id ? (
+      <tr className={'category-table-record-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
+        {this.editing() ? (
           <td>
             <CancelUpdateModal
               isOpen={this.state.isOpenCancelModal}
@@ -173,13 +180,13 @@ class CategoryTableRecordContainer extends Component<Props, State> {
             />
             <CategoryForm
               category={this.state.category}
-              disabled={this.props.editCategory.isLoading || !this.diff()}
+              disabled={this.props.editCategoryStore.isLoading || !this.diff()}
               onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}
             />
-            <ValidationErrorMessages messages={this.props.editCategory.errors} />
+            <ValidationErrorMessages messages={this.props.editCategoryStore.errors} />
           </td>
         ) : (
           <td>
@@ -193,8 +200,9 @@ class CategoryTableRecordContainer extends Component<Props, State> {
         )}
         <td className='icon-field-td'>
           <EditAndCancel
-            editing={this.props.editCategory.editingId === this.props.category.id}
-            onClickIcon={this.handleClickIcon}
+            editing={this.editing()}
+            onClickEditIcon={this.handleClickEditIcon}
+            onClickExitIcon={this.handleClickExitIcon}
           />
         </td>
         <td className='trash-field-td'>
@@ -214,7 +222,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    editCategory: state.editCategory
+    editCategoryStore: state.editCategory
   }
 }
 
@@ -222,11 +230,18 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     patchCategory(id: number, category: CategoryParams): void {
       dispatch(patchCategory(id, category)).then(() => {
-        dispatch(getCategories())
+        dispatch(getCategories()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedCategory())
+          }, 3000)
+        })
       })
     },
-    switchEditing(editingId: number): void {
-      dispatch(switchEditing(editingId))
+    editCategory(category: Category): void {
+      dispatch(editCategory(category))
+    },
+    exitCategory(): void {
+      dispatch(exitCategory())
     },
     deleteCategory(categoryId: number): void {
       dispatch(deleteCategory(categoryId)).then(() => {

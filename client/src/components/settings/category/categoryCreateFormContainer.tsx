@@ -8,7 +8,7 @@ import { CategoryParams } from 'types/api'
 import { NewCategoryStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CategoryForm from 'components/settings/category/categoryForm'
-import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName } from 'actions/categoryActions'
+import { postCategory, changeCategoryBalanceOfPayments, changeCategoryName, clearEditedCategory } from 'actions/categoryActions'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
@@ -92,7 +92,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     postCategory(params: CategoryParams): void {
       dispatch(postCategory(params)).then(() => {
-        dispatch(getCategories())
+        dispatch(getCategories()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedCategory())
+          }, 3000)
+        })
       })
     },
     changeCategoryBalanceOfPayments(balanceOfPayments: boolean): void {

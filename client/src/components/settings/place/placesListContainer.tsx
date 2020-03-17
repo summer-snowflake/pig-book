@@ -9,7 +9,7 @@ import { getPlaces } from 'actions/placesActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
-  places: {
+  placesStore: {
     places: WithCategoriesPlace[];
   };
 }
@@ -31,7 +31,7 @@ class PlacesListContainer extends Component<Props> {
     return (
       <table className='table places-list-component'>
         <tbody>
-          {this.props.places.places.map((place: WithCategoriesPlace) => (
+          {this.props.placesStore.places.map((place: WithCategoriesPlace) => (
             <PlaceTableRecordContainer key={place.id} place={place} />
           ))}
         </tbody>
@@ -42,7 +42,7 @@ class PlacesListContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    places: state.places
+    placesStore: state.places
   }
 }
 

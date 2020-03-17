@@ -5,18 +5,29 @@ import { toast } from 'react-toastify'
 import { EditBreakdownStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
 import { ErrorsAction } from 'types/action'
+import { Breakdown } from 'types/api'
 
 const initialState = {
   isLoading: false,
-  editingId: 0,
+  breakdown: {
+    id: 0,
+    name: '',
+    category_id: 0,
+    category: {
+      id: 0,
+      name: '',
+      balance_of_payments: false
+    },
+  },
+  editedBreakdownId: 0,
   errors: []
 }
 
-interface WithEditingIdAction extends ErrorsAction {
-  editingId: number;
+interface StoreAction extends ErrorsAction {
+  breakdown: Breakdown;
 }
 
-const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: WithEditingIdAction): {} => {
+const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: StoreAction): {} => {
   switch (action.type) {
   case actionTypes.PATCH_BREAKDOWN_REQUEST:
     return {
@@ -28,8 +39,23 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
     return {
       ...state,
       isLoading: false,
-      editingId: 0,
+      breakdown: {
+        id: 0,
+        name: '',
+        category_id: 0,
+        category: {
+          id: 0,
+          name: '',
+          balance_of_payments: false
+        }
+      },
+      editedBreakdownId: action.breakdown.id,
       errors: []
+    }
+  case actionTypes.POST_BREAKDOWN_SUCCESS:
+    return {
+      ...state,
+      editedBreakdownId: action.breakdown.id
     }
   case actionTypes.PATCH_BREAKDOWN_FAILURE:
     return {
@@ -37,11 +63,31 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.SWITCH_EDITING:
+  case actionTypes.EDIT_BREAKDOWN:
     return {
       ...state,
-      editingId: action.editingId,
+      breakdown: action.breakdown,
       errors: []
+    }
+  case actionTypes.EXIT_BREAKDOWN:
+    return {
+      ...state,
+      breakdown: {
+        id: 0,
+        name: '',
+        category_id: 0,
+        category: {
+          id: 0,
+          name: '',
+          balance_of_payments: false
+        }
+      },
+      errors: []
+    }
+  case actionTypes.CLEAR_EDITED_BREAKDOWN:
+    return {
+      ...state,
+      editedBreakdownId: 0
     }
   default:
     return state
