@@ -21,6 +21,10 @@ class UserTableRecord extends Component<Props> {
           {this.props.user.email}
         </td>
         <td>
+          <i className='fas fa-clock left-icon' />
+          {this.props.user.current_sign_in_at}
+        </td>
+        <td>
           <span className='total-count'>
             <i className='fas fa-th-large left-icon yellow' />
             {this.props.user.total.category}

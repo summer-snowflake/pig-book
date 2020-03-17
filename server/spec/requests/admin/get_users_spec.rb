@@ -46,6 +46,7 @@ describe 'GET /api/categories' do
           nickname: user.nickname,
           provider: 'email',
           uid: user.email,
+          current_sign_in_at: user.reload.current_sign_in_at,
           total: {
             category: 1,
             breakdown: 0,
@@ -64,6 +65,7 @@ describe 'GET /api/categories' do
           nickname: user2.nickname,
           provider: 'email',
           uid: user2.email,
+          current_sign_in_at: user2.reload.current_sign_in_at,
           total: {
             category: 0,
             breakdown: 0,

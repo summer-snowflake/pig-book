@@ -86,6 +86,7 @@
     "editingOther": "編集中の項目があります"
   },
   "admin": {
-    "userEmail": "メールアドレス"
+    "userEmail": "メールアドレス",
+    "lastSignInAt": "最終ログイン時刻"
   }
 }
