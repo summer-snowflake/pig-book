@@ -8,7 +8,7 @@ import { BreakdownParams, Category } from 'types/api'
 import { NewBreakdownStore, NewCategoryStore, CategoriesStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import BreakdownForm from 'components/settings/breakdown/breakdownForm'
-import { postBreakdown, changeBreakdownName, changeCategory } from 'actions/breakdownActions'
+import { postBreakdown, changeBreakdownName, changeCategory, clearEditedBreakdown } from 'actions/breakdownActions'
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { RootState } from 'reducers/rootReducer'
 import { changeCategoryBalanceOfPayments } from 'actions/categoryActions'
@@ -105,7 +105,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     postBreakdown(params: BreakdownParams): void {
       dispatch(postBreakdown(params)).then(() => {
-        dispatch(getBreakdowns())
+        dispatch(getBreakdowns()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedBreakdown())
+          }, 3000)
+        })
       })
     },
     changeCategoryBalanceOfPayments(balanceOfPayments: boolean): void {

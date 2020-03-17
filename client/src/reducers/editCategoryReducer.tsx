@@ -14,6 +14,7 @@ const initialState = {
     balance_of_payments: false,
     name: ''
   },
+  editedCategoryId: 0,
   errors: []
 }
 
@@ -38,7 +39,13 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: St
         name: '',
         balance_of_payments: false
       },
+      editedCategoryId: action.category.id,
       errors: []
+    }
+  case actionTypes.POST_CATEGORY_SUCCESS:
+    return {
+      ...state,
+      editedCategoryId: action.category.id
     }
   case actionTypes.PATCH_CATEGORY_FAILURE:
     return {
@@ -61,6 +68,11 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: St
         balance_of_payments: false
       },
       errors: []
+    }
+  case actionTypes.CLEAR_EDITED_CATEGORY:
+    return {
+      ...state,
+      editedCategoryId: 0
     }
   default:
     return state

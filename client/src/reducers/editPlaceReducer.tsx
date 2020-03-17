@@ -14,6 +14,7 @@ const initialState = {
     name: '',
     categories: []
   },
+  editedPlaceId: 0,
   errors: []
 }
 
@@ -39,7 +40,13 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
         name: '',
         categories: []
       },
+      editedPlaceId: action.place.id,
       errors: []
+    }
+  case actionTypes.POST_PLACE_SUCCESS:
+    return {
+      ...state,
+      editedPlaceId: action.place.id
     }
   case actionTypes.PATCH_PLACE_FAILURE:
     return {
@@ -62,6 +69,11 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
         categories: []
       },
       errors: []
+    }
+  case actionTypes.CLEAR_EDITED_PLACE:
+    return {
+      ...state,
+      editedPlaceId: 0
     }
   default:
     return state

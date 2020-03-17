@@ -8,7 +8,7 @@ import { PlaceParams } from 'types/api'
 import { NewPlaceStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import PlaceForm from 'components/settings/place/placeForm'
-import { postPlace, changePlaceName } from 'actions/placeActions'
+import { postPlace, changePlaceName, clearEditedPlace } from 'actions/placeActions'
 import { getPlaces } from 'actions/placesActions'
 import { RootState } from 'reducers/rootReducer'
 
@@ -83,7 +83,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     postPlace(params: PlaceParams): void {
       dispatch(postPlace(params)).then(() => {
-        dispatch(getPlaces())
+        dispatch(getPlaces()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedPlace())
+          }, 3000)
+        })
       })
     },
     changePlaceName(name: string): void {

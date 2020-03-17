@@ -80,9 +80,10 @@ const patchCategoryRequest = (): Action => {
   }
 }
 
-const patchCategorySuccess = (): Action => {
+const patchCategorySuccess = (category: Category): CategoryAction => {
   return {
-    type: actionTypes.PATCH_CATEGORY_SUCCESS
+    type: actionTypes.PATCH_CATEGORY_SUCCESS,
+    category
   }
 }
 
@@ -99,8 +100,8 @@ export const patchCategory = (id: number, params: CategoryParams) => {
 
     try {
       if(ready()) {
-        await axios.patch('/api/categories/' + id, params, { headers: loginHeaders() })
-        dispatch(patchCategorySuccess())
+        const res = await axios.patch('/api/categories/' + id, params, { headers: loginHeaders() })
+        dispatch(patchCategorySuccess(res.data))
       } else {
         dispatch(getCookiesFailure())
       }
@@ -240,5 +241,11 @@ export const editCategory = (category: Category): WithCategoryAction => {
 export const exitCategory = (): Action => {
   return {
     type: actionTypes.EXIT_CATEGORY
+  }
+}
+
+export const clearEditedCategory = (): Action => {
+  return {
+    type: actionTypes.CLEAR_EDITED_CATEGORY
   }
 }

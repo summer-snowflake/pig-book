@@ -45,16 +45,19 @@ export interface NewPlaceStore extends Errors {
 
 export interface EditCategoryStore extends Errors {
   isLoading: boolean;
+  editedCategoryId: number;
   category: Category;
 }
 
 export interface EditBreakdownStore extends Errors {
   isLoading: boolean;
+  editedBreakdownId: number;
   breakdown: Breakdown;
 }
 
 export interface EditPlaceStore extends Errors {
   isLoading: boolean;
+  editedPlaceId: number;
   place: Place;
 }
 
