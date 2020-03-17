@@ -13,7 +13,7 @@ import DestroyModal from 'components/common/destroyModal'
 import CategorizedPlusButton from 'components/settings/place/categorizedPlusButton'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import { getPlaces } from 'actions/placesActions'
-import { patchPlace, deletePlace, postPlaceCategories, editPlace, exitPlace } from 'actions/placeActions'
+import { patchPlace, deletePlace, postPlaceCategories, editPlace, exitPlace, clearEditedPlace } from 'actions/placeActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
 import CategorizedModal from 'components/settings/place/categorizedModal'
@@ -182,7 +182,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <tr className='place-table-record-component'>
+      <tr className={'place-table-record-component' + (this.props.place.id === this.props.editPlaceStore.editedPlaceId ? ' edited' : '')}>
         {this.editing() ? (
           <td className='place-field-td' colSpan={2}>
             <CancelUpdateModal
@@ -257,7 +257,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     patchPlace(id: number, place: PlaceParams): void {
       dispatch(patchPlace(id, place)).then(() => {
-        dispatch(getPlaces())
+        dispatch(getPlaces()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedPlace())
+          }, 3000)
+        })
       })
     },
     editPlace(place: Place): void {

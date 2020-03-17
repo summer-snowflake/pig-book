@@ -17,8 +17,9 @@ const initialState = {
       id: 0,
       name: '',
       balance_of_payments: false
-    }
+    },
   },
+  editedBreakdownId: 0,
   errors: []
 }
 
@@ -48,7 +49,13 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
           balance_of_payments: false
         }
       },
+      editedBreakdownId: action.breakdown.id,
       errors: []
+    }
+  case actionTypes.POST_BREAKDOWN_SUCCESS:
+    return {
+      ...state,
+      editedBreakdownId: action.breakdown.id
     }
   case actionTypes.PATCH_BREAKDOWN_FAILURE:
     return {
@@ -76,6 +83,11 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
         }
       },
       errors: []
+    }
+  case actionTypes.CLEAR_EDITED_BREAKDOWN:
+    return {
+      ...state,
+      editedBreakdownId: 0
     }
   default:
     return state

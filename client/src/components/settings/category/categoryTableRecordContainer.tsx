@@ -12,7 +12,7 @@ import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import { getCategories } from 'actions/categoriesActions'
-import { patchCategory, deleteCategory, editCategory, exitCategory } from 'actions/categoryActions'
+import { patchCategory, deleteCategory, editCategory, exitCategory, clearEditedCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
 import Trash from 'components/common/trash'
@@ -170,7 +170,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <tr className='category-table-record-component'>
+      <tr className={'category-table-record-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
         {this.editing() ? (
           <td>
             <CancelUpdateModal
@@ -230,7 +230,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     patchCategory(id: number, category: CategoryParams): void {
       dispatch(patchCategory(id, category)).then(() => {
-        dispatch(getCategories())
+        dispatch(getCategories()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedCategory())
+          }, 3000)
+        })
       })
     },
     editCategory(category: Category): void {

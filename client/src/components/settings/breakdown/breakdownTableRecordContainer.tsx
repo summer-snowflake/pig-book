@@ -14,7 +14,7 @@ import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import AlertModal from 'components/common/alertModal'
 import { getBreakdowns } from 'actions/breakdownsActions'
-import { changeCategory, patchBreakdown, deleteBreakdown, editBreakdown, exitBreakdown } from 'actions/breakdownActions'
+import { changeCategory, patchBreakdown, deleteBreakdown, editBreakdown, exitBreakdown, clearEditedBreakdown } from 'actions/breakdownActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 import Trash from 'components/common/trash'
@@ -200,7 +200,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <tr className='breakdown-table-record-component'>
+      <tr className={'breakdown-table-record-component' + (this.props.breakdown.id === this.props.editBreakdownStore.editedBreakdownId ? ' edited' : '')}>
         {this.editing() && (
           <td colSpan={2}>
             <CancelUpdateModal
@@ -268,7 +268,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     patchBreakdown(id: number, breakdown: BreakdownParams): void {
       dispatch(patchBreakdown(id, breakdown)).then(() => {
-        dispatch(getBreakdowns())
+        dispatch(getBreakdowns()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedBreakdown())
+          }, 3000)
+        })
       })
     },
     changeCategory(category: Category | undefined): void {

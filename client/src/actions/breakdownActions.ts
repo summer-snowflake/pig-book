@@ -4,7 +4,7 @@ import { Action } from 'redux'
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
-import { ErrorsAction } from 'types/action'
+import { ErrorsAction, BreakdownAction } from 'types/action'
 import { BreakdownParams, Errors, Category, Breakdown } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
@@ -16,19 +16,16 @@ interface WithCategoryAction extends Action {
   category: Category | undefined;
 }
 
-interface WithBreakdownAction extends Action {
-  breakdown: Breakdown;
-}
-
 const postBreakdownRequest = (): Action => {
   return {
     type: actionTypes.POST_BREAKDOWN_REQUEST
   }
 }
 
-const postBreakdownSuccess = (): Action => {
+const postBreakdownSuccess = (breakdown: Breakdown): BreakdownAction => {
   return {
-    type: actionTypes.POST_BREAKDOWN_SUCCESS
+    type: actionTypes.POST_BREAKDOWN_SUCCESS,
+    breakdown
   }
 }
 
@@ -44,8 +41,8 @@ export const postBreakdown = (params: BreakdownParams) => {
     dispatch(postBreakdownRequest())
     try {
       if(ready()) {
-        await axios.post('/api/breakdowns', params, { headers: loginHeaders() })
-        dispatch(postBreakdownSuccess())
+        const res = await axios.post('/api/breakdowns', params, { headers: loginHeaders() })
+        dispatch(postBreakdownSuccess(res.data))
       } else {
         dispatch(getCookiesFailure())
       }
@@ -79,9 +76,10 @@ const patchBreakdownRequest = (): Action => {
   }
 }
 
-const patchBreakdownSuccess = (): Action => {
+const patchBreakdownSuccess = (breakdown: Breakdown): BreakdownAction => {
   return {
-    type: actionTypes.PATCH_BREAKDOWN_SUCCESS
+    type: actionTypes.PATCH_BREAKDOWN_SUCCESS,
+    breakdown
   }
 }
 
@@ -98,8 +96,8 @@ export const patchBreakdown = (id: number, params: BreakdownParams) => {
 
     try {
       if(ready()) {
-        await axios.patch('/api/breakdowns/' + id, params, { headers: loginHeaders() })
-        dispatch(patchBreakdownSuccess())
+        const res = await axios.patch('/api/breakdowns/' + id, params, { headers: loginHeaders() })
+        dispatch(patchBreakdownSuccess(res.data))
       } else {
         dispatch(getCookiesFailure())
       }
@@ -151,7 +149,7 @@ export const deleteBreakdown = (breakdownId: number) => {
   }
 }
 
-export const editBreakdown = (breakdown: Breakdown): WithBreakdownAction => {
+export const editBreakdown = (breakdown: Breakdown): BreakdownAction => {
   return {
     type: actionTypes.EDIT_BREAKDOWN,
     breakdown
@@ -161,5 +159,11 @@ export const editBreakdown = (breakdown: Breakdown): WithBreakdownAction => {
 export const exitBreakdown = (): Action => {
   return {
     type: actionTypes.EXIT_BREAKDOWN
+  }
+}
+
+export const clearEditedBreakdown = (): Action => {
+  return {
+    type: actionTypes.CLEAR_EDITED_BREAKDOWN
   }
 }

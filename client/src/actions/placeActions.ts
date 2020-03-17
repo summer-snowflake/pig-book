@@ -69,9 +69,10 @@ const patchPlaceRequest = (): Action => {
   }
 }
 
-const patchPlaceSuccess = (): Action => {
+const patchPlaceSuccess = (place: Place): WithPlaceAction => {
   return {
-    type: actionTypes.PATCH_PLACE_SUCCESS
+    type: actionTypes.PATCH_PLACE_SUCCESS,
+    place
   }
 }
 
@@ -88,8 +89,8 @@ export const patchPlace = (id: number, params: PlaceParams) => {
 
     try {
       if(ready()) {
-        await axios.patch('/api/places/' + id, params, { headers: loginHeaders() })
-        dispatch(patchPlaceSuccess())
+        const res = await axios.patch('/api/places/' + id, params, { headers: loginHeaders() })
+        dispatch(patchPlaceSuccess(res.data))
       } else {
         dispatch(getCookiesFailure())
       }
@@ -226,5 +227,11 @@ export const editPlace = (place: Place): WithPlaceAction => {
 export const exitPlace = (): Action => {
   return {
     type: actionTypes.EXIT_PLACE
+  }
+}
+
+export const clearEditedPlace = (): Action => {
+  return {
+    type: actionTypes.CLEAR_EDITED_PLACE
   }
 }
