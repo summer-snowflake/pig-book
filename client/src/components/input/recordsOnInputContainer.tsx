@@ -6,6 +6,7 @@ import { withTranslation } from 'react-i18next'
 
 import { RecordSearchParams, Record } from 'types/api'
 import { NewRecordStore, RecordsStore, EditRecordStore } from 'types/store'
+import HumanDate from 'components/common/humanDate'
 import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
 import { getRecords, deleteRecord } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
@@ -86,17 +87,6 @@ class RecordsOnInputContainer extends Component<Props> {
     this.props.deleteRecord(record.id, { date: new Date(record.published_at) })
   }
 
-  simpleDate(date: Date): string {
-    const { t } = this.props
-    const format = t('format.date')
-    let dateStr = format
-    dateStr = dateStr.replace(/YYYY/, String(date.getFullYear()))
-    dateStr = dateStr.replace(/MM/, String(date.getMonth() + 1))
-    dateStr = dateStr.replace(/DD/, String(date.getDate()))
-    dateStr = dateStr.replace(/W/, t('format.week.' + String(date.getDay())))
-    return dateStr
-  }
-
   render(): JSX.Element {
     return (
       <div className='records-on-input-component card col'>
@@ -110,7 +100,7 @@ class RecordsOnInputContainer extends Component<Props> {
               <i className='fas fa-chevron-left' />
             </button>
             <span className='simple-date'>
-              {this.simpleDate(this.props.newRecordStore.record.published_on)}
+              <HumanDate date={this.props.newRecordStore.record.published_on} />
             </span>
             <button className='btn btn-secondary btn-sm float-right' onClick={this.handleClickRightArrow}>
               <i className='fas fa-chevron-right' />
