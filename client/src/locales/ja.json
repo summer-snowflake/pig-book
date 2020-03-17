@@ -2,6 +2,7 @@
   "brand_name": "おこづかいちょうβ",
   "format": {
     "date": "YYYY年MM月DD日（W）",
+    "time": "HH時MI分SS秒",
     "week": {
       "0": "日",
       "1": "月",
@@ -86,6 +87,7 @@
     "editingOther": "編集中の項目があります"
   },
   "admin": {
-    "userEmail": "メールアドレス"
+    "userEmail": "メールアドレス",
+    "lastSignInAt": "最終ログイン時刻"
   }
 }

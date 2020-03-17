@@ -57,6 +57,7 @@ export interface AdminUser extends User {
 export interface User {
   id: number;
   email: string;
+  current_sign_in_at: string;
   uid: string;
   admin: Admin;
 }
