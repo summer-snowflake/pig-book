@@ -38,6 +38,7 @@ class UsersListContainer extends Component<Props> {
             <tr>
               <th />
               <th>{t('admin.userEmail')}</th>
+              <th>{t('admin.lastSignInAt')}</th>
               <th />
             </tr>
             {this.props.users.users.map((user) => (

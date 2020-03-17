@@ -86,6 +86,7 @@
     "editingOther": "Editing now"
   },
   "admin": {
-    "userEmail": "Email"
+    "userEmail": "Email",
+    "lastSignInAt": "Last Sign in time"
   }
 }
