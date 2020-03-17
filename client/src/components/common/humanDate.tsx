@@ -6,7 +6,7 @@ interface Props {
 }
 
 class HumanDate extends Component<Props & I18nProps> {
-  toHumanDate() {
+  toHumanDate(): string {
     const { t } = this.props
     const format = t('format.date')
     let dateStr = format
