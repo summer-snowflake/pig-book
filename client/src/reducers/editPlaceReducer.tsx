@@ -19,7 +19,7 @@ const initialState = {
 }
 
 interface WithEditingIdAction extends ErrorsAction {
-  editingId: number;
+  placeId: number;
   place: Place;
 }
 
@@ -74,6 +74,11 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
     return {
       ...state,
       editedPlaceId: 0
+    }
+  case actionTypes.POST_PLACE_CATEGORIES_SUCCESS:
+    return {
+      ...state,
+      editedPlaceId: action.placeId
     }
   default:
     return state

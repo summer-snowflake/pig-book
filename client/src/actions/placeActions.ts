@@ -16,6 +16,11 @@ interface WithPlaceAction extends Action {
   place: Place;
 }
 
+interface WithPlaceCategoriesAction extends Action {
+  placeId: number;
+  categories: Category[];
+}
+
 const postPlaceRequest = (): Action => {
   return {
     type: actionTypes.POST_PLACE_REQUEST
@@ -184,9 +189,10 @@ const postPlaceCategoriesRequest = (): Action => {
   }
 }
 
-const postPlaceCategoriesSuccess = (categories: Category[]): CategoriesAction => {
+const postPlaceCategoriesSuccess = (placeId: number, categories: Category[]): WithPlaceCategoriesAction => {
   return {
     type: actionTypes.POST_PLACE_CATEGORIES_SUCCESS,
+    placeId,
     categories
   }
 }
@@ -206,7 +212,7 @@ export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
           category_ids: categoryIds
         }
         const res = await axios.post('/api/places/' + placeId + '/categories', params, { headers: loginHeaders() })
-        dispatch(postPlaceCategoriesSuccess(res.data))
+        dispatch(postPlaceCategoriesSuccess(placeId, res.data))
       } else {
         dispatch(postPlaceCategoriesFailure())
       }

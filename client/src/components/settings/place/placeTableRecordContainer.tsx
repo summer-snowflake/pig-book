@@ -280,7 +280,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     postPlaceCategories(placeId: number, categoryIds: number[]): void {
       dispatch(postPlaceCategories(placeId, categoryIds)).then(() => {
-        dispatch(getPlaces())
+        dispatch(getPlaces()).then(() => {
+          setTimeout(() => {
+            dispatch(clearEditedPlace())
+          }, 3000)
+        })
       })
     }
   }
