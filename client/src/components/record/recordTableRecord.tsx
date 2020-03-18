@@ -3,9 +3,11 @@ import React, { Component } from 'react'
 import { ReadRecord, Record } from 'types/api'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
+import HumanDate from 'components/common/humanDate'
 
 interface Props {
   record: ReadRecord;
+  format?: string;
   editedRecordId: number | undefined;
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
@@ -71,6 +73,11 @@ class RecordTableRecord extends Component<Props, State> {
             <i className='far fa-edit' />
           </span>
         </td>
+        {this.props.format === 'detail' && (
+          <td className='date-field-td'>
+            <HumanDate date={new Date(this.props.record.published_at)} />
+          </td>
+        )}
         <td className='record-td'>
           {this.props.record.category && (
             <span>

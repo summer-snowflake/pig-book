@@ -8,7 +8,7 @@ import { RecordSearchParams, Record } from 'types/api'
 import { NewRecordStore, RecordsStore, EditRecordStore } from 'types/store'
 import HumanDate from 'components/common/humanDate'
 import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
-import { getRecords, deleteRecord } from 'actions/recordsActions'
+import { getRecords, deleteRecord, setDateAsSearch } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
@@ -30,6 +30,7 @@ interface DispatchProps {
   changePublishedOn: (date: Date) => void;
   closeEditModal: () => void;
   deleteRecord: (recordId: number, searchParams: { date: Date }) => void;
+  setDateAsSearch: (date: Date | null) => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -52,21 +53,24 @@ class RecordsOnInputContainer extends Component<Props> {
     const params = {
       date: this.props.newRecordStore.record.published_on
     }
+    this.props.setDateAsSearch(this.props.newRecordStore.record.published_on)
     this.props.getRecords(params)
   }
 
   handleClickLeftArrow(): void {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() - 1)
-    this.props.changePublishedOn(publishedOn)
     this.props.getRecords({ date: publishedOn })
+    this.props.changePublishedOn(publishedOn)
+    this.props.setDateAsSearch(publishedOn)
   }
 
   handleClickRightArrow(): void {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() + 1)
-    this.props.changePublishedOn(publishedOn)
     this.props.getRecords({ date: publishedOn })
+    this.props.changePublishedOn(publishedOn)
+    this.props.setDateAsSearch(publishedOn)
   }
 
   handleClickCopy(record: Record): void {
@@ -150,10 +154,13 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     closeEditModal(): void {
       dispatch(closeEditModal())
     },
-    deleteRecord(recordId: number, searchParams: { date: Date }): void {
+    deleteRecord(recordId: number, searchParams: RecordSearchParams): void {
       dispatch(deleteRecord(recordId)).then(() => {
         dispatch(getRecords(searchParams))
       })
+    },
+    setDateAsSearch(date: Date | null): void {
+      dispatch(setDateAsSearch(date))
     }
   }
 }

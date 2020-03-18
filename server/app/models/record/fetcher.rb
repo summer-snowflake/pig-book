@@ -19,6 +19,8 @@ class Record::Fetcher
     @records = records.order(created_at: :desc)
   end
 
+  private
+
   def search_records
     records = user.records.where(published_at: time_range)
     records = records.where(category: category) if category
@@ -28,8 +30,6 @@ class Record::Fetcher
     records = records.limit(limit) if limit
     records
   end
-
-  private
 
   def init_attrs(params)
     @year = params[:year]
@@ -76,6 +76,7 @@ class Record::Fetcher
       time_range_from_monthly
     elsif year
       time_range_from_yearly
+    else # TODO: monthのみの場合
     end
   end
 

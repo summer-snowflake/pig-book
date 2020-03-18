@@ -109,3 +109,9 @@ export interface RecordsStore {
   isLoading: boolean;
   records: Record[];
 }
+
+export interface RecordSearchStore {
+  date: Date | null;
+  year: number;
+  month: number;
+}
