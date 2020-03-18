@@ -16,6 +16,7 @@
   "menu": {
     "home": "HOME",
     "input": "入力する",
+    "list": "リスト",
     "login": "ログイン",
     "logout": "ログアウト",
     "signUp": "アカウント登録",

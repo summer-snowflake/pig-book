@@ -16,6 +16,7 @@
   "menu": {
     "home": "HOME",
     "input": "Input",
+    "list": "List",
     "login": "Sign In",
     "logout": "Sign out",
     "signUp": "Sign Up",

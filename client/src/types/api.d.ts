@@ -37,7 +37,9 @@ export interface RecordParams {
 }
 
 export interface RecordSearchParams {
-  date: Date;
+  date?: Date | null;
+  month?: number;
+  year?: number;
 }
 
 export interface Admin {

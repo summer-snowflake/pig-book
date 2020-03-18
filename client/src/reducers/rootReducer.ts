@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore } from 'types/store'
+import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import userStatusReducer from 'reducers/userStatusReducer'
 import profileReducer from 'reducers/profileReducer'
@@ -16,8 +16,9 @@ import editPlaceReducer from 'reducers/editPlaceReducer'
 import placesReducer from 'reducers/placesReducer'
 import usersReducer from 'reducers/usersReducer'
 import newRecordReducer from 'reducers/newRecordReducer'
-import recordsReducer from './recordsReducer'
-import editRecordReducer from './editRecordReducer'
+import recordsReducer from 'reducers/recordsReducer'
+import editRecordReducer from 'reducers/editRecordReducer'
+import recordSearchReducer from 'reducers/recordSearchReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -37,6 +38,7 @@ export type RootState = {
   newRecord: NewRecordStore;
   editRecord: EditRecordStore;
   records: RecordsStore;
+  recordSearch: RecordSearchStore;
 }
 
 const rootReducer = combineReducers({
@@ -56,7 +58,8 @@ const rootReducer = combineReducers({
   users: usersReducer,
   newRecord: newRecordReducer,
   editRecord: editRecordReducer,
-  records: recordsReducer
+  records: recordsReducer,
+  recordSearch: recordSearchReducer
 })
 
 export default rootReducer

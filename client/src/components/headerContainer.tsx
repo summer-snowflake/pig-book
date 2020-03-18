@@ -89,6 +89,16 @@ class HeaderContainer extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
+              {this.props.userStatus.isLogged && (
+                <NavItem eventKey='/list'>
+                  <NavIcon>
+                    <i className='fas fa-align-justify' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.list')}
+                  </NavText>
+                </NavItem>
+              )}
               {this.props.userStatus.isLogged && this.props.userStatus.admin && (
                 <NavItem eventKey='/admin/users'>
                   <NavIcon>
@@ -195,6 +205,12 @@ class HeaderContainer extends Component<Props> {
                   <span className='red'>
                     {t('menu.input')}
                   </span>
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
+                  <i className='fas fa-align-justify left-icon' />
+                  {t('menu.list')}
                 </NavLink>
               </li>
             </ul>
