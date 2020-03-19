@@ -88,6 +88,7 @@ export interface UsersStore {
 
 export interface NewRecordStore {
   isLoading: boolean;
+  isOpenNewRecordModal: boolean;
   editing: boolean;
   record: Record;
   breakdowns: Breakdown[];

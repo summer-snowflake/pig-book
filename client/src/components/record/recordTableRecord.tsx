@@ -114,7 +114,7 @@ class RecordTableRecord extends Component<Props, State> {
           </td>
           {this.props.format === 'detail' && (
             <td className={'record-cashless-charge-td' + (this.props.record.cashless_charge === 0 ? ' zero' : '')}>
-              <i className='fas fa-copyright left-icon' />
+              <i className='far fa-check-square left-icon' />
               {this.props.record.cashless_charge}
             </td>
           )}
