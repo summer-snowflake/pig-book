@@ -110,6 +110,18 @@ class RecordTableRecord extends Component<Props, State> {
           )}
           {this.props.record.human_charge}
         </td>
+        {this.props.format === 'detail' && (
+          <td className={'record-cashless-charge-td' + (this.props.record.cashless_charge === 0 ? ' zero' : '')}>
+            <i className='fas fa-copyright left-icon' />
+            {this.props.record.cashless_charge}
+          </td>
+        )}
+        {this.props.format === 'detail' && (
+          <td className={'record-point-td' + (this.props.record.cashless_charge === 0 ? ' zero' : '')}>
+            <i className='fas fa-parking left-icon' />
+            {this.props.record.point}
+          </td>
+        )}
         <td className='trash-field-td'>
           <DestroyModal
             isOpen={this.state.isOpenDestroyModal}
