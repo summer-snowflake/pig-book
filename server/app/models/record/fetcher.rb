@@ -69,6 +69,9 @@ class Record::Fetcher
     user.places.find(place_id)
   end
 
+  # date があれば日ごと
+  # year と month があれば月ごと
+  # year のみであれば年ごと
   def time_range
     if date
       time_range_from_daily
@@ -76,7 +79,6 @@ class Record::Fetcher
       time_range_from_monthly
     elsif year
       time_range_from_yearly
-    else # TODO: monthのみの場合
     end
   end
 
