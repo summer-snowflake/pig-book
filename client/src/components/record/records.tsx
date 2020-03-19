@@ -31,19 +31,17 @@ class Records extends Component<Props> {
   render(): JSX.Element {
     return (
       <table className='records-component table'>
-        <tbody>
-          {this.props.records.map((record) => (
-            <RecordTableRecord
-              editedRecordId={this.props.editedRecordId}
-              format={this.props.format}
-              key={record.id}
-              onClickCopy={this.handleClickCopy}
-              onClickDestroy={this.props.onClickDestroy}
-              onClickEdit={this.handleClickEdit}
-              record={record}
-            />
-          ))}
-        </tbody>
+        {this.props.records.map((record) => (
+          <RecordTableRecord
+            editedRecordId={this.props.editedRecordId}
+            format={this.props.format}
+            key={record.id}
+            onClickCopy={this.handleClickCopy}
+            onClickDestroy={this.props.onClickDestroy}
+            onClickEdit={this.handleClickEdit}
+            record={record}
+          />
+        ))}
       </table>
     )
   }
