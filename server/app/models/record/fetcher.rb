@@ -19,6 +19,8 @@ class Record::Fetcher
     @records = records.order(created_at: :desc)
   end
 
+  private
+
   def search_records
     records = user.records.where(published_at: time_range)
     records = records.where(category: category) if category
@@ -28,8 +30,6 @@ class Record::Fetcher
     records = records.limit(limit) if limit
     records
   end
-
-  private
 
   def init_attrs(params)
     @year = params[:year]
@@ -69,6 +69,9 @@ class Record::Fetcher
     user.places.find(place_id)
   end
 
+  # date があれば日ごと
+  # year と month があれば月ごと
+  # year のみであれば年ごと
   def time_range
     if date
       time_range_from_daily

@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 
-import { RecordParams, Category } from 'types/api'
-import { NewRecordStore, ProfileStore } from 'types/store'
+import { RecordParams, Category, RecordSearchParams } from 'types/api'
+import { NewRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
@@ -18,11 +18,12 @@ import RecordForm from 'components/input/recordForm'
 interface StateProps {
   profile: ProfileStore;
   newRecord: NewRecordStore;
+  recordSearch: RecordSearchStore;
 }
 
 interface DispatchProps {
-  getRecords: (searchParams: { date: Date }) => void;
-  postRecord: (params: RecordParams, searchParams: { date: Date }) => void;
+  getRecords: (searchParams: RecordSearchParams) => void;
+  postRecord: (params: RecordParams, searchParams: RecordSearchParams) => void;
   getCategory: (categoryId: number) => void;
   changeCategory: (category: Category | undefined) => void;
   changeBalanceOfPayments: (balance_of_payments: boolean) => void;
@@ -66,7 +67,10 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleChangePublishedOn(date: Date): void {
     this.props.changePublishedOn(date)
-    this.props.getRecords({ date: date })
+    // 入力する画面のとき
+    if (this.props.recordSearch.date) {
+      this.props.getRecords({ date: date })
+    }
   }
 
   handleChangeBreakdown(breakdownId: number): void {
@@ -112,12 +116,21 @@ class NewRecordFormContainer extends Component<Props> {
       point: this.props.newRecord.record.point,
       memo: this.props.newRecord.record.memo
     }
-    this.props.postRecord(params, { date: this.props.newRecord.record.published_on })
+    let searchParams = {}
+    if (this.props.recordSearch.date) {
+      searchParams = { date: this.props.newRecord.record.published_on }
+    } else {
+      searchParams = {
+        year: this.props.recordSearch.year,
+        month: this.props.recordSearch.month
+      }
+    }
+    this.props.postRecord(params, searchParams)
   }
 
   render(): JSX.Element {
     return (
-      <div className='new-record-form-component col-md-4'>
+      <div className='new-record-form-component'>
         {this.props.newRecord.errors.length > 0 && (
           <div className='validation-errors-field'>
             <ValidationErrorMessages messages={this.props.newRecord.errors} />
@@ -145,16 +158,17 @@ class NewRecordFormContainer extends Component<Props> {
 function mapState(state: RootState): StateProps {
   return {
     profile: state.profile,
-    newRecord: state.newRecord
+    newRecord: state.newRecord,
+    recordSearch: state.recordSearch
   }
 }
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getRecords(searchParams: { date: Date }): void {
+    getRecords(searchParams: RecordSearchParams): void {
       dispatch(getRecords(searchParams))
     },
-    postRecord(params: RecordParams, searchParams: { date: Date }): void {
+    postRecord(params: RecordParams, searchParams: RecordSearchParams): void {
       dispatch(postRecord(params)).then(() => (
         dispatch(getRecords(searchParams)).then(() => (
           setTimeout(() => {

@@ -4,8 +4,8 @@ import { ThunkDispatch } from 'redux-thunk'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
 
-import { RecordParams, Category } from 'types/api'
-import { EditRecordStore, ProfileStore } from 'types/store'
+import { RecordParams, Category, RecordSearchParams } from 'types/api'
+import { EditRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
@@ -24,11 +24,12 @@ interface ParentProps {
 interface StateProps {
   profile: ProfileStore;
   editRecord: EditRecordStore;
+  recordSearch: RecordSearchStore;
 }
 
 interface DispatchProps {
   getRecords: (searchParams: { date: Date }) => void;
-  patchRecord: (recordId: number, params: RecordParams, searchParams: { date: Date }) => void;
+  patchRecord: (recordId: number, params: RecordParams, searchParams: RecordSearchParams) => void;
   getCategory: (categoryId: number) => void;
   getEditRecordCategory: (categoryId: number) => void;
   changeCategory: (category: Category | undefined) => void;
@@ -133,7 +134,12 @@ class EditRecordModalContainer extends Component<Props> {
       point: this.props.editRecord.record.point,
       memo: this.props.editRecord.record.memo
     }
-    this.props.patchRecord(this.props.editRecord.record.id, params, { date: this.props.editRecord.record.published_on })
+    const searchParams = {
+      date: this.props.recordSearch.date,
+      year: this.props.recordSearch.year,
+      month: this.props.recordSearch.month
+    }
+    this.props.patchRecord(this.props.editRecord.record.id, params, searchParams)
   }
 
   render(): JSX.Element {
@@ -166,9 +172,9 @@ class EditRecordModalContainer extends Component<Props> {
                   onChangePublishedOn={this.handleChangePublishedOn}
                   store={this.props.editRecord}
                 />
+                <UpdateButton onClickButton={this.handleClickUpdateButton} />
               </div>
               <div className='modal-footer'>
-                <UpdateButton onClickButton={this.handleClickUpdateButton} />
                 <CloseButton onClickClose={this.props.onClickClose} />
               </div>
             </Modal>
@@ -182,7 +188,8 @@ class EditRecordModalContainer extends Component<Props> {
 function mapState(state: RootState): StateProps {
   return {
     profile: state.profile,
-    editRecord: state.editRecord
+    editRecord: state.editRecord,
+    recordSearch: state.recordSearch
   }
 }
 
@@ -191,7 +198,7 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getRecords(searchParams: { date: Date }): void {
       dispatch(getRecords(searchParams))
     },
-    patchRecord(recordId: number, params: RecordParams, searchParams: { date: Date }): void {
+    patchRecord(recordId: number, params: RecordParams, searchParams: RecordSearchParams): void {
       dispatch(patchRecord(recordId, params)).then(() => (
         dispatch(getRecords(searchParams)).then(() => {
           setTimeout(() => {

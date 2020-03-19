@@ -6,6 +6,7 @@ import RecordTableRecord from 'components/record/recordTableRecord'
 interface Props {
   records: ReadRecord[];
   editedRecordId: number | undefined;
+  format?: string;
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
   onClickDestroy: (record: Record) => void;
@@ -30,18 +31,17 @@ class Records extends Component<Props> {
   render(): JSX.Element {
     return (
       <table className='records-component table'>
-        <tbody>
-          {this.props.records.map((record) => (
-            <RecordTableRecord
-              editedRecordId={this.props.editedRecordId}
-              key={record.id}
-              onClickCopy={this.handleClickCopy}
-              onClickDestroy={this.props.onClickDestroy}
-              onClickEdit={this.handleClickEdit}
-              record={record}
-            />
-          ))}
-        </tbody>
+        {this.props.records.map((record) => (
+          <RecordTableRecord
+            editedRecordId={this.props.editedRecordId}
+            format={this.props.format}
+            key={record.id}
+            onClickCopy={this.handleClickCopy}
+            onClickDestroy={this.props.onClickDestroy}
+            onClickEdit={this.handleClickEdit}
+            record={record}
+          />
+        ))}
       </table>
     )
   }

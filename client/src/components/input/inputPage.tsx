@@ -23,7 +23,9 @@ class InputPage extends Component<I18nProps> {
               <div className='card-body with-background-image'>
                 <div className='row'>
                   <PickerField />
-                  <NewRecordFormContainer />
+                  <div className='col-md-4'>
+                    <NewRecordFormContainer />
+                  </div>
                   <RecordsOnInputContainer />
                 </div>
               </div>

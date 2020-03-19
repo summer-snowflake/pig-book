@@ -162,6 +162,10 @@ body
     padding: 8px
 
 .table
+
+  tbody + tbody
+    border-top: 0
+
   td
     border-top: 1px solid $light-green-translucent
     height: 73px
@@ -193,8 +197,26 @@ body
       display: inline-block
       padding: 5px 7px
 
+  .date-field-td
+    width: 140px
+
   .edited
     animation: flash 1s linear
+
+  .record-charge-td
+    min-width: 75px
+
+  .record-cashless-charge-td,
+  .record-point-td
+    width: 60px
+
+    &.zero
+      opacity: .4
+
+  .record-category-td,
+  .record-breakdown-td,
+  .record-place-td
+    width: 200px
 
 @keyframes flash
   0%
