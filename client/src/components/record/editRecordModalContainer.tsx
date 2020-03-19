@@ -172,9 +172,9 @@ class EditRecordModalContainer extends Component<Props> {
                   onChangePublishedOn={this.handleChangePublishedOn}
                   store={this.props.editRecord}
                 />
+                <UpdateButton onClickButton={this.handleClickUpdateButton} />
               </div>
               <div className='modal-footer'>
-                <UpdateButton onClickButton={this.handleClickUpdateButton} />
                 <CloseButton onClickClose={this.props.onClickClose} />
               </div>
             </Modal>

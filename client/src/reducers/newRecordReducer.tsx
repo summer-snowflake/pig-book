@@ -9,6 +9,7 @@ import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
+  isOpenNewRecordModal: false,
   editing: false,
   record: {
     published_on: new Date(),
@@ -67,6 +68,7 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       isLoading: false,
+      isOpenNewRecordModal: false,
       errors: [],
       record: {
         published_on: state.record.published_on,
@@ -226,6 +228,7 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
   case actionTypes.COPY_RECORD:
     return {
       ...state,
+      isOpenNewRecordModal: true,
       record: {
         published_on: state.record.published_on,
         charge: action.record.rounded_charge,
@@ -254,6 +257,18 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
     return {
       ...state,
       isLoading: false
+    }
+  case actionTypes.CLOSE_NEW_MODAL:
+    return {
+      ...state,
+      isLoading: false,
+      isOpenNewRecordModal: false
+    }
+
+  case actionTypes.GET_RECORDS_REQUEST:
+    return {
+      ...state,
+      isOpenNewRecordModal: false
     }
   default:
     return state

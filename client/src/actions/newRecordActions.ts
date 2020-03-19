@@ -157,3 +157,9 @@ export const copyRecord = (record: Record): WithRecordAction => {
     record
   }
 }
+
+export const closeNewModal = (): Action => {
+  return {
+    type: actionTypes.CLOSE_NEW_MODAL
+  }
+}

@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { Record, RecordSearchParams } from 'types/api'
-import { RecordsStore, EditRecordStore, RecordSearchStore } from 'types/store'
+import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
 import { getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords, deleteRecord, setDateAsSearch } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
-import { copyRecord } from 'actions/newRecordActions'
+import { copyRecord, closeNewModal } from 'actions/newRecordActions'
 import { RootState } from 'reducers/rootReducer'
 import Records from 'components/record/records'
 import NewRecordModalContainer from 'components/record/newRecordModal'
@@ -18,6 +18,7 @@ import 'stylesheets/list.sass'
 
 interface StateProps {
   editRecordStore: EditRecordStore;
+  newRecordStore: NewRecordStore;
   recordsStore: RecordsStore;
   recordSearch: RecordSearchStore;
 }
@@ -27,6 +28,7 @@ interface DispatchProps {
   copyRecord: (record: Record) => void;
   editRecord: (record: Record) => void;
   closeEditModal: () => void;
+  closeNewModal: () => void;
   getEditRecordCategory: (categoryId: number) => void;
   deleteRecord: (recordId: number, searchParams: RecordSearchParams) => void;
   setDateAsSearch: (date: Date | null) => void;
@@ -34,17 +36,9 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps
 
-interface State {
-  isOpenNewRecordModal: boolean;
-}
-
-class RecordsListContainer extends Component<Props, State> {
+class RecordsListContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
-
-    this.state = {
-      isOpenNewRecordModal: false,
-    }
 
     this.handleClickCopy = this.handleClickCopy.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
@@ -60,9 +54,6 @@ class RecordsListContainer extends Component<Props, State> {
   }
 
   handleClickCopy(record: Record): void {
-    this.setState({
-      isOpenNewRecordModal: true
-    })
     this.props.copyRecord(record)
   }
 
@@ -73,9 +64,7 @@ class RecordsListContainer extends Component<Props, State> {
 
   handleClickClose(): void {
     this.props.closeEditModal()
-    this.setState({
-      isOpenNewRecordModal: false
-    })
+    this.props.closeNewModal()
   }
 
   handleClickDestroy(record: Record): void {
@@ -89,9 +78,9 @@ class RecordsListContainer extends Component<Props, State> {
   render(): JSX.Element {
     return (
       <div className='records-list-component row'>
-        {this.state.isOpenNewRecordModal && (
+        {this.props.newRecordStore.isOpenNewRecordModal && (
           <NewRecordModalContainer
-            isOpen={this.state.isOpenNewRecordModal}
+            isOpen={this.props.newRecordStore.isOpenNewRecordModal}
             onClickClose={this.handleClickClose}
           />
         )}
@@ -116,6 +105,7 @@ class RecordsListContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
+    newRecordStore: state.newRecord,
     editRecordStore: state.editRecord,
     recordsStore: state.records,
     recordSearch: state.recordSearch
@@ -141,6 +131,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     closeEditModal(): void {
       dispatch(closeEditModal())
+    },
+    closeNewModal(): void {
+      dispatch(closeNewModal())
     },
     deleteRecord(recordId: number, searchParams: RecordSearchParams): void {
       dispatch(deleteRecord(recordId)).then(() => {

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 
+import NewRecordFormContainer from 'components/input/newRecordFormContainer'
+import CloseButton from 'components/common/closeButton'
+
 interface Props {
   isOpen: boolean;
   onClickClose: () => void;
@@ -33,7 +36,12 @@ class NewRecordModalContainer extends Component<Props> {
               isOpen={this.props.isOpen}
               style={customStyles}
             >
-              <div className='modal-body' />
+              <div className='modal-body'>
+                <NewRecordFormContainer />
+              </div>
+              <div className='modal-footer'>
+                <CloseButton onClickClose={this.props.onClickClose} />
+              </div>
             </Modal>
           )}
         </div>
