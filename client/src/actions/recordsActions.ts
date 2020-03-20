@@ -12,6 +12,15 @@ interface WithDateAction extends Action {
   date: Date | null;
 }
 
+interface WithYearAndMonthAction extends Action {
+  year: number;
+  month: number;
+}
+
+interface WithRecordSearchParamsAction extends Action {
+  params: RecordSearchParams;
+}
+
 const getRecordsRequest = (): Action => {
   return {
     type: actionTypes.GET_RECORDS_REQUEST
@@ -90,5 +99,20 @@ export const setDateAsSearch = (date: Date | null): WithDateAction => {
   return {
     type: actionTypes.SET_DATE_AS_SEARCH,
     date
+  }
+}
+
+export const setYearAndMonthAsSearch = (year: number, month: number): WithYearAndMonthAction => {
+  return {
+    type: actionTypes.SET_YEAR_AND_MONTH_AS_SEARCH,
+    year,
+    month
+  }
+}
+
+export const setRecordSearchParams = (params: RecordSearchParams): WithRecordSearchParamsAction => {
+  return {
+    type: actionTypes.SET_RECORD_SEARCH_PARAMS,
+    params
   }
 }

@@ -83,18 +83,19 @@ class Record::Fetcher
   end
 
   def time_range_from_daily
-    beginning = Time.parse(Date.parse(@date).to_s)
-    beginning..beginning.end_of_day
+    beginning = Time.zone.parse(Date.parse(@date).to_s)
+    Range.new(beginning, beginning.end_of_day)
   end
 
   def time_range_from_monthly
     date = Date.new(year.to_i, month.to_i, 1).to_s
-    beginning = Time.parse(date).beginning_of_day
-    beginning..beginning.end_of_month.end_of_day
+    beginning = Time.zone.parse(date).beginning_of_day
+    Range.new(beginning, beginning.end_of_month.end_of_day)
   end
 
   def time_range_from_yearly
-    beginning = Time.parse(Date.new(@year.to_i, 1, 1).to_s).beginning_of_day
-    beginning..beginning.end_of_year.end_of_day
+    new_year_day = Date.new(@year.to_i, 1, 1)
+    beginning = Time.zone.parse(new_year_day.to_s).beginning_of_day
+    Range.new(beginning, beginning.end_of_year.end_of_day)
   end
 end
