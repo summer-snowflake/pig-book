@@ -24,8 +24,8 @@ const RecordSearchReducer = (state: RecordSearchStore = initialState, action: St
   case actionTypes.SET_RECORD_SEARCH_PARAMS:
     return {
       ...state,
-      year: action.params.year ? action.params.year : state.year,
-      month: action.params.month ? action.params.month : state.month,
+      year: action.params.year,
+      month: action.params.month,
       date: action.params.date,
       order: action.params.order
     }

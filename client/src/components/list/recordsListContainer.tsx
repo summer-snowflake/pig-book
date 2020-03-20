@@ -14,6 +14,7 @@ import Records from 'components/record/records'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import NewRecordModalContainer from 'components/record/newRecordModal'
 import EditRecordModalContainer from 'components/record/editRecordModalContainer'
+import SearchKeywords from 'components/list/searchKeywordsContainer'
 
 import 'stylesheets/list.sass'
 
@@ -48,10 +49,11 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
 
+    const today = new Date()
     const params = {
       date: null,
-      year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month,
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
       order: 'published_at'
     }
     this.props.setRecordSearchParams(params)
@@ -83,26 +85,32 @@ class RecordsListContainer extends Component<Props> {
   }
 
   handleClickLeftArrow(): void {
-    const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
-    currentMonth.setMonth(currentMonth.getMonth() - 2)
-    const params = {
-      date: null,
-      year: currentMonth.getFullYear(),
-      month: currentMonth.getMonth() + 1,
-      order: 'published_at'
+    let params = this.props.recordSearch
+    if (this.props.recordSearch.year && this.props.recordSearch.month) {
+      const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+      currentMonth.setMonth(currentMonth.getMonth() - 2)
+      params = {
+        date: null,
+        year: currentMonth.getFullYear(),
+        month: currentMonth.getMonth() + 1,
+        order: 'published_at'
+      }
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
   }
 
   handleClickRightArrow(): void {
-    const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
-    currentMonth.setMonth(currentMonth.getMonth())
-    const params = {
-      date: null,
-      year: currentMonth.getFullYear(),
-      month: currentMonth.getMonth() + 1,
-      order: 'published_at'
+    let params = this.props.recordSearch
+    if (this.props.recordSearch.year && this.props.recordSearch.month) {
+      const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+      currentMonth.setMonth(currentMonth.getMonth())
+      params = {
+        date: null,
+        year: currentMonth.getFullYear(),
+        month: currentMonth.getMonth() + 1,
+        order: 'published_at'
+      }
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
@@ -136,6 +144,7 @@ class RecordsListContainer extends Component<Props> {
             </button>
           </div>
         </div>
+        <SearchKeywords />
         <Records
           editedRecordId={this.props.editRecordStore.editedRecordId}
           format='detail'

@@ -53,7 +53,9 @@
     "currency-dollar": "$ (dollar)",
     "income": "Income",
     "outgo": "Outgo",
-    "category": "Category"
+    "category": "Category",
+    "year": "",
+    "month": ""
   },
   "button": {
     "login": "Sign In",

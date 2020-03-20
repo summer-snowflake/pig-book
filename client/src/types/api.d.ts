@@ -38,8 +38,8 @@ export interface RecordParams {
 
 export interface RecordSearchParams {
   date?: Date | null;
-  month?: number;
-  year?: number;
+  month?: number | null;
+  year?: number | null;
   order?: string | null;
 }
 

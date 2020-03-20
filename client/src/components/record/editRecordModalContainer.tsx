@@ -88,17 +88,20 @@ class EditRecordModalContainer extends Component<Props> {
   }
 
   handleChangePublishedOn(date: Date): void {
+    let params = this.props.recordSearch
     if (this.props.recordSearch.date) {
-      this.props.setRecordSearchParams({ date: date })
-    } else {
-      const params = {
-        date: null,
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        order: 'published_at'
+      params = {
+        ...this.props.recordSearch,
+        date: date
       }
-      this.props.setRecordSearchParams(params)
+    } else {
+      params = {
+        ...this.props.recordSearch,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1
+      }
     }
+    this.props.setRecordSearchParams(params)
     this.props.changePublishedOn(date)
   }
 
