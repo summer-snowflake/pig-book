@@ -9,7 +9,7 @@ import { EditRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
-import { getRecords } from 'actions/recordsActions'
+import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
 import CloseButton from 'components/common/closeButton'
 import UpdateButton from 'components/common/updateButton'
@@ -40,6 +40,7 @@ interface DispatchProps {
   changePoint: (point: number) => void;
   changeCashlessCharge: (charge: number) => void;
   changeMemo: (memo: string) => void;
+  setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -87,6 +88,17 @@ class EditRecordModalContainer extends Component<Props> {
   }
 
   handleChangePublishedOn(date: Date): void {
+    if (this.props.recordSearch.date) {
+      this.props.setRecordSearchParams({ date: date })
+    } else {
+      const params = {
+        date: null,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        order: 'published_at'
+      }
+      this.props.setRecordSearchParams(params)
+    }
     this.props.changePublishedOn(date)
   }
 
@@ -230,6 +242,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeMemo(memo: string): void {
       dispatch(changeMemo(memo))
+    },
+    setRecordSearchParams(params: RecordSearchParams): void {
+      dispatch(setRecordSearchParams(params))
     }
   }
 }

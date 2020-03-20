@@ -21,25 +21,6 @@ interface StoreAction extends Action {
 
 const RecordSearchReducer = (state: RecordSearchStore = initialState, action: StoreAction): {} => {
   switch (action.type) {
-  case actionTypes.GET_MONTHLY_RECORDS:
-    return {
-      ...state,
-      date: null,
-      year: action.year,
-      month: action.month,
-      order: 'published_at'
-    }
-  case actionTypes.SET_DATE_AS_SEARCH:
-    return {
-      ...state,
-      date: action.date
-    }
-  case actionTypes.SET_YEAR_AND_MONTH_AS_SEARCH:
-    return {
-      ...state,
-      year: action.year,
-      month: action.month
-    }
   case actionTypes.SET_RECORD_SEARCH_PARAMS:
     return {
       ...state,

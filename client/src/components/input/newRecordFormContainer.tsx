@@ -9,7 +9,7 @@ import { toBoolean } from 'modules/toBoolean'
 import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
 import { clearEditedRecord } from 'actions/editRecordActions'
-import { getRecords } from 'actions/recordsActions'
+import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CreateButton from 'components/common/createButton'
@@ -34,6 +34,7 @@ interface DispatchProps {
   changePoint: (point: number) => void;
   changeCashlessCharge: (charge: number) => void;
   changeMemo: (memo: string) => void;
+  setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -69,7 +70,16 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changePublishedOn(date)
     // 入力する画面のとき
     if (this.props.recordSearch.date) {
+      this.props.setRecordSearchParams({ date: date })
       this.props.getRecords({ date: date })
+    } else {
+      const params = {
+        date: null,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        order: 'published_at'
+      }
+      this.props.setRecordSearchParams(params)
     }
   }
 
@@ -211,6 +221,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeMemo(memo: string): void {
       dispatch(changeMemo(memo))
+    },
+    setRecordSearchParams(params: RecordSearchParams): void {
+      dispatch(setRecordSearchParams(params))
     }
   }
 }
