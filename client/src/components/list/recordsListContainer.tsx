@@ -95,6 +95,13 @@ class RecordsListContainer extends Component<Props> {
         month: currentMonth.getMonth() + 1,
         order: 'published_at'
       }
+    } else if (this.props.recordSearch.year) {
+      params = {
+        date: null,
+        year: this.props.recordSearch.year - 1,
+        month: null,
+        order: 'published_at'
+      }
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
@@ -109,6 +116,13 @@ class RecordsListContainer extends Component<Props> {
         date: null,
         year: currentMonth.getFullYear(),
         month: currentMonth.getMonth() + 1,
+        order: 'published_at'
+      }
+    } else if (this.props.recordSearch.year) {
+      params = {
+        date: null,
+        year: this.props.recordSearch.year + 1,
+        month: null,
         order: 'published_at'
       }
     }
