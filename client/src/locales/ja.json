@@ -53,7 +53,9 @@
     "currency-dollar": "$（ドル）",
     "income": "収入",
     "outgo": "支出",
-    "category": "カテゴリ"
+    "category": "カテゴリ",
+    "year": "年",
+    "month": "月"
   },
   "button": {
     "login": "ログインする",

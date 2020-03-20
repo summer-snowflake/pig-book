@@ -15,9 +15,12 @@ class HumanYearMonth extends Component<Props & I18nProps> {
       yearStr = yearFormat
       yearStr = yearStr.replace(/YYYY/, String(this.props.year))
     }
-    const monthFormat = t('format.month')
-    let monthStr = monthFormat
-    monthStr = monthStr.replace(/MM/, String(this.props.month))
+    let monthStr = ''
+    if (this.props.month) {
+      const monthFormat = t('format.month')
+      monthStr = monthFormat
+      monthStr = monthStr.replace(/MM/, String(this.props.month))
+    }
     return yearStr + monthStr
   }
 

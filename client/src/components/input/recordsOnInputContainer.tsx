@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
 import { RecordSearchParams, Record } from 'types/api'
-import { NewRecordStore, RecordsStore, EditRecordStore } from 'types/store'
+import { NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore } from 'types/store'
 import HumanDate from 'components/common/humanDate'
 import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
 import { getRecords, deleteRecord, setRecordSearchParams } from 'actions/recordsActions'
@@ -19,6 +19,7 @@ interface StateProps {
   newRecordStore: NewRecordStore;
   editRecordStore: EditRecordStore;
   records: RecordsStore;
+  recordSearch: RecordSearchStore;
 }
 
 interface DispatchProps {
@@ -52,6 +53,8 @@ class RecordsOnInputContainer extends Component<Props> {
 
     const params = {
       date: this.props.newRecordStore.record.published_on,
+      year: null,
+      month: null,
       order: null
     }
     this.props.setRecordSearchParams(params)
@@ -62,6 +65,7 @@ class RecordsOnInputContainer extends Component<Props> {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() - 1)
     const params = {
+      ...this.props.recordSearch,
       date: publishedOn
     }
     this.props.setRecordSearchParams(params)
@@ -73,6 +77,7 @@ class RecordsOnInputContainer extends Component<Props> {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() + 1)
     const params = {
+      ...this.props.recordSearch,
       date: publishedOn
     }
     this.props.setRecordSearchParams(params)
@@ -96,6 +101,7 @@ class RecordsOnInputContainer extends Component<Props> {
 
   handleClickDestroy(record: Record): void {
     const params = {
+      ...this.props.recordSearch,
       date: (new Date(record.published_at))
     }
     this.props.setRecordSearchParams(params)
@@ -138,7 +144,8 @@ function mapState(state: RootState): StateProps {
   return {
     newRecordStore: state.newRecord,
     editRecordStore: state.editRecord,
-    records: state.records
+    records: state.records,
+    recordSearch: state.recordSearch
   }
 }
 
