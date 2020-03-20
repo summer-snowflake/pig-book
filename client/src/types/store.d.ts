@@ -115,4 +115,5 @@ export interface RecordSearchStore {
   date: Date | null;
   year: number;
   month: number;
+  order: string | null;
 }

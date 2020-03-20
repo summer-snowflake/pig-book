@@ -1,6 +1,8 @@
 {
   "brand_name": "おこづかいちょうβ",
   "format": {
+    "year": "YYYY年",
+    "month": "MM月",
     "date": "YYYY年MM月DD日（W）",
     "time": "HH時MI分SS秒",
     "week": {

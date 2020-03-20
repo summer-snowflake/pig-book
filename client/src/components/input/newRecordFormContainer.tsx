@@ -118,11 +118,16 @@ class NewRecordFormContainer extends Component<Props> {
     }
     let searchParams = {}
     if (this.props.recordSearch.date) {
-      searchParams = { date: this.props.newRecord.record.published_on }
+      searchParams = {
+        date: this.props.newRecord.record.published_on,
+        order: this.props.recordSearch.order
+      }
     } else {
       searchParams = {
+        date: null,
         year: this.props.recordSearch.year,
-        month: this.props.recordSearch.month
+        month: this.props.recordSearch.month,
+        order: this.props.recordSearch.order
       }
     }
     this.props.postRecord(params, searchParams)

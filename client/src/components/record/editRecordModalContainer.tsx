@@ -28,7 +28,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getRecords: (searchParams: { date: Date }) => void;
   patchRecord: (recordId: number, params: RecordParams, searchParams: RecordSearchParams) => void;
   getCategory: (categoryId: number) => void;
   getEditRecordCategory: (categoryId: number) => void;
@@ -134,12 +133,7 @@ class EditRecordModalContainer extends Component<Props> {
       point: this.props.editRecord.record.point,
       memo: this.props.editRecord.record.memo
     }
-    const searchParams = {
-      date: this.props.recordSearch.date,
-      year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month
-    }
-    this.props.patchRecord(this.props.editRecord.record.id, params, searchParams)
+    this.props.patchRecord(this.props.editRecord.record.id, params, this.props.recordSearch)
   }
 
   render(): JSX.Element {
@@ -195,9 +189,6 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getRecords(searchParams: { date: Date }): void {
-      dispatch(getRecords(searchParams))
-    },
     patchRecord(recordId: number, params: RecordParams, searchParams: RecordSearchParams): void {
       dispatch(patchRecord(recordId, params)).then(() => (
         dispatch(getRecords(searchParams)).then(() => {

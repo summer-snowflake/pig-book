@@ -40,6 +40,7 @@ export interface RecordSearchParams {
   date?: Date | null;
   month?: number;
   year?: number;
+  order?: string | null;
 }
 
 export interface Admin {

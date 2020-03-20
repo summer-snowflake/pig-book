@@ -6,11 +6,12 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Record, RecordSearchParams } from 'types/api'
 import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
 import { getEditRecordCategory } from 'actions/categoryActions'
-import { getRecords, deleteRecord, setDateAsSearch } from 'actions/recordsActions'
+import { getRecords, deleteRecord, setRecordSearchParams } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
 import { copyRecord, closeNewModal } from 'actions/newRecordActions'
 import { RootState } from 'reducers/rootReducer'
 import Records from 'components/record/records'
+import HumanYearMonth from 'components/common/humanYearMonth'
 import NewRecordModalContainer from 'components/record/newRecordModal'
 import EditRecordModalContainer from 'components/record/editRecordModalContainer'
 
@@ -31,7 +32,7 @@ interface DispatchProps {
   closeNewModal: () => void;
   getEditRecordCategory: (categoryId: number) => void;
   deleteRecord: (recordId: number, searchParams: RecordSearchParams) => void;
-  setDateAsSearch: (date: Date | null) => void;
+  setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -44,12 +45,16 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickEdit = this.handleClickEdit.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
+    this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
+    this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
 
     const params = {
+      date: null,
       year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month
+      month: this.props.recordSearch.month,
+      order: 'published_at'
     }
-    this.props.setDateAsSearch(null)
+    this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
   }
 
@@ -69,10 +74,38 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickDestroy(record: Record): void {
     const searchParams = {
+      date: null,
       year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month
+      month: this.props.recordSearch.month,
+      order: 'published_at'
     }
     this.props.deleteRecord(record.id, searchParams)
+  }
+
+  handleClickLeftArrow(): void {
+    const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+    currentMonth.setMonth(currentMonth.getMonth() - 2)
+    const params = {
+      date: null,
+      year: currentMonth.getFullYear(),
+      month: currentMonth.getMonth() + 1,
+      order: 'published_at'
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleClickRightArrow(): void {
+    const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+    currentMonth.setMonth(currentMonth.getMonth())
+    const params = {
+      date: null,
+      year: currentMonth.getFullYear(),
+      month: currentMonth.getMonth() + 1,
+      order: 'published_at'
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
   }
 
   render(): JSX.Element {
@@ -90,6 +123,19 @@ class RecordsListContainer extends Component<Props> {
             onClickClose={this.handleClickClose}
           />
         )}
+        <div className='center'>
+          <div className='month-select-field'>
+            <button className='btn btn-secondary btn-sm float-left' onClick={this.handleClickLeftArrow}>
+              <i className='fas fa-chevron-left' />
+            </button>
+            <span className='simple-date'>
+              <HumanYearMonth month={this.props.recordSearch.month} year={this.props.recordSearch.year} />
+            </span>
+            <button className='btn btn-secondary btn-sm float-right' onClick={this.handleClickRightArrow}>
+              <i className='fas fa-chevron-right' />
+            </button>
+          </div>
+        </div>
         <Records
           editedRecordId={this.props.editRecordStore.editedRecordId}
           format='detail'
@@ -126,9 +172,6 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getRecords(params: RecordSearchParams): void {
       dispatch(getRecords(params))
     },
-    setDateAsSearch(date: Date | null): void {
-      dispatch(setDateAsSearch(date))
-    },
     closeEditModal(): void {
       dispatch(closeEditModal())
     },
@@ -139,6 +182,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(deleteRecord(recordId)).then(() => {
         dispatch(getRecords(searchParams))
       })
+    },
+    setRecordSearchParams(params: RecordSearchParams): void {
+      dispatch(setRecordSearchParams(params))
     }
   }
 }
