@@ -26,12 +26,22 @@ class SearchKeywordsContainer extends Component<Props> {
     super(props)
 
     this.handleClickCancelMonth = this.handleClickCancelMonth.bind(this)
+    this.handleChangeMonth = this.handleChangeMonth.bind(this)
   }
 
   handleClickCancelMonth(): void {
     const params = {
       ...this.props.recordSearchStore,
       month: null
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleChangeMonth(e: React.ChangeEvent<HTMLSelectElement>): void {
+    const params = {
+      ...this.props.recordSearchStore,
+      month: Number(e.target.value)
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
@@ -45,8 +55,18 @@ class SearchKeywordsContainer extends Component<Props> {
         {this.props.recordSearchStore.year && (
           <KeywordButton cancelable={false} keyword={this.props.recordSearchStore.year + t('label.year')} />
         )}
-        {this.props.recordSearchStore.month && (
+        {this.props.recordSearchStore.month ? (
           <KeywordButton cancelable keyword={this.props.recordSearchStore.month + t('label.month')} onClickCancel={this.handleClickCancelMonth} />
+        ) : (
+          <select
+            className='form-control'
+            onChange={this.handleChangeMonth}
+          >
+            <option>{'- ' + t('label.month') + ' -'}</option>
+            {Array.from(new Array(12)).map((v,i)=> i + 1).map((month) => (
+              <option key={month} value={month}>{month}</option>
+            ))}
+          </select>
         )}
       </span>
     )
