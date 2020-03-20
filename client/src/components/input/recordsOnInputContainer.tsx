@@ -8,7 +8,7 @@ import { RecordSearchParams, Record } from 'types/api'
 import { NewRecordStore, RecordsStore, EditRecordStore } from 'types/store'
 import HumanDate from 'components/common/humanDate'
 import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
-import { getRecords, deleteRecord, setDateAsSearch } from 'actions/recordsActions'
+import { getRecords, deleteRecord, setRecordSearchParams } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
@@ -30,7 +30,7 @@ interface DispatchProps {
   changePublishedOn: (date: Date) => void;
   closeEditModal: () => void;
   deleteRecord: (recordId: number, searchParams: { date: Date }) => void;
-  setDateAsSearch: (date: Date | null) => void;
+  setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -51,26 +51,33 @@ class RecordsOnInputContainer extends Component<Props> {
     }
 
     const params = {
-      date: this.props.newRecordStore.record.published_on
+      date: this.props.newRecordStore.record.published_on,
+      order: null
     }
-    this.props.setDateAsSearch(this.props.newRecordStore.record.published_on)
+    this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
   }
 
   handleClickLeftArrow(): void {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() - 1)
-    this.props.getRecords({ date: publishedOn })
+    const params = {
+      date: publishedOn
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
     this.props.changePublishedOn(publishedOn)
-    this.props.setDateAsSearch(publishedOn)
   }
 
   handleClickRightArrow(): void {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() + 1)
-    this.props.getRecords({ date: publishedOn })
+    const params = {
+      date: publishedOn
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
     this.props.changePublishedOn(publishedOn)
-    this.props.setDateAsSearch(publishedOn)
   }
 
   handleClickCopy(record: Record): void {
@@ -88,7 +95,11 @@ class RecordsOnInputContainer extends Component<Props> {
   }
 
   handleClickDestroy(record: Record): void {
-    this.props.deleteRecord(record.id, { date: new Date(record.published_at) })
+    const params = {
+      date: (new Date(record.published_at))
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.deleteRecord(record.id, params)
   }
 
   render(): JSX.Element {
@@ -159,8 +170,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
         dispatch(getRecords(searchParams))
       })
     },
-    setDateAsSearch(date: Date | null): void {
-      dispatch(setDateAsSearch(date))
+    setRecordSearchParams(params: RecordSearchParams): void {
+      dispatch(setRecordSearchParams(params))
     }
   }
 }

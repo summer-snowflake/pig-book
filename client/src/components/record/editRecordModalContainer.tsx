@@ -9,7 +9,7 @@ import { EditRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
-import { getRecords } from 'actions/recordsActions'
+import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
 import CloseButton from 'components/common/closeButton'
 import UpdateButton from 'components/common/updateButton'
@@ -28,7 +28,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getRecords: (searchParams: { date: Date }) => void;
   patchRecord: (recordId: number, params: RecordParams, searchParams: RecordSearchParams) => void;
   getCategory: (categoryId: number) => void;
   getEditRecordCategory: (categoryId: number) => void;
@@ -41,6 +40,7 @@ interface DispatchProps {
   changePoint: (point: number) => void;
   changeCashlessCharge: (charge: number) => void;
   changeMemo: (memo: string) => void;
+  setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -88,6 +88,17 @@ class EditRecordModalContainer extends Component<Props> {
   }
 
   handleChangePublishedOn(date: Date): void {
+    if (this.props.recordSearch.date) {
+      this.props.setRecordSearchParams({ date: date })
+    } else {
+      const params = {
+        date: null,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        order: 'published_at'
+      }
+      this.props.setRecordSearchParams(params)
+    }
     this.props.changePublishedOn(date)
   }
 
@@ -134,12 +145,7 @@ class EditRecordModalContainer extends Component<Props> {
       point: this.props.editRecord.record.point,
       memo: this.props.editRecord.record.memo
     }
-    const searchParams = {
-      date: this.props.recordSearch.date,
-      year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month
-    }
-    this.props.patchRecord(this.props.editRecord.record.id, params, searchParams)
+    this.props.patchRecord(this.props.editRecord.record.id, params, this.props.recordSearch)
   }
 
   render(): JSX.Element {
@@ -195,9 +201,6 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getRecords(searchParams: { date: Date }): void {
-      dispatch(getRecords(searchParams))
-    },
     patchRecord(recordId: number, params: RecordParams, searchParams: RecordSearchParams): void {
       dispatch(patchRecord(recordId, params)).then(() => (
         dispatch(getRecords(searchParams)).then(() => {
@@ -239,6 +242,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changeMemo(memo: string): void {
       dispatch(changeMemo(memo))
+    },
+    setRecordSearchParams(params: RecordSearchParams): void {
+      dispatch(setRecordSearchParams(params))
     }
   }
 }

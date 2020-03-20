@@ -8,8 +8,8 @@ import { RecordsAction, ErrorsAction } from 'types/action'
 import { Record, RecordSearchParams, Errors } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
-interface WithDateAction extends Action {
-  date: Date | null;
+interface WithRecordSearchParamsAction extends Action {
+  params: RecordSearchParams;
 }
 
 const getRecordsRequest = (): Action => {
@@ -86,9 +86,9 @@ export const deleteRecord = (recordId: number) => {
   }
 }
 
-export const setDateAsSearch = (date: Date | null): WithDateAction => {
+export const setRecordSearchParams = (params: RecordSearchParams): WithRecordSearchParamsAction => {
   return {
-    type: actionTypes.SET_DATE_AS_SEARCH,
-    date
+    type: actionTypes.SET_RECORD_SEARCH_PARAMS,
+    params
   }
 }
