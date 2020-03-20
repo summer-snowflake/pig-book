@@ -8,15 +8,6 @@ import { RecordsAction, ErrorsAction } from 'types/action'
 import { Record, RecordSearchParams, Errors } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
-interface WithDateAction extends Action {
-  date: Date | null;
-}
-
-interface WithYearAndMonthAction extends Action {
-  year: number;
-  month: number;
-}
-
 interface WithRecordSearchParamsAction extends Action {
   params: RecordSearchParams;
 }
@@ -92,21 +83,6 @@ export const deleteRecord = (recordId: number) => {
       console.error(err)
       dispatch(deleteRecordFailure(err.response.data.errors))
     }
-  }
-}
-
-export const setDateAsSearch = (date: Date | null): WithDateAction => {
-  return {
-    type: actionTypes.SET_DATE_AS_SEARCH,
-    date
-  }
-}
-
-export const setYearAndMonthAsSearch = (year: number, month: number): WithYearAndMonthAction => {
-  return {
-    type: actionTypes.SET_YEAR_AND_MONTH_AS_SEARCH,
-    year,
-    month
   }
 }
 
