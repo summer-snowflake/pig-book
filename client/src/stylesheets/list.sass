@@ -1,3 +1,5 @@
+@import variables
+
 .center
   width: 100%
 
@@ -9,3 +11,29 @@
 
   .simple-date
     font-size: 18px
+
+.search-keywords-component
+  height: 60px
+  padding: 10px
+
+  .search-keyword
+    background-color: $rgba2-lighten-green
+    border: 1px solid $green-translucent
+    border-radius: 5px
+    margin-left: 10px
+    padding: 5px
+
+  .month-selectbox
+    bottom: 70px
+    left: 10px
+    position: relative
+
+  .search-keyword-cancel
+    cursor: pointer
+
+.records-list-component
+  .record-category-td,
+  .record-breakdown-td,
+  .record-place-td
+    span
+      cursor: pointer
