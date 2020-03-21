@@ -52,22 +52,24 @@ class SearchKeywordsContainer extends Component<Props> {
 
     return (
       <span className='search-keywords-component'>
-        {this.props.recordSearchStore.year && (
-          <KeywordButton cancelable={false} keyword={this.props.recordSearchStore.year + t('label.year')} />
-        )}
-        {this.props.recordSearchStore.month ? (
-          <KeywordButton cancelable keyword={this.props.recordSearchStore.month + t('label.month')} onClickCancel={this.handleClickCancelMonth} />
-        ) : (
-          <select
-            className='form-control'
-            onChange={this.handleChangeMonth}
-          >
-            <option>{'- ' + t('label.month') + ' -'}</option>
-            {Array.from(new Array(12)).map((v,i)=> i + 1).map((month) => (
-              <option key={month} value={month}>{month}</option>
-            ))}
-          </select>
-        )}
+        <div className='keyword-buttons'>
+          {this.props.recordSearchStore.year && (
+            <KeywordButton cancelable={false} keyword={this.props.recordSearchStore.year + t('label.year')} />
+          )}
+          {this.props.recordSearchStore.month ? (
+            <KeywordButton cancelable keyword={this.props.recordSearchStore.month + t('label.month')} onClickCancel={this.handleClickCancelMonth} />
+          ) : (
+            <select
+              className='form-control month-selectbox'
+              onChange={this.handleChangeMonth}
+            >
+              <option>{'- ' + t('label.month') + ' -'}</option>
+              {Array.from(new Array(12)).map((v,i)=> i + 1).map((month) => (
+                <option key={month} value={month}>{month}</option>
+              ))}
+            </select>
+          )}
+        </div>
       </span>
     )
   }
