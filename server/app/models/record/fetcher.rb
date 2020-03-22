@@ -4,8 +4,7 @@ class Record::Fetcher
   include ActiveModel::Model
 
   attr_reader :user, :date, :year, :month, :page, :limit, :order
-  attr_reader :category, :breakdown, :place
-  attr_reader :records, :max_page
+  attr_reader :category, :breakdown, :place, :records, :max_page, :totals
 
   PER_PAGE = 100
 
@@ -17,7 +16,9 @@ class Record::Fetcher
     init_attrs(params)
 
     records = search_records
-    @max_page = (records.count / PER_PAGE.to_f).ceil
+    use_paginate(records.count)
+    calculate_totals(records)
+
     records = records.offset(PER_PAGE * (page - 1))
     records = records.limit(limit)
     records = records.order("#{order}": :desc) if order
@@ -72,6 +73,31 @@ class Record::Fetcher
     return unless place_id
 
     user.places.find(place_id)
+  end
+
+  def use_paginate(records_count)
+    @max_page = (records_count / PER_PAGE.to_f).ceil
+  end
+
+  def calculate_totals(records)
+    income = records.income.sum(:charge)
+    expenditure = records.expenditure.sum(:charge)
+    @totals = {
+      human_income_charge: human_charge(income),
+      human_expenditure_charge: human_charge(expenditure),
+      human_all_charge: human_charge(income - expenditure),
+      use_cashless_charge: records.sum(:cashless_charge),
+      use_point: records.sum(:point)
+    }
+  end
+
+  def human_charge(charge)
+    to_rounded = ActiveSupport::NumberHelper
+                 .number_to_rounded(charge, strip_insignificant_zeros: true)
+    integer_part, decimal_part = to_rounded.split('.')
+
+    I18n.t('label.' + user.profile.currency) +
+      " #{integer_part.to_i.to_s(:delimited)}#{decimal_part}"
   end
 
   # date があれば日ごと

@@ -3,24 +3,24 @@
 require 'rails_helper'
 
 describe 'GET /api/records' do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :with_profile) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
   let!(:place) { create(:place, user: user) }
   let!(:record1) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: 2.hours.ago)
+           published_at: 2.hours.ago, charge: 3000)
   end
   let!(:record2) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: 1.hour.ago)
+           published_at: 1.hour.ago, charge: 2000)
   end
   let!(:record3) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: Time.zone.yesterday)
+           published_at: Time.zone.yesterday, charge: 1000)
   end
 
   context 'when NOT logged in.' do
@@ -100,7 +100,14 @@ describe 'GET /api/records' do
               }
             }
           ],
-          max_page: 1
+          max_page: 1,
+          totals: {
+            human_income_charge: '¥ 0',
+            human_expenditure_charge: '¥ 5,000',
+            human_all_charge: '¥ -5,000',
+            use_cashless_charge: 0,
+            use_point: 20
+          }
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -147,7 +154,15 @@ describe 'GET /api/records' do
               }
             }
           ],
-          max_page: 1
+          max_page: 1,
+          totals: {
+            human_income_charge: '¥ 0',
+            human_expenditure_charge: '¥ 1,000',
+            human_all_charge: '¥ -1,000',
+            use_cashless_charge: 0,
+            use_point: 10
+          }
+
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

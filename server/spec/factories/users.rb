@@ -17,5 +17,11 @@ FactoryBot.define do
         create(:admin, user: user)
       end
     end
+
+    trait :with_profile do
+      after(:create) do |user|
+        create(:profile, user: user, currency: :yen)
+      end
+    end
   end
 end
