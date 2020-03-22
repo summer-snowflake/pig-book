@@ -42,6 +42,8 @@ export interface RecordSearchParams {
   month?: number | null;
   year?: number | null;
   order?: string | null;
+  category_id?: number | null;
+  category_name?: string | null;
 }
 
 export interface Admin {

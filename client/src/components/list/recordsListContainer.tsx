@@ -3,7 +3,7 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { Record, RecordSearchParams } from 'types/api'
+import { Record, RecordSearchParams, Category } from 'types/api'
 import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
 import { getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords, deleteRecord, setRecordSearchParams, changePage } from 'actions/recordsActions'
@@ -51,6 +51,7 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
     this.handleClickPage = this.handleClickPage.bind(this)
+    this.handleClickCategory = this.handleClickCategory.bind(this)
 
     const today = new Date()
     const params = {
@@ -148,6 +149,16 @@ class RecordsListContainer extends Component<Props> {
     this.props.getRecords(params)
   }
 
+  handleClickCategory(category: Category): void {
+    const params = {
+      ...this.props.recordSearch,
+      category_id: category.id,
+      category_name: category.name
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
   render(): JSX.Element {
     return (
       <div className='records-list-component row'>
@@ -180,6 +191,7 @@ class RecordsListContainer extends Component<Props> {
         <Records
           editedRecordId={this.props.editRecordStore.editedRecordId}
           format='detail'
+          onClickCategory={this.handleClickCategory}
           onClickCopy={this.handleClickCopy}
           onClickDestroy={this.handleClickDestroy}
           onClickEdit={this.handleClickEdit}

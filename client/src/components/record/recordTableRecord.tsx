@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { ReadRecord, Record } from 'types/api'
+import { ReadRecord, Record, Category } from 'types/api'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
 import HumanDate from 'components/common/humanDate'
@@ -12,6 +12,7 @@ interface Props {
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
   onClickDestroy: (record: Record) => void;
+  onClickCategory?: (category: Category) => void;
 }
 
 interface State {
@@ -31,6 +32,7 @@ class RecordTableRecord extends Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
+    this.handleClickCategory = this.handleClickCategory.bind(this)
   }
 
   handleClickCopy(): void {
@@ -60,6 +62,12 @@ class RecordTableRecord extends Component<Props, State> {
     this.props.onClickDestroy(this.props.record)
   }
 
+  handleClickCategory(): void {
+    if (this.props.format === 'detail' && this.props.onClickCategory) {
+      this.props.onClickCategory(this.props.record.category)
+    }
+  }
+
   render(): JSX.Element {
     return (
       <tbody className={'record-table-record-component'}>
@@ -81,7 +89,7 @@ class RecordTableRecord extends Component<Props, State> {
           )}
           <td className='record-category-td d-none d-md-table-cell'>
             {this.props.record.category && (
-              <span>
+              <span onClick={this.handleClickCategory}>
                 <i className='fas fa-th-large left-icon yellow' />
                 {this.props.record.category.name}
               </span>
