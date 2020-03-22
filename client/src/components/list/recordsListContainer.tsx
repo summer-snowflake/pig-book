@@ -58,6 +58,7 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickCategory = this.handleClickCategory.bind(this)
     this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
     this.handleClickPlace = this.handleClickPlace.bind(this)
+    this.handleClickSort = this.handleClickSort.bind(this)
 
     const today = new Date()
     const queryParams = new URLSearchParams(this.props.location.search)
@@ -223,6 +224,18 @@ class RecordsListContainer extends Component<Props> {
     })
   }
 
+  handleClickSort(e: React.MouseEvent<HTMLElement>): void {
+    const params = {
+      ...this.props.recordSearch,
+      order: e.currentTarget.dataset.order
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
   render(): JSX.Element {
     return (
       <div className='records-list-component'>
@@ -261,7 +274,9 @@ class RecordsListContainer extends Component<Props> {
           onClickDestroy={this.handleClickDestroy}
           onClickEdit={this.handleClickEdit}
           onClickPlace={this.handleClickPlace}
+          onClickSort={this.handleClickSort}
           records={this.props.recordsStore.records}
+          recordSearchStore={this.props.recordSearch}
         />
         <div className='pagination-field'>
           {this.props.recordsStore.maxPage > 1 && (
