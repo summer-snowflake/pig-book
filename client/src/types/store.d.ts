@@ -118,4 +118,6 @@ export interface RecordSearchStore {
   year: number | null;
   month: number | null;
   order: string | null;
+  category_id: number | null;
+  category_name: string | null;
 }
