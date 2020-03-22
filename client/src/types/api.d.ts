@@ -37,6 +37,7 @@ export interface RecordParams {
 }
 
 export interface RecordSearchParams {
+  page?: number;
   date?: Date | null;
   month?: number | null;
   year?: number | null;

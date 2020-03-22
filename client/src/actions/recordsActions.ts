@@ -12,16 +12,21 @@ interface WithRecordSearchParamsAction extends Action {
   params: RecordSearchParams;
 }
 
+interface WithPageAction extends Action {
+  page: number;
+}
+
 const getRecordsRequest = (): Action => {
   return {
     type: actionTypes.GET_RECORDS_REQUEST
   }
 }
 
-const getRecordsSuccess = (records: Record[]): RecordsAction => {
+const getRecordsSuccess = (records: Record[], max_page: number): RecordsAction => {
   return {
     type: actionTypes.GET_RECORDS_SUCCESS,
-    records
+    records,
+    max_page
   }
 }
 
@@ -37,7 +42,7 @@ export const getRecords = (params?: RecordSearchParams) => {
     try {
       if(ready()) {
         const res = await axios.get('/api/records', { params: params, headers: loginHeaders() })
-        dispatch(getRecordsSuccess(res.data))
+        dispatch(getRecordsSuccess(res.data.list, res.data.max_page))
       } else {
         dispatch(getRecordsFailure())
       }
@@ -90,5 +95,12 @@ export const setRecordSearchParams = (params: RecordSearchParams): WithRecordSea
   return {
     type: actionTypes.SET_RECORD_SEARCH_PARAMS,
     params
+  }
+}
+
+export const changePage = (page: number): WithPageAction => {
+  return {
+    type: actionTypes.CHANGE_PAGE,
+    page
   }
 }

@@ -6,7 +6,7 @@ class RecordsController < ApplicationController
   def index
     fetcher = Record::Fetcher.new(user: current_user)
     records = fetcher.find_all_by(records_params)
-    render json: records,
+    render json: { list: records, max_page: fetcher.max_page },
            include: %i[category breakdown place],
            methods: %i[human_charge rounded_charge], status: :ok
   end
@@ -43,6 +43,6 @@ class RecordsController < ApplicationController
 
   def records_params
     params.permit(:date, :year, :month, :category_id, :breakdown_id, :place_id,
-                  :limit, :order)
+                  :limit, :order, :page)
   end
 end

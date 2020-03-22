@@ -69,18 +69,22 @@ class NewRecordFormContainer extends Component<Props> {
   handleChangePublishedOn(date: Date): void {
     this.props.changePublishedOn(date)
     // 入力する画面のとき
+    let params = {}
     if (this.props.recordSearch.date) {
-      this.props.setRecordSearchParams({ date: date })
-      this.props.getRecords({ date: date })
+      params = {
+        ...this.props.recordSearch,
+        date: date
+      }
+      this.props.getRecords(params)
     } else {
-      const params = {
+      params = {
         date: null,
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         order: 'published_at'
       }
-      this.props.setRecordSearchParams(params)
     }
+    this.props.setRecordSearchParams(params)
   }
 
   handleChangeBreakdown(breakdownId: number): void {
@@ -129,15 +133,13 @@ class NewRecordFormContainer extends Component<Props> {
     let searchParams = {}
     if (this.props.recordSearch.date) {
       searchParams = {
+        ...this.props.recordSearch,
         date: this.props.newRecord.record.published_on,
-        order: this.props.recordSearch.order
       }
     } else {
       searchParams = {
-        date: null,
-        year: this.props.recordSearch.year,
-        month: this.props.recordSearch.month,
-        order: this.props.recordSearch.order
+        ...this.props.recordSearch,
+        date: null
       }
     }
     this.props.postRecord(params, searchParams)
