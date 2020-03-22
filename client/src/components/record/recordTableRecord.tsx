@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { ReadRecord, Record, Category } from 'types/api'
+import { ReadRecord, Record, Category, Breakdown, Place } from 'types/api'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
 import HumanDate from 'components/common/humanDate'
@@ -13,6 +13,8 @@ interface Props {
   onClickEdit: (record: Record) => void;
   onClickDestroy: (record: Record) => void;
   onClickCategory?: (category: Category) => void;
+  onClickBreakdown?: (breakdown: Breakdown) => void;
+  onClickPlace?: (place: Place) => void;
 }
 
 interface State {
@@ -33,6 +35,8 @@ class RecordTableRecord extends Component<Props, State> {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickCategory = this.handleClickCategory.bind(this)
+    this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
+    this.handleClickPlace = this.handleClickPlace.bind(this)
   }
 
   handleClickCopy(): void {
@@ -68,6 +72,18 @@ class RecordTableRecord extends Component<Props, State> {
     }
   }
 
+  handleClickBreakdown(): void {
+    if (this.props.format === 'detail' && this.props.onClickBreakdown) {
+      this.props.onClickBreakdown(this.props.record.breakdown)
+    }
+  }
+
+  handleClickPlace(): void {
+    if (this.props.format === 'detail' && this.props.onClickPlace) {
+      this.props.onClickPlace(this.props.record.place)
+    }
+  }
+
   render(): JSX.Element {
     return (
       <tbody className={'record-table-record-component'}>
@@ -97,7 +113,7 @@ class RecordTableRecord extends Component<Props, State> {
           </td>
           <td className='record-breakdown-td d-none d-md-table-cell'>
             {this.props.record.breakdown && (
-              <span>
+              <span onClick={this.handleClickBreakdown}>
                 <i className='fas fa-list left-icon light-blue' />
                 {this.props.record.breakdown.name}
               </span>
@@ -105,7 +121,7 @@ class RecordTableRecord extends Component<Props, State> {
           </td>
           <td className='record-place-td d-none d-md-table-cell'>
             {this.props.record.place && (
-              <span>
+              <span onClick={this.handleClickPlace}>
                 <i className='fas fa-map-marker-alt left-icon blue' />
                 {this.props.record.place.name}
               </span>
