@@ -132,6 +132,14 @@ export interface Record {
   place: Place;
 }
 
+export interface RecordTotals {
+  human_income_charge: string;
+  human_expenditure_charge: string;
+  human_all_charge: string;
+  use_cashless_charge: number;
+  use_point: number;
+}
+
 export interface WithRelationsCategory extends Category {
   breakdowns: Breakdown[];
   places: Place[];

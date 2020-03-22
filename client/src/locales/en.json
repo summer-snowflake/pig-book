@@ -55,7 +55,8 @@
     "outgo": "Outgo",
     "category": "Category",
     "year": "",
-    "month": ""
+    "month": "",
+    "total": "Total: "
   },
   "button": {
     "login": "Sign In",
