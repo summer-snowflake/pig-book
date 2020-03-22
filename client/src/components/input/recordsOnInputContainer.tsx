@@ -52,6 +52,7 @@ class RecordsOnInputContainer extends Component<Props> {
     }
 
     const params = {
+      page: 1,
       date: this.props.newRecordStore.record.published_on,
       year: null,
       month: null,

@@ -3,9 +3,11 @@
 class Record::Fetcher
   include ActiveModel::Model
 
-  attr_reader :user, :date, :year, :month, :limit, :order
+  attr_reader :user, :date, :year, :month, :page, :limit, :order
   attr_reader :category, :breakdown, :place
-  attr_reader :records
+  attr_reader :records, :max_page
+
+  PER_PAGE = 5
 
   def initialize(user:)
     @user = user
@@ -15,6 +17,9 @@ class Record::Fetcher
     init_attrs(params)
 
     records = search_records
+    @max_page = (records.count / PER_PAGE.to_f).ceil
+    records = records.offset(PER_PAGE * (page - 1))
+    records = records.limit(limit)
     records = records.order("#{order}": :desc) if order
     @records = records.order(created_at: :desc)
   end
@@ -27,7 +32,6 @@ class Record::Fetcher
     records = records.where(breakdown: breakdown) if breakdown
     records = records.where(place: place) if place
     records = records.includes(:category, :breakdown, :place)
-    records = records.limit(limit) if limit
     records
   end
 
@@ -35,7 +39,8 @@ class Record::Fetcher
     @year = params[:year]
     @month = params[:month]
     @date = get_date(params)
-    @limit = params[:limit]
+    @limit = params[:limit] || PER_PAGE
+    @page = (params[:page] || 1).to_i
     @order = params[:order]
 
     @category = find_category(params[:category_id])

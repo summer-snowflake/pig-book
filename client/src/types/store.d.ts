@@ -109,9 +109,11 @@ export interface EditRecordStore {
 export interface RecordsStore {
   isLoading: boolean;
   records: Record[];
+  maxPage: number;
 }
 
 export interface RecordSearchStore {
+  page: number;
   date: Date | null;
   year: number | null;
   month: number | null;
