@@ -110,6 +110,7 @@ export interface RecordsStore {
   isLoading: boolean;
   records: Record[];
   maxPage: number;
+  totals: RecordTotals;
 }
 
 export interface RecordSearchStore {

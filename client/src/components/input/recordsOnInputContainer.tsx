@@ -14,6 +14,7 @@ import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import Records from 'components/record/records'
 import EditRecordModalContainer from 'components/record/editRecordModalContainer'
+import RecordTotalsTable from 'components/record/recordTotalsTable'
 
 interface StateProps {
   newRecordStore: NewRecordStore;
@@ -134,6 +135,9 @@ class RecordsOnInputContainer extends Component<Props> {
             onClickDestroy={this.handleClickDestroy}
             onClickEdit={this.handleClickEdit}
             records={this.props.records.records}
+          />
+          <RecordTotalsTable
+            totals={this.props.records.totals}
           />
         </div>
       </div>

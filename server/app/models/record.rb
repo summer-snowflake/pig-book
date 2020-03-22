@@ -16,6 +16,24 @@ class Record < ApplicationRecord
   validate :point_is_less_than_or_equal_to_charge
   validates :memo, length: { maximum: 250 }
 
+  class << self
+    def income
+      eager_load(:category).where(categories: { balance_of_payments: true })
+                           .current_currency
+    end
+
+    def expenditure
+      eager_load(:category).where(categories: { balance_of_payments: false })
+                           .current_currency
+    end
+
+    def current_currency
+      return Record.none if last.nil?
+
+      where(currency: last.user.profile.currency)
+    end
+  end
+
   def point_is_less_than_or_equal_to_charge
     return unless charge && point
     return if point <= charge

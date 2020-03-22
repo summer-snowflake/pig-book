@@ -55,7 +55,8 @@
     "outgo": "支出",
     "category": "カテゴリ",
     "year": "年",
-    "month": "月"
+    "month": "月",
+    "total": "計："
   },
   "button": {
     "login": "ログインする",

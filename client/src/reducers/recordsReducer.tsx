@@ -6,7 +6,14 @@ const initialState = {
   isLoading: false,
   records: [],
   errors: [],
-  maxPage: 1
+  maxPage: 1,
+  totals: {
+    human_income_charge: '',
+    human_expenditure_charge: '',
+    human_all_charge: '',
+    use_cashless_charge: 0,
+    use_point: 0
+  }
 }
 
 const recordsReducer = (state: RecordsStore = initialState, action: RecordsAction): {} => {
@@ -21,7 +28,8 @@ const recordsReducer = (state: RecordsStore = initialState, action: RecordsActio
       ...state,
       isLoading: false,
       records: action.records,
-      maxPage: action.max_page
+      maxPage: action.max_page,
+      totals: action.totals
     }
   case actionTypes.GET_RECORDS_FAILURE:
     return {

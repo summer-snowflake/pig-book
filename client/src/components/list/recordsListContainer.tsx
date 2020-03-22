@@ -14,6 +14,7 @@ import Records from 'components/record/records'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import NewRecordModalContainer from 'components/record/newRecordModal'
 import EditRecordModalContainer from 'components/record/editRecordModalContainer'
+import RecordTotalsTable from 'components/record/recordTotalsTable'
 import Pagination from 'components/list/pagination'
 import SearchKeywords from 'components/list/searchKeywordsContainer'
 
@@ -183,7 +184,7 @@ class RecordsListContainer extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <div className='records-list-component row'>
+      <div className='records-list-component'>
         {this.props.newRecordStore.isOpenNewRecordModal && (
           <NewRecordModalContainer
             isOpen={this.props.newRecordStore.isOpenNewRecordModal}
@@ -230,6 +231,9 @@ class RecordsListContainer extends Component<Props> {
             />
           )}
         </div>
+        <RecordTotalsTable
+          totals={this.props.recordsStore.totals}
+        />
       </div>
     )
   }
