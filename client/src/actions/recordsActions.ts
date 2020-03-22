@@ -5,7 +5,7 @@ import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { RecordsAction, ErrorsAction } from 'types/action'
-import { Record, RecordSearchParams, Errors } from 'types/api'
+import { Record, RecordSearchParams, Errors, RecordTotals } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
 interface WithRecordSearchParamsAction extends Action {
@@ -22,11 +22,12 @@ const getRecordsRequest = (): Action => {
   }
 }
 
-const getRecordsSuccess = (records: Record[], max_page: number): RecordsAction => {
+const getRecordsSuccess = (records: Record[], max_page: number, totals: RecordTotals): RecordsAction => {
   return {
     type: actionTypes.GET_RECORDS_SUCCESS,
     records,
-    max_page
+    max_page,
+    totals
   }
 }
 
@@ -42,7 +43,7 @@ export const getRecords = (params?: RecordSearchParams) => {
     try {
       if(ready()) {
         const res = await axios.get('/api/records', { params: params, headers: loginHeaders() })
-        dispatch(getRecordsSuccess(res.data.list, res.data.max_page))
+        dispatch(getRecordsSuccess(res.data.list, res.data.max_page, res.data.totals))
       } else {
         dispatch(getRecordsFailure())
       }
