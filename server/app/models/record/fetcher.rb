@@ -7,7 +7,7 @@ class Record::Fetcher
   attr_reader :category, :breakdown, :place
   attr_reader :records, :max_page
 
-  PER_PAGE = 5
+  PER_PAGE = 100
 
   def initialize(user:)
     @user = user
