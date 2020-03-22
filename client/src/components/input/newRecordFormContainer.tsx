@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
+import { withRouter } from 'react-router-dom'
 
 import { RecordParams, Category, RecordSearchParams } from 'types/api'
 import { NewRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
+import { RouteComponentProps } from 'types/react-router'
 import { toBoolean } from 'modules/toBoolean'
 import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
 import { getCategory } from 'actions/categoryActions'
@@ -37,7 +39,7 @@ interface DispatchProps {
   setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
-type Props = StateProps & DispatchProps
+type Props = RouteComponentProps & StateProps & DispatchProps
 
 class NewRecordFormContainer extends Component<Props> {
   constructor(props: Props) {
@@ -143,6 +145,9 @@ class NewRecordFormContainer extends Component<Props> {
       }
     }
     this.props.postRecord(params, searchParams)
+    this.props.history.push({
+      search: ''
+    })
   }
 
   render(): JSX.Element {
@@ -230,4 +235,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(NewRecordFormContainer)
+export default connect(mapState, mapDispatch)(withRouter(NewRecordFormContainer))

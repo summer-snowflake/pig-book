@@ -50,6 +50,17 @@ export interface RecordSearchParams {
   place_name?: string | null;
 }
 
+export interface QueryParams {
+  page: string;
+  published_at: string;
+  order: string;
+  month: string;
+  year: string;
+  category_id: string;
+  breakdown_id: string;
+  place_id: string;
+}
+
 export interface Admin {
   id: number;
   user_id: number;
