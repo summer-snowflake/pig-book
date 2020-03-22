@@ -42,6 +42,12 @@ export interface RecordSearchParams {
   month?: number | null;
   year?: number | null;
   order?: string | null;
+  category_id?: number | null;
+  category_name?: string | null;
+  breakdown_id?: number | null;
+  breakdown_name?: string | null;
+  place_id?: number | null;
+  place_name?: string | null;
 }
 
 export interface Admin {

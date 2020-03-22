@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { ReadRecord, Record } from 'types/api'
+import { ReadRecord, Record, Category, Breakdown, Place } from 'types/api'
 import RecordTableRecord from 'components/record/recordTableRecord'
 
 interface Props {
@@ -10,6 +10,9 @@ interface Props {
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
   onClickDestroy: (record: Record) => void;
+  onClickCategory?: (category: Category) => void;
+  onClickBreakdown?: (breakdown: Breakdown) => void;
+  onClickPlace?: (place: Place) => void;
 }
 
 class Records extends Component<Props> {
@@ -36,9 +39,12 @@ class Records extends Component<Props> {
             editedRecordId={this.props.editedRecordId}
             format={this.props.format}
             key={record.id}
+            onClickBreakdown={this.props.onClickBreakdown}
+            onClickCategory={this.props.onClickCategory}
             onClickCopy={this.handleClickCopy}
             onClickDestroy={this.props.onClickDestroy}
             onClickEdit={this.handleClickEdit}
+            onClickPlace={this.props.onClickPlace}
             record={record}
           />
         ))}

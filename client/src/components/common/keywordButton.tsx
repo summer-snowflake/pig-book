@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 interface Props {
   cancelable: boolean;
-  keyword: string;
+  keyword: string | JSX.Element;
   onClickCancel?: () => void;
 }
 

@@ -3,7 +3,7 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { Record, RecordSearchParams } from 'types/api'
+import { Record, RecordSearchParams, Category, Breakdown, Place } from 'types/api'
 import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
 import { getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords, deleteRecord, setRecordSearchParams, changePage } from 'actions/recordsActions'
@@ -51,6 +51,9 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
     this.handleClickPage = this.handleClickPage.bind(this)
+    this.handleClickCategory = this.handleClickCategory.bind(this)
+    this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
+    this.handleClickPlace = this.handleClickPlace.bind(this)
 
     const today = new Date()
     const params = {
@@ -148,6 +151,36 @@ class RecordsListContainer extends Component<Props> {
     this.props.getRecords(params)
   }
 
+  handleClickCategory(category: Category): void {
+    const params = {
+      ...this.props.recordSearch,
+      category_id: category.id,
+      category_name: category.name
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleClickBreakdown(breakdown: Breakdown): void {
+    const params = {
+      ...this.props.recordSearch,
+      breakdown_id: breakdown.id,
+      breakdown_name: breakdown.name
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleClickPlace(place: Place): void {
+    const params = {
+      ...this.props.recordSearch,
+      place_id: place.id,
+      place_name: place.name
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
   render(): JSX.Element {
     return (
       <div className='records-list-component row'>
@@ -180,9 +213,12 @@ class RecordsListContainer extends Component<Props> {
         <Records
           editedRecordId={this.props.editRecordStore.editedRecordId}
           format='detail'
+          onClickBreakdown={this.handleClickBreakdown}
+          onClickCategory={this.handleClickCategory}
           onClickCopy={this.handleClickCopy}
           onClickDestroy={this.handleClickDestroy}
           onClickEdit={this.handleClickEdit}
+          onClickPlace={this.handleClickPlace}
           records={this.props.recordsStore.records}
         />
         <div className='pagination-field'>

@@ -118,4 +118,10 @@ export interface RecordSearchStore {
   year: number | null;
   month: number | null;
   order: string | null;
+  category_id: number | null;
+  category_name: string | null;
+  breakdown_id: number | null;
+  breakdown_name: string | null;
+  place_id: number | null;
+  place_name: string | null;
 }

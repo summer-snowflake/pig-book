@@ -27,6 +27,9 @@ class SearchKeywordsContainer extends Component<Props> {
 
     this.handleClickCancelMonth = this.handleClickCancelMonth.bind(this)
     this.handleChangeMonth = this.handleChangeMonth.bind(this)
+    this.handleClickCancelCategory = this.handleClickCancelCategory.bind(this)
+    this.handleClickCancelBreakdown = this.handleClickCancelBreakdown.bind(this)
+    this.handleClickCancelPlace = this.handleClickCancelPlace.bind(this)
   }
 
   handleClickCancelMonth(): void {
@@ -47,18 +50,61 @@ class SearchKeywordsContainer extends Component<Props> {
     this.props.getRecords(params)
   }
 
+  handleClickCancelCategory(): void {
+    const params = {
+      ...this.props.recordSearchStore,
+      category_id: null,
+      category_name: null
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleClickCancelBreakdown(): void {
+    const params = {
+      ...this.props.recordSearchStore,
+      breakdown_id: null,
+      breakdown_name: null
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleClickCancelPlace(): void {
+    const params = {
+      ...this.props.recordSearchStore,
+      place_id: null,
+      place_name: null
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
   render(): JSX.Element {
     const { t } = this.props
+    const categoryName = (
+      <span>
+        <i className='fas fa-th-large left-icon yellow' />
+        {this.props.recordSearchStore.category_name}
+      </span>
+    )
+    const breakdownName = (
+      <span>
+        <i className='fas fa-list left-icon light-blue' />
+        {this.props.recordSearchStore.breakdown_name}
+      </span>
+    )
+    const placeName = (
+      <span>
+        <i className='fas fa-map-marker-alt left-icon blue' />
+        {this.props.recordSearchStore.place_name}
+      </span>
+    )
 
     return (
       <div className='search-keywords-component'>
         <div className='keyword-buttons'>
-          {this.props.recordSearchStore.year && (
-            <KeywordButton cancelable={false} keyword={this.props.recordSearchStore.year + t('label.year')} />
-          )}
-          {this.props.recordSearchStore.month ? (
-            <KeywordButton cancelable keyword={this.props.recordSearchStore.month + t('label.month')} onClickCancel={this.handleClickCancelMonth} />
-          ) : (
+          {!this.props.recordSearchStore.month && (
             <select
               className='form-control month-selectbox'
               onChange={this.handleChangeMonth}
@@ -68,6 +114,33 @@ class SearchKeywordsContainer extends Component<Props> {
                 <option key={month} value={month}>{month}</option>
               ))}
             </select>
+          )}
+          {this.props.recordSearchStore.year && (
+            <KeywordButton cancelable={false} keyword={this.props.recordSearchStore.year + t('label.year')} />
+          )}
+          {this.props.recordSearchStore.month && (
+            <KeywordButton cancelable keyword={this.props.recordSearchStore.month + t('label.month')} onClickCancel={this.handleClickCancelMonth} />
+          )}
+          {this.props.recordSearchStore.category_id && (
+            <KeywordButton
+              cancelable
+              keyword={categoryName}
+              onClickCancel={this.handleClickCancelCategory}
+            />
+          )}
+          {this.props.recordSearchStore.breakdown_id && (
+            <KeywordButton
+              cancelable
+              keyword={breakdownName}
+              onClickCancel={this.handleClickCancelBreakdown}
+            />
+          )}
+          {this.props.recordSearchStore.place_id && (
+            <KeywordButton
+              cancelable
+              keyword={placeName}
+              onClickCancel={this.handleClickCancelPlace}
+            />
           )}
         </div>
       </div>
