@@ -12,7 +12,11 @@ const initialState = {
   month: today.getMonth() + 1,
   order: null,
   category_id: null,
-  category_name: null
+  category_name: null,
+  breakdown_id: null,
+  breakdown_name: null,
+  place_id: null,
+  place_name: null
 }
 
 interface StoreAction extends Action {
@@ -33,7 +37,11 @@ const RecordSearchReducer = (state: RecordSearchStore = initialState, action: St
       date: action.params.date,
       order: action.params.order,
       category_id: action.params.category_id,
-      category_name: action.params.category_name
+      category_name: action.params.category_name,
+      breakdown_id: action.params.breakdown_id,
+      breakdown_name: action.params.breakdown_name,
+      place_id: action.params.place_id,
+      place_name: action.params.place_name
     }
   case actionTypes.CHANGE_PAGE:
     return {
