@@ -5,7 +5,8 @@ import { RecordsAction } from 'types/action'
 const initialState = {
   isLoading: false,
   records: [],
-  errors: []
+  errors: [],
+  maxPage: 1
 }
 
 const recordsReducer = (state: RecordsStore = initialState, action: RecordsAction): {} => {
@@ -19,7 +20,8 @@ const recordsReducer = (state: RecordsStore = initialState, action: RecordsActio
     return {
       ...state,
       isLoading: false,
-      records: action.records
+      records: action.records,
+      maxPage: action.max_page
     }
   case actionTypes.GET_RECORDS_FAILURE:
     return {

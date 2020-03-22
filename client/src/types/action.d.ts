@@ -47,4 +47,5 @@ export interface RecordAction extends Action {
 
 export interface RecordsAction extends Action {
   records: Record[];
+  max_page: number;
 }

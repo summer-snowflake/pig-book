@@ -6,6 +6,7 @@ import { RecordSearchParams } from 'types/api'
 
 const today = new Date()
 const initialState = {
+  page: 1,
   date: null,
   year: today.getFullYear(),
   month: today.getMonth() + 1,
@@ -13,6 +14,7 @@ const initialState = {
 }
 
 interface StoreAction extends Action {
+  page: number;
   year: number;
   month: number;
   date: Date | null;
@@ -24,10 +26,15 @@ const RecordSearchReducer = (state: RecordSearchStore = initialState, action: St
   case actionTypes.SET_RECORD_SEARCH_PARAMS:
     return {
       ...state,
-      year: action.params.year ? action.params.year : state.year,
-      month: action.params.month ? action.params.month : state.month,
+      year: action.params.year,
+      month: action.params.month,
       date: action.params.date,
       order: action.params.order
+    }
+  case actionTypes.CHANGE_PAGE:
+    return {
+      ...state,
+      page: action.page
     }
   default:
     return state

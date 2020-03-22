@@ -6,7 +6,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Record, RecordSearchParams } from 'types/api'
 import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
 import { getEditRecordCategory } from 'actions/categoryActions'
-import { getRecords, deleteRecord, setRecordSearchParams } from 'actions/recordsActions'
+import { getRecords, deleteRecord, setRecordSearchParams, changePage } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
 import { copyRecord, closeNewModal } from 'actions/newRecordActions'
 import { RootState } from 'reducers/rootReducer'
@@ -14,6 +14,8 @@ import Records from 'components/record/records'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import NewRecordModalContainer from 'components/record/newRecordModal'
 import EditRecordModalContainer from 'components/record/editRecordModalContainer'
+import Pagination from 'components/list/pagination'
+import SearchKeywords from 'components/list/searchKeywordsContainer'
 
 import 'stylesheets/list.sass'
 
@@ -33,6 +35,7 @@ interface DispatchProps {
   getEditRecordCategory: (categoryId: number) => void;
   deleteRecord: (recordId: number, searchParams: RecordSearchParams) => void;
   setRecordSearchParams: (params: RecordSearchParams) => void;
+  changePage: (page: number) => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -47,11 +50,14 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
+    this.handleClickPage = this.handleClickPage.bind(this)
 
+    const today = new Date()
     const params = {
+      page: 1,
       date: null,
-      year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month,
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
       order: 'published_at'
     }
     this.props.setRecordSearchParams(params)
@@ -74,6 +80,7 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickDestroy(record: Record): void {
     const searchParams = {
+      ...this.props.recordSearch,
       date: null,
       year: this.props.recordSearch.year,
       month: this.props.recordSearch.month,
@@ -83,28 +90,61 @@ class RecordsListContainer extends Component<Props> {
   }
 
   handleClickLeftArrow(): void {
-    const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
-    currentMonth.setMonth(currentMonth.getMonth() - 2)
-    const params = {
-      date: null,
-      year: currentMonth.getFullYear(),
-      month: currentMonth.getMonth() + 1,
-      order: 'published_at'
+    let params = {}
+    if (this.props.recordSearch.year && this.props.recordSearch.month) {
+      const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+      currentMonth.setMonth(currentMonth.getMonth() - 2)
+      params = {
+        ...this.props.recordSearch,
+        page: 1,
+        date: null,
+        year: currentMonth.getFullYear(),
+        month: currentMonth.getMonth() + 1
+      }
+    } else if (this.props.recordSearch.year) {
+      params = {
+        ...this.props.recordSearch,
+        page: 1,
+        date: null,
+        year: this.props.recordSearch.year - 1,
+        month: null
+      }
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
   }
 
   handleClickRightArrow(): void {
-    const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
-    currentMonth.setMonth(currentMonth.getMonth())
-    const params = {
-      date: null,
-      year: currentMonth.getFullYear(),
-      month: currentMonth.getMonth() + 1,
-      order: 'published_at'
+    let params = {}
+    if (this.props.recordSearch.year && this.props.recordSearch.month) {
+      const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+      currentMonth.setMonth(currentMonth.getMonth())
+      params = {
+        ...this.props.recordSearch,
+        page: 1,
+        date: null,
+        year: currentMonth.getFullYear(),
+        month: currentMonth.getMonth() + 1
+      }
+    } else if (this.props.recordSearch.year) {
+      params = {
+        ...this.props.recordSearch,
+        page: 1,
+        date: null,
+        year: this.props.recordSearch.year + 1,
+        month: null
+      }
     }
     this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+  }
+
+  handleClickPage(page: number): void {
+    const params = {
+      ...this.props.recordSearch,
+      page: page
+    }
+    this.props.changePage(page)
     this.props.getRecords(params)
   }
 
@@ -136,6 +176,7 @@ class RecordsListContainer extends Component<Props> {
             </button>
           </div>
         </div>
+        <SearchKeywords />
         <Records
           editedRecordId={this.props.editRecordStore.editedRecordId}
           format='detail'
@@ -144,6 +185,15 @@ class RecordsListContainer extends Component<Props> {
           onClickEdit={this.handleClickEdit}
           records={this.props.recordsStore.records}
         />
+        <div className='pagination-field'>
+          {this.props.recordsStore.maxPage > 1 && (
+            <Pagination
+              currentPage={this.props.recordSearch.page}
+              maxPage={this.props.recordsStore.maxPage}
+              onClickPage={this.handleClickPage}
+            />
+          )}
+        </div>
       </div>
     )
   }
@@ -185,6 +235,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     setRecordSearchParams(params: RecordSearchParams): void {
       dispatch(setRecordSearchParams(params))
+    },
+    changePage(page: number): void {
+      dispatch(changePage(page))
     }
   }
 }
