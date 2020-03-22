@@ -177,13 +177,6 @@ class RecordsListContainer extends Component<Props> {
           </div>
         </div>
         <SearchKeywords />
-        {this.props.recordsStore.maxPage > 1 && (
-          <Pagination
-            currentPage={this.props.recordSearch.page}
-            maxPage={this.props.recordsStore.maxPage}
-            onClickPage={this.handleClickPage}
-          />
-        )}
         <Records
           editedRecordId={this.props.editRecordStore.editedRecordId}
           format='detail'
@@ -192,6 +185,15 @@ class RecordsListContainer extends Component<Props> {
           onClickEdit={this.handleClickEdit}
           records={this.props.recordsStore.records}
         />
+        <div className='pagination-field'>
+          {this.props.recordsStore.maxPage > 1 && (
+            <Pagination
+              currentPage={this.props.recordSearch.page}
+              maxPage={this.props.recordsStore.maxPage}
+              onClickPage={this.handleClickPage}
+            />
+          )}
+        </div>
       </div>
     )
   }

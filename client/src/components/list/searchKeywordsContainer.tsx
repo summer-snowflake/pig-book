@@ -51,7 +51,7 @@ class SearchKeywordsContainer extends Component<Props> {
     const { t } = this.props
 
     return (
-      <span className='search-keywords-component'>
+      <div className='search-keywords-component'>
         <div className='keyword-buttons'>
           {this.props.recordSearchStore.year && (
             <KeywordButton cancelable={false} keyword={this.props.recordSearchStore.year + t('label.year')} />
@@ -70,7 +70,7 @@ class SearchKeywordsContainer extends Component<Props> {
             </select>
           )}
         </div>
-      </span>
+      </div>
     )
   }
 }

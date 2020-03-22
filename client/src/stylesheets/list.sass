@@ -37,3 +37,26 @@
   .record-place-td
     span
       cursor: pointer
+
+.pagination-field
+  margin: 10px auto
+
+.pagination
+  .page-item
+    &.active > .page-link
+      background-color: $button-green
+      border-color: $button-green
+
+    &:focus
+      outline: none
+
+  .page-link
+    color: $button-green
+    padding: .3rem .75rem
+
+    &:hover
+      background-color: $rgba2-lighten-green
+      color: $button-green
+
+    &:focus
+      box-shadow: none
