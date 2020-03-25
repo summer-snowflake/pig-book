@@ -287,9 +287,11 @@ class RecordsListContainer extends Component<Props> {
             />
           )}
         </div>
-        <RecordTotalsTable
-          totals={this.props.recordsStore.totals}
-        />
+        {this.props.recordsStore.records.length > 0 && (
+          <RecordTotalsTable
+            totals={this.props.recordsStore.totals}
+          />
+        )}
       </div>
     )
   }

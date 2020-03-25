@@ -7,11 +7,14 @@ class Record::Fetcher
   attr_reader :user, :date, :year, :month, :page, :limit, :order
   attr_reader :category, :breakdown, :place, :records, :max_page, :totals
 
+  validates :year, :month, :page, :limit,
+            numericality: { only_integer: true, allow_blank: true }
   validates :order, inclusion: {
-    in: %w[published_at created_at category_id breakdown_id place_id]
+    in: %w[published_at created_at category_id breakdown_id place_id],
+    allow_blank: true
   }
 
-  PER_PAGE = 5
+  PER_PAGE = 100
 
   def initialize(user:)
     @user = user
@@ -19,18 +22,32 @@ class Record::Fetcher
 
   def find_all_by(params)
     init_attrs(params)
+    return set_empty_attrs unless valid?
 
     records = search_records
     use_paginate(records.count)
     calculate_totals(records)
 
-    records = records.offset(PER_PAGE * (page - 1))
-    records = records.limit(limit)
+    records = records.offset(PER_PAGE * (page - 1)).limit(limit)
     records = records.order("#{order}": :desc) if order
     @records = records.order(created_at: :desc)
+  rescue ActiveRecord::RecordNotFound
+    set_empty_attrs
   end
 
   private
+
+  def set_empty_attrs
+    @records = Record.none
+    @max_page = 1
+    @totals = {
+      human_income_charge: human_charge(0),
+      human_expenditure_charge: human_charge(0),
+      human_all_charge: human_charge(0),
+      use_cashless_charge: 0,
+      use_point: 0
+    }
+  end
 
   def search_records
     records = user.records.where(published_at: time_range)

@@ -13,32 +13,28 @@ class RecordTotalsTable extends Component<Props> {
 
     return (
       <div className='record-totals-component'>
-        <table className='table table-bordered float-right'>
-          <tbody>
-            <tr>
-              <td>
-                {t('label.total')}
-                {this.props.totals.human_all_charge}
-              </td>
-              <td>
-                <i className='fas fa-plus-square left-icon blue' />
-                {this.props.totals.human_income_charge}
-              </td>
-              <td>
-                <i className='fas fa-minus-square left-icon red' />
-                {this.props.totals.human_expenditure_charge}
-              </td>
-              <td>
-                <i className='far fa-check-square left-icon' />
-                {this.props.totals.use_cashless_charge}
-              </td>
-              <td>
-                <i className='fas fa-parking left-icon' />
-                {this.props.totals.use_point}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className='totals-table float-right'>
+          <span className='total-item'>
+            {t('label.total')}
+            {this.props.totals.human_all_charge}
+          </span>
+          <span className='total-item'>
+            <i className='fas fa-plus-square left-icon blue' />
+            {this.props.totals.human_income_charge}
+          </span>
+          <span className='total-item'>
+            <i className='fas fa-minus-square left-icon red' />
+            {this.props.totals.human_expenditure_charge}
+          </span>
+          <span className='total-item'>
+            <i className='far fa-check-square left-icon' />
+            {this.props.totals.use_cashless_charge}
+          </span>
+          <span className='total-item'>
+            <i className='fas fa-parking left-icon' />
+            {this.props.totals.use_point}
+          </span>
+        </div>
       </div>
     )
   }

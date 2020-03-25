@@ -5,8 +5,8 @@ class RecordsController < ApplicationController
 
   def index
     fetcher = Record::Fetcher.new(user: current_user)
-    records = fetcher.find_all_by(records_params)
-    render json: { list: records,
+    fetcher.find_all_by(records_params)
+    render json: { list: fetcher.records,
                    max_page: fetcher.max_page,
                    totals: fetcher.totals },
            include: %i[category breakdown place],
