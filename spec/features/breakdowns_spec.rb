@@ -22,8 +22,8 @@ feature 'BREAKDOWN', js: true do
   end
 
   context 'there are some breakdowns' do
-    let!(:breakdown1) { create(:breakdown, category: category) }
-    let!(:breakdown2) { create(:breakdown, category: category) }
+    let!(:breakdown1) { create(:breakdown, user: user, category: category) }
+    let!(:breakdown2) { create(:breakdown, user: user, category: category) }
 
     background do
       visit breakdowns_path

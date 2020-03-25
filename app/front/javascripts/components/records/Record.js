@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import ReactTooltip from 'react-tooltip'
 
 import Trash from './../common/Trash'
 import TagsIcons from './TagsIcons'
@@ -55,19 +56,22 @@ class Record extends React.Component {
         <td className='editing-label'>
           {this.props.editingRecordId == this.props.record.id && (
             <span className='badge badge-info'>
-              <i className='fas fa-angle-double-left left-icon' />
-              {'編集中'}
+              {'...'}
+              <i className='fas fa-pen right-icon' />
             </span>
           )}
         </td>
         <td className='icon-td'>
-          <i className='fas fa-info-circle' onClick={this.handleClickInfoIcon}/>
+          <ReactTooltip />
+          <i className='fas fa-info-circle' data-tip={'詳細'} onClick={this.handleClickInfoIcon}/>
         </td>
         <td className='icon-td'>
-          <i className='far fa-copy' onClick={this.handleClickCopyIcon} />
+          <ReactTooltip />
+          <i className='far fa-copy' data-tip={'コピー'} onClick={this.handleClickCopyIcon} />
         </td>
         <td className='icon-td'>
-          <i className='fas fa-edit' onClick={this.handleClickEditIcon}/>
+          <ReactTooltip />
+          <i className='fas fa-edit' data-tip={'編集'} onClick={this.handleClickEditIcon}/>
         </td>
         {this.props.longEnabled && (
           <td>
@@ -104,7 +108,7 @@ class Record extends React.Component {
           {this.props.record.human_charge}
         </td>
         <td>
-          {this.props.longEnabled && this.props.record.cashless_charge > 0 && (
+          {this.props.record.cashless_charge > 0 && (
             <span>
               <i className='fas fa-copyright left-icon green' />
               {this.props.record.cashless_charge}
@@ -112,7 +116,7 @@ class Record extends React.Component {
           )}
         </td>
         <td>
-          {this.props.longEnabled && this.props.record.point > 0 && (
+          {this.props.record.point > 0 && (
             <span>
               <i className='fas fa-parking left-icon green' />
               {this.props.record.point}

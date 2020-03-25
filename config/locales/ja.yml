@@ -2,6 +2,7 @@ ja:
   time:
     formats:
       month: '%m月'
+      long: '%Y年%m月%d日(%a) %H:%M:%S'
   brand:
     name: おこづかいちょうβ
     subtitle: かわいい家計簿アプリ
