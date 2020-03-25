@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_074737) do
 
   create_table "tally_events", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "month", null: false
+    t.integer "year", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_tally_events_on_user_id"
