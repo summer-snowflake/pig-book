@@ -3,10 +3,14 @@
 class DashboardsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    fetcher = Dashboard::Fetcher.new(user: current_user)
+    render json: fetcher.all
+  end
+
   def show
-    render json: {
-      event: current_user.tally_events.find_by(year: params[:year])
-    }
+    fetcher = Dashboard::Fetcher.new(user: current_user)
+    render json: fetcher.find_by(year: params[:year].to_i)
   end
 
   def update

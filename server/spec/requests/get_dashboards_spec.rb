@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe 'GET /api/dashboards/:year' do
+describe 'GET /api/dashboards' do
   let!(:user) { create(:user, :active) }
   let!(:year) { Time.zone.today.year }
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data.' do
-      get "/api/dashboards/#{year}"
+      get '/api/dashboards'
 
       expect(response.status).to eq 401
       json = {
@@ -23,13 +23,15 @@ describe 'GET /api/dashboards/:year' do
       let!(:tally_event) { create(:tally_event, user: user, year: year) }
 
       it 'returns status code 200 and json dashboard data.' do
-        get "/api/dashboards/#{year}", headers: login_headers_with_login(user)
+        get '/api/dashboards', headers: login_headers_with_login(user)
 
         expect(response.status).to eq 200
         json = {
-          event: {
-            user_id: user.id,
-            year: year
+          year.to_s => {
+            event: {
+              user_id: user.id,
+              year: year
+            }
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
@@ -38,11 +40,13 @@ describe 'GET /api/dashboards/:year' do
 
     context 'there is NOT tally event' do
       it 'returns status code 200 and json dashboard data.' do
-        get "/api/dashboards/#{year}", headers: login_headers_with_login(user)
+        get '/api/dashboards', headers: login_headers_with_login(user)
 
         expect(response.status).to eq 200
         json = {
-          event: nil
+          year.to_s => {
+            event: nil
+          }
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
