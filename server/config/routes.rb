@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :categories, only: %i[index create], module: :place
     end
     resources :records, only: %i[index create update destroy]
+    resources :dashboards, param: :year, only: %i[show update]
 
     namespace :admin do
       resources :users, only: %i[index]
