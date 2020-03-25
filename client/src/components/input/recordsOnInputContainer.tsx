@@ -136,9 +136,11 @@ class RecordsOnInputContainer extends Component<Props> {
             onClickEdit={this.handleClickEdit}
             records={this.props.records.records}
           />
-          <RecordTotalsTable
-            totals={this.props.records.totals}
-          />
+          {this.props.records.records.length > 0 && (
+            <RecordTotalsTable
+              totals={this.props.records.totals}
+            />
+          )}
         </div>
       </div>
     )

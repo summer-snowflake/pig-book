@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { withRouter } from 'react-router-dom'
 
 import { Record, RecordSearchParams, Category, Breakdown, Place } from 'types/api'
 import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
+import { RouteComponentProps } from 'types/react-router'
+import { encodeQueryData } from 'modules/encode'
 import { getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords, deleteRecord, setRecordSearchParams, changePage } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
@@ -39,7 +42,7 @@ interface DispatchProps {
   changePage: (page: number) => void;
 }
 
-type Props = StateProps & DispatchProps
+type Props = RouteComponentProps & StateProps & DispatchProps
 
 class RecordsListContainer extends Component<Props> {
   constructor(props: Props) {
@@ -55,15 +58,31 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickCategory = this.handleClickCategory.bind(this)
     this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
     this.handleClickPlace = this.handleClickPlace.bind(this)
+    this.handleClickSort = this.handleClickSort.bind(this)
 
     const today = new Date()
+    const queryParams = new URLSearchParams(this.props.location.search)
+    const page = queryParams.get('page')
+    const year = queryParams.get('year')
+    const month = queryParams.get('month')
+    const order = queryParams.get('order')
+    const category_id = queryParams.get('category_id')
+    const breakdown_id = queryParams.get('breakdown_id')
+    const place_id = queryParams.get('place_id')
     const params = {
-      page: 1,
+      page: (page ? Number(page) : undefined) || 1,
       date: null,
-      year: today.getFullYear(),
-      month: today.getMonth() + 1,
-      order: 'published_at'
+      year: (year ? Number(year) : undefined) || today.getFullYear(),
+      month: (month ? Number(month) : undefined) || (year ? null : (today.getMonth() + 1)),
+      order: order || 'published_at',
+      category_id: category_id ? Number(category_id) : null,
+      category_name: category_id ? 'id: ' + category_id : '',
+      breakdown_id: breakdown_id ? Number(breakdown_id) : null,
+      breakdown_name: breakdown_id ? 'id: ' + breakdown_id : '',
+      place_id: place_id ? Number(place_id) : null,
+      place_name: place_id ? 'id: ' + place_id : '',
     }
+    this.props.changePage(params.page)
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
   }
@@ -94,7 +113,9 @@ class RecordsListContainer extends Component<Props> {
   }
 
   handleClickLeftArrow(): void {
-    let params = {}
+    let params = {
+      ...this.props.recordSearch,
+    }
     if (this.props.recordSearch.year && this.props.recordSearch.month) {
       const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
       currentMonth.setMonth(currentMonth.getMonth() - 2)
@@ -116,6 +137,9 @@ class RecordsListContainer extends Component<Props> {
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
   }
 
   handleClickRightArrow(): void {
@@ -141,6 +165,9 @@ class RecordsListContainer extends Component<Props> {
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
   }
 
   handleClickPage(page: number): void {
@@ -150,36 +177,63 @@ class RecordsListContainer extends Component<Props> {
     }
     this.props.changePage(page)
     this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
   }
 
   handleClickCategory(category: Category): void {
     const params = {
       ...this.props.recordSearch,
+      page: 1,
       category_id: category.id,
       category_name: category.name
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
   }
 
   handleClickBreakdown(breakdown: Breakdown): void {
     const params = {
       ...this.props.recordSearch,
+      page: 1,
       breakdown_id: breakdown.id,
       breakdown_name: breakdown.name
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
   }
 
   handleClickPlace(place: Place): void {
     const params = {
       ...this.props.recordSearch,
+      page: 1,
       place_id: place.id,
       place_name: place.name
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
+  handleClickSort(e: React.MouseEvent<HTMLElement>): void {
+    const params = {
+      ...this.props.recordSearch,
+      order: e.currentTarget.dataset.order
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
   }
 
   render(): JSX.Element {
@@ -220,7 +274,9 @@ class RecordsListContainer extends Component<Props> {
           onClickDestroy={this.handleClickDestroy}
           onClickEdit={this.handleClickEdit}
           onClickPlace={this.handleClickPlace}
+          onClickSort={this.handleClickSort}
           records={this.props.recordsStore.records}
+          recordSearchStore={this.props.recordSearch}
         />
         <div className='pagination-field'>
           {this.props.recordsStore.maxPage > 1 && (
@@ -231,9 +287,11 @@ class RecordsListContainer extends Component<Props> {
             />
           )}
         </div>
-        <RecordTotalsTable
-          totals={this.props.recordsStore.totals}
-        />
+        {this.props.recordsStore.records.length > 0 && (
+          <RecordTotalsTable
+            totals={this.props.recordsStore.totals}
+          />
+        )}
       </div>
     )
   }
@@ -282,4 +340,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(RecordsListContainer)
+export default connect(mapState, mapDispatch)(withRouter(RecordsListContainer))

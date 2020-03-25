@@ -3,9 +3,11 @@ import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
+import { withRouter } from 'react-router-dom'
 
 import { RecordParams, Category, RecordSearchParams } from 'types/api'
 import { EditRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
+import { RouteComponentProps } from 'types/react-router'
 import { toBoolean } from 'modules/toBoolean'
 import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
@@ -43,7 +45,7 @@ interface DispatchProps {
   setRecordSearchParams: (params: RecordSearchParams) => void;
 }
 
-type Props = ParentProps & StateProps & DispatchProps
+type Props = ParentProps & RouteComponentProps & StateProps & DispatchProps
 
 const customStyles = {
   content : {
@@ -97,6 +99,7 @@ class EditRecordModalContainer extends Component<Props> {
     } else {
       params = {
         ...this.props.recordSearch,
+        page: (this.props.recordSearch.year !== date.getFullYear() || this.props.recordSearch.month !== date.getMonth() + 1) ? 1 : this.props.recordSearch.page,
         year: date.getFullYear(),
         month: date.getMonth() + 1
       }
@@ -149,6 +152,9 @@ class EditRecordModalContainer extends Component<Props> {
       memo: this.props.editRecord.record.memo
     }
     this.props.patchRecord(this.props.editRecord.record.id, params, this.props.recordSearch)
+    this.props.history.push({
+      search: ''
+    })
   }
 
   render(): JSX.Element {
@@ -252,4 +258,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(EditRecordModalContainer)
+export default connect(mapState, mapDispatch)(withRouter(EditRecordModalContainer))
