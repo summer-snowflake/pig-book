@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_064905) do
+ActiveRecord::Schema.define(version: 2018_07_26_150126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 
+  create_table "tally_events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "year", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tally_events_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -133,4 +141,5 @@ ActiveRecord::Schema.define(version: 2018_06_18_064905) do
   add_foreign_key "records", "categories"
   add_foreign_key "records", "places"
   add_foreign_key "records", "users"
+  add_foreign_key "tally_events", "users"
 end
