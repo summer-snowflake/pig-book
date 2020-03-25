@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_164456) do
+ActiveRecord::Schema.define(version: 2020_03_25_074737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,15 +57,6 @@ ActiveRecord::Schema.define(version: 2020_03_05_164456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_download_files_on_user_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "category", null: false
-    t.bigint "created_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "import_histories", force: :cascade do |t|
@@ -147,6 +138,14 @@ ActiveRecord::Schema.define(version: 2020_03_05_164456) do
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
+  create_table "tally_events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "month", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tally_events_on_user_id"
+  end
+
   create_table "templates", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "name", null: false
@@ -215,7 +214,6 @@ ActiveRecord::Schema.define(version: 2020_03_05_164456) do
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
   add_foreign_key "download_files", "users"
-  add_foreign_key "events", "users"
   add_foreign_key "import_histories", "records"
   add_foreign_key "import_histories", "users"
   add_foreign_key "monthly_balance_tables", "users"
@@ -228,6 +226,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_164456) do
   add_foreign_key "tagged_records", "records"
   add_foreign_key "tagged_records", "tags"
   add_foreign_key "tags", "users"
+  add_foreign_key "tally_events", "users"
   add_foreign_key "templates", "breakdowns"
   add_foreign_key "templates", "categories"
   add_foreign_key "templates", "tags"

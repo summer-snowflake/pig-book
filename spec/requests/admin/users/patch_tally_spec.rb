@@ -44,7 +44,7 @@ describe 'GET /api/admin/users/:user_id/tally' do
               params: params, headers: login_headers(admin_user)
 
         expect(response.status).to eq 200
-        event = user.events.last
+        event = user.tally_events.last
         json = {
           last_tally_at: event.updated_at
         }.to_json
@@ -65,7 +65,7 @@ describe 'GET /api/admin/users/:user_id/tally' do
               params: params, headers: login_headers(admin_user)
 
         expect(response.status).to eq 200
-        event = user.events.last
+        event = user.tally_events.last
         json = {
           last_tally_at: event.updated_at
         }.to_json

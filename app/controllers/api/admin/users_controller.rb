@@ -8,9 +8,9 @@ class Api::Admin::UsersController < Api::BaseController
   def tally
     Rails.application.load_tasks
     Rake::Task['tally:update']
-      .execute(user_id: @user.id, operator_id: current_user.id)
+      .execute(user_id: @user.id)
     Rake::Task['tally:update'].clear
-    render json: @user.events.last
+    render json: @user.tally_events.last
   end
 
   private
