@@ -50,6 +50,20 @@ ActiveRecord::Schema.define(version: 2018_07_26_150126) do
     t.index ["place_id"], name: "index_categorized_places_on_place_id"
   end
 
+  create_table "monthly_balance_tables", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.decimal "income", default: "0.0", null: false
+    t.decimal "expenditure", default: "0.0", null: false
+    t.integer "currency", default: 0, null: false
+    t.integer "year", null: false
+    t.integer "month", null: false
+    t.integer "point", default: 0, null: false
+    t.integer "cashless_charge", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_monthly_balance_tables_on_user_id"
+  end
+
   create_table "places", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -135,6 +149,7 @@ ActiveRecord::Schema.define(version: 2018_07_26_150126) do
   add_foreign_key "categories", "users"
   add_foreign_key "categorized_places", "categories"
   add_foreign_key "categorized_places", "places"
+  add_foreign_key "monthly_balance_tables", "users"
   add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "records", "breakdowns"
