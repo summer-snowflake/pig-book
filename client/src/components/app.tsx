@@ -11,6 +11,7 @@ import Header from 'components/headerContainer'
 import TopPage from 'components/top/topPage'
 import InputPage from 'components/input/inputPage'
 import ListPage from 'components/list/listPage'
+import DashboardPage from 'components/dashboard/dashboardPage'
 import SignInPage from 'components/login/signInPage'
 import SignUpPage from 'components/login/signUpPage'
 import MypageTopPage from 'components/mypage/mypageTopPage'
@@ -40,6 +41,7 @@ class App extends Component {
             <Route component={SignUpPage} exact path='/users/sign_up' />
             <Route component={InputPage} exact path='/input' />
             <Route component={ListPage} exact path='/list' />
+            <Route component={DashboardPage} exact path='/dashboard' />
             <Route component={MypageTopPage} exact path='/mypage' />
             <Route component={SettingsTopPage} exact path='/settings' />
             <Route component={CategoryPage} exact path='/categories' />
