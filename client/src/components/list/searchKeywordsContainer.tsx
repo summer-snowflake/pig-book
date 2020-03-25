@@ -139,21 +139,21 @@ class SearchKeywordsContainer extends Component<Props> {
           {this.props.recordSearchStore.month && (
             <KeywordButton cancelable keyword={this.props.recordSearchStore.month + t('label.month')} onClickCancel={this.handleClickCancelMonth} />
           )}
-          {this.props.recordSearchStore.category_id && (
+          {!!this.props.recordSearchStore.category_id && (
             <KeywordButton
               cancelable
               keyword={categoryName}
               onClickCancel={this.handleClickCancelCategory}
             />
           )}
-          {this.props.recordSearchStore.breakdown_id && (
+          {!!this.props.recordSearchStore.breakdown_id && (
             <KeywordButton
               cancelable
               keyword={breakdownName}
               onClickCancel={this.handleClickCancelBreakdown}
             />
           )}
-          {this.props.recordSearchStore.place_id && (
+          {!!this.props.recordSearchStore.place_id && (
             <KeywordButton
               cancelable
               keyword={placeName}
