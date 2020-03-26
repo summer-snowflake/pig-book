@@ -162,6 +162,15 @@ export interface Event {
   created_at: string;
 }
 
-export interface Dashboard{
+interface MonthlyBalanceTable {
+  month: number;
+  income: number;
+  expenditure: number;
+  cashless_charge: number;
+  point: number;
+}
+
+export interface Dashboard {
   event: Event;
+  monthly: MonthlyBalanceTable[];
 }

@@ -5,7 +5,8 @@ import { DashboardStore } from 'types/store'
 const initialState = {
   isLoading: false,
   year: (new Date()).getFullYear(),
-  event: null
+  event: null,
+  monthly: []
 }
 
 const dashboardReducer = (state: DashboardStore = initialState, action: DashboardAction): {} => {

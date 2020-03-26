@@ -9,6 +9,7 @@ import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import HumanTime from 'components/common/humanTime'
 import TallyButton from 'components/common/tallyButton'
+import MonthlyData from 'components/dashboard/monthlyData'
 
 interface StateProps {
   dashboard: DashboardStore;
@@ -48,6 +49,7 @@ class DashboardContainer extends Component<Props> {
           )}
           <TallyButton disabled={this.props.dashboard.isLoading} onClickButton={this.handleClickTallyButton} year={this.props.dashboard.year} />
         </div>
+        <MonthlyData monthly={this.props.dashboard.monthly} />
       </div>
     )
   }
