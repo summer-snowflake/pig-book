@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
+import DashboardContainer from 'components/dashboard/dashboardContainer'
+
 import 'stylesheets/dashboard.sass'
 
 class DashboardPage extends Component<I18nProps> {
@@ -17,7 +19,9 @@ class DashboardPage extends Component<I18nProps> {
                 <i className='fas fa-chart-bar left-icon' />
                 {t('menu.dashboard')}
               </div>
-              <div className='card-body with-background-image' />
+              <div className='card-body with-background-image'>
+                <DashboardContainer />
+              </div>
             </div>
           </div>
         </div>

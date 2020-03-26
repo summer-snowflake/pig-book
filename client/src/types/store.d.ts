@@ -1,4 +1,4 @@
-import { Errors, Category, Breakdown, Place } from 'types/api'
+import { Errors, Category, Breakdown, Place, Event } from 'types/api'
 
 export interface CookiesHeader {
   uid: string;
@@ -125,4 +125,14 @@ export interface RecordSearchStore {
   breakdown_name: string | null;
   place_id: number | null;
   place_name: string | null;
+}
+
+interface DashboardStore {
+  isLoading: boolean;
+  year: number;
+  event: Event | null;
+}
+
+export interface DashboardsStore {
+  dashboards: DashboardStore[];
 }

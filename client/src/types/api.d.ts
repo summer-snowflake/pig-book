@@ -155,3 +155,13 @@ export interface WithRelationsCategory extends Category {
   breakdowns: Breakdown[];
   places: Place[];
 }
+
+export interface Event {
+  user_id: number;
+  year: number;
+  created_at: string;
+}
+
+export interface Dashboard{
+  event: Event;
+}

@@ -68,7 +68,8 @@
     "add": "Add",
     "delete": "Delete",
     "set": "Set",
-    "today": "Today"
+    "today": "Today",
+    "tally": "Tally"
   },
   "message": {
     "placeCategorized": "Select Categories.",

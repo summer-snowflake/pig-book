@@ -1,4 +1,4 @@
-import { Category, Breakdown, User, Place, RecordTotals } from './api'
+import { Category, Breakdown, User, Place, RecordTotals, Event } from './api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
@@ -45,8 +45,16 @@ export interface RecordAction extends Action {
   record: Record;
 }
 
+export interface EventAction extends Action {
+  event: Event | null;
+}
+
 export interface RecordsAction extends Action {
   records: Record[];
   max_page: number;
   totals: RecordTotals;
+}
+
+export interface DashboardAction extends Action {
+  dashboard: Dashboard;
 }
