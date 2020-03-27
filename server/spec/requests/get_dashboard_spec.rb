@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/dashboards/:year' do
-  let!(:user) { create(:user, :active) }
+  let!(:user) { create(:user, :active, :with_profile) }
   let!(:year) { Time.zone.today.year }
 
   context 'when NOT logged in.' do
@@ -30,7 +30,8 @@ describe 'GET /api/dashboards/:year' do
           event: {
             user_id: user.id,
             year: year
-          }
+          },
+          monthly: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -42,7 +43,8 @@ describe 'GET /api/dashboards/:year' do
 
         expect(response.status).to eq 200
         json = {
-          event: nil
+          event: nil,
+          monthly: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

@@ -20,7 +20,8 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
     return {
       ...state,
       isLoading: false,
-      event: action.dashboard.event
+      event: action.dashboard.event,
+      monthly: action.dashboard.monthly
     }
   case actionTypes.GET_DASHBOARD_FAILURE:
     return {

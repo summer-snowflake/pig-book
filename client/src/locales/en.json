@@ -41,6 +41,7 @@
     "memo": "Note"
   },
   "label": {
+    "locale": "en-IN",
     "email": "E-mail",
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",

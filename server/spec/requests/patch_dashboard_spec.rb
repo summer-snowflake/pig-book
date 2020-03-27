@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'PATCH /api/records/:id' do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :with_profile) }
   let!(:category1) { create(:category, user: user) }
   let!(:category2) { create(:category, user: user) }
   let!(:breakdown1) { create(:breakdown, user: user, category: category1) }
@@ -52,6 +52,7 @@ describe 'PATCH /api/records/:id' do
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
+        expect(user.monthly_balance_tables.count).to eq 12
       end
     end
   end

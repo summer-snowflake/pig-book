@@ -41,6 +41,7 @@
     "memo": "メモ"
   },
   "label": {
+    "locale": "jp-JP",
     "email": "メールアドレス",
     "password": "パスワード",
     "passwordConfirmation": "パスワード（確認）",

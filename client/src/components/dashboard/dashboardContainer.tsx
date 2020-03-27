@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 
-import { DashboardStore } from 'types/store'
+import { DashboardStore, ProfileStore } from 'types/store'
 import { getDashboard, patchDashboard } from 'actions/dashboardActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
@@ -13,6 +13,7 @@ import MonthlyData from 'components/dashboard/monthlyData'
 
 interface StateProps {
   dashboard: DashboardStore;
+  profile: ProfileStore;
 }
 
 interface DispatchProps {
@@ -49,7 +50,7 @@ class DashboardContainer extends Component<Props> {
           )}
           <TallyButton disabled={this.props.dashboard.isLoading} onClickButton={this.handleClickTallyButton} year={this.props.dashboard.year} />
         </div>
-        <MonthlyData monthly={this.props.dashboard.monthly} />
+        <MonthlyData currency={this.props.profile.currency} monthly={this.props.dashboard.monthly} year={this.props.dashboard.year} />
       </div>
     )
   }
@@ -57,7 +58,8 @@ class DashboardContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    dashboard: state.dashboard
+    dashboard: state.dashboard,
+    profile: state.profile
   }
 }
 
@@ -67,7 +69,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(getDashboard())
     },
     patchDashboard(year: number): void {
-      dispatch(patchDashboard(year))
+      dispatch(patchDashboard(year)).then(() => {
+        dispatch(getDashboard())
+      })
     }
   }
 }
