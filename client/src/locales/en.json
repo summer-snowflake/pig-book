@@ -73,6 +73,9 @@
     "today": "Today",
     "tally": "Tally"
   },
+  "link": {
+    "dashboards": "ALL Dashboards"
+  },
   "message": {
     "placeCategorized": "Select Categories.",
     "pageNotFound": "Page not found.",

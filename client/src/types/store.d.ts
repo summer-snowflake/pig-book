@@ -136,5 +136,6 @@ interface DashboardStore {
 }
 
 export interface DashboardsStore {
+  isLoading: boolean;
   dashboards: DashboardStore[];
 }

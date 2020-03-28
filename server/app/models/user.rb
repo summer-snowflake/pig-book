@@ -34,6 +34,9 @@ class User < ApplicationRecord
     this_year = Time.zone.today.year
     return [this_year] if monthly_balance_tables.blank?
 
-    [*(monthly_balance_tables.minimum(:year)..this_year)].reverse
+    minimum_year = monthly_balance_tables.minimum(:year)
+    twenty_years_old = this_year - 20
+    year = minimum_year < twenty_years_old ? twenty_years_old : minimum_year
+    [*(year..this_year)].reverse
   end
 end
