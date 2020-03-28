@@ -17,6 +17,9 @@ RSpec.describe User, type: :model do
 
   describe '#dashboard_years' do
     let!(:user) { create(:user) }
+    let!(:record) do
+      create(:record, user: user, published_at: Date.parse('2012/02/02'))
+    end
     subject { user.dashboard_years }
 
     context 'with empty monthly_balance_tables' do
