@@ -73,6 +73,9 @@
     "today": "今日",
     "tally": "集計する"
   },
+  "link": {
+    "dashboards": "すべての年度を確認"
+  },
   "message": {
     "placeCategorized": "利用するカテゴリを選択してください（複数可）",
     "pageNotFound": "お探しのページは見つかりませんでした。",

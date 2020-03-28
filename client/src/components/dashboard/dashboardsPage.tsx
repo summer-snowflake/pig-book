@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
-import DashboardContainer from 'components/dashboard/dashboardContainer'
+import DashboardsContainer from 'components/dashboard/dashboardsContainer'
 
 import 'stylesheets/dashboard.sass'
 
-class DashboardPage extends Component<I18nProps> {
+class DashboardsPage extends Component<I18nProps> {
   render(): JSX.Element {
     const { t } = this.props
 
     return (
-      <div className='dashboard-page-component container-fluid'>
+      <div className='dashboards-page-component container-fluid'>
         <div className='row'>
           <div className='col-1 d-lg-none' />
           <div className='col'>
@@ -21,12 +20,7 @@ class DashboardPage extends Component<I18nProps> {
                 {t('menu.dashboard')}
               </div>
               <div className='card-body with-background-image'>
-                <DashboardContainer />
-                <span className='dashboards-link float-right'>
-                  <Link to='/dashboards'>
-                    {t('link.dashboards')}
-                  </Link>
-                </span>
+                <DashboardsContainer />
               </div>
             </div>
           </div>
@@ -36,4 +30,4 @@ class DashboardPage extends Component<I18nProps> {
   }
 }
 
-export default withTranslation()(DashboardPage)
+export default withTranslation()(DashboardsPage)

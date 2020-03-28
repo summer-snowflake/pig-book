@@ -3,8 +3,9 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 
-import { DashboardStore } from 'types/store'
-import { getDashboard, patchDashboard } from 'actions/dashboardActions'
+import { DashboardsStore } from 'types/store'
+import { patchDashboard } from 'actions/dashboardActions'
+import { getDashboards } from 'actions/dashboardsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
@@ -12,11 +13,11 @@ import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import TallyField from './tallyField'
 
 interface StateProps {
-  dashboard: DashboardStore;
+  dashboards: DashboardsStore;
 }
 
 interface DispatchProps {
-  getDashboard: () => void;
+  getDashboards: () => void;
   patchDashboard: (year: number) => void;
 }
 
@@ -26,24 +27,29 @@ class DashboardContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
-    this.props.getDashboard()
+    this.props.getDashboards()
 
     this.handleClickTallyButton = this.handleClickTallyButton.bind(this)
   }
 
-  handleClickTallyButton(): void {
-    this.props.patchDashboard(this.props.dashboard.year)
+  handleClickTallyButton(year: number): void {
+    this.props.patchDashboard(year)
   }
 
   render(): JSX.Element {
+    const dashboards = this.props.dashboards.dashboards
     return (
-      <div className='dashboard-component'>
-        <div className='dashboard-year'>
-          <HumanYearMonth year={this.props.dashboard.year} />
-        </div>
-        <TallyField dashboard={this.props.dashboard} disabled={this.props.dashboard.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-        <MonthlyData monthly={this.props.dashboard.monthly} year={this.props.dashboard.year} yearly={this.props.dashboard.yearly} />
-        <MonthlyBarChart monthly={this.props.dashboard.monthly} />
+      <div className='dashboards-component'>
+        {Object.keys(dashboards).map((year) => (
+          <div key={year}>
+            <div className='dashboard-year'>
+              <HumanYearMonth year={year} />
+            </div>
+            <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboards.isLoading} onClickTallyButton={this.handleClickTallyButton} />
+            <MonthlyData monthly={dashboards[Number(year)].monthly} year={Number(year)} yearly={dashboards[Number(year)].yearly} />
+            <MonthlyBarChart monthly={dashboards[Number(year)].monthly} />
+          </div>
+        ))}
       </div>
     )
   }
@@ -51,18 +57,18 @@ class DashboardContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    dashboard: state.dashboard
+    dashboards: state.dashboards
   }
 }
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getDashboard(): void {
-      dispatch(getDashboard())
+    getDashboards(): void {
+      dispatch(getDashboards())
     },
     patchDashboard(year: number): void {
       dispatch(patchDashboard(year)).then(() => {
-        dispatch(getDashboard())
+        dispatch(getDashboards())
       })
     }
   }

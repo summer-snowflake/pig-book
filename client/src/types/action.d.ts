@@ -58,3 +58,7 @@ export interface RecordsAction extends Action {
 export interface DashboardAction extends Action {
   dashboard: Dashboard;
 }
+
+export interface DashboardsAction extends Action {
+  dashboards: {[key: string]: Dashboard}[];
+}
