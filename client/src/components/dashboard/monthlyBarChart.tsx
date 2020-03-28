@@ -53,14 +53,15 @@ class MonthlyBarChart extends Component<Props> {
         <BarChart
           data={this.props.monthly}
           height={300}
-          margin={{
-            top: 5, right: 30, left: 10, bottom: 5,
-          }}
           width={width}
         >
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='month' unit={XUnit} />
-          <YAxis domain={[0, Math.round((max + 100000)/100000) * 100000]} hide={YHide} orientation='right' />
+          <YAxis
+            domain={[0, Math.round((max + 100000)/100000) * 100000]}
+            hide={YHide}
+            orientation='right'
+          />
           <Tooltip
             cursor={false}
             formatter={this.setFormatter}
