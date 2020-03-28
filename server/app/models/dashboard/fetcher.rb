@@ -19,7 +19,8 @@ class Dashboard::Fetcher
     {
       event: user.tally_events.where(year: year).last,
       monthly: user.monthly_balance_tables
-                   .where(currency: user.profile.currency, year: year),
+                   .where(currency: user.profile.currency, year: year)
+                   .order(:month),
       yearly: user.yearly_total_balance_tables
                   .where(currency: user.profile.currency, year: year).first
     }
