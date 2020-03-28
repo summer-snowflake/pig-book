@@ -132,6 +132,7 @@ interface DashboardStore {
   year: number;
   event: Event | null;
   monthly: MonthlyBalanceTable[];
+  yearly: YearlyBalanceTable;
 }
 
 export interface DashboardsStore {

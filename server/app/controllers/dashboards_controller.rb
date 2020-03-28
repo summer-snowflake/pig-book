@@ -15,8 +15,11 @@ class DashboardsController < ApplicationController
 
   def update
     event = current_user.tally_events.create(year: params[:year])
-    updater = MonthlyBalanceTable::Updater.new(user: current_user)
-    updater.update(year: params[:year].to_i)
+    monthly_updater = MonthlyBalanceTable::Updater.new(user: current_user)
+    monthly_updater.update(year: params[:year].to_i)
+    yearly_updater = YearlyBalanceTable::Updater.new(user: current_user)
+    yearly_updater.update
+
     render json: {
       event: event
     }

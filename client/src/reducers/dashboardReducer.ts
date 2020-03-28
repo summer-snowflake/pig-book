@@ -6,7 +6,8 @@ const initialState = {
   isLoading: false,
   year: (new Date()).getFullYear(),
   event: null,
-  monthly: []
+  monthly: [],
+  yearly: null
 }
 
 const dashboardReducer = (state: DashboardStore = initialState, action: DashboardAction): {} => {
@@ -21,7 +22,8 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       ...state,
       isLoading: false,
       event: action.dashboard.event,
-      monthly: action.dashboard.monthly
+      monthly: action.dashboard.monthly,
+      yearly: action.dashboard.yearly
     }
   case actionTypes.GET_DASHBOARD_FAILURE:
     return {
@@ -44,7 +46,6 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       ...state,
       isLoading: false
     }
- 
   default:
     return state
   }

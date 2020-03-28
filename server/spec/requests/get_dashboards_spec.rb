@@ -32,7 +32,8 @@ describe 'GET /api/dashboards' do
               user_id: user.id,
               year: year
             },
-            monthly: []
+            monthly: [],
+            yearly: nil
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
@@ -47,7 +48,8 @@ describe 'GET /api/dashboards' do
         json = {
           year.to_s => {
             event: nil,
-            monthly: []
+            monthly: [],
+            yearly: nil
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
