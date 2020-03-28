@@ -58,7 +58,8 @@
     "category": "Category",
     "year": "",
     "month": "",
-    "total": "Total: "
+    "total": "Total: ",
+    "unit": ""
   },
   "button": {
     "login": "Sign In",
