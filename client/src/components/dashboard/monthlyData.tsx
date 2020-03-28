@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 
-import { MonthlyBalanceTable } from 'types/api'
+import { MonthlyBalanceTable, YearlyBalanceTable } from 'types/api'
 import HumanYearMonth from 'components/common/humanYearMonth'
-import MonthlyTableData from './monthlyTableData'
+import TallyTableData from './tallyTableData'
 import { Link } from 'react-router-dom'
+import YearlyData from 'components/dashboard/yearlyData'
 
 interface Props {
   year: number;
   monthly: MonthlyBalanceTable[];
-  currency: string;
+  yearly: YearlyBalanceTable;
 }
 
 class MonthlyData extends Component<Props> {
@@ -31,7 +32,7 @@ class MonthlyData extends Component<Props> {
             </tr>
             <tr>
               {Array.from(new Array(6)).map((_v,i)=> i + 1).map((month) => (
-                <MonthlyTableData currency={this.props.currency} key={month} monthly={this.props.monthly.find((d) => d.month === month)} />
+                <TallyTableData key={month} tally={this.props.monthly.find((d) => d.month === month)} />
               ))}
             </tr>
           </tbody>
@@ -52,10 +53,13 @@ class MonthlyData extends Component<Props> {
             </tr>
             <tr>
               {Array.from(new Array(6)).map((_v,i)=> i + 7).map((month) => (
-                <MonthlyTableData currency={this.props.currency} key={month} monthly={this.props.monthly.find((d) => d.month === month)} />
+                <TallyTableData key={month} tally={this.props.monthly.find((d) => d.month === month)} />
               ))}
             </tr>
           </tbody>
+        </table>
+        <table className='table'>
+          <YearlyData yearly={this.props.yearly} />
         </table>
       </div>
     )

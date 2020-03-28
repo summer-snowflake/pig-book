@@ -168,9 +168,20 @@ interface MonthlyBalanceTable {
   expenditure: number;
   cashless_charge: number;
   point: number;
+  currency: string;
+}
+
+interface YearlyBalanceTable {
+  year: number;
+  income: number;
+  expenditure: number;
+  cashless_charge: number;
+  point: number;
+  currency: string;
 }
 
 export interface Dashboard {
   event: Event;
   monthly: MonthlyBalanceTable[];
+  yearly: YearlyBalanceTable;
 }
