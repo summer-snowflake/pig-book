@@ -19,6 +19,7 @@
     "home": "HOME",
     "input": "Input",
     "list": "List",
+    "dashboard": "Dashboard",
     "login": "Sign In",
     "logout": "Sign out",
     "signUp": "Sign Up",
@@ -40,6 +41,7 @@
     "memo": "Note"
   },
   "label": {
+    "locale": "en-IN",
     "email": "E-mail",
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",
@@ -67,7 +69,8 @@
     "add": "Add",
     "delete": "Delete",
     "set": "Set",
-    "today": "Today"
+    "today": "Today",
+    "tally": "Tally"
   },
   "message": {
     "placeCategorized": "Select Categories.",

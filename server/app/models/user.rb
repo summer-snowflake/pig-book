@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :breakdowns, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :records, dependent: :destroy
+  has_many :tally_events, dependent: :destroy
+  has_many :monthly_balance_tables, dependent: :destroy
 
   def admin?
     !admin.nil?
@@ -25,5 +27,12 @@ class User < ApplicationRecord
       place: places.count,
       record: records.count
     }
+  end
+
+  def dashboard_years
+    this_year = Time.zone.today.year
+    return [this_year] if monthly_balance_tables.blank?
+
+    [*(monthly_balance_tables.minimum(:year)..this_year)].reverse
   end
 end

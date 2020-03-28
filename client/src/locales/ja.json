@@ -19,6 +19,7 @@
     "home": "HOME",
     "input": "入力する",
     "list": "リスト",
+    "dashboard": "ダッシュボード",
     "login": "ログイン",
     "logout": "ログアウト",
     "signUp": "アカウント登録",
@@ -40,6 +41,7 @@
     "memo": "メモ"
   },
   "label": {
+    "locale": "jp-JP",
     "email": "メールアドレス",
     "password": "パスワード",
     "passwordConfirmation": "パスワード（確認）",
@@ -67,7 +69,8 @@
     "add": "追加する",
     "delete": "削除する",
     "set": "設定する",
-    "today": "今日"
+    "today": "今日",
+    "tally": "集計する"
   },
   "message": {
     "placeCategorized": "利用するカテゴリを選択してください（複数可）",

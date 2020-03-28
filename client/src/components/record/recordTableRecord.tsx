@@ -163,7 +163,7 @@ class RecordTableRecord extends Component<Props, State> {
           <td colSpan={2} />
           <td className='record-category-td' colSpan={2}>
             {this.props.record.category && (
-              <span>
+              <span onClick={this.handleClickCategory}>
                 <i className='fas fa-th-large left-icon yellow' />
                 {this.props.record.category.name}
               </span>
@@ -171,7 +171,7 @@ class RecordTableRecord extends Component<Props, State> {
           </td>
           <td className='record-breakdown-td' colSpan={2}>
             {this.props.record.breakdown && (
-              <span>
+              <span onClick={this.handleClickBreakdown}>
                 <i className='fas fa-list left-icon light-blue' />
                 {this.props.record.breakdown.name}
               </span>
@@ -179,7 +179,7 @@ class RecordTableRecord extends Component<Props, State> {
           </td>
           <td className='record-place-td' colSpan={2}>
             {this.props.record.place && (
-              <span>
+              <span onClick={this.handleClickPlace}>
                 <i className='fas fa-map-marker-alt left-icon blue' />
                 {this.props.record.place.name}
               </span>

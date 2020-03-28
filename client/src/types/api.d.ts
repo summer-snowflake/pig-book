@@ -155,3 +155,22 @@ export interface WithRelationsCategory extends Category {
   breakdowns: Breakdown[];
   places: Place[];
 }
+
+export interface Event {
+  user_id: number;
+  year: number;
+  created_at: string;
+}
+
+interface MonthlyBalanceTable {
+  month: number;
+  income: number;
+  expenditure: number;
+  cashless_charge: number;
+  point: number;
+}
+
+export interface Dashboard {
+  event: Event;
+  monthly: MonthlyBalanceTable[];
+}
