@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
         .to have_many(:yearly_breakdown_balance_tables).dependent(:destroy)
     end
     it { is_expected.to have_many(:monthly_balance_tables).dependent(:destroy) }
-    it { is_expected.to have_many(:events).dependent(:destroy) }
+    it { is_expected.to have_many(:tally_events).dependent(:destroy) }
     it { is_expected.to have_many(:import_histories).dependent(:destroy) }
     it { is_expected.to have_many(:download_files).dependent(:destroy) }
     it { is_expected.to have_one(:admin).dependent(:destroy) }
