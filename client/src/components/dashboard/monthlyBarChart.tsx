@@ -50,27 +50,29 @@ class MonthlyBarChart extends Component<Props> {
 
     return (
       <div className='monthly-bar-chart-component'>
-        <BarChart
-          data={this.props.monthly}
-          height={300}
-          width={width}
-        >
-          <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='month' unit={XUnit} />
-          <YAxis
-            domain={[0, Math.round((max + 100000)/100000) * 100000]}
-            hide={YHide}
-            orientation='right'
-          />
-          <Tooltip
-            cursor={false}
-            formatter={this.setFormatter}
-            labelFormatter={this.setLabelFormatter}
-          />
-          <Legend />
-          <Bar dataKey='income' fill='#5e78ac' name={t('label.income')} />
-          <Bar dataKey='expenditure' fill='#ac5e78' name={t('label.outgo')} />
-        </BarChart>
+        {this.props.monthly.length > 0 && (
+          <BarChart
+            data={this.props.monthly}
+            height={300}
+            width={width}
+          >
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis dataKey='month' unit={XUnit} />
+            <YAxis
+              domain={[0, Math.round((max + 100000)/100000) * 100000]}
+              hide={YHide}
+              orientation='right'
+            />
+            <Tooltip
+              cursor={false}
+              formatter={this.setFormatter}
+              labelFormatter={this.setLabelFormatter}
+            />
+            <Legend />
+            <Bar dataKey='income' fill='#5e78ac' name={t('label.income')} />
+            <Bar dataKey='expenditure' fill='#ac5e78' name={t('label.outgo')} />
+          </BarChart>
+        )}
       </div>
     )
   }

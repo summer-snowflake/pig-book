@@ -32,10 +32,12 @@ class User < ApplicationRecord
 
   def dashboard_years
     this_year = Time.zone.today.year
-    return [this_year] if monthly_balance_tables.blank?
+    if monthly_balance_tables.blank? || records.minimum(:published_at).nil?
+      return [this_year]
+    end
 
-    minimum_year = monthly_balance_tables.minimum(:year)
-    twenty_years_old = this_year - 20
+    minimum_year = records.minimum(:published_at).year
+    twenty_years_old = this_year - 30
     year = minimum_year < twenty_years_old ? twenty_years_old : minimum_year
     [*(year..this_year)].reverse
   end
