@@ -1,14 +1,14 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
-import Backend from 'i18next-xhr-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-xhr-backend'
+import LanguageDetector from 'i18next-browser-languagedetector'
 // not like to use this?
 // have a look at the Quick start guide
 // for passing in lng and translations on init
 
-import enTranslation from 'locales/en';
-import jaTranslation from 'locales/ja';
+import enTranslation from 'locales/en'
+import jaTranslation from 'locales/ja'
 
 const resources = {
   en: {
@@ -17,7 +17,7 @@ const resources = {
   ja: {
     translation: jaTranslation,
   },
-};
+}
 
 i18n
   // load translation using xhr -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)
@@ -44,6 +44,6 @@ i18n
     },
 
     resources: resources
-  });
+  })
 
-export default i18n;
+export default i18n

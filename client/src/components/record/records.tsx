@@ -10,6 +10,7 @@ interface Props {
   recordSearchStore?: RecordSearchStore;
   editedRecordId: number | undefined;
   format?: string;
+  isLoading: boolean;
   onClickCopy: (record: Record) => void;
   onClickEdit: (record: Record) => void;
   onClickDestroy: (record: Record) => void;
@@ -37,7 +38,7 @@ class Records extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <table className='records-component table'>
+      <table className={'records-component table' + (this.props.isLoading ? ' loading' : '')}>
         {this.props.recordSearchStore && this.props.onClickSort && this.props.format === 'detail' && (
           <tbody>
             <tr>
