@@ -53,9 +53,11 @@ class CategoryForm extends Component<Props> {
             )}
           </button>
         </div>
-        {this.props.isLoading && (
-          <LoadingImage />
-        )}
+        <div className='loading-image-form'>
+          {this.props.isLoading && (
+            <LoadingImage />
+          )}
+        </div>
       </form>
     )
   }
