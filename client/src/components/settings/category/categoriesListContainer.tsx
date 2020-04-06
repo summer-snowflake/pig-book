@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { Category } from 'types/api'
-import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer'
+import { CategoriesStore } from 'types/store'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
+import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer'
+import LoadingImage from 'components/common/loadingImage'
 
 interface StateProps {
-  categories: {
-    categories: Category[];
-  };
+  categories: CategoriesStore;
 }
 
 interface DispatchProps {
@@ -29,13 +29,18 @@ class CategoriesListContainer extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <table className='table categories-list-component'>
-        <tbody>
-          {this.props.categories.categories.map((category: Category) => (
-            <CategoryTableRecordContainer category={category} key={category.id} />
-          ))}
-        </tbody>
-      </table>
+      <div className='categories-list-component'>
+        <table className='table'>
+          <tbody>
+            {this.props.categories.categories.map((category: Category) => (
+              <CategoryTableRecordContainer category={category} key={category.id} />
+            ))}
+          </tbody>
+        </table>
+        {this.props.categories.categories.length == 0 && this.props.categories.isLoading && (
+          <LoadingImage />
+        )}
+      </div>
     )
   }
 }

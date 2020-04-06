@@ -181,6 +181,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
             <CategoryForm
               category={this.state.category}
               disabled={this.props.editCategoryStore.isLoading || !this.diff()}
+              isLoading={this.props.editCategoryStore.isLoading}
               onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
