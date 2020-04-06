@@ -46,7 +46,7 @@ class BreakdownForm extends Component<Props> {
             onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           />
         </div>
-        <div className='form-group col-auto'>
+        <div className='form-group col-md-2'>
           <CategorySelectBoxContainer
             balanceOfPayments={this.props.category.balance_of_payments}
             onChangeCategory={this.props.onChangeCategory}
@@ -77,9 +77,11 @@ class BreakdownForm extends Component<Props> {
             )}
           </button>
         </div>
-        {this.props.isLoading && (
-          <LoadingImage />
-        )}
+        <div className='loading-image-form'>
+          {this.props.isLoading && (
+            <LoadingImage />
+          )}
+        </div>
       </form>
     )
   }

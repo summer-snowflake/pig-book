@@ -131,6 +131,7 @@ class RecordsOnInputContainer extends Component<Props> {
           </div>
           <Records
             editedRecordId={this.props.editRecordStore.editedRecordId}
+            isLoading={this.props.records.isLoading}
             onClickCopy={this.handleClickCopy}
             onClickDestroy={this.handleClickDestroy}
             onClickEdit={this.handleClickEdit}

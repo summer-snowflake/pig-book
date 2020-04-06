@@ -226,6 +226,9 @@ class BaseSettingsContainer extends Component<Props, State> {
             {t('button.update')}
           </button>
         )}
+        {this.props.profile.editing && this.props.profile.isLoading && (
+          <LoadingImage />
+        )}
       </form>
     )
 
@@ -241,25 +244,19 @@ class BaseSettingsContainer extends Component<Props, State> {
             <i className='fas fa-user-cog left-icon' />
             {t('title.baseSetting')}
           </div>
-          {this.props.profile.isLoading ? (
-            <div className='card-body with-background-image'>
-              <LoadingImage />
-            </div>
-          ) : (
-            <div className='card-body with-background-image'>
-              <EditAndCancel
-                editing={this.props.profile.editing}
-                onClickEditIcon={this.handleClickEditIcon}
-                onClickExitIcon={this.handleClickExitIcon}
-              />
-              <AlertModal
-                isOpen={this.state.isOpenAlertModal}
-                messageType='editingOther'
-                onClickClose={this.handleClickClose}
-              />
-              {jsx}
-            </div>
-          )}
+          <div className='card-body with-background-image'>
+            <EditAndCancel
+              editing={this.props.profile.editing}
+              onClickEditIcon={this.handleClickEditIcon}
+              onClickExitIcon={this.handleClickExitIcon}
+            />
+            <AlertModal
+              isOpen={this.state.isOpenAlertModal}
+              messageType='editingOther'
+              onClickClose={this.handleClickClose}
+            />
+            {jsx}
+          </div>
         </div>
       </div>
     )

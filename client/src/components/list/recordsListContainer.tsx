@@ -15,6 +15,7 @@ import { copyRecord, closeNewModal } from 'actions/newRecordActions'
 import { RootState } from 'reducers/rootReducer'
 import Records from 'components/record/records'
 import HumanYearMonth from 'components/common/humanYearMonth'
+import LoadingImage from 'components/common/loadingImage'
 import NewRecordModalContainer from 'components/record/newRecordModal'
 import EditRecordModalContainer from 'components/record/editRecordModalContainer'
 import RecordTotalsTable from 'components/record/recordTotalsTable'
@@ -265,19 +266,24 @@ class RecordsListContainer extends Component<Props> {
           </div>
         </div>
         <SearchKeywords />
-        <Records
-          editedRecordId={this.props.editRecordStore.editedRecordId}
-          format='detail'
-          onClickBreakdown={this.handleClickBreakdown}
-          onClickCategory={this.handleClickCategory}
-          onClickCopy={this.handleClickCopy}
-          onClickDestroy={this.handleClickDestroy}
-          onClickEdit={this.handleClickEdit}
-          onClickPlace={this.handleClickPlace}
-          onClickSort={this.handleClickSort}
-          records={this.props.recordsStore.records}
-          recordSearchStore={this.props.recordSearch}
-        />
+        {this.props.recordsStore.records.length > 0 || !this.props.recordsStore.isLoading ? (
+          <Records
+            editedRecordId={this.props.editRecordStore.editedRecordId}
+            format='detail'
+            isLoading={this.props.recordsStore.isLoading}
+            onClickBreakdown={this.handleClickBreakdown}
+            onClickCategory={this.handleClickCategory}
+            onClickCopy={this.handleClickCopy}
+            onClickDestroy={this.handleClickDestroy}
+            onClickEdit={this.handleClickEdit}
+            onClickPlace={this.handleClickPlace}
+            onClickSort={this.handleClickSort}
+            records={this.props.recordsStore.records}
+            recordSearchStore={this.props.recordSearch}
+          />
+        ) : (
+          <LoadingImage />
+        )}
         <div className='pagination-field'>
           {this.props.recordsStore.maxPage > 1 && (
             <Pagination

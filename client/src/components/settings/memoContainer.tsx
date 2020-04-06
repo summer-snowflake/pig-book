@@ -129,12 +129,15 @@ class MemoContainer extends Component<Props, State> {
         {this.props.profile.editingMemo && (
           <button
             className='btn btn-primary'
-            disabled={this.props.profile.isLoading || !this.diff()}
+            disabled={this.props.profile.isLoadingMemo || !this.diff()}
             onClick={this.handleClickSubmitButton}
             type='button'
           >
             {t('button.update')}
           </button>
+        )}
+        {this.props.profile.editingMemo && this.props.profile.isLoadingMemo && (
+          <LoadingImage />
         )}
       </form>
     )
@@ -151,25 +154,19 @@ class MemoContainer extends Component<Props, State> {
             <i className='fas fa-book-open left-icon' />
             {t('title.memo')}
           </div>
-          {this.props.profile.isLoadingMemo ? (
-            <div className='card-body with-background-image'>
-              <LoadingImage />
-            </div>
-          ) : (
-            <div className='card-body with-background-image'>
-              <EditAndCancel
-                editing={this.props.profile.editingMemo}
-                onClickEditIcon={this.handleClickEditIcon}
-                onClickExitIcon={this.handleClickExitIcon}
-              />
-              <AlertModal
-                isOpen={this.state.isOpenAlertModal}
-                messageType='editingOther'
-                onClickClose={this.handleClickClose}
-              />
-              {jsx}
-            </div>
-          )}
+          <div className='card-body with-background-image'>
+            <EditAndCancel
+              editing={this.props.profile.editingMemo}
+              onClickEditIcon={this.handleClickEditIcon}
+              onClickExitIcon={this.handleClickExitIcon}
+            />
+            <AlertModal
+              isOpen={this.state.isOpenAlertModal}
+              messageType='editingOther'
+              onClickClose={this.handleClickClose}
+            />
+            {jsx}
+          </div>
         </div>
       </div>
     )

@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { WithCategoriesPlace } from 'types/api'
-import PlaceTableRecordContainer from 'components/settings/place/placeTableRecordContainer'
+import { PlacesStore } from 'types/store'
 import { getPlaces } from 'actions/placesActions'
 import { RootState } from 'reducers/rootReducer'
+import PlaceTableRecordContainer from 'components/settings/place/placeTableRecordContainer'
+import LoadingImage from 'components/common/loadingImage'
 
 interface StateProps {
-  placesStore: {
-    places: WithCategoriesPlace[];
-  };
+  placesStore: PlacesStore;
 }
 
 interface DispatchProps {
@@ -29,13 +29,18 @@ class PlacesListContainer extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <table className='table places-list-component'>
-        <tbody>
-          {this.props.placesStore.places.map((place: WithCategoriesPlace) => (
-            <PlaceTableRecordContainer key={place.id} place={place} />
-          ))}
-        </tbody>
-      </table>
+      <div className='places-list-component'>
+        <table className='table'>
+          <tbody>
+            {this.props.placesStore.places.map((place: WithCategoriesPlace) => (
+              <PlaceTableRecordContainer key={place.id} place={place} />
+            ))}
+          </tbody>
+        </table>
+        {this.props.placesStore.places.length === 0 && this.props.placesStore.isLoading && (
+          <LoadingImage />
+        )}
+      </div>
     )
   }
 }
