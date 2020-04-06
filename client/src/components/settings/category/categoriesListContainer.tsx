@@ -37,7 +37,7 @@ class CategoriesListContainer extends Component<Props> {
             ))}
           </tbody>
         </table>
-        {this.props.categories.categories.length == 0 && this.props.categories.isLoading && (
+        {this.props.categories.categories.length === 0 && this.props.categories.isLoading && (
           <LoadingImage />
         )}
       </div>

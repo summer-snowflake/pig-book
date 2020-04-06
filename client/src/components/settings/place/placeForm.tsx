@@ -21,7 +21,7 @@ class PlaceForm extends Component<Props> {
 
     return (
       <form className='place-form-component form-row'>
-        <div className='form-group col-md-8'>
+        <div className='form-group col-md-7'>
           <input
             className='form-control'
             name='place_name'
@@ -31,7 +31,7 @@ class PlaceForm extends Component<Props> {
             value={this.props.place.name}
           />
         </div>
-        <div className='form-group col-auto'>
+        <div className='form-group col-md-3'>
           <button
             className='btn btn-primary'
             disabled={this.props.disabled}
@@ -45,9 +45,11 @@ class PlaceForm extends Component<Props> {
             )}
           </button>
         </div>
-        {this.props.isLoading && (
-          <LoadingImage />
-        )}
+        <div className='loading-image-form'>
+          {this.props.isLoading && (
+            <LoadingImage />
+          )}
+        </div>
       </form>
     )
   }

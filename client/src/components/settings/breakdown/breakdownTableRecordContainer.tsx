@@ -211,7 +211,8 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
             <BreakdownForm
               breakdown={this.state.breakdown}
               category={this.state.breakdown.category}
-              disabled={this.editing() && !this.diff()}
+              disabled={this.props.editBreakdownStore.isLoading || !this.diff()}
+              isLoading={this.props.editBreakdownStore.isLoading}
               onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
               onChangeCategory={this.handleChangeCategory}
               onChangeName={this.handleChangeName}

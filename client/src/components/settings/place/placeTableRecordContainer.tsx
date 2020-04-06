@@ -191,7 +191,8 @@ class PlaceTableRecordContainer extends Component<Props, State> {
               onClickClose={this.handleClickClose}
             />
             <PlaceForm
-              disabled={this.editing() && !this.diff()}
+              disabled={this.props.editPlaceStore.isLoading || !this.diff()}
+              isLoading={this.props.editPlaceStore.isLoading}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}

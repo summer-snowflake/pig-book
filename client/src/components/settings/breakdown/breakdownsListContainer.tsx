@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { Breakdown } from 'types/api'
-import BreakdownTableRecordContainer from 'components/settings/breakdown/breakdownTableRecordContainer'
+import { BreakdownsStore } from 'types/store'
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { RootState } from 'reducers/rootReducer'
+import BreakdownTableRecordContainer from 'components/settings/breakdown/breakdownTableRecordContainer'
+import LoadingImage from 'components/common/loadingImage'
 
 interface StateProps {
-  breakdowns: {
-    breakdowns: Breakdown[];
-  };
+  breakdowns: BreakdownsStore;
 }
 
 interface DispatchProps {
@@ -29,13 +29,18 @@ class BreakdownsListContainer extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <table className='table breakdowns-list-component'>
-        <tbody>
-          {this.props.breakdowns.breakdowns.map((breakdown: Breakdown) => (
-            <BreakdownTableRecordContainer breakdown={breakdown} key={breakdown.id} />
-          ))}
-        </tbody>
-      </table>
+      <div className='breakdowns-list-component'>
+        <table className='table'>
+          <tbody>
+            {this.props.breakdowns.breakdowns.map((breakdown: Breakdown) => (
+              <BreakdownTableRecordContainer breakdown={breakdown} key={breakdown.id} />
+            ))}
+          </tbody>
+        </table>
+        {this.props.breakdowns.breakdowns.length === 0 && this.props.breakdowns.isLoading && (
+          <LoadingImage />
+        )}
+      </div>
     )
   }
 }
