@@ -226,7 +226,7 @@ class BaseSettingsContainer extends Component<Props, State> {
             {t('button.update')}
           </button>
         )}
-        {this.props.profile.isLoading && (
+        {this.props.profile.editing && this.props.profile.isLoading && (
           <LoadingImage />
         )}
       </form>

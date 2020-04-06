@@ -136,7 +136,7 @@ class MemoContainer extends Component<Props, State> {
             {t('button.update')}
           </button>
         )}
-        {this.props.profile.isLoadingMemo && (
+        {this.props.profile.editingMemo && this.props.profile.isLoadingMemo && (
           <LoadingImage />
         )}
       </form>
