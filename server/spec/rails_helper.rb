@@ -3,7 +3,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
-ENV['AUTODOC'] = 'true'
+
+ENV['AUTODOC'] = 'true' if ENV['CI']
 
 require File.expand_path('../config/environment', __dir__)
 
@@ -94,5 +95,6 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
-  Autodoc.configuration.template = File.read(File.expand_path("../autodoc/templates.md.erb", __FILE__))
+  autodoc_file_path = Rails.root.join('spec', 'autodoc', 'templates.md.erb')
+  Autodoc.configuration.template = File.read(autodoc_file_path)
 end
