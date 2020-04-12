@@ -8,6 +8,7 @@ import { RecordSearchParams, Record } from 'types/api'
 import { NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore } from 'types/store'
 import HumanDate from 'components/common/humanDate'
 import { changePublishedOn, copyRecord } from 'actions/newRecordActions'
+import { getProfile } from 'actions/settingsActions'
 import { getRecords, deleteRecord, setRecordSearchParams } from 'actions/recordsActions'
 import { editRecord, closeEditModal } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
@@ -24,6 +25,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
+  getProfile: () => void;
   getRecords: (params: RecordSearchParams) => void;
   copyRecord: (record: Record) => void;
   editRecord: (record: Record) => void;
@@ -59,6 +61,7 @@ class RecordsOnInputContainer extends Component<Props> {
       month: null,
       order: null
     }
+    this.props.getProfile()
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
   }
@@ -159,6 +162,9 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
+    getProfile(): void {
+      dispatch(getProfile())
+    },
     copyRecord(record: Record): void {
       dispatch(copyRecord(record))
     },
