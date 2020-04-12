@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'PATCH /api/records/:id' do
+describe 'PATCH /api/records/:id', autodoc: true do
   let!(:user) { create(:user, :with_profile) }
   let!(:category1) { create(:category, user: user) }
   let!(:category2) { create(:category, user: user) }
@@ -27,7 +27,7 @@ describe 'PATCH /api/records/:id' do
   let(:year) { Time.zone.today.year }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       patch "/api/dashboards/#{year}"
 
       expect(response.status).to eq 401
@@ -40,7 +40,7 @@ describe 'PATCH /api/records/:id' do
 
   context 'when logged in.' do
     context 'params are valid' do
-      it 'returns status code 200 and json record data.' do
+      it 'returns status code 200 and json dashboard data' do
         patch "/api/dashboards/#{year}",
               headers: login_headers_with_login(user)
 

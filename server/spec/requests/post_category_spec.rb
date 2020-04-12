@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe 'POST /api/categories' do
+describe 'POST /api/categories', autodoc: true do
   let!(:user) { create(:user) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       post '/api/categories'
 
       expect(response.status).to eq 401
@@ -19,7 +19,7 @@ describe 'POST /api/categories' do
 
   context 'when logged in.' do
     context 'name is valid' do
-      it 'returns status code 201 and json category data.' do
+      it 'returns status code 201 and json category data' do
         params = {
           name: '新しいカテゴリ',
           balance_of_payments: true
@@ -40,7 +40,7 @@ describe 'POST /api/categories' do
     context 'already has same category name' do
       let!(:category) { create(:category, :income, user: user, name: '同じカテゴリ') }
 
-      it 'returns status code 422 and json errors data.' do
+      it 'returns status code 422 and json errors data' do
         params = {
           name: '同じカテゴリ',
           balance_of_payments: true
@@ -57,7 +57,7 @@ describe 'POST /api/categories' do
     end
 
     context 'category name is empty' do
-      it 'returns status code 422 and json errors data.' do
+      it 'returns status code 422 and json errors data' do
         params = {
           name: '',
           balance_of_payments: true

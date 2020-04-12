@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe 'POST /api/auth/sign_in' do
+describe 'POST /api/auth/sign_in', autodoc: true do
   let!(:user) { create(:user, :active) }
 
   context 'ログイン情報が不正な場合' do
-    it '401とデータが返ってくること' do
+    it 'returns status code 401 and json errors data' do
       post '/api/auth/sign_in'
 
       expect(response.status).to eq 401
@@ -21,7 +21,7 @@ describe 'POST /api/auth/sign_in' do
   end
 
   context 'ログイン情報が正しい場合' do
-    it '200が返ってくること' do
+    it 'returns status code 200 and json user data' do
       params = {
         email: user.email,
         password: 'password'

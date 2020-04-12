@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe 'GET /api/user' do
+describe 'GET /api/user', autodoc: true do
   let!(:user) { create(:user) }
 
-  context 'ログインしていなかった場合' do
-    it '401とデータが返ってくること' do
+  context 'when NOT logged in.' do
+    it 'returns status code 401 and json errors data' do
       get '/api/user'
 
       expect(response.status).to eq 401
@@ -19,8 +19,8 @@ describe 'GET /api/user' do
     end
   end
 
-  context 'ログインしていた場合' do
-    it '200とデータが返ってくること' do
+  context 'when logged in.' do
+    it 'returns status code 200 and json user data' do
       get '/api/user', headers: login_headers_with_login(user)
 
       expect(response.status).to eq 200

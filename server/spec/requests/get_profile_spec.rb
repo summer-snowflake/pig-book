@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe 'GET /api/profile' do
+describe 'GET /api/profile', autodoc: true do
   let!(:user) { create(:user, :active) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       get '/api/profile'
 
       expect(response.status).to eq 401
@@ -18,7 +18,7 @@ describe 'GET /api/profile' do
   end
 
   context 'when logged in.' do
-    it 'returns status code 200 and json profile data.' do
+    it 'returns status code 200 and json profile data' do
       get '/api/profile', headers: login_headers_with_login(user)
 
       expect(response.status).to eq 200

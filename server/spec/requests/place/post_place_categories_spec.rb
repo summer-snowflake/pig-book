@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'POST /api/places/:place_id/categories' do
+describe 'POST /api/places/:place_id/categories', autodoc: true do
   let!(:user) { create(:user) }
   let!(:category1) { create(:category, user: user) }
   let!(:category2) { create(:category, user: user) }
@@ -12,7 +12,7 @@ describe 'POST /api/places/:place_id/categories' do
   end
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       post "/api/places/#{place.id}/categories"
 
       expect(response.status).to eq 401
@@ -25,7 +25,7 @@ describe 'POST /api/places/:place_id/categories' do
 
   context 'when logged in.' do
     context 'name is valid' do
-      it 'returns status code 200 and json category data.' do
+      it 'returns status code 200 and json place categories data' do
         params = {
           category_ids: [category2.id]
         }.to_json

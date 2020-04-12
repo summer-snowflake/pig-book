@@ -25,6 +25,7 @@ group :development do
 end
 
 group :test do
+  gem 'autodoc'
   gem 'database_rewinder'
   gem 'faker'
   gem 'rspec-rails'

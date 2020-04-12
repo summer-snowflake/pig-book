@@ -4,6 +4,8 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
+ENV['AUTODOC'] = 'true' if ENV['CI']
+
 require File.expand_path('../config/environment', __dir__)
 
 # Prevent database truncation if the environment is production
@@ -11,6 +13,7 @@ if Rails.env.production?
   abort('The Rails environment is running in production mode!')
 end
 require 'rspec/rails'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -91,4 +94,7 @@ RSpec.configure do |config|
     Warden.test_reset!
     DatabaseRewinder.clean_all
   end
+
+  autodoc_file_path = Rails.root.join('spec', 'autodoc', 'templates.md.erb')
+  Autodoc.configuration.template = File.read(autodoc_file_path)
 end

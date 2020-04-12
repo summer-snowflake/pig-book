@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-describe 'POST /api/categories' do
+describe 'POST /api/categories', autodoc: true do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       post '/api/breakdowns'
 
       expect(response.status).to eq 401
@@ -20,7 +20,7 @@ describe 'POST /api/categories' do
 
   context 'when logged in.' do
     context 'name is valid' do
-      it 'returns status code 201 and json breakdown data.' do
+      it 'returns status code 201 and json breakdown data' do
         params = {
           category_id: category.id,
           name: '新しい内訳'
@@ -48,7 +48,7 @@ describe 'POST /api/categories' do
         create(:breakdown, user: user, category: category, name: '同じ内訳')
       end
 
-      it 'returns status code 422 and json errors data.' do
+      it 'returns status code 422 and json errors data' do
         params = {
           category_id: category.id,
           name: '同じ内訳'
@@ -65,7 +65,7 @@ describe 'POST /api/categories' do
     end
 
     context 'breakdown name is empty' do
-      it 'returns status code 422 and json errors data.' do
+      it 'returns status code 422 and json errors data' do
         params = {
           category_id: category.id,
           name: ''

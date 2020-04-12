@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'GET /api/places/:place_id/categories' do
+describe 'GET /api/places/:place_id/categories', autodoc: true do
   let!(:user) { create(:user) }
   let!(:place) { create(:place, user: user) }
   let!(:category1) { create(:category, user: user) }
@@ -12,7 +12,7 @@ describe 'GET /api/places/:place_id/categories' do
   end
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       get "/api/places/#{place.id}/categories"
 
       expect(response.status).to eq 401
@@ -24,7 +24,7 @@ describe 'GET /api/places/:place_id/categories' do
   end
 
   context 'when logged in.' do
-    it 'returns status code 200 and json profile data.' do
+    it 'returns status code 200 and json place categories data' do
       get "/api/places/#{place.id}/categories",
           headers: login_headers_with_login(user)
 

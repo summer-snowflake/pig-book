@@ -64,6 +64,10 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
     ast (2.4.0)
+    autodoc (0.7.3)
+      actionpack
+      activesupport (>= 3.0.0)
+      rspec
     bcrypt (3.1.13)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
@@ -233,6 +237,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autodoc
   bootsnap (>= 1.4.2)
   byebug
   database_rewinder
