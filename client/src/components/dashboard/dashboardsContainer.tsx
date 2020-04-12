@@ -41,7 +41,7 @@ class DashboardContainer extends Component<Props> {
     return (
       <div className='dashboards-component'>
         {Object.keys(dashboards).map((year) => (
-          <div key={year}>
+          <div className='dashboard' key={year}>
             <div className='dashboard-year'>
               <HumanYearMonth year={year} />
             </div>
