@@ -16,7 +16,7 @@ namespace :tally do
       updater.update!
 
       user.tally_events.where('created_at < ?', 1.month.ago).destroy_all
-      user.tally_events.create!(month: Time.zone.today.month)
+      user.tally_events.create!(year: Time.zone.today.year)
     end
   end
 end
