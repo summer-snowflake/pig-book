@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-describe 'GET /api/categories' do
+describe 'GET /api/categories', autodoc: true do
   let!(:user) { create(:user) }
   let!(:user2) { create(:user, :admin) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       get '/api/admin/users'
 
       expect(response.status).to eq 401
@@ -19,7 +19,7 @@ describe 'GET /api/categories' do
   end
 
   context 'when NOT logged in as admin.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       get '/api/admin/users', headers: login_headers_with_login(user)
 
       expect(response.status).to eq 401
@@ -33,7 +33,7 @@ describe 'GET /api/categories' do
   context 'when logged in.' do
     let!(:category) { create(:category, user: user) }
 
-    it 'returns status code 200 and json user data.' do
+    it 'returns status code 200 and json users data' do
       get '/api/admin/users', headers: login_headers_with_login(user2)
 
       expect(response.status).to eq 200

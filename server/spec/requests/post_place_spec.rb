@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-describe 'POST /api/places' do
+describe 'POST /api/places', autodoc: true do
   let!(:user) { create(:user) }
   let!(:place) { create(:place, user: user) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       post '/api/places'
 
       expect(response.status).to eq 401
@@ -20,7 +20,7 @@ describe 'POST /api/places' do
 
   context 'when logged in.' do
     context 'name is valid' do
-      it 'returns status code 201 and json place data.' do
+      it 'returns status code 201 and json place data' do
         params = {
           name: '新しい場所'
         }.to_json
@@ -41,7 +41,7 @@ describe 'POST /api/places' do
         create(:place, user: user, name: '同じ場所')
       end
 
-      it 'returns status code 422 and json errors data.' do
+      it 'returns status code 422 and json errors data' do
         params = {
           name: '同じ場所'
         }.to_json
@@ -57,7 +57,7 @@ describe 'POST /api/places' do
     end
 
     context 'place name is empty' do
-      it 'returns status code 422 and json errors data.' do
+      it 'returns status code 422 and json errors data' do
         params = {
           name: ''
         }.to_json

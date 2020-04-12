@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-describe 'DELETE /api/categories/:id' do
+describe 'DELETE /api/categories/:id', autodoc: true do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       delete "/api/categories/#{category.id}"
 
       expect(response.status).to eq 401
@@ -19,7 +19,7 @@ describe 'DELETE /api/categories/:id' do
   end
 
   context 'when logged in.' do
-    it 'returns status code 204.' do
+    it 'returns status code 204' do
       delete "/api/categories/#{category.id}",
              headers: login_headers_with_login(user)
 
@@ -28,7 +28,7 @@ describe 'DELETE /api/categories/:id' do
   end
 
   context 'when twice delete it' do
-    it 'returns status code 404.' do
+    it 'returns status code 404' do
       delete "/api/categories/#{category.id}",
              headers: login_headers_with_login(user)
       expect(response.status).to eq 204
@@ -42,7 +42,7 @@ describe 'DELETE /api/categories/:id' do
   context 'when already be used by breakdown' do
     let!(:breakdown) { create(:breakdown, user: user, category: category) }
 
-    it 'returns status code 403.' do
+    it 'returns status code 403' do
       delete "/api/categories/#{category.id}",
              headers: login_headers_with_login(user)
       expect(response.status).to eq 403

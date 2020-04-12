@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'PATCH /api/records/:id' do
+describe 'PATCH /api/records/:id', autodoc: true do
   let!(:user) { create(:user) }
   let!(:category1) { create(:category, user: user) }
   let!(:category2) { create(:category, user: user) }
@@ -14,7 +14,7 @@ describe 'PATCH /api/records/:id' do
   end
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       patch "/api/records/#{record.id}"
 
       expect(response.status).to eq 401
@@ -29,7 +29,7 @@ describe 'PATCH /api/records/:id' do
     context 'params are valid' do
       let!(:published_at) { 3.days.ago }
 
-      it 'returns status code 200 and json record data.' do
+      it 'returns status code 200 and json record data' do
         params = {
           published_at: published_at,
           category_id: category2.id,

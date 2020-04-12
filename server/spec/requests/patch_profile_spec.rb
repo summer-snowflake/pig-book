@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'PATCH /api/profile' do
+describe 'PATCH /api/profile', autodoc: true do
   let!(:user) { create(:user, :active) }
 
   after do
@@ -10,7 +10,7 @@ describe 'PATCH /api/profile' do
   end
 
   context 'when NOT logged in.' do
-    it 'return status code 401 and json errors data.' do
+    it 'return status code 401 and json errors data' do
       patch '/api/profile'
 
       expect(response.status).to eq 401
@@ -29,7 +29,7 @@ describe 'PATCH /api/profile' do
       }.to_json
     end
 
-    it 'returns status code 200 and json profile data.' do
+    it 'returns status code 200 and json profile data' do
       patch '/api/profile',
             params: params, headers: login_headers_with_login(user)
 

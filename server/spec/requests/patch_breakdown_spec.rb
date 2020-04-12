@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe 'PATCH /api/breakdowns' do
+describe 'PATCH /api/breakdowns', autodoc: true do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       patch "/api/breakdowns/#{breakdown.id}"
 
       expect(response.status).to eq 401
@@ -21,7 +21,7 @@ describe 'PATCH /api/breakdowns' do
 
   context 'when logged in.' do
     context 'name is valid' do
-      it 'returns status code 201 and json category data.' do
+      it 'returns status code 200 and json breakdown data' do
         params = {
           category_id: category.id,
           name: '編集した内訳'

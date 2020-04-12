@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'GET /api/records' do
+describe 'GET /api/records', autodoc: true do
   let!(:user) { create(:user, :with_profile) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
@@ -24,7 +24,7 @@ describe 'GET /api/records' do
   end
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data.' do
+    it 'returns status code 401 and json errors data' do
       get '/api/records'
 
       expect(response.status).to eq 401
@@ -37,7 +37,7 @@ describe 'GET /api/records' do
 
   context 'when logged in.' do
     context 'without params' do
-      it 'returns status code 200 and json records data.' do
+      it 'returns status code 200 and json records data' do
         get '/api/records', headers: login_headers_with_login(user)
 
         expect(response.status).to eq 200
@@ -118,7 +118,7 @@ describe 'GET /api/records' do
         { date: Time.zone.yesterday.to_s }
       end
 
-      it 'returns status code 200 and json records data.' do
+      it 'returns status code 200 and json records data' do
         get '/api/records', params: params,
                             headers: login_headers_with_login(user)
 
