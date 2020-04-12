@@ -11,7 +11,11 @@ class CurrencyBadge extends Component<Props & I18nProps> {
 
     return (
       <span className='currency-badge-component badge badge-pill badge-light'>
-        {t('label.currency-unit-' + this.props.currency)}
+        {this.props.currency && (
+          <span>
+            {t('label.currency-unit-' + this.props.currency)}
+          </span>
+        )}
       </span>
     )
   }
