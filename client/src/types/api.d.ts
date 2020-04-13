@@ -7,6 +7,12 @@ export interface LoginParams {
   password: string;
 }
 
+export interface SignUpParams {
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
 export interface CategoryParams {
   name: string;
   balance_of_payments: boolean;

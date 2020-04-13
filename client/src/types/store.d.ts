@@ -10,6 +10,10 @@ export interface SessionStore {
   isLoading: boolean;
 }
 
+export interface RegistrationStore {
+  isLoading: boolean;
+}
+
 export interface UserStatusStore {
   isLoading: boolean;
   isLogged: boolean;
