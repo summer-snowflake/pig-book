@@ -42,6 +42,9 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # Genrate URL for devise mailer
+  config.action_mailer.smtp_settings = { address: 'mailhog', port: 1025 }
+  config.action_mailer.delivery_method = :smtp
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
