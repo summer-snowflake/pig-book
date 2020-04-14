@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module RequestSpecHelper
+  def headers
+    { 'Content-Type': 'application/json' }
+  end
+
   def login_headers_with_login(user)
     headers = { 'Content-Type': 'application/json' }
     response_headers = login_response_headers(user)

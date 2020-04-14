@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/categories', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:category1) { create(:category, user: user, balance_of_payments: false) }
   let!(:category2) { create(:category, user: user, balance_of_payments: true) }
 

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'PATCH /api/breakdowns', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
 

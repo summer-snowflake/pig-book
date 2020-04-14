@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'POST /api/categories', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:category) { create(:category, user: user) }
 
   context 'when NOT logged in.' do

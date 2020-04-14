@@ -20,6 +20,10 @@ describe 'POST /api/auth', autodoc: true do
   end
 
   context 'when parameter is valid.' do
+    before do
+      ActionMailer::Base.deliveries.clear
+    end
+
     let(:email) { 'new_account@example.com' }
     let(:password) { 'password' }
     let(:params) do
@@ -28,22 +32,29 @@ describe 'POST /api/auth', autodoc: true do
         password: password
       }.to_json
     end
-    let(:headers) do
-      { 'Content-Type': 'application/json' }
+    let(:extract_confirmation_url) do
+      mail = ActionMailer::Base.deliveries.last
+      body = mail.body.encoded
+      body[/http[^"]+/]
     end
 
     context 'new account' do
       it 'returns status code 200 and json user data' do
         post '/api/auth', params: params, headers: headers
-
         expect(response.status).to eq 200
 
+        # before confirmation
         post '/api/auth/sign_in', params: params, headers: headers
+        expect(response.status).to eq 401
 
+        get extract_confirmation_url
+
+        # after confirmation
+        post '/api/auth/sign_in', params: params, headers: headers
         expect(response.status).to eq 200
       end
 
-      context 'already sign up as user' do
+      context 'twice new account, but already sign up as user' do
         let!(:user) { create(:user, :active, email: email, password: password) }
 
         it 'returns status code 422 and json errors data' do

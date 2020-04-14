@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe 'GET /api/categories', autodoc: true do
-  let!(:user) { create(:user) }
-  let!(:user2) { create(:user, :admin) }
+describe 'GET /api/admin/users', autodoc: true do
+  let!(:user2) { create(:user, :active, :admin) }
+  let!(:user) { create(:user, :active) }
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data' do

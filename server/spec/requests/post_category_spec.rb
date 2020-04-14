@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'POST /api/categories', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data' do
