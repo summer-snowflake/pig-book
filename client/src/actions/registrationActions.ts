@@ -3,10 +3,8 @@ import { Action } from 'redux'
 
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
-import { setCookies } from 'utils/cookies'
-import { User, SignUpParams } from 'types/api'
-import { CookiesHeader } from 'types/store'
-import { UserAction, ErrorsAction } from 'types/action'
+import { SignUpParams } from 'types/api'
+import { ErrorsAction } from 'types/action'
 
 export const signUpRequest = (): Action => {
   return {
@@ -14,11 +12,9 @@ export const signUpRequest = (): Action => {
   }
 }
 
-export const signUpSuccess = (user: User, headers: CookiesHeader): UserAction => {
-  setCookies(headers)
+export const signUpSuccess = (): Action => {
   return {
-    type: actionTypes.SIGN_UP_SUCCESS,
-    user
+    type: actionTypes.SIGN_UP_SUCCESS
   }
 }
 
@@ -33,8 +29,8 @@ export const signUp = (params: SignUpParams) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(signUpRequest())
     try {
-      const res = await axios.post('/api/auth', params)
-      return dispatch(signUpSuccess(res.data, res.headers))
+      await axios.post('/api/auth', params)
+      dispatch(signUpSuccess())
     }
     catch(err) {
       if (err.response.status === 422) {
@@ -42,5 +38,11 @@ export const signUp = (params: SignUpParams) => {
       }
       console.error(err)
     }
+  }
+}
+
+export const reloadSignUp = (): Action => {
+  return {
+    type: actionTypes.RELOAD_SIGN_UP,
   }
 }

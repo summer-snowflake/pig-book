@@ -9,7 +9,8 @@ import { Errors } from 'types/api'
 
 const initialState = {
   isLoading: false,
-  errors: []
+  errors: [],
+  sendMail: false
 }
 
 interface RegistrationAction extends Action {
@@ -26,7 +27,8 @@ const registrationReducer = (state: RegistrationStore = initialState, action: Re
   case actionTypes.SIGN_UP_SUCCESS:
     return {
       ...state,
-      isLoading: false
+      isLoading: false,
+      sendMail: true
     }
   case actionTypes.SIGN_UP_FAILURE:
     toast.error(<FlashMessage actionType={actionTypes.SIGN_UP_FAILURE} />)
@@ -34,6 +36,11 @@ const registrationReducer = (state: RegistrationStore = initialState, action: Re
       ...state,
       isLoading: false,
       errors: action.errors
+    }
+  case actionTypes.RELOAD_SIGN_UP:
+    return {
+      ...state,
+      sendMail: false
     }
   default:
     return state
