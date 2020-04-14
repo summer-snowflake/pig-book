@@ -29,10 +29,21 @@ const sessionReducer = (state: SessionStore = initialState, action: Action): {} 
       ...state,
       isLoading: false
     }
+  case actionTypes.LOGOUT_REQUEST:
+    return {
+      ...state,
+      isLoading: true
+    }
   case actionTypes.LOGOUT_SUCCESS:
     toast.success(<FlashMessage actionType={actionTypes.LOGOUT_SUCCESS} />)
     return {
-      ...state
+      ...state,
+      isLoading: false
+    }
+  case actionTypes.LOGOUT_FAILURE:
+    return {
+      ...state,
+      isLoading: false
     }
   default:
     return state

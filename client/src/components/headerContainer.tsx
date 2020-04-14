@@ -10,7 +10,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { RouteComponentProps } from 'types/react-router'
 import { UserStatusStore } from 'types/store'
 import { getUserStatus } from 'actions/userStatusActions'
-import { logout } from 'actions/sessionActions'
+import { signOut } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
@@ -24,7 +24,7 @@ interface StateProps {
 
 interface DispatchProps {
   getUserStatus: () => void;
-  logout: () => void;
+  signOut: () => void;
 }
 
 type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
@@ -48,7 +48,7 @@ class HeaderContainer extends Component<Props> {
   }
 
   handleLogout(): void {
-    this.props.logout()
+    this.props.signOut()
     this.props.history.push('/users/sign_in')
   }
 
@@ -290,8 +290,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getUserStatus(): void {
       dispatch(getUserStatus())
     },
-    logout(): void {
-      dispatch(logout())
+    signOut(): void {
+      dispatch(signOut())
     }
   }
 }

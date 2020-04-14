@@ -4,7 +4,7 @@ import * as H from 'history'
 
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
-import { setCookies, clearCookies } from 'utils/cookies'
+import { setCookies, clearCookies, loginHeaders } from 'utils/cookies'
 import { User, LoginParams } from 'types/api'
 import { CookiesHeader } from 'types/store'
 import { UserAction } from 'types/action'
@@ -43,10 +43,35 @@ export const login = (params: LoginParams, history: H.History) => {
   }
 }
 
-export const logout = (): Action => {
+const signOutRequest = (): Action => {
+  return {
+    type: actionTypes.LOGOUT_REQUEST
+  }
+}
+
+const signOutSuccess = (): Action => {
   clearCookies()
   return {
     type: actionTypes.LOGOUT_SUCCESS
+  }
+}
+
+const signOutFailure = (): Action => {
+  return {
+    type: actionTypes.LOGIN_FAILURE
+  }
+}
+
+export const signOut = () => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(signOutRequest())
+    try {
+      await axios.delete('/api/auth/sign_out', { headers: loginHeaders() })
+      return dispatch(signOutSuccess())
+    }
+    catch(err) {
+      return dispatch(signOutFailure())
+    }
   }
 }
 
