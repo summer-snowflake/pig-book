@@ -7,7 +7,7 @@ import { Action } from 'redux'
 
 import { SignUpParams } from 'types/api'
 import { RegistrationStore } from 'types/store'
-import { signUp } from 'actions/sessionActions'
+import { signUp } from 'actions/registrationActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
