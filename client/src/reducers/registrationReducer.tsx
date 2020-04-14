@@ -5,12 +5,18 @@ import { toast } from 'react-toastify'
 
 import { RegistrationStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
+import { Errors } from 'types/api'
 
 const initialState = {
-  isLoading: false
+  isLoading: false,
+  errors: []
 }
 
-const registrationReducer = (state: RegistrationStore = initialState, action: Action): {} => {
+interface RegistrationAction extends Action {
+  errors: Errors;
+}
+
+const registrationReducer = (state: RegistrationStore = initialState, action: RegistrationAction): {} => {
   switch (action.type) {
   case actionTypes.SIGN_UP_REQUEST:
     return {
@@ -26,7 +32,8 @@ const registrationReducer = (state: RegistrationStore = initialState, action: Ac
     toast.error(<FlashMessage actionType={actionTypes.SIGN_UP_FAILURE} />)
     return {
       ...state,
-      isLoading: false
+      isLoading: false,
+      errors: action.errors
     }
   default:
     return state

@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { setCookies } from 'utils/cookies'
 import { User, SignUpParams } from 'types/api'
 import { CookiesHeader } from 'types/store'
-import { UserAction } from 'types/action'
+import { UserAction, ErrorsAction } from 'types/action'
 
 export const signUpRequest = (): Action => {
   return {
@@ -22,9 +22,10 @@ export const signUpSuccess = (user: User, headers: CookiesHeader): UserAction =>
   }
 }
 
-export const signUpFailure = (): Action => {
+export const signUpFailure = (errors: Error): ErrorsAction => {
   return {
-    type: actionTypes.SIGN_UP_FAILURE
+    type: actionTypes.SIGN_UP_FAILURE,
+    errors
   }
 }
 
@@ -33,11 +34,13 @@ export const signUp = (params: SignUpParams) => {
     dispatch(signUpRequest())
     try {
       const res = await axios.post('/api/auth', params)
-      console.log(res)
       return dispatch(signUpSuccess(res.data, res.headers))
     }
     catch(err) {
-      return dispatch(signUpFailure())
+      if (err.response.status === 422) {
+        dispatch(signUpFailure(err.response.data.errors.full_messages))
+      }
+      console.error(err)
     }
   }
 }

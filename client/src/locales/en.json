@@ -82,6 +82,7 @@
     "logout": "Logout",
     "loginSuccess": "Login Successfully",
     "loginFailure": "Login Failed",
+    "signUpFailure": "Sign Up Failed",
     "postCategorySuccess": "Category created successfully",
     "patchCategorySuccess": "Category updated successfully",
     "deleteCategorySuccess": "Category deleted successfully",

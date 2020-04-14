@@ -9,6 +9,7 @@ import { SignUpParams } from 'types/api'
 import { RegistrationStore } from 'types/store'
 import { signUp } from 'actions/registrationActions'
 import { RootState } from 'reducers/rootReducer'
+import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
 interface StateProps {
   registration: RegistrationStore;
@@ -76,6 +77,11 @@ class SignUpContainer extends Component<Props, State> {
         </div>
         <form>
           <div className='card-body with-background-image'>
+            {this.props.registration.errors.length > 0 && (
+              <div className='validation-errors-field'>
+                <ValidationErrorMessages messages={this.props.registration.errors} />
+              </div>
+            )}
             { /* メールアドレス */ }
             <div className='form-group'>
               <label className='required' htmlFor='user_email'>
@@ -120,7 +126,7 @@ class SignUpContainer extends Component<Props, State> {
               />
             </div>
 
-            <button className='btn btn-primary' onClick={this.handleSignUp} type='submit'>
+            <button className='btn btn-primary' disabled={this.props.registration.isLoading} onClick={this.handleSignUp} type='submit'>
               {t('button.create')}
             </button>
           </div>
