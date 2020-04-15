@@ -18,13 +18,16 @@ class UserTableRecord extends Component<Props> {
             <i className='fas fa-crown red' />
           )}
         </td>
+        <td className='icon-field-td'>
+          {this.props.user.active ? (
+            <i className='fas fa-user green' />
+          ) : (
+            <i className='far fa-user green' />
+          )}
+        </td>
         <td>
           <i className='far fa-envelope left-icon' />
           {this.props.user.email}
-        </td>
-        <td>
-          <i className='fas fa-clock left-icon' />
-          <HumanTime date={new Date(this.props.user.current_sign_in_at)} />
         </td>
         <td>
           <span className='total-count'>
@@ -43,6 +46,14 @@ class UserTableRecord extends Component<Props> {
             <i className='fas fa-align-justify left-icon pink' />
             {this.props.user.total.record}
           </span>
+        </td>
+        <td>
+          {this.props.user.current_sign_in_at && (
+            <span>
+              <i className='fas fa-clock left-icon' />
+              <HumanTime date={new Date(this.props.user.current_sign_in_at)} />
+            </span>
+          )}
         </td>
       </tr>
     )

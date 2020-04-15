@@ -22,6 +22,10 @@ class User < ApplicationRecord
     !admin.nil?
   end
 
+  def active
+    !confirmed_at.nil?
+  end
+
   def total
     {
       category: categories.count,

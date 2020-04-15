@@ -86,6 +86,7 @@ export interface User {
   email: string;
   current_sign_in_at: string;
   uid: string;
+  active: boolean;
   admin: Admin;
 }
 
