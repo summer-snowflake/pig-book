@@ -209,26 +209,32 @@ class HeaderContainer extends Component<Props> {
                   {t('menu.home')}
                 </NavLink>
               </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/input'>
-                  <i className='fas fa-palette left-icon red' />
-                  <span className='red'>
-                    {t('menu.input')}
-                  </span>
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
-                  <i className='fas fa-align-justify left-icon' />
-                  {t('menu.list')}
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/dashboard'>
-                  <i className='fas fa-chart-bar left-icon' />
-                  {t('menu.dashboard')}
-                </NavLink>
-              </li>
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/input'>
+                    <i className='fas fa-palette left-icon red' />
+                    <span className='red'>
+                      {t('menu.input')}
+                    </span>
+                  </NavLink>
+                </li>
+              )}
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
+                    <i className='fas fa-align-justify left-icon' />
+                    {t('menu.list')}
+                  </NavLink>
+                </li>
+              )}
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/dashboard'>
+                    <i className='fas fa-chart-bar left-icon' />
+                    {t('menu.dashboard')}
+                  </NavLink>
+                </li>
+              )}
             </ul>
             <ul className='navbar-nav justify-content-end'>
               {this.props.userStatus.isLogged && this.props.userStatus.admin && (

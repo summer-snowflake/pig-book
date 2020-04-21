@@ -51,6 +51,10 @@ const categoryReducer = (state: NewCategoryStore = initialState, action: StoreAc
       ...state,
       name: action.name
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

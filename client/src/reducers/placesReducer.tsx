@@ -51,6 +51,10 @@ const placesReducer = (state: PlacesStore = initialState, action: WithErrorsPlac
       ...state,
       isLoading: false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

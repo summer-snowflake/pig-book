@@ -97,6 +97,10 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       ...state,
       editingMemo: action.editingMemo
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

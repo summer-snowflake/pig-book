@@ -53,8 +53,7 @@ const sessionReducer = (state: SessionStore = initialState, action: Action): {} 
   case actionTypes.LOGOUT_SUCCESS:
     toast.success(<FlashMessage actionType={actionTypes.LOGOUT_SUCCESS} />)
     return {
-      ...state,
-      isLoading: false
+      ...initialState
     }
   case actionTypes.LOGOUT_FAILURE:
     return {

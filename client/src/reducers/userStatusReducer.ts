@@ -18,9 +18,7 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: UserAc
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {
-      ...state,
-      isLoading: false,
-      isLogged: false
+      ...initialState
     }
   case actionTypes.GET_USER_STATUS_REQUEST:
     return {

@@ -52,6 +52,10 @@ const registrationReducer = (state: RegistrationStore = initialState, action: Re
       ...state,
       errors: []
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

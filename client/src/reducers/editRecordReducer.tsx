@@ -274,6 +274,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       isLoading: false,
       isOpenEditRecordModal: false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

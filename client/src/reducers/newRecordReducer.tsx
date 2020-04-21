@@ -270,6 +270,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       ...state,
       isOpenNewRecordModal: false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }
