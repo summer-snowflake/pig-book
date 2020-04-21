@@ -26,6 +26,10 @@ const placeCategoriesReducer = (state: CategoriesStore = initialState, action: C
       ...state,
       isLoading: false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

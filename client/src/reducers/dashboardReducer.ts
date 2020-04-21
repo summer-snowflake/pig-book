@@ -46,6 +46,10 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       ...state,
       isLoading: false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

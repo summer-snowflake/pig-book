@@ -53,6 +53,10 @@ const newBreakdownReducer = (state: NewBreakdownStore = initialState, action: St
       category_id: action.category?.id,
       balance_of_payments: action.category?.balance_of_payments || false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

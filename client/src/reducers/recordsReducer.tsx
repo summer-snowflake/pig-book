@@ -36,6 +36,10 @@ const recordsReducer = (state: RecordsStore = initialState, action: RecordsActio
       ...state,
       isLoading: false
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

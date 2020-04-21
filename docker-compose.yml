@@ -43,6 +43,11 @@ services:
     depends_on:
       - db
 
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - '8025:8025'
+
 volumes:
   postgresql:
     driver: local

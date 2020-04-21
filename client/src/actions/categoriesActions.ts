@@ -7,10 +7,6 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { CategoriesAction } from 'types/action'
 import { Category } from 'types/api'
 
-interface WithEditingIdAction extends Action {
-  editingId: number;
-}
-
 const getCategoriesRequest = (): Action => {
   return {
     type: actionTypes.GET_CATEGORIES_REQUEST

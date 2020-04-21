@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/places/:place_id/categories', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:place) { create(:place, user: user) }
   let!(:category1) { create(:category, user: user) }
   let!(:category2) { create(:category, user: user) }

@@ -37,9 +37,10 @@ class UsersListContainer extends Component<Props> {
           <tbody>
             <tr>
               <th />
-              <th>{t('admin.userEmail')}</th>
-              <th>{t('admin.lastSignInAt')}</th>
               <th />
+              <th>{t('admin.userEmail')}</th>
+              <th />
+              <th>{t('admin.lastSignInAt')}</th>
             </tr>
             {this.props.users.users.map((user) => (
               <UserTableRecord key={user.id} user={user} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import LoginMenu from 'components/login/loginMenu'
-import SignInContainer from 'components/login/signInContainer'
+import SignInContainerContainer from 'components/login/signInContainer'
 
 class SignInPage extends Component {
   render(): JSX.Element {
@@ -13,7 +13,7 @@ class SignInPage extends Component {
           </div>
           <div className='col-1 d-lg-none' />
           <div className='col'>
-            <SignInContainer />
+            <SignInContainerContainer />
           </div>
         </div>
       </div>

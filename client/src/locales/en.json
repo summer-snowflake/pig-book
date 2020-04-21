@@ -74,7 +74,8 @@
     "tally": "Tally"
   },
   "link": {
-    "dashboards": "ALL Dashboards"
+    "dashboards": "ALL Dashboards",
+    "retry": "Retry sign up"
   },
   "message": {
     "placeCategorized": "Select Categories.",
@@ -82,6 +83,7 @@
     "logout": "Logout",
     "loginSuccess": "Login Successfully",
     "loginFailure": "Login Failed",
+    "signUpFailure": "Sign Up Failed",
     "postCategorySuccess": "Category created successfully",
     "patchCategorySuccess": "Category updated successfully",
     "deleteCategorySuccess": "Category deleted successfully",
@@ -94,7 +96,9 @@
     "deleteBreakdownSuccess": "Breakdown deleted successfully",
     "postPlaceSuccess": "Place created successfully",
     "patchPlaceSuccess": "Place updated successfully",
-    "deletePlaceSuccess": "Place deleted successfully"
+    "deletePlaceSuccess": "Place deleted successfully",
+    "signedUpButUnconfirmed": "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account",
+    "confirmSuccess": "You can sign in your account"
   },
   "alert": {
     "editingOther": "Editing now"

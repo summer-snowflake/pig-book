@@ -10,7 +10,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { RouteComponentProps } from 'types/react-router'
 import { UserStatusStore } from 'types/store'
 import { getUserStatus } from 'actions/userStatusActions'
-import { logout } from 'actions/sessionActions'
+import { signOut } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
@@ -24,7 +24,7 @@ interface StateProps {
 
 interface DispatchProps {
   getUserStatus: () => void;
-  logout: () => void;
+  signOut: () => void;
 }
 
 type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
@@ -48,7 +48,7 @@ class HeaderContainer extends Component<Props> {
   }
 
   handleLogout(): void {
-    this.props.logout()
+    this.props.signOut()
     this.props.history.push('/users/sign_in')
   }
 
@@ -209,26 +209,32 @@ class HeaderContainer extends Component<Props> {
                   {t('menu.home')}
                 </NavLink>
               </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/input'>
-                  <i className='fas fa-palette left-icon red' />
-                  <span className='red'>
-                    {t('menu.input')}
-                  </span>
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
-                  <i className='fas fa-align-justify left-icon' />
-                  {t('menu.list')}
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink activeClassName='active-link-menu' className='nav-link' to='/dashboard'>
-                  <i className='fas fa-chart-bar left-icon' />
-                  {t('menu.dashboard')}
-                </NavLink>
-              </li>
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/input'>
+                    <i className='fas fa-palette left-icon red' />
+                    <span className='red'>
+                      {t('menu.input')}
+                    </span>
+                  </NavLink>
+                </li>
+              )}
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
+                    <i className='fas fa-align-justify left-icon' />
+                    {t('menu.list')}
+                  </NavLink>
+                </li>
+              )}
+              {this.props.userStatus.isLogged && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/dashboard'>
+                    <i className='fas fa-chart-bar left-icon' />
+                    {t('menu.dashboard')}
+                  </NavLink>
+                </li>
+              )}
             </ul>
             <ul className='navbar-nav justify-content-end'>
               {this.props.userStatus.isLogged && this.props.userStatus.admin && (
@@ -290,8 +296,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getUserStatus(): void {
       dispatch(getUserStatus())
     },
-    logout(): void {
-      dispatch(logout())
+    signOut(): void {
+      dispatch(signOut())
     }
   }
 }

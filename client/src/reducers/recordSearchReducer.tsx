@@ -48,6 +48,10 @@ const RecordSearchReducer = (state: RecordSearchStore = initialState, action: St
       ...state,
       page: action.page
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

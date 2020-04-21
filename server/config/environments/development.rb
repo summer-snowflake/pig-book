@@ -42,6 +42,9 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # Genrate URL for devise mailer
+  config.action_mailer.smtp_settings = { address: 'mailhog', port: 1025 }
+  config.action_mailer.delivery_method = :smtp
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
@@ -49,4 +52,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
 end

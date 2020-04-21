@@ -2,9 +2,10 @@
 
 require 'rails_helper'
 
-describe 'GET /api/categories', autodoc: true do
-  let!(:user) { create(:user) }
-  let!(:user2) { create(:user, :admin) }
+describe 'GET /api/admin/users', autodoc: true do
+  let!(:user3) { create(:user) }
+  let!(:user2) { create(:user, :active, :admin) }
+  let!(:user) { create(:user, :active) }
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data' do
@@ -39,6 +40,7 @@ describe 'GET /api/categories', autodoc: true do
       expect(response.status).to eq 200
       json = [
         {
+          active: true,
           email: user.email,
           allow_password_change: false,
           image: user.image,
@@ -58,6 +60,7 @@ describe 'GET /api/categories', autodoc: true do
           admin: {
             user_id: user2.id
           },
+          active: true,
           email: user2.email,
           allow_password_change: false,
           image: user2.image,
@@ -66,6 +69,23 @@ describe 'GET /api/categories', autodoc: true do
           provider: 'email',
           uid: user2.email,
           current_sign_in_at: user2.reload.current_sign_in_at,
+          total: {
+            category: 0,
+            breakdown: 0,
+            place: 0,
+            record: 0
+          }
+        },
+        {
+          active: false,
+          email: user3.email,
+          allow_password_change: false,
+          image: user3.image,
+          name: user3.name,
+          nickname: user3.nickname,
+          provider: 'email',
+          uid: user3.email,
+          current_sign_in_at: user3.reload.current_sign_in_at,
           total: {
             category: 0,
             breakdown: 0,

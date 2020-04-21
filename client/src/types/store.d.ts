@@ -10,6 +10,11 @@ export interface SessionStore {
   isLoading: boolean;
 }
 
+export interface RegistrationStore extends Errors {
+  isLoading: boolean;
+  sendMail: boolean;
+}
+
 export interface UserStatusStore {
   isLoading: boolean;
   isLogged: boolean;

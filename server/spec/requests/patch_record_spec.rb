@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'PATCH /api/records/:id', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:category1) { create(:category, user: user) }
   let!(:category2) { create(:category, user: user) }
   let!(:breakdown1) { create(:breakdown, user: user, category: category1) }

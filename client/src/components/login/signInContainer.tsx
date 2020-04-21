@@ -5,18 +5,24 @@ import { withTranslation } from 'react-i18next'
 import { ThunkDispatch } from 'redux-thunk'
 import { connect } from 'react-redux'
 import * as H from 'history'
+import { parse } from 'query-string'
 
 import { LoginParams } from 'types/api'
-import { SessionStore } from 'types/store'
+import { SessionStore, RegistrationStore } from 'types/store'
 import { login } from 'actions/sessionActions'
+import { confirmUser } from 'actions/registrationActions'
+import { getUserStatus } from 'actions/userStatusActions'
 import { RootState } from 'reducers/rootReducer'
+import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
 interface StateProps {
   session: SessionStore;
+  registration: RegistrationStore;
 }
 
 interface DispatchProps {
   login: (params: LoginParams, history: H.History) => void;
+  confirmUser: (confirmationToken: string, history: H.History) => void;
 }
 
 type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
@@ -33,6 +39,11 @@ class SignInContainer extends Component<Props, State> {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleChangeEmail = this.handleChangeEmail.bind(this)
     this.handleChangePassword = this.handleChangePassword.bind(this)
+
+    if (this.props.location.pathname === '/api/auth/confirmation') {
+      const query = parse(props.location.search)
+      this.props.confirmUser(String(query.confirmation_token), this.props.history)
+    }
   }
 
   handleLogin(): void {
@@ -66,6 +77,11 @@ class SignInContainer extends Component<Props, State> {
         </div>
         <div className='card-body with-background-image'>
           <form>
+            {this.props.registration.errors.length > 0 && (
+              <div className='validation-errors-field'>
+                <ValidationErrorMessages messages={this.props.registration.errors} />
+              </div>
+            )}
             { /* メールアドレス */ }
             <div className='form-group'>
               <label className='required' htmlFor='user_email'>
@@ -108,14 +124,20 @@ class SignInContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    session: state.session
+    session: state.session,
+    registration: state.registration
   }
 }
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
     login(params: LoginParams, history: H.History): void {
-      dispatch(login(params, history))
+      dispatch(login(params, history)).then(() => {
+        dispatch(getUserStatus())
+      })
+    },
+    confirmUser(confirmationToken: string, history: H.History): void {
+      dispatch(confirmUser(confirmationToken, history))
     }
   }
 }

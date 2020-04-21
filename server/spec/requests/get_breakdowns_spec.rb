@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/breakdowns', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:category) { create(:category, user: user, balance_of_payments: true) }
   let!(:breakdown1) { create(:breakdown, user: user, category: category) }
   let!(:breakdown2) { create(:breakdown, user: user, category: category) }

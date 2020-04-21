@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'DELETE /api/breakdowns/:id', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:breakdown) { create(:breakdown, user: user) }
 
   context 'when NOT logged in.' do

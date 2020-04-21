@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import LoginMenu from 'components/login/loginMenu'
-import SignUp from 'components/login/signUp'
+import SignUpContainer from 'components/login/signUpContainer'
 
 class SignUpPage extends Component {
   render(): JSX.Element {
@@ -13,7 +13,7 @@ class SignUpPage extends Component {
           </div>
           <div className='col-1 d-lg-none' />
           <div className='col'>
-            <SignUp />
+            <SignUpContainer />
           </div>
         </div>
       </div>

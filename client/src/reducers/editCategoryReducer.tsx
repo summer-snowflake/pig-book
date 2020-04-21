@@ -74,6 +74,10 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: St
       ...state,
       editedCategoryId: 0
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

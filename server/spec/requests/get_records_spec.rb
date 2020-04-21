@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/records', autodoc: true do
-  let!(:user) { create(:user, :with_profile) }
+  let!(:user) { create(:user, :active, :with_profile) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
   let!(:place) { create(:place, user: user) }

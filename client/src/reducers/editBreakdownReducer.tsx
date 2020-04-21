@@ -89,6 +89,10 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
       ...state,
       editedBreakdownId: 0
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

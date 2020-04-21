@@ -80,6 +80,10 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
       ...state,
       editedPlaceId: action.placeId
     }
+  case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

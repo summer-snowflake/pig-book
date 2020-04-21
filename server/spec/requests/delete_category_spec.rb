@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'DELETE /api/categories/:id', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:category) { create(:category, user: user) }
 
   context 'when NOT logged in.' do

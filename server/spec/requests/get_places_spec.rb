@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/places', autodoc: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :active) }
   let!(:place1) { create(:place, user: user) }
   let!(:place2) { create(:place, user: user) }
 
