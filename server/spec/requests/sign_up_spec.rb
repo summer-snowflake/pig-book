@@ -19,6 +19,37 @@ describe 'POST /api/auth', autodoc: true do
     end
   end
 
+  context 'when parameter is valid from api url.' do
+    let(:email) { 'new_account@example.com' }
+    let(:password) { 'password' }
+    let(:params) do
+      {
+        email: email,
+        password: password
+      }.to_json
+    end
+
+    context 'new account' do
+      it 'returns status code 200 and json user data' do
+        post '/api/auth', params: params, headers: headers
+        expect(response.status).to eq 200
+
+        token = User.last.confirmation_token
+
+        # before confirmation
+        post '/api/auth/sign_in', params: params, headers: headers
+        expect(response.status).to eq 401
+
+        get "/api/auth/confirmation?confirmation_token=#{token}"
+        expect(response.status).to eq 200
+
+        # after confirmation
+        post '/api/auth/sign_in', params: params, headers: headers
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
   context 'when parameter is valid.' do
     before do
       ActionMailer::Base.deliveries.clear
