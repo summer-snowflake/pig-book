@@ -97,7 +97,8 @@
     "postPlaceSuccess": "お店・施設を追加しました",
     "patchPlaceSuccess": "お店・施設を編集しました",
     "deletePlaceSuccess": "お店・施設を削除しました",
-    "signedUpButUnconfirmed": "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
+    "signedUpButUnconfirmed": "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。",
+    "confirmSuccess": "アカウントを有効にしました。ログインしてください。"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

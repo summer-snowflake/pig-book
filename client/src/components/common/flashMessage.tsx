@@ -70,6 +70,9 @@ class FlashMessage extends Component<I18nProps & Props> {
       break
     case actionTypes.PATCH_RECORD_SUCCESS:
       msg = t('message.patchSuccess')
+      break
+    case actionTypes.CONFIRM_USER_SUCCESS:
+      msg = t('message.confirmSuccess')
     }
 
     return (

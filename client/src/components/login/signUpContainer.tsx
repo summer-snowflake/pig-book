@@ -7,7 +7,7 @@ import { Action } from 'redux'
 
 import { SignUpParams } from 'types/api'
 import { RegistrationStore } from 'types/store'
-import { signUp, reloadSignUp } from 'actions/registrationActions'
+import { signUp, reloadSignUp, clearErrors } from 'actions/registrationActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import Messages from 'components/common/Messages'
@@ -19,6 +19,7 @@ interface StateProps {
 interface DispatchProps {
   signUp: (params: SignUpParams) => void;
   reloadSignUp: () => void;
+  clearErrors: () => void;
 }
 
 type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
@@ -39,6 +40,8 @@ class SignUpContainer extends Component<Props, State> {
     this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleChangePasswordConfirmation = this.handleChangePasswordConfirmation.bind(this)
     this.handleClickRetryLink = this.handleClickRetryLink.bind(this)
+
+    this.props.clearErrors()
   }
 
   handleSignUp(e: React.MouseEvent<HTMLElement>): void {
@@ -173,6 +176,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     reloadSignUp(): void {
       dispatch(reloadSignUp())
+    },
+    clearErrors(): void {
+      dispatch(clearErrors())
     }
   }
 }

@@ -42,6 +42,16 @@ const registrationReducer = (state: RegistrationStore = initialState, action: Re
       ...state,
       sendMail: false
     }
+  case actionTypes.CONFIRM_USER_FAILURE:
+    return {
+      ...state,
+      errors: action.errors
+    }
+  case actionTypes.CLEAR_ERRORS:
+    return {
+      ...state,
+      errors: []
+    }
   default:
     return state
   }

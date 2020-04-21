@@ -39,6 +39,7 @@ class App extends Component {
           <Switch>
             <Route component={TopPage} exact path='/' />
             <Route component={SignInPage} exact path='/users/sign_in' />
+            <Route component={SignInPage} exact path='/api/auth/confirmation' />
             <Route component={SignUpPage} exact path='/users/sign_up' />
             <Route component={InputPage} exact path='/input' />
             <Route component={ListPage} exact path='/list' />

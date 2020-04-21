@@ -97,7 +97,8 @@
     "postPlaceSuccess": "Place created successfully",
     "patchPlaceSuccess": "Place updated successfully",
     "deletePlaceSuccess": "Place deleted successfully",
-    "signedUpButUnconfirmed": "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account"
+    "signedUpButUnconfirmed": "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account",
+    "confirmSuccess": "You can sign in your account"
   },
   "alert": {
     "editingOther": "Editing now"
