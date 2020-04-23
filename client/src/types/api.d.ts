@@ -73,12 +73,10 @@ export interface Admin {
 }
 
 export interface AdminUser extends User {
-  total: {
-    category: number;
-    breakdown: number;
-    place: number;
-    record: number;
-  };
+  categories_count: number;
+  breakdowns_count: number;
+  places_count: number;
+  records_count: number;
 }
 
 export interface User {

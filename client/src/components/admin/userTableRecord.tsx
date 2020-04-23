@@ -32,19 +32,19 @@ class UserTableRecord extends Component<Props> {
         <td>
           <span className='total-count'>
             <i className='fas fa-th-large left-icon yellow' />
-            {this.props.user.total.category}
+            {this.props.user.categories_count}
           </span>
           <span className='total-count'>
             <i className='fas fa-list left-icon light-blue' />
-            {this.props.user.total.breakdown}
+            {this.props.user.breakdowns_count}
           </span>
           <span className='total-count'>
             <i className='fas fa-map-marker-alt left-icon blue' />
-            {this.props.user.total.place}
+            {this.props.user.places_count}
           </span>
           <span className='total-count'>
             <i className='fas fa-align-justify left-icon pink' />
-            {this.props.user.total.record}
+            {this.props.user.records_count}
           </span>
         </td>
         <td>

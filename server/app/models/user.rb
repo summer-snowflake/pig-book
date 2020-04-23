@@ -26,15 +26,6 @@ class User < ApplicationRecord
     !confirmed_at.nil?
   end
 
-  def total
-    {
-      category: categories_count,
-      breakdown: breakdowns_count,
-      place: places_count,
-      record: records_count
-    }
-  end
-
   def dashboard_years
     this_year = Time.zone.today.year
     if monthly_balance_tables.blank? || records.minimum(:published_at).nil?

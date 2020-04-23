@@ -6,7 +6,7 @@ class Admin::UsersController < Admin::BaseController
     fetcher.find_all_by(users_params)
     render json: { list: fetcher.users, max_page: fetcher.max_page },
            include: :admin,
-           methods: %i[active total current_sign_in_at], status: :ok
+           methods: %i[active current_sign_in_at], status: :ok
   end
 
   private

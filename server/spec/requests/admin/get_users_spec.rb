@@ -49,12 +49,6 @@ describe 'GET /api/admin/users', autodoc: true do
           provider: 'email',
           uid: user.email,
           current_sign_in_at: user.reload.current_sign_in_at,
-          total: {
-            category: 1,
-            breakdown: 0,
-            place: 0,
-            record: 0
-          },
           categories_count: 1,
           breakdowns_count: 0,
           places_count: 0,
@@ -73,12 +67,6 @@ describe 'GET /api/admin/users', autodoc: true do
           provider: 'email',
           uid: user2.email,
           current_sign_in_at: user2.reload.current_sign_in_at,
-          total: {
-            category: 0,
-            breakdown: 0,
-            place: 0,
-            record: 0
-          },
           categories_count: 0,
           breakdowns_count: 0,
           places_count: 0,
@@ -94,12 +82,6 @@ describe 'GET /api/admin/users', autodoc: true do
           provider: 'email',
           uid: user3.email,
           current_sign_in_at: user3.reload.current_sign_in_at,
-          total: {
-            category: 0,
-            breakdown: 0,
-            place: 0,
-            record: 0
-          },
           categories_count: 0,
           breakdowns_count: 0,
           places_count: 0,
