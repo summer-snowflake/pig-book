@@ -5,6 +5,10 @@ export interface ErrorsAction extends Action {
   errors: Errors;
 }
 
+export interface ResponseErrorsAction extends Action {
+  errorResponse: HttpErrorResponse;
+}
+
 export interface UserAction extends Action {
   user: User;
 }

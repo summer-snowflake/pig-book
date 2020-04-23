@@ -264,7 +264,6 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       isLoading: false,
       isOpenNewRecordModal: false
     }
-
   case actionTypes.GET_RECORDS_REQUEST:
     return {
       ...state,

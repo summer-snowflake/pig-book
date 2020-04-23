@@ -146,3 +146,7 @@ export interface DashboardsStore {
   isLoading: boolean;
   dashboards: DashboardStore[];
 }
+
+export interface ResponseErrorsStore {
+  status: number;
+}
