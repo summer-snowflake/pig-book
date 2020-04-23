@@ -13,12 +13,12 @@ class User::Fetcher
   end
 
   def find_all_by(params)
-    page = params[:page] || 1
-    @users =
-      User.all
-          .offset(PER_PAGE * (page - 1))
-          .limit(PER_PAGE)
-          .order(created_at: :desc)
+    page = params[:page] ? params[:page].to_i : 1
+    users = User.all
     @max_page = (users.count / PER_PAGE.to_f).ceil
+    @users = users.includes(:admin)
+                  .offset(PER_PAGE * (page - 1))
+                  .limit(PER_PAGE)
+                  .order(created_at: :desc)
   end
 end

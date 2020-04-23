@@ -13,10 +13,11 @@ const getUsersRequest = (): Action => {
   }
 }
 
-const getUsersSuccess = (users: User[], max_page: number): UsersAction => {
+const getUsersSuccess = (users: User[], max_page: number, page: number): UsersAction => {
   return {
     type: actionTypes.GET_USERS_SUCCESS,
     users,
+    page,
     max_page
   }
 }
@@ -27,13 +28,13 @@ const getUsersFailure = (): Action => {
   }
 }
 
-export const getUsers = () => {
+export const getUsers = (params: { page: number }) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getUsersRequest())
     try {
       if(ready()) {
-        const res = await axios.get('/api/admin/users', { headers: loginHeaders() })
-        dispatch(getUsersSuccess(res.data.list, res.data.max_page))
+        const res = await axios.get('/api/admin/users', { params: params, headers: loginHeaders() })
+        dispatch(getUsersSuccess(res.data.list, res.data.max_page, params.page))
       } else {
         dispatch(getUsersFailure())
       }
