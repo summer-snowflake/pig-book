@@ -38,7 +38,7 @@ describe 'GET /api/admin/users', autodoc: true do
       get '/api/admin/users', headers: login_headers_with_login(user2)
 
       expect(response.status).to eq 200
-      json = [
+      users = [
         {
           active: true,
           email: user.email,
@@ -93,7 +93,11 @@ describe 'GET /api/admin/users', autodoc: true do
             record: 0
           }
         }
-      ].to_json
+      ]
+      json = {
+        list: users,
+        max_page: 1
+      }.to_json
       expect(response.body).to be_json_eql(json)
     end
   end

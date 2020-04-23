@@ -2,8 +2,16 @@
 
 class Admin::UsersController < Admin::BaseController
   def index
-    render json: User.all.order(created_at: :desc),
+    fetcher = User::Fetcher.new
+    fetcher.find_all_by(users_params)
+    render json: { list: fetcher.users, max_page: fetcher.max_page },
            include: :admin,
            methods: %i[active total current_sign_in_at], status: :ok
+  end
+
+  private
+
+  def users_params
+    params.permit(:page)
   end
 end

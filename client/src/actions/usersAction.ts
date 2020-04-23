@@ -7,16 +7,19 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { UsersAction } from 'types/action'
 import { User } from 'types/api'
 
+
+
 const getUsersRequest = (): Action => {
   return {
     type: actionTypes.GET_USERS_REQUEST
   }
 }
 
-const getUsersSuccess = (users: User[]): UsersAction => {
+const getUsersSuccess = (users: User[], max_page: number): UsersAction => {
   return {
     type: actionTypes.GET_USERS_SUCCESS,
-    users
+    users,
+    max_page
   }
 }
 
@@ -32,7 +35,7 @@ export const getUsers = () => {
     try {
       if(ready()) {
         const res = await axios.get('/api/admin/users', { headers: loginHeaders() })
-        dispatch(getUsersSuccess(res.data))
+        dispatch(getUsersSuccess(res.data.list, res.data.max_page))
       } else {
         dispatch(getUsersFailure())
       }

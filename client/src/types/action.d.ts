@@ -39,6 +39,7 @@ export interface PlacesAction extends Action {
 
 export interface UsersAction extends Action {
   users: User[];
+  max_page: number;
 }
 
 export interface RecordAction extends Action {
