@@ -54,7 +54,11 @@ describe 'GET /api/admin/users', autodoc: true do
             breakdown: 0,
             place: 0,
             record: 0
-          }
+          },
+          categories_count: 1,
+          breakdowns_count: 0,
+          places_count: 0,
+          records_count: 0
         },
         {
           admin: {
@@ -74,7 +78,11 @@ describe 'GET /api/admin/users', autodoc: true do
             breakdown: 0,
             place: 0,
             record: 0
-          }
+          },
+          categories_count: 0,
+          breakdowns_count: 0,
+          places_count: 0,
+          records_count: 0
         },
         {
           active: false,
@@ -91,7 +99,11 @@ describe 'GET /api/admin/users', autodoc: true do
             breakdown: 0,
             place: 0,
             record: 0
-          }
+          },
+          categories_count: 0,
+          breakdowns_count: 0,
+          places_count: 0,
+          records_count: 0
         }
       ]
       json = {

@@ -7,8 +7,6 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { UsersAction } from 'types/action'
 import { User } from 'types/api'
 
-
-
 const getUsersRequest = (): Action => {
   return {
     type: actionTypes.GET_USERS_REQUEST

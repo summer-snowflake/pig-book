@@ -2,6 +2,7 @@
 
 class Breakdown < ApplicationRecord
   belongs_to :user
+  counter_culture :user
   belongs_to :category
   has_many :records, dependent: :restrict_with_exception
 

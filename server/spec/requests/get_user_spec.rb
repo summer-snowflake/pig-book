@@ -31,7 +31,11 @@ describe 'GET /api/user', autodoc: true do
         nickname: nil,
         provider: 'email',
         image: nil,
-        allow_password_change: false
+        allow_password_change: false,
+        categories_count: 0,
+        breakdowns_count: 0,
+        places_count: 0,
+        records_count: 0
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
