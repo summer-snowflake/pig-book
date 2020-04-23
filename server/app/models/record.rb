@@ -4,6 +4,7 @@ class Record < ApplicationRecord
   include EnumDefinedCurrency
 
   belongs_to :user
+  counter_culture :user
   belongs_to :category
   belongs_to :breakdown, optional: true
   belongs_to :place, optional: true

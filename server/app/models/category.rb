@@ -2,6 +2,7 @@
 
 class Category < ApplicationRecord
   belongs_to :user
+  counter_culture :user
   has_many :breakdowns, dependent: :restrict_with_exception
   has_many :categorized_places, dependent: :destroy
   has_many :places, through: :categorized_places

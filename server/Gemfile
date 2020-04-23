@@ -11,6 +11,7 @@ gem 'devise'
 gem 'devise_token_auth'
 gem 'dotenv-rails'
 gem 'rails-i18n'
+gem 'counter_culture'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

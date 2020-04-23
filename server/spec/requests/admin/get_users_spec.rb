@@ -38,7 +38,7 @@ describe 'GET /api/admin/users', autodoc: true do
       get '/api/admin/users', headers: login_headers_with_login(user2)
 
       expect(response.status).to eq 200
-      json = [
+      users = [
         {
           active: true,
           email: user.email,
@@ -49,12 +49,10 @@ describe 'GET /api/admin/users', autodoc: true do
           provider: 'email',
           uid: user.email,
           current_sign_in_at: user.reload.current_sign_in_at,
-          total: {
-            category: 1,
-            breakdown: 0,
-            place: 0,
-            record: 0
-          }
+          categories_count: 1,
+          breakdowns_count: 0,
+          places_count: 0,
+          records_count: 0
         },
         {
           admin: {
@@ -69,12 +67,10 @@ describe 'GET /api/admin/users', autodoc: true do
           provider: 'email',
           uid: user2.email,
           current_sign_in_at: user2.reload.current_sign_in_at,
-          total: {
-            category: 0,
-            breakdown: 0,
-            place: 0,
-            record: 0
-          }
+          categories_count: 0,
+          breakdowns_count: 0,
+          places_count: 0,
+          records_count: 0
         },
         {
           active: false,
@@ -86,14 +82,16 @@ describe 'GET /api/admin/users', autodoc: true do
           provider: 'email',
           uid: user3.email,
           current_sign_in_at: user3.reload.current_sign_in_at,
-          total: {
-            category: 0,
-            breakdown: 0,
-            place: 0,
-            record: 0
-          }
+          categories_count: 0,
+          breakdowns_count: 0,
+          places_count: 0,
+          records_count: 0
         }
-      ].to_json
+      ]
+      json = {
+        list: users,
+        max_page: 1
+      }.to_json
       expect(response.body).to be_json_eql(json)
     end
   end

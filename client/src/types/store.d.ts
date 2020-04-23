@@ -88,7 +88,9 @@ export interface PlaceCategoriesStore {
 
 export interface UsersStore {
   isLoading: boolean;
-  users: User[];
+  users: AdminUser[];
+  maxPage: number;
+  page: number;
 }
 
 export interface NewRecordStore {

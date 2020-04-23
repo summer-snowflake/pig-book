@@ -4,7 +4,9 @@ import { UsersStore } from 'types/store'
 
 const initialState = {
   isLoading: false,
-  users: []
+  users: [],
+  page: 1,
+  maxPage: 1
 }
 
 const usersReducer = (state: UsersStore = initialState, action: UsersAction): {} => {
@@ -18,7 +20,9 @@ const usersReducer = (state: UsersStore = initialState, action: UsersAction): {}
     return {
       ...state,
       isLoading: false,
-      users: action.users
+      users: action.users,
+      page: action.page,
+      maxPage: action.max_page
     }
   case actionTypes.GET_USERS_FAILURE:
     return {
