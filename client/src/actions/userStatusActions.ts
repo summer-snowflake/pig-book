@@ -34,8 +34,6 @@ export const getUserStatus = () => {
       if(ready()) {
         const res = await axios.get('/api/user', { headers: loginHeaders() })
         dispatch(getUserStatusSuccess(res.data))
-      } else {
-        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
