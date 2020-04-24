@@ -6,6 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { CategoriesAction } from 'types/action'
 import { Category } from 'types/api'
+import { catchErrors } from 'actions/errorsAction'
+import { getCookiesFailure } from 'actions/userStatusActions'
 
 const getCategoriesRequest = (): Action => {
   return {
@@ -20,12 +22,6 @@ const getCategoriesSuccess = (categories: Category[]): CategoriesAction => {
   }
 }
 
-const getCategoriesFailure = (): Action => {
-  return {
-    type: actionTypes.GET_CATEGORIES_FAILURE
-  }
-}
-
 export const getCategories = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getCategoriesRequest())
@@ -34,11 +30,11 @@ export const getCategories = () => {
         const res = await axios.get('/api/categories', { headers: loginHeaders() })
         dispatch(getCategoriesSuccess(res.data))
       } else {
-        dispatch(getCategoriesFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

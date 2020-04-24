@@ -29,11 +29,6 @@ const placesReducer = (state: PlacesStore = initialState, action: WithErrorsPlac
       isLoading: false,
       places: action.places
     }
-  case actionTypes.GET_PLACES_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.DELETE_PLACE_REQUEST:
     return {
       ...state,
@@ -52,6 +47,10 @@ const placesReducer = (state: PlacesStore = initialState, action: WithErrorsPlac
       isLoading: false
     }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

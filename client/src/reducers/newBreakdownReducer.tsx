@@ -57,6 +57,10 @@ const newBreakdownReducer = (state: NewBreakdownStore = initialState, action: St
     return {
       ...initialState
     }
+  case actionTypes.GET_COOKIES_FAILURE:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

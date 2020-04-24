@@ -6,6 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { DashboardsAction } from 'types/action'
 import { Dashboard } from 'types/api'
+import { catchErrors } from 'actions/errorsAction'
+import { getCookiesFailure } from 'actions/userStatusActions'
 
 const getDashboardsRequest = (): Action => {
   return {
@@ -20,12 +22,6 @@ const getDashboardsSuccess = (dashboards: Dashboard[]): DashboardsAction => {
   }
 }
 
-const getDashboardsFailure = (): Action => {
-  return {
-    type: actionTypes.GET_DASHBOARDS_FAILURE
-  }
-}
-
 export const getDashboards = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getDashboardsRequest())
@@ -34,11 +30,11 @@ export const getDashboards = () => {
         const res = await axios.get('/api/dashboards/', { headers: loginHeaders() })
         dispatch(getDashboardsSuccess(res.data))
       } else {
-        dispatch(getDashboardsFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

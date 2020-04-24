@@ -93,6 +93,10 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
     return {
       ...initialState
     }
+  case actionTypes.GET_COOKIES_FAILURE:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

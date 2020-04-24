@@ -12,12 +12,12 @@ interface StateProps {
 type Props = StateProps & RouteComponentProps
 
 class ErrorBoundary extends Component<Props> {
-  constructor(props: Props) {
-    super(props)
-  }
-
   render(): React.ReactNode {
     switch (this.props.responseErrors.status) {
+    case undefined:
+      alert('Network Error! Reload this page.')
+      this.props.history.go(0)
+      break
     case 401:
       return (
         <Switch>

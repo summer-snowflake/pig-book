@@ -11,7 +11,7 @@ const errorsReducer = (state: ResponseErrorsStore = initialState, action: Respon
   case actionTypes.CATCH_ERRORS:
     return {
       ...state,
-      status: action.errorResponse.status
+      status: action.errorResponse?.status
     }
   case actionTypes.GET_COOKIES_FAILURE:
     return {

@@ -25,11 +25,6 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       monthly: action.dashboard.monthly,
       yearly: action.dashboard.yearly
     }
-  case actionTypes.GET_DASHBOARD_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.PATCH_DASHBOARD_REQUEST:
     return {
       ...state,
@@ -41,12 +36,11 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       isLoading: false,
       event: action.dashboard.event
     }
-  case actionTypes.PATCH_DASHBOARD_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

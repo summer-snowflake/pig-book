@@ -6,6 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { DashboardAction } from 'types/action'
 import { Dashboard } from 'types/api'
+import { catchErrors } from 'actions/errorsAction'
+import { getCookiesFailure } from 'actions/userStatusActions'
 
 const getDashboardRequest = (): Action => {
   return {
@@ -20,12 +22,6 @@ const getDashboardSuccess = (dashboard: Dashboard): DashboardAction => {
   }
 }
 
-const getDashboardFailure = (): Action => {
-  return {
-    type: actionTypes.GET_DASHBOARD_FAILURE
-  }
-}
-
 export const getDashboard = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getDashboardRequest())
@@ -35,11 +31,11 @@ export const getDashboard = () => {
         const res = await axios.get('/api/dashboards/' + year, { headers: loginHeaders() })
         dispatch(getDashboardSuccess(res.data))
       } else {
-        dispatch(getDashboardFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }
@@ -57,12 +53,6 @@ const patchDashboardSuccess = (dashboard: Dashboard): DashboardAction => {
   }
 }
 
-const patchDashboardFailure = (): Action => {
-  return {
-    type: actionTypes.PATCH_DASHBOARD_FAILURE
-  }
-}
-
 export const patchDashboard = (year: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(patchDashboardRequest())
@@ -72,11 +62,11 @@ export const patchDashboard = (year: number) => {
         const res = await axios.patch('/api/dashboards/' + year, params, { headers: loginHeaders() })
         dispatch(patchDashboardSuccess(res.data))
       } else {
-        dispatch(patchDashboardFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

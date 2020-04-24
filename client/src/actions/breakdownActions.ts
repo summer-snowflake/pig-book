@@ -7,6 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, BreakdownAction } from 'types/action'
 import { BreakdownParams, Errors, Category, Breakdown } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
+import { catchErrors } from 'actions/errorsAction'
 
 interface WithNameAction extends Action {
   name: string;
@@ -48,10 +49,11 @@ export const postBreakdown = (params: BreakdownParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(postBreakdownFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }
@@ -103,10 +105,11 @@ export const patchBreakdown = (id: number, params: BreakdownParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(patchBreakdownFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }
@@ -143,8 +146,11 @@ export const deleteBreakdown = (breakdownId: number) => {
       }
     }
     catch (err) {
-      console.error(err)
-      dispatch(deleteBreakdownFailure(err.response.data.errors))
+      if (err.response?.status === 403) {
+        dispatch(deleteBreakdownFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
+      }
     }
   }
 }

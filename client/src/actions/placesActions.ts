@@ -6,10 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { PlacesAction } from 'types/action'
 import { Place } from 'types/api'
-
-interface WithEditingIdAction extends Action {
-  editingId: number;
-}
+import { catchErrors } from 'actions/errorsAction'
+import { getCookiesFailure } from 'actions/userStatusActions'
 
 const getPlacesRequest = (): Action => {
   return {
@@ -24,12 +22,6 @@ const getPlacesSuccess = (places: Place[]): PlacesAction => {
   }
 }
 
-const getPlacesFailure = (): Action => {
-  return {
-    type: actionTypes.GET_PLACES_FAILURE
-  }
-}
-
 export const getPlaces = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getPlacesRequest())
@@ -38,11 +30,11 @@ export const getPlaces = () => {
         const res = await axios.get('/api/places', { headers: loginHeaders() })
         dispatch(getPlacesSuccess(res.data))
       } else {
-        dispatch(getPlacesFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

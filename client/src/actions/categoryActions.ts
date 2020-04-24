@@ -6,6 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, CategoryAction } from 'types/action'
 import { Category, CategoryParams, Errors } from 'types/api'
+import { catchErrors } from 'actions/errorsAction'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
 interface WithBalanceOfPaymentsAction extends Action {
@@ -52,10 +53,11 @@ export const postCategory = (params: CategoryParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(postCategoryFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }
@@ -107,10 +109,11 @@ export const patchCategory = (id: number, params: CategoryParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(patchCategoryFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }
@@ -147,8 +150,11 @@ export const deleteCategory = (categoryId: number) => {
       }
     }
     catch (err) {
-      console.error(err)
-      dispatch(deleteCategoryFailure(err.response.data.errors))
+      if (err.response?.status === 403) {
+        dispatch(deleteCategoryFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
+      }
     }
   }
 }
@@ -166,12 +172,6 @@ const getCategorySuccess = (category: Category): CategoryAction => {
   }
 }
 
-const getCategoryFailure = (): Action => {
-  return {
-    type: actionTypes.GET_CATEGORY_FAILURE
-  }
-}
-
 export const getCategory = (categoryId: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getCategoryRequest())
@@ -184,10 +184,7 @@ export const getCategory = (categoryId: number) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
-        dispatch(getCategoryFailure())
-      }
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }
@@ -205,12 +202,6 @@ const getEditRecordCategorySuccess = (category: Category): CategoryAction => {
   }
 }
 
-const getEditRecordCategoryFailure = (): Action => {
-  return {
-    type: actionTypes.GET_EDIT_RECORD_CATEGORY_FAILURE
-  }
-}
-
 export const getEditRecordCategory = (categoryId: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getEditRecordCategoryRequest())
@@ -223,10 +214,7 @@ export const getEditRecordCategory = (categoryId: number) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
-        dispatch(getEditRecordCategoryFailure())
-      }
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

@@ -20,11 +20,6 @@ const dashboardsReducer = (state: DashboardsStore = initialState, action: Dashbo
       isLoading: false,
       dashboards: action.dashboards
     }
-  case actionTypes.GET_DASHBOARDS_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.PATCH_DASHBOARD_REQUEST:
     return {
       ...state,
@@ -35,12 +30,11 @@ const dashboardsReducer = (state: DashboardsStore = initialState, action: Dashbo
       ...state,
       isLoading: false
     }
-  case actionTypes.PATCH_DASHBOARD_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

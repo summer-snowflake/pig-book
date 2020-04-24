@@ -7,6 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, PlaceAction, CategoriesAction } from 'types/action'
 import { Place, PlaceParams, Errors, Category } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
+import { catchErrors } from 'actions/errorsAction'
 
 interface WithNameAction extends Action {
   name: string;
@@ -53,10 +54,11 @@ export const postPlace = (params: PlaceParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(postPlaceFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }
@@ -101,10 +103,11 @@ export const patchPlace = (id: number, params: PlaceParams) => {
       }
     }
     catch (err) {
-      if (err.response.status === 422) {
+      if (err.response?.status === 422) {
         dispatch(patchPlaceFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }
@@ -141,8 +144,11 @@ export const deletePlace = (placeId: number) => {
       }
     }
     catch (err) {
-      console.error(err)
-      dispatch(deletePlaceFailure(err.response.data.errors))
+      if (err.response?.status === 403) {
+        dispatch(deletePlaceFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
+      }
     }
   }
 }
@@ -160,12 +166,6 @@ const getPlaceCategoriesSuccess = (categories: Category[]): CategoriesAction => 
   }
 }
 
-const getPlaceCategoriesFailure = (): Action => {
-  return {
-    type: actionTypes.GET_PLACE_CATEGORIES_FAILURE
-  }
-}
-
 export const getPlaceCategories = (placeId: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getPlaceCategoriesRequest())
@@ -174,11 +174,11 @@ export const getPlaceCategories = (placeId: number) => {
         const res = await axios.get('/api/places/' + placeId + '/categories', { headers: loginHeaders() })
         dispatch(getPlaceCategoriesSuccess(res.data))
       } else {
-        dispatch(getPlaceCategoriesFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }
@@ -197,12 +197,6 @@ const postPlaceCategoriesSuccess = (placeId: number, categories: Category[]): Wi
   }
 }
 
-const postPlaceCategoriesFailure = (): Action => {
-  return {
-    type: actionTypes.POST_PLACE_CATEGORIES_FAILURE
-  }
-}
-
 export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(postPlaceCategoriesRequest())
@@ -214,11 +208,11 @@ export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
         const res = await axios.post('/api/places/' + placeId + '/categories', params, { headers: loginHeaders() })
         dispatch(postPlaceCategoriesSuccess(placeId, res.data))
       } else {
-        dispatch(postPlaceCategoriesFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

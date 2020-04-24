@@ -29,11 +29,6 @@ const categoriesReducer = (state: CategoriesStore = initialState, action: WithEr
       isLoading: false,
       categories: action.categories
     }
-  case actionTypes.GET_CATEGORIES_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.DELETE_CATEGORY_REQUEST:
     return {
       ...state,
@@ -52,6 +47,10 @@ const categoriesReducer = (state: CategoriesStore = initialState, action: WithEr
       isLoading: false
     }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

@@ -65,18 +65,6 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       currency: action.profile?.currency,
       memo: action.profile?.memo
     }
-  case actionTypes.GET_PROFILE_FAILURE:
-    return {
-      ...state,
-      isLoading: false,
-      isLoadingMemo: false
-    }
-  case actionTypes.PATCH_PROFILE_FAILURE:
-    return {
-      ...state,
-      isLoading: false,
-      isLoadingMemo: false
-    }
   case actionTypes.CHANGE_PROFILE_LOCALE:
     return {
       ...state,
@@ -98,6 +86,10 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       editingMemo: action.editingMemo
     }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

@@ -31,12 +31,11 @@ const recordsReducer = (state: RecordsStore = initialState, action: RecordsActio
       maxPage: action.max_page,
       totals: action.totals
     }
-  case actionTypes.GET_RECORDS_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }
