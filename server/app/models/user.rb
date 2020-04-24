@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
+
   include DeviseTokenAuth::Concerns::User
 
   has_one :admin, dependent: :destroy
@@ -36,5 +37,9 @@ class User < ApplicationRecord
     twenty_years_old = this_year - 30
     year = minimum_year < twenty_years_old ? twenty_years_old : minimum_year
     [*(year..this_year)].reverse
+  end
+
+  def tutorial
+    @tutorial ||= Tutorial.new(user_id: id)
   end
 end
