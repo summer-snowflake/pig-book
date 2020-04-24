@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore } from 'types/store'
+import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
 import userStatusReducer from 'reducers/userStatusReducer'
@@ -23,6 +23,7 @@ import recordSearchReducer from 'reducers/recordSearchReducer'
 import dashboardReducer from 'reducers/dashboardReducer'
 import dashboardsReducer from 'reducers/dashboardsReducer'
 import errorsReducer from 'reducers/errorsReducer'
+import tutorialReducer from 'reducers/tutorialReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -47,6 +48,7 @@ export type RootState = {
   dashboard: DashboardStore;
   dashboards: DashboardsStore;
   responseErrors: ResponseErrorsStore;
+  tutorial: TutorialStore;
 }
 
 const rootReducer = combineReducers({
@@ -71,7 +73,8 @@ const rootReducer = combineReducers({
   recordSearch: recordSearchReducer,
   dashboard: dashboardReducer,
   dashboards: dashboardsReducer,
-  responseErrors: errorsReducer
+  responseErrors: errorsReducer,
+  tutorial: tutorialReducer
 })
 
 export default rootReducer

@@ -31,6 +31,14 @@ export interface ProfileStore {
   memo: string;
 }
 
+export interface TutorialStore {
+  isLoading: boolean;
+  categoryExists: boolean;
+  breakdownExists: boolean;
+  placeExists: boolean;
+  recordExists: boolean;
+}
+
 export interface NewCategoryStore extends Errors {
   isLoading: boolean;
   balance_of_payments: boolean;

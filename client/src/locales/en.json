@@ -38,7 +38,8 @@
     "signUp": "Sign Up",
     "editing": "Now editing",
     "baseSetting": "Base Setting",
-    "memo": "Note"
+    "memo": "Note",
+    "tutorial": "Tutorial"
   },
   "label": {
     "locale": "en-IN",
