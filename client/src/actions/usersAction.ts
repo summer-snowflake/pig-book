@@ -6,6 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { UsersAction } from 'types/action'
 import { User } from 'types/api'
+import { catchErrors } from 'actions/errorsAction'
+import { getCookiesFailure } from 'actions/userStatusActions'
 
 const getUsersRequest = (): Action => {
   return {
@@ -22,12 +24,6 @@ const getUsersSuccess = (users: User[], max_page: number, page: number): UsersAc
   }
 }
 
-const getUsersFailure = (): Action => {
-  return {
-    type: actionTypes.GET_USERS_FAILURE
-  }
-}
-
 export const getUsers = (params: { page: number }) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getUsersRequest())
@@ -36,11 +32,11 @@ export const getUsers = (params: { page: number }) => {
         const res = await axios.get('/api/admin/users', { params: params, headers: loginHeaders() })
         dispatch(getUsersSuccess(res.data.list, res.data.max_page, params.page))
       } else {
-        dispatch(getUsersFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

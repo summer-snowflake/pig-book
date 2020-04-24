@@ -6,6 +6,7 @@ import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { SignUpParams } from 'types/api'
 import { ErrorsAction } from 'types/action'
+import { catchErrors } from 'actions/errorsAction'
 
 const signUpRequest = (): Action => {
   return {
@@ -36,8 +37,9 @@ export const signUp = (params: SignUpParams) => {
     catch(err) {
       if (err.response.status === 422) {
         dispatch(signUpFailure(err.response.data.errors.full_messages))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }

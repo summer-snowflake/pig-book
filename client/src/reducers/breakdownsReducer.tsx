@@ -29,11 +29,6 @@ const breakdownsReducer = (state: BreakdownsStore = initialState, action: WithEr
       isLoading: false,
       breakdowns: action.breakdowns
     }
-  case actionTypes.GET_BREAKDOWNS_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.DELETE_BREAKDOWN_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
@@ -47,6 +42,10 @@ const breakdownsReducer = (state: BreakdownsStore = initialState, action: WithEr
       isLoading: false
     }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

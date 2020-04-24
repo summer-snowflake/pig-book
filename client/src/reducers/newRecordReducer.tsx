@@ -253,24 +253,22 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       breakdowns: action.category.breakdowns,
       places: action.category.places
     }
-  case actionTypes.GET_CATEGORY_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.CLOSE_NEW_MODAL:
     return {
       ...state,
       isLoading: false,
       isOpenNewRecordModal: false
     }
-
   case actionTypes.GET_RECORDS_REQUEST:
     return {
       ...state,
       isOpenNewRecordModal: false
     }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

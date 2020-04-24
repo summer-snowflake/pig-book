@@ -24,12 +24,11 @@ const usersReducer = (state: UsersStore = initialState, action: UsersAction): {}
       page: action.page,
       maxPage: action.max_page
     }
-  case actionTypes.GET_USERS_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

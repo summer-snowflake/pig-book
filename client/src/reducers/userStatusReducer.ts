@@ -33,11 +33,9 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: UserAc
       isLogged: true,
       admin: action.user.admin
     }
-  case actionTypes.GET_USER_STATUS_FAILURE:
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
-      ...state,
-      isLoading: false,
-      isLogged: false
+      ...initialState
     }
   default:
     return state

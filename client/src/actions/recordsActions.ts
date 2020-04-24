@@ -4,8 +4,9 @@ import { Action } from 'redux'
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
-import { RecordsAction, ErrorsAction } from 'types/action'
-import { Record, RecordSearchParams, Errors, RecordTotals } from 'types/api'
+import { RecordsAction } from 'types/action'
+import { Record, RecordSearchParams, RecordTotals } from 'types/api'
+import { catchErrors } from 'actions/errorsAction'
 import { getCookiesFailure } from 'actions/userStatusActions'
 
 interface WithRecordSearchParamsAction extends Action {
@@ -31,12 +32,6 @@ const getRecordsSuccess = (records: Record[], max_page: number, totals: RecordTo
   }
 }
 
-const getRecordsFailure = (): Action => {
-  return {
-    type: actionTypes.GET_RECORDS_FAILURE
-  }
-}
-
 export const getRecords = (params?: RecordSearchParams) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getRecordsRequest())
@@ -45,11 +40,11 @@ export const getRecords = (params?: RecordSearchParams) => {
         const res = await axios.get('/api/records', { params: params, headers: loginHeaders() })
         dispatch(getRecordsSuccess(res.data.list, res.data.max_page, res.data.totals))
       } else {
-        dispatch(getRecordsFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }
@@ -66,13 +61,6 @@ const deleteRecordSuccess = (): Action => {
   }
 }
 
-const deleteRecordFailure = (errors: Errors): ErrorsAction => {
-  return {
-    type: actionTypes.DELETE_RECORD_FAILURE,
-    errors
-  }
-}
-
 export const deleteRecord = (recordId: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(deleteRecordRequest())
@@ -86,8 +74,7 @@ export const deleteRecord = (recordId: number) => {
       }
     }
     catch (err) {
-      console.error(err)
-      dispatch(deleteRecordFailure(err.response.data.errors))
+      dispatch(catchErrors(err.response))
     }
   }
 }

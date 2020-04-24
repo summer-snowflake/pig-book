@@ -48,6 +48,10 @@ const placeReducer = (state: NewPlaceStore = initialState, action: StoreAction):
     return {
       ...initialState
     }
+  case actionTypes.GET_COOKIES_FAILURE:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

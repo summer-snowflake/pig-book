@@ -7,6 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { Profile, ProfileParams } from 'types/api'
 import { ProfileAction } from 'types/action'
 import { getCookiesFailure } from 'actions/userStatusActions'
+import { catchErrors } from 'actions/errorsAction'
 
 interface WithLocaleAction extends Action {
   locale: string;
@@ -53,7 +54,7 @@ export const getProfile = () => {
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }
@@ -86,12 +87,6 @@ const patchProfileSuccess = (profile: Profile): ProfileAction => {
   }
 }
 
-const patchProfileFailure = (): Action => {
-  return {
-    type: actionTypes.PATCH_PROFILE_FAILURE
-  }
-}
-
 export const patchProfile = (params: ProfileParams, target: string) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(patchProfileRequest(target))
@@ -100,11 +95,11 @@ export const patchProfile = (params: ProfileParams, target: string) => {
         const res = await axios.patch('/api/profile', params, { headers: loginHeaders() })
         dispatch(patchProfileSuccess(res.data))
       } else {
-        dispatch(patchProfileFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

@@ -23,6 +23,7 @@ import PlacePage from 'components/settings/place/placePage'
 import AdminUsersPage from 'components/admin/adminUsersPage'
 import Footer from 'components/footer'
 import Page404 from 'components/errors/page404'
+import ErrorBoundary from 'components/errorBoundary'
 
 import 'react-toastify/dist/ReactToastify.css'
 import 'stylesheets/toastify.sass'
@@ -36,25 +37,27 @@ class App extends Component {
         <Router>
           <ToastContainer />
           <Header />
-          <Switch>
-            <Route component={TopPage} exact path='/' />
-            <Route component={SignInPage} exact path='/users/sign_in' />
-            <Route component={SignInPage} exact path='/api/auth/confirmation' />
-            <Route component={SignUpPage} exact path='/users/sign_up' />
-            <Route component={InputPage} exact path='/input' />
-            <Route component={ListPage} exact path='/list' />
-            <Route component={DashboardPage} exact path='/dashboard' />
-            <Route component={DashboardsPage} exact path='/dashboards' />
-            <Route component={MypageTopPage} exact path='/mypage' />
-            <Route component={SettingsTopPage} exact path='/settings' />
-            <Route component={CategoryPage} exact path='/categories' />
-            <Route component={BreakdownPage} exact path='/breakdowns' />
-            <Route component={PlacePage} exact path='/places' />
-            <Route component={AdminUsersPage} exact path='/admin/users' />
-            <Route component={Page404} exact />
-          </Switch>
+          <ErrorBoundary>
+            <Switch>
+              <Route component={TopPage} exact path='/' />
+              <Route component={SignInPage} exact path='/users/sign_in' />
+              <Route component={SignInPage} exact path='/api/auth/confirmation' />
+              <Route component={SignUpPage} exact path='/users/sign_up' />
+              <Route component={InputPage} exact path='/input' />
+              <Route component={ListPage} exact path='/list' />
+              <Route component={DashboardPage} exact path='/dashboard' />
+              <Route component={DashboardsPage} exact path='/dashboards' />
+              <Route component={MypageTopPage} exact path='/mypage' />
+              <Route component={SettingsTopPage} exact path='/settings' />
+              <Route component={CategoryPage} exact path='/categories' />
+              <Route component={BreakdownPage} exact path='/breakdowns' />
+              <Route component={PlacePage} exact path='/places' />
+              <Route component={AdminUsersPage} exact path='/admin/users' />
+              <Route component={Page404} exact />
+            </Switch>
+          </ErrorBoundary>
+          <Footer />
         </Router>
-        <Footer />
       </div>
     )
   }

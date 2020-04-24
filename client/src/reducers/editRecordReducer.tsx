@@ -263,11 +263,6 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       breakdowns: action.category.breakdowns,
       places: action.category.places
     }
-  case actionTypes.GET_EDIT_RECORD_CATEGORY_FAILURE:
-    return {
-      ...state,
-      isLoading: false
-    }
   case actionTypes.CLOSE_EDIT_MODAL:
     return {
       ...state,
@@ -275,6 +270,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       isOpenEditRecordModal: false
     }
   case actionTypes.LOGOUT_SUCCESS:
+    return {
+      ...initialState
+    }
+  case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
     }

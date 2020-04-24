@@ -6,10 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { BreakdownsAction } from 'types/action'
 import { Breakdown } from 'types/api'
-
-interface WithEditingIdAction extends Action {
-  editingId: number;
-}
+import { catchErrors } from './errorsAction'
+import { getCookiesFailure } from './userStatusActions'
 
 const getBreakdownsRequest = (): Action => {
   return {
@@ -24,12 +22,6 @@ const getBreakdownsSuccess = (breakdowns: Breakdown[]): BreakdownsAction => {
   }
 }
 
-const getBreakdownsFailure = (): Action => {
-  return {
-    type: actionTypes.GET_BREAKDOWNS_FAILURE
-  }
-}
-
 export const getBreakdowns = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getBreakdownsRequest())
@@ -38,11 +30,11 @@ export const getBreakdowns = () => {
         const res = await axios.get('/api/breakdowns', { headers: loginHeaders() })
         dispatch(getBreakdownsSuccess(res.data))
       } else {
-        dispatch(getBreakdownsFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

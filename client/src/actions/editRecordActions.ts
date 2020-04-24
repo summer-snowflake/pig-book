@@ -7,6 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, RecordAction } from 'types/action'
 import { Record, Errors, RecordParams, Category } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
+import { catchErrors } from 'actions/errorsAction'
 
 interface WithPublishedOnAction extends Action {
   publishedOn: Date;
@@ -82,8 +83,9 @@ export const patchRecord = (recordId: number, params: RecordParams) => {
     catch (err) {
       if (err.response?.status === 422) {
         dispatch(patchRecordFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
       }
-      console.error(err)
     }
   }
 }

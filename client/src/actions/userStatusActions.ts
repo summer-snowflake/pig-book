@@ -6,6 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { User } from 'types/api'
 import { UserAction } from 'types/action'
+import { catchErrors } from 'actions/errorsAction'
 
 export const getCookiesFailure = (): Action => {
   return {
@@ -26,12 +27,6 @@ export const getUserStatusSuccess = (user: User): UserAction => {
   }
 }
 
-export const getUserStatusFailure = (): Action => {
-  return {
-    type: actionTypes.GET_USER_STATUS_FAILURE
-  }
-}
-
 export const getUserStatus = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getUserStatusRequest())
@@ -40,11 +35,11 @@ export const getUserStatus = () => {
         const res = await axios.get('/api/user', { headers: loginHeaders() })
         dispatch(getUserStatusSuccess(res.data))
       } else {
-        dispatch(getUserStatusFailure())
+        dispatch(getCookiesFailure())
       }
     }
     catch (err) {
-      console.error(err)
+      dispatch(catchErrors(err.response))
     }
   }
 }

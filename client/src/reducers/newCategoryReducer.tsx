@@ -55,6 +55,10 @@ const categoryReducer = (state: NewCategoryStore = initialState, action: StoreAc
     return {
       ...initialState
     }
+  case actionTypes.GET_COOKIES_FAILURE:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

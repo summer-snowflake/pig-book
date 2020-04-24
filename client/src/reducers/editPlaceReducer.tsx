@@ -84,6 +84,10 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
     return {
       ...initialState
     }
+  case actionTypes.GET_COOKIES_FAILURE:
+    return {
+      ...initialState
+    }
   default:
     return state
   }
