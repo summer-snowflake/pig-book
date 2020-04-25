@@ -45,6 +45,8 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       isLoadingMemo: (action.target === 'memo') ? true : false
     }
   case actionTypes.GET_PROFILE_SUCCESS:
+    i18next.changeLanguage(action.profile?.locale || 'ja')
+
     return {
       ...state,
       isLoading: false,

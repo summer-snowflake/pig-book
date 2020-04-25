@@ -34,8 +34,8 @@ export const login = (params: LoginParams, history: H.History) => {
     dispatch(loginRequest())
     try {
       const res = await axios.post('/api/auth/sign_in', params)
+      dispatch(loginSuccess(res.data, res.headers))
       history.push('/mypage')
-      return dispatch(loginSuccess(res.data, res.headers))
     }
     catch(err) {
       return dispatch(loginFailure())

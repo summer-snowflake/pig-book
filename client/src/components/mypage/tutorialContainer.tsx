@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 
 import { TutorialStore } from 'types/store'
 import { getTutorial } from 'actions/tutorialActions'
+import { getProfile } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
 import CheckMark from 'components/mypage/checkMark'
 
@@ -16,6 +17,7 @@ interface StateProps {
 
 interface DispatchProps {
   getTutorial: () => void;
+  getProfile: () => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -25,6 +27,8 @@ class TutorialContainer extends Component<Props> {
     super(props)
 
     this.props.getTutorial()
+    // TODO: 国際化対応のために一旦取得する。マイページの他の箇所で取得するようにしたら削除する
+    this.props.getProfile()
   }
 
   exists(): boolean {
@@ -111,6 +115,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     getTutorial(): void {
       dispatch(getTutorial())
+    },
+    getProfile(): void {
+      dispatch(getProfile())
     }
   }
 }
