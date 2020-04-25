@@ -7,6 +7,7 @@ class BaseController < ApplicationController
   private
 
   def set_locale
-    I18n.locale = current_user.profile.locale
+    profile = current_user.profile || current_user.build_profile
+    I18n.locale = profile.locale
   end
 end

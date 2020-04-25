@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { Action } from 'redux'
 import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 import i18next from 'i18next'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -10,6 +12,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
 import { ProfileStore } from 'types/store'
+import { getProfile } from 'actions/settingsActions'
 import { RootState } from 'reducers/rootReducer'
 import Header from 'components/headerContainer'
 import TopPage from 'components/top/topPage'
@@ -38,9 +41,19 @@ interface StateProps {
   profile: ProfileStore;
 }
 
-type Props = StateProps
+interface DispatchProps {
+  getProfile: () => void;
+}
+
+type Props = StateProps & DispatchProps
 
 class App extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+
+    this.props.getProfile()
+  }
+
   render(): JSX.Element {
     i18next.changeLanguage(this.props.profile.locale)
 
@@ -81,5 +94,12 @@ function mapState(state: RootState): StateProps {
   }
 }
 
-export default connect(mapState)(App)
+function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
+  return {
+    getProfile(): void {
+      dispatch(getProfile())
+    },
+  }
+}
 
+export default connect(mapState, mapDispatch)(App)
