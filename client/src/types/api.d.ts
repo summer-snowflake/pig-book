@@ -95,6 +95,11 @@ export interface Profile {
   memo: string;
 }
 
+export interface Tutorial {
+  id: number;
+  user: AdminUser;
+}
+
 export interface Category {
   id: number;
   name: string;

@@ -15,8 +15,9 @@ class ErrorBoundary extends Component<Props> {
   render(): React.ReactNode {
     switch (this.props.responseErrors.status) {
     case undefined:
-      alert('Network Error! Reload this page.')
-      this.props.history.go(0)
+      if (window.confirm('Network Error! Reload this page.')) {
+        this.props.history.go(0)
+      }
       break
     case 401:
       return (
