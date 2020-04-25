@@ -60,7 +60,10 @@
     "year": "",
     "month": "",
     "total": "Total: ",
-    "unit": ""
+    "unit": "",
+    "tutorial-category": "Set some categories",
+    "tutorial-place": "Set some shop/facility. and Add category to them",
+    "tutorial-record":"Create data"
   },
   "button": {
     "login": "Sign In",
