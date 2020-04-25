@@ -22,7 +22,7 @@ class HumanTime extends Component<Props & I18nProps> {
     return (
       <span className='human-time-component'>
         <HumanDate date={this.props.date} />
-        {this.toHumanDate()}
+        {' ' + this.toHumanDate()}
       </span>
     )
   }

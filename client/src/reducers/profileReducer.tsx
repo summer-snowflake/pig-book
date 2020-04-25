@@ -5,6 +5,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ProfileStore } from 'types/store'
 import { ProfileAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
+import i18next from 'i18next'
 
 const initialState = {
   isLoading: false,
@@ -44,6 +45,8 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       isLoadingMemo: (action.target === 'memo') ? true : false
     }
   case actionTypes.GET_PROFILE_SUCCESS:
+    i18next.changeLanguage(action.profile?.locale || 'ja')
+
     return {
       ...state,
       isLoading: false,
@@ -53,6 +56,7 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       memo: action.profile?.memo
     }
   case actionTypes.PATCH_PROFILE_SUCCESS:
+    i18next.changeLanguage(action.profile?.locale || 'ja')
     toast.success(<FlashMessage actionType={action.type} />)
 
     return {
@@ -62,7 +66,6 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
       editing: false,
       editingMemo: false,
       locale: action.profile?.locale,
-      currency: action.profile?.currency,
       memo: action.profile?.memo
     }
   case actionTypes.CHANGE_PROFILE_LOCALE:

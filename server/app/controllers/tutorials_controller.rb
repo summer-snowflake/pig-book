@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class TutorialsController < ApplicationController
-  before_action :authenticate_user!
-
+class TutorialsController < BaseController
   def show
     @tutorial = current_user.tutorial
     render json: @tutorial, status: :ok

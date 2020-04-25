@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class ProfilesController < ApplicationController
-  before_action :authenticate_user!
+class ProfilesController < BaseController
   before_action :set_profile
 
   def show
@@ -10,7 +9,6 @@ class ProfilesController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      I18n.locale = @profile.locale
       render json: @profile, status: :ok
     else
       render render_validation_error

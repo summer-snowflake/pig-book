@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class RecordsController < ApplicationController
-  before_action :authenticate_user!
-
+class RecordsController < BaseController
   def index
     fetcher = Record::Fetcher.new(user: current_user)
     fetcher.find_all_by(records_params)
