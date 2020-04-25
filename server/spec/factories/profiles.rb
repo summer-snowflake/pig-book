@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :profile do
     user
-    locale { %i[en ja].sample }
+    locale { :ja }
     currency { %i[yen dollar].sample }
     sequence(:memo) { |n| "メモ#{n}" }
   end
