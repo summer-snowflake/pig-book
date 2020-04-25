@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::BaseController < ApplicationController
-  before_action :authenticate_user!
+class Admin::BaseController < BaseController
   before_action :authenticate_admin!
 
   def authenticate_admin!

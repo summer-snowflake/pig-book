@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class DashboardsController < ApplicationController
-  before_action :authenticate_user!
-
+class DashboardsController < BaseController
   def index
     fetcher = Dashboard::Fetcher.new(user: current_user)
     render json: fetcher.all

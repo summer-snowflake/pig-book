@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class PlacesController < ApplicationController
-  before_action :authenticate_user!
-
+class PlacesController < BaseController
   def index
     places = current_user.places.includes(:categories).order(created_at: :desc)
     render json: places, include: :categories, status: :ok
