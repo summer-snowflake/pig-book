@@ -73,7 +73,8 @@
     "sortPlace": "お店・施設順",
     "copy": "コピー",
     "edit": "編集",
-    "delete": "削除"
+    "delete": "削除",
+    "addCategory": "カテゴリに追加"
   },
   "button": {
     "login": "ログインする",

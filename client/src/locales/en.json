@@ -73,7 +73,8 @@
     "sortPlace": "sort shop/facility",
     "copy": "Copy",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "addCategory": "Add Category"
   },
   "button": {
     "login": "Sign In",
