@@ -70,7 +70,10 @@
     "sortPublishedAt": "sort published time",
     "sortCategory": "sort category",
     "sortBreakdown": "sort breakdown",
-    "sortPlace": "sort shop/facility"
+    "sortPlace": "sort shop/facility",
+    "copy": "Copy",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "button": {
     "login": "Sign In",

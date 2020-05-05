@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import ReactTooltip from 'react-tooltip'
+import { withTranslation } from 'react-i18next'
 
 import { ReadRecord, Record, Category, Breakdown, Place } from 'types/api'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
 import HumanDate from 'components/common/humanDate'
 
-interface Props {
+interface Props extends I18nProps {
   record: ReadRecord;
   format?: string;
   editedRecordId: number | undefined;
@@ -85,17 +87,21 @@ class RecordTableRecord extends Component<Props, State> {
   }
 
   render(): JSX.Element {
+    const { t } = this.props
+
     return (
       <tbody className={'record-table-record-component'}>
         <tr className={this.props.record.id === this.props.editedRecordId ? 'edited' : ''}>
           <td className='icon-field-td'>
-            <span className='icon-field' onClick={this.handleClickCopy}>
+            <span className='icon-field' data-tip={t('toolTip.copy')} onClick={this.handleClickCopy}>
               <i className='far fa-copy' />
+              <ReactTooltip />
             </span>
           </td>
           <td className='icon-field-td'>
-            <span className='icon-field' onClick={this.handleClickEdit}>
+            <span className='icon-field' data-tip={t('toolTip.edit')} onClick={this.handleClickEdit}>
               <i className='far fa-edit' />
+              <ReactTooltip />
             </span>
           </td>
           {this.props.format === 'detail' && (
@@ -191,4 +197,4 @@ class RecordTableRecord extends Component<Props, State> {
   }
 }
 
-export default RecordTableRecord
+export default withTranslation()(RecordTableRecord)

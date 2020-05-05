@@ -70,7 +70,10 @@
     "sortPublishedAt": "日付順",
     "sortCategory": "カテゴリ順",
     "sortBreakdown": "内訳順",
-    "sortPlace": "お店・施設順"
+    "sortPlace": "お店・施設順",
+    "copy": "コピー",
+    "edit": "編集",
+    "delete": "削除"
   },
   "button": {
     "login": "ログインする",
