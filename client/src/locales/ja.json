@@ -65,6 +65,13 @@
     "tutorial-place": "お店・施設を設定し、カテゴリを追加てください。",
     "tutorial-record": "データを入力、登録してください。"
   },
+  "toolTip": {
+    "sortCreatedAt": "作成日順",
+    "sortPublishedAt": "日付順",
+    "sortCategory": "カテゴリ順",
+    "sortBreakdown": "内訳順",
+    "sortPlace": "お店・施設順"
+  },
   "button": {
     "login": "ログインする",
     "create": "登録する",
