@@ -65,6 +65,17 @@
     "tutorial-place": "Set some shop/facility. and Add category to them",
     "tutorial-record":"Create data"
   },
+  "toolTip": {
+    "sortCreatedAt": "sort created time",
+    "sortPublishedAt": "sort published time",
+    "sortCategory": "sort category",
+    "sortBreakdown": "sort breakdown",
+    "sortPlace": "sort shop/facility",
+    "copy": "Copy",
+    "edit": "Edit",
+    "delete": "Delete",
+    "addCategory": "Add Category"
+  },
   "button": {
     "login": "Sign In",
     "create": "Create",

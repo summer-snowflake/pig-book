@@ -34,6 +34,7 @@ import ErrorBoundary from 'components/errorBoundary'
 
 import 'react-toastify/dist/ReactToastify.css'
 import 'stylesheets/toastify.sass'
+import 'stylesheets/react_tooltip.sass'
 
 library.add(fab, fas, far)
 
