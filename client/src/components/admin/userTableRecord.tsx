@@ -3,8 +3,6 @@ import { AdminUser } from 'types/api'
 
 import HumanTime from 'components/common/humanTime'
 
-import 'stylesheets/admin.sass'
-
 interface Props {
   user: AdminUser;
 }
