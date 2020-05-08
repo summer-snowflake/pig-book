@@ -11,7 +11,11 @@ class CategorizedButton extends Component<Props> {
     const { t } = this.props
 
     return (
-      <button className='categorized-button-component btn btn-secondary btn-sm' data-tip={t('toolTip.addCategory')} onClick={this.props.onClickButton}>
+      <button
+        className='categorized-button-component btn btn-secondary btn-sm'
+        data-tip={t('toolTip.addCategory')}
+        onClick={this.props.onClickButton}
+      >
         <i className='fas fa-plus' />
         <ReactTooltip />
       </button>
