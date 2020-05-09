@@ -25,7 +25,7 @@ class TallyTableData extends Component<Props> {
         </div>
         <div>
           <i className='fas fa-parking left-icon' />
-          {this.props.tally?.cashless_charge || 0}
+          {this.props.tally?.point || 0}
         </div>
       </td>
     )
