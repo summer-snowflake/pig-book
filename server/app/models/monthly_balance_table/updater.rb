@@ -16,6 +16,7 @@ class MonthlyBalanceTable::Updater
 
     [*1..12].each do |month|
       update_monthly(month)
+      update_category_monthly(month)
     end
   end
 
@@ -49,5 +50,26 @@ class MonthlyBalanceTable::Updater
     )
     monthly.update!(income: income_charge, expenditure: expenditure_charge,
                     cashless_charge: cashless, point: point)
+  end
+
+  def sum_category_data(category_id, records)
+    category = user.categories.find(category_id)
+    {
+      income: category.balance_of_payments ? sum_charge(records) : 0,
+      expenditure: category.balance_of_payments ? 0 : sum_charge(records),
+      cashless_charge: records.inject(0) { |sum, r| sum + r.cashless_charge },
+      point: records.inject(0) { |sum, r| sum + r.point }
+    }
+  end
+
+  def update_category_monthly(month)
+    monthly_records = user.records.where(published_at: monthly_range(month))
+    monthly_records.group_by(&:category_id).each do |category_id, records|
+      monthly = user.monthly_category_balance_tables.find_or_initialize_by(
+        year: year, month: month,
+        currency: user.profile.currency, parent_id: category_id
+      )
+      monthly.update(sum_category_data(category_id, records))
+    end
   end
 end
