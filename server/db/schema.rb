@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_012826) do
+ActiveRecord::Schema.define(version: 2020_05_09_091538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_012826) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  create_table "yearly_total_balance_tables", force: :cascade do |t|
+  create_table "yearly_records", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "year", null: false
     t.integer "currency", default: 0, null: false
@@ -158,7 +158,8 @@ ActiveRecord::Schema.define(version: 2020_05_09_012826) do
     t.integer "point", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_yearly_total_balance_tables_on_user_id"
+    t.string "type", null: false
+    t.index ["user_id"], name: "index_yearly_records_on_user_id"
   end
 
   add_foreign_key "admins", "users"
@@ -175,5 +176,5 @@ ActiveRecord::Schema.define(version: 2020_05_09_012826) do
   add_foreign_key "records", "places"
   add_foreign_key "records", "users"
   add_foreign_key "tally_events", "users"
-  add_foreign_key "yearly_total_balance_tables", "users"
+  add_foreign_key "yearly_records", "users"
 end
