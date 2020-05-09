@@ -2,6 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.describe MonthlyBalanceTable, type: :model do
+RSpec.describe MonthlyRecord, type: :model do
   it { is_expected.to belong_to(:user) }
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :monthly_balance_table do
+  factory :monthly_record do
     user
     year { Time.zone.now.year }
     month { Time.zone.now.month }

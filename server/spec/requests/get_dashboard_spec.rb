@@ -41,9 +41,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
 
     context 'there are tally monthly data' do
       let!(:tally_event) { create(:tally_event, user: user, year: year) }
-      let!(:monthly_balance_table) do
-        create(:monthly_balance_table, user: user)
-      end
+      let!(:monthly_balance_table) { create(:monthly_record, user: user) }
 
       it 'returns status code 200 and json dashboard data' do
         get "/api/dashboards/#{year}", headers: login_headers_with_login(user)
@@ -56,6 +54,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           },
           monthly: [
             user_id: user.id,
+            parent_id: nil,
             year: monthly_balance_table.year,
             month: monthly_balance_table.month,
             expenditure: monthly_balance_table.expenditure,
