@@ -7,6 +7,7 @@ FactoryBot.define do
     password_confirmation { password }
     provider { 'email' }
     uid { email }
+    daily_option { false }
 
     trait :active do
       confirmed_at { Time.zone.now }

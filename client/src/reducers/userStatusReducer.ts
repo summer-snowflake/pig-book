@@ -5,7 +5,8 @@ import { UserAction } from 'types/action'
 const initialState = {
   isLoading: false,
   isLogged: false,
-  admin: null
+  admin: null,
+  dailyOption: false
 }
 
 const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): {} => {
@@ -31,6 +32,7 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: UserAc
       ...state,
       isLoading: false,
       isLogged: true,
+      dailyOption: action.user.daily_option,
       admin: action.user.admin
     }
   case actionTypes.GET_COOKIES_FAILURE:

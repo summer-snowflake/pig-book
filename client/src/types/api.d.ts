@@ -86,6 +86,7 @@ export interface User {
   uid: string;
   active: boolean;
   admin: Admin;
+  daily_option: boolean;
 }
 
 export interface Profile {
