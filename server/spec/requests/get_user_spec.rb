@@ -35,7 +35,8 @@ describe 'GET /api/user', autodoc: true do
         categories_count: 0,
         breakdowns_count: 0,
         places_count: 0,
-        records_count: 0
+        records_count: 0,
+        daily_option: false
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
