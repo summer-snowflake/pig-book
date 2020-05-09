@@ -33,7 +33,9 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           },
           monthly: [],
           yearly: nil,
-          year: year
+          year: year,
+          yearly_category_income: [],
+          yearly_category_expenditure: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -64,7 +66,9 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             point: 0
           ],
           yearly: nil,
-          year: year
+          year: year,
+          yearly_category_income: [],
+          yearly_category_expenditure: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -105,6 +109,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             cashless_charge: 0,
             point: 0
           },
+          yearly_category_income: [],
+          yearly_category_expenditure: [],
           year: year
         }.to_json
         expect(response.body).to be_json_eql(json)
@@ -120,6 +126,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           event: nil,
           monthly: [],
           yearly: nil,
+          yearly_category_income: [],
+          yearly_category_expenditure: [],
           year: year
         }.to_json
         expect(response.body).to be_json_eql(json)
