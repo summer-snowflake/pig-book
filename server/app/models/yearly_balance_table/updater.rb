@@ -18,15 +18,37 @@ class YearlyBalanceTable::Updater
   private
 
   def update_yearly(year)
+    update_total_yearly(year)
+    update_category_yearly(year)
+  end
+
+  def update_total_yearly(year)
     yearly =
       user.yearly_total_balance_tables
           .find_or_initialize_by(year: year, currency: user.profile.currency)
-    yearly.update!(sum_params(year))
+    yearly.update!(sum_total_params(year))
   end
 
-  def sum_params(year)
+  def update_category_yearly(year)
+    user.monthly_category_balance_tables
+        .group_by(&:parent_id).each do |category_id, records|
+      category_yearly = user.yearly_category_balance_tables
+                            .find_or_initialize_by(
+                              year: year,
+                              currency: user.profile.currency,
+                              parent_id: category_id
+                            )
+      category_yearly.update!(sum_params(records))
+    end
+  end
+
+  def sum_total_params(year)
     monthly = user.monthly_total_balance_tables
                   .where(year: year, currency: user.profile.currency)
+    sum_params(monthly)
+  end
+
+  def sum_params(monthly)
     {
       income: monthly.inject(0) { |sum, m| sum + m.income },
       expenditure: monthly.inject(0) { |sum, m| sum + m.expenditure },
