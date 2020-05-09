@@ -10,6 +10,11 @@ RSpec.describe Category, type: :model do
   it { is_expected.to have_many(:categorized_places).dependent(:destroy) }
   it { is_expected.to have_many(:places).through(:categorized_places) }
   it { is_expected.to have_many(:records) }
+  it do
+    is_expected.to have_many(:yearly_category_balance_tables)
+      .with_foreign_key(:parent_id)
+      .dependent(:destroy)
+  end
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:name).is_at_most(30) }

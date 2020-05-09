@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :tally_events, dependent: :destroy
   has_many :monthly_balance_tables, dependent: :destroy
   has_many :yearly_total_balance_tables, dependent: :destroy
+  has_many :yearly_category_balance_tables, dependent: :destroy
 
   def admin?
     !admin.nil?
