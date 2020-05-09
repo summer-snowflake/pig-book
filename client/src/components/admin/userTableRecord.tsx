@@ -28,6 +28,11 @@ class UserTableRecord extends Component<Props> {
           {this.props.user.email}
         </td>
         <td>
+          {this.props.user.daily_option && (
+            <i className='fas fa-chart-line' />
+          )}
+        </td>
+        <td>
           <span className='total-count'>
             <i className='fas fa-th-large left-icon yellow' />
             {this.props.user.categories_count}
