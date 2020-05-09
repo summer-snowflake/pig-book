@@ -16,7 +16,7 @@ class DashboardsController < BaseController
     monthly_updater = MonthlyBalanceTable::Updater.new(user: current_user)
     monthly_updater.update(year: params[:year].to_i)
     yearly_updater = YearlyBalanceTable::Updater.new(user: current_user)
-    yearly_updater.update
+    yearly_updater.update(year: params[:year].to_i)
 
     render json: {
       event: event

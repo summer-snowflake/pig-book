@@ -11,10 +11,8 @@ class YearlyBalanceTable::Updater
     @user = user
   end
 
-  def update
-    user.dashboard_years.each do |year|
-      update_yearly(year)
-    end
+  def update(year:)
+    update_yearly(year)
   end
 
   private
