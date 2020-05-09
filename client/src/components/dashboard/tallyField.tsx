@@ -18,7 +18,7 @@ class TallyField extends Component<Props> {
   }
 
   handleClickTallyButton(): void {
-    this.props.onClickTallyButton(Number(this.props.dashboard.yearly.year))
+    this.props.onClickTallyButton(Number(this.props.dashboard.year))
   }
 
   render(): JSX.Element {

@@ -32,7 +32,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             year: year
           },
           monthly: [],
-          yearly: nil
+          yearly: nil,
+          year: year
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -46,7 +47,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
         json = {
           event: nil,
           monthly: [],
-          yearly: nil
+          yearly: nil,
+          year: year
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

@@ -33,7 +33,7 @@ class User < ApplicationRecord
       return [this_year]
     end
 
-    minimum_year = records.minimum(:published_at).year
+    minimum_year = monthly_balance_tables.minimum(:year)
     twenty_years_old = this_year - 30
     year = minimum_year < twenty_years_old ? twenty_years_old : minimum_year
     [*(year..this_year)].reverse
