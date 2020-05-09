@@ -22,7 +22,8 @@ class Dashboard::Fetcher
                    .where(currency: user.profile.currency, year: year)
                    .order(:month),
       yearly: user.yearly_total_balance_tables
-                  .where(currency: user.profile.currency, year: year).first
+                  .where(currency: user.profile.currency, year: year).first,
+      year: year
     }
   end
 end
