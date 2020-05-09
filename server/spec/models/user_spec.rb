@@ -14,7 +14,15 @@ RSpec.describe User, type: :model do
     is_expected.to have_many(:monthly_total_balance_tables).dependent(:destroy)
   end
   it do
+    is_expected.to have_many(:monthly_category_balance_tables)
+      .dependent(:destroy)
+  end
+  it do
     is_expected.to have_many(:yearly_total_balance_tables).dependent(:destroy)
+  end
+  it do
+    is_expected.to have_many(:yearly_category_balance_tables)
+      .dependent(:destroy)
   end
 
   describe '#dashboard_years' do
