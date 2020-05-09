@@ -44,7 +44,7 @@ class MonthlyBalanceTable::Updater
   def update_monthly(month)
     income_charge, expenditure_charge, cashless, point = sum_data(month)
 
-    monthly = user.monthly_balance_tables.find_or_initialize_by(
+    monthly = user.monthly_total_balance_tables.find_or_initialize_by(
       year: year, month: month, currency: user.profile.currency
     )
     monthly.update!(income: income_charge, expenditure: expenditure_charge,

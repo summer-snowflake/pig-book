@@ -10,5 +10,6 @@ FactoryBot.define do
     currency { :yen }
     point { 0 }
     cashless_charge { 0 }
+    type { 'MonthlyTotalBalanceTable' }
   end
 end

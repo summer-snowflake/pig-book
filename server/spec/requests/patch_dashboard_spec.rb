@@ -52,7 +52,7 @@ describe 'PATCH /api/records/:id', autodoc: true do
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
-        expect(user.monthly_balance_tables.count).to eq 12
+        expect(user.monthly_total_balance_tables.count).to eq 12
       end
     end
   end

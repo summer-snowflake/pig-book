@@ -25,7 +25,7 @@ class YearlyBalanceTable::Updater
   end
 
   def sum_params(year)
-    monthly = user.monthly_balance_tables
+    monthly = user.monthly_total_balance_tables
                   .where(year: year, currency: user.profile.currency)
     {
       income: monthly.inject(0) { |sum, m| sum + m.income },

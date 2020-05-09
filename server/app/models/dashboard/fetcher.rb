@@ -18,7 +18,7 @@ class Dashboard::Fetcher
   def find_by(year:)
     {
       event: user.tally_events.where(year: year).last,
-      monthly: user.monthly_balance_tables
+      monthly: user.monthly_total_balance_tables
                    .where(currency: user.profile.currency, year: year)
                    .order(:month),
       yearly: user.yearly_total_balance_tables
