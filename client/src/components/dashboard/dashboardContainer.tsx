@@ -9,7 +9,8 @@ import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
-import TallyField from './tallyField'
+import YearlyPieChart from 'components/dashboard/yearlyPieChart'
+import TallyField from 'components/dashboard/tallyField'
 
 interface StateProps {
   dashboard: DashboardStore;
@@ -43,7 +44,11 @@ class DashboardContainer extends Component<Props> {
         </div>
         <TallyField dashboard={this.props.dashboard} disabled={this.props.dashboard.isLoading} onClickTallyButton={this.handleClickTallyButton} />
         <MonthlyData monthly={this.props.dashboard.monthly} year={this.props.dashboard.year} yearly={this.props.dashboard.yearly} />
-        <MonthlyBarChart monthly={this.props.dashboard.monthly} />
+        <div className='chart-line'>
+          <MonthlyBarChart monthly={this.props.dashboard.monthly} />
+          <YearlyPieChart dataKey={'income'} yearly={this.props.dashboard.yearly_category_income} />
+          <YearlyPieChart dataKey={'expenditure'} yearly={this.props.dashboard.yearly_category_expenditure} />
+        </div>
       </div>
     )
   }

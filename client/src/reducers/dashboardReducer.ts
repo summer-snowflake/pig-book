@@ -7,7 +7,9 @@ const initialState = {
   year: (new Date()).getFullYear(),
   event: null,
   monthly: [],
-  yearly: null
+  yearly: null,
+  yearly_category_income: [],
+  yearly_category_expenditure: []
 }
 
 const dashboardReducer = (state: DashboardStore = initialState, action: DashboardAction): {} => {
@@ -23,7 +25,9 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       isLoading: false,
       event: action.dashboard.event,
       monthly: action.dashboard.monthly,
-      yearly: action.dashboard.yearly
+      yearly: action.dashboard.yearly,
+      yearly_category_income: action.dashboard.yearly_category_income,
+      yearly_category_expenditure: action.dashboard.yearly_category_expenditure
     }
   case actionTypes.PATCH_DASHBOARD_REQUEST:
     return {

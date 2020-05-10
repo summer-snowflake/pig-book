@@ -149,6 +149,8 @@ interface DashboardStore {
   event: Event | null;
   monthly: MonthlyBalanceTable[];
   yearly: YearlyBalanceTable;
+  yearly_category_income: YearlyBalanceTable[];
+  yearly_category_expenditure: YearlyBalanceTable[];
 }
 
 export interface DashboardsStore {
