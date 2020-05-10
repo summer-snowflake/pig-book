@@ -38,7 +38,7 @@ class YearlyBalanceTable::Updater
                               currency: user.profile.currency,
                               parent_id: category_id
                             )
-      category_yearly.update!(sum_params(records))
+      category_yearly.update!(sum_category_params(records, category_id))
     end
   end
 
@@ -48,12 +48,17 @@ class YearlyBalanceTable::Updater
     sum_params(monthly)
   end
 
-  def sum_params(monthly)
+  def sum_category_params(records, category_id)
+    category = user.categories.find(category_id)
+    sum_params(records).merge(label: category.name)
+  end
+
+  def sum_params(records)
     {
-      income: monthly.inject(0) { |sum, m| sum + m.income },
-      expenditure: monthly.inject(0) { |sum, m| sum + m.expenditure },
-      cashless_charge: monthly.inject(0) { |sum, m| sum + m.cashless_charge },
-      point: monthly.inject(0) { |sum, m| sum + m.point }
+      income: records.inject(0) { |sum, m| sum + m.income },
+      expenditure: records.inject(0) { |sum, m| sum + m.expenditure },
+      cashless_charge: records.inject(0) { |sum, m| sum + m.cashless_charge },
+      point: records.inject(0) { |sum, m| sum + m.point }
     }
   end
 end

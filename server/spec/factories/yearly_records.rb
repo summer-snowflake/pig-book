@@ -10,5 +10,6 @@ FactoryBot.define do
     point { 0 }
     cashless_charge { 0 }
     type { 'YearlyTotalBalanceTable' }
+    label { nil }
   end
 end

@@ -55,6 +55,7 @@ class MonthlyBalanceTable::Updater
   def sum_category_data(category_id, records)
     category = user.categories.find(category_id)
     {
+      label: category.name,
       income: category.balance_of_payments ? sum_charge(records) : 0,
       expenditure: category.balance_of_payments ? 0 : sum_charge(records),
       cashless_charge: records.inject(0) { |sum, r| sum + r.cashless_charge },

@@ -63,7 +63,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             income: monthly_balance_table.income,
             currency: 'yen',
             cashless_charge: 0,
-            point: 0
+            point: 0,
+            label: nil
           ],
           yearly: nil,
           year: year,
@@ -97,7 +98,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             income: monthly_balance_table.income,
             currency: 'yen',
             cashless_charge: 0,
-            point: 0
+            point: 0,
+            label: nil
           ],
           yearly: {
             user_id: user.id,
@@ -107,7 +109,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             income: yearly_balance_table.income,
             currency: 'yen',
             cashless_charge: 0,
-            point: 0
+            point: 0,
+            label: nil
           },
           yearly_category_income: [],
           yearly_category_expenditure: [],
