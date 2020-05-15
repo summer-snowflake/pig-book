@@ -62,8 +62,9 @@ ActiveRecord::Schema.define(version: 2020_05_09_171702) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "type", null: false
-    t.bigint "parent_id"
+    t.bigint "category_id"
     t.string "label"
+    t.index ["category_id"], name: "index_monthly_records_on_category_id"
     t.index ["user_id"], name: "index_monthly_records_on_user_id"
   end
 
@@ -162,8 +163,9 @@ ActiveRecord::Schema.define(version: 2020_05_09_171702) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "type", null: false
-    t.bigint "parent_id"
+    t.bigint "category_id"
     t.string "label"
+    t.index ["category_id"], name: "index_yearly_records_on_category_id"
     t.index ["user_id"], name: "index_yearly_records_on_user_id"
   end
 

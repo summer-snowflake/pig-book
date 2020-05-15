@@ -7,10 +7,8 @@ class Category < ApplicationRecord
   has_many :categorized_places, dependent: :destroy
   has_many :places, through: :categorized_places
   has_many :records, dependent: :restrict_with_exception
-  has_many :monthly_category_balance_tables,
-           foreign_key: :parent_id, dependent: :destroy
-  has_many :yearly_category_balance_tables,
-           foreign_key: :parent_id, dependent: :destroy
+  has_many :monthly_category_balance_tables, dependent: :destroy
+  has_many :yearly_category_balance_tables, dependent: :destroy
 
   validates :balance_of_payments, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 30 },

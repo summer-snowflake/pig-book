@@ -68,7 +68,7 @@ class MonthlyBalanceTable::Updater
     monthly_records.group_by(&:category_id).each do |category_id, records|
       monthly = user.monthly_category_balance_tables.find_or_initialize_by(
         year: year, month: month,
-        currency: user.profile.currency, parent_id: category_id
+        currency: user.profile.currency, category_id: category_id
       )
       monthly.update(sum_category_data(category_id, records))
     end

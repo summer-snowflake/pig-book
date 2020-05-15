@@ -31,12 +31,12 @@ class YearlyBalanceTable::Updater
 
   def update_category_yearly(year)
     user.monthly_category_balance_tables
-        .group_by(&:parent_id).each do |category_id, records|
+        .group_by(&:category_id).each do |category_id, records|
       category_yearly = user.yearly_category_balance_tables
                             .find_or_initialize_by(
                               year: year,
                               currency: user.profile.currency,
-                              parent_id: category_id
+                              category_id: category_id
                             )
       category_yearly.update!(sum_category_params(records, category_id))
     end
