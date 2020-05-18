@@ -61,4 +61,21 @@ class YearlyBalanceTable::Updater
       point: records.inject(0) { |sum, m| sum + m.point }
     }
   end
+
+  def update_breakdown_yearly(year)
+    user.monthly_breakdown_balance_tables
+        .group_by(&:breakdown_id).each do |breakdown_id, records|
+      breakdown = user.breakdowns.find(breakdown_id)
+      breakdown_yearly =
+        user.yearly_breakdown_balance_tables
+            .find_or_initialize_by(year: year, currency: user.profile.currency,
+                                   category_id: breakdown.category.id,
+                                   breakdown_id: breakdown_id)
+      breakdown_yearly.update!(sum_breakdown_params(records, breakdown))
+    end
+  end
+
+  def sum_breakdown_params(records, breakdown)
+    sum_params(records).merge(label: breakdown.name)
+  end
 end

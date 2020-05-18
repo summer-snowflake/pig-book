@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_171702) do
+ActiveRecord::Schema.define(version: 2020_05_18_223813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,8 @@ ActiveRecord::Schema.define(version: 2020_05_09_171702) do
     t.string "type", null: false
     t.bigint "category_id"
     t.string "label"
+    t.bigint "breakdown_id"
+    t.index ["breakdown_id"], name: "index_yearly_records_on_breakdown_id"
     t.index ["category_id"], name: "index_yearly_records_on_category_id"
     t.index ["user_id"], name: "index_yearly_records_on_user_id"
   end

@@ -104,6 +104,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           yearly: {
             user_id: user.id,
             category_id: nil,
+            breakdown_id: nil,
             year: yearly_balance_table.year,
             expenditure: yearly_balance_table.expenditure,
             income: yearly_balance_table.income,
