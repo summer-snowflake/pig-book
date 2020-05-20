@@ -57,6 +57,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           monthly: [
             user_id: user.id,
             category_id: nil,
+            breakdown_id: nil,
             year: monthly_balance_table.year,
             month: monthly_balance_table.month,
             expenditure: monthly_balance_table.expenditure,
@@ -92,6 +93,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           monthly: [
             user_id: user.id,
             category_id: nil,
+            breakdown_id: nil,
             year: monthly_balance_table.year,
             month: monthly_balance_table.month,
             expenditure: monthly_balance_table.expenditure,

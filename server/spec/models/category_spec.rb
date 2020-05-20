@@ -11,6 +11,14 @@ RSpec.describe Category, type: :model do
   it { is_expected.to have_many(:places).through(:categorized_places) }
   it { is_expected.to have_many(:records) }
   it do
+    is_expected.to have_many(:monthly_category_balance_tables)
+      .dependent(:destroy)
+  end
+  it do
+    is_expected.to have_many(:monthly_breakdown_balance_tables)
+      .dependent(:destroy)
+  end
+  it do
     is_expected.to have_many(:yearly_category_balance_tables)
       .dependent(:destroy)
   end

@@ -8,6 +8,7 @@ class Category < ApplicationRecord
   has_many :places, through: :categorized_places
   has_many :records, dependent: :restrict_with_exception
   has_many :monthly_category_balance_tables, dependent: :destroy
+  has_many :monthly_breakdown_balance_tables, dependent: :destroy
   has_many :yearly_category_balance_tables, dependent: :destroy
   has_many :yearly_breakdown_balance_tables, dependent: :destroy
 

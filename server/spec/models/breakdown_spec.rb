@@ -7,6 +7,10 @@ RSpec.describe Breakdown, type: :model do
   it { is_expected.to belong_to(:category) }
   it { is_expected.to have_many(:records) }
   it do
+    is_expected.to have_many(:monthly_breakdown_balance_tables)
+      .dependent(:destroy)
+  end
+  it do
     is_expected.to have_many(:yearly_breakdown_balance_tables)
       .dependent(:destroy)
   end
