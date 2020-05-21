@@ -22,7 +22,9 @@ class Dashboard::Fetcher
       monthly: monthly_total(year),
       yearly: yearly_total(year),
       yearly_category_income: yearly_category_income(year),
-      yearly_category_expenditure: yearly_category_expenditure(year)
+      yearly_category_expenditure: yearly_category_expenditure(year),
+      yearly_breakdown_income: yearly_breakdown_income(year),
+      yearly_breakdown_expenditure: yearly_breakdown_expenditure(year)
     }
   end
 
@@ -46,10 +48,34 @@ class Dashboard::Fetcher
         .order(income: :desc)
   end
 
+  def yearly_breakdown_income(year)
+    breakdown_income = []
+    yearly_category_income(year)
+      .group_by(&:category_id).each do |category_id, _records|
+      breakdown_income << user.yearly_breakdown_balance_tables
+                              .where(currency: user.profile.currency,
+                                     year: year, category_id: category_id)
+                              .order(income: :desc)
+    end
+    breakdown_income.flatten
+  end
+
   def yearly_category_expenditure(year)
     user.yearly_category_balance_tables
         .where(currency: user.profile.currency, year: year)
         .where.not(expenditure: 0)
         .order(expenditure: :desc)
+  end
+
+  def yearly_breakdown_expenditure(year)
+    breakdown_expenditure = []
+    yearly_category_expenditure(year)
+      .group_by(&:category_id).each do |category_id, _records|
+      breakdown_expenditure << user.yearly_breakdown_balance_tables
+                                   .where(currency: user.profile.currency,
+                                          year: year, category_id: category_id)
+                                   .order(expenditure: :desc)
+    end
+    breakdown_expenditure.flatten
   end
 end

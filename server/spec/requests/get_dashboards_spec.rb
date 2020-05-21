@@ -36,7 +36,9 @@ describe 'GET /api/dashboards', autodoc: true do
             yearly: nil,
             year: year,
             yearly_category_income: [],
-            yearly_category_expenditure: []
+            yearly_category_expenditure: [],
+            yearly_breakdown_income: [],
+            yearly_breakdown_expenditure: []
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
@@ -55,7 +57,9 @@ describe 'GET /api/dashboards', autodoc: true do
             yearly: nil,
             year: year,
             yearly_category_income: [],
-            yearly_category_expenditure: []
+            yearly_category_expenditure: [],
+            yearly_breakdown_income: [],
+            yearly_breakdown_expenditure: []
           }
         }.to_json
         expect(response.body).to be_json_eql(json)
