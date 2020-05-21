@@ -20,6 +20,7 @@ class YearlyBalanceTable::Updater
   def update_yearly(year)
     update_total_yearly(year)
     update_category_yearly(year)
+    update_breakdown_yearly(year)
   end
 
   def update_total_yearly(year)
@@ -63,19 +64,25 @@ class YearlyBalanceTable::Updater
   end
 
   def update_breakdown_yearly(year)
-    user.monthly_breakdown_balance_tables
-        .group_by(&:breakdown_id).each do |breakdown_id, records|
-      breakdown = user.breakdowns.find(breakdown_id)
-      breakdown_yearly =
-        user.yearly_breakdown_balance_tables
-            .find_or_initialize_by(year: year, currency: user.profile.currency,
-                                   category_id: breakdown.category.id,
-                                   breakdown_id: breakdown_id)
-      breakdown_yearly.update!(sum_breakdown_params(records, breakdown))
+    breakdown_monthly.group_by(&:category_id).each do |category_id, c_records|
+      c_records.group_by(&:breakdown_id).each do |breakdown_id, records|
+        breakdown_yearly =
+          user.yearly_breakdown_balance_tables.find_or_initialize_by(
+            year: year, currency: user.profile.currency,
+            category_id: category_id, breakdown_id: breakdown_id
+          )
+        breakdown_yearly.update!(sum_breakdown_params(breakdown_id, records))
+      end
     end
   end
 
-  def sum_breakdown_params(records, breakdown)
-    sum_params(records).merge(label: breakdown.name)
+  def breakdown_monthly
+    user.monthly_breakdown_balance_tables
+  end
+
+  def sum_breakdown_params(breakdown_id, records)
+    breakdown = user.breakdowns.find_by(id: breakdown_id)
+    label = breakdown ? breakdown.name : I18n.t('label.nothing')
+    sum_params(records).merge(label: label)
   end
 end
