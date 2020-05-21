@@ -17,6 +17,7 @@ class MonthlyBalanceTable::Updater
     [*1..12].each do |month|
       update_monthly(month)
       update_category_monthly(month)
+      update_breakdown_monthly(month)
     end
   end
 
@@ -63,14 +64,43 @@ class MonthlyBalanceTable::Updater
     }
   end
 
+  def sum_breakdown_data(category_id, breakdown_id, records)
+    category = user.categories.find(category_id)
+    breakdown = user.breakdowns.find_by(id: breakdown_id)
+    {
+      label: breakdown.nil? ? I18n.t('label.nothing') : breakdown.name,
+      income: category.balance_of_payments ? sum_charge(records) : 0,
+      expenditure: category.balance_of_payments ? 0 : sum_charge(records),
+      cashless_charge: records.inject(0) { |sum, r| sum + r.cashless_charge },
+      point: records.inject(0) { |sum, r| sum + r.point }
+    }
+  end
+
   def update_category_monthly(month)
-    monthly_records = user.records.where(published_at: monthly_range(month))
-    monthly_records.group_by(&:category_id).each do |category_id, records|
+    monthly_records(month).group_by(&:category_id)
+                          .each do |category_id, records|
       monthly = user.monthly_category_balance_tables.find_or_initialize_by(
         year: year, month: month,
         currency: user.profile.currency, category_id: category_id
       )
       monthly.update(sum_category_data(category_id, records))
     end
+  end
+
+  def update_breakdown_monthly(month)
+    monthly_records(month).group_by(&:category_id)
+                          .each do |category_id, category_records|
+      category_records.group_by(&:breakdown_id).each do |breakdown_id, records|
+        monthly = user.monthly_breakdown_balance_tables.find_or_initialize_by(
+          year: year, month: month, currency: user.profile.currency,
+          category_id: category_id, breakdown_id: breakdown_id
+        )
+        monthly.update(sum_breakdown_data(category_id, breakdown_id, records))
+      end
+    end
+  end
+
+  def monthly_records(month)
+    user.records.where(published_at: monthly_range(month))
   end
 end

@@ -2,5 +2,5 @@
 
 class YearlyBreakdownBalanceTable < YearlyRecord
   belongs_to :category
-  belongs_to :breakdown
+  belongs_to :breakdown, optional: true
 end

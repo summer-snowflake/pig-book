@@ -2,6 +2,7 @@ ja:
   label:
     yen: ¥
     dollar: $
+    nothing: なし
   errors:
     messages:
       taken: はすでに登録されています
