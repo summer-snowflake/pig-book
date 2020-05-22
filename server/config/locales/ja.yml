@@ -3,6 +3,7 @@ ja:
     yen: ¥
     dollar: $
     nothing: なし
+    other: その他
   errors:
     messages:
       taken: はすでに登録されています

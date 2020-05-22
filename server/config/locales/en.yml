@@ -3,6 +3,7 @@ en:
     yen: ¥
     dollar: $
     nothing: None
+    other: Other
   errors:
     not_found: 404 Error. Not Found.
     cannot_be_deleted: You can't be deleted because already be used.

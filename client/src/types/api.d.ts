@@ -189,6 +189,7 @@ interface YearlyBalanceTable {
   cashless_charge: number;
   point: number;
   currency: string;
+  category_id: number | null;
 }
 
 export interface Dashboard {

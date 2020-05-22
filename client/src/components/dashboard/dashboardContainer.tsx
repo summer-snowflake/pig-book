@@ -46,8 +46,16 @@ class DashboardContainer extends Component<Props> {
         <MonthlyData monthly={this.props.dashboard.monthly} year={this.props.dashboard.year} yearly={this.props.dashboard.yearly} />
         <div className='chart-line'>
           <MonthlyBarChart monthly={this.props.dashboard.monthly} />
-          <YearlyPieChart dataKey={'income'} yearly={this.props.dashboard.yearly_category_income} />
-          <YearlyPieChart dataKey={'expenditure'} yearly={this.props.dashboard.yearly_category_expenditure} />
+          <YearlyPieChart
+            breakdownYearly={this.props.dashboard.yearly_breakdown_income}
+            categoryYearly={this.props.dashboard.yearly_category_income}
+            dataKey={'income'}
+          />
+          <YearlyPieChart
+            breakdownYearly={this.props.dashboard.yearly_breakdown_expenditure}
+            categoryYearly={this.props.dashboard.yearly_category_expenditure}
+            dataKey={'expenditure'}
+          />
         </div>
       </div>
     )

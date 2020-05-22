@@ -6,21 +6,28 @@ import { YearlyBalanceTable } from 'types/api'
 
 interface Props extends I18nProps {
   dataKey: string;
-  yearly: YearlyBalanceTable[];
+  categoryYearly: YearlyBalanceTable[];
+  breakdownYearly: YearlyBalanceTable[];
 }
 
 class YearlyPieChart extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
-    const yearly: YearlyBalanceTable[] = Object.assign(this.props.yearly)
-    yearly.map((y) => {
+    const categoryYearly: YearlyBalanceTable[] = Object.assign(this.props.categoryYearly)
+    categoryYearly.map((y) => {
+      y.income = Number(y.income)
+      y.expenditure = Number(y.expenditure)
+      return y
+    })
+    const breakdownYearly: YearlyBalanceTable[] = Object.assign(this.props.breakdownYearly)
+    breakdownYearly.map((y) => {
       y.income = Number(y.income)
       y.expenditure = Number(y.expenditure)
       return y
     })
     // Tooltip ラベル
-    const incomeTotal = yearly.length > 0 ? yearly.map ((t) => t.income).reduce((acc, cur) => acc + cur) : 0
-    const outgoTotal = yearly.length > 0 ? yearly.map ((t) => t.expenditure).reduce((acc, cur) => acc + cur) : 0
+    const incomeTotal = categoryYearly.length > 0 ? categoryYearly.map ((t) => t.income).reduce((acc, cur) => acc + cur) : 0
+    const outgoTotal = categoryYearly.length > 0 ? categoryYearly.map ((t) => t.expenditure).reduce((acc, cur) => acc + cur) : 0
     const formatTooltip = (value: number, _name: string, props: { payload: YearlyBalanceTable }): string => {
       const charge: number = this.props.dataKey === 'income' ? props.payload.income : props.payload.expenditure
       let humanCharge = ''
@@ -37,6 +44,11 @@ class YearlyPieChart extends Component<Props> {
     ) : (
       ['#d78ea5', '#d78ecf', '#ed9f96', '#e18dd1', '#f4c430', '#ed9583', '#ed96b9']
     )
+    const breakdownColors = this.props.dataKey === 'income' ? (
+      ['#7385aa', '#85aa73', '#73aa98', '#73a1aa', '#7eb5ca', '#73aa7c', '#6490a2']
+    ) : (
+      ['#c17f94', '#c17fba', '#d58f87', '#ca7ebc', '#dbb02b', '#d58675', '#d587a6']
+    )
 
     return (
       <div className='yearly-pie-chart-component'>
@@ -48,13 +60,23 @@ class YearlyPieChart extends Component<Props> {
           <Pie
             cx='50%'
             cy='50%'
-            data={yearly.slice(0, 6).concat(yearly.slice(6))}
+            data={categoryYearly.slice(0, 6).concat(categoryYearly.slice(6))}
             dataKey={this.props.dataKey}
             innerRadius={40}
             nameKey='label'
             outerRadius={75}
           >
-            {yearly.map((_entry, index) => <Cell fill={categoryColors[index % categoryColors.length]} key={index} />)}
+            {categoryYearly.map((_entry, index) => <Cell fill={categoryColors[index % categoryColors.length]} key={index} />)}
+          </Pie>
+          <Pie
+            cx='50%'
+            cy='50%'
+            data={breakdownYearly}
+            dataKey={this.props.dataKey}
+            innerRadius={80}
+            nameKey='label'
+          >
+            {breakdownYearly.map((entry, index) => <Cell fill={breakdownColors[(categoryYearly.findIndex(({category_id})=> category_id === entry.category_id))]} key={index} />)}
           </Pie>
         </PieChart>
       </div>
