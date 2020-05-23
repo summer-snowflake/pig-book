@@ -1,4 +1,4 @@
-import { Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable } from 'types/api'
+import { Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable } from 'types/api'
 
 export interface CookiesHeader {
   uid: string;
@@ -149,6 +149,10 @@ interface DashboardStore {
   event: Event | null;
   monthly: MonthlyBalanceTable[];
   yearly: YearlyBalanceTable;
+  yearly_category_income: YearlyBalanceTable[];
+  yearly_category_expenditure: YearlyBalanceTable[];
+  yearly_breakdown_income: YearlyBalanceTable[];
+  yearly_breakdown_expenditure: YearlyBalanceTable[];
 }
 
 export interface DashboardsStore {

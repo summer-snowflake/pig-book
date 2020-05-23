@@ -17,12 +17,93 @@ class Dashboard::Fetcher
 
   def find_by(year:)
     {
+      year: year,
       event: user.tally_events.where(year: year).last,
-      monthly: user.monthly_balance_tables
-                   .where(currency: user.profile.currency, year: year)
-                   .order(:month),
-      yearly: user.yearly_total_balance_tables
-                  .where(currency: user.profile.currency, year: year).first
+      monthly: monthly_total(year),
+      yearly: yearly_total(year),
+      yearly_category_income: yearly_category_income(year).with_other,
+      yearly_category_expenditure: yearly_category_expenditure(year).with_other,
+      yearly_breakdown_income: yearly_breakdown_income(year),
+      yearly_breakdown_expenditure: yearly_breakdown_expenditure(year)
     }
+  end
+
+  private
+
+  def monthly_total(year)
+    user.monthly_total_balance_tables
+        .where(currency: user.profile.currency, year: year)
+        .order(:month)
+  end
+
+  def yearly_total(year)
+    user.yearly_total_balance_tables
+        .where(currency: user.profile.currency, year: year).first
+  end
+
+  def yearly_category_income(year)
+    user.yearly_category_balance_tables
+        .where(currency: user.profile.currency, year: year)
+        .where.not(income: 0)
+        .order(income: :desc)
+  end
+
+  def yearly_breakdown_income(year)
+    breakdown_income = []
+    yearly_category_income(year)
+      .group_by(&:category_id).each do |category_id, _records|
+      breakdown_income << user.yearly_breakdown_balance_tables
+                              .where(currency: user.profile.currency,
+                                     year: year, category_id: category_id)
+                              .order(income: :desc)
+    end
+    target_category_ids = yearly_category_income(year).pluck(:category_id)
+    breakdown_income.flatten + build_other_record(target_category_ids)
+  end
+
+  def yearly_category_expenditure(year)
+    user.yearly_category_balance_tables
+        .where(currency: user.profile.currency, year: year)
+        .where.not(expenditure: 0)
+        .order(expenditure: :desc)
+  end
+
+  def yearly_breakdown_expenditure(year)
+    breakdown_expenditure = []
+    yearly_category_expenditure(year)
+      .group_by(&:category_id).each do |category_id, _records|
+      breakdown_expenditure << user.yearly_breakdown_balance_tables
+                                   .where(currency: user.profile.currency,
+                                          year: year, category_id: category_id)
+                                   .order(expenditure: :desc)
+    end
+    ids = yearly_category_expenditure(year).pluck(:category_id).slice(0, 6)
+    breakdown_expenditure.flatten + build_other_record(ids)
+  end
+
+  def build_other_record(target_category_ids)
+    return [] if target_category_ids.blank?
+
+    offset_records = user.yearly_breakdown_balance_tables
+                         .where.not(category_id: target_category_ids)
+    balance = user.categories.find(target_category_ids.last).balance_of_payments
+    condition = balance ? { income: 0 } : { expenditure: 0 }
+    offset_records = offset_records.where.not(condition)
+    return [] if offset_records.count.zero?
+
+    build_yearly_breakdown(offset_records)
+  end
+
+  def build_yearly_breakdown(offset_records)
+    [user.yearly_breakdown_balance_tables.build(
+      user_id: user.id, category_id: nil,
+      label: I18n.t('label.other'),
+      year: offset_records.last.year,
+      currency: user.profile.currency,
+      income: offset_records.pluck(:income).sum,
+      expenditure: offset_records.pluck(:expenditure).sum,
+      cashless_charge: offset_records.pluck(:cashless_charge).sum,
+      point: offset_records.pluck(:point).sum
+    )]
   end
 end

@@ -32,7 +32,98 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             year: year
           },
           monthly: [],
-          yearly: nil
+          yearly: nil,
+          year: year,
+          yearly_category_income: [],
+          yearly_category_expenditure: [],
+          yearly_breakdown_income: [],
+          yearly_breakdown_expenditure: []
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
+    end
+
+    context 'there are tally monthly data' do
+      let!(:tally_event) { create(:tally_event, user: user, year: year) }
+      let!(:monthly_balance_table) { create(:monthly_record, user: user) }
+
+      it 'returns status code 200 and json dashboard data' do
+        get "/api/dashboards/#{year}", headers: login_headers_with_login(user)
+
+        expect(response.status).to eq 200
+        json = {
+          event: {
+            user_id: user.id,
+            year: year
+          },
+          monthly: [
+            user_id: user.id,
+            category_id: nil,
+            breakdown_id: nil,
+            year: monthly_balance_table.year,
+            month: monthly_balance_table.month,
+            expenditure: monthly_balance_table.expenditure,
+            income: monthly_balance_table.income,
+            currency: 'yen',
+            cashless_charge: 0,
+            point: 0,
+            label: nil
+          ],
+          yearly: nil,
+          year: year,
+          yearly_category_income: [],
+          yearly_category_expenditure: [],
+          yearly_breakdown_income: [],
+          yearly_breakdown_expenditure: []
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
+    end
+
+    context 'there are tally monthly and yearly data' do
+      let!(:tally_event) { create(:tally_event, user: user, year: year) }
+      let!(:monthly_balance_table) { create(:monthly_record, user: user) }
+      let!(:yearly_balance_table) { create(:yearly_record, user: user) }
+
+      it 'returns status code 200 and json dashboard data' do
+        get "/api/dashboards/#{year}", headers: login_headers_with_login(user)
+
+        expect(response.status).to eq 200
+        json = {
+          event: {
+            user_id: user.id,
+            year: year
+          },
+          monthly: [
+            user_id: user.id,
+            category_id: nil,
+            breakdown_id: nil,
+            year: monthly_balance_table.year,
+            month: monthly_balance_table.month,
+            expenditure: monthly_balance_table.expenditure,
+            income: monthly_balance_table.income,
+            currency: 'yen',
+            cashless_charge: 0,
+            point: 0,
+            label: nil
+          ],
+          yearly: {
+            user_id: user.id,
+            category_id: nil,
+            breakdown_id: nil,
+            year: yearly_balance_table.year,
+            expenditure: yearly_balance_table.expenditure,
+            income: yearly_balance_table.income,
+            currency: 'yen',
+            cashless_charge: 0,
+            point: 0,
+            label: nil
+          },
+          year: year,
+          yearly_category_income: [],
+          yearly_category_expenditure: [],
+          yearly_breakdown_income: [],
+          yearly_breakdown_expenditure: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -46,7 +137,12 @@ describe 'GET /api/dashboards/:year', autodoc: true do
         json = {
           event: nil,
           monthly: [],
-          yearly: nil
+          yearly: nil,
+          year: year,
+          yearly_category_income: [],
+          yearly_category_expenditure: [],
+          yearly_breakdown_income: [],
+          yearly_breakdown_expenditure: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

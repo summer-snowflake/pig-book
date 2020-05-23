@@ -16,8 +16,12 @@ class User < ApplicationRecord
   has_many :places, dependent: :destroy
   has_many :records, dependent: :destroy
   has_many :tally_events, dependent: :destroy
-  has_many :monthly_balance_tables, dependent: :destroy
+  has_many :monthly_total_balance_tables, dependent: :destroy
+  has_many :monthly_category_balance_tables, dependent: :destroy
+  has_many :monthly_breakdown_balance_tables, dependent: :destroy
   has_many :yearly_total_balance_tables, dependent: :destroy
+  has_many :yearly_category_balance_tables, dependent: :destroy
+  has_many :yearly_breakdown_balance_tables, dependent: :destroy
 
   def admin?
     !admin.nil?
@@ -29,11 +33,9 @@ class User < ApplicationRecord
 
   def dashboard_years
     this_year = Time.zone.today.year
-    if monthly_balance_tables.blank? || records.minimum(:published_at).nil?
-      return [this_year]
-    end
+    return [this_year] if monthly_total_balance_tables.blank? || records.blank?
 
-    minimum_year = records.minimum(:published_at).year
+    minimum_year = monthly_total_balance_tables.minimum(:year)
     twenty_years_old = this_year - 30
     year = minimum_year < twenty_years_old ? twenty_years_old : minimum_year
     [*(year..this_year)].reverse
