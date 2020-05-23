@@ -14,7 +14,8 @@ const initialState = {
     cashless_charge: 0,
     point: 0,
     currency: 'yen',
-    category_id: null
+    category_id: null,
+    label: ''
   },
   yearly_category_income: [],
   yearly_category_expenditure: [],

@@ -11,6 +11,25 @@ interface Props extends I18nProps {
 }
 
 class YearlyPieChart extends Component<Props> {
+  constructor(props: Props) {
+    super(props)
+    this.renderCustomizedLabel = this.renderCustomizedLabel.bind(this)
+  }
+
+  renderCustomizedLabel({ cx, cy, midAngle, innerRadius, outerRadius, index }: { cx: number; cy: number; midAngle: number; innerRadius: number; outerRadius: number; index: number }): any {
+    const RADIAN = Math.PI / 180
+    const radius = innerRadius + (outerRadius - innerRadius) * 2.0
+    const x: number = cx + radius * Math.cos(-midAngle * RADIAN)
+    const y: number = cy + radius * Math.sin(-midAngle * RADIAN)
+    const data = this.props.categoryYearly[index]
+
+    return (
+      <text dominantBaseline='central' fill='#666666' textAnchor={x > cx ? 'start' : 'end'} x={x} y={y}>
+        {data.label}
+      </text>
+    )
+  }
+
   render(): JSX.Element {
     const { t } = this.props
     const categoryYearly: YearlyBalanceTable[] = Object.assign(this.props.categoryYearly)
@@ -63,6 +82,8 @@ class YearlyPieChart extends Component<Props> {
             data={categoryYearly.slice(0, 6).concat(categoryYearly.slice(6))}
             dataKey={this.props.dataKey}
             innerRadius={40}
+            label={this.renderCustomizedLabel}
+            labelLine={false}
             nameKey='label'
             outerRadius={75}
           >
