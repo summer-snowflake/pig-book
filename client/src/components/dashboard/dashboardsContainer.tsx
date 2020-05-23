@@ -11,6 +11,7 @@ import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import TallyField from './tallyField'
+import YearlyPieChart from 'components/dashboard/yearlyPieChart'
 
 interface StateProps {
   dashboards: DashboardsStore;
@@ -47,7 +48,19 @@ class DashboardContainer extends Component<Props> {
             </div>
             <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboards.isLoading} onClickTallyButton={this.handleClickTallyButton} />
             <MonthlyData monthly={dashboards[Number(year)].monthly} year={Number(year)} yearly={dashboards[Number(year)].yearly} />
-            <MonthlyBarChart monthly={dashboards[Number(year)].monthly} />
+            <div className='chart-line'>
+              <MonthlyBarChart monthly={dashboards[Number(year)].monthly} />
+              <YearlyPieChart
+                breakdownYearly={dashboards[Number(year)].yearly_breakdown_income}
+                categoryYearly={dashboards[Number(year)].yearly_category_income}
+                dataKey={'income'}
+              />
+              <YearlyPieChart
+                breakdownYearly={dashboards[Number(year)].yearly_breakdown_expenditure}
+                categoryYearly={dashboards[Number(year)].yearly_category_expenditure}
+                dataKey={'expenditure'}
+              />
+            </div>
           </div>
         ))}
       </div>
