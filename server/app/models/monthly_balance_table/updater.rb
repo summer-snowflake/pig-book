@@ -15,8 +15,12 @@ class MonthlyBalanceTable::Updater
     @year = year
 
     [*1..12].each do |month|
+      monthly = monthly_records(month)
+
       update_monthly(month)
       update_category_monthly(month)
+      destroy_category_monthly(month, monthly) unless monthly.blank?
+      destroy_breakdown_monthly(month)
       update_breakdown_monthly(month)
     end
   end
@@ -35,12 +39,10 @@ class MonthlyBalanceTable::Updater
 
   def sum_data(month)
     records = user.records.where(published_at: monthly_range(month))
-    [
-      sum_charge(records.income),
-      sum_charge(records.expenditure),
-      records.inject(0) { |sum, record| sum + record.cashless_charge },
-      records.inject(0) { |sum, record| sum + record.point }
-    ]
+    [sum_charge(records.income),
+     sum_charge(records.expenditure),
+     records.inject(0) { |sum, record| sum + record.cashless_charge },
+     records.inject(0) { |sum, record| sum + record.point }]
   end
 
   def update_monthly(month)
@@ -55,22 +57,22 @@ class MonthlyBalanceTable::Updater
 
   def sum_category_data(category_id, records)
     category = user.categories.find(category_id)
-    {
-      label: category.name,
-      income: category.balance_of_payments ? sum_charge(records) : 0,
-      expenditure: category.balance_of_payments ? 0 : sum_charge(records),
-      cashless_charge: records.inject(0) { |sum, r| sum + r.cashless_charge },
-      point: records.inject(0) { |sum, r| sum + r.point }
-    }
+    { label: category.name }.merge(sum_hash_data(category, records))
   end
 
   def sum_breakdown_data(category_id, breakdown_id, records)
     category = user.categories.find(category_id)
     breakdown = user.breakdowns.find_by(id: breakdown_id)
+    { label: breakdown.nil? ? I18n.t('label.nothing') : breakdown.name }
+      .merge(sum_hash_data(category, records))
+  end
+
+  def sum_hash_data(category, records)
+    balance_of_payments = category.balance_of_payments
+
     {
-      label: breakdown.nil? ? I18n.t('label.nothing') : breakdown.name,
-      income: category.balance_of_payments ? sum_charge(records) : 0,
-      expenditure: category.balance_of_payments ? 0 : sum_charge(records),
+      income: balance_of_payments ? sum_charge(records) : 0,
+      expenditure: balance_of_payments ? 0 : sum_charge(records),
       cashless_charge: records.inject(0) { |sum, r| sum + r.cashless_charge },
       point: records.inject(0) { |sum, r| sum + r.point }
     }
@@ -87,6 +89,19 @@ class MonthlyBalanceTable::Updater
     end
   end
 
+  def destroy_category_monthly(month, monthly)
+    category_ids = monthly.pluck(:category_id)
+    category = user.categories.find(category_ids.last)
+    balance = category.balance_of_payments ? { income: 0 } : { expenditure: 0 }
+
+    unnecessary_records =
+      user.monthly_category_balance_tables
+          .where(month: month, year: year, currency: user.profile.currency)
+          .where.not(category_id: category_ids)
+          .where.not(balance)
+    unnecessary_records.delete_all
+  end
+
   def update_breakdown_monthly(month)
     monthly_records(month).group_by(&:category_id)
                           .each do |category_id, category_records|
@@ -100,6 +115,12 @@ class MonthlyBalanceTable::Updater
     end
   end
 
+  def destroy_breakdown_monthly(month)
+    user.monthly_breakdown_balance_tables
+        .where(year: year, month: month).delete_all
+  end
+
+  # TODO: Make Model per Month
   def monthly_records(month)
     user.records.where(published_at: monthly_range(month))
   end
