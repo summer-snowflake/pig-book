@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_170909) do
     t.integer "cashless_charge", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "type", null: false
+    t.string "type"
     t.bigint "category_id"
     t.string "label"
     t.bigint "breakdown_id"
