@@ -82,6 +82,6 @@ test:
 production:
   <<: *default
   database: pig-book_production
+  # host: <%= ENV['DATABASE_HOST'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  # host: <%= ENV['DATABASE_HOST'] %>
