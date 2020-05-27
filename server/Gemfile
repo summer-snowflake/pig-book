@@ -12,6 +12,7 @@ gem 'devise_token_auth'
 gem 'dotenv-rails'
 gem 'rails-i18n'
 gem 'counter_culture'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
