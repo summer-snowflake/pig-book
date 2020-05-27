@@ -22,6 +22,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     resource "*",
       headers: :any,
       expose: %i[Accept Origin Content-Type Authorization client access-token uid],
-      methods: [:get, :post, :patch, :delete, :options, :head]
+      methods: [:get, :post, :patch, :delete, :options, :head],
+      credentials: true
   end
 end
