@@ -16,8 +16,10 @@
 # end
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  host_name = "http://#{ENV.fetch("HOST_NAME")}:#{ENV.fetch("CLIENT_PORT")}"
+
   allow do
-    origins "http://localhost:5000"
+    origins host_name
 
     resource "*",
       headers: :any,
