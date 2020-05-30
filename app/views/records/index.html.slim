@@ -1,6 +1,0 @@
-- content_for :title do
-  i.fas.fa-align-justify.left-icon
-  = t('menu.list')
-
-= render layout: 'content_panel', locals: { title: (yield :title) }
-  = react_component('RecordsCard', @params)
