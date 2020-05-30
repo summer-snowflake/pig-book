@@ -1,0 +1,35 @@
+@import 'variables'
+
+// メニュー共通
+.list-group-item
+  color: $pink
+
+  &:hover
+    color: $darken-pink
+
+    &:after
+      background-image: url('../images/pig-footprints.gif')
+      background-size: contain
+      content: ''
+      display: inline-block
+      height: 20px
+      position: absolute
+      right: 10px
+      vertical-align: middle
+      width: 20px
+
+  &.active-link-menu
+    color: $darken-pink
+    cursor: default
+    text-decoration: none
+
+    &:after
+      background-image: url('../images/pig-footprints-both.gif')
+      background-size: contain
+      content: ''
+      display: inline-block
+      height: 20px
+      position: absolute
+      right: 10px
+      vertical-align: middle
+      width: 20px

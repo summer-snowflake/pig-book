@@ -1,0 +1,314 @@
+@import 'variables'
+
+body
+  background-image: url('../images/background-wood.png')
+  color: $darken-green
+  font-size: 12px
+  min-height: 100vh
+  padding-bottom: 15px
+  position: relative
+
+.disabled
+  cursor: default
+
+.light-green
+  color: $green-translucent
+
+.dark-green
+  color: $darken-green
+
+.green
+  color: $green
+
+.pink
+  color: $pink
+
+.red
+  color: $red
+
+.light-blue
+  color: $light-blue
+
+.blue
+  color: $blue
+
+.yellow
+  color: $yellow
+
+.left-icon
+  margin-right: 5px
+
+.right-icon
+  margin-left: 5px
+
+.list-group-item
+  background-color: $translucent
+  border: 1px solid $green
+
+.navbar
+  padding-top: 0
+
+.card
+  background: $translucent
+  border-color: $green
+
+.card-header
+  background-color: $translucent
+  border-color: $green
+  font-size: 14px
+  padding: 10px 15px
+
+.card-body
+  border-color: $green
+
+  &.with-background-image
+    background-image: url('../images/filter-pig.gif')
+    background-repeat: no-repeat
+    background-size: 120% auto
+
+.form-control
+  border-color: $light-green
+  font-size: 14px
+
+  &:focus
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
+
+  &.zero
+    color: $gray
+
+.required
+  &::after
+    color: $pink
+    content: '*'
+    font-weight: bold
+    margin-left: 4px
+
+.btn
+  font-size: 13px
+
+  &:disabled
+    cursor: default
+
+.btn-primary
+  background-color: $pink
+  border-color: $pink
+  color: $white
+
+  &:hover,
+  %btn-hover
+    background-color: $darken-pink
+    border-color: $darken-pink
+
+  &:focus,
+  &.focus
+    @extend %btn-hover
+    box-shadow: 0 0 0 3px $rgba3-pink
+
+  &:disabled
+    background-color: $pink
+    border-color: $pink
+
+.btn-light
+  background-color: $white
+  border-color: $light-green
+
+  &:hover
+    background-color: $light-green-translucent
+    border-color: $light-green
+
+.btn-secondary
+  background-color: $button-green
+  border-color: $button-green
+
+  &:hover,
+  %btn-hover
+    background-color: $darken-button-green
+    border-color: $darken-button-green
+
+  &:focus,
+  &.focus
+    @extend %btn-hover
+    box-shadow: 0 0 0 3px $green-translucent
+
+.badge-light
+  border: 1px solid
+
+.icon-field
+  .fa-edit
+    @extend %cursor-icon
+    padding: 6px 6px 6px 8px
+
+  .fa-times
+    @extend %cursor-icon
+    padding: 7px
+
+  .fa-trash
+    @extend %cursor-icon
+    padding: 9px
+
+  .fa-sort-down
+    @extend %cursor-icon
+    padding: 7px
+
+    &.checked
+      border: 1px solid $green
+
+  %cursor-icon
+    border-radius: 3px
+    color: $darken-green
+    cursor: pointer
+    height: 30px
+    width: 30px
+
+    &:hover
+      background-color: $rgba2-lighten-green
+
+  .fa-copy
+    @extend %cursor-icon
+    padding: 8px
+
+.table
+
+  tbody + tbody
+    border-top: 0
+
+  td
+    border-top: 1px solid $light-green-translucent
+    height: 73px
+    padding: .25rem
+
+  th
+    border-top: 0
+
+  td,
+  th
+    vertical-align: middle
+
+  .icon-field-td
+    width: 30px
+
+  .trash-field-td
+    width: 20px
+
+  .plus-field-td
+    width: 30px
+
+  .place-field-td
+    min-width: 160px
+
+  .place-categories-field-td
+    width: 250px
+
+    .category-name-component
+      display: inline-block
+      padding: 5px 7px
+
+  .date-field-td
+    width: 140px
+
+  .edited
+    animation: flash 1s linear
+
+  .record-charge-td
+    min-width: 80px
+
+  .record-cashless-charge-td,
+  .record-point-td
+    width: 60px
+
+    &.zero
+      opacity: .4
+
+  .record-category-td,
+  .record-breakdown-td,
+  .record-place-td
+    width: 200px
+
+@keyframes flash
+  0%
+    background-color: $light-green-translucent-rgba8
+
+  50%
+    background-color: $light-green-translucent
+
+  100%
+    background-color: 0
+
+
+.loading-image-component
+  padding: 0 0 0 10px
+
+.loading-image-form
+  align-items: center
+  display: flex
+  height: 40px
+
+.loading-image
+  width: 55px
+
+.checkbox-input
+  visibility: hidden
+
+  &:checked + .checkbox-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.checkbox-label
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
+
+.radio-input
+  visibility: hidden
+
+  &:checked + .radio-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.radio-label
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
+
+.category-radio
+  padding-top: 3px
+
+.record-totals-component
+  text-align: right
+
+  .table
+    border-collapse: inherit
+    margin-right: 0
+    width: 400px
+
+    td
+      padding: 10px
+
+.validation-errors-field
+  border: 1px solid $pink
+  margin-bottom: 15px
+  padding: 10px 10px 12px
+
+.messages-field
+  margin-bottom: 15px
+  padding: 10px 10px 12px
+
+.link
+  a
+    color: $darken-green
+
+    &:hover
+      color: $darken-green

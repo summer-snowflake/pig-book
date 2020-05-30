@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+      category:
+        name: カテゴリ名
+      breakdown:
+        name: 内訳
+        category: カテゴリ
+      place:
+        name: お店・施設
+      record:
+        published_at: 日付
+        category: カテゴリ
+        breakdown: 内訳
+        place: お店・施設
+        charge: 金額
+        point: ポイント
+        memo: メモ

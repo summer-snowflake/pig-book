@@ -1,0 +1,126 @@
+{
+  "brand_name": "おこづかいちょうβ",
+  "format": {
+    "date": "W MM/DD/YYYY",
+    "month": "/MM",
+    "year": "YYYY",
+    "time": "HH:MI:SS",
+    "week": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    }
+  },
+  "menu": {
+    "home": "HOME",
+    "input": "Input",
+    "list": "List",
+    "dashboard": "Dashboard",
+    "daily": "Daily",
+    "login": "Sign In",
+    "logout": "Sign out",
+    "signUp": "Sign Up",
+    "mypage": "Mypage",
+    "mypageTop": "Mypage TOP",
+    "settings": "Setting",
+    "settingsTop": "Setting TOP",
+    "category": "Category",
+    "breakdown": "Breakdown",
+    "place": "Shop/Facility",
+    "admin": "Admin",
+    "adminUsers": "Users List"
+  },
+  "title": {
+    "login": "Sign In",
+    "signUp": "Sign Up",
+    "editing": "Now editing",
+    "baseSetting": "Base Setting",
+    "memo": "Note",
+    "tutorial": "Tutorial"
+  },
+  "label": {
+    "locale": "en-IN",
+    "email": "E-mail",
+    "password": "Password",
+    "passwordConfirmation": "Password Confirmation",
+    "language": "Language",
+    "language-ja": "Japanese",
+    "language-en": "English",
+    "currency": "Currency",
+    "currency-unit-yen": "¥",
+    "currency-unit-dollar": "$",
+    "currency-yen": "¥ (yen)",
+    "currency-dollar": "$ (dollar)",
+    "income": "Income",
+    "outgo": "Outgo",
+    "category": "Category",
+    "year": "",
+    "month": "",
+    "total": "Total: ",
+    "unit": "",
+    "tutorial-category": "Set some categories",
+    "tutorial-place": "Set some shop/facility. and Add category to them",
+    "tutorial-record":"Create data"
+  },
+  "toolTip": {
+    "sortCreatedAt": "sort created time",
+    "sortPublishedAt": "sort published time",
+    "sortCategory": "sort category",
+    "sortBreakdown": "sort breakdown",
+    "sortPlace": "sort shop/facility",
+    "copy": "Copy",
+    "edit": "Edit",
+    "delete": "Delete",
+    "addCategory": "Add Category"
+  },
+  "button": {
+    "login": "Sign In",
+    "create": "Create",
+    "update": "Update",
+    "cancel": "Cancel",
+    "close": "Close",
+    "add": "Add",
+    "delete": "Delete",
+    "set": "Set",
+    "today": "Today",
+    "tally": "Tally"
+  },
+  "link": {
+    "dashboards": "ALL Dashboards",
+    "retry": "Retry sign up"
+  },
+  "message": {
+    "placeCategorized": "Select Categories.",
+    "pageNotFound": "Page not found.",
+    "logout": "Logout",
+    "loginSuccess": "Login Successfully",
+    "loginFailure": "Login Failed",
+    "signUpFailure": "Sign Up Failed",
+    "postCategorySuccess": "Category created successfully",
+    "patchCategorySuccess": "Category updated successfully",
+    "deleteCategorySuccess": "Category deleted successfully",
+    "cancelUpdate": "Cancel?",
+    "patchSuccess": "Updated successfully",
+    "postSuccess": "Created successfully",
+    "delteItem": "Delete?",
+    "postBreakdownSuccess": "Breakdown created successfully",
+    "patchBreakdownSuccess": "Breakdown updated successfully",
+    "deleteBreakdownSuccess": "Breakdown deleted successfully",
+    "postPlaceSuccess": "Place created successfully",
+    "patchPlaceSuccess": "Place updated successfully",
+    "deletePlaceSuccess": "Place deleted successfully",
+    "signedUpButUnconfirmed": "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account",
+    "confirmSuccess": "You can sign in your account"
+  },
+  "alert": {
+    "editingOther": "Editing now"
+  },
+  "admin": {
+    "userEmail": "Email",
+    "lastSignInAt": "Last Sign in time"
+  }
+}

@@ -1,0 +1,45 @@
+@import variables
+
+.settings-top-component + .memo-component
+  padding-top: 30px
+
+.settings-top-component
+  .card
+    min-height: 230px
+
+  .form-group
+    .label
+      width: 100px
+
+    .radio-label
+      cursor: pointer
+
+.memo-component
+  .card
+    min-height: 350px
+
+  .memo
+    margin-top: 30px
+    white-space: pre-line
+    width: 100%
+
+  textarea
+    background-color: $translucent
+
+    &:focus
+      background-color: $translucent
+
+.category-page-component,
+.place-page-component
+  .form-group
+    margin-bottom: .2rem
+    margin-top: .2rem
+
+.category-create-form-component,
+.breakdown-create-form-component,
+.place-create-form-component
+  min-height: 80px
+
+.category-select-box-component
+  .form-control
+    min-width: 104px
