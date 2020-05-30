@@ -38,12 +38,5 @@ module Server
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
-
-    config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Credentials' => 'true',
-      'Access-Control-Allow-Origin' => "http://localhost:#{ENV['CLIENT_PORT']}",
-      'Access-Control-Request-Method' => '*',
-      'Access-Control-Expose-Headers' => 'Access-Token,Uid,Client'
-    }
   end
 end

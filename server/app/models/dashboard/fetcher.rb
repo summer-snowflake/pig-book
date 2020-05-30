@@ -22,9 +22,9 @@ class Dashboard::Fetcher
       monthly: monthly_total(year),
       yearly: yearly_total(year),
       yearly_category_income: yearly_category_income(year).with_other,
-      yearly_category_expenditure: yearly_category_expenditure(year).with_other,
+      yearly_category_expenditure: yearly_category_outgo(year).with_other,
       yearly_breakdown_income: yearly_breakdown_income(year),
-      yearly_breakdown_expenditure: yearly_breakdown_expenditure(year)
+      yearly_breakdown_expenditure: yearly_breakdown_outgo(year)
     }
   end
 
@@ -52,33 +52,43 @@ class Dashboard::Fetcher
     breakdown_income = []
     yearly_category_income(year)
       .group_by(&:category_id).each do |category_id, _records|
+      next unless income_category_ids(year).include?(category_id)
+
       breakdown_income << user.yearly_breakdown_balance_tables
                               .where(currency: user.profile.currency,
                                      year: year, category_id: category_id)
                               .order(income: :desc)
     end
-    target_category_ids = yearly_category_income(year).pluck(:category_id)
-    breakdown_income.flatten + build_other_record(target_category_ids)
+    breakdown_income.flatten + build_other_record(income_category_ids(year))
   end
 
-  def yearly_category_expenditure(year)
+  def yearly_category_outgo(year)
     user.yearly_category_balance_tables
         .where(currency: user.profile.currency, year: year)
         .where.not(expenditure: 0)
         .order(expenditure: :desc)
   end
 
-  def yearly_breakdown_expenditure(year)
-    breakdown_expenditure = []
-    yearly_category_expenditure(year)
+  def yearly_breakdown_outgo(year)
+    breakdown_outgo = []
+    yearly_category_outgo(year)
       .group_by(&:category_id).each do |category_id, _records|
-      breakdown_expenditure << user.yearly_breakdown_balance_tables
-                                   .where(currency: user.profile.currency,
-                                          year: year, category_id: category_id)
-                                   .order(expenditure: :desc)
+      next unless outgo_category_ids(year).include?(category_id)
+
+      breakdown_outgo << user.yearly_breakdown_balance_tables
+                             .where(currency: user.profile.currency,
+                                    year: year, category_id: category_id)
+                             .order(expenditure: :desc)
     end
-    ids = yearly_category_expenditure(year).pluck(:category_id).slice(0, 6)
-    breakdown_expenditure.flatten + build_other_record(ids)
+    breakdown_outgo.flatten + build_other_record(outgo_category_ids(year))
+  end
+
+  def outgo_category_ids(year)
+    yearly_category_outgo(year).pluck(:category_id).slice(0, 6)
+  end
+
+  def income_category_ids(year)
+    yearly_category_income(year).pluck(:category_id).slice(0, 6)
   end
 
   def build_other_record(target_category_ids)

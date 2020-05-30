@@ -14,3 +14,19 @@
 #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  host_name = "http://#{ENV.fetch("HOST_NAME")}"
+  port = ENV.fetch("CLIENT_PORT")
+  host_name = port.present? ? "#{host_name}:#{port}" : host_name
+
+  allow do
+    origins host_name
+
+    resource "*",
+      headers: :any,
+      expose: %i[Accept Origin Content-Type Authorization client access-token uid],
+      methods: [:get, :post, :patch, :delete, :options, :head],
+      credentials: true
+  end
+end
