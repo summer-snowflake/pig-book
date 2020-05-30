@@ -1,110 +1,121 @@
+server: &server
+  working_directory: ~/pig-book
+  docker:
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
+        DB_PASS: password
+        DB_USER: postgres
+        DB_HOST: localhost
+        REDIS_HOST: redis
+        TZ: Asia/Tokyo
+        HOST_NAME: localhost
+        CLIENT_PORT: 4020
+        SLACK_WEBHOOK_URL: ""
+    - image: postgres:10.4-alpine
+      environment:
+        POSTGRES_PASSWORD: ""
+        POSTGRES_DB: pig_book_test
+    - image: redis:4.0.9-alpine
+  steps:
+    - checkout
+
+    - type: cache-restore
+      key: pig_book-{{ checksum "server/Gemfile.lock" }}
+
+    - run:
+        name: Update bundler
+        command: gem update bundler
+        working_directory: server
+
+    - run:
+        name: Bundle install
+        command: bundle install --path vendor/bundle --clean
+        working_directory: server
+
+    - type: cache-save
+      key: pig_book-{{ checksum "server/Gemfile.lock" }}
+      paths:
+        - vendor/bundle
+
+    - run:
+        name: Create Database
+        working_directory: server
+        command: bundle exec rake db:create
+    - run:
+        name: Load Database Schema
+        working_directory: server
+        command: bundle exec rake db:schema:load
+
+    # Run rubocop
+    - run:
+        name: Run Rubocop
+        working_directory: server
+        command: bundle exec rubocop
+
+    # Run precompile
+    #- run:
+    #    name: precompile
+    #    working_directory: server
+    #    command: bundle exec rake assets:precompile
+
+    # Run rspec in parallel
+    - type: shell
+      working_directory: server
+      command: |
+        bundle exec rspec \
+          --format RspecJunitFormatter \
+          --out /tmp/test-results/rspec.xml \
+          --format progress \
+          $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+    # Save artifacts
+    - store_artifacts:
+        path: ./server/tmp/capybara
+        destination: capybara-screenshot
+
+    - store_artifacts:
+        path: ./server/doc
+        destination: autodoc
+
+client: &client
+  working_directory: ~/pig-book
+  docker:
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        NODE_ENV: test
+        TZ: Asia/Tokyo
+        WDS_SOCKET_HOST: localhost
+        SERVER_PORT: 3020
+  steps:
+    - checkout
+
+    - run:
+        name: Run yarn install
+        working_directory: client
+        command: yarn install
+
+    - run:
+        name: Run sass-lint
+        working_directory: client
+        command: yarn run sass-lint
+
+    - run:
+        name: Run ESLint
+        working_directory: client
+        command: yarn run eslint
+
 version: 2
 jobs:
-  build:
-    working_directory: ~/pig-book
-    docker:
-      - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          RAILS_ENV: test
-          NODE_ENV: test
-          DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
-          DB_PASS: password
-          DB_USER: postgres
-          DB_HOST: localhost
-          REDIS_HOST: redis
-          TZ: Asia/Tokyo
-      - image: postgres:10.4-alpine
-        environment:
-          POSTGRES_PASSWORD: ""
-          POSTGRES_DB: pig_book_test
-      - image: redis:4.0.9-alpine
-    steps:
-      - checkout
+  build_on_server:
+    <<: *server
+  build_on_client:
+    <<: *client
 
-      # Install fonts-migmix
-      - run: sudo apt-get install fonts-migmix
-
-      # Restore bundle cache
-      - type: cache-restore
-        key: pig_book-{{ checksum "Gemfile.lock" }}
-
-      # Bundle install dependencies
-      - run: gem update bundler
-      - run: bundle install --path vendor/bundle --clean
-
-      # Store bundle cache
-      - type: cache-save
-        key: pig_book-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
-
-      # Upgrade npm
-      - run: npm install npm@latest
-
-      # Restore npm cache
-      - restore_cache:
-          name: Restore npm cache
-          keys:
-            - npm-5.4.2-{{ checksum "package.json" }}
-
-      - run:
-          name: Run npm install
-          command: npm install
-
-      - run:
-          name: Update Chromedriver
-          command: |
-            sudo apt-get update
-            sudo apt-get install google-chrome-stable
-
-      - save_cache:
-          name: Store npm cache
-          key: npm-5.4.2-{{ checksum "package.json" }}
-          paths:
-            - ./frontend/node_modules
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-
-      # Run scss-lint
-      - run: bundle exec scss-lint app/assets/stylesheets/*.scss
-
-      # Run sass-lint
-      - run: npm run sass-lint
-
-      # Run ESLint
-      - run: npm run eslint
-
-      # Run rubocop
-      - run: bundle exec rubocop
-
-      # Run slim-lint
-      - run: bundle exec slim-lint app/views/
-
-      # Run precompile
-      - run: bundle exec rake assets:precompile
-
-      # Run rspec in parallel
-      - type: shell
-        command: |
-          bundle exec rspec \
-            --format RspecJunitFormatter \
-            --out /tmp/test-results/rspec.xml \
-            --format progress \
-            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
-      # Export Report of test coverage
-      # - run: ruby ./bin/coverage_report.rb
-
-      # Save artifacts
-      - store_artifacts:
-          path: ./tmp/capybara
-          destination: capybara-screenshot
-
-      #- store_artifacts:
-      #    path: ./coverage
-      #    destination: coverage
-
-      #- store_test_results:
-      #    path: /tmp/test-results
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build_on_server
+      - build_on_client

@@ -1,0 +1,126 @@
+{
+  "brand_name": "おこづかいちょうβ",
+  "format": {
+    "year": "YYYY年",
+    "month": "MM月",
+    "date": "YYYY年MM月DD日（W）",
+    "time": "HH時MI分SS秒",
+    "week": {
+      "0": "日",
+      "1": "月",
+      "2": "火",
+      "3": "水",
+      "4": "木",
+      "5": "金",
+      "6": "土"
+    }
+  },
+  "menu": {
+    "home": "HOME",
+    "input": "入力する",
+    "list": "リスト",
+    "dashboard": "ダッシュボード",
+    "daily": "デイリー",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "signUp": "アカウント登録",
+    "mypage": "マイページ",
+    "mypageTop": "マイページTOP",
+    "settings": "各種設定",
+    "settingsTop": "ユーザー設定",
+    "category": "カテゴリ",
+    "breakdown": "内訳",
+    "place": "お店・施設",
+    "admin": "管理",
+    "adminUsers": "ユーザの管理"
+  },
+  "title": {
+    "login": "ログイン",
+    "signUp": "アカウント登録",
+    "editing": "編集中",
+    "baseSetting": "基本設定",
+    "memo": "メモ",
+    "tutorial": "チュートリアル"
+  },
+  "label": {
+    "locale": "jp-JP",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "passwordConfirmation": "パスワード（確認）",
+    "language": "使用言語",
+    "language-ja": "日本語",
+    "language-en": "英語",
+    "currency": "通貨の単位",
+    "currency-unit-yen": "¥",
+    "currency-unit-dollar": "$",
+    "currency-yen": "¥（円）",
+    "currency-dollar": "$（ドル）",
+    "income": "収入",
+    "outgo": "支出",
+    "category": "カテゴリ",
+    "year": "年",
+    "month": "月",
+    "total": "計：",
+    "unit": "円",
+    "tutorial-category": "カテゴリを設定してください。",
+    "tutorial-place": "お店・施設を設定し、カテゴリを追加てください。",
+    "tutorial-record": "データを入力、登録してください。"
+  },
+  "toolTip": {
+    "sortCreatedAt": "作成日順",
+    "sortPublishedAt": "日付順",
+    "sortCategory": "カテゴリ順",
+    "sortBreakdown": "内訳順",
+    "sortPlace": "お店・施設順",
+    "copy": "コピー",
+    "edit": "編集",
+    "delete": "削除",
+    "addCategory": "カテゴリに追加"
+  },
+  "button": {
+    "login": "ログインする",
+    "create": "登録する",
+    "update": "更新する",
+    "cancel": "取り消す",
+    "close": "閉じる",
+    "add": "追加する",
+    "delete": "削除する",
+    "set": "設定する",
+    "today": "今日",
+    "tally": "集計する"
+  },
+  "link": {
+    "dashboards": "すべての年度を確認",
+    "retry": "再度アカウント登録"
+  },
+  "message": {
+    "placeCategorized": "利用するカテゴリを選択してください（複数可）",
+    "pageNotFound": "お探しのページは見つかりませんでした。",
+    "logout": "ログアウトしました",
+    "loginSuccess": "ログインしました",
+    "loginFailure": "ログインに失敗しました",
+    "signUpFailure": "アカウント登録に失敗しました",
+    "postCategorySuccess": "カテゴリを追加しました",
+    "patchCategorySuccess": "カテゴリを編集しました",
+    "deleteCategorySuccess": "カテゴリを削除しました",
+    "cancelUpdate": "更新を取り消しますか？",
+    "patchSuccess": "更新しました",
+    "postSuccess": "登録しました",
+    "deleteItem": "削除しますか？",
+    "postBreakdownSuccess": "内訳を追加しました",
+    "patchBreakdownSuccess": "内訳を編集しました",
+    "deleteBreakdownSuccess": "内訳を削除しました",
+    "postPlaceSuccess": "お店・施設を追加しました",
+    "patchPlaceSuccess": "お店・施設を編集しました",
+    "deletePlaceSuccess": "お店・施設を削除しました",
+    "signedUpButUnconfirmed": "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。",
+    "confirmSuccess": "アカウントを有効にしました。ログインしてください。"
+  },
+  "alert": {
+    "editingOther": "編集中の項目があります"
+  },
+  "admin": {
+    "userEmail": "メールアドレス",
+    "lastSignInAt": "最終ログイン時刻"
+  }
+}

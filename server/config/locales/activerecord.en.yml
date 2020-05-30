@@ -1,0 +1,22 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        email: Email
+        password: Password
+        password_confirmation: Password Confirmation
+      category:
+        name: Category name
+      breakdown:
+        name: Breakdown
+        category: Category
+      place:
+        name: Shop/Facility
+      record:
+        published_at: Date
+        category: Category
+        breakdown: Breakdown
+        place: Shop/Facility
+        charge: Charge
+        point: Point
+        memo: Note

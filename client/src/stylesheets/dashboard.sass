@@ -1,0 +1,54 @@
+@import variables
+
+.dashboard-year
+  background-color: $translucent
+  border: 1px solid $green
+  font:
+    size: 14px
+    weight: bold
+  padding: 10px
+  text-align: center
+
+.dashboard-tally-field
+  padding: 10px 0
+
+  .tally-time
+    padding-right: 10px
+
+.monthly-data-component
+  padding-top: 20px
+
+  .table
+    display: inline
+
+    td
+      border: 1px solid $green
+      height: 30px
+      width: 90px
+
+  .yearly-data-component
+    td
+      width: 120px
+
+  .list-icon
+    a
+      color: $darken-green
+
+.chart-line
+  padding-top: 40px
+
+.monthly-bar-chart-component
+  display: table-cell
+
+.yearly-pie-chart-component
+  display: table-cell
+
+.dashboards-link
+  a
+    color: $darken-green
+
+    &:hover
+      color: $darken-green
+
+.dashboard + .dashboard
+  padding-top: 20px

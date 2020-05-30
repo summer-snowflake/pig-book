@@ -4,6 +4,7 @@ services:
   db:
     container_name: pig-book_postgres
     build: ./docker
+    hostname: db
     ports:
       - 5433:5432
     volumes:
@@ -11,11 +12,41 @@ services:
 
   redis:
     container_name: pig-book_redis
+    hostname: redis
     image: redis:4.0.14
     ports:
       - 6379:6379
     volumes:
       - redis:/var/lib/redis/data
+
+  client:
+    container_name: pig-book_react
+    hostname: client
+    build: ./client
+    command: "npm start"
+    volumes:
+      - ./client:/pig-book/client
+      - /pig-book/client/node_modules
+    ports:
+      - "${CLIENT_PORT}:3000"
+
+  server:
+    build: ./server
+    hostname: server
+    command: "bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - ./server:/pig-book/server
+    ports:
+      - "${SERVER_PORT}:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres:servers@db:5432
+    depends_on:
+      - db
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - '8025:8025'
 
 volumes:
   postgresql:
