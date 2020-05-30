@@ -1,8 +1,0 @@
-- content_for :sidemenu do
-  = render 'settings_menu'
-- content_for :title do
-  i.fas.fa-list.left-icon
-  = t('title.breakdown_list')
-
-= render layout: 'content_panel_with_sidemenu'
-  = react_component('BreakdownCard', @params)

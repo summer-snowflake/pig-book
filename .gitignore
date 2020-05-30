@@ -4,27 +4,4 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
-/.bundle
-
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
-
-/yarn-error.log
-
-.byebug_history
 .env
-
-# Ignore coverage directory by simplecov output
-/coverage
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
-
-# Ignore master key for decrypting credentials and more.
-/config/master.key
