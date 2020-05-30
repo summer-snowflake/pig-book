@@ -219,6 +219,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
+    slack-notifier (2.3.2)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -267,6 +268,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop
   shoulda-matchers!
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

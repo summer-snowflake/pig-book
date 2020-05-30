@@ -12,6 +12,7 @@ server: &server
         TZ: Asia/Tokyo
         HOST_NAME: localhost
         CLIENT_PORT: 4020
+        SLACK_WEBHOOK_URL: ""
     - image: postgres:10.4-alpine
       environment:
         POSTGRES_PASSWORD: ""
