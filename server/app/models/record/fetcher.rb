@@ -73,9 +73,9 @@ class Record::Fetcher
 
   def get_date(params)
     if params[:year].blank? && params[:month].blank? && params[:date].blank?
-      Time.zone.today.to_s
+      Time.zone.now
     else
-      params[:date]
+      params[:date]&.in_time_zone('Tokyo')
     end
   end
 

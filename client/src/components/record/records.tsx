@@ -43,7 +43,7 @@ class Records extends Component<Props> {
 
     return (
       <table className={'records-component table' + (this.props.isLoading ? ' loading' : '')}>
-        {this.props.recordSearchStore && this.props.onClickSort && this.props.format === 'detail' && (
+        {this.props.records.length > 0 && this.props.recordSearchStore && this.props.onClickSort && this.props.format === 'detail' && (
           <tbody>
             <tr>
               <td className='icon-field' colSpan={2} data-order='created_at' onClick={this.props.onClickSort}>
