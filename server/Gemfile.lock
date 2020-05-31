@@ -67,7 +67,7 @@ GEM
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
     ast (2.4.0)
-    autodoc (0.7.3)
+    autodoc (0.7.4)
       actionpack
       activesupport (>= 3.0.0)
       rspec
