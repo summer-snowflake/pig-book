@@ -2,7 +2,6 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Errors } from 'types/api'
 import { NewCategoryStore } from 'types/store'
 import { CategoryAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
@@ -15,12 +14,12 @@ const initialState = {
 }
 
 interface StoreAction extends CategoryAction {
-  balance_of_payments?: boolean;
+  balance_of_payments: boolean;
   name: string;
-  errors: Errors;
+  errors: string[];
 }
 
-const categoryReducer = (state: NewCategoryStore = initialState, action: StoreAction): {} => {
+const categoryReducer = (state: NewCategoryStore = initialState, action: StoreAction): NewCategoryStore => {
   switch (action.type) {
   case actionTypes.POST_CATEGORY_REQUEST:
     return {

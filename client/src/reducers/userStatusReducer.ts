@@ -9,7 +9,7 @@ const initialState = {
   dailyOption: false
 }
 
-const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): {} => {
+const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): UserStatusStore => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {

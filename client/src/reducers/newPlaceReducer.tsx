@@ -2,7 +2,6 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Errors } from 'types/api'
 import { NewPlaceStore } from 'types/store'
 import { PlaceAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
@@ -15,10 +14,10 @@ const initialState = {
 
 interface StoreAction extends PlaceAction {
   name: string;
-  errors: Errors;
+  errors: string[];
 }
 
-const placeReducer = (state: NewPlaceStore = initialState, action: StoreAction): {} => {
+const placeReducer = (state: NewPlaceStore = initialState, action: StoreAction): NewPlaceStore => {
   switch (action.type) {
   case actionTypes.POST_PLACE_REQUEST:
     return {

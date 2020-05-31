@@ -6,7 +6,7 @@ const initialState = {
   status: 200
 }
 
-const errorsReducer = (state: ResponseErrorsStore = initialState, action: ResponseErrorsAction): {} => {
+const errorsReducer = (state: ResponseErrorsStore = initialState, action: ResponseErrorsAction): ResponseErrorsStore => {
   switch (action.type) {
   case actionTypes.CATCH_ERRORS:
     return {

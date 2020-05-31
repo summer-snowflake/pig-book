@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 
 import { RegistrationStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
-import { Errors } from 'types/api'
 
 const initialState = {
   isLoading: false,
@@ -14,10 +13,10 @@ const initialState = {
 }
 
 interface RegistrationAction extends Action {
-  errors: Errors;
+  errors: string[];
 }
 
-const registrationReducer = (state: RegistrationStore = initialState, action: RegistrationAction): {} => {
+const registrationReducer = (state: RegistrationStore = initialState, action: RegistrationAction): RegistrationStore => {
   switch (action.type) {
   case actionTypes.SIGN_UP_REQUEST:
     return {

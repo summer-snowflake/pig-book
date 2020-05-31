@@ -10,7 +10,7 @@ const initialState = {
   recordExists: true
 }
 
-const tutorialReducer = (state: TutorialStore = initialState, action: TutorialAction): {} => {
+const tutorialReducer = (state: TutorialStore = initialState, action: TutorialAction): TutorialStore => {
   switch (action.type) {
   case actionTypes.GET_TUTORIAL_REQUEST:
     return {

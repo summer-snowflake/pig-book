@@ -8,7 +8,7 @@ const initialState = {
   errors: []
 }
 
-const placeCategoriesReducer = (state: CategoriesStore = initialState, action: CategoriesAction): {} => {
+const placeCategoriesReducer = (state: CategoriesStore = initialState, action: CategoriesAction): CategoriesStore => {
   switch (action.type) {
   case actionTypes.GET_PLACE_CATEGORIES_REQUEST:
     return {

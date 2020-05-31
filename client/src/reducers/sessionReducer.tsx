@@ -10,7 +10,7 @@ const initialState = {
   isLoading: false
 }
 
-const sessionReducer = (state: SessionStore = initialState, action: Action): {} => {
+const sessionReducer = (state: SessionStore = initialState, action: Action): SessionStore => {
   switch (action.type) {
   case actionTypes.LOGIN_REQUEST:
     return {

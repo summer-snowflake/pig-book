@@ -50,6 +50,7 @@ export interface NewBreakdownStore extends Errors {
   isLoading: boolean;
   category_id: number;
   name: string;
+  balance_of_payments: boolean;
 }
 
 export interface NewPlaceStore extends Errors {
@@ -72,7 +73,7 @@ export interface EditBreakdownStore extends Errors {
 export interface EditPlaceStore extends Errors {
   isLoading: boolean;
   editedPlaceId: number;
-  place: Place;
+  place: WithCategoriesPlace;
 }
 
 export interface CategoriesStore {

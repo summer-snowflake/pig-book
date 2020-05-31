@@ -7,7 +7,7 @@ const initialState = {
   dashboards: []
 }
 
-const dashboardsReducer = (state: DashboardsStore = initialState, action: DashboardsAction): {} => {
+const dashboardsReducer = (state: DashboardsStore = initialState, action: DashboardsAction): DashboardsStore => {
   switch (action.type) {
   case actionTypes.GET_DASHBOARDS_REQUEST:
     return {
