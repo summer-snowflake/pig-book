@@ -82,7 +82,7 @@ GEM
       activesupport (>= 4.2)
       after_commit_action (~> 1.0)
     crass (1.0.6)
-    database_rewinder (0.9.2)
+    database_rewinder (0.9.4)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
