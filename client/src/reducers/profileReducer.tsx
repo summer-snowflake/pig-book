@@ -19,18 +19,18 @@ const initialState = {
 
 interface StoreAction extends ProfileAction {
   target?: string;
-  locale?: string;
-  currency?: string;
-  memo?: string;
-  editing?: boolean;
-  editingMemo?: boolean;
+  locale: string;
+  currency: string;
+  memo: string;
+  editing: boolean;
+  editingMemo: boolean;
 }
 
-const settingsReducer = (state: ProfileStore = initialState, action: StoreAction): {} => {
+const settingsReducer = (state: ProfileStore = initialState, action: StoreAction): ProfileStore => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
-      initialState
+      ...initialState
     }
   case actionTypes.GET_PROFILE_REQUEST:
     return {

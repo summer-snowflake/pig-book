@@ -23,7 +23,7 @@ const initialState = {
   yearly_breakdown_expenditure: []
 }
 
-const dashboardReducer = (state: DashboardStore = initialState, action: DashboardAction): {} => {
+const dashboardReducer = (state: DashboardStore = initialState, action: DashboardAction): DashboardStore => {
   switch (action.type) {
   case actionTypes.GET_DASHBOARD_REQUEST:
     return {

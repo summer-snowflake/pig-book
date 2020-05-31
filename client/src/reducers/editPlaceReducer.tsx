@@ -23,7 +23,7 @@ interface WithEditingIdAction extends ErrorsAction {
   place: Place;
 }
 
-const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEditingIdAction): {} => {
+const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEditingIdAction): EditPlaceStore => {
   switch (action.type) {
   case actionTypes.PATCH_PLACE_REQUEST:
     return {

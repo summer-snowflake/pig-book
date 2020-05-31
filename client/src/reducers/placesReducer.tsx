@@ -16,7 +16,7 @@ interface WithErrorsPlacesAction extends PlacesAction {
   errors: string[];
 }
 
-const placesReducer = (state: PlacesStore = initialState, action: WithErrorsPlacesAction): {} => {
+const placesReducer = (state: PlacesStore = initialState, action: WithErrorsPlacesAction): PlacesStore => {
   switch (action.type) {
   case actionTypes.GET_PLACES_REQUEST:
     return {
