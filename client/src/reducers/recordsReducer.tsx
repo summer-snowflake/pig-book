@@ -16,7 +16,7 @@ const initialState = {
   }
 }
 
-const recordsReducer = (state: RecordsStore = initialState, action: RecordsAction): {} => {
+const recordsReducer = (state: RecordsStore = initialState, action: RecordsAction): RecordsStore => {
   switch (action.type) {
   case actionTypes.GET_RECORDS_REQUEST:
     return {

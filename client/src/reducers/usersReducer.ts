@@ -9,7 +9,7 @@ const initialState = {
   maxPage: 1
 }
 
-const usersReducer = (state: UsersStore = initialState, action: UsersAction): {} => {
+const usersReducer = (state: UsersStore = initialState, action: UsersAction): UsersStore => {
   switch (action.type) {
   case actionTypes.GET_USERS_REQUEST:
     return {

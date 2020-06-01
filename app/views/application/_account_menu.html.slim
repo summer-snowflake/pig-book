@@ -1,9 +1,0 @@
-.list-group
-  = link_to new_user_session_path, class: 'list-group-item' do
-    i.fa.fa-leaf.left-icon
-    = t('menu.login')
-    = menu_image(new_user_session_path)
-  = link_to new_registration_path(resource_name), class: 'list-group-item' do
-    i.fa.fa-heart.left-icon
-    = t('menu.sign_up')
-    = menu_image(new_user_registration_path)

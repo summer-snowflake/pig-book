@@ -27,7 +27,7 @@ interface StoreAction extends ErrorsAction {
   breakdown: Breakdown;
 }
 
-const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: StoreAction): {} => {
+const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: StoreAction): EditBreakdownStore => {
   switch (action.type) {
   case actionTypes.PATCH_BREAKDOWN_REQUEST:
     return {

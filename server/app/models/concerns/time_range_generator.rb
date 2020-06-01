@@ -19,7 +19,7 @@ module TimeRangeGenerator
   private
 
   def time_range_from_daily
-    beginning = Time.zone.parse(Date.parse(@date).to_s)
+    beginning = @date.beginning_of_day
     Range.new(beginning, beginning.end_of_day)
   end
 

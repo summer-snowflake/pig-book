@@ -23,7 +23,8 @@ services:
     container_name: pig-book_react
     hostname: client
     build: ./client
-    command: "npm start"
+    command: "yarn start"
+    stdin_open: true
     volumes:
       - ./client:/pig-book/client
       - /pig-book/client/node_modules

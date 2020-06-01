@@ -1,9 +1,0 @@
-files:
-  include: './app/assets/stylesheets/*.sass'
-  ignore: './app/assets/stylesheets/exclude-scss-lint.sass'
-rules:
-  empty-line-between-blocks: 0
-  no-vendor-prefixes:
-    - 1
-    -
-      ignore-non-standard: true

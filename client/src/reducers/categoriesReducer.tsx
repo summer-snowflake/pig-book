@@ -16,7 +16,7 @@ interface WithErrorsCategoriesAction extends CategoriesAction {
   errors: string[];
 }
 
-const categoriesReducer = (state: CategoriesStore = initialState, action: WithErrorsCategoriesAction): {} => {
+const categoriesReducer = (state: CategoriesStore = initialState, action: WithErrorsCategoriesAction): CategoriesStore => {
   switch (action.type) {
   case actionTypes.GET_CATEGORIES_REQUEST:
     return {

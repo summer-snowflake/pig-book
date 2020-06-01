@@ -22,7 +22,7 @@ interface StoreAction extends ErrorsAction {
   category: Category;
 }
 
-const editCategoryReducer = (state: EditCategoryStore = initialState, action: StoreAction): {} => {
+const editCategoryReducer = (state: EditCategoryStore = initialState, action: StoreAction): EditCategoryStore => {
   switch (action.type) {
   case actionTypes.PATCH_CATEGORY_REQUEST:
     return {

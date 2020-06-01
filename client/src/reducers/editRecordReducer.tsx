@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Errors, WithRelationsCategory } from 'types/api'
+import { WithRelationsCategory } from 'types/api'
 import { EditRecordStore } from 'types/store'
 import { RecordAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
@@ -40,10 +40,10 @@ interface StoreAction extends RecordAction {
   cashlessCharge: number;
   point: number;
   memo: string;
-  errors: Errors;
+  errors: string[];
 }
 
-const editRecordReducer = (state: EditRecordStore = initialState, action: StoreAction): {} => {
+const editRecordReducer = (state: EditRecordStore = initialState, action: StoreAction): EditRecordStore => {
   switch (action.type) {
   case actionTypes.PATCH_RECORD_REQUEST:
     return {

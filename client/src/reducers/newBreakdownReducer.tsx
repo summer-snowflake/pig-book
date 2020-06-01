@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Errors, Category } from 'types/api'
+import { Category } from 'types/api'
 import { NewBreakdownStore } from 'types/store'
 import { BreakdownAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
@@ -18,10 +18,10 @@ const initialState = {
 interface StoreAction extends BreakdownAction {
   name: string;
   category: Category;
-  errors: Errors;
+  errors: string[];
 }
 
-const newBreakdownReducer = (state: NewBreakdownStore = initialState, action: StoreAction): {} => {
+const newBreakdownReducer = (state: NewBreakdownStore = initialState, action: StoreAction): NewBreakdownStore => {
   switch (action.type) {
   case actionTypes.POST_BREAKDOWN_REQUEST:
     return {

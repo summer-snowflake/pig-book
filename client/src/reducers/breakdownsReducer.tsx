@@ -16,7 +16,7 @@ interface WithErrorsBreakdownsAction extends BreakdownsAction {
   errors: string[];
 }
 
-const breakdownsReducer = (state: BreakdownsStore = initialState, action: WithErrorsBreakdownsAction): {} => {
+const breakdownsReducer = (state: BreakdownsStore = initialState, action: WithErrorsBreakdownsAction): BreakdownsStore => {
   switch (action.type) {
   case actionTypes.GET_BREAKDOWNS_REQUEST:
     return {

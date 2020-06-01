@@ -2,7 +2,7 @@ import { Action } from 'redux'
 
 import * as actionTypes from 'utils/actionTypes'
 import { RecordSearchStore } from 'types/store'
-import { RecordSearchParams } from 'types/api'
+import { RecordSearchResponseParams } from 'types/api'
 
 const today = new Date()
 const initialState = {
@@ -24,10 +24,10 @@ interface StoreAction extends Action {
   year: number;
   month: number;
   date: Date | null;
-  params: RecordSearchParams;
+  params: RecordSearchResponseParams;
 }
 
-const RecordSearchReducer = (state: RecordSearchStore = initialState, action: StoreAction): {} => {
+const RecordSearchReducer = (state: RecordSearchStore = initialState, action: StoreAction): RecordSearchStore => {
   switch (action.type) {
   case actionTypes.SET_RECORD_SEARCH_PARAMS:
     return {
