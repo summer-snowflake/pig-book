@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'GET /api/user', autodoc: true do
-  let!(:user) { create(:user, :active) }
+  let!(:user) { create(:user, :active, daily_option: true) }
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data' do
@@ -36,7 +36,8 @@ describe 'GET /api/user', autodoc: true do
         breakdowns_count: 0,
         places_count: 0,
         records_count: 0,
-        daily_option: false
+        daily_option: true,
+        options_list: 'デイリーチャート'
       }.to_json
       expect(response.body).to be_json_eql(json)
     end

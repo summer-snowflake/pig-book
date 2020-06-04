@@ -44,4 +44,16 @@ class User < ApplicationRecord
   def tutorial
     @tutorial ||= Tutorial.new(user_id: id)
   end
+
+  def options_list
+    return I18n.t('label.nothing') unless options?
+
+    User.human_attribute_name(:daily_option)
+  end
+
+  private
+
+  def options?
+    daily_option
+  end
 end

@@ -2,6 +2,6 @@
 
 class UsersController < BaseController
   def show
-    render json: current_user.to_json(include: :admin)
+    render json: current_user.to_json(include: :admin, methods: :options_list)
   end
 end
