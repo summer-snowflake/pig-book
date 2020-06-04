@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 
+import ProfileContainer from 'components/mypage/profileContainer'
+
 import 'stylesheets/menu.sass'
 
 class MypageMenu extends Component<I18nProps> {
@@ -16,6 +18,7 @@ class MypageMenu extends Component<I18nProps> {
             {t('menu.mypageTop')}
           </NavLink>
         </div>
+        <ProfileContainer />
       </div>
     )
   }

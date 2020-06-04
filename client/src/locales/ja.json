@@ -40,7 +40,8 @@
     "editing": "編集中",
     "baseSetting": "基本設定",
     "memo": "メモ",
-    "tutorial": "チュートリアル"
+    "tutorial": "チュートリアル",
+    "profile": "プロフィール"
   },
   "label": {
     "locale": "jp-JP",
