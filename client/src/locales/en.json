@@ -65,7 +65,8 @@
     "unit": "",
     "tutorial-category": "Set some categories",
     "tutorial-place": "Set some shop/facility. and Add category to them",
-    "tutorial-record":"Create data"
+    "tutorial-record": "Create data",
+    "options": "Options"
   },
   "toolTip": {
     "sortCreatedAt": "sort created time",

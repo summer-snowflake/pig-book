@@ -101,6 +101,7 @@ export interface User {
   active: boolean;
   admin: Admin;
   daily_option: boolean;
+  options_list: string;
 }
 
 export interface Profile {

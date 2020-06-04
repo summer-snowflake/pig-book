@@ -21,6 +21,7 @@ export interface UserStatusStore {
   admin: Admin;
   email: string;
   dailyOption: boolean;
+  optionsList: string;
 }
 
 export interface ProfileStore {

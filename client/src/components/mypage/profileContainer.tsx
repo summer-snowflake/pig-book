@@ -28,9 +28,21 @@ class ProfileContainer extends Component<Props> {
           <div className='card-body'>
             <ul>
               <li>
-                {t('label.email')}
+                <label>
+                  {t('label.email')}
+                </label>
+                <p>
+                  {this.props.userStatus.email}
+                </p>
               </li>
-              {this.props.userStatus.email}
+              <li>
+                <label>
+                  {t('label.options')}
+                </label>
+                <p>
+                  {this.props.userStatus.optionsList}
+                </p>
+              </li>
             </ul>
           </div>
         </div>
