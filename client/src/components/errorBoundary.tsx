@@ -1,23 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
+import { withRouter, RouteComponentProps, Redirect, Route, Switch } from 'react-router-dom'
+
 import { ResponseErrorsStore } from 'types/store'
 import { RootState } from 'reducers/rootReducer'
-import { withRouter, RouteComponentProps, Redirect, Route, Switch } from 'react-router-dom'
-import SignInPage from './login/signInPage'
+import SignInPage from 'components/login/signInPage'
+import FlashMessage from 'components/common/flashMessage'
+
+interface ParentProps {
+  children: React.ReactNode
+}
 
 interface StateProps {
   responseErrors: ResponseErrorsStore;
 }
 
-type Props = StateProps & RouteComponentProps
+type Props = ParentProps & StateProps & RouteComponentProps
 
 class ErrorBoundary extends Component<Props> {
   render(): React.ReactNode {
     switch (this.props.responseErrors.status) {
     case undefined:
-      if (window.confirm('Network Error! Reload this page.')) {
-        this.props.history.go(0)
-      }
+      toast.error(<FlashMessage actionType={'ACCESS_FAILURE'} />)
       break
     case 401:
       return (
