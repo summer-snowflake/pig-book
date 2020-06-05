@@ -232,8 +232,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       record: {
         published_on: state.record.published_on,
         charge: action.record.rounded_charge,
-        cashless_charge: action.record.cashless_charge,
-        point: action.record.point,
+        cashless_charge: action.record.cashless_charge === 0 ? '' : action.record.cashless_charge,
+        point: action.record.point === 0 ? '' : action.record.point,
         memo: action.record.memo,
         category: action.record.category,
         category_id: action.record.category.id,

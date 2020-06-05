@@ -63,6 +63,7 @@ export interface RecordsAction extends Action {
   records: Record[];
   max_page: number;
   totals: RecordTotals;
+  total_count: number;
 }
 
 export interface DashboardAction extends Action {

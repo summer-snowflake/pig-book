@@ -10,12 +10,12 @@ describe 'GET /api/records', autodoc: true do
   let!(:record1) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: Time.zone.now, charge: 3000)
+           published_at: 1.minute.ago, charge: 3000)
   end
   let!(:record2) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: 1.hour.since, charge: 2000)
+           published_at: Time.zone.now, charge: 2000)
   end
   let!(:record3) do
     create(:record,
@@ -100,6 +100,7 @@ describe 'GET /api/records', autodoc: true do
               }
             }
           ],
+          total_count: 2,
           max_page: 1,
           totals: {
             human_income_charge: '¥ 0',
@@ -154,6 +155,7 @@ describe 'GET /api/records', autodoc: true do
               }
             }
           ],
+          total_count: 1,
           max_page: 1,
           totals: {
             human_income_charge: '¥ 0',
