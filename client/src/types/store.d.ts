@@ -19,7 +19,9 @@ export interface UserStatusStore {
   isLoading: boolean;
   isLogged: boolean;
   admin: Admin;
+  email: string;
   dailyOption: boolean;
+  optionsList: string;
 }
 
 export interface ProfileStore {

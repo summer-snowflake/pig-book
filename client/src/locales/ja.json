@@ -40,7 +40,8 @@
     "editing": "編集中",
     "baseSetting": "基本設定",
     "memo": "メモ",
-    "tutorial": "チュートリアル"
+    "tutorial": "チュートリアル",
+    "profile": "プロフィール"
   },
   "label": {
     "locale": "jp-JP",
@@ -64,7 +65,8 @@
     "unit": "円",
     "tutorial-category": "カテゴリを設定してください。",
     "tutorial-place": "お店・施設を設定し、カテゴリを追加てください。",
-    "tutorial-record": "データを入力、登録してください。"
+    "tutorial-record": "データを入力、登録してください。",
+    "options": "ご利用オプション"
   },
   "toolTip": {
     "sortCreatedAt": "作成日順",
