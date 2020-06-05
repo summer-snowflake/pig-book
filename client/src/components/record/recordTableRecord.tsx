@@ -133,7 +133,14 @@ class RecordTableRecord extends Component<Props, State> {
               </span>
             )}
           </td>
-          <td />
+          <td className='record-tags-td'>
+            {this.props.record.record_tags.map((tag) => (
+              <span data-tip={tag.name} key={tag.id} style={{color: tag.color_code}}>
+                <i className='fas fa-bookmark' />
+                <ReactTooltip />
+              </span>
+            ))}
+          </td>
           <td className='record-charge-td'>
             {this.props.record.category.balance_of_payments === true ? (
               <i className='fas fa-plus-square left-icon blue' />

@@ -152,6 +152,13 @@ export interface ReadRecord {
   category: Category;
   breakdown: Breakdown;
   place: Place;
+  record_tags: Tag[];
+}
+
+export interface Tag {
+  id: number;
+  name: string;
+  color_code: string;
 }
 
 export interface Record {
