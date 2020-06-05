@@ -56,6 +56,10 @@ class Record < ApplicationRecord
     number_to_rounded
   end
 
+  def record_tags
+    user.tags.where(id: tagged_records.pluck(:tag_id))
+  end
+
   private
 
   def number_to_rounded

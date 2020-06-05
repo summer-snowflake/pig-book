@@ -9,7 +9,7 @@ class RecordsController < BaseController
                    max_page: fetcher.max_page,
                    totals: fetcher.totals },
            include: %i[category breakdown place],
-           methods: %i[human_charge rounded_charge], status: :ok
+           methods: %i[human_charge rounded_charge record_tags], status: :ok
   end
 
   def create
