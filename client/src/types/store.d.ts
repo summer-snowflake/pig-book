@@ -130,6 +130,7 @@ export interface RecordsStore {
   records: Record[];
   maxPage: number;
   totals: RecordTotals;
+  totalCount: number;
 }
 
 export interface RecordSearchStore {

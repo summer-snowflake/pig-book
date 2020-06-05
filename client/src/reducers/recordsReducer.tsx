@@ -7,6 +7,7 @@ const initialState = {
   records: [],
   errors: [],
   maxPage: 1,
+  totalCount: 0,
   totals: {
     human_income_charge: '',
     human_expenditure_charge: '',
@@ -28,6 +29,7 @@ const recordsReducer = (state: RecordsStore = initialState, action: RecordsActio
       ...state,
       isLoading: false,
       records: action.records,
+      totalCount: action.total_count,
       maxPage: action.max_page,
       totals: action.totals
     }

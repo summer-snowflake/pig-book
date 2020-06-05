@@ -23,11 +23,12 @@ const getRecordsRequest = (): Action => {
   }
 }
 
-const getRecordsSuccess = (records: Record[], max_page: number, totals: RecordTotals): RecordsAction => {
+const getRecordsSuccess = (records: Record[], max_page: number, total_count: number, totals: RecordTotals): RecordsAction => {
   return {
     type: actionTypes.GET_RECORDS_SUCCESS,
     records,
     max_page,
+    total_count,
     totals
   }
 }
@@ -38,7 +39,7 @@ export const getRecords = (params?: RecordSearchParams) => {
     try {
       if(ready()) {
         const res = await axios.get('/api/records', { params: params, headers: loginHeaders() })
-        dispatch(getRecordsSuccess(res.data.list, res.data.max_page, res.data.totals))
+        dispatch(getRecordsSuccess(res.data.list, res.data.max_page, res.data.total_count, res.data.totals))
       } else {
         dispatch(getCookiesFailure())
       }

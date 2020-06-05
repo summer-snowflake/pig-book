@@ -266,6 +266,7 @@ class RecordsListContainer extends Component<Props> {
           </div>
         </div>
         <SearchKeywords />
+        {this.props.recordsStore.records.length} / {this.props.recordsStore.totalCount}
         {this.props.recordsStore.records.length > 0 || !this.props.recordsStore.isLoading ? (
           <Records
             editedRecordId={this.props.editRecordStore.editedRecordId}
