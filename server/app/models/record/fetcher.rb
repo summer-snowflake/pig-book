@@ -117,8 +117,9 @@ class Record::Fetcher
     to_rounded = ActiveSupport::NumberHelper
                  .number_to_rounded(charge, strip_insignificant_zeros: true)
     integer_part, decimal_part = to_rounded.split('.')
+    dot = decimal_part ? '.' : ''
 
     I18n.t('label.' + user.profile.currency) +
-      " #{integer_part.to_i.to_s(:delimited)}#{decimal_part}"
+      " #{integer_part.to_i.to_s(:delimited)}#{dot}#{decimal_part}"
   end
 end

@@ -89,8 +89,9 @@ class RecordForm extends Component<Props> {
               <CurrencyBadge currency={this.props.currency} />
             </span>
             <input
-              className={'form-control ' + (this.props.store.record.charge === 0 ? 'zero' : '')}
+              className='form-control'
               onChange={this.props.onChangeCharge}
+              placeholder={'0'}
               type='text'
               value={this.props.store.record.charge}
             />
@@ -102,8 +103,9 @@ class RecordForm extends Component<Props> {
               </span>
             </span>
             <input
-              className={'form-control ' + (this.props.store.record.cashless_charge === 0 ? 'zero' : '')}
+              className='form-control number'
               onChange={this.props.onChangeCashlessCharge}
+              placeholder={'0'}
               type='text'
               value={this.props.store.record.cashless_charge}
             />
@@ -115,8 +117,9 @@ class RecordForm extends Component<Props> {
               </span>
             </span>
             <input
-              className={'form-control ' + (this.props.store.record.point === 0 ? 'zero' : '')}
+              className='form-control'
               onChange={this.props.onChangePoint}
+              placeholder={'0'}
               type='text'
               value={this.props.store.record.point}
             />

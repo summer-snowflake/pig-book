@@ -32,9 +32,9 @@ interface DispatchProps {
   changePublishedOn: (date: Date) => void;
   changeBreakdown: (breakdownId: number) => void;
   changePlace: (placeId: number) => void;
-  changeCharge: (charge: number) => void;
-  changePoint: (point: number) => void;
-  changeCashlessCharge: (charge: number) => void;
+  changeCharge: (charge: number | string) => void;
+  changePoint: (point: number | string) => void;
+  changeCashlessCharge: (charge: number | string) => void;
   changeMemo: (memo: string) => void;
   setRecordSearchParams: (params: RecordSearchParams) => void;
 }
@@ -97,11 +97,10 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changePlace(placeId)
   }
 
-  replaceToNumber(target: string): number {
-    const value = target.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
+  replaceToNumber(target: string): number | string {
+    return target.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
       return String.fromCharCode(s.charCodeAt(0)-0xFEE0)
     }).replace(',', '')
-    return Number(value) || 0
   }
 
   handleChangeCharge(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -217,13 +216,13 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     changePlace(placeId: number): void {
       dispatch(changePlace(placeId))
     },
-    changeCharge(charge: number): void {
+    changeCharge(charge: number | string): void {
       dispatch(changeCharge(charge))
     },
-    changeCashlessCharge(cashlessCharge: number): void {
+    changeCashlessCharge(cashlessCharge: number | string): void {
       dispatch(changeCashlessCharge(cashlessCharge))
     },
-    changePoint(point: number): void {
+    changePoint(point: number | string): void {
       dispatch(changePoint(point))
     },
     changeMemo(memo: string): void {

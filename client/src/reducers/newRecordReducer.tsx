@@ -13,9 +13,9 @@ const initialState = {
   editing: false,
   record: {
     published_on: new Date(),
-    charge: 0,
-    cashless_charge: 0,
-    point: 0,
+    charge: '',
+    cashless_charge: '',
+    point: '',
     memo: '',
     category_id: undefined,
     category: {
@@ -72,9 +72,9 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       errors: [],
       record: {
         published_on: state.record.published_on,
-        charge: 0,
-        cashless_charge: 0,
-        point: 0,
+        charge: '',
+        cashless_charge: '',
+        point: '',
         memo: '',
         category: state.record.category,
         breakdown_id: state.record.breakdown_id,
