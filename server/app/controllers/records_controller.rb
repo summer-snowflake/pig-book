@@ -5,6 +5,7 @@ class RecordsController < BaseController
     fetcher = Record::Fetcher.new(user: current_user)
     fetcher.find_all_by(records_params)
     render json: { list: fetcher.records,
+                   total_count: fetcher.total_count,
                    max_page: fetcher.max_page,
                    totals: fetcher.totals },
            include: %i[category breakdown place],

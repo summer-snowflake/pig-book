@@ -100,6 +100,7 @@ describe 'GET /api/records', autodoc: true do
               }
             }
           ],
+          total_count: 2,
           max_page: 1,
           totals: {
             human_income_charge: '¥ 0',
@@ -154,6 +155,7 @@ describe 'GET /api/records', autodoc: true do
               }
             }
           ],
+          total_count: 1,
           max_page: 1,
           totals: {
             human_income_charge: '¥ 0',

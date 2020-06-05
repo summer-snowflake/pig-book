@@ -5,7 +5,7 @@ class Record::Fetcher
   include TimeRangeGenerator
 
   attr_reader :user, :date, :year, :month, :page, :limit, :order
-  attr_reader :category, :breakdown, :place, :records, :max_page, :totals
+  attr_reader :category, :breakdown, :place, :records, :max_page, :totals, :total_count
 
   validates :year, :month, :page, :limit,
             numericality: { only_integer: true, allow_blank: true }
@@ -102,6 +102,7 @@ class Record::Fetcher
   end
 
   def calculate_totals(records)
+    @total_count = records.count
     income = records.income.sum(:charge)
     expenditure = records.expenditure.sum(:charge)
     @totals = {
