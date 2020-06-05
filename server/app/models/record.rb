@@ -9,6 +9,8 @@ class Record < ApplicationRecord
   belongs_to :breakdown, optional: true
   belongs_to :place, optional: true
 
+  has_many :tagged_records, dependent: :destroy
+
   validates :published_at, presence: true
   validates :currency, presence: true
   validates :charge,

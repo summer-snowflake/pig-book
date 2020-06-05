@@ -7,6 +7,7 @@ RSpec.describe Record, type: :model do
   it { is_expected.to belong_to(:category) }
   it { is_expected.to belong_to(:breakdown).optional(true) }
   it { is_expected.to belong_to(:place).optional(true) }
+  it { is_expected.to have_many(:tagged_records).dependent(:destroy) }
 
   it { is_expected.to validate_presence_of(:published_at) }
   it { is_expected.to validate_presence_of(:currency) }
