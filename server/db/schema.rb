@@ -107,6 +107,15 @@ ActiveRecord::Schema.define(version: 2020_05_21_170909) do
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "color_code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
+  end
+
   create_table "tally_events", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "year", null: false
@@ -186,6 +195,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_170909) do
   add_foreign_key "records", "categories"
   add_foreign_key "records", "places"
   add_foreign_key "records", "users"
+  add_foreign_key "tags", "users"
   add_foreign_key "tally_events", "users"
   add_foreign_key "yearly_records", "users"
 end
