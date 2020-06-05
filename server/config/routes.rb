@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     resources :places, only: %i[index create update destroy] do
       resources :categories, only: %i[index create], module: :place
     end
-    resources :records, only: %i[index create update destroy]
+    resources :records, only: %i[index create update destroy] do
+      resources :tagged_records, only: %i[index]
+    end
     resources :dashboards, param: :year, only: %i[index show update]
     resource :tutorial, only: %i[show]
 
