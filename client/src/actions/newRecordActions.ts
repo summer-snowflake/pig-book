@@ -30,15 +30,15 @@ interface WithPlaceIdAction extends Action {
 }
 
 interface WithChargeAction extends Action {
-  charge: number;
+  charge: number | string;
 }
 
 interface WithCashlessChargeAction extends Action {
-  cashlessCharge: number;
+  cashlessCharge: number | string;
 }
 
 interface WithPointAction extends Action {
-  point: number;
+  point: number | string;
 }
 
 interface WithMemoAction extends Action {
@@ -125,21 +125,21 @@ export const changePlace = (placeId: number | undefined): WithPlaceIdAction => {
   }
 }
 
-export const changeCharge = (charge: number): WithChargeAction => {
+export const changeCharge = (charge: number | string): WithChargeAction => {
   return {
     type: actionTypes.CHANGE_RECORD_CHARGE,
     charge
   }
 }
 
-export const changeCashlessCharge = (cashlessCharge: number): WithCashlessChargeAction => {
+export const changeCashlessCharge = (cashlessCharge: number | string): WithCashlessChargeAction => {
   return {
     type: actionTypes.CHANGE_RECORD_CASHLESS_CHARGE,
     cashlessCharge
   }
 }
 
-export const changePoint = (point: number): WithPointAction => {
+export const changePoint = (point: number | string): WithPointAction => {
   return {
     type: actionTypes.CHANGE_RECORD_POINT,
     point

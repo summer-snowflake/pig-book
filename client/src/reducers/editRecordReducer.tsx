@@ -14,9 +14,9 @@ const initialState = {
   record: {
     id: undefined,
     published_on: new Date(),
-    charge: 0,
-    cashless_charge: 0,
-    point: 0,
+    charge: '',
+    cashless_charge: '',
+    point: '',
     memo: '',
     category_id: undefined,
     category: {
