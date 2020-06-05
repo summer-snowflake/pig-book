@@ -10,6 +10,7 @@ class Record < ApplicationRecord
   belongs_to :place, optional: true
 
   has_many :tagged_records, dependent: :destroy
+  has_many :tags, through: :tagged_records
 
   validates :published_at, presence: true
   validates :currency, presence: true
@@ -54,10 +55,6 @@ class Record < ApplicationRecord
 
   def rounded_charge
     number_to_rounded
-  end
-
-  def record_tags
-    user.tags.where(id: tagged_records.pluck(:tag_id))
   end
 
   private

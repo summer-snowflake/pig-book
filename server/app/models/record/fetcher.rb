@@ -5,13 +5,12 @@ class Record::Fetcher
   include TimeRangeGenerator
 
   attr_reader :user, :date, :year, :month, :page, :limit, :order
-  attr_reader :category, :breakdown, :place, :records, :max_page, :totals, :total_count
+  attr_reader :category, :breakdown, :place, :tag_ids, :records, :max_page, :totals, :total_count
 
   validates :year, :month, :page, :limit,
             numericality: { only_integer: true, allow_blank: true }
   validates :order, inclusion: {
-    in: %w[published_at created_at category_id breakdown_id place_id],
-    allow_blank: true
+    in: %w[published_at created_at category_id breakdown_id place_id], allow_blank: true
   }
 
   PER_PAGE = 100
@@ -24,7 +23,7 @@ class Record::Fetcher
     init_attrs(params)
     return set_empty_attrs unless valid?
 
-    records = search_records
+    records = search_records.distinct
     use_paginate(records.count)
     calculate_totals(records)
 
@@ -54,7 +53,8 @@ class Record::Fetcher
     records = records.where(category: category) if category
     records = records.where(breakdown: breakdown) if breakdown
     records = records.where(place: place) if place
-    records = records.includes(:category, :breakdown, :place)
+    records = records.where(tags: { id: tag_ids }) if tag_ids.present?
+    records = records.includes(:category, :breakdown, :place, tagged_records: :tag)
     records
   end
 
@@ -69,6 +69,7 @@ class Record::Fetcher
     @category = find_category(params[:category_id])
     @breakdown = find_breakdown(params[:breakdown_id])
     @place = find_place(params[:place_id])
+    @tag_ids = params[:tag_ids]&.split(',')
   end
 
   def get_date(params)
@@ -101,16 +102,18 @@ class Record::Fetcher
     @max_page = (records_count / PER_PAGE.to_f).ceil
   end
 
+  # Use inject(:+) instead, because distinct with sum produces unexpected results.
+  # @see https://github.com/rails/rails/issues/33082
   def calculate_totals(records)
     @total_count = records.count
-    income = records.income.sum(:charge)
-    expenditure = records.expenditure.sum(:charge)
+    income = records.income.map(&:charge).inject(:+) || 0
+    expenditure = records.expenditure.map(&:charge).inject(:+) || 0
     @totals = {
       human_income_charge: human_charge(income),
       human_expenditure_charge: human_charge(expenditure),
       human_all_charge: human_charge(income - expenditure),
-      use_cashless_charge: records.sum(:cashless_charge),
-      use_point: records.sum(:point)
+      use_cashless_charge: records.map(&:cashless_charge).inject(:+),
+      use_point: records.map(&:point).inject(:+)
     }
   end
 

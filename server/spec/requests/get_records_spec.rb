@@ -74,7 +74,7 @@ describe 'GET /api/records', autodoc: true do
                 name: place.name,
                 user_id: user.id
               },
-              record_tags: [
+              tags: [
                 {
                   name: tag1.name,
                   color_code: tag1.color_code,
@@ -114,7 +114,7 @@ describe 'GET /api/records', autodoc: true do
                 name: place.name,
                 user_id: user.id
               },
-              record_tags: []
+              tags: []
             }
           ],
           total_count: 2,
@@ -170,7 +170,7 @@ describe 'GET /api/records', autodoc: true do
                 name: place.name,
                 user_id: user.id
               },
-              record_tags: []
+              tags: []
             }
           ],
           total_count: 1,

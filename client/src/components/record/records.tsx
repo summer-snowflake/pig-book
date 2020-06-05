@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { withTranslation } from 'react-i18next'
 
-import { ReadRecord, Record, Category, Breakdown, Place } from 'types/api'
+import { ReadRecord, Record, Category, Breakdown, Place, Tag } from 'types/api'
 import { RecordSearchStore } from 'types/store'
 import RecordTableRecord from 'components/record/recordTableRecord'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,6 +19,7 @@ interface Props extends I18nProps {
   onClickCategory?: (category: Category) => void;
   onClickBreakdown?: (breakdown: Breakdown) => void;
   onClickPlace?: (place: Place) => void;
+  onClickTagIcon?: (tag: Tag) => void;
   onClickSort?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
@@ -81,6 +82,7 @@ class Records extends Component<Props> {
             onClickDestroy={this.props.onClickDestroy}
             onClickEdit={this.handleClickEdit}
             onClickPlace={this.props.onClickPlace}
+            onClickTagIcon={this.props.onClickTagIcon}
             record={record}
           />
         ))}

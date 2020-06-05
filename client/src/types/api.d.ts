@@ -54,13 +54,15 @@ export interface RecordSearchParams {
   breakdown_name?: string | null;
   place_id?: number | null;
   place_name?: string | null;
+  tag_ids?: string;
+  tags?: { [x: string]: ReactText; }[];
 }
 
 export interface RecordSearchResponseParams {
   page: number;
   date: Date | null;
-  month: number | null;
   year: number | null;
+  month: number | null;
   order: string | null;
   category_id: number | null;
   category_name: string | null;
@@ -68,6 +70,8 @@ export interface RecordSearchResponseParams {
   breakdown_name: string | null;
   place_id: number | null;
   place_name: string | null;
+  tag_ids: string;
+  tags: Tag[];
 }
 
 export interface QueryParams {
@@ -79,6 +83,7 @@ export interface QueryParams {
   category_id: string;
   breakdown_id: string;
   place_id: string;
+  tag_ids: string;
 }
 
 export interface Admin {
@@ -152,7 +157,7 @@ export interface ReadRecord {
   category: Category;
   breakdown: Breakdown;
   place: Place;
-  record_tags: Tag[];
+  tags: Tag[];
 }
 
 export interface Tag {

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { withTranslation } from 'react-i18next'
 
-import { ReadRecord, Record, Category, Breakdown, Place } from 'types/api'
+import { ReadRecord, Record, Category, Breakdown, Place, Tag } from 'types/api'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
 import HumanDate from 'components/common/humanDate'
+import TagIcon from 'components/record/tagIcon'
 
 interface Props extends I18nProps {
   record: ReadRecord;
@@ -17,6 +18,7 @@ interface Props extends I18nProps {
   onClickCategory?: (category: Category) => void;
   onClickBreakdown?: (breakdown: Breakdown) => void;
   onClickPlace?: (place: Place) => void;
+  onClickTagIcon?: (tag: Tag) => void;
 }
 
 interface State {
@@ -39,6 +41,7 @@ class RecordTableRecord extends Component<Props, State> {
     this.handleClickCategory = this.handleClickCategory.bind(this)
     this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
     this.handleClickPlace = this.handleClickPlace.bind(this)
+    this.handleClickTagIcon = this.handleClickTagIcon.bind(this)
   }
 
   handleClickCopy(): void {
@@ -83,6 +86,12 @@ class RecordTableRecord extends Component<Props, State> {
   handleClickPlace(): void {
     if (this.props.format === 'detail' && this.props.onClickPlace) {
       this.props.onClickPlace(this.props.record.place)
+    }
+  }
+
+  handleClickTagIcon(tag: Tag): void {
+    if (this.props.format === 'detail' && this.props.onClickTagIcon) {
+      this.props.onClickTagIcon(tag)
     }
   }
 
@@ -134,11 +143,8 @@ class RecordTableRecord extends Component<Props, State> {
             )}
           </td>
           <td className='record-tags-td'>
-            {this.props.record.record_tags.map((tag) => (
-              <span data-tip={tag.name} key={tag.id} style={{color: tag.color_code}}>
-                <i className='fas fa-bookmark' />
-                <ReactTooltip />
-              </span>
+            {this.props.record.tags.map((tag) => (
+              <TagIcon key={tag.id} onClickTag={this.handleClickTagIcon} tag={tag} />
             ))}
           </td>
           <td className='record-charge-td'>

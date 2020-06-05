@@ -5,13 +5,14 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { withRouter } from 'react-router-dom'
 
-import { RecordSearchParams } from 'types/api'
+import { RecordSearchParams, Tag } from 'types/api'
 import { RecordSearchStore } from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
 import { RootState } from 'reducers/rootReducer'
 import KeywordButton from 'components/common/keywordButton'
 import { encodeQueryData } from 'modules/encode'
+import TagKeywordButton from 'components/common/tagKeywordButton'
 
 interface StateProps {
   recordSearchStore: RecordSearchStore;
@@ -33,6 +34,7 @@ class SearchKeywordsContainer extends Component<Props> {
     this.handleClickCancelCategory = this.handleClickCancelCategory.bind(this)
     this.handleClickCancelBreakdown = this.handleClickCancelBreakdown.bind(this)
     this.handleClickCancelPlace = this.handleClickCancelPlace.bind(this)
+    this.handleClickCancelTag = this.handleClickCancelTag.bind(this)
   }
 
   handleClickCancelMonth(): void {
@@ -90,6 +92,25 @@ class SearchKeywordsContainer extends Component<Props> {
       ...this.props.recordSearchStore,
       place_id: null,
       place_name: null
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
+  handleClickCancelTag(tag: Tag): void {
+    const tag_ids = this.props.recordSearchStore.tag_ids
+    const tag_ids_arr = tag_ids.split(',').map(t => Number(t)).filter((x) => x !== 0)
+    const index = tag_ids_arr.indexOf(tag.id)
+    tag_ids_arr.splice(index, 1)
+    const tags = this.props.recordSearchStore.tags
+    tags.splice(index, 1)
+    const params = {
+      ...this.props.recordSearchStore,
+      tag_ids: tag_ids_arr.toString(),
+      tags: tags
     }
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
@@ -160,6 +181,9 @@ class SearchKeywordsContainer extends Component<Props> {
               onClickCancel={this.handleClickCancelPlace}
             />
           )}
+          {this.props.recordSearchStore.tags.map((tag) => (
+            <TagKeywordButton key={tag.id} onClickCancel={this.handleClickCancelTag} tag={tag} />
+          ))}
         </div>
       </div>
     )
