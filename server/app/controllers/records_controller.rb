@@ -8,7 +8,7 @@ class RecordsController < BaseController
                    total_count: fetcher.total_count,
                    max_page: fetcher.max_page,
                    totals: fetcher.totals },
-           include: %i[category breakdown place],
+           include: %i[category breakdown place tags],
            methods: %i[human_charge rounded_charge], status: :ok
   end
 
@@ -43,7 +43,7 @@ class RecordsController < BaseController
   end
 
   def records_params
-    params.permit(:date, :year, :month, :category_id, :breakdown_id, :place_id,
+    params.permit(:date, :year, :month, :category_id, :breakdown_id, :place_id, :tag_ids,
                   :limit, :order, :page)
   end
 end

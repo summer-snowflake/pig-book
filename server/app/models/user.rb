@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :breakdowns, dependent: :destroy
   has_many :places, dependent: :destroy
+  has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
   has_many :tally_events, dependent: :destroy
   has_many :monthly_total_balance_tables, dependent: :destroy

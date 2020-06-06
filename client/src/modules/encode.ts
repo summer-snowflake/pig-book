@@ -9,7 +9,8 @@ const convertToQueryParams = (data: RecordSearchParams): QueryParams => {
     order: String(data.order),
     category_id: String(data.category_id || ''),
     breakdown_id: String(data.breakdown_id  || ''),
-    place_id: String(data.place_id || '')
+    place_id: String(data.place_id || ''),
+    tag_ids: data.tag_ids?.toString() || ''
   }
 }
 
@@ -20,5 +21,6 @@ export const encodeQueryData = (data: RecordSearchParams): string => {
     if (v !== '') {
       ret.push(encodeURIComponent(k) + '=' + encodeURIComponent(v))
     }
+
   return ret.join('&')
 }

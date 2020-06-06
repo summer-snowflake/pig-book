@@ -145,6 +145,8 @@ export interface RecordSearchStore {
   breakdown_name: string | null;
   place_id: number | null;
   place_name: string | null;
+  tag_ids: string;
+  tags: Tag[];
 }
 
 interface DashboardStore {
