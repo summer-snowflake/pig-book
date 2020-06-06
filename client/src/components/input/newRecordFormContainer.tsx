@@ -121,7 +121,7 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleClickCreate(): void {
     const params = {
-      published_at: this.props.newRecord.record.published_on,
+      published_at: String(this.props.newRecord.record.published_on),
       category_id: this.props.newRecord.record.category.id,
       breakdown_id: this.props.newRecord.record.breakdown_id,
       place_id: this.props.newRecord.record.place_id,

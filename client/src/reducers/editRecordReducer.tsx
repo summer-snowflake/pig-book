@@ -12,7 +12,7 @@ const initialState = {
   isOpenEditRecordModal: false,
   editedRecordId: undefined,
   record: {
-    id: undefined,
+    id: 0,
     published_on: new Date(),
     charge: '',
     cashless_charge: '',
@@ -20,10 +20,12 @@ const initialState = {
     memo: '',
     category_id: undefined,
     category: {
+      id: undefined,
       balance_of_payments: false
     },
     breakdown_id: undefined,
-    place_id: undefined
+    place_id: undefined,
+    tags: []
   },
   breakdowns: [],
   places: [],
@@ -65,8 +67,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       },
       editedRecordId: action.record.id
     }
@@ -102,7 +106,8 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         },
         category_id: undefined,
         breakdown_id: undefined,
-        place_id: undefined
+        place_id: undefined,
+        tags: state.record.tags
       },
       breakdowns: [],
       places: []
@@ -123,7 +128,8 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         },
         category_id: undefined,
         breakdown_id: undefined,
-        place_id: undefined
+        place_id: undefined,
+        tags: state.record.tags
       },
       breakdowns: [],
       places: []
@@ -139,8 +145,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_EDIT_RECORD_BREAKDOWN:
@@ -154,8 +162,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: action.breakdownId,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_EDIT_RECORD_PLACE:
@@ -169,8 +179,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: action.placeId
+        place_id: action.placeId,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_EDIT_RECORD_CHARGE:
@@ -184,8 +196,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_EDIT_RECORD_CASHLESS_CHARGE:
@@ -199,8 +213,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_EDIT_RECORD_POINT:
@@ -214,8 +230,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: action.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_EDIT_RECORD_MEMO:
@@ -229,8 +247,10 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         point: state.record.point,
         memo: action.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.EDIT_RECORD:
@@ -247,7 +267,8 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         category: action.record.category,
         category_id: action.record.category.id,
         breakdown_id: action.record.breakdown_id,
-        place_id: action.record.place_id
+        place_id: action.record.place_id,
+        tags: action.record.tags
       },
       errors: []
     }

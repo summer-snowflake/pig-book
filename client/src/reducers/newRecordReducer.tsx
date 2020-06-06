@@ -19,10 +19,12 @@ const initialState = {
     memo: '',
     category_id: undefined,
     category: {
+      id: undefined,
       balance_of_payments: false
     },
     breakdown_id: undefined,
-    place_id: undefined
+    place_id: undefined,
+    tags: []
   },
   breakdowns: [],
   places: [],
@@ -54,8 +56,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.POST_RECORD_REQUEST:
@@ -77,8 +81,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: '',
         memo: '',
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.POST_RECORD_FAILURE:
@@ -102,7 +108,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         },
         category_id: undefined,
         breakdown_id: undefined,
-        place_id: undefined
+        place_id: undefined,
+        tags: state.record.tags
       },
       breakdowns: [],
       places: []
@@ -122,7 +129,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         },
         category_id: undefined,
         breakdown_id: undefined,
-        place_id: undefined
+        place_id: undefined,
+        tags: state.record.tags
       },
       breakdowns: [],
       places: []
@@ -137,8 +145,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_RECORD_BREAKDOWN:
@@ -151,8 +161,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: action.breakdownId,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_RECORD_PLACE:
@@ -165,8 +177,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: action.placeId
+        place_id: action.placeId,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_RECORD_CHARGE:
@@ -179,8 +193,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_RECORD_CASHLESS_CHARGE:
@@ -193,8 +209,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_RECORD_POINT:
@@ -207,8 +225,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: action.point,
         memo: state.record.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.CHANGE_RECORD_MEMO:
@@ -221,8 +241,10 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         point: state.record.point,
         memo: action.memo,
         category: state.record.category,
+        category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
-        place_id: state.record.place_id
+        place_id: state.record.place_id,
+        tags: state.record.tags
       }
     }
   case actionTypes.COPY_RECORD:
@@ -238,7 +260,8 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         category: action.record.category,
         category_id: action.record.category.id,
         breakdown_id: action.record.breakdown_id,
-        place_id: action.record.place_id
+        place_id: action.record.place_id,
+        tags: action.record.tags
       }
     }
   case actionTypes.GET_CATEGORY_REQUEST:

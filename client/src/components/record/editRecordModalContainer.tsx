@@ -140,7 +140,7 @@ class EditRecordModalContainer extends Component<Props> {
 
   handleClickUpdateButton(): void {
     const params = {
-      published_at: this.props.editRecord.record.published_on,
+      published_at: String(this.props.editRecord.record.published_on),
       category_id: this.props.editRecord.record.category.id || NaN,
       breakdown_id: this.props.editRecord.record.breakdown_id,
       place_id: this.props.editRecord.record.place_id,
