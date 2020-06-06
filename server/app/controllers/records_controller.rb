@@ -38,7 +38,7 @@ class RecordsController < BaseController
   private
 
   def record_params
-    params.permit(:published_at, :category_id, :breakdown_id, :place_id,
+    params.permit(:published_at, :category_id, :breakdown_id, :place_id, :tags,
                   :currency, :charge, :cashless_charge, :point, :memo)
   end
 

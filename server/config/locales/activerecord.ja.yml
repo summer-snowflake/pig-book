@@ -13,6 +13,9 @@ ja:
         category: カテゴリ
       place:
         name: お店・施設
+      tag:
+        name: ラベル
+        color_code: カラーコード
       record:
         published_at: 日付
         category: カテゴリ
