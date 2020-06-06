@@ -52,11 +52,36 @@
       display: table-cell
       padding: 0 3px
 
-.tag-name-component
+.tag-label-component
   background-color: $white
   border: solid 1px $green
   border-radius: 3px
   padding: 5px
 
-.tag-name-component + .tag-name-component
+.tag-label-component + .tag-label-component
   margin-left: 5px
+
+.data-list-items
+  display: none
+  list-style-type: none
+  margin-top: 2px
+  max-height: 250px
+  overflow: auto
+  padding: 0
+
+  &.active
+    background-color: $white
+    border: 1px solid $light-green
+    display: list-item
+    position: absolute
+    width: 80%
+    z-index: 5
+
+  .list-item
+    cursor: pointer
+    padding: 5px 10px
+    width: 100%
+
+    &:hover
+      background-color: $rgba2-lighten-green
+

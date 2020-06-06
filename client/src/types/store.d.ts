@@ -98,6 +98,11 @@ export interface PlaceCategoriesStore {
   categories: Category[];
 }
 
+export interface TagsStore {
+  isLoading: boolean;
+  tags: Tag[];
+}
+
 export interface UsersStore {
   isLoading: boolean;
   users: AdminUser[];

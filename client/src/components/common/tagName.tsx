@@ -5,20 +5,9 @@ import { Tag } from 'types/api'
 
 interface Props {
   tag: Tag;
-  onClickCancel: (tag: Tag) => void
 }
 
 class TagName extends Component<Props> {
-  constructor(props: Props) {
-    super(props)
-
-    this.handleClickCancelTag = this.handleClickCancelTag.bind(this)
-  }
-
-  handleClickCancelTag(): void {
-    this.props.onClickCancel(this.props.tag)
-  }
-
   render(): JSX.Element {
     const colorCodeStyles = {
       color: this.props.tag.color_code

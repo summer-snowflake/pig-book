@@ -5,7 +5,7 @@ import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, RecordAction } from 'types/action'
-import { Record, Errors, RecordParams, Category } from 'types/api'
+import { Record, Errors, RecordParams, Category, Tag } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 import { catchErrors } from 'actions/errorsAction'
 
@@ -47,6 +47,10 @@ interface WithMemoAction extends Action {
 
 interface WithRecordAction extends Action {
   record: Record;
+}
+
+interface WithTagAction extends Action {
+  tag: Tag;
 }
 
 const patchRecordRequest = (): Action => {
@@ -169,5 +173,12 @@ export const editRecord = (record: Record): WithRecordAction => {
 export const closeEditModal = (): Action => {
   return {
     type: actionTypes.CLOSE_EDIT_MODAL
+  }
+}
+
+export const addEditRecordTag = (tag: Tag): WithTagAction => {
+  return {
+    type: actionTypes.ADD_EDIT_RECORD_TAG,
+    tag
   }
 }

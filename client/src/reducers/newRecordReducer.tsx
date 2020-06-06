@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { WithRelationsCategory } from 'types/api'
+import { WithRelationsCategory, Tag } from 'types/api'
 import { NewRecordStore } from 'types/store'
 import { RecordAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
@@ -33,6 +33,7 @@ const initialState = {
 
 interface StoreAction extends RecordAction {
   category: WithRelationsCategory;
+  tag: Tag;
   balance_of_payments: boolean;
   publishedOn: Date;
   breakdownId: number | undefined;
@@ -281,6 +282,22 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
       ...state,
       isLoading: false,
       isOpenNewRecordModal: false
+    }
+  case actionTypes.ADD_NEW_RECORD_TAG:
+    return {
+      ...state,
+      record: {
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
+        memo: state.record.memo,
+        category: state.record.category,
+        category_id: state.record.category_id,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id,
+        tags: [...state.record.tags, action.tag]
+      }
     }
   case actionTypes.GET_RECORDS_REQUEST:
     return {

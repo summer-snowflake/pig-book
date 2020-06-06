@@ -148,7 +148,8 @@ class EditRecordModalContainer extends Component<Props> {
       charge: this.props.editRecord.record.charge,
       cashless_charge: this.props.editRecord.record.cashless_charge || 0,
       point: this.props.editRecord.record.point || 0,
-      memo: this.props.editRecord.record.memo
+      memo: this.props.editRecord.record.memo,
+      tags: this.props.editRecord.record.tags
     }
     this.props.patchRecord(this.props.editRecord.record.id, params, this.props.recordSearch)
     this.props.history.push({
