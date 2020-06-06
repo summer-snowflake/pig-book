@@ -84,7 +84,7 @@ const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAct
         category_id: state.record.category_id,
         breakdown_id: state.record.breakdown_id,
         place_id: state.record.place_id,
-        tags: state.record.tags
+        tags: []
       }
     }
   case actionTypes.POST_RECORD_FAILURE:
