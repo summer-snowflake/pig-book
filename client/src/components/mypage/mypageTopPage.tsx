@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import MypageMenu from 'components/mypage/mypageMenu'
 import MypageTop from 'components/mypage/mypageTop'
+import ProfileContainer from 'components/mypage/profileContainer'
 
 class MypageTopPage extends Component {
   render(): JSX.Element {
@@ -14,6 +15,9 @@ class MypageTopPage extends Component {
           <div className='col-1 d-lg-none' />
           <div className='col'>
             <MypageTop />
+            <span className='d-lg-none'>
+              <ProfileContainer />
+            </span>
           </div>
         </div>
       </div>

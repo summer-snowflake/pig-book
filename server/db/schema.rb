@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_170909) do
+ActiveRecord::Schema.define(version: 2020_06_06_154309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,14 +97,32 @@ ActiveRecord::Schema.define(version: 2020_05_21_170909) do
     t.decimal "charge", null: false
     t.string "memo"
     t.integer "currency", null: false
-    t.integer "point", default: 0
-    t.integer "cashless_charge", default: 0
+    t.integer "point", default: 0, null: false
+    t.integer "cashless_charge", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["breakdown_id"], name: "index_records_on_breakdown_id"
     t.index ["category_id"], name: "index_records_on_category_id"
     t.index ["place_id"], name: "index_records_on_place_id"
     t.index ["user_id"], name: "index_records_on_user_id"
+  end
+
+  create_table "tagged_records", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_id"], name: "index_tagged_records_on_record_id"
+    t.index ["tag_id"], name: "index_tagged_records_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "color_code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
   create_table "tally_events", force: :cascade do |t|
@@ -186,6 +204,9 @@ ActiveRecord::Schema.define(version: 2020_05_21_170909) do
   add_foreign_key "records", "categories"
   add_foreign_key "records", "places"
   add_foreign_key "records", "users"
+  add_foreign_key "tagged_records", "records"
+  add_foreign_key "tagged_records", "tags"
+  add_foreign_key "tags", "users"
   add_foreign_key "tally_events", "users"
   add_foreign_key "yearly_records", "users"
 end

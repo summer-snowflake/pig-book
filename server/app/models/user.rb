@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :breakdowns, dependent: :destroy
   has_many :places, dependent: :destroy
+  has_many :tags, dependent: :destroy
   has_many :records, dependent: :destroy
   has_many :tally_events, dependent: :destroy
   has_many :monthly_total_balance_tables, dependent: :destroy
@@ -43,5 +44,17 @@ class User < ApplicationRecord
 
   def tutorial
     @tutorial ||= Tutorial.new(user_id: id)
+  end
+
+  def options_list
+    return I18n.t('label.nothing') unless options?
+
+    User.human_attribute_name(:daily_option)
+  end
+
+  private
+
+  def options?
+    daily_option
   end
 end

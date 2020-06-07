@@ -38,9 +38,9 @@ interface DispatchProps {
   changePublishedOn: (date: Date) => void;
   changeBreakdown: (breakdownId: number) => void;
   changePlace: (placeId: number) => void;
-  changeCharge: (charge: number) => void;
-  changePoint: (point: number) => void;
-  changeCashlessCharge: (charge: number) => void;
+  changeCharge: (charge: number | string) => void;
+  changePoint: (point: number | string) => void;
+  changeCashlessCharge: (charge: number | string) => void;
   changeMemo: (memo: string) => void;
   setRecordSearchParams: (params: RecordSearchParams) => void;
 }
@@ -116,11 +116,10 @@ class EditRecordModalContainer extends Component<Props> {
     this.props.changePlace(placeId)
   }
 
-  replaceToNumber(target: string): number {
-    const value = target.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
+  replaceToNumber(target: string): number | string {
+    return target.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
       return String.fromCharCode(s.charCodeAt(0)-0xFEE0)
     }).replace(',', '')
-    return Number(value) || 0
   }
 
   handleChangeCharge(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -141,15 +140,16 @@ class EditRecordModalContainer extends Component<Props> {
 
   handleClickUpdateButton(): void {
     const params = {
-      published_at: this.props.editRecord.record.published_on,
+      published_at: String(this.props.editRecord.record.published_on),
       category_id: this.props.editRecord.record.category.id || NaN,
       breakdown_id: this.props.editRecord.record.breakdown_id,
       place_id: this.props.editRecord.record.place_id,
       currency: this.props.profile.currency,
       charge: this.props.editRecord.record.charge,
-      cashless_charge: this.props.editRecord.record.cashless_charge,
-      point: this.props.editRecord.record.point,
-      memo: this.props.editRecord.record.memo
+      cashless_charge: this.props.editRecord.record.cashless_charge || 0,
+      point: this.props.editRecord.record.point || 0,
+      memo: this.props.editRecord.record.memo,
+      tags: this.props.editRecord.record.tags
     }
     this.props.patchRecord(this.props.editRecord.record.id, params, this.props.recordSearch)
     this.props.history.push({
@@ -240,13 +240,13 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     changePlace(placeId: number): void {
       dispatch(changePlace(placeId))
     },
-    changeCharge(charge: number): void {
+    changeCharge(charge: number | string): void {
       dispatch(changeCharge(charge))
     },
-    changeCashlessCharge(cashlessCharge: number): void {
+    changeCashlessCharge(cashlessCharge: number | string): void {
       dispatch(changeCashlessCharge(cashlessCharge))
     },
-    changePoint(point: number): void {
+    changePoint(point: number | string): void {
       dispatch(changePoint(point))
     },
     changeMemo(memo: string): void {

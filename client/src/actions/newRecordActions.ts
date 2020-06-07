@@ -5,7 +5,7 @@ import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, RecordAction } from 'types/action'
-import { Record, Errors, RecordParams, Category } from 'types/api'
+import { Record, Errors, RecordParams, Category, Tag } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 import { catchErrors } from 'actions/errorsAction'
 
@@ -30,15 +30,15 @@ interface WithPlaceIdAction extends Action {
 }
 
 interface WithChargeAction extends Action {
-  charge: number;
+  charge: number | string;
 }
 
 interface WithCashlessChargeAction extends Action {
-  cashlessCharge: number;
+  cashlessCharge: number | string;
 }
 
 interface WithPointAction extends Action {
-  point: number;
+  point: number | string;
 }
 
 interface WithMemoAction extends Action {
@@ -47,6 +47,10 @@ interface WithMemoAction extends Action {
 
 interface WithRecordAction extends Action {
   record: Record;
+}
+
+interface WithTagAction extends Action {
+  tag: Tag;
 }
 
 const postRecordRequest = (): Action => {
@@ -125,21 +129,21 @@ export const changePlace = (placeId: number | undefined): WithPlaceIdAction => {
   }
 }
 
-export const changeCharge = (charge: number): WithChargeAction => {
+export const changeCharge = (charge: number | string): WithChargeAction => {
   return {
     type: actionTypes.CHANGE_RECORD_CHARGE,
     charge
   }
 }
 
-export const changeCashlessCharge = (cashlessCharge: number): WithCashlessChargeAction => {
+export const changeCashlessCharge = (cashlessCharge: number | string): WithCashlessChargeAction => {
   return {
     type: actionTypes.CHANGE_RECORD_CASHLESS_CHARGE,
     cashlessCharge
   }
 }
 
-export const changePoint = (point: number): WithPointAction => {
+export const changePoint = (point: number | string): WithPointAction => {
   return {
     type: actionTypes.CHANGE_RECORD_POINT,
     point
@@ -163,5 +167,19 @@ export const copyRecord = (record: Record): WithRecordAction => {
 export const closeNewModal = (): Action => {
   return {
     type: actionTypes.CLOSE_NEW_MODAL
+  }
+}
+
+export const addNewRecordTag = (tag: Tag): WithTagAction => {
+  return {
+    type: actionTypes.ADD_NEW_RECORD_TAG,
+    tag
+  }
+}
+
+export const removeNewRecordTag = (tag: Tag): WithTagAction => {
+  return {
+    type: actionTypes.REMOVE_NEW_RECORD_TAG,
+    tag
   }
 }

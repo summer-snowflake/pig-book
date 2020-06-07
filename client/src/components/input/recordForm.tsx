@@ -8,6 +8,7 @@ import CategorySelectBoxContainer from 'components/settings/category/categorySel
 import BreakdownSelectBox from 'components/input/breakdownSelectBox'
 import PlaceSelectBox from 'components/input/placeSelectBox'
 import TodayButton from 'components/input/todayButton'
+import TagsSelectFormContainer from 'components/input/tagsSelectFormContainer'
 
 import 'stylesheets/datepicker/datepicker.sass'
 import 'stylesheets/datepicker/datepicker-overrides.sass'
@@ -83,14 +84,18 @@ class RecordForm extends Component<Props> {
             places={this.props.store.places}
           />
         </div>
+        <div className='form-group'>
+          <TagsSelectFormContainer recordTags={this.props.store.record.tags} recordId={this.props.store.record.id} />
+        </div>
         <div className='form-group row'>
           <div className='col-md-4 currency-field'>
             <span className='badge-field'>
               <CurrencyBadge currency={this.props.currency} />
             </span>
             <input
-              className={'form-control ' + (this.props.store.record.charge === 0 ? 'zero' : '')}
+              className='form-control'
               onChange={this.props.onChangeCharge}
+              placeholder={'0'}
               type='text'
               value={this.props.store.record.charge}
             />
@@ -102,8 +107,9 @@ class RecordForm extends Component<Props> {
               </span>
             </span>
             <input
-              className={'form-control ' + (this.props.store.record.cashless_charge === 0 ? 'zero' : '')}
+              className='form-control number'
               onChange={this.props.onChangeCashlessCharge}
+              placeholder={'0'}
               type='text'
               value={this.props.store.record.cashless_charge}
             />
@@ -115,8 +121,9 @@ class RecordForm extends Component<Props> {
               </span>
             </span>
             <input
-              className={'form-control ' + (this.props.store.record.point === 0 ? 'zero' : '')}
+              className='form-control'
               onChange={this.props.onChangePoint}
+              placeholder={'0'}
               type='text'
               value={this.props.store.record.point}
             />

@@ -10,18 +10,22 @@ describe 'GET /api/records', autodoc: true do
   let!(:record1) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: Time.zone.now, charge: 3000)
+           published_at: 1.minute.ago, charge: 3000)
   end
   let!(:record2) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
-           published_at: 1.hour.since, charge: 2000)
+           published_at: Time.zone.now, charge: 2000)
   end
   let!(:record3) do
     create(:record,
            user: user, category: category, breakdown: breakdown, place: place,
            published_at: Time.zone.yesterday, charge: 1000)
   end
+  let!(:tag1) { create(:tag, user: user) }
+  let!(:tag2) { create(:tag, user: user) }
+  let!(:tagged_record1) { create(:tagged_record, tag: tag1, record: record2) }
+  let!(:tagged_record2) { create(:tagged_record, tag: tag2, record: record2) }
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data' do
@@ -69,7 +73,19 @@ describe 'GET /api/records', autodoc: true do
               place: {
                 name: place.name,
                 user_id: user.id
-              }
+              },
+              tags: [
+                {
+                  name: tag1.name,
+                  color_code: tag1.color_code,
+                  user_id: user.id
+                },
+                {
+                  name: tag2.name,
+                  color_code: tag2.color_code,
+                  user_id: user.id
+                }
+              ]
             },
             {
               user_id: user.id,
@@ -97,9 +113,11 @@ describe 'GET /api/records', autodoc: true do
               place: {
                 name: place.name,
                 user_id: user.id
-              }
+              },
+              tags: []
             }
           ],
+          total_count: 2,
           max_page: 1,
           totals: {
             human_income_charge: '¥ 0',
@@ -151,9 +169,11 @@ describe 'GET /api/records', autodoc: true do
               place: {
                 name: place.name,
                 user_id: user.id
-              }
+              },
+              tags: []
             }
           ],
+          total_count: 1,
           max_page: 1,
           totals: {
             human_income_charge: '¥ 0',

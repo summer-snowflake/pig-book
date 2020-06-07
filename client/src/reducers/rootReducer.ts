@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore } from 'types/store'
+import { SessionStore, UserStatusStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
 import userStatusReducer from 'reducers/userStatusReducer'
@@ -15,6 +15,7 @@ import editBreakdownReducer from 'reducers/editBreakdownReducer'
 import newPlaceReducer from 'reducers/newPlaceReducer'
 import editPlaceReducer from 'reducers/editPlaceReducer'
 import placesReducer from 'reducers/placesReducer'
+import tagsReducer from 'reducers/tagsReducer'
 import usersReducer from 'reducers/usersReducer'
 import newRecordReducer from 'reducers/newRecordReducer'
 import recordsReducer from 'reducers/recordsReducer'
@@ -39,6 +40,7 @@ export type RootState = {
   newPlace: NewPlaceStore;
   editPlace: EditPlaceStore;
   places: PlacesStore;
+  tags: TagsStore;
   placeCategories: PlaceCategoriesStore;
   users: UsersStore;
   newRecord: NewRecordStore;
@@ -65,6 +67,7 @@ const rootReducer = combineReducers({
   newPlace: newPlaceReducer,
   editPlace: editPlaceReducer,
   places: placesReducer,
+  tags: tagsReducer,
   placeCategories: placeCategoriesReducer,
   users: usersReducer,
   newRecord: newRecordReducer,

@@ -5,6 +5,7 @@ en:
         email: Email
         password: Password
         password_confirmation: Password Confirmation
+        daily_option: Daily Chart
       category:
         name: Category name
       breakdown:
@@ -12,6 +13,9 @@ en:
         category: Category
       place:
         name: Shop/Facility
+      tag:
+        name: Tag
+        color_code: Color Code
       record:
         published_at: Date
         category: Category

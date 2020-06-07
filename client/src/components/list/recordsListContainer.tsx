@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { withRouter } from 'react-router-dom'
 
-import { Record, RecordSearchParams, Category, Breakdown, Place } from 'types/api'
+import { Record, RecordSearchParams, Category, Breakdown, Place, Tag } from 'types/api'
 import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { encodeQueryData } from 'modules/encode'
@@ -59,6 +59,7 @@ class RecordsListContainer extends Component<Props> {
     this.handleClickCategory = this.handleClickCategory.bind(this)
     this.handleClickBreakdown = this.handleClickBreakdown.bind(this)
     this.handleClickPlace = this.handleClickPlace.bind(this)
+    this.handleClickTagIcon = this.handleClickTagIcon.bind(this)
     this.handleClickSort = this.handleClickSort.bind(this)
 
     const today = new Date()
@@ -70,6 +71,8 @@ class RecordsListContainer extends Component<Props> {
     const category_id = queryParams.get('category_id')
     const breakdown_id = queryParams.get('breakdown_id')
     const place_id = queryParams.get('place_id')
+    const tags = queryParams.get('tag_ids')
+    const tag_ids = tags ? tags.split(',').map(t => Number(t)) : []
     const params = {
       page: (page ? Number(page) : undefined) || 1,
       date: null,
@@ -82,6 +85,8 @@ class RecordsListContainer extends Component<Props> {
       breakdown_name: breakdown_id ? 'id: ' + breakdown_id : '',
       place_id: place_id ? Number(place_id) : null,
       place_name: place_id ? 'id: ' + place_id : '',
+      tag_ids: tag_ids.toString(),
+      tags: tag_ids.map(id => ['id', id]).map(([k,v]) => ({[k]:v}))
     }
     this.props.changePage(params.page)
     this.props.setRecordSearchParams(params)
@@ -225,6 +230,31 @@ class RecordsListContainer extends Component<Props> {
     })
   }
 
+  handleClickTagIcon(tag: Tag): void {
+    const tag_ids = this.props.recordSearch.tag_ids.split(',').map(t => Number(t)).filter((x) => x !== 0)
+    const tags = this.props.recordSearch.tags
+    if (!tag_ids.includes(tag.id)) {
+      tag_ids.push(tag.id)
+      tags.push(tag)
+    }
+    tags.forEach((t: Tag, index: number) => {
+      if (t.id === tag.id) {
+        tags[index] = tag
+      }
+    })
+    const params = {
+      ...this.props.recordSearch,
+      page: 1,
+      tag_ids: tag_ids.toString(),
+      tags: tags
+    }
+    this.props.setRecordSearchParams(params)
+    this.props.getRecords(params)
+    this.props.history.push({
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
   handleClickSort(e: React.MouseEvent<HTMLElement>): void {
     const params = {
       ...this.props.recordSearch,
@@ -266,6 +296,7 @@ class RecordsListContainer extends Component<Props> {
           </div>
         </div>
         <SearchKeywords />
+        {this.props.recordsStore.records.length} / {this.props.recordsStore.totalCount}
         {this.props.recordsStore.records.length > 0 || !this.props.recordsStore.isLoading ? (
           <Records
             editedRecordId={this.props.editRecordStore.editedRecordId}
@@ -277,6 +308,7 @@ class RecordsListContainer extends Component<Props> {
             onClickDestroy={this.handleClickDestroy}
             onClickEdit={this.handleClickEdit}
             onClickPlace={this.handleClickPlace}
+            onClickTagIcon={this.handleClickTagIcon}
             onClickSort={this.handleClickSort}
             records={this.props.recordsStore.records}
             recordSearchStore={this.props.recordSearch}

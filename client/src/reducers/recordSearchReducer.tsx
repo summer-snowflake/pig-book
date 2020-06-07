@@ -16,7 +16,9 @@ const initialState = {
   breakdown_id: null,
   breakdown_name: null,
   place_id: null,
-  place_name: null
+  place_name: null,
+  tag_ids: '',
+  tags: []
 }
 
 interface StoreAction extends Action {
@@ -41,7 +43,9 @@ const RecordSearchReducer = (state: RecordSearchStore = initialState, action: St
       breakdown_id: action.params.breakdown_id,
       breakdown_name: action.params.breakdown_name,
       place_id: action.params.place_id,
-      place_name: action.params.place_name
+      place_name: action.params.place_name,
+      tag_ids: action.params.tag_ids,
+      tags: action.params.tags
     }
   case actionTypes.CHANGE_PAGE:
     return {

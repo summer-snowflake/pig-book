@@ -45,6 +45,10 @@ export interface PlacesAction extends Action {
   places: Place[];
 }
 
+export interface TagsAction extends Action {
+  tags: Tag[];
+}
+
 export interface UsersAction extends Action {
   users: User[];
   page: number;
@@ -63,6 +67,7 @@ export interface RecordsAction extends Action {
   records: Record[];
   max_page: number;
   totals: RecordTotals;
+  total_count: number;
 }
 
 export interface DashboardAction extends Action {

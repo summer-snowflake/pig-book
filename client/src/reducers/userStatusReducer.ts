@@ -6,7 +6,9 @@ const initialState = {
   isLoading: false,
   isLogged: false,
   admin: null,
-  dailyOption: false
+  email: '',
+  dailyOption: false,
+  optionsList: ''
 }
 
 const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): UserStatusStore => {
@@ -33,7 +35,9 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: UserAc
       isLoading: false,
       isLogged: true,
       dailyOption: action.user.daily_option,
-      admin: action.user.admin
+      admin: action.user.admin,
+      email: action.user.email,
+      optionsList: action.user.options_list
     }
   case actionTypes.GET_COOKIES_FAILURE:
     return {

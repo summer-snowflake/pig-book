@@ -35,10 +35,10 @@ export interface ProfileParams {
 
 export interface RecordParams {
   published_at: string;
-  category_id: number;
-  breakdown_id: number;
-  place_id: number;
-  charge: number;
+  category_id: number | undefined;
+  breakdown_id: number | undefined;
+  place_id: number | undefined;
+  charge: number | string;
   memo: string;
 }
 
@@ -54,13 +54,15 @@ export interface RecordSearchParams {
   breakdown_name?: string | null;
   place_id?: number | null;
   place_name?: string | null;
+  tag_ids?: string;
+  tags?: { [x: string]: ReactText; }[];
 }
 
 export interface RecordSearchResponseParams {
   page: number;
   date: Date | null;
-  month: number | null;
   year: number | null;
+  month: number | null;
   order: string | null;
   category_id: number | null;
   category_name: string | null;
@@ -68,6 +70,8 @@ export interface RecordSearchResponseParams {
   breakdown_name: string | null;
   place_id: number | null;
   place_name: string | null;
+  tag_ids: string;
+  tags: Tag[];
 }
 
 export interface QueryParams {
@@ -79,6 +83,7 @@ export interface QueryParams {
   category_id: string;
   breakdown_id: string;
   place_id: string;
+  tag_ids: string;
 }
 
 export interface Admin {
@@ -101,6 +106,7 @@ export interface User {
   active: boolean;
   admin: Admin;
   daily_option: boolean;
+  options_list: string;
 }
 
 export interface Profile {
@@ -151,6 +157,13 @@ export interface ReadRecord {
   category: Category;
   breakdown: Breakdown;
   place: Place;
+  tags: Tag[];
+}
+
+export interface Tag {
+  id: number;
+  name: string;
+  color_code: string;
 }
 
 export interface Record {
@@ -166,6 +179,7 @@ export interface Record {
   category: Category;
   breakdown: Breakdown;
   place: Place;
+  tags: Tag[];
 }
 
 export interface RecordTotals {

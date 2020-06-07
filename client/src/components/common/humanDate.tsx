@@ -7,6 +7,9 @@ interface Props {
 
 class HumanDate extends Component<Props & I18nProps> {
   toHumanDate(): string {
+    if (!this.props.date) {
+      return ''
+    }
     const { t } = this.props
     const format = t('format.date')
     let dateStr = format
