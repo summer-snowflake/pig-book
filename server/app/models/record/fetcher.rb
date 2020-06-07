@@ -54,7 +54,7 @@ class Record::Fetcher
     records = records.where(breakdown: breakdown) if breakdown
     records = records.where(place: place) if place
     records = records.where(tags: { id: tag_ids }) if tag_ids.present?
-    records = records.includes(:category, :breakdown, :place, tagged_records: :tag)
+    records = records.includes(:category, :breakdown, :place, :tags, tagged_records: :tag)
     records
   end
 

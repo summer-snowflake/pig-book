@@ -129,7 +129,8 @@ class NewRecordFormContainer extends Component<Props> {
       charge: this.props.newRecord.record.charge,
       cashless_charge: this.props.newRecord.record.cashless_charge || 0,
       point: this.props.newRecord.record.point || 0,
-      memo: this.props.newRecord.record.memo
+      memo: this.props.newRecord.record.memo,
+      tags: this.props.newRecord.record.tags
     }
     let searchParams = {}
     if (this.props.recordSearch.date) {

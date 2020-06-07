@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RecordsController < BaseController
+  before_action :set_record, only: %i[update destroy]
+
   def index
     fetcher = Record::Fetcher.new(user: current_user)
     fetcher.find_all_by(records_params)
@@ -15,6 +17,10 @@ class RecordsController < BaseController
   def create
     record = current_user.records.new(record_params)
     if record.save
+      if tags_params[:tags]
+        tags = tags_params[:tags].pluck(:id).map { |tag| { tag_id: tag } }
+        record.tagged_records.create(tags)
+      end
       render json: record, status: :created
     else
       render_validation_error record
@@ -22,24 +28,35 @@ class RecordsController < BaseController
   end
 
   def update
-    record = current_user.records.find(params[:id])
-    if record.update(record_params)
-      render json: record, status: :ok
+    if @record.update(record_params)
+      if tags_params[:tags]
+        tags = tags_params[:tags].pluck(:id).map { |tag| { tag_id: tag } }
+        @record.tagged_records.destroy_all
+        @record.tagged_records.create(tags)
+      end
+      render json: @record, status: :ok
     else
-      render_validation_error record
+      render_validation_error @record
     end
   end
 
   def destroy
-    record = current_user.records.find(params[:id])
-    record.destroy!
+    @record.destroy!
   end
 
   private
 
+  def set_record
+    @record = current_user.records.find(params[:id])
+  end
+
   def record_params
-    params.permit(:published_at, :category_id, :breakdown_id, :place_id, :tags,
+    params.permit(:published_at, :category_id, :breakdown_id, :place_id,
                   :currency, :charge, :cashless_charge, :point, :memo)
+  end
+
+  def tags_params
+    params.permit(tags: [:id])
   end
 
   def records_params
