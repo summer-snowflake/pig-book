@@ -8,6 +8,7 @@ import CategorySelectBoxContainer from 'components/settings/category/categorySel
 import BreakdownSelectBox from 'components/input/breakdownSelectBox'
 import PlaceSelectBox from 'components/input/placeSelectBox'
 import TodayButton from 'components/input/todayButton'
+import TagsSelectFormContainer from 'components/input/tagsSelectFormContainer'
 
 import 'stylesheets/datepicker/datepicker.sass'
 import 'stylesheets/datepicker/datepicker-overrides.sass'
@@ -82,6 +83,9 @@ class RecordForm extends Component<Props> {
             onChangePlace={this.props.onChangePlace}
             places={this.props.store.places}
           />
+        </div>
+        <div className='form-group'>
+          <TagsSelectFormContainer recordTags={this.props.store.record.tags} recordId={this.props.store.record.id} />
         </div>
         <div className='form-group row'>
           <div className='col-md-4 currency-field'>

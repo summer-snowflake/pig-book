@@ -35,10 +35,10 @@ export interface ProfileParams {
 
 export interface RecordParams {
   published_at: string;
-  category_id: number;
-  breakdown_id: number;
-  place_id: number;
-  charge: number;
+  category_id: number | undefined;
+  breakdown_id: number | undefined;
+  place_id: number | undefined;
+  charge: number | string;
   memo: string;
 }
 
@@ -179,6 +179,7 @@ export interface Record {
   category: Category;
   breakdown: Breakdown;
   place: Place;
+  tags: Tag[];
 }
 
 export interface RecordTotals {

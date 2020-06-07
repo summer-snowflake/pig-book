@@ -121,7 +121,7 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleClickCreate(): void {
     const params = {
-      published_at: this.props.newRecord.record.published_on,
+      published_at: String(this.props.newRecord.record.published_on),
       category_id: this.props.newRecord.record.category.id,
       breakdown_id: this.props.newRecord.record.breakdown_id,
       place_id: this.props.newRecord.record.place_id,
@@ -129,7 +129,8 @@ class NewRecordFormContainer extends Component<Props> {
       charge: this.props.newRecord.record.charge,
       cashless_charge: this.props.newRecord.record.cashless_charge || 0,
       point: this.props.newRecord.record.point || 0,
-      memo: this.props.newRecord.record.memo
+      memo: this.props.newRecord.record.memo,
+      tags: this.props.newRecord.record.tags
     }
     let searchParams = {}
     if (this.props.recordSearch.date) {

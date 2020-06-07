@@ -1,0 +1,78 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+describe 'POST /api/tags', autodoc: true do
+  let!(:user) { create(:user, :active) }
+  let!(:tag) { create(:tag, user: user) }
+
+  context 'when NOT logged in.' do
+    it 'returns status code 401 and json errors data' do
+      post '/api/tags'
+
+      expect(response.status).to eq 401
+      json = {
+        errors: ['アカウント登録もしくはログインしてください。']
+      }.to_json
+      expect(response.body).to be_json_eql(json)
+    end
+  end
+
+  context 'when logged in.' do
+    context 'name is valid' do
+      it 'returns status code 201 and json tag data' do
+        params = {
+          name: '新しいラベル',
+          color_code: '#000000'
+        }.to_json
+        post '/api/tags',
+             params: params, headers: login_headers_with_login(user)
+
+        expect(response.status).to eq 201
+        json = {
+          name: '新しいラベル',
+          color_code: '#000000',
+          user_id: user.id
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
+    end
+
+    context 'already has same tag name' do
+      let!(:tag) do
+        create(:tag, user: user, name: '同じラベル')
+      end
+
+      it 'returns status code 422 and json errors data' do
+        params = {
+          name: '同じラベル',
+          color_code: tag.color_code
+        }.to_json
+        post '/api/tags',
+             params: params, headers: login_headers_with_login(user)
+
+        expect(response.status).to eq 422
+        json = {
+          errors: ['ラベルはすでに登録されています']
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
+    end
+
+    context 'tag name is empty' do
+      it 'returns status code 422 and json errors data' do
+        params = {
+          name: ''
+        }.to_json
+        post '/api/tags',
+             params: params, headers: login_headers_with_login(user)
+
+        expect(response.status).to eq 422
+        json = {
+          errors: ['ラベルを入力してください']
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
+    end
+  end
+end

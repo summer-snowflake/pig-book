@@ -45,6 +45,10 @@ export interface PlacesAction extends Action {
   places: Place[];
 }
 
+export interface TagsAction extends Action {
+  tags: Tag[];
+}
+
 export interface UsersAction extends Action {
   users: User[];
   page: number;

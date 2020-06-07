@@ -98,6 +98,11 @@ export interface PlaceCategoriesStore {
   categories: Category[];
 }
 
+export interface TagsStore {
+  isLoading: boolean;
+  tags: Tag[];
+}
+
 export interface UsersStore {
   isLoading: boolean;
   users: AdminUser[];
@@ -109,7 +114,7 @@ export interface NewRecordStore {
   isLoading: boolean;
   isOpenNewRecordModal: boolean;
   editing: boolean;
-  record: Record;
+  record: FrontRecord;
   breakdowns: Breakdown[];
   places: Place[];
   errors: string[];
@@ -119,10 +124,28 @@ export interface EditRecordStore {
   isLoading: boolean;
   isOpenEditRecordModal: boolean;
   editedRecordId: number | undefined;
-  record: Record;
+  record: FrontEditRecord;
   breakdowns: Breakdown[];
   places: Place[];
   errors: string[];
+}
+
+interface FrontEditRecord extends FrontRecord {
+  id: number;
+}
+
+interface FrontRecord {
+  id?: number;
+  published_on: Date;
+  charge: number | string;
+  cashless_charge: number | string;
+  point: number | string;
+  memo: string;
+  category: Category | { id: undefined, balance_of_payments: boolean };
+  category_id: number | undefined;
+  breakdown_id: number | undefined;
+  place_id: number | undefined;
+  tags: Tag[];
 }
 
 export interface RecordsStore {
