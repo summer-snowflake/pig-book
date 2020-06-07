@@ -272,6 +272,23 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
         tags: [...state.record.tags, action.tag]
       }
     }
+  case actionTypes.REMOVE_EDIT_RECORD_TAG:
+    return {
+      ...state,
+      record: {
+        id: state.record.id,
+        published_on: state.record.published_on,
+        charge: state.record.charge,
+        cashless_charge: state.record.cashless_charge,
+        point: state.record.point,
+        memo: state.record.memo,
+        category: state.record.category,
+        category_id: state.record.category_id,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id,
+        tags: state.record.tags.filter((tag) => tag.id !== action.tag.id)
+      }
+    }
   case actionTypes.EDIT_RECORD:
     return {
       ...state,

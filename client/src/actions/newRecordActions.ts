@@ -176,3 +176,10 @@ export const addNewRecordTag = (tag: Tag): WithTagAction => {
     tag
   }
 }
+
+export const removeNewRecordTag = (tag: Tag): WithTagAction => {
+  return {
+    type: actionTypes.REMOVE_NEW_RECORD_TAG,
+    tag
+  }
+}

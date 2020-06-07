@@ -182,3 +182,10 @@ export const addEditRecordTag = (tag: Tag): WithTagAction => {
     tag
   }
 }
+
+export const removeEditRecordTag = (tag: Tag): WithTagAction => {
+  return {
+    type: actionTypes.REMOVE_EDIT_RECORD_TAG,
+    tag
+  }
+}

@@ -6,8 +6,8 @@ import { Action } from 'redux'
 import { Tag } from 'types/api'
 import { TagsStore } from 'types/store'
 import { getTags } from 'actions/tagsActions'
-import { addNewRecordTag } from 'actions/newRecordActions'
-import { addEditRecordTag } from 'actions/editRecordActions'
+import { addNewRecordTag, removeNewRecordTag } from 'actions/newRecordActions'
+import { addEditRecordTag, removeEditRecordTag } from 'actions/editRecordActions'
 import { RootState } from 'reducers/rootReducer'
 import TagLabel from 'components/common/tagLabel'
 import TagListItem from 'components/common/tagListItem'
@@ -29,6 +29,8 @@ interface DispatchProps {
   getTags: () => void;
   addNewRecordTag: (tag: Tag) => void;
   addEditRecordTag: (tag: Tag) => void;
+  removeNewRecordTag: (tag: Tag) => void;
+  removeEditRecordTag: (tag: Tag) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -55,7 +57,11 @@ class TagsSelectFormContainer extends Component<Props, State> {
   }
 
   handleClickCancel(tag: Tag): void {
-    console.log(tag)
+    if (this.props.recordId === undefined) {
+      this.props.removeNewRecordTag(tag)
+    } else {
+      this.props.removeEditRecordTag(tag)
+    }
   }
 
   handleClickTagName(tag: Tag): void {
@@ -74,7 +80,7 @@ class TagsSelectFormContainer extends Component<Props, State> {
   render(): JSX.Element {
     return (
       <div className='tags-select-form-component'>
-        <div>
+        <div className='tag-labels-field'>
           {this.props.recordTags.map((tag) => (
             <TagLabel key={tag.id} tag={tag} onClickCancel={this.handleClickCancel} />
           ))}
@@ -108,6 +114,12 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     addEditRecordTag(tag: Tag): void {
       dispatch(addEditRecordTag(tag))
+    },
+    removeNewRecordTag(tag: Tag): void {
+      dispatch(removeNewRecordTag(tag))
+    },
+    removeEditRecordTag(tag: Tag): void {
+      dispatch(removeEditRecordTag(tag))
     }
   }
 }

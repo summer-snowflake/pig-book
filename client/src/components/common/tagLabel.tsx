@@ -23,6 +23,9 @@ class TagLabel extends Component<Props> {
     return (
       <span className='tag-label-component'>
         <TagName tag={this.props.tag} />
+        <span className='cancel-icon' onClick={this.handleClickCancelTag}>
+          <i className='fas fa-times right-icon' />
+        </span>
       </span>
     )
   }
