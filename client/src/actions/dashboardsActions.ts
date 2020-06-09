@@ -38,3 +38,9 @@ export const getDashboards = () => {
     }
   }
 }
+
+export const clearDashboards = (): Action => {
+  return {
+    type: actionTypes.CLEAR_DASHBOARDS
+  }
+}

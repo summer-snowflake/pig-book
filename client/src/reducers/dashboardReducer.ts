@@ -61,6 +61,10 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
     return {
       ...initialState
     }
+  case actionTypes.CLEAR_DASHBOARD:
+    return {
+      ...initialState
+    }
   default:
     return state
   }

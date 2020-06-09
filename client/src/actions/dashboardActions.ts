@@ -70,3 +70,9 @@ export const patchDashboard = (year: number) => {
     }
   }
 }
+
+export const clearDashboard = (): Action => {
+  return {
+    type: actionTypes.CLEAR_DASHBOARD
+  }
+}
