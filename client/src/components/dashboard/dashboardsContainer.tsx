@@ -4,8 +4,8 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 
 import { DashboardsStore } from 'types/store'
-import { patchDashboard, clearDashboard } from 'actions/dashboardActions'
-import { getDashboards } from 'actions/dashboardsActions'
+import { patchDashboard } from 'actions/dashboardActions'
+import { getDashboards, clearDashboards } from 'actions/dashboardsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
@@ -20,7 +20,7 @@ interface StateProps {
 interface DispatchProps {
   getDashboards: () => void;
   patchDashboard: (year: number) => void;
-  clearDashboard: () => void;
+  clearDashboards: () => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -32,15 +32,10 @@ class DashboardContainer extends Component<Props> {
     this.props.getDashboards()
 
     this.handleClickTallyButton = this.handleClickTallyButton.bind(this)
-    this.handleUnmount = this.handleUnmount.bind(this)
   }
 
   handleClickTallyButton(year: number): void {
     this.props.patchDashboard(year)
-  }
-
-  handleUnmount(): void {
-    console.log('AAA')
   }
 
   render(): JSX.Element {
@@ -60,13 +55,13 @@ class DashboardContainer extends Component<Props> {
                 breakdownYearly={dashboards[Number(year)].yearly_breakdown_income}
                 categoryYearly={dashboards[Number(year)].yearly_category_income}
                 dataKey={'income'}
-                handleUnmount={this.handleUnmount}
+                onUnmount={this.props.clearDashboards}
               />
               <YearlyPieChart
                 breakdownYearly={dashboards[Number(year)].yearly_breakdown_expenditure}
                 categoryYearly={dashboards[Number(year)].yearly_category_expenditure}
                 dataKey={'expenditure'}
-                handleUnmount={this.handleUnmount}
+                onUnmount={this.props.clearDashboards}
               />
             </div>
           </div>
@@ -92,8 +87,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
         dispatch(getDashboards())
       })
     },
-    clearDashboard(): void {
-      dispatch(clearDashboard())
+    clearDashboards(): void {
+      dispatch(clearDashboards())
     }
   }
 }

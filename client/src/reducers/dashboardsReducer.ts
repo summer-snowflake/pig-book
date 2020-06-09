@@ -30,6 +30,10 @@ const dashboardsReducer = (state: DashboardsStore = initialState, action: Dashbo
       ...state,
       isLoading: false
     }
+  case actionTypes.CLEAR_DASHBOARDS:
+    return {
+      ...initialState
+    }
   case actionTypes.LOGOUT_SUCCESS:
     return {
       ...initialState

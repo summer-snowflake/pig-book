@@ -8,7 +8,7 @@ interface Props extends I18nProps {
   dataKey: string;
   categoryYearly: YearlyBalanceTable[];
   breakdownYearly: YearlyBalanceTable[];
-  handleUnmount: () => void;
+  onUnmount: () => void;
 }
 
 class YearlyPieChart extends Component<Props> {
@@ -19,6 +19,10 @@ class YearlyPieChart extends Component<Props> {
     this.renderCustomizedLabel = this.renderCustomizedLabel.bind(this)
     this.categoryYearly = this.categoryYearly.bind(this)
     this.breakdownYearly = this.breakdownYearly.bind(this)
+  }
+
+  componentWillUnmount() {
+    this.props.onUnmount()
   }
 
   renderCustomizedLabel({ cx, cy, midAngle, innerRadius, outerRadius, index }: { cx: number; cy: number; midAngle: number; innerRadius: number; outerRadius: number; index: number }): any {
@@ -64,7 +68,6 @@ class YearlyPieChart extends Component<Props> {
   }
 
   breakdownYearly() {
-    this.props.handleUnmount()
     const breakdownYearly: YearlyBalanceTable[] = Object.assign(this.props.breakdownYearly)
     breakdownYearly.map((y) => {
       y.income = Number(y.income)
