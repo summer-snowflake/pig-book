@@ -13,7 +13,11 @@ interface Props extends I18nProps {
 class YearlyPieChart extends Component<Props> {
   constructor(props: Props) {
     super(props)
+
+    this.setFormatter = this.setFormatter.bind(this)
     this.renderCustomizedLabel = this.renderCustomizedLabel.bind(this)
+    this.categoryYearly = this.categoryYearly.bind(this)
+    this.breakdownYearly = this.breakdownYearly.bind(this)
   }
 
   renderCustomizedLabel({ cx, cy, midAngle, innerRadius, outerRadius, index }: { cx: number; cy: number; midAngle: number; innerRadius: number; outerRadius: number; index: number }): any {
@@ -30,33 +34,46 @@ class YearlyPieChart extends Component<Props> {
     )
   }
 
-  render(): JSX.Element {
+  tooltipValue(charge: number): string {
     const { t } = this.props
+
+    if (t('label.locale') === 'jp-JP') {
+      return Math.floor(charge).toLocaleString(t('label.locale'), { style: 'currency', currency: 'JPY'})
+    } else {
+      return charge.toLocaleString(t('label.locale'), { maximumSignificantDigits: 3 })
+    }
+  }
+
+  setFormatter(value: number, name: string, props: { payload: YearlyBalanceTable } ): string {
+    const incomeTotal = this.categoryYearly().length > 0 ? this.categoryYearly().map ((t) => t.income).reduce((acc, cur) => acc + cur) : 0
+    const outgoTotal = this.categoryYearly().length > 0 ? this.categoryYearly().map ((t) => t.expenditure).reduce((acc, cur) => acc + cur) : 0
+
+    const charge: number = this.props.dataKey === 'income' ? props.payload.income : props.payload.expenditure
+    return this.tooltipValue(charge) + ' (Rate: ' + (value / (this.props.dataKey === 'income' ? incomeTotal : outgoTotal) * 100).toFixed(0) + '%)'
+  }
+
+  categoryYearly() {
     const categoryYearly: YearlyBalanceTable[] = Object.assign(this.props.categoryYearly)
     categoryYearly.map((y) => {
       y.income = Number(y.income)
       y.expenditure = Number(y.expenditure)
       return y
     })
+    return categoryYearly
+  }
+
+  breakdownYearly() {
     const breakdownYearly: YearlyBalanceTable[] = Object.assign(this.props.breakdownYearly)
     breakdownYearly.map((y) => {
       y.income = Number(y.income)
       y.expenditure = Number(y.expenditure)
       return y
     })
-    // Tooltip ラベル
-    const incomeTotal = categoryYearly.length > 0 ? categoryYearly.map ((t) => t.income).reduce((acc, cur) => acc + cur) : 0
-    const outgoTotal = categoryYearly.length > 0 ? categoryYearly.map ((t) => t.expenditure).reduce((acc, cur) => acc + cur) : 0
-    const formatTooltip = (value: number, _name: string, props: { payload: YearlyBalanceTable }): string => {
-      const charge: number = this.props.dataKey === 'income' ? props.payload.income : props.payload.expenditure
-      let humanCharge = ''
-      if (t('label.locale') === 'jp-JP') {
-        humanCharge = Math.floor(charge).toLocaleString(t('label.locale'), { style: 'currency', currency: 'JPY'})
-      } else {
-        humanCharge = charge.toLocaleString(t('label.locale'), { maximumSignificantDigits: 3 })
-      }
-      return humanCharge + ' (Rate: ' + (value / (this.props.dataKey === 'income' ? incomeTotal : outgoTotal) * 100).toFixed(0) + '%)'
-    }
+    return breakdownYearly
+  }
+
+  render(): JSX.Element {
+    const { t } = this.props
     // カラー
     const categoryColors = this.props.dataKey === 'income' ? (
       ['#8094bd', '#94bd80', '#80bda9', '#80b3bd', '#8dcae1', '#80bd8a', '#70a1b4']
@@ -75,11 +92,11 @@ class YearlyPieChart extends Component<Props> {
           <text dy={8} fill='#666666' textAnchor='middle' x='50%' y='50%'>
             {this.props.dataKey === 'income' ? t('label.income') : t('label.outgo') }
           </text>
-          <Tooltip formatter={formatTooltip} />
+          <Tooltip formatter={this.setFormatter} />
           <Pie
             cx='50%'
             cy='50%'
-            data={categoryYearly.slice(0, 6).concat(categoryYearly.slice(6))}
+            data={this.categoryYearly().slice(0, 6).concat(this.categoryYearly().slice(6))}
             dataKey={this.props.dataKey}
             innerRadius={40}
             label={this.renderCustomizedLabel}
@@ -87,17 +104,17 @@ class YearlyPieChart extends Component<Props> {
             nameKey='label'
             outerRadius={75}
           >
-            {categoryYearly.map((_entry, index) => <Cell fill={categoryColors[index % categoryColors.length]} key={index} />)}
+            {this.categoryYearly().map((_entry, index) => <Cell fill={categoryColors[index % categoryColors.length]} key={index} />)}
           </Pie>
           <Pie
             cx='50%'
             cy='50%'
-            data={breakdownYearly}
+            data={this.breakdownYearly()}
             dataKey={this.props.dataKey}
             innerRadius={80}
             nameKey='label'
           >
-            {breakdownYearly.map((entry, index) => <Cell fill={breakdownColors[(categoryYearly.findIndex(({category_id})=> category_id === entry.category_id))]} key={index} />)}
+            {this.breakdownYearly().map((entry, index) => <Cell fill={breakdownColors[(this.categoryYearly().findIndex(({category_id})=> category_id === entry.category_id))]} key={index} />)}
           </Pie>
         </PieChart>
       </div>
