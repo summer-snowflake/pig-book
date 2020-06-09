@@ -102,7 +102,7 @@ class RecordForm extends Component<Props> {
           </div>
           <div className='col-md-3'>
             <span className='badge-field'>
-              <span className='badge badge-pill badge-light'>
+              <span className='green badge badge-pill badge-light'>
                 <i className='far fa-check-square' />
               </span>
             </span>
@@ -116,7 +116,7 @@ class RecordForm extends Component<Props> {
           </div>
           <div className='col-md-3'>
             <span className='badge-field'>
-              <span className='badge badge-pill badge-light'>
+              <span className='green badge badge-pill badge-light'>
                 <i className='fas fa-parking' />
               </span>
             </span>
