@@ -8,6 +8,7 @@ interface Props extends I18nProps {
   dataKey: string;
   categoryYearly: YearlyBalanceTable[];
   breakdownYearly: YearlyBalanceTable[];
+  handleUnmount: () => void;
 }
 
 class YearlyPieChart extends Component<Props> {
@@ -63,6 +64,7 @@ class YearlyPieChart extends Component<Props> {
   }
 
   breakdownYearly() {
+    this.props.handleUnmount()
     const breakdownYearly: YearlyBalanceTable[] = Object.assign(this.props.breakdownYearly)
     breakdownYearly.map((y) => {
       y.income = Number(y.income)
