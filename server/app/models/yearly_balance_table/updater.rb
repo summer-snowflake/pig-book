@@ -19,7 +19,9 @@ class YearlyBalanceTable::Updater
 
   def update_yearly(year)
     update_total_yearly(year)
+    destroy_category_yearly(year)
     update_category_yearly(year)
+    destroy_breakdown_yearly(year)
     update_breakdown_yearly(year)
   end
 
@@ -28,6 +30,17 @@ class YearlyBalanceTable::Updater
       user.yearly_total_balance_tables
           .find_or_initialize_by(year: year, currency: user.profile.currency)
     yearly.update!(sum_total_params(year))
+  end
+
+  def destroy_category_yearly(year)
+    category_ids =
+      user.yearly_category_balance_tables.where(year: year).pluck(:category_id) -
+      user.monthly_category_balance_tables.where(year: year).pluck(:category_id)
+    return if category_ids.blank?
+
+    unnecessary_records = user.yearly_category_balance_tables
+                              .where(year: year, category_id: category_ids)
+    unnecessary_records.delete_all
   end
 
   def update_category_yearly(year)
@@ -61,6 +74,17 @@ class YearlyBalanceTable::Updater
       cashless_charge: records.inject(0) { |sum, m| sum + m.cashless_charge },
       point: records.inject(0) { |sum, m| sum + m.point }
     }
+  end
+
+  def destroy_breakdown_yearly(year)
+    breakdown_ids =
+      user.yearly_breakdown_balance_tables.where(year: year).pluck(:breakdown_id) -
+      breakdown_monthly.where(year: year).pluck(:breakdown_id)
+    return if breakdown_ids.blank?
+
+    unnecessary_records = user.yearly_breakdown_balance_tables
+                              .where(year: year, breakdown_id: breakdown_ids)
+    unnecessary_records.delete_all
   end
 
   def update_breakdown_yearly(year)
