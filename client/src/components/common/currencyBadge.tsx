@@ -10,7 +10,7 @@ class CurrencyBadge extends Component<Props & I18nProps> {
     const { t } = this.props
 
     return (
-      <span className='currency-badge-component badge badge-pill badge-light'>
+      <span className='currency-badge-component badge badge-pill badge-light green'>
         {this.props.currency && (
           <span>
             {t('label.currency-unit-' + this.props.currency)}

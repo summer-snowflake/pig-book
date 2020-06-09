@@ -22,5 +22,6 @@ en:
         breakdown: Breakdown
         place: Shop/Facility
         charge: Charge
+        cashless_charge: Return Amount
         point: Point
         memo: Note
