@@ -4,7 +4,7 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 
 import { DashboardStore } from 'types/store'
-import { getDashboard, patchDashboard } from 'actions/dashboardActions'
+import { getDashboard, patchDashboard, clearDashboard } from 'actions/dashboardActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
@@ -19,6 +19,7 @@ interface StateProps {
 interface DispatchProps {
   getDashboard: () => void;
   patchDashboard: (year: number) => void;
+  clearDashboard: () => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -50,11 +51,13 @@ class DashboardContainer extends Component<Props> {
             breakdownYearly={this.props.dashboard.yearly_breakdown_income}
             categoryYearly={this.props.dashboard.yearly_category_income}
             dataKey={'income'}
+            onUnmount={this.props.clearDashboard}
           />
           <YearlyPieChart
             breakdownYearly={this.props.dashboard.yearly_breakdown_expenditure}
             categoryYearly={this.props.dashboard.yearly_category_expenditure}
             dataKey={'expenditure'}
+            onUnmount={this.props.clearDashboard}
           />
         </div>
       </div>
@@ -77,6 +80,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(patchDashboard(year)).then(() => {
         dispatch(getDashboard())
       })
+    },
+    clearDashboard(): void {
+      dispatch(clearDashboard())
     }
   }
 }

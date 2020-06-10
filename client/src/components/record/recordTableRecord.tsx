@@ -162,7 +162,7 @@ class RecordTableRecord extends Component<Props, State> {
             </td>
           )}
           {this.props.format === 'detail' && (
-            <td className={'record-point-td' + (this.props.record.cashless_charge === 0 ? ' zero' : '')}>
+            <td className={'record-point-td' + (this.props.record.point === 0 ? ' zero' : '')}>
               <i className='fas fa-parking left-icon' />
               {this.props.record.point}
             </td>

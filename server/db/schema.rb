@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_06_154309) do
+ActiveRecord::Schema.define(version: 2020_06_09_203503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_06_06_154309) do
     t.integer "cashless_charge", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "type"
+    t.string "type", null: false
     t.bigint "category_id"
     t.string "label"
     t.bigint "breakdown_id"
