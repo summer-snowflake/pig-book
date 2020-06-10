@@ -85,7 +85,7 @@ class YearlyBalanceTable::Updater
     diff_ids.each do |diff_id|
       record = user.yearly_breakdown_balance_tables
                    .where(year: year, category_id: diff_id[0], breakdown_id: diff_id[1])
-      record.destroy
+      record.delete_all
     end
   end
 
