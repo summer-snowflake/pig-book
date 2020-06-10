@@ -77,14 +77,16 @@ class YearlyBalanceTable::Updater
   end
 
   def destroy_breakdown_yearly(year)
-    breakdown_ids =
-      user.yearly_breakdown_balance_tables.where(year: year).pluck(:breakdown_id) -
-      breakdown_monthly.where(year: year).pluck(:breakdown_id)
-    return if breakdown_ids.blank?
+    diff_ids =
+      user.yearly_breakdown_balance_tables.where(year: year).pluck(:category_id, :breakdown_id) -
+      breakdown_monthly.where(year: year).pluck(:category_id, :breakdown_id)
+    return if diff_ids.blank?
 
-    unnecessary_records = user.yearly_breakdown_balance_tables
-                              .where(year: year, breakdown_id: breakdown_ids)
-    unnecessary_records.delete_all
+    diff_ids.each do |diff_id|
+      record = user.yearly_breakdown_balance_tables
+                   .where(year: year, category_id: diff_id[0], breakdown_id: diff_id[1])
+      record.destroy
+    end
   end
 
   def update_breakdown_yearly(year)
