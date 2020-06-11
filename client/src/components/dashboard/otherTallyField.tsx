@@ -41,7 +41,7 @@ class OtherTallyField extends Component<Props, State> {
     return (
       <div className='other-tally-field-component'>
         <select
-          className='form-control'
+          className='form-control years-select'
           onChange={this.handleChangeYear}
           value={this.state.year}
         >
