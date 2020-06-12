@@ -59,7 +59,7 @@ class Dashboard::Fetcher
                                      year: year, category_id: category_id)
                               .order(income: :desc)
     end
-    breakdown_income.flatten + build_other_record(income_category_ids(year))
+    breakdown_income.flatten + build_other_record(income_category_ids(year), year)
   end
 
   def yearly_category_outgo(year)
@@ -80,7 +80,7 @@ class Dashboard::Fetcher
                                     year: year, category_id: category_id)
                              .order(expenditure: :desc)
     end
-    breakdown_outgo.flatten + build_other_record(outgo_category_ids(year))
+    breakdown_outgo.flatten + build_other_record(outgo_category_ids(year), year)
   end
 
   def outgo_category_ids(year)
@@ -91,10 +91,11 @@ class Dashboard::Fetcher
     yearly_category_income(year).pluck(:category_id).slice(0, 6)
   end
 
-  def build_other_record(target_category_ids)
+  def build_other_record(target_category_ids, year)
     return [] if target_category_ids.blank?
 
     offset_records = user.yearly_breakdown_balance_tables
+                         .where(year: year)
                          .where.not(category_id: target_category_ids)
     balance = user.categories.find(target_category_ids.last).balance_of_payments
     condition = balance ? { income: 0 } : { expenditure: 0 }

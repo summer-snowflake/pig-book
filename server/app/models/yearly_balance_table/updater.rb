@@ -44,7 +44,7 @@ class YearlyBalanceTable::Updater
   end
 
   def update_category_yearly(year)
-    user.monthly_category_balance_tables
+    user.monthly_category_balance_tables.where(year: year)
         .group_by(&:category_id).each do |category_id, records|
       category_yearly = user.yearly_category_balance_tables
                             .find_or_initialize_by(
@@ -90,7 +90,7 @@ class YearlyBalanceTable::Updater
   end
 
   def update_breakdown_yearly(year)
-    breakdown_monthly.group_by(&:category_id).each do |category_id, c_records|
+    breakdown_monthly.where(year: year).group_by(&:category_id).each do |category_id, c_records|
       c_records.group_by(&:breakdown_id).each do |breakdown_id, records|
         breakdown_yearly =
           user.yearly_breakdown_balance_tables.find_or_initialize_by(
