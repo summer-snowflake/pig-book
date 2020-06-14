@@ -27,6 +27,7 @@ import SettingsTopPage from 'components/settings/settingsTopPage'
 import CategoryPage from 'components/settings/category/categoryPage'
 import BreakdownPage from 'components/settings/breakdown/breakdownPage'
 import PlacePage from 'components/settings/place/placePage'
+import TagPage from 'components/settings/tag/tagPage'
 import AdminUsersPage from 'components/admin/adminUsersPage'
 import Footer from 'components/footer'
 import Page404 from 'components/errors/page404'
@@ -77,6 +78,7 @@ class App extends Component<Props> {
               <Route component={CategoryPage} exact path='/categories' />
               <Route component={BreakdownPage} exact path='/breakdowns' />
               <Route component={PlacePage} exact path='/places' />
+              <Route component={TagPage} exact path='/labels' />
               <Route component={AdminUsersPage} exact path='/admin/users' />
               <Route component={Page404} exact />
             </Switch>

@@ -59,7 +59,8 @@ class HeaderContainer extends Component<Props> {
       this.props.location.pathname === '/settings' ||
       this.props.location.pathname === '/categories' ||
       this.props.location.pathname === '/breakdowns' ||
-      this.props.location.pathname === '/places'
+      this.props.location.pathname === '/places' ||
+      this.props.location.pathname === '/labels'
 
     return (
       <header className='header-component header'>
@@ -166,6 +167,16 @@ class HeaderContainer extends Component<Props> {
                   </NavIcon>
                   <NavText>
                     {t('menu.place')}
+                  </NavText>
+                </NavItem>
+              )}
+              {this.props.userStatus.isLogged && isSettingsPath && (
+                <NavItem eventKey='/labels'>
+                  <NavIcon>
+                    <i className='fas fa-bookmark' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.tag')}
                   </NavText>
                 </NavItem>
               )}
