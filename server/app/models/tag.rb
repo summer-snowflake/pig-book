@@ -11,6 +11,8 @@ class Tag < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 30 },
                    uniqueness: { scope: :user }
+  validates :color_code, presence: true, length: { maximum: 7 },
+                         uniqueness: { scope: :user }
 
   private
 
