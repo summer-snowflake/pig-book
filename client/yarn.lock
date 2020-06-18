@@ -6071,9 +6071,9 @@ https-browserify@^1.0.0:
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
 i18next-browser-languagedetector@^4.0.1:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-4.2.0.tgz#82e35d31f88a1d7c2b6d5913bf8c8481cd40aafb"
-  integrity sha512-qRSCBWgDUSqVQb3sTxkDC+ImYLhF+wB387Y1RpOcJvyex+V3abi+W83n4Awy+dx719AOBbKTy97FjrUGrAhbyw==
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-4.3.1.tgz#005d2db6204b0a4af5f01c7987f5ccaf4ef97da5"
+  integrity sha512-KIToAzf8zwWvacgnRwJp63ase26o24AuNUlfNVJ5YZAFmdGhsJpmFClxXPuk9rv1FMI4lnc8zLSqgZPEZMrW4g==
   dependencies:
     "@babel/runtime" "^7.5.5"
 
@@ -9923,9 +9923,9 @@ react-error-overlay@^6.0.7:
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
 react-i18next@^11.3.1:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.5.0.tgz#84a9bb535d44c0c1b336b94de164515c2cc2a714"
-  integrity sha512-V6rUT7MzYBdFCgUrhfr78FHRfnY3CFoR75ET9EP5Py5UPHKyaGiK1MvPx03TesLwsmIaVHlRFU/WLzqCedXevA==
+  version "11.6.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.6.0.tgz#0621f227954d4fe1158994a7cfb3a436133cb61a"
+  integrity sha512-koyvoDgmY7y7vlbUOVWyoHahbBABfBse9X1vgYFw/WI+CfZwjumZ2/zQGYqLoMx6lEa0c9Lxr9GNP9L3HAJYUg==
   dependencies:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
