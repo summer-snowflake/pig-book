@@ -22,7 +22,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "i18next": "^19.1.0",
-    "i18next-browser-languagedetector": "^4.0.1",
+    "i18next-browser-languagedetector": "^5.0.0",
     "i18next-xhr-backend": "^3.2.2",
     "js-cookie": "^2.2.1",
     "node-sass": "^4.13.1",
