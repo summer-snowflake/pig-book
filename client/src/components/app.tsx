@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
-import i18next from 'i18next'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -57,8 +56,6 @@ class App extends Component<Props> {
   }
 
   render(): JSX.Element {
-    i18next.changeLanguage(this.props.profile.locale)
-
     return (
       <div className='app-component'>
         <Router>
