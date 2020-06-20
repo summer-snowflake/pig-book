@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
+import { SketchPicker } from 'react-color'
 
 import { Tag } from 'types/api'
 import LoadingImage from 'components/common/loadingImage'
+
+interface State {
+  colorEditing: boolean;
+}
 
 interface ParentProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -15,13 +20,42 @@ interface ParentProps {
 
 type Props = ParentProps & I18nProps
 
-class TagForm extends Component<Props> {
+class TagForm extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+
+    this.state = {
+      colorEditing: false
+    }
+
+    this.handleClickColorCode = this.handleClickColorCode.bind(this)
+  }
+
+  handleClickColorCode() {
+    this.setState({
+      colorEditing: !this.state.colorEditing
+    })
+  }
+
   render(): JSX.Element {
     const { t } = this.props
 
     return (
       <form className='tag-form-component form-row'>
-        <div className='form-group col-md-7'>
+        <div className="formgroup col-md-2">
+          {this.state.colorEditing ? (
+            <div className='color-picker'>
+              <SketchPicker />
+            </div>
+          ) : (
+            <div className='btn btn-default' onClick={this.handleClickColorCode}>
+              <span>
+                {this.props.tag.color_code}
+              </span>
+            </div>
+          )}
+        </div>
+        <div className='form-group col-md-5'>
           <input
             className='form-control'
             name='tag_name'
@@ -31,7 +65,7 @@ class TagForm extends Component<Props> {
             value={this.props.tag.name}
           />
         </div>
-        <div className='form-group col-md-3'>
+        <div className='form-group col-md-2'>
           <button
             className='btn btn-primary'
             disabled={this.props.disabled}

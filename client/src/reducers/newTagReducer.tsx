@@ -9,7 +9,7 @@ import FlashMessage from 'components/common/flashMessage'
 const initialState = {
   isLoading: false,
   name: '',
-  color_code: '',
+  color_code: '#' + Math.floor(Math.random() * 16777215).toString(16),
   errors: []
 }
 
