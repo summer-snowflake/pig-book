@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import 'stylesheets/tag.sass'
+
 import SettingsMenu from 'components/settings/settingsMenu'
 import TagSettings from 'components/settings/tag/tagSettings'
 

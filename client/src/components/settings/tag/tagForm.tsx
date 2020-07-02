@@ -4,6 +4,7 @@ import { SketchPicker } from 'react-color'
 
 import { Tag } from 'types/api'
 import LoadingImage from 'components/common/loadingImage'
+import ColorBox from 'components/common/colorBox'
 
 interface State {
   colorEditing: boolean;
@@ -42,17 +43,13 @@ class TagForm extends Component<Props, State> {
 
     return (
       <form className='tag-form-component form-row'>
-        <div className="formgroup col-md-2">
+        <div className="form-group col-md-2">
           {this.state.colorEditing ? (
             <div className='color-picker'>
               <SketchPicker />
             </div>
           ) : (
-            <div className='btn btn-default' onClick={this.handleClickColorCode}>
-              <span>
-                {this.props.tag.color_code}
-              </span>
-            </div>
+            <ColorBox colorCode={this.props.tag.color_code} onClick={this.handleClickColorCode} />
           )}
         </div>
         <div className='form-group col-md-5'>
