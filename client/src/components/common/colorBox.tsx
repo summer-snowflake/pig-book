@@ -12,7 +12,7 @@ class ColorBox extends Component<Props> {
     }
     return (
       <span className='color-box-component form-control'>
-        <div className='color-code-box' style={style} />
+        <div className='color-code-box' onClick={this.props.onClick} style={style} />
         <div className='color-code-text'>
           {this.props.colorCode}
         </div>

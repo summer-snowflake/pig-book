@@ -8,7 +8,7 @@ import { TagParams } from 'types/api'
 import { NewTagStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import TagForm from 'components/settings/tag/tagForm'
-import { postTag, changeTagName, exitTag } from 'actions/tagActions'
+import { postTag, changeTagName, changeTagColorCode, exitTag } from 'actions/tagActions'
 import { getTags } from 'actions/tagsActions'
 import { RootState } from 'reducers/rootReducer'
 
@@ -18,6 +18,7 @@ interface StateProps {
 
 interface DispatchProps {
   postTag: (params: TagParams) => void;
+  changeTagColorCode: (color: string) => void;
   changeTagName: (name: string) => void;
 }
 
@@ -27,6 +28,7 @@ class TagPostFormContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
+    this.handleChangeColorCode = this.handleChangeColorCode.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
@@ -34,6 +36,10 @@ class TagPostFormContainer extends Component<Props> {
 
   diff(): boolean {
     return this.props.newTag.name !== ''
+  }
+
+  handleChangeColorCode(color: string): void {
+    this.props.changeTagColorCode(color)
   }
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -64,6 +70,7 @@ class TagPostFormContainer extends Component<Props> {
           disabled={this.props.newTag.isLoading || !this.diff()}
           isLoading={this.props.newTag.isLoading}
           onChangeName={this.handleChangeName}
+          onChangeColorCode={this.handleChangeColorCode}
           onClickSubmitButton={this.handleClickSubmitButton}
           onKeyDown={this.handleKeyDown}
           tag={this.props.newTag}
@@ -88,6 +95,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
           dispatch(exitTag())
         })
       })
+    },
+    changeTagColorCode(color: string): void {
+      dispatch(changeTagColorCode(color))
     },
     changeTagName(name: string): void {
       dispatch(changeTagName(name))

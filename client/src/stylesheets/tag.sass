@@ -1,13 +1,21 @@
 @import variables
 
-.color-picker
-  display: none
+.color-box-component
+  &.form-control
+    width: 110px
+
+.tag-form-component
+  .form-group + .form-group
+    margin-left: 10px
+
+.sketch-picker
+  position: absolute
 
 .color-code-box
+  cursor: pointer
   display: inline-block
   padding: 10px
 
 .color-code-text
   float: right
   position: relative
-  right: 8px

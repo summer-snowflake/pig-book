@@ -15,6 +15,7 @@ const initialState = {
 
 interface StoreAction extends TagAction {
   name: string;
+  color: string;
   errors: string[];
 }
 
@@ -38,6 +39,11 @@ const tagReducer = (state: NewTagStore = initialState, action: StoreAction): New
       ...state,
       isLoading: false,
       errors: action.errors
+    }
+  case actionTypes.CHANGE_TAG_COLOR_CODE:
+    return {
+      ...state,
+      color_code: action.color
     }
   case actionTypes.CHANGE_TAG_NAME:
     return {

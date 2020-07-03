@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
-import { SketchPicker } from 'react-color'
+import { SketchPicker, ColorResult } from 'react-color'
 
 import { Tag } from 'types/api'
 import LoadingImage from 'components/common/loadingImage'
@@ -14,6 +14,7 @@ interface ParentProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmitButton: () => void;
+  onChangeColorCode: (color: string) => void;
   tag: Tag;
   disabled: boolean;
   isLoading: boolean;
@@ -30,6 +31,7 @@ class TagForm extends Component<Props, State> {
     }
 
     this.handleClickColorCode = this.handleClickColorCode.bind(this)
+    this.handleChangeColorCode = this.handleChangeColorCode.bind(this)
   }
 
   handleClickColorCode() {
@@ -38,21 +40,25 @@ class TagForm extends Component<Props, State> {
     })
   }
 
+  handleChangeColorCode(color: ColorResult) {
+    this.props.onChangeColorCode(color.hex)
+    this.setState({
+      colorEditing: false
+    })
+  }
+
   render(): JSX.Element {
     const { t } = this.props
 
     return (
       <form className='tag-form-component form-row'>
-        <div className="form-group col-md-2">
-          {this.state.colorEditing ? (
-            <div className='color-picker'>
-              <SketchPicker />
-            </div>
-          ) : (
-            <ColorBox colorCode={this.props.tag.color_code} onClick={this.handleClickColorCode} />
+        <div className="form-group">
+          <ColorBox colorCode={this.props.tag.color_code} onClick={this.handleClickColorCode} />
+          {this.state.colorEditing && (
+            <SketchPicker color={this.props.tag.color_code} onChangeComplete={this.handleChangeColorCode} />
           )}
         </div>
-        <div className='form-group col-md-5'>
+        <div className='form-group'>
           <input
             className='form-control'
             name='tag_name'
@@ -62,7 +68,7 @@ class TagForm extends Component<Props, State> {
             value={this.props.tag.name}
           />
         </div>
-        <div className='form-group col-md-2'>
+        <div className='form-group'>
           <button
             className='btn btn-primary'
             disabled={this.props.disabled}

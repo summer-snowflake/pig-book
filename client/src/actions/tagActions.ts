@@ -9,6 +9,10 @@ import { Tag, TagParams, Errors } from 'types/api'
 import { getCookiesFailure } from 'actions/userStatusActions'
 import { catchErrors } from 'actions/errorsAction'
 
+interface WithColorCodeAction extends Action {
+  color: string;
+}
+
 interface WithNameAction extends Action {
   name: string;
 }
@@ -55,6 +59,13 @@ export const postTag = (params: TagParams) => {
         dispatch(catchErrors(err.response))
       }
     }
+  }
+}
+
+export const changeTagColorCode = (color: string): WithColorCodeAction => {
+  return {
+    type: actionTypes.CHANGE_TAG_COLOR_CODE,
+    color
   }
 }
 
