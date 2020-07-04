@@ -50,7 +50,7 @@
     "eslint": "eslint 'src/**/**.tsx' 'src/**/**.ts'",
     "sass-lint": "sass-lint -c .sass-lint.yml -v",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts --max_old_space_size=8192 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
