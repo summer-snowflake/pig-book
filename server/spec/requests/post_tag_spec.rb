@@ -53,7 +53,7 @@ describe 'POST /api/tags', autodoc: true do
 
         expect(response.status).to eq 422
         json = {
-          errors: ['ラベルはすでに登録されています']
+          errors: %w[ラベルはすでに登録されています カラーコードはすでに登録されています]
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -69,7 +69,7 @@ describe 'POST /api/tags', autodoc: true do
 
         expect(response.status).to eq 422
         json = {
-          errors: ['ラベルを入力してください']
+          errors: %w[ラベルを入力してください カラーコードを入力してください]
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

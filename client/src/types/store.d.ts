@@ -60,6 +60,12 @@ export interface NewPlaceStore extends Errors {
   name: string;
 }
 
+export interface NewTagStore extends Errors {
+  isLoading: boolean;
+  name: string;
+  color_code: string;
+}
+
 export interface EditCategoryStore extends Errors {
   isLoading: boolean;
   editedCategoryId: number;
@@ -76,6 +82,12 @@ export interface EditPlaceStore extends Errors {
   isLoading: boolean;
   editedPlaceId: number;
   place: WithCategoriesPlace;
+}
+
+export interface EditTagStore extends Errors {
+  isLoading: boolean;
+  editedTagId: number;
+  tag: Tag;
 }
 
 export interface CategoriesStore {

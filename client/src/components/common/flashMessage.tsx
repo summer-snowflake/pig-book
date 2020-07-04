@@ -47,6 +47,9 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.DELETE_BREAKDOWN_FAILURE:
       msg = this.props.messages || ''
       break
+    case actionTypes.DELETE_TAG_FAILURE:
+      msg = this.props.messages || ''
+      break
     case actionTypes.POST_PLACE_SUCCESS:
       msg = t('message.postPlaceSuccess')
       break
@@ -73,6 +76,15 @@ class FlashMessage extends Component<I18nProps & Props> {
       break
     case actionTypes.CONFIRM_USER_SUCCESS:
       msg = t('message.confirmSuccess')
+      break
+    case actionTypes.POST_TAG_SUCCESS:
+      msg = t('message.postTagSuccess')
+      break
+    case actionTypes.PATCH_TAG_SUCCESS:
+      msg = t('message.patchTagSuccess')
+      break
+    case actionTypes.DELETE_TAG_SUCCESS:
+      msg = t('message.deleteTagSuccess')
       break
     case actionTypes.ACCESS_FAILURE:
       msg = t('message.accessFailure')

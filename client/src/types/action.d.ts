@@ -1,4 +1,4 @@
-import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial } from './api'
+import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag } from './api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
@@ -31,6 +31,10 @@ export interface BreakdownAction extends Action {
 
 export interface PlaceAction extends Action {
   place: Place;
+}
+
+export interface TagAction extends Action {
+  tag: Tag;
 }
 
 export interface CategoriesAction extends Action {
