@@ -12,6 +12,7 @@ import MonthlyData from 'components/dashboard/monthlyData'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import TallyField from './tallyField'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
+import OtherTallyField from 'components/dashboard/otherTallyField'
 
 interface StateProps {
   dashboards: DashboardsStore;
@@ -42,6 +43,10 @@ class DashboardContainer extends Component<Props> {
     const dashboards = this.props.dashboards.dashboards
     return (
       <div className='dashboards-component'>
+        <OtherTallyField
+          disabled={this.props.dashboards.isLoading}
+          onClickTallyButton={this.handleClickTallyButton}
+        />
         {Object.keys(dashboards).map((year) => (
           <div className='dashboard' key={year}>
             <div className='dashboard-year'>

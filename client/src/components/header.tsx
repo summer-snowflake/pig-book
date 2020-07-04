@@ -1,42 +1,30 @@
 import React, { Component } from 'react'
-import { Action } from 'redux'
 import { NavLink } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 import SideNav, { Toggle, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { ThunkDispatch } from 'redux-thunk'
 
 import { RouteComponentProps } from 'types/react-router'
 import { UserStatusStore } from 'types/store'
-import { getUserStatus } from 'actions/userStatusActions'
-import { signOut } from 'actions/sessionActions'
-import { RootState } from 'reducers/rootReducer'
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 import 'stylesheets/header.sass'
 import 'stylesheets/sidenav.sass'
 import brandImage from 'images/pig.gif'
 
-interface StateProps {
+interface ParentProps {
   userStatus: UserStatusStore;
+  handleClickSignOutLink: () => void;
 }
 
-interface DispatchProps {
-  getUserStatus: () => void;
-  signOut: () => void;
-}
+type Props = RouteComponentProps & ParentProps & I18nProps
 
-type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
-
-class HeaderContainer extends Component<Props> {
+class Header extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
     this.handleClickMenu = this.handleClickMenu.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
-
-    this.props.getUserStatus()
   }
 
   handleClickMenu(arg: string): void {
@@ -48,7 +36,7 @@ class HeaderContainer extends Component<Props> {
   }
 
   handleLogout(): void {
-    this.props.signOut()
+    this.props.handleClickSignOutLink()
     this.props.history.push('/users/sign_in')
   }
 
@@ -59,7 +47,8 @@ class HeaderContainer extends Component<Props> {
       this.props.location.pathname === '/settings' ||
       this.props.location.pathname === '/categories' ||
       this.props.location.pathname === '/breakdowns' ||
-      this.props.location.pathname === '/places'
+      this.props.location.pathname === '/places' ||
+      this.props.location.pathname === '/labels'
 
     return (
       <header className='header-component header'>
@@ -166,6 +155,16 @@ class HeaderContainer extends Component<Props> {
                   </NavIcon>
                   <NavText>
                     {t('menu.place')}
+                  </NavText>
+                </NavItem>
+              )}
+              {this.props.userStatus.isLogged && isSettingsPath && (
+                <NavItem eventKey='/labels'>
+                  <NavIcon>
+                    <i className='fas fa-bookmark' />
+                  </NavIcon>
+                  <NavText>
+                    {t('menu.tag')}
                   </NavText>
                 </NavItem>
               )}
@@ -303,21 +302,4 @@ class HeaderContainer extends Component<Props> {
   }
 }
 
-function mapState(state: RootState): StateProps {
-  return {
-    userStatus: state.userStatus
-  }
-}
-
-function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
-  return {
-    getUserStatus(): void {
-      dispatch(getUserStatus())
-    },
-    signOut(): void {
-      dispatch(signOut())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(withTranslation()(withRouter(HeaderContainer)))
+export default withTranslation()(withRouter(Header))

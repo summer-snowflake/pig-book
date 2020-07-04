@@ -27,6 +27,11 @@ export interface PlaceParams {
   name: string;
 }
 
+export interface TagParams {
+  name: string;
+  color_code: string;
+}
+
 export interface ProfileParams {
   locale: string;
   currency: string;

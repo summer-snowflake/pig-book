@@ -4,17 +4,18 @@ import { ToastContainer } from 'react-toastify'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
-import i18next from 'i18next'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-import { ProfileStore } from 'types/store'
+import { ProfileStore, UserStatusStore } from 'types/store'
 import { getProfile } from 'actions/settingsActions'
+import { getUserStatus } from 'actions/userStatusActions'
+import { signOut } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
-import Header from 'components/headerContainer'
+import Header from 'components/header'
 import TopPage from 'components/top/topPage'
 import InputPage from 'components/input/inputPage'
 import ListPage from 'components/list/listPage'
@@ -28,6 +29,7 @@ import SettingsTopPage from 'components/settings/settingsTopPage'
 import CategoryPage from 'components/settings/category/categoryPage'
 import BreakdownPage from 'components/settings/breakdown/breakdownPage'
 import PlacePage from 'components/settings/place/placePage'
+import TagPage from 'components/settings/tag/tagPage'
 import AdminUsersPage from 'components/admin/adminUsersPage'
 import Footer from 'components/footer'
 import Page404 from 'components/errors/page404'
@@ -41,10 +43,13 @@ library.add(fab, fas, far)
 
 interface StateProps {
   profile: ProfileStore;
+  userStatus: UserStatusStore;
 }
 
 interface DispatchProps {
   getProfile: () => void;
+  getUserStatus: () => void;
+  signOut: () => void;
 }
 
 type Props = StateProps & DispatchProps
@@ -53,17 +58,22 @@ class App extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
+    this.handleSignOut = this.handleSignOut.bind(this)
+
     this.props.getProfile()
+    this.props.getUserStatus()
+  }
+
+  handleSignOut() {
+    this.props.signOut()
   }
 
   render(): JSX.Element {
-    i18next.changeLanguage(this.props.profile.locale)
-
     return (
       <div className='app-component'>
         <Router>
+          <Header userStatus={this.props.userStatus} handleClickSignOutLink={this.handleSignOut} />
           <ToastContainer />
-          <Header />
           <ErrorBoundary>
             <Switch>
               <Route component={TopPage} exact path='/' />
@@ -80,6 +90,7 @@ class App extends Component<Props> {
               <Route component={CategoryPage} exact path='/categories' />
               <Route component={BreakdownPage} exact path='/breakdowns' />
               <Route component={PlacePage} exact path='/places' />
+              <Route component={TagPage} exact path='/labels' />
               <Route component={AdminUsersPage} exact path='/admin/users' />
               <Route component={Page404} exact />
             </Switch>
@@ -93,7 +104,8 @@ class App extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile
+    profile: state.profile,
+    userStatus: state.userStatus
   }
 }
 
@@ -102,6 +114,12 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getProfile(): void {
       dispatch(getProfile())
     },
+    getUserStatus(): void {
+      dispatch(getUserStatus())
+    },
+    signOut(): void {
+      dispatch(signOut())
+    }
   }
 }
 

@@ -9,7 +9,7 @@ class PlaceSettings extends Component<I18nProps> {
     const { t } = this.props
 
     return (
-      <div className='category-settings-component'>
+      <div className='place-settings-component'>
         <div className='card'>
           <div className='card-header'>
             <i className='fas fa-map-marker-alt left-icon' />
