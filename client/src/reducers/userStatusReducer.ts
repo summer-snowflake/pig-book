@@ -8,7 +8,8 @@ const initialState = {
   admin: null,
   email: '',
   dailyOption: false,
-  optionsList: ''
+  optionsList: '',
+  options: []
 }
 
 const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): UserStatusStore => {
@@ -37,7 +38,8 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: UserAc
       dailyOption: action.user.daily_option,
       admin: action.user.admin,
       email: action.user.email,
-      optionsList: action.user.options_list
+      optionsList: action.user.options_list,
+      options: action.user.options
     }
   case actionTypes.GET_COOKIES_FAILURE:
     return {

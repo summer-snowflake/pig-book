@@ -113,6 +113,7 @@ export interface User {
   admin: Admin;
   daily_option: boolean;
   options_list: string;
+  options: UserOption[];
   created_at: string;
 }
 

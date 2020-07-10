@@ -22,6 +22,13 @@ export interface UserStatusStore {
   email: string;
   dailyOption: boolean;
   optionsList: string;
+  options: UserOption[];
+}
+
+interface UserOption {
+  id: number;
+  name: string;
+  value: boolean;
 }
 
 export interface ProfileStore {
