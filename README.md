@@ -13,13 +13,8 @@ This tool is for a household account book.
 
 ## Production
 
-- http://pig-book.herokuapp.com/
-
-- Not acquired a domain yet.
-
-## Staging
-
-- http://pig-book-test.herokuapp.com/
+- http://pig-book.info/
+- Not acquired a ssh certificate yet.
 
 ## Development
 
@@ -30,40 +25,36 @@ This tool is for a household account book.
 ### Version & Environment
 
 - Ruby
-  - v2.6.3
-  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L10)
+  - v2.7.1
+  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/server/Gemfile#L4)
 
 - Ruby on Rails
-  - v5.2+
-  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/Gemfile#L22)
+  - v6.0.3.1
+  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/server/Gemfile#6)
 
 - PostgreSQL
-  - v11.1
-  - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker/Dockerfile#L1)
+  - v11.3
+  - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker-compose.yml#L4)
 
 - Redis
-  - v4.0.9
-  - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker-compose.yml#L44)
+  - v6.0.5
+  - use Docker [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/docker-compose.yml#L16)
 
-- node (yarn packages)
-  - node v10.15.3
-  - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/package.json)
+- node
+  - node v12.16.3
 
 ### Coding Rule
 
 Basically, Use the following:
 
 - [rubocop](https://github.com/bbatsov/rubocop)
-  - [.rubocop.yml](https://github.com/summer-snowflake/pig-book/blob/master/.rubocop.yml)
+  - [.rubocop.yml](https://github.com/summer-snowflake/pig-book/blob/master/server/.rubocop.yml)
 
-- [scss-lint](https://github.com/brigade/scss-lint)
-  - [.scss-lint.yml](https://github.com/summer-snowflake/pig-book/blob/master/.scss-lint.yml)
-
-- [slim-lint](https://github.com/sds/slim-lint)
-  - [.slim-lint.yml](https://github.com/summer-snowflake/pig-book/blob/master/.slim-lint.yml)
+- [sass-lint](https://github.com/sasstools/sass-lint)
+  - [.scss-lint.yml](https://github.com/summer-snowflake/pig-book/blob/master/client/.sass-lint.yml)
 
 - [eslint](https://github.com/eslint/eslint)
-  - [.eslintrc.yml](https://github.com/summer-snowflake/pig-book/blob/master/.eslintrc.yml)
+  - [.eslintrc.json](https://github.com/summer-snowflake/pig-book/blob/master/client/.eslintrc.json)
 
 ## How to Install
 
@@ -79,7 +70,6 @@ xcode-select --install
 
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
 ```
 
 - via Homebrew
@@ -92,34 +82,46 @@ echo 'export PATH="$HOME/.rbenv/shims:$PATH"' >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-- Ruby
-
-```
-rbenv install -l
-rbenv install 2.5.1
-rbenv rehash
-```
-
-- Start postgresql server and Redis Server
-
-```
-docker-compose up
-```
-
 ### Get pig-book Code
 
 ```
 git clone https://github.com/summer-snowflake/account-book-pig.git
 ```
 
-### Use Rbenv
+### Install Ruby
+
+```
+rbenv install -l
+rbenv install 2.7.1
+rbenv rehash
+```
+
+### Use rbenv and rbenv-gemsets
 
 - [rbenv](https://github.com/rbenv/rbenv)
+- [rbenv-gemset](https://github.com/jf/rbenv-gemset)
+
+```
+rbenv gemset create 2.7.1 pig-book
+rbenv gemset list # show list
+```
+
+### Start Server
+
+- Mail server
+- Redis server
+- postgres server
+- rails server
+- yarn server
+
+```
+docker-compose up
+```
 
 ### Install Rails and Gems
 
 ```
-cd pig-book
+cd pig-book/server
 gem install bundle
 bundle
 ```
@@ -134,13 +136,3 @@ rails db:migrate
 ### Seed Data
 
 `rails db:seed` is not yet.
-
-### Start Server
-
-```
-bin/rails s
-```
-
-```
-bin/webpack-dev-server
-```

@@ -44,6 +44,10 @@
     "tutorial": "Tutorial",
     "profile": "Profile"
   },
+  "slide": {
+    "input": "You can save data and display them one day.",
+    "dashboard": "You can display monthly data and annual category data."
+  },
   "label": {
     "locale": "en-IN",
     "email": "E-mail",
