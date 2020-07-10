@@ -2,6 +2,7 @@
 
 class Tag < ApplicationRecord
   belongs_to :user
+  counter_culture :user
 
   # has_many dependent よりも先にチェック
   before_destroy :check_usage
