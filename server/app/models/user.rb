@@ -51,7 +51,7 @@ class User < ApplicationRecord
   def options_list
     return I18n.t('label.nothing') unless options?
 
-    options.join(', ')
+    options.select { |option| option[:value] }.pluck(:name).join(', ')
   end
 
   def daily_option
@@ -69,8 +69,12 @@ class User < ApplicationRecord
   end
 
   def options
-    USER_OPTIONS.map do |option|
-      User.human_attribute_name(option)
+    USER_OPTIONS.map.with_index do |option, index|
+      {
+        id: index + 1,
+        name: User.human_attribute_name(option),
+        value: send(option)
+      }
     end
   end
 end

@@ -38,7 +38,20 @@ describe 'GET /api/user', autodoc: true do
         records_count: 0,
         tags_count: 0,
         daily_option: true,
-        options_list: 'デイリーチャート, 無制限利用'
+        unlimited_option: false,
+        options_list: 'デイリーチャート',
+        options: [
+          {
+            id: 1,
+            name: 'デイリーチャート',
+            value: true
+          },
+          {
+            id: 2,
+            name: '無制限利用',
+            value: false
+          }
+        ]
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
