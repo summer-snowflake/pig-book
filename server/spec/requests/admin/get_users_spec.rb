@@ -74,7 +74,7 @@ describe 'GET /api/admin/users', autodoc: true do
           places_count: 0,
           records_count: 0,
           tags_count: 0,
-          daily_option: false
+          daily_option: true
         },
         {
           active: false,

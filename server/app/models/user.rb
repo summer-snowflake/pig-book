@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  USER_OPTIONS = %i[daily_option unlimited_option].freeze
+
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -49,16 +51,26 @@ class User < ApplicationRecord
   def options_list
     return I18n.t('label.nothing') unless options?
 
-    User.human_attribute_name(:daily_option)
+    options.join(', ')
   end
 
   def daily_option
     admin? || super
   end
 
+  def unlimited_option
+    admin? || super
+  end
+
   private
 
   def options?
-    daily_option
+    daily_option || unlimited_option
+  end
+
+  def options
+    USER_OPTIONS.map do |option|
+      User.human_attribute_name(option)
+    end
   end
 end
