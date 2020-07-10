@@ -52,6 +52,10 @@ class User < ApplicationRecord
     User.human_attribute_name(:daily_option)
   end
 
+  def daily_option
+    admin? || super
+  end
+
   private
 
   def options?
