@@ -132,6 +132,7 @@
   },
   "admin": {
     "userEmail": "Email",
-    "lastSignInAt": "Last Sign in time"
+    "lastSignInAt": "Last Sign in time",
+    "confirmedAt": "Create time"
   }
 }

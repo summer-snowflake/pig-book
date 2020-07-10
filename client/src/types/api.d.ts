@@ -101,6 +101,7 @@ export interface AdminUser extends User {
   breakdowns_count: number;
   places_count: number;
   records_count: number;
+  tags_count: number;
 }
 
 export interface User {
@@ -112,6 +113,7 @@ export interface User {
   admin: Admin;
   daily_option: boolean;
   options_list: string;
+  created_at: string;
 }
 
 export interface Profile {

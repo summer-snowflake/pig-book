@@ -36,6 +36,7 @@ describe 'GET /api/user', autodoc: true do
         breakdowns_count: 0,
         places_count: 0,
         records_count: 0,
+        tags_count: 0,
         daily_option: true,
         options_list: 'デイリーチャート'
       }.to_json
