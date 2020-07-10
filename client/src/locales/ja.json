@@ -132,6 +132,7 @@
   },
   "admin": {
     "userEmail": "メールアドレス",
-    "lastSignInAt": "最終ログイン時刻"
+    "lastSignInAt": "最終ログイン時刻",
+    "confirmedAt": "ユーザー登録日"
   }
 }

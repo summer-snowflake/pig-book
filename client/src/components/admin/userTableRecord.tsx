@@ -51,6 +51,14 @@ class UserTableRecord extends Component<Props> {
           </span>
         </td>
         <td>
+          {this.props.user.created_at && (
+            <span>
+              <i className='fas fa-clock left-icon' />
+              <HumanTime date={new Date(this.props.user.created_at)} />
+            </span>
+          )}
+        </td>
+        <td>
           {this.props.user.current_sign_in_at && (
             <span>
               <i className='fas fa-clock left-icon' />

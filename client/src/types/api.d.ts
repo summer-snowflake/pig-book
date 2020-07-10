@@ -112,6 +112,7 @@ export interface User {
   admin: Admin;
   daily_option: boolean;
   options_list: string;
+  created_at: string;
 }
 
 export interface Profile {
