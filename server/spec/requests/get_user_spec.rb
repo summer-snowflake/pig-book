@@ -3,7 +3,11 @@
 require 'rails_helper'
 
 describe 'GET /api/user', autodoc: true do
-  let!(:user) { create(:user, :active, daily_option: true) }
+  let!(:user) { create(:user, :active, :admin) }
+
+  before do
+    user.update(daily_option: true)
+  end
 
   context 'when NOT logged in.' do
     it 'returns status code 401 and json errors data' do
@@ -25,6 +29,9 @@ describe 'GET /api/user', autodoc: true do
 
       expect(response.status).to eq 200
       json = {
+        admin: {
+          user_id: user.id
+        },
         email: user.email,
         uid: user.email,
         name: nil,

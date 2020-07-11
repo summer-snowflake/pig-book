@@ -7,6 +7,7 @@ ja:
   errors:
     messages:
       taken: はすでに登録されています
+      is_unauthorized: は許可されていません
     not_found: 404エラー 対象項目が見つかりません。
     cannot_be_deleted: 使用されているため削除できません。
     unauthorized_as_admin: 操作が許可されているユーザでログインしてください。

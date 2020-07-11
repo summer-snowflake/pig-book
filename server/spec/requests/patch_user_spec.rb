@@ -17,7 +17,32 @@ describe 'PATCH /api/user', autodoc: true do
     end
   end
 
-  context 'when logged in.' do
+  context 'when logged in as not an administrator' do
+    let(:params) do
+      {
+        daily_option: true
+      }.to_json
+    end
+
+    after do
+      I18n.locale = :ja
+    end
+
+    it 'returns status code 200 and json user data' do
+      patch '/api/user',
+            params: params, headers: login_headers_with_login(user)
+
+      expect(response.status).to eq 422
+      json = {
+        errors: ['デイリーチャートは許可されていません']
+      }.to_json
+      expect(response.body).to be_json_eql(json)
+    end
+  end
+
+  context 'when logged in as an administrator' do
+    let(:user) { create(:user, :active, :admin) }
+
     let(:params) do
       {
         daily_option: true
@@ -48,7 +73,23 @@ describe 'PATCH /api/user', autodoc: true do
         categories_count: 0,
         places_count: 0,
         records_count: 0,
-        tags_count: 0
+        tags_count: 0,
+        options_list: 'デイリーチャート',
+        options: [
+          {
+            column: 'daily_option',
+            name: 'デイリーチャート',
+            value: true
+          },
+          {
+            column: 'unlimited_option',
+            name: '無制限利用',
+            value: false
+          }
+        ],
+        admin: {
+          user_id: user.id
+        }
       }.to_json
       expect(response.body).to be_json_eql(json)
     end

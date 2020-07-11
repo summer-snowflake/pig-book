@@ -7,9 +7,9 @@ class UsersController < BaseController
 
   def update
     if current_user.update(user_params)
-      render json: current_user, status: :ok
+      render json: current_user.to_json(include: :admin, methods: %i[options_list options]), status: :ok
     else
-      render render_validation_error
+      render_validation_error current_user
     end
   end
 

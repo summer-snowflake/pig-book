@@ -26,6 +26,9 @@ class User < ApplicationRecord
   has_many :yearly_category_balance_tables, dependent: :destroy
   has_many :yearly_breakdown_balance_tables, dependent: :destroy
 
+  # NOTE: 現時点において、管理者以外はオプションの変更を行えない
+  validate :unauthorized_options
+
   def admin?
     !admin.nil?
   end
@@ -69,5 +72,12 @@ class User < ApplicationRecord
         value: send(option)
       }
     end
+  end
+
+  def unauthorized_options
+    return if admin?
+
+    errors.add(:daily_option, :is_unauthorized) if daily_option
+    errors.add(:unlimited_option, :is_unauthorized) if unlimited_option
   end
 end
