@@ -25,9 +25,10 @@ export interface UserStatusStore {
   options: UserOption[];
 }
 
-interface UserOption {
+export interface UserOption {
   id: number;
   name: string;
+  column: string;
   value: boolean;
 }
 

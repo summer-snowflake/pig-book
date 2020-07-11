@@ -44,11 +44,13 @@ describe 'GET /api/user', autodoc: true do
           {
             id: 1,
             name: 'デイリーチャート',
+            column: 'daily_option',
             value: true
           },
           {
             id: 2,
             name: '無制限利用',
+            column: 'unlimited_option',
             value: false
           }
         ]
