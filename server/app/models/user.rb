@@ -54,14 +54,6 @@ class User < ApplicationRecord
     options.select { |option| option[:value] }.pluck(:name).join(', ')
   end
 
-  def daily_option
-    admin? || super
-  end
-
-  def unlimited_option
-    admin? || super
-  end
-
   private
 
   def options?
