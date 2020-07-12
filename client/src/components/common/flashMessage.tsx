@@ -62,6 +62,9 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.DELETE_PLACE_FAILURE:
       msg = this.props.messages || ''
       break
+    case actionTypes.PATCH_USER_SUCCESS:
+      msg = t('message.patchUserSuccess')
+      break
     case actionTypes.LOGIN_FAILURE:
       msg = t('message.loginFailure')
       break

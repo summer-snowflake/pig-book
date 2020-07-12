@@ -126,7 +126,8 @@
     "deleteTagSuccess": "ラベルを削除しました",
     "signedUpButUnconfirmed": "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。",
     "confirmSuccess": "アカウントを有効にしました。ログインしてください。",
-    "accessFailure": "ネットワークエラー：リロードまたは時間をおいてアクセスしてください。"
+    "accessFailure": "ネットワークエラー：リロードまたは時間をおいてアクセスしてください。",
+    "patchUserSuccess": "ユーザ情報を更新しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

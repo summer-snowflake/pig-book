@@ -5,9 +5,11 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import SwitchCheckbox from 'components/common/switchCheckbox'
+import { UserParams } from 'types/api'
 import { UserStatusStore } from 'types/store'
-import { getUserStatus } from 'actions/userStatusActions'
+import { getUserStatus, patchUser } from 'actions/userStatusActions'
 import { RootState } from 'reducers/rootReducer'
+import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
 interface StateProps {
   userStatus: UserStatusStore;
@@ -15,6 +17,7 @@ interface StateProps {
 
 interface DispatchProps {
   getUserStatus: () => void;
+  patchUser: (params: UserParams) => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -26,8 +29,16 @@ class OptionsSettingsContainer extends Component<Props> {
     this.handleChangeCheck = this.handleChangeCheck.bind(this)
   }
 
-  handleChangeCheck() {
-    console.log('a')
+  handleChangeCheck(id: number) {
+    const targetOption = this.props.userStatus.options.find((option) => option.id === id)
+    if (targetOption === undefined) {
+      return
+    }
+    const column = targetOption.column
+    const params = {
+      [column]: !targetOption?.value
+    }
+    this.props.patchUser(params)
   }
 
   render(): JSX.Element {
@@ -41,10 +52,15 @@ class OptionsSettingsContainer extends Component<Props> {
             {t('title.optionsSetting')}
           </div>
           <div className='card-body'>
-            <ul>
+            {this.props.userStatus.errors.length > 0 && (
+              <div className='validation-errors-field'>
+                <ValidationErrorMessages messages={this.props.userStatus.errors} />
+              </div>
+            )}
+           <ul>
               {this.props.userStatus.options.map((option) => (
                 <li className='option-li' key={option.id}>
-                  <SwitchCheckbox id={option.id} onChangeCheck={this.handleChangeCheck} />
+                  <SwitchCheckbox id={option.id} onChangeCheck={this.handleChangeCheck} value={option.value} />
                   <span>
                     {option.name}
                   </span>
@@ -68,6 +84,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     getUserStatus(): void {
       dispatch(getUserStatus())
+    },
+    patchUser(params: UserParams): void {
+      dispatch(patchUser(params))
     }
   }
 }

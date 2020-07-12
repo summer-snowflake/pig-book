@@ -1,6 +1,10 @@
+import React from 'react'
+import { toast } from 'react-toastify'
+
 import * as actionTypes from 'utils/actionTypes'
 import { UserStatusStore } from 'types/store'
 import { UserAction } from 'types/action'
+import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
@@ -8,11 +12,17 @@ const initialState = {
   admin: null,
   email: '',
   dailyOption: false,
+  unlimitedOption: false,
   optionsList: '',
-  options: []
+  options: [],
+  errors: []
 }
 
-const userStatusReducer = (state: UserStatusStore = initialState, action: UserAction): UserStatusStore => {
+interface StoreAction extends UserAction {
+  errors: string[];
+}
+
+const userStatusReducer = (state: UserStatusStore = initialState, action: StoreAction): UserStatusStore => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
@@ -36,10 +46,34 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: UserAc
       isLoading: false,
       isLogged: true,
       dailyOption: action.user.daily_option,
+      unlimitedOption: action.user.unlimited_option,
       admin: action.user.admin,
       email: action.user.email,
       optionsList: action.user.options_list,
-      options: action.user.options
+      options: action.user.options,
+      errors: []
+    }
+  case actionTypes.PATCH_USER_REQUEST:
+    return {
+      ...state,
+      isLoading: true
+    }
+  case actionTypes.PATCH_USER_SUCCESS:
+    toast.success(<FlashMessage actionType={action.type} />)
+    return {
+      ...state,
+      isLoading: false,
+      dailyOption: action.user.daily_option,
+      unlimitedOption: action.user.unlimited_option,
+      optionsList: action.user.options_list,
+      options: action.user.options,
+      errors: []
+    }
+  case actionTypes.PATCH_USER_FAILURE:
+    return {
+      ...state,
+      isLoading: false,
+      errors: action.errors
     }
   case actionTypes.GET_COOKIES_FAILURE:
     return {

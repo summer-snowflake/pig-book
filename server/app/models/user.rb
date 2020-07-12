@@ -77,6 +77,7 @@ class User < ApplicationRecord
   def unauthorized_options
     return if admin?
 
+    # NOTE: OFF にしかできない
     errors.add(:daily_option, :is_unauthorized) if daily_option
     errors.add(:unlimited_option, :is_unauthorized) if unlimited_option
   end

@@ -15,12 +15,13 @@ export interface RegistrationStore extends Errors {
   sendMail: boolean;
 }
 
-export interface UserStatusStore {
+export interface UserStatusStore extends Errors {
   isLoading: boolean;
   isLogged: boolean;
   admin: Admin;
   email: string;
   dailyOption: boolean;
+  unlimitedOption: boolean;
   optionsList: string;
   options: UserOption[];
 }
