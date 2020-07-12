@@ -135,6 +135,7 @@
   "admin": {
     "userEmail": "メールアドレス",
     "lastSignInAt": "最終ログイン時刻",
-    "confirmedAt": "ユーザー登録日"
+    "confirmedAt": "ユーザー登録日",
+    "updatedAt": "最終更新時刻"
   }
 }

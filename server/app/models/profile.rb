@@ -3,7 +3,7 @@
 class Profile < ApplicationRecord
   include EnumDefinedCurrency
 
-  belongs_to :user
+  belongs_to :user, touch: true
 
   validates :memo, length: { maximum: 1000 }
 

@@ -3,7 +3,7 @@
 class Record < ApplicationRecord
   include EnumDefinedCurrency
 
-  belongs_to :user
+  belongs_to :user, touch: true
   counter_culture :user
   belongs_to :category
   belongs_to :breakdown, optional: true

@@ -3,5 +3,5 @@
 class MonthlyRecord < ApplicationRecord
   include EnumDefinedCurrency
 
-  belongs_to :user
+  belongs_to :user, touch: true
 end

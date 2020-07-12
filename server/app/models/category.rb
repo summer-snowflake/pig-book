@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, touch: true
   counter_culture :user
   has_many :breakdowns, dependent: :restrict_with_exception
   has_many :categorized_places, dependent: :destroy

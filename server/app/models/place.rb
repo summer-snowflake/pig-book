@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Place < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, touch: true
   counter_culture :user
   has_many :categorized_places, dependent: :destroy
   has_many :categories, through: :categorized_places

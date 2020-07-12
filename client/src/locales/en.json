@@ -135,6 +135,7 @@
   "admin": {
     "userEmail": "Email",
     "lastSignInAt": "Last Sign in time",
-    "confirmedAt": "Create time"
+    "confirmedAt": "Confirmed time",
+    "updatedAt": "Updated time"
   }
 }
