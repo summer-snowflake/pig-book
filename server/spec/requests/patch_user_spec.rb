@@ -79,12 +79,14 @@ describe 'PATCH /api/user', autodoc: true do
           {
             column: 'daily_option',
             name: 'デイリーチャート',
-            value: true
+            value: true,
+            description: I18n.t('label.options.daily_option')
           },
           {
             column: 'unlimited_option',
             name: '無制限利用',
-            value: false
+            value: false,
+            description: I18n.t('label.options.unlimited_option')
           }
         ],
         admin: {

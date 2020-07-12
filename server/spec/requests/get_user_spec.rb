@@ -52,13 +52,15 @@ describe 'GET /api/user', autodoc: true do
             id: 1,
             name: 'デイリーチャート',
             column: 'daily_option',
-            value: true
+            value: true,
+            description: I18n.t('label.options.daily_option')
           },
           {
             id: 2,
             name: '無制限利用',
             column: 'unlimited_option',
-            value: false
+            value: false,
+            description: I18n.t('label.options.unlimited_option')
           }
         ]
       }.to_json

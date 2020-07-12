@@ -69,7 +69,8 @@ class User < ApplicationRecord
         id: index + 1,
         name: User.human_attribute_name(option),
         column: option,
-        value: send(option)
+        value: send(option),
+        description: I18n.t("label.options.#{option}")
       }
     end
   end
