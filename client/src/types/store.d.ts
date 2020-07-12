@@ -31,6 +31,7 @@ export interface UserOption {
   name: string;
   column: string;
   value: boolean;
+  description: string;
 }
 
 export interface ProfileStore {

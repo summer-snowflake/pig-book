@@ -3,6 +3,7 @@ import { Action } from 'redux'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
+import ReactTooltip from 'react-tooltip'
 
 import SwitchCheckbox from 'components/common/switchCheckbox'
 import { UserParams } from 'types/api'
@@ -63,6 +64,10 @@ class OptionsSettingsContainer extends Component<Props> {
                   <SwitchCheckbox id={option.id} onChangeCheck={this.handleChangeCheck} value={option.value} />
                   <span>
                     {option.name}
+                  </span>
+                  <span className='description' data-tip={option.description}>
+                    <i className='fas fa-question-circle' />
+                    <ReactTooltip />
                   </span>
                 </li>
               ))}

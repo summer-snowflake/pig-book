@@ -54,7 +54,11 @@
   span
     padding-left: 20px
 
+  .description
+    cursor: pointer
+
 .switch-checkbox-component
+  cursor: pointer
   font-size: 14px
   font-weight: bold
   letter-spacing: 0
@@ -72,6 +76,7 @@
         &::after
           color: $green
           content: 'ON'
+          cursor: pointer
           padding: 0 36px 0 0
 
     &:checked ~ .switch-ball
@@ -90,6 +95,7 @@
       &::after
         color: $green-translucent
         content: 'OFF'
+        cursor: pointer
         padding: 0 0 0 14px
 
   .switch-ball
