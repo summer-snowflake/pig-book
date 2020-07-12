@@ -12,6 +12,8 @@ class Record < ApplicationRecord
   has_many :tagged_records, dependent: :destroy
   has_many :tags, through: :tagged_records
 
+  MAX_COUNT = 500
+
   validates :published_at, presence: true
   validates :currency, presence: true
   validates :charge,
@@ -21,6 +23,8 @@ class Record < ApplicationRecord
             numericality: { greater_than_or_equal_to: 0 }
   validate :point_is_less_than_or_equal_to_charge
   validates :memo, length: { maximum: 250 }
+
+  validate :limited
 
   class << self
     def income
@@ -64,5 +68,13 @@ class Record < ApplicationRecord
   def number_to_rounded
     ActiveSupport::NumberHelper
       .number_to_rounded(charge, strip_insignificant_zeros: true)
+  end
+
+  def limited
+    return unless user
+    return if user.unlimited_option
+    return if user.records.count <= MAX_COUNT
+
+    errors.add(:base, :is_limited)
   end
 end
