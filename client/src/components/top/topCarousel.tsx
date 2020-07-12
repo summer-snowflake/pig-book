@@ -11,10 +11,6 @@ import 'stylesheets/top.sass'
 type Props = I18nProps
 
 class TopCarousel extends Component<Props> {
-  constructor(props: Props) {
-    super(props)
-  }
-
   render(): JSX.Element {
     const { t } = this.props
 
