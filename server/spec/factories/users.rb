@@ -8,6 +8,7 @@ FactoryBot.define do
     provider { 'email' }
     uid { email }
     daily_option { false }
+    unlimited_option { false }
 
     trait :active do
       confirmed_at { Time.zone.now }

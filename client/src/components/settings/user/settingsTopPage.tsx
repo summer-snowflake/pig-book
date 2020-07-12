@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
 import SettingsMenu from 'components/settings/settingsMenu'
-import BaseSettingsContainer from 'components/settings/baseSettingsContainer'
-import MemoContainer from 'components/settings/memoContainer'
+import BaseSettingsContainer from 'components/settings/user/baseSettingsContainer'
+import OptionsSettingsContainer from 'components/settings/user/optionsSettingsContainer'
+import MemoContainer from 'components/settings/user/memoContainer'
 
 class SettingsTopPage extends Component {
   render(): JSX.Element {
@@ -15,6 +16,7 @@ class SettingsTopPage extends Component {
           <div className='col-1 d-lg-none' />
           <div className='col'>
             <BaseSettingsContainer />
+            <OptionsSettingsContainer />
             <MemoContainer />
           </div>
         </div>

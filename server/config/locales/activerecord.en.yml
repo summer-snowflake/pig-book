@@ -6,6 +6,7 @@ en:
         password: Password
         password_confirmation: Password Confirmation
         daily_option: Daily Chart
+        unlimited_option: Unlimited use
       category:
         name: Category name
       breakdown:
