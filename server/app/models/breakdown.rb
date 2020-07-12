@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Breakdown < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, touch: true
   counter_culture :user
   belongs_to :category
   has_many :records, dependent: :restrict_with_exception

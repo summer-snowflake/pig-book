@@ -121,6 +121,7 @@ export interface User {
   options_list: string;
   options: UserOption[];
   created_at: string;
+  updated_at: string;
 }
 
 export interface Profile {
