@@ -12,7 +12,7 @@ class Record < ApplicationRecord
   has_many :tagged_records, dependent: :destroy
   has_many :tags, through: :tagged_records
 
-  MAX_COUNT = 500
+  MAX_COUNT = 200
 
   validates :published_at, presence: true
   validates :currency, presence: true
