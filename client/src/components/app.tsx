@@ -72,7 +72,7 @@ class App extends Component<Props> {
     return (
       <div className='app-component'>
         <Router>
-          <Header userStatus={this.props.userStore} handleClickSignOutLink={this.handleSignOut} />
+          <Header user={this.props.userStore} handleClickSignOutLink={this.handleSignOut} />
           <ToastContainer />
           <ErrorBoundary>
             <Switch>

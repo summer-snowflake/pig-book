@@ -13,7 +13,7 @@ import 'stylesheets/sidenav.sass'
 import brandImage from 'images/pig.gif'
 
 interface ParentProps {
-  userStatus: UserStore;
+  user: UserStore;
   handleClickSignOutLink: () => void;
 }
 
@@ -68,7 +68,7 @@ class Header extends Component<Props> {
                   {t('menu.home')}
                 </NavText>
               </NavItem>
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <NavItem eventKey='/input'>
                   <NavIcon>
                     <i className='fas fa-palette red' />
@@ -78,7 +78,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <NavItem eventKey='/list'>
                   <NavIcon>
                     <i className='fas fa-align-justify' />
@@ -88,7 +88,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <NavItem eventKey='/dashboard'>
                   <NavIcon>
                     <i className='fas fa-chart-bar' />
@@ -98,7 +98,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && this.props.userStatus.dailyOption && (
+              {this.props.user.isLogged && this.props.user.dailyOption && (
                 <NavItem eventKey='/daily'>
                   <NavIcon>
                     <i className='fas fa-chart-line' />
@@ -108,7 +108,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && this.props.userStatus.admin && (
+              {this.props.user.isLogged && this.props.user.admin && (
                 <NavItem eventKey='/admin/users'>
                   <NavIcon>
                     <i className='fas fa-book' />
@@ -118,7 +118,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <NavItem eventKey='/settings'>
                   <NavIcon>
                     <i className='fas fa-cog' />
@@ -128,7 +128,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && isSettingsPath && (
+              {this.props.user.isLogged && isSettingsPath && (
                 <NavItem eventKey='/categories'>
                   <NavIcon>
                     <i className='fas fa-th-large' />
@@ -138,7 +138,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && isSettingsPath && (
+              {this.props.user.isLogged && isSettingsPath && (
                 <NavItem eventKey='/breakdowns'>
                   <NavIcon>
                     <i className='fas fa-list' />
@@ -148,7 +148,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && isSettingsPath && (
+              {this.props.user.isLogged && isSettingsPath && (
                 <NavItem eventKey='/places'>
                   <NavIcon>
                     <i className='fas fa-map-marker-alt' />
@@ -158,7 +158,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && isSettingsPath && (
+              {this.props.user.isLogged && isSettingsPath && (
                 <NavItem eventKey='/labels'>
                   <NavIcon>
                     <i className='fas fa-bookmark' />
@@ -168,7 +168,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <NavItem eventKey='/mypage'>
                   <NavIcon>
                     <i className='fas fa-user' />
@@ -178,7 +178,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {!this.props.userStatus.isLogged && (
+              {!this.props.user.isLogged && (
                 <NavItem eventKey='/users/sign_in'>
                   <NavIcon>
                     <i className='fas fa-leaf' />
@@ -188,7 +188,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <NavItem eventKey='/logout'>
                   <NavIcon>
                     <i className='fas fa-sign-out-alt' />
@@ -198,7 +198,7 @@ class Header extends Component<Props> {
                   </NavText>
                 </NavItem>
               )}
-              {(this.props.location.pathname === '/users/sign_in' || this.props.location.pathname === '/users/sign_up') && !this.props.userStatus.isLogged && (
+              {(this.props.location.pathname === '/users/sign_in' || this.props.location.pathname === '/users/sign_up') && !this.props.user.isLogged && (
                 <NavItem eventKey='/users/sign_up'>
                   <NavIcon>
                     <i className='fas fa-heart' />
@@ -218,7 +218,7 @@ class Header extends Component<Props> {
                   {t('menu.home')}
                 </NavLink>
               </li>
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/input'>
                     <i className='fas fa-palette left-icon red' />
@@ -228,7 +228,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
                     <i className='fas fa-align-justify left-icon' />
@@ -236,7 +236,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/dashboard'>
                     <i className='fas fa-chart-bar left-icon' />
@@ -244,7 +244,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {this.props.userStatus.isLogged && this.props.userStatus.dailyOption && (
+              {this.props.user.isLogged && this.props.user.dailyOption && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/daily'>
                     <i className='fas fa-chart-line left-icon' />
@@ -254,7 +254,7 @@ class Header extends Component<Props> {
               )}
             </ul>
             <ul className='navbar-nav justify-content-end'>
-              {this.props.userStatus.isLogged && this.props.userStatus.admin && (
+              {this.props.user.isLogged && this.props.user.admin && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/admin/users'>
                     <i className='fas fa-book left-icon' />
@@ -262,7 +262,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/settings'>
                     <i className='fas fa-cog left-icon' />
@@ -270,7 +270,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/mypage'>
                     <i className='fas fa-user left-icon' />
@@ -278,7 +278,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {!this.props.userStatus.isLogged && (
+              {!this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/users/sign_in'>
                     <i className='fas fa-leaf left-icon' />
@@ -286,7 +286,7 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
-              {this.props.userStatus.isLogged && (
+              {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <span className='nav-link' onClick={this.handleLogout}>
                     <i className='fas fa-sign-out-alt left-icon' />
