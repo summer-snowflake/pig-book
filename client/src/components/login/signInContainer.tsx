@@ -11,7 +11,7 @@ import { LoginParams } from 'types/api'
 import { SessionStore, RegistrationStore } from 'types/store'
 import { login } from 'actions/sessionActions'
 import { confirmUser } from 'actions/registrationActions'
-import { getUser } from 'actions/userStatusActions'
+import { getUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 

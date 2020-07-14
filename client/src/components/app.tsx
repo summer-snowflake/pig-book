@@ -12,7 +12,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import { ProfileStore, UserStatusStore } from 'types/store'
 import { getProfile } from 'actions/settingsActions'
-import { getUser } from 'actions/userStatusActions'
+import { getUser } from 'actions/userActions'
 import { signOut } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
 import Header from 'components/header'

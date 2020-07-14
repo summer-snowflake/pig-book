@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, BreakdownAction } from 'types/action'
 import { BreakdownParams, Errors, Category, Breakdown } from 'types/api'
-import { getCookiesFailure } from 'actions/userStatusActions'
+import { getCookiesFailure } from 'actions/userActions'
 import { catchErrors } from 'actions/errorsAction'
 
 interface WithNameAction extends Action {

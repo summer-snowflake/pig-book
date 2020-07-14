@@ -8,7 +8,7 @@ import ReactTooltip from 'react-tooltip'
 import SwitchCheckbox from 'components/common/switchCheckbox'
 import { UserParams } from 'types/api'
 import { UserStatusStore } from 'types/store'
-import { getUser, patchUser } from 'actions/userStatusActions'
+import { getUser, patchUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 

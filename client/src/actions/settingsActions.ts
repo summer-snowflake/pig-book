@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { Profile, ProfileParams } from 'types/api'
 import { ProfileAction } from 'types/action'
-import { getCookiesFailure } from 'actions/userStatusActions'
+import { getCookiesFailure } from 'actions/userActions'
 import { catchErrors } from 'actions/errorsAction'
 
 interface WithLocaleAction extends Action {

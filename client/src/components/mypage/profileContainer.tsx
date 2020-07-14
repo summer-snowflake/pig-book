@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { UserStatusStore } from 'types/store'
-import { getUser } from 'actions/userStatusActions'
+import { getUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {

@@ -7,7 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { RecordsAction } from 'types/action'
 import { Record, RecordSearchParams, RecordTotals } from 'types/api'
 import { catchErrors } from 'actions/errorsAction'
-import { getCookiesFailure } from 'actions/userStatusActions'
+import { getCookiesFailure } from 'actions/userActions'
 
 interface WithRecordSearchParamsAction extends Action {
   params: RecordSearchParams;
