@@ -4,12 +4,12 @@ import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { UserStatusStore } from 'types/store'
+import { UserStore } from 'types/store'
 import { getUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
-  userStatus: UserStatusStore;
+  userStore: UserStore;
 }
 
 interface DispatchProps {
@@ -32,7 +32,7 @@ class ProfileContainer extends Component<Props> {
                   {t('label.email')}
                 </label>
                 <p>
-                  {this.props.userStatus.email}
+                  {this.props.userStore.email}
                 </p>
               </li>
               <li>
@@ -40,7 +40,7 @@ class ProfileContainer extends Component<Props> {
                   {t('label.options')}
                 </label>
                 <p>
-                  {this.props.userStatus.optionsList}
+                  {this.props.userStore.optionsList}
                 </p>
               </li>
             </ul>
@@ -53,7 +53,7 @@ class ProfileContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    userStatus: state.userStatus
+    userStore: state.user
   }
 }
 

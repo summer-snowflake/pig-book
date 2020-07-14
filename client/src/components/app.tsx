@@ -10,7 +10,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-import { ProfileStore, UserStatusStore } from 'types/store'
+import { ProfileStore, UserStore } from 'types/store'
 import { getProfile } from 'actions/settingsActions'
 import { getUser } from 'actions/userActions'
 import { signOut } from 'actions/sessionActions'
@@ -43,7 +43,7 @@ library.add(fab, fas, far)
 
 interface StateProps {
   profile: ProfileStore;
-  userStatus: UserStatusStore;
+  userStore: UserStore;
 }
 
 interface DispatchProps {
@@ -72,7 +72,7 @@ class App extends Component<Props> {
     return (
       <div className='app-component'>
         <Router>
-          <Header userStatus={this.props.userStatus} handleClickSignOutLink={this.handleSignOut} />
+          <Header userStatus={this.props.userStore} handleClickSignOutLink={this.handleSignOut} />
           <ToastContainer />
           <ErrorBoundary>
             <Switch>
@@ -105,7 +105,7 @@ class App extends Component<Props> {
 function mapState(state: RootState): StateProps {
   return {
     profile: state.profile,
-    userStatus: state.userStatus
+    userStore: state.user
   }
 }
 

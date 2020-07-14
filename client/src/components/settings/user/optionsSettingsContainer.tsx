@@ -7,13 +7,13 @@ import ReactTooltip from 'react-tooltip'
 
 import SwitchCheckbox from 'components/common/switchCheckbox'
 import { UserParams } from 'types/api'
-import { UserStatusStore } from 'types/store'
+import { UserStore } from 'types/store'
 import { getUser, patchUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
 interface StateProps {
-  userStatus: UserStatusStore;
+  userStore: UserStore;
 }
 
 interface DispatchProps {
@@ -31,7 +31,7 @@ class OptionsSettingsContainer extends Component<Props> {
   }
 
   handleChangeCheck(id: number) {
-    const targetOption = this.props.userStatus.options.find((option) => option.id === id)
+    const targetOption = this.props.userStore.options.find((option) => option.id === id)
     if (targetOption === undefined) {
       return
     }
@@ -53,13 +53,13 @@ class OptionsSettingsContainer extends Component<Props> {
             {t('title.optionsSetting')}
           </div>
           <div className='card-body'>
-            {this.props.userStatus.errors.length > 0 && (
+            {this.props.userStore.errors.length > 0 && (
               <div className='validation-errors-field'>
-                <ValidationErrorMessages messages={this.props.userStatus.errors} />
+                <ValidationErrorMessages messages={this.props.userStore.errors} />
               </div>
             )}
            <ul>
-              {this.props.userStatus.options.map((option) => (
+              {this.props.userStore.options.map((option) => (
                 <li className='option-li' key={option.id}>
                   <SwitchCheckbox id={option.id} onChangeCheck={this.handleChangeCheck} value={option.value} />
                   <span>
@@ -76,7 +76,7 @@ class OptionsSettingsContainer extends Component<Props> {
               <li>
                 {t('label.recordsCount')}
                 <span>
-                  {this.props.userStatus.recordsCount}
+                  {this.props.userStore.recordsCount}
                 </span>
               </li>
             </ul>
@@ -89,7 +89,7 @@ class OptionsSettingsContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    userStatus: state.userStatus
+    userStore: state.user
   }
 }
 
