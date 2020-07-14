@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class Tag < ApplicationRecord
-  belongs_to :user
+  MAX_NUMBER = 20
+
+  belongs_to :user, touch: true
+  counter_culture :user
 
   # has_many dependent よりも先にチェック
   before_destroy :check_usage
@@ -13,6 +16,7 @@ class Tag < ApplicationRecord
                    uniqueness: { scope: :user }
   validates :color_code, presence: true, length: { maximum: 7 },
                          uniqueness: { scope: :user }
+  validate :should_have_limited_count
 
   private
 
@@ -20,5 +24,13 @@ class Tag < ApplicationRecord
     return true if records.count.zero?
 
     throw :abort
+  end
+
+  def should_have_limited_count
+    return unless user
+    return if user.unlimited_option
+    return if user.tags.count < MAX_NUMBER
+
+    errors.add(:base, :is_limited)
   end
 end

@@ -6,6 +6,7 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認）
         daily_option: デイリーチャート
+        unlimited_option: 無制限利用
       category:
         name: カテゴリ名
       breakdown:

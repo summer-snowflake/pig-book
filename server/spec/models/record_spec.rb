@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Record, type: :model do
+  subject { build(:record) }
+
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:category) }
   it { is_expected.to belong_to(:breakdown).optional(true) }

@@ -4,9 +4,14 @@ ja:
     dollar: $
     nothing: なし
     other: その他
+    options:
+      daily_option: 日々の登録をグラフで表示（未実装）
+      unlimited_option: 登録件数200件を超えて登録できます。200件は3ヶ月〜半年ほどの件数です。
   errors:
     messages:
       taken: はすでに登録されています
+      is_unauthorized: は許可されていません
+      is_limited: 登録件数が制限されています。必要な場合はオプションを追加してください。
     not_found: 404エラー 対象項目が見つかりません。
     cannot_be_deleted: 使用されているため削除できません。
     unauthorized_as_admin: 操作が許可されているユーザでログインしてください。

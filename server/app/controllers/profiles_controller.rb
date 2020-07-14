@@ -11,7 +11,7 @@ class ProfilesController < BaseController
     if @profile.update(profile_params)
       render json: @profile, status: :ok
     else
-      render render_validation_error
+      render_validation_error @profile
     end
   end
 

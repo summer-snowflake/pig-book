@@ -28,10 +28,17 @@ class UserTableRecord extends Component<Props> {
           {this.props.user.email}
         </td>
         <td>
-          {this.props.user.daily_option && (
-            <i className='fas fa-chart-line' />
-          )}
-        </td>
+          <span>
+            {this.props.user.daily_option && (
+              <i className='fas fa-chart-line right-icon' />
+            )}
+          </span>
+          <span>
+            {this.props.user.unlimited_option && (
+              <i className='fas fa-infinity right-icon' />
+            )}
+          </span>
+       </td>
         <td>
           <span className='total-count'>
             <i className='fas fa-th-large left-icon yellow' />
@@ -49,12 +56,32 @@ class UserTableRecord extends Component<Props> {
             <i className='fas fa-align-justify left-icon pink' />
             {this.props.user.records_count}
           </span>
+          <span className='total-count'>
+            <i className='fas fa-bookmark left-icon green' />
+            {this.props.user.tags_count}
+          </span>
+        </td>
+        <td>
+          {this.props.user.created_at && (
+            <span>
+              <i className='fas fa-clock left-icon' />
+              <HumanTime date={new Date(this.props.user.created_at)} />
+            </span>
+          )}
         </td>
         <td>
           {this.props.user.current_sign_in_at && (
             <span>
               <i className='fas fa-clock left-icon' />
               <HumanTime date={new Date(this.props.user.current_sign_in_at)} />
+            </span>
+          )}
+        </td>
+        <td>
+          {this.props.user.updated_at && (
+            <span>
+              <i className='fas fa-clock left-icon' />
+              <HumanTime date={new Date(this.props.user.updated_at)} />
             </span>
           )}
         </td>

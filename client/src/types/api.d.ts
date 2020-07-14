@@ -32,6 +32,11 @@ export interface TagParams {
   color_code: string;
 }
 
+export interface UserParams {
+  daily_option?: boolean;
+  unlimited_option?: boolean;
+}
+
 export interface ProfileParams {
   locale: string;
   currency: string;
@@ -101,6 +106,7 @@ export interface AdminUser extends User {
   breakdowns_count: number;
   places_count: number;
   records_count: number;
+  tags_count: number;
 }
 
 export interface User {
@@ -111,7 +117,11 @@ export interface User {
   active: boolean;
   admin: Admin;
   daily_option: boolean;
+  unlimited_option: boolean;
   options_list: string;
+  options: UserOption[];
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Profile {

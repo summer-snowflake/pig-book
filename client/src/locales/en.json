@@ -41,6 +41,7 @@
     "editing": "Now editing",
     "baseSetting": "Base Setting",
     "memo": "Note",
+    "optionsSetting": "Options Setting",
     "tutorial": "Tutorial",
     "profile": "Profile"
   },
@@ -125,13 +126,16 @@
     "deleteTagSuccess": "Tag deleted successfully",
     "signedUpButUnconfirmed": "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account",
     "confirmSuccess": "You can sign in your account",
-    "accessFailure": "Network Error! Try reloading this page or visiting another time."
+    "accessFailure": "Network Error! Try reloading this page or visiting another time.",
+    "patchUserSuccess": "updated successfully"
   },
   "alert": {
     "editingOther": "Editing now"
   },
   "admin": {
     "userEmail": "Email",
-    "lastSignInAt": "Last Sign in time"
+    "lastSignInAt": "Last Sign in time",
+    "confirmedAt": "Confirmed time",
+    "updatedAt": "Updated time"
   }
 }

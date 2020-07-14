@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  USER_OPTIONS = %i[daily_option unlimited_option].freeze
+
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -23,6 +25,9 @@ class User < ApplicationRecord
   has_many :yearly_total_balance_tables, dependent: :destroy
   has_many :yearly_category_balance_tables, dependent: :destroy
   has_many :yearly_breakdown_balance_tables, dependent: :destroy
+
+  # NOTE: 現時点において、管理者以外はオプションの変更を行えない
+  validate :unauthorized_options
 
   def admin?
     !admin.nil?
@@ -49,12 +54,32 @@ class User < ApplicationRecord
   def options_list
     return I18n.t('label.nothing') unless options?
 
-    User.human_attribute_name(:daily_option)
+    options.select { |option| option[:value] }.pluck(:name).join(', ')
   end
 
   private
 
   def options?
-    daily_option
+    daily_option || unlimited_option
+  end
+
+  def options
+    USER_OPTIONS.map.with_index do |option, index|
+      {
+        id: index + 1,
+        name: User.human_attribute_name(option),
+        column: option,
+        value: send(option),
+        description: I18n.t("label.options.#{option}")
+      }
+    end
+  end
+
+  def unauthorized_options
+    return if admin?
+
+    # NOTE: OFF にしかできない
+    errors.add(:daily_option, :is_unauthorized) if daily_option
+    errors.add(:unlimited_option, :is_unauthorized) if unlimited_option
   end
 end

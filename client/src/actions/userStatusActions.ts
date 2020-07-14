@@ -4,8 +4,8 @@ import { Action } from 'redux'
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
-import { User } from 'types/api'
-import { UserAction } from 'types/action'
+import { User, UserParams } from 'types/api'
+import { UserAction, ErrorsAction } from 'types/action'
 import { catchErrors } from 'actions/errorsAction'
 
 export const getCookiesFailure = (): Action => {
@@ -38,6 +38,48 @@ export const getUserStatus = () => {
     }
     catch (err) {
       dispatch(catchErrors(err.response))
+    }
+  }
+}
+
+const patchUserRequest = (): Action => {
+  return {
+    type: actionTypes.PATCH_USER_REQUEST
+  }
+}
+
+const patchUserSuccess = (user: User): UserAction => {
+  return {
+    type: actionTypes.PATCH_USER_SUCCESS,
+    user
+  }
+}
+
+const patchUserFailure = (errors: Error): ErrorsAction => {
+  return {
+    type: actionTypes.PATCH_USER_FAILURE,
+    errors
+  }
+}
+
+export const patchUser = (params: UserParams) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(patchUserRequest())
+
+    try {
+      if(ready()) {
+        const res = await axios.patch('/api/user', params, { headers: loginHeaders() })
+        dispatch(patchUserSuccess(res.data))
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      if (err.response?.status === 422) {
+        dispatch(patchUserFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
+      }
     }
   }
 }

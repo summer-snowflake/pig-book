@@ -41,6 +41,7 @@
     "editing": "編集中",
     "baseSetting": "基本設定",
     "memo": "メモ",
+    "optionsSetting": "オプション設定",
     "tutorial": "チュートリアル",
     "profile": "プロフィール"
   },
@@ -125,13 +126,16 @@
     "deleteTagSuccess": "ラベルを削除しました",
     "signedUpButUnconfirmed": "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。",
     "confirmSuccess": "アカウントを有効にしました。ログインしてください。",
-    "accessFailure": "ネットワークエラー：リロードまたは時間をおいてアクセスしてください。"
+    "accessFailure": "ネットワークエラー：リロードまたは時間をおいてアクセスしてください。",
+    "patchUserSuccess": "ユーザ情報を更新しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"
   },
   "admin": {
     "userEmail": "メールアドレス",
-    "lastSignInAt": "最終ログイン時刻"
+    "lastSignInAt": "最終ログイン時刻",
+    "confirmedAt": "ユーザー登録日",
+    "updatedAt": "最終更新時刻"
   }
 }

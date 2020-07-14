@@ -9,6 +9,7 @@ import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import CategoryTableRecordContainer from 'components/settings/category/categoryTableRecordContainer'
 import LoadingImage from 'components/common/loadingImage'
+import Counter from 'components/common/counter'
 
 interface StateProps {
   categories: CategoriesStore;
@@ -30,6 +31,7 @@ class CategoriesListContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='categories-list-component'>
+        <Counter count={this.props.categories.categories.length} max={20} />
         <table className='table'>
           <tbody>
             {this.props.categories.categories.map((category: Category) => (
