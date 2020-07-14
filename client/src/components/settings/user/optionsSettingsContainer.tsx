@@ -8,7 +8,7 @@ import ReactTooltip from 'react-tooltip'
 import SwitchCheckbox from 'components/common/switchCheckbox'
 import { UserParams } from 'types/api'
 import { UserStatusStore } from 'types/store'
-import { getUserStatus, patchUser } from 'actions/userStatusActions'
+import { getUser, patchUser } from 'actions/userStatusActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
@@ -17,7 +17,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getUserStatus: () => void;
+  getUser: () => void;
   patchUser: (params: UserParams) => void;
 }
 
@@ -95,8 +95,8 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getUserStatus(): void {
-      dispatch(getUserStatus())
+    getUser(): void {
+      dispatch(getUser())
     },
     patchUser(params: UserParams): void {
       dispatch(patchUser(params))

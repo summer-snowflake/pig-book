@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { UserStatusStore } from 'types/store'
-import { getUserStatus } from 'actions/userStatusActions'
+import { getUser } from 'actions/userStatusActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
@@ -13,7 +13,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getUserStatus: () => void;
+  getUser: () => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -59,8 +59,8 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getUserStatus(): void {
-      dispatch(getUserStatus())
+    getUser(): void {
+      dispatch(getUser())
     }
   }
 }

@@ -11,7 +11,7 @@ import { LoginParams } from 'types/api'
 import { SessionStore, RegistrationStore } from 'types/store'
 import { login } from 'actions/sessionActions'
 import { confirmUser } from 'actions/registrationActions'
-import { getUserStatus } from 'actions/userStatusActions'
+import { getUser } from 'actions/userStatusActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
@@ -133,7 +133,7 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     login(params: LoginParams, history: H.History): void {
       dispatch(login(params, history)).then(() => {
-        dispatch(getUserStatus())
+        dispatch(getUser())
       })
     },
     confirmUser(confirmationToken: string, history: H.History): void {

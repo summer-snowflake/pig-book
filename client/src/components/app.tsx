@@ -12,7 +12,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import { ProfileStore, UserStatusStore } from 'types/store'
 import { getProfile } from 'actions/settingsActions'
-import { getUserStatus } from 'actions/userStatusActions'
+import { getUser } from 'actions/userStatusActions'
 import { signOut } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
 import Header from 'components/header'
@@ -48,7 +48,7 @@ interface StateProps {
 
 interface DispatchProps {
   getProfile: () => void;
-  getUserStatus: () => void;
+  getUser: () => void;
   signOut: () => void;
 }
 
@@ -61,7 +61,7 @@ class App extends Component<Props> {
     this.handleSignOut = this.handleSignOut.bind(this)
 
     this.props.getProfile()
-    this.props.getUserStatus()
+    this.props.getUser()
   }
 
   handleSignOut() {
@@ -114,8 +114,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getProfile(): void {
       dispatch(getProfile())
     },
-    getUserStatus(): void {
-      dispatch(getUserStatus())
+    getUser(): void {
+      dispatch(getUser())
     },
     signOut(): void {
       dispatch(signOut())

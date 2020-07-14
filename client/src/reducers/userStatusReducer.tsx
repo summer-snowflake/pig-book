@@ -35,13 +35,13 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
     return {
       ...initialState
     }
-  case actionTypes.GET_USER_STATUS_REQUEST:
+  case actionTypes.GET_USER_REQUEST:
     return {
       ...state,
       isLoading: true,
       isLogged: false
     }
-  case actionTypes.GET_USER_STATUS_SUCCESS:
+  case actionTypes.GET_USER_SUCCESS:
     return {
       ...state,
       isLoading: false,
