@@ -12,7 +12,7 @@ class Record < ApplicationRecord
   has_many :tagged_records, dependent: :destroy
   has_many :tags, through: :tagged_records
 
-  MAX_COUNT = 500
+  MAX_NUMBER = 200
 
   validates :published_at, presence: true
   validates :currency, presence: true
@@ -73,7 +73,7 @@ class Record < ApplicationRecord
   def limited
     return unless user
     return if user.unlimited_option
-    return if user.records.count <= MAX_COUNT
+    return if user.records.count <= MAX_NUMBER
 
     errors.add(:base, :is_limited)
   end

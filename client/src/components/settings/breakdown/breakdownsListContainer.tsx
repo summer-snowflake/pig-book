@@ -9,6 +9,7 @@ import { getBreakdowns } from 'actions/breakdownsActions'
 import { RootState } from 'reducers/rootReducer'
 import BreakdownTableRecordContainer from 'components/settings/breakdown/breakdownTableRecordContainer'
 import LoadingImage from 'components/common/loadingImage'
+import Counter from 'components/common/counter'
 
 interface StateProps {
   breakdowns: BreakdownsStore;
@@ -30,6 +31,7 @@ class BreakdownsListContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='breakdowns-list-component'>
+        <Counter count={this.props.breakdowns.breakdowns.length} max={20} />
         <table className='table'>
           <tbody>
             {this.props.breakdowns.breakdowns.map((breakdown: Breakdown) => (

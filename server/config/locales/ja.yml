@@ -6,7 +6,7 @@ ja:
     other: その他
     options:
       daily_option: 日々の登録をグラフで表示（未実装）
-      unlimited_option: 登録件数500件を超えて登録できます。500件は約1年ほどの件数です。
+      unlimited_option: 登録件数200件を超えて登録できます。200件は3ヶ月〜半年ほどの件数です。
   errors:
     messages:
       taken: はすでに登録されています

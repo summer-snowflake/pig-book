@@ -6,7 +6,7 @@ en:
     other: Other
     options:
       daily_option: Daily Graph - Unimplemented.
-      unlimited_option: You can add more than 500 which is equivalent to about one year.
+      unlimited_option: You can add more than 200 which is equivalent to about three months.
   errors:
     messages:
       is_limited: You can't add any more. You need to add option `Daily Chart`.
