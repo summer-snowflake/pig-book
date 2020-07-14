@@ -47,7 +47,7 @@ class DashboardContainer extends Component<Props> {
           disabled={this.props.dashboards.isLoading}
           onClickTallyButton={this.handleClickTallyButton}
         />
-        {Object.keys(dashboards).map((year) => (
+        {Object.keys(dashboards).reverse().map((year) => (
           <div className='dashboard' key={year}>
             <div className='dashboard-year'>
               <HumanYearMonth year={year} />
