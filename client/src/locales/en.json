@@ -72,7 +72,8 @@
     "tutorial-category": "Set some categories",
     "tutorial-place": "Set some shop/facility. and Add category to them",
     "tutorial-record": "Create data",
-    "options": "Options"
+    "options": "Options",
+    "recordsCount": "Number of registrations"
   },
   "toolTip": {
     "sortCreatedAt": "sort created time",

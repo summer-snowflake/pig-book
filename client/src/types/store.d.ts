@@ -24,6 +24,7 @@ export interface UserStatusStore extends Errors {
   unlimitedOption: boolean;
   optionsList: string;
   options: UserOption[];
+  recordsCount: number;
 }
 
 export interface UserOption {

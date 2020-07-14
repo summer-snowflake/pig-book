@@ -15,7 +15,8 @@ const initialState = {
   unlimitedOption: false,
   optionsList: '',
   options: [],
-  errors: []
+  errors: [],
+  recordsCount: 0
 }
 
 interface StoreAction extends UserAction {
@@ -51,6 +52,7 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
       email: action.user.email,
       optionsList: action.user.options_list,
       options: action.user.options,
+      recordsCount: action.user.records_count,
       errors: []
     }
   case actionTypes.PATCH_USER_REQUEST:
@@ -67,6 +69,7 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
       unlimitedOption: action.user.unlimited_option,
       optionsList: action.user.options_list,
       options: action.user.options,
+      recordsCount: action.user.records_count,
       errors: []
     }
   case actionTypes.PATCH_USER_FAILURE:
