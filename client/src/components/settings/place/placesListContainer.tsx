@@ -9,6 +9,7 @@ import { getPlaces } from 'actions/placesActions'
 import { RootState } from 'reducers/rootReducer'
 import PlaceTableRecordContainer from 'components/settings/place/placeTableRecordContainer'
 import LoadingImage from 'components/common/loadingImage'
+import Counter from 'components/common/counter'
 
 interface StateProps {
   placesStore: PlacesStore;
@@ -30,6 +31,7 @@ class PlacesListContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='places-list-component'>
+        <Counter count={this.props.placesStore.places.length} max={20} />
         <table className='table'>
           <tbody>
             {this.props.placesStore.places.map((place: WithCategoriesPlace) => (

@@ -9,6 +9,7 @@ import { getTags } from 'actions/tagsActions'
 import { RootState } from 'reducers/rootReducer'
 import TagTableRecordContainer from 'components/settings/tag/tagTableRecordContainer'
 import LoadingImage from 'components/common/loadingImage'
+import Counter from 'components/common/counter'
 
 interface StateProps {
   tagsStore: TagsStore;
@@ -30,6 +31,7 @@ class TagsListContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='tags-list-component'>
+        <Counter count={this.props.tagsStore.tags.length} max={20} />
         <table className='table'>
           <tbody>
             {this.props.tagsStore.tags.map((tag: Tag) => (
