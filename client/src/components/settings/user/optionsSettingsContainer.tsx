@@ -72,6 +72,14 @@ class OptionsSettingsContainer extends Component<Props> {
                 </li>
               ))}
             </ul>
+            <ul className='options-info-list'>
+              <li>
+                {t('label.recordsCount')}
+                <span>
+                  {this.props.userStatus.recordsCount}
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

@@ -105,7 +105,6 @@ export interface AdminUser extends User {
   categories_count: number;
   breakdowns_count: number;
   places_count: number;
-  records_count: number;
   tags_count: number;
 }
 
@@ -120,6 +119,7 @@ export interface User {
   unlimited_option: boolean;
   options_list: string;
   options: UserOption[];
+  records_count: number;
   created_at: string;
   updated_at: string;
 }
