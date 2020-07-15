@@ -13,7 +13,7 @@ import { getTags } from 'actions/tagsActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
-  newTag: NewTagStore;
+  newTagStore: NewTagStore;
 }
 
 interface DispatchProps {
@@ -35,7 +35,7 @@ class TagPostFormContainer extends Component<Props> {
   }
 
   diff(): boolean {
-    return this.props.newTag.name !== ''
+    return this.props.newTagStore.name !== ''
   }
 
   handleChangeColorCode(color: string): void {
@@ -56,8 +56,8 @@ class TagPostFormContainer extends Component<Props> {
 
   handleClickSubmitButton(): void {
     const params = {
-      name: this.props.newTag.name,
-      color_code: this.props.newTag.color_code
+      name: this.props.newTagStore.name,
+      color_code: this.props.newTagStore.color_code
     }
 
     this.props.postTag(params)
@@ -67,15 +67,15 @@ class TagPostFormContainer extends Component<Props> {
     return (
       <div className='tag-create-form-component'>
         <TagForm
-          disabled={this.props.newTag.isLoading || !this.diff()}
-          isLoading={this.props.newTag.isLoading}
+          disabled={this.props.newTagStore.isLoading || !this.diff()}
+          isLoading={this.props.newTagStore.isLoading}
           onChangeName={this.handleChangeName}
           onChangeColorCode={this.handleChangeColorCode}
           onClickSubmitButton={this.handleClickSubmitButton}
           onKeyDown={this.handleKeyDown}
-          tag={this.props.newTag}
+          tag={this.props.newTagStore}
         />
-        <ValidationErrorMessages messages={this.props.newTag.errors} />
+        <ValidationErrorMessages messages={this.props.newTagStore.errors} />
       </div>
     )
   }
@@ -83,7 +83,7 @@ class TagPostFormContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    newTag: state.newTag
+    newTagStore: state.newTag
   }
 }
 

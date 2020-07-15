@@ -1,22 +1,15 @@
 import React, { Component } from 'react'
-import { Action } from 'redux'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { ThunkDispatch } from 'redux-thunk'
 
-import { UserStatusStore } from 'types/store'
-import { getUserStatus } from 'actions/userStatusActions'
+import { UserStore } from 'types/store'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
-  userStatus: UserStatusStore;
+  userStore: UserStore;
 }
 
-interface DispatchProps {
-  getUserStatus: () => void;
-}
-
-type Props = I18nProps & StateProps & DispatchProps
+type Props = I18nProps & StateProps
 
 class ProfileContainer extends Component<Props> {
   render(): JSX.Element {
@@ -28,20 +21,12 @@ class ProfileContainer extends Component<Props> {
           <div className='card-body'>
             <ul>
               <li>
-                <label>
-                  {t('label.email')}
-                </label>
-                <p>
-                  {this.props.userStatus.email}
-                </p>
+                <label>{t('label.email')}</label>
+                <p>{this.props.userStore.email}</p>
               </li>
               <li>
-                <label>
-                  {t('label.options')}
-                </label>
-                <p>
-                  {this.props.userStatus.optionsList}
-                </p>
+                <label>{t('label.options')}</label>
+                <p>{this.props.userStore.optionsList}</p>
               </li>
             </ul>
           </div>
@@ -53,16 +38,8 @@ class ProfileContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    userStatus: state.userStatus
+    userStore: state.user
   }
 }
 
-function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
-  return {
-    getUserStatus(): void {
-      dispatch(getUserStatus())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(withTranslation()(ProfileContainer))
+export default connect(mapState)(withTranslation()(ProfileContainer))

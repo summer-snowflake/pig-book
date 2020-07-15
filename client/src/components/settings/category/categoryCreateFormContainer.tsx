@@ -14,7 +14,7 @@ import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
-  newCategory: NewCategoryStore;
+  newCategoryStore: NewCategoryStore;
 }
 
 interface DispatchProps {
@@ -36,7 +36,7 @@ class CategoryPostForm extends Component<Props> {
   }
 
   diff(): boolean {
-    return this.props.newCategory.name !== ''
+    return this.props.newCategoryStore.name !== ''
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -57,8 +57,8 @@ class CategoryPostForm extends Component<Props> {
 
   handleClickSubmitButton(): void {
     const params = {
-      balance_of_payments: this.props.newCategory.balance_of_payments,
-      name: this.props.newCategory.name
+      balance_of_payments: this.props.newCategoryStore.balance_of_payments,
+      name: this.props.newCategoryStore.name
     }
 
     this.props.postCategory(params)
@@ -68,15 +68,15 @@ class CategoryPostForm extends Component<Props> {
     return (
       <div className='category-create-form-component'>
         <CategoryForm
-          category={this.props.newCategory}
-          disabled={this.props.newCategory.isLoading || !this.diff()}
-          isLoading={this.props.newCategory.isLoading}
+          category={this.props.newCategoryStore}
+          disabled={this.props.newCategoryStore.isLoading || !this.diff()}
+          isLoading={this.props.newCategoryStore.isLoading}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeName={this.handleChangeName}
           onClickSubmitButton={this.handleClickSubmitButton}
           onKeyDown={this.handleKeyDown}
         />
-        <ValidationErrorMessages messages={this.props.newCategory.errors} />
+        <ValidationErrorMessages messages={this.props.newCategoryStore.errors} />
       </div>
     )
   }
@@ -84,7 +84,7 @@ class CategoryPostForm extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    newCategory: state.newCategory
+    newCategoryStore: state.newCategory
   }
 }
 

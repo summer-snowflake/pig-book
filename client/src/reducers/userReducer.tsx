@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { UserStatusStore } from 'types/store'
+import { UserStore } from 'types/store'
 import { UserAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
 
@@ -15,14 +15,15 @@ const initialState = {
   unlimitedOption: false,
   optionsList: '',
   options: [],
-  errors: []
+  errors: [],
+  recordsCount: 0
 }
 
 interface StoreAction extends UserAction {
   errors: string[];
 }
 
-const userStatusReducer = (state: UserStatusStore = initialState, action: StoreAction): UserStatusStore => {
+const userReducer = (state: UserStore = initialState, action: StoreAction): UserStore => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
@@ -34,13 +35,13 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
     return {
       ...initialState
     }
-  case actionTypes.GET_USER_STATUS_REQUEST:
+  case actionTypes.GET_USER_REQUEST:
     return {
       ...state,
       isLoading: true,
       isLogged: false
     }
-  case actionTypes.GET_USER_STATUS_SUCCESS:
+  case actionTypes.GET_USER_SUCCESS:
     return {
       ...state,
       isLoading: false,
@@ -51,6 +52,7 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
       email: action.user.email,
       optionsList: action.user.options_list,
       options: action.user.options,
+      recordsCount: action.user.records_count,
       errors: []
     }
   case actionTypes.PATCH_USER_REQUEST:
@@ -67,6 +69,7 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
       unlimitedOption: action.user.unlimited_option,
       optionsList: action.user.options_list,
       options: action.user.options,
+      recordsCount: action.user.records_count,
       errors: []
     }
   case actionTypes.PATCH_USER_FAILURE:
@@ -84,4 +87,4 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
   }
 }
 
-export default userStatusReducer
+export default userReducer

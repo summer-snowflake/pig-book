@@ -7,7 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { PlacesAction } from 'types/action'
 import { Place } from 'types/api'
 import { catchErrors } from 'actions/errorsAction'
-import { getCookiesFailure } from 'actions/userStatusActions'
+import { getCookiesFailure } from 'actions/userActions'
 
 const getPlacesRequest = (): Action => {
   return {

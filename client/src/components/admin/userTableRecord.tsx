@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AdminUser } from 'types/api'
 
 import HumanTime from 'components/common/humanTime'
+import FromNow from 'components/common/fromNow'
 
 interface Props {
   user: AdminUser;
@@ -66,6 +67,7 @@ class UserTableRecord extends Component<Props> {
             <span>
               <i className='fas fa-clock left-icon' />
               <HumanTime date={new Date(this.props.user.created_at)} />
+              <FromNow date={new Date(this.props.user.created_at)} />
             </span>
           )}
         </td>
@@ -74,6 +76,7 @@ class UserTableRecord extends Component<Props> {
             <span>
               <i className='fas fa-clock left-icon' />
               <HumanTime date={new Date(this.props.user.current_sign_in_at)} />
+              <FromNow date={new Date(this.props.user.current_sign_in_at)} />
             </span>
           )}
         </td>
@@ -82,6 +85,7 @@ class UserTableRecord extends Component<Props> {
             <span>
               <i className='fas fa-clock left-icon' />
               <HumanTime date={new Date(this.props.user.updated_at)} />
+              <FromNow date={new Date(this.props.user.updated_at)} />
             </span>
           )}
         </td>

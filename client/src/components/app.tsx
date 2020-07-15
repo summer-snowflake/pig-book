@@ -10,9 +10,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-import { ProfileStore, UserStatusStore } from 'types/store'
+import { UserStore } from 'types/store'
 import { getProfile } from 'actions/settingsActions'
-import { getUserStatus } from 'actions/userStatusActions'
+import { getUser } from 'actions/userActions'
 import { signOut } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
 import Header from 'components/header'
@@ -42,13 +42,12 @@ import 'stylesheets/react_tooltip.sass'
 library.add(fab, fas, far)
 
 interface StateProps {
-  profile: ProfileStore;
-  userStatus: UserStatusStore;
+  userStore: UserStore;
 }
 
 interface DispatchProps {
   getProfile: () => void;
-  getUserStatus: () => void;
+  getUser: () => void;
   signOut: () => void;
 }
 
@@ -61,7 +60,7 @@ class App extends Component<Props> {
     this.handleSignOut = this.handleSignOut.bind(this)
 
     this.props.getProfile()
-    this.props.getUserStatus()
+    this.props.getUser()
   }
 
   handleSignOut() {
@@ -72,7 +71,7 @@ class App extends Component<Props> {
     return (
       <div className='app-component'>
         <Router>
-          <Header userStatus={this.props.userStatus} handleClickSignOutLink={this.handleSignOut} />
+          <Header user={this.props.userStore} handleClickSignOutLink={this.handleSignOut} />
           <ToastContainer />
           <ErrorBoundary>
             <Switch>
@@ -104,8 +103,7 @@ class App extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile,
-    userStatus: state.userStatus
+    userStore: state.user
   }
 }
 
@@ -114,8 +112,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getProfile(): void {
       dispatch(getProfile())
     },
-    getUserStatus(): void {
-      dispatch(getUserStatus())
+    getUser(): void {
+      dispatch(getUser())
     },
     signOut(): void {
       dispatch(signOut())

@@ -12,7 +12,7 @@ import LoadingImage from 'components/common/loadingImage'
 import Counter from 'components/common/counter'
 
 interface StateProps {
-  categories: CategoriesStore;
+  categoriesStore: CategoriesStore;
 }
 
 interface DispatchProps {
@@ -31,15 +31,15 @@ class CategoriesListContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='categories-list-component'>
-        <Counter count={this.props.categories.categories.length} max={20} />
+        <Counter count={this.props.categoriesStore.categories.length} max={20} />
         <table className='table'>
           <tbody>
-            {this.props.categories.categories.map((category: Category) => (
+            {this.props.categoriesStore.categories.map((category: Category) => (
               <CategoryTableRecordContainer category={category} key={category.id} />
             ))}
           </tbody>
         </table>
-        {this.props.categories.categories.length === 0 && this.props.categories.isLoading && (
+        {this.props.categoriesStore.categories.length === 0 && this.props.categoriesStore.isLoading && (
           <LoadingImage />
         )}
       </div>
@@ -49,7 +49,7 @@ class CategoriesListContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    categories: state.categories
+    categoriesStore: state.categories
   }
 }
 

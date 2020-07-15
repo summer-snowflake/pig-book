@@ -13,7 +13,7 @@ import YearlyPieChart from 'components/dashboard/yearlyPieChart'
 import TallyField from 'components/dashboard/tallyField'
 
 interface StateProps {
-  dashboard: DashboardStore;
+  dashboardStore: DashboardStore;
 }
 
 interface DispatchProps {
@@ -34,28 +34,28 @@ class DashboardContainer extends Component<Props> {
   }
 
   handleClickTallyButton(): void {
-    this.props.patchDashboard(this.props.dashboard.year)
+    this.props.patchDashboard(this.props.dashboardStore.year)
   }
 
   render(): JSX.Element {
     return (
       <div className='dashboard-component'>
         <div className='dashboard-year'>
-          <HumanYearMonth year={this.props.dashboard.year} />
+          <HumanYearMonth year={this.props.dashboardStore.year} />
         </div>
-        <TallyField dashboard={this.props.dashboard} disabled={this.props.dashboard.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-        <MonthlyData monthly={this.props.dashboard.monthly} year={this.props.dashboard.year} yearly={this.props.dashboard.yearly} />
+        <TallyField dashboard={this.props.dashboardStore} disabled={this.props.dashboardStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
+        <MonthlyData monthly={this.props.dashboardStore.monthly} year={this.props.dashboardStore.year} yearly={this.props.dashboardStore.yearly} />
         <div className='chart-line'>
-          <MonthlyBarChart monthly={this.props.dashboard.monthly} />
+          <MonthlyBarChart monthly={this.props.dashboardStore.monthly} />
           <YearlyPieChart
-            breakdownYearly={this.props.dashboard.yearly_breakdown_income}
-            categoryYearly={this.props.dashboard.yearly_category_income}
+            breakdownYearly={this.props.dashboardStore.yearly_breakdown_income}
+            categoryYearly={this.props.dashboardStore.yearly_category_income}
             dataKey={'income'}
             onUnmount={this.props.clearDashboard}
           />
           <YearlyPieChart
-            breakdownYearly={this.props.dashboard.yearly_breakdown_expenditure}
-            categoryYearly={this.props.dashboard.yearly_category_expenditure}
+            breakdownYearly={this.props.dashboardStore.yearly_breakdown_expenditure}
+            categoryYearly={this.props.dashboardStore.yearly_category_expenditure}
             dataKey={'expenditure'}
             onUnmount={this.props.clearDashboard}
           />
@@ -67,7 +67,7 @@ class DashboardContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    dashboard: state.dashboard
+    dashboardStore: state.dashboard
   }
 }
 

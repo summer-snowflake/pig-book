@@ -18,9 +18,9 @@ import CreateButton from 'components/common/createButton'
 import RecordForm from 'components/input/recordForm'
 
 interface StateProps {
-  profile: ProfileStore;
-  newRecord: NewRecordStore;
-  recordSearch: RecordSearchStore;
+  profileStore: ProfileStore;
+  newRecordStore: NewRecordStore;
+  recordSearchStore: RecordSearchStore;
 }
 
 interface DispatchProps {
@@ -72,9 +72,9 @@ class NewRecordFormContainer extends Component<Props> {
     this.props.changePublishedOn(date)
     // 入力する画面のとき
     let params = {}
-    if (this.props.recordSearch.date) {
+    if (this.props.recordSearchStore.date) {
       params = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         date: date
       }
       this.props.getRecords(params)
@@ -121,26 +121,26 @@ class NewRecordFormContainer extends Component<Props> {
 
   handleClickCreate(): void {
     const params = {
-      published_at: String(this.props.newRecord.record.published_on),
-      category_id: this.props.newRecord.record.category.id,
-      breakdown_id: this.props.newRecord.record.breakdown_id,
-      place_id: this.props.newRecord.record.place_id,
-      currency: this.props.profile.currency,
-      charge: this.props.newRecord.record.charge,
-      cashless_charge: this.props.newRecord.record.cashless_charge || 0,
-      point: this.props.newRecord.record.point || 0,
-      memo: this.props.newRecord.record.memo,
-      tags: this.props.newRecord.record.tags
+      published_at: String(this.props.newRecordStore.record.published_on),
+      category_id: this.props.newRecordStore.record.category.id,
+      breakdown_id: this.props.newRecordStore.record.breakdown_id,
+      place_id: this.props.newRecordStore.record.place_id,
+      currency: this.props.profileStore.currency,
+      charge: this.props.newRecordStore.record.charge,
+      cashless_charge: this.props.newRecordStore.record.cashless_charge || 0,
+      point: this.props.newRecordStore.record.point || 0,
+      memo: this.props.newRecordStore.record.memo,
+      tags: this.props.newRecordStore.record.tags
     }
     let searchParams = {}
-    if (this.props.recordSearch.date) {
+    if (this.props.recordSearchStore.date) {
       searchParams = {
-        ...this.props.recordSearch,
-        date: this.props.newRecord.record.published_on,
+        ...this.props.recordSearchStore,
+        date: this.props.newRecordStore.record.published_on,
       }
     } else {
       searchParams = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         date: null
       }
     }
@@ -153,13 +153,13 @@ class NewRecordFormContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='new-record-form-component'>
-        {this.props.newRecord.errors.length > 0 && (
+        {this.props.newRecordStore.errors.length > 0 && (
           <div className='validation-errors-field'>
-            <ValidationErrorMessages messages={this.props.newRecord.errors} />
+            <ValidationErrorMessages messages={this.props.newRecordStore.errors} />
           </div>
         )}
         <RecordForm
-          currency={this.props.profile.currency}
+          currency={this.props.profileStore.currency}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeBreakdown={this.handleChangeBreakdown}
           onChangeCashlessCharge={this.handleChangeCashlessCharge}
@@ -169,7 +169,7 @@ class NewRecordFormContainer extends Component<Props> {
           onChangePlace={this.handleChangePlace}
           onChangePoint={this.handleChangePoint}
           onChangePublishedOn={this.handleChangePublishedOn}
-          store={this.props.newRecord}
+          store={this.props.newRecordStore}
         />
         <CreateButton onClickCreate={this.handleClickCreate} />
       </div>
@@ -179,9 +179,9 @@ class NewRecordFormContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile,
-    newRecord: state.newRecord,
-    recordSearch: state.recordSearch
+    profileStore: state.profile,
+    newRecordStore: state.newRecord,
+    recordSearchStore: state.recordSearch
   }
 }
 

@@ -11,13 +11,13 @@ import { LoginParams } from 'types/api'
 import { SessionStore, RegistrationStore } from 'types/store'
 import { login } from 'actions/sessionActions'
 import { confirmUser } from 'actions/registrationActions'
-import { getUserStatus } from 'actions/userStatusActions'
+import { getUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
 interface StateProps {
-  session: SessionStore;
-  registration: RegistrationStore;
+  sessionStore: SessionStore;
+  registrationStore: RegistrationStore;
 }
 
 interface DispatchProps {
@@ -77,9 +77,9 @@ class SignInContainer extends Component<Props, State> {
         </div>
         <div className='card-body with-background-image'>
           <form>
-            {this.props.registration.errors.length > 0 && (
+            {this.props.registrationStore.errors.length > 0 && (
               <div className='validation-errors-field'>
-                <ValidationErrorMessages messages={this.props.registration.errors} />
+                <ValidationErrorMessages messages={this.props.registrationStore.errors} />
               </div>
             )}
             { /* メールアドレス */ }
@@ -112,7 +112,7 @@ class SignInContainer extends Component<Props, State> {
               />
             </div>
 
-            <button className='btn btn-primary' disabled={this.props.session.isLoading} onClick={this.handleLogin} type='submit'>
+            <button className='btn btn-primary' disabled={this.props.sessionStore.isLoading} onClick={this.handleLogin} type='submit'>
               {t('button.login')}
             </button>
           </form>
@@ -124,8 +124,8 @@ class SignInContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    session: state.session,
-    registration: state.registration
+    sessionStore: state.session,
+    registrationStore: state.registration
   }
 }
 
@@ -133,7 +133,7 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     login(params: LoginParams, history: H.History): void {
       dispatch(login(params, history)).then(() => {
-        dispatch(getUserStatus())
+        dispatch(getUser())
       })
     },
     confirmUser(confirmationToken: string, history: H.History): void {
