@@ -7,6 +7,7 @@ import { Category } from 'types/api'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import { CategoriesStore } from 'types/store'
+import CategoryLabelOption from 'components/common/categoryLabelOption'
 
 interface ParentProps {
   balanceOfPayments: boolean;
@@ -50,7 +51,7 @@ class CategorySelectBoxContainer extends Component<Props> {
           onChange={this.handleChangeCategory}
           value={this.props.selectedCategoryId}
         >
-          <option>{'- カテゴリ -'}</option>
+          <CategoryLabelOption />
           {this.props.categoriesStore.categories
             .filter((category: Category) => (
               category.balance_of_payments === this.props.balanceOfPayments
