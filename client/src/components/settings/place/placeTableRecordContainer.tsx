@@ -23,7 +23,7 @@ import CategoryName from 'components/settings/category/categoryName'
 
 interface StateProps {
   editPlaceStore: EditPlaceStore;
-  categories: CategoriesStore;
+  categoriesStore: CategoriesStore;
 }
 
 interface DispatchProps {
@@ -219,7 +219,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
         </td>
         <td className='plus-field-td'>
           <CategorizedModal
-            categories={this.props.categories.categories}
+            categories={this.props.categoriesStore.categories}
             isOpen={this.state.isOpenCategorizedModal}
             onClickClose={this.handleClickClose}
             onClickSubmit={this.handleClickSubmit}
@@ -250,7 +250,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
 function mapState(state: RootState): StateProps {
   return {
     editPlaceStore: state.editPlace,
-    categories: state.categories
+    categoriesStore: state.categories
   }
 }
 

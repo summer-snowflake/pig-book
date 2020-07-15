@@ -6,6 +6,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Category } from 'types/api'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
+import { CategoriesStore } from 'types/store'
 
 interface ParentProps {
   balanceOfPayments: boolean;
@@ -14,10 +15,7 @@ interface ParentProps {
 }
 
 interface StateProps {
-  categories: {
-    isLoading: boolean;
-    categories: Category[];
-  };
+  categoriesStore: CategoriesStore;
 }
 
 interface DispatchProps {
@@ -36,7 +34,7 @@ class CategorySelectBoxContainer extends Component<Props> {
   }
 
   handleChangeCategory(e: React.ChangeEvent<HTMLSelectElement>): void {
-    const category = this.props.categories.categories.find((category) => (
+    const category = this.props.categoriesStore.categories.find((category) => (
       category.id === Number(e.target.value)
     ))
     this.props.onChangeCategory(category)
@@ -47,13 +45,13 @@ class CategorySelectBoxContainer extends Component<Props> {
       <span className='category-select-box-component'>
         <select
           className='form-control'
-          disabled={this.props.categories.isLoading}
+          disabled={this.props.categoriesStore.isLoading}
           name='categories-list'
           onChange={this.handleChangeCategory}
           value={this.props.selectedCategoryId}
         >
           <option>{'- カテゴリ -'}</option>
-          {this.props.categories.categories
+          {this.props.categoriesStore.categories
             .filter((category: Category) => (
               category.balance_of_payments === this.props.balanceOfPayments
             ))
@@ -68,7 +66,7 @@ class CategorySelectBoxContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    categories: state.categories
+    categoriesStore: state.categories
   }
 }
 
