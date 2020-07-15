@@ -1,22 +1,15 @@
 import React, { Component } from 'react'
-import { Action } from 'redux'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { ThunkDispatch } from 'redux-thunk'
 
 import { UserStore } from 'types/store'
-import { getUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
   userStore: UserStore;
 }
 
-interface DispatchProps {
-  getUser: () => void;
-}
-
-type Props = I18nProps & StateProps & DispatchProps
+type Props = I18nProps & StateProps
 
 class ProfileContainer extends Component<Props> {
   render(): JSX.Element {
@@ -28,20 +21,12 @@ class ProfileContainer extends Component<Props> {
           <div className='card-body'>
             <ul>
               <li>
-                <label>
-                  {t('label.email')}
-                </label>
-                <p>
-                  {this.props.userStore.email}
-                </p>
+                <label>{t('label.email')}</label>
+                <p>{this.props.userStore.email}</p>
               </li>
               <li>
-                <label>
-                  {t('label.options')}
-                </label>
-                <p>
-                  {this.props.userStore.optionsList}
-                </p>
+                <label>{t('label.options')}</label>
+                <p>{this.props.userStore.optionsList}</p>
               </li>
             </ul>
           </div>
@@ -57,12 +42,4 @@ function mapState(state: RootState): StateProps {
   }
 }
 
-function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
-  return {
-    getUser(): void {
-      dispatch(getUser())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(withTranslation()(ProfileContainer))
+export default connect(mapState)(withTranslation()(ProfileContainer))
