@@ -15,6 +15,7 @@ import { RootState } from 'reducers/rootReducer'
 
 import 'stylesheets/settings.sass'
 import LoadingImage from 'components/common/loadingImage'
+import { getUser } from 'actions/userActions'
 
 interface State {
   isOpenCancelModal: boolean;
@@ -281,7 +282,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(changeProfileCurrency(locale))
     },
     patchProfile(params: ProfileParams, target: string): void {
-      dispatch(patchProfile(params, target))
+      dispatch(patchProfile(params, target)).then(() => {
+        dispatch(getUser())
+      })
     },
     setEditing(editing: boolean): void {
       dispatch(setEditing(editing))
