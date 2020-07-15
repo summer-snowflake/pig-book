@@ -30,13 +30,19 @@ class CategorySelectBoxContainer extends Component<Props> {
     super(props)
 
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
+    this.loadCategory = this.loadCategory.bind(this)
 
     this.props.getCategories()
+    this.loadCategory(Number(this.props.selectedCategoryId))
   }
 
   handleChangeCategory(e: React.ChangeEvent<HTMLSelectElement>): void {
+    this.loadCategory(Number(e.target.value))
+  }
+
+  loadCategory(categoryId: number): void {
     const category = this.props.categoriesStore.categories.find((category) => (
-      category.id === Number(e.target.value)
+      category.id === categoryId
     ))
     this.props.onChangeCategory(category)
   }
