@@ -10,7 +10,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-import { ProfileStore, UserStore } from 'types/store'
+import { UserStore } from 'types/store'
 import { getProfile } from 'actions/settingsActions'
 import { getUser } from 'actions/userActions'
 import { signOut } from 'actions/sessionActions'
@@ -42,7 +42,6 @@ import 'stylesheets/react_tooltip.sass'
 library.add(fab, fas, far)
 
 interface StateProps {
-  profile: ProfileStore;
   userStore: UserStore;
 }
 
@@ -104,7 +103,6 @@ class App extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile,
     userStore: state.user
   }
 }
