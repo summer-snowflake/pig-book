@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { BreakdownParams, Category } from 'types/api'
-import { NewBreakdownStore, NewCategoryStore, CategoriesStore } from 'types/store'
+import { NewBreakdownStore, NewCategoryStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import BreakdownForm from 'components/settings/breakdown/breakdownForm'
 import { postBreakdown, changeBreakdownName, changeCategory, clearEditedBreakdown } from 'actions/breakdownActions'
@@ -15,9 +15,8 @@ import { changeCategoryBalanceOfPayments } from 'actions/categoryActions'
 import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
-  newCategory: NewCategoryStore;
-  newBreakdown: NewBreakdownStore;
-  categories: CategoriesStore;
+  newCategoryStore: NewCategoryStore;
+  newBreakdownStore: NewBreakdownStore;
 }
 
 interface DispatchProps {
@@ -41,7 +40,7 @@ class BreakdownPostForm extends Component<Props> {
   }
 
   diff(): boolean {
-    return this.props.newBreakdown.name !== ''
+    return this.props.newBreakdownStore.name !== ''
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -66,8 +65,8 @@ class BreakdownPostForm extends Component<Props> {
 
   handleClickSubmitButton(): void {
     const params = {
-      category_id: this.props.newBreakdown.category_id,
-      name: this.props.newBreakdown.name
+      category_id: this.props.newBreakdownStore.category_id,
+      name: this.props.newBreakdownStore.name
     }
 
     this.props.postBreakdown(params)
@@ -77,17 +76,17 @@ class BreakdownPostForm extends Component<Props> {
     return (
       <div className='breakdown-create-form-component'>
         <BreakdownForm
-          breakdown={this.props.newBreakdown}
-          category={this.props.newCategory}
-          disabled={this.props.newBreakdown.isLoading || !this.diff()}
-          isLoading={this.props.newBreakdown.isLoading}
+          breakdown={this.props.newBreakdownStore}
+          category={this.props.newCategoryStore}
+          disabled={this.props.newBreakdownStore.isLoading || !this.diff()}
+          isLoading={this.props.newBreakdownStore.isLoading}
           onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           onChangeCategory={this.handleChangeCategory}
           onChangeName={this.handleChangeName}
           onClickSubmitButton={this.handleClickSubmitButton}
           onKeyDown={this.handleKeyDown}
         />
-        <ValidationErrorMessages messages={this.props.newBreakdown.errors} />
+        <ValidationErrorMessages messages={this.props.newBreakdownStore.errors} />
       </div>
     )
   }
@@ -95,9 +94,8 @@ class BreakdownPostForm extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    newBreakdown: state.newBreakdown,
-    newCategory: state.newCategory,
-    categories: state.categories
+    newBreakdownStore: state.newBreakdown,
+    newCategoryStore: state.newCategory
   }
 }
 

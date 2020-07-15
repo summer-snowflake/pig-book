@@ -13,7 +13,7 @@ import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import Messages from 'components/common/Messages'
 
 interface StateProps {
-  registration: RegistrationStore;
+  registrationStore: RegistrationStore;
 }
 
 interface DispatchProps {
@@ -81,9 +81,9 @@ class SignUpContainer extends Component<Props, State> {
 
     const formJsx = (
       <form>
-        {this.props.registration.errors.length > 0 && (
+        {this.props.registrationStore.errors.length > 0 && (
           <div className='validation-errors-field'>
-            <ValidationErrorMessages messages={this.props.registration.errors} />
+            <ValidationErrorMessages messages={this.props.registrationStore.errors} />
           </div>
         )}
         { /* メールアドレス */ }
@@ -130,7 +130,7 @@ class SignUpContainer extends Component<Props, State> {
           />
         </div>
 
-        <button className='btn btn-primary' disabled={this.props.registration.isLoading} onClick={this.handleSignUp} type='submit'>
+        <button className='btn btn-primary' disabled={this.props.registrationStore.isLoading} onClick={this.handleSignUp} type='submit'>
           {t('button.create')}
         </button>
       </form>
@@ -142,7 +142,7 @@ class SignUpContainer extends Component<Props, State> {
           <i className='fa fa-heart left-icon' />
           {t('title.signUp')}
         </div>
-        {this.props.registration.sendMail ? (
+        {this.props.registrationStore.sendMail ? (
           <div className='card-body'>
             <div className='messages-field'>
               <Messages messages={[t('message.signedUpButUnconfirmed')]} />
@@ -165,7 +165,7 @@ class SignUpContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    registration: state.registration
+    registrationStore: state.registration
   }
 }
 

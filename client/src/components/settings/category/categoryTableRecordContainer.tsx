@@ -18,6 +18,10 @@ import AlertModal from 'components/common/alertModal'
 import Trash from 'components/common/trash'
 import { toBoolean } from 'modules/toBoolean'
 
+interface ParentProps {
+  category: Category;
+}
+
 interface StateProps {
   editCategoryStore: EditCategoryStore;
 }
@@ -27,10 +31,6 @@ interface DispatchProps {
   exitCategory: () => void;
   patchCategory: (id: number, params: CategoryParams) => void;
   deleteCategory: (categoryId: number) => void;
-}
-
-interface ParentProps {
-  category: Category;
 }
 
 type Props = ParentProps & StateProps & DispatchProps

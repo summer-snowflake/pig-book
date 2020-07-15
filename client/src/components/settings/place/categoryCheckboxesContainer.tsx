@@ -17,7 +17,7 @@ interface ParentProps {
 }
 
 interface StateProps {
-  placeCategories: PlaceCategoriesStore;
+  placeCategoriesStore: PlaceCategoriesStore;
 }
 
 interface DispatchProps {
@@ -49,7 +49,7 @@ class CategoryCheckboxesContainer extends Component<Props, State> {
   }
 
   checkedCheckbox(id: number): boolean {
-    return this.props.placeCategories.categories.map((c) => c.id).includes(id)
+    return this.props.placeCategoriesStore.categories.map((c) => c.id).includes(id)
   }
 
   handleChangeCheckbox(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -59,12 +59,12 @@ class CategoryCheckboxesContainer extends Component<Props, State> {
     } else {
       itemIds = this.deleteCheckedItem(Number(e.target.value))
     }
-    const placeCategoryIds = this.props.placeCategories.categories.map((c) => c.id)
+    const placeCategoryIds = this.props.placeCategoriesStore.categories.map((c) => c.id)
     this.props.onChangeChecking(placeCategoryIds, itemIds)
   }
 
   addCheckedItem(categoryId: number): number[] {
-    let placeCategoryIds = this.props.placeCategories.categories.map((c) => c.id)
+    let placeCategoryIds = this.props.placeCategoriesStore.categories.map((c) => c.id)
     placeCategoryIds = placeCategoryIds.filter((c) => !this.state.removedPlaceCategoryIds.includes(c))
     const ids: number[] = [...this.state.checkedCategoryIds, ...placeCategoryIds, categoryId]
     const set: Set<number> = new Set(ids)
@@ -77,12 +77,12 @@ class CategoryCheckboxesContainer extends Component<Props, State> {
   deleteCheckedItem(categoryId: number): number[] {
     let ids = this.state.checkedCategoryIds
     if (ids.length === 0) {
-      ids = this.props.placeCategories.categories.map((c) => c.id)
+      ids = this.props.placeCategoriesStore.categories.map((c) => c.id)
     }
     const index = ids.indexOf(categoryId)
     ids.splice(index, 1)
     const removedIds = this.state.removedPlaceCategoryIds
-    if (this.props.placeCategories.categories.map((c) => c.id).includes(categoryId)) {
+    if (this.props.placeCategoriesStore.categories.map((c) => c.id).includes(categoryId)) {
       removedIds.push(categoryId)
     }
     this.setState({
@@ -95,7 +95,7 @@ class CategoryCheckboxesContainer extends Component<Props, State> {
   render(): JSX.Element {
     return (
       <div className='category-checkboxes-component'>
-        {this.props.placeCategories.isLoading ? (
+        {this.props.placeCategoriesStore.isLoading ? (
           <LoadingImage />
         ) : (
           <div>
@@ -124,7 +124,7 @@ class CategoryCheckboxesContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    placeCategories: state.placeCategories
+    placeCategoriesStore: state.placeCategories
   }
 }
 

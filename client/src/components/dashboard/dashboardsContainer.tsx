@@ -15,7 +15,7 @@ import YearlyPieChart from 'components/dashboard/yearlyPieChart'
 import OtherTallyField from 'components/dashboard/otherTallyField'
 
 interface StateProps {
-  dashboards: DashboardsStore;
+  dashboardsStore: DashboardsStore;
 }
 
 interface DispatchProps {
@@ -40,11 +40,11 @@ class DashboardContainer extends Component<Props> {
   }
 
   render(): JSX.Element {
-    const dashboards = this.props.dashboards.dashboards
+    const dashboards = this.props.dashboardsStore.dashboards
     return (
       <div className='dashboards-component'>
         <OtherTallyField
-          disabled={this.props.dashboards.isLoading}
+          disabled={this.props.dashboardsStore.isLoading}
           onClickTallyButton={this.handleClickTallyButton}
         />
         {Object.keys(dashboards).reverse().map((year) => (
@@ -52,7 +52,7 @@ class DashboardContainer extends Component<Props> {
             <div className='dashboard-year'>
               <HumanYearMonth year={year} />
             </div>
-            <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboards.isLoading} onClickTallyButton={this.handleClickTallyButton} />
+            <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboardsStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
             <MonthlyData monthly={dashboards[Number(year)].monthly} year={Number(year)} yearly={dashboards[Number(year)].yearly} />
             <div className='chart-line'>
               <MonthlyBarChart monthly={dashboards[Number(year)].monthly} />
@@ -78,7 +78,7 @@ class DashboardContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    dashboards: state.dashboards
+    dashboardsStore: state.dashboards
   }
 }
 

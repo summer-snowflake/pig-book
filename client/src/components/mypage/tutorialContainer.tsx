@@ -12,7 +12,7 @@ import { RootState } from 'reducers/rootReducer'
 import CheckMark from 'components/mypage/checkMark'
 
 interface StateProps {
-  tutorial: TutorialStore;
+  tutorialStore: TutorialStore;
 }
 
 interface DispatchProps {
@@ -32,7 +32,7 @@ class TutorialContainer extends Component<Props> {
   }
 
   exists(): boolean {
-    return this.props.tutorial.categoryExists && this.props.tutorial.placeExists && this.props.tutorial.recordExists
+    return this.props.tutorialStore.categoryExists && this.props.tutorialStore.placeExists && this.props.tutorialStore.recordExists
   }
 
   render(): JSX.Element {
@@ -43,7 +43,7 @@ class TutorialContainer extends Component<Props> {
         <tbody>
           <tr>
             <td>
-              <CheckMark check={this.props.tutorial.categoryExists} />
+              <CheckMark check={this.props.tutorialStore.categoryExists} />
             </td>
             <td className='tutorial-link'>
               <NavLink to='/categories'>
@@ -57,7 +57,7 @@ class TutorialContainer extends Component<Props> {
           </tr>
           <tr>
             <td>
-              <CheckMark check={this.props.tutorial.placeExists} />
+              <CheckMark check={this.props.tutorialStore.placeExists} />
             </td>
             <td className='tutorial-link'>
               <NavLink to='/places'>
@@ -71,7 +71,7 @@ class TutorialContainer extends Component<Props> {
           </tr>
           <tr>
             <td>
-              <CheckMark check={this.props.tutorial.recordExists} />
+              <CheckMark check={this.props.tutorialStore.recordExists} />
             </td>
             <td className='tutorial-link'>
               <NavLink to='/input'>
@@ -107,7 +107,7 @@ class TutorialContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    tutorial: state.tutorial
+    tutorialStore: state.tutorial
   }
 }
 

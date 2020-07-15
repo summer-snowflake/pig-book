@@ -24,9 +24,9 @@ interface ParentProps {
 }
 
 interface StateProps {
-  profile: ProfileStore;
-  editRecord: EditRecordStore;
-  recordSearch: RecordSearchStore;
+  profileStore: ProfileStore;
+  editRecordStore: EditRecordStore;
+  recordSearchStore: RecordSearchStore;
 }
 
 interface DispatchProps {
@@ -90,16 +90,16 @@ class EditRecordModalContainer extends Component<Props> {
   }
 
   handleChangePublishedOn(date: Date): void {
-    let params = this.props.recordSearch
-    if (this.props.recordSearch.date) {
+    let params = this.props.recordSearchStore
+    if (this.props.recordSearchStore.date) {
       params = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         date: date
       }
     } else {
       params = {
-        ...this.props.recordSearch,
-        page: (this.props.recordSearch.year !== date.getFullYear() || this.props.recordSearch.month !== date.getMonth() + 1) ? 1 : this.props.recordSearch.page,
+        ...this.props.recordSearchStore,
+        page: (this.props.recordSearchStore.year !== date.getFullYear() || this.props.recordSearchStore.month !== date.getMonth() + 1) ? 1 : this.props.recordSearchStore.page,
         year: date.getFullYear(),
         month: date.getMonth() + 1
       }
@@ -140,18 +140,18 @@ class EditRecordModalContainer extends Component<Props> {
 
   handleClickUpdateButton(): void {
     const params = {
-      published_at: String(this.props.editRecord.record.published_on),
-      category_id: this.props.editRecord.record.category.id || NaN,
-      breakdown_id: this.props.editRecord.record.breakdown_id,
-      place_id: this.props.editRecord.record.place_id,
-      currency: this.props.profile.currency,
-      charge: this.props.editRecord.record.charge,
-      cashless_charge: this.props.editRecord.record.cashless_charge || 0,
-      point: this.props.editRecord.record.point || 0,
-      memo: this.props.editRecord.record.memo,
-      tags: this.props.editRecord.record.tags
+      published_at: String(this.props.editRecordStore.record.published_on),
+      category_id: this.props.editRecordStore.record.category.id || NaN,
+      breakdown_id: this.props.editRecordStore.record.breakdown_id,
+      place_id: this.props.editRecordStore.record.place_id,
+      currency: this.props.profileStore.currency,
+      charge: this.props.editRecordStore.record.charge,
+      cashless_charge: this.props.editRecordStore.record.cashless_charge || 0,
+      point: this.props.editRecordStore.record.point || 0,
+      memo: this.props.editRecordStore.record.memo,
+      tags: this.props.editRecordStore.record.tags
     }
-    this.props.patchRecord(this.props.editRecord.record.id, params, this.props.recordSearch)
+    this.props.patchRecord(this.props.editRecordStore.record.id, params, this.props.recordSearchStore)
     this.props.history.push({
       search: ''
     })
@@ -169,13 +169,13 @@ class EditRecordModalContainer extends Component<Props> {
               style={customStyles}
             >
               <div className='modal-body'>
-                {this.props.editRecord.errors.length > 0 && (
+                {this.props.editRecordStore.errors.length > 0 && (
                   <div className='validation-errors-field'>
-                    <ValidationErrorMessages messages={this.props.editRecord.errors} />
+                    <ValidationErrorMessages messages={this.props.editRecordStore.errors} />
                   </div>
                 )}
                 <RecordForm
-                  currency={this.props.profile.currency}
+                  currency={this.props.profileStore.currency}
                   onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
                   onChangeBreakdown={this.handleChangeBreakdown}
                   onChangeCashlessCharge={this.handleChangeCashlessCharge}
@@ -185,7 +185,7 @@ class EditRecordModalContainer extends Component<Props> {
                   onChangePlace={this.handleChangePlace}
                   onChangePoint={this.handleChangePoint}
                   onChangePublishedOn={this.handleChangePublishedOn}
-                  store={this.props.editRecord}
+                  store={this.props.editRecordStore}
                 />
                 <UpdateButton onClickButton={this.handleClickUpdateButton} />
               </div>
@@ -202,9 +202,9 @@ class EditRecordModalContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile,
-    editRecord: state.editRecord,
-    recordSearch: state.recordSearch
+    profileStore: state.profile,
+    editRecordStore: state.editRecord,
+    recordSearchStore: state.recordSearch
   }
 }
 
