@@ -15,6 +15,7 @@ import { RootState } from 'reducers/rootReducer'
 
 import 'stylesheets/settings.sass'
 import LoadingImage from 'components/common/loadingImage'
+import { getUser } from 'actions/userActions'
 
 interface State {
   isOpenCancelModal: boolean;
@@ -24,7 +25,7 @@ interface State {
 }
 
 interface StateProps {
-  profile: ProfileStore;
+  profileStore: ProfileStore;
 }
 
 interface DispatchProps {
@@ -60,7 +61,7 @@ class BaseSettingsContainer extends Component<Props, State> {
   }
 
   diff(): boolean {
-    return this.props.profile.editing && (this.state.locale !== this.props.profile.locale || this.state.currency !== this.props.profile.currency)
+    return this.props.profileStore.editing && (this.state.locale !== this.props.profileStore.locale || this.state.currency !== this.props.profileStore.currency)
   }
 
   checkIconClass(target: string, value: string): string {
@@ -68,15 +69,15 @@ class BaseSettingsContainer extends Component<Props, State> {
   }
 
   handleClickEditIcon(): void {
-    if (this.props.profile.editingMemo) {
+    if (this.props.profileStore.editingMemo) {
       this.setState({
         isOpenAlertModal: true
       })
     } else {
-      this.props.setEditing(!this.props.profile.editing)
+      this.props.setEditing(!this.props.profileStore.editing)
       this.setState({
-        locale: this.props.profile.locale,
-        currency: this.props.profile.currency
+        locale: this.props.profileStore.locale,
+        currency: this.props.profileStore.currency
       })
     }
   }
@@ -117,9 +118,9 @@ class BaseSettingsContainer extends Component<Props, State> {
 
   handleClickSubmitButton(): void {
     const params = {
-      locale: this.props.profile.locale,
-      currency: this.props.profile.currency,
-      memo: this.props.profile.memo
+      locale: this.props.profileStore.locale,
+      currency: this.props.profileStore.currency,
+      memo: this.props.profileStore.memo
     }
     this.props.patchProfile(params, 'base')
   }
@@ -133,11 +134,11 @@ class BaseSettingsContainer extends Component<Props, State> {
           <label className='label'>
             {t('label.language')}
           </label>
-          {this.props.profile.editing ? (
+          {this.props.profileStore.editing ? (
             <span>
               <span className='radio-span'>
                 <input
-                  checked={this.props.profile.locale === 'ja'}
+                  checked={this.props.profileStore.locale === 'ja'}
                   className='radio-input'
                   id='profile_locale_ja'
                   name='profile[locale]'
@@ -152,7 +153,7 @@ class BaseSettingsContainer extends Component<Props, State> {
               </span>
               <span className='radio-span'>
                 <input
-                  checked={this.props.profile.locale === 'en'}
+                  checked={this.props.profileStore.locale === 'en'}
                   className='radio-input'
                   id='profile_locale_en'
                   name='profile[locale]'
@@ -168,7 +169,7 @@ class BaseSettingsContainer extends Component<Props, State> {
             </span>
           ) : (
             <span>
-              {t('label.language-' + this.props.profile.locale)}
+              {t('label.language-' + this.props.profileStore.locale)}
             </span>
           )}
         </div>
@@ -176,11 +177,11 @@ class BaseSettingsContainer extends Component<Props, State> {
           <label className='label'>
             {t('label.currency')}
           </label>
-          {this.props.profile.editing ? (
+          {this.props.profileStore.editing ? (
             <span>
               <span className='radio-span'>
                 <input
-                  checked={this.props.profile.currency === 'yen'}
+                  checked={this.props.profileStore.currency === 'yen'}
                   className='radio-input'
                   id='profile_currency_yen'
                   name='profile[currency]'
@@ -195,7 +196,7 @@ class BaseSettingsContainer extends Component<Props, State> {
               </span>
               <span className='radio-span'>
                 <input
-                  checked={this.props.profile.currency === 'dollar'}
+                  checked={this.props.profileStore.currency === 'dollar'}
                   className='radio-input'
                   id='profile_currency_dollar'
                   name='profile[currency]'
@@ -211,22 +212,22 @@ class BaseSettingsContainer extends Component<Props, State> {
             </span>
           ) : (
             <span>
-              {t('label.currency-' + this.props.profile.currency)}
+              {t('label.currency-' + this.props.profileStore.currency)}
             </span>
           )}
         </div>
 
-        {this.props.profile.editing && (
+        {this.props.profileStore.editing && (
           <button
             className='btn btn-primary'
-            disabled={this.props.profile.isLoading || !this.diff()}
+            disabled={this.props.profileStore.isLoading || !this.diff()}
             onClick={this.handleClickSubmitButton}
             type='button'
           >
             {t('button.update')}
           </button>
         )}
-        {this.props.profile.editing && this.props.profile.isLoading && (
+        {this.props.profileStore.editing && this.props.profileStore.isLoading && (
           <LoadingImage />
         )}
       </form>
@@ -246,7 +247,7 @@ class BaseSettingsContainer extends Component<Props, State> {
           </div>
           <div className='card-body with-background-image'>
             <EditAndCancel
-              editing={this.props.profile.editing}
+              editing={this.props.profileStore.editing}
               onClickEditIcon={this.handleClickEditIcon}
               onClickExitIcon={this.handleClickExitIcon}
             />
@@ -265,7 +266,7 @@ class BaseSettingsContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile
+    profileStore: state.profile
   }
 }
 
@@ -281,7 +282,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(changeProfileCurrency(locale))
     },
     patchProfile(params: ProfileParams, target: string): void {
-      dispatch(patchProfile(params, target))
+      dispatch(patchProfile(params, target)).then(() => {
+        dispatch(getUser())
+      })
     },
     setEditing(editing: boolean): void {
       dispatch(setEditing(editing))

@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { Tutorial } from 'types/api'
 import { TutorialAction } from 'types/action'
-import { getCookiesFailure } from 'actions/userStatusActions'
+import { getCookiesFailure } from 'actions/userActions'
 import { catchErrors } from 'actions/errorsAction'
 
 const getTutorialRequest = (): Action => {

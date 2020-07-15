@@ -14,7 +14,7 @@ import { RootState } from 'reducers/rootReducer'
 import LoadingImage from 'components/common/loadingImage'
 
 interface StateProps {
-  profile: ProfileStore;
+  profileStore: ProfileStore;
 }
 
 interface DispatchProps {
@@ -52,18 +52,18 @@ class MemoContainer extends Component<Props, State> {
   }
 
   diff(): boolean {
-    return this.props.profile.editingMemo && this.state.memo !== this.props.profile.memo
+    return this.props.profileStore.editingMemo && this.state.memo !== this.props.profileStore.memo
   }
 
   handleClickEditIcon(): void {
-    if (this.props.profile.editing) {
+    if (this.props.profileStore.editing) {
       this.setState({
         isOpenAlertModal: true
       })
     } else {
-      this.props.setEditingMemo(!this.props.profile.editingMemo)
+      this.props.setEditingMemo(!this.props.profileStore.editingMemo)
       this.setState({
-        memo: this.props.profile.memo
+        memo: this.props.profileStore.memo
       })
     }
   }
@@ -100,8 +100,8 @@ class MemoContainer extends Component<Props, State> {
 
   handleClickSubmitButton(): void {
     const params = {
-      locale: this.props.profile.locale,
-      currency: this.props.profile.currency,
+      locale: this.props.profileStore.locale,
+      currency: this.props.profileStore.currency,
       memo: this.state.memo
     }
     this.props.patchProfile(params, 'memo')
@@ -112,7 +112,7 @@ class MemoContainer extends Component<Props, State> {
 
     const jsx = (
       <form>
-        {this.props.profile.editingMemo ? (
+        {this.props.profileStore.editingMemo ? (
           <div className='form-group'>
             <textarea
               className='form-control'
@@ -123,20 +123,20 @@ class MemoContainer extends Component<Props, State> {
           </div>
         ) : (
           <div className='memo'>
-            {this.props.profile.memo}
+            {this.props.profileStore.memo}
           </div>
         )}
-        {this.props.profile.editingMemo && (
+        {this.props.profileStore.editingMemo && (
           <button
             className='btn btn-primary'
-            disabled={this.props.profile.isLoadingMemo || !this.diff()}
+            disabled={this.props.profileStore.isLoadingMemo || !this.diff()}
             onClick={this.handleClickSubmitButton}
             type='button'
           >
             {t('button.update')}
           </button>
         )}
-        {this.props.profile.editingMemo && this.props.profile.isLoadingMemo && (
+        {this.props.profileStore.editingMemo && this.props.profileStore.isLoadingMemo && (
           <LoadingImage />
         )}
       </form>
@@ -156,7 +156,7 @@ class MemoContainer extends Component<Props, State> {
           </div>
           <div className='card-body with-background-image'>
             <EditAndCancel
-              editing={this.props.profile.editingMemo}
+              editing={this.props.profileStore.editingMemo}
               onClickEditIcon={this.handleClickEditIcon}
               onClickExitIcon={this.handleClickExitIcon}
             />
@@ -175,7 +175,7 @@ class MemoContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profile: state.profile
+    profileStore: state.profile
   }
 }
 

@@ -7,7 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { DashboardsAction } from 'types/action'
 import { Dashboard } from 'types/api'
 import { catchErrors } from 'actions/errorsAction'
-import { getCookiesFailure } from 'actions/userStatusActions'
+import { getCookiesFailure } from 'actions/userActions'
 
 const getDashboardsRequest = (): Action => {
   return {

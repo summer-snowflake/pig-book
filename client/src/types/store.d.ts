@@ -15,7 +15,7 @@ export interface RegistrationStore extends Errors {
   sendMail: boolean;
 }
 
-export interface UserStatusStore extends Errors {
+export interface UserStore extends Errors {
   isLoading: boolean;
   isLogged: boolean;
   admin: Admin;

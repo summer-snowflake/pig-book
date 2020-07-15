@@ -13,7 +13,7 @@ import { getPlaces } from 'actions/placesActions'
 import { RootState } from 'reducers/rootReducer'
 
 interface StateProps {
-  newPlace: NewPlaceStore;
+  newPlaceStore: NewPlaceStore;
 }
 
 interface DispatchProps {
@@ -33,7 +33,7 @@ class PlacePostForm extends Component<Props> {
   }
 
   diff(): boolean {
-    return this.props.newPlace.name !== ''
+    return this.props.newPlaceStore.name !== ''
   }
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -50,7 +50,7 @@ class PlacePostForm extends Component<Props> {
 
   handleClickSubmitButton(): void {
     const params = {
-      name: this.props.newPlace.name
+      name: this.props.newPlaceStore.name
     }
 
     this.props.postPlace(params)
@@ -60,14 +60,14 @@ class PlacePostForm extends Component<Props> {
     return (
       <div className='place-create-form-component'>
         <PlaceForm
-          disabled={this.props.newPlace.isLoading || !this.diff()}
-          isLoading={this.props.newPlace.isLoading}
+          disabled={this.props.newPlaceStore.isLoading || !this.diff()}
+          isLoading={this.props.newPlaceStore.isLoading}
           onChangeName={this.handleChangeName}
           onClickSubmitButton={this.handleClickSubmitButton}
           onKeyDown={this.handleKeyDown}
-          place={this.props.newPlace}
+          place={this.props.newPlaceStore}
         />
-        <ValidationErrorMessages messages={this.props.newPlace.errors} />
+        <ValidationErrorMessages messages={this.props.newPlaceStore.errors} />
       </div>
     )
   }
@@ -75,7 +75,7 @@ class PlacePostForm extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    newPlace: state.newPlace
+    newPlaceStore: state.newPlace
   }
 }
 

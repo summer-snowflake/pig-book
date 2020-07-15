@@ -14,26 +14,26 @@ export const getCookiesFailure = (): Action => {
   }
 }
 
-export const getUserStatusRequest = (): Action => {
+export const getUserRequest = (): Action => {
   return {
-    type: actionTypes.GET_USER_STATUS_REQUEST
+    type: actionTypes.GET_USER_REQUEST
   }
 }
 
-export const getUserStatusSuccess = (user: User): UserAction => {
+export const getUserSuccess = (user: User): UserAction => {
   return {
-    type: actionTypes.GET_USER_STATUS_SUCCESS,
+    type: actionTypes.GET_USER_SUCCESS,
     user
   }
 }
 
-export const getUserStatus = () => {
+export const getUser = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
-    dispatch(getUserStatusRequest())
+    dispatch(getUserRequest())
     try {
       if(ready()) {
         const res = await axios.get('/api/user', { headers: loginHeaders() })
-        dispatch(getUserStatusSuccess(res.data))
+        dispatch(getUserSuccess(res.data))
       }
     }
     catch (err) {

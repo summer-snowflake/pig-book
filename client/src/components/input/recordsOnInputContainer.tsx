@@ -20,8 +20,8 @@ import RecordTotalsTable from 'components/record/recordTotalsTable'
 interface StateProps {
   newRecordStore: NewRecordStore;
   editRecordStore: EditRecordStore;
-  records: RecordsStore;
-  recordSearch: RecordSearchStore;
+  recordsStore: RecordsStore;
+  recordSearchStore: RecordSearchStore;
 }
 
 interface DispatchProps {
@@ -70,7 +70,7 @@ class RecordsOnInputContainer extends Component<Props> {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() - 1)
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       date: publishedOn
     }
     this.props.setRecordSearchParams(params)
@@ -82,7 +82,7 @@ class RecordsOnInputContainer extends Component<Props> {
     const publishedOn = this.props.newRecordStore.record.published_on
     publishedOn.setDate(publishedOn.getDate() + 1)
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       date: publishedOn
     }
     this.props.setRecordSearchParams(params)
@@ -106,7 +106,7 @@ class RecordsOnInputContainer extends Component<Props> {
 
   handleClickDestroy(record: Record): void {
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       date: (new Date(record.published_at))
     }
     this.props.setRecordSearchParams(params)
@@ -134,15 +134,15 @@ class RecordsOnInputContainer extends Component<Props> {
           </div>
           <Records
             editedRecordId={this.props.editRecordStore.editedRecordId}
-            isLoading={this.props.records.isLoading}
+            isLoading={this.props.recordsStore.isLoading}
             onClickCopy={this.handleClickCopy}
             onClickDestroy={this.handleClickDestroy}
             onClickEdit={this.handleClickEdit}
-            records={this.props.records.records}
+            records={this.props.recordsStore.records}
           />
-          {this.props.records.records.length > 0 && (
+          {this.props.recordsStore.records.length > 0 && (
             <RecordTotalsTable
-              totals={this.props.records.totals}
+              totals={this.props.recordsStore.totals}
             />
           )}
         </div>
@@ -155,8 +155,8 @@ function mapState(state: RootState): StateProps {
   return {
     newRecordStore: state.newRecord,
     editRecordStore: state.editRecord,
-    records: state.records,
-    recordSearch: state.recordSearch
+    recordsStore: state.records,
+    recordSearchStore: state.recordSearch
   }
 }
 

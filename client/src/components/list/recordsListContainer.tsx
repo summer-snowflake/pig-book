@@ -28,7 +28,7 @@ interface StateProps {
   editRecordStore: EditRecordStore;
   newRecordStore: NewRecordStore;
   recordsStore: RecordsStore;
-  recordSearch: RecordSearchStore;
+  recordSearchStore: RecordSearchStore;
 }
 
 interface DispatchProps {
@@ -109,10 +109,10 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickDestroy(record: Record): void {
     const searchParams = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       date: null,
-      year: this.props.recordSearch.year,
-      month: this.props.recordSearch.month,
+      year: this.props.recordSearchStore.year,
+      month: this.props.recordSearchStore.month,
       order: 'published_at'
     }
     this.props.deleteRecord(record.id, searchParams)
@@ -120,24 +120,24 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickLeftArrow(): void {
     let params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
     }
-    if (this.props.recordSearch.year && this.props.recordSearch.month) {
-      const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+    if (this.props.recordSearchStore.year && this.props.recordSearchStore.month) {
+      const currentMonth = new Date(this.props.recordSearchStore.year, this.props.recordSearchStore.month, 1)
       currentMonth.setMonth(currentMonth.getMonth() - 2)
       params = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         page: 1,
         date: null,
         year: currentMonth.getFullYear(),
         month: currentMonth.getMonth() + 1
       }
-    } else if (this.props.recordSearch.year) {
+    } else if (this.props.recordSearchStore.year) {
       params = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         page: 1,
         date: null,
-        year: this.props.recordSearch.year - 1,
+        year: this.props.recordSearchStore.year - 1,
         month: null
       }
     }
@@ -150,22 +150,22 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickRightArrow(): void {
     let params = {}
-    if (this.props.recordSearch.year && this.props.recordSearch.month) {
-      const currentMonth = new Date(this.props.recordSearch.year, this.props.recordSearch.month, 1)
+    if (this.props.recordSearchStore.year && this.props.recordSearchStore.month) {
+      const currentMonth = new Date(this.props.recordSearchStore.year, this.props.recordSearchStore.month, 1)
       currentMonth.setMonth(currentMonth.getMonth())
       params = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         page: 1,
         date: null,
         year: currentMonth.getFullYear(),
         month: currentMonth.getMonth() + 1
       }
-    } else if (this.props.recordSearch.year) {
+    } else if (this.props.recordSearchStore.year) {
       params = {
-        ...this.props.recordSearch,
+        ...this.props.recordSearchStore,
         page: 1,
         date: null,
-        year: this.props.recordSearch.year + 1,
+        year: this.props.recordSearchStore.year + 1,
         month: null
       }
     }
@@ -178,7 +178,7 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickPage(page: number): void {
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       page: page
     }
     this.props.changePage(page)
@@ -190,7 +190,7 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickCategory(category: Category): void {
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       page: 1,
       category_id: category.id,
       category_name: category.name
@@ -204,7 +204,7 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickBreakdown(breakdown: Breakdown): void {
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       page: 1,
       breakdown_id: breakdown.id,
       breakdown_name: breakdown.name
@@ -218,7 +218,7 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickPlace(place: Place): void {
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       page: 1,
       place_id: place.id,
       place_name: place.name
@@ -231,8 +231,8 @@ class RecordsListContainer extends Component<Props> {
   }
 
   handleClickTagIcon(tag: Tag): void {
-    const tag_ids = this.props.recordSearch.tag_ids.split(',').map(t => Number(t)).filter((x) => x !== 0)
-    const tags = this.props.recordSearch.tags
+    const tag_ids = this.props.recordSearchStore.tag_ids.split(',').map(t => Number(t)).filter((x) => x !== 0)
+    const tags = this.props.recordSearchStore.tags
     if (!tag_ids.includes(tag.id)) {
       tag_ids.push(tag.id)
       tags.push(tag)
@@ -243,7 +243,7 @@ class RecordsListContainer extends Component<Props> {
       }
     })
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       page: 1,
       tag_ids: tag_ids.toString(),
       tags: tags
@@ -257,7 +257,7 @@ class RecordsListContainer extends Component<Props> {
 
   handleClickSort(e: React.MouseEvent<HTMLElement>): void {
     const params = {
-      ...this.props.recordSearch,
+      ...this.props.recordSearchStore,
       order: e.currentTarget.dataset.order
     }
     this.props.setRecordSearchParams(params)
@@ -288,7 +288,7 @@ class RecordsListContainer extends Component<Props> {
               <i className='fas fa-chevron-left' />
             </button>
             <span className='simple-date'>
-              <HumanYearMonth month={this.props.recordSearch.month} year={this.props.recordSearch.year} />
+              <HumanYearMonth month={this.props.recordSearchStore.month} year={this.props.recordSearchStore.year} />
             </span>
             <button className='btn btn-secondary btn-sm float-right' onClick={this.handleClickRightArrow}>
               <i className='fas fa-chevron-right' />
@@ -311,7 +311,7 @@ class RecordsListContainer extends Component<Props> {
             onClickTagIcon={this.handleClickTagIcon}
             onClickSort={this.handleClickSort}
             records={this.props.recordsStore.records}
-            recordSearchStore={this.props.recordSearch}
+            recordSearchStore={this.props.recordSearchStore}
           />
         ) : (
           <LoadingImage />
@@ -319,7 +319,7 @@ class RecordsListContainer extends Component<Props> {
         <div className='pagination-field'>
           {this.props.recordsStore.maxPage > 1 && (
             <Pagination
-              currentPage={this.props.recordSearch.page}
+              currentPage={this.props.recordSearchStore.page}
               maxPage={this.props.recordsStore.maxPage}
               onClickPage={this.handleClickPage}
             />
@@ -340,7 +340,7 @@ function mapState(state: RootState): StateProps {
     newRecordStore: state.newRecord,
     editRecordStore: state.editRecord,
     recordsStore: state.records,
-    recordSearch: state.recordSearch
+    recordSearchStore: state.recordSearch
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { UserStatusStore } from 'types/store'
+import { UserStore } from 'types/store'
 import { UserAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
 
@@ -23,7 +23,7 @@ interface StoreAction extends UserAction {
   errors: string[];
 }
 
-const userStatusReducer = (state: UserStatusStore = initialState, action: StoreAction): UserStatusStore => {
+const userReducer = (state: UserStore = initialState, action: StoreAction): UserStore => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
@@ -35,13 +35,13 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
     return {
       ...initialState
     }
-  case actionTypes.GET_USER_STATUS_REQUEST:
+  case actionTypes.GET_USER_REQUEST:
     return {
       ...state,
       isLoading: true,
       isLogged: false
     }
-  case actionTypes.GET_USER_STATUS_SUCCESS:
+  case actionTypes.GET_USER_SUCCESS:
     return {
       ...state,
       isLoading: false,
@@ -87,4 +87,4 @@ const userStatusReducer = (state: UserStatusStore = initialState, action: StoreA
   }
 }
 
-export default userStatusReducer
+export default userReducer

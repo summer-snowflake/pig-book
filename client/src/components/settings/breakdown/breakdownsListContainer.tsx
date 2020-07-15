@@ -12,7 +12,7 @@ import LoadingImage from 'components/common/loadingImage'
 import Counter from 'components/common/counter'
 
 interface StateProps {
-  breakdowns: BreakdownsStore;
+  breakdownsStore: BreakdownsStore;
 }
 
 interface DispatchProps {
@@ -31,15 +31,15 @@ class BreakdownsListContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='breakdowns-list-component'>
-        <Counter count={this.props.breakdowns.breakdowns.length} max={20} />
+        <Counter count={this.props.breakdownsStore.breakdowns.length} max={20} />
         <table className='table'>
           <tbody>
-            {this.props.breakdowns.breakdowns.map((breakdown: Breakdown) => (
+            {this.props.breakdownsStore.breakdowns.map((breakdown: Breakdown) => (
               <BreakdownTableRecordContainer breakdown={breakdown} key={breakdown.id} />
             ))}
           </tbody>
         </table>
-        {this.props.breakdowns.breakdowns.length === 0 && this.props.breakdowns.isLoading && (
+        {this.props.breakdownsStore.breakdowns.length === 0 && this.props.breakdownsStore.isLoading && (
           <LoadingImage />
         )}
       </div>
@@ -49,7 +49,7 @@ class BreakdownsListContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    breakdowns: state.breakdowns
+    breakdownsStore: state.breakdowns
   }
 }
 
