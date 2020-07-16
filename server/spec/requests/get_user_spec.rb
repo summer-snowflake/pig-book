@@ -62,7 +62,8 @@ describe 'GET /api/user', autodoc: true do
             value: false,
             description: I18n.t('label.options.unlimited_option')
           }
-        ]
+        ],
+        dashboard_years: [2020]
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
