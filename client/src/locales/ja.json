@@ -84,7 +84,8 @@
     "copy": "コピー",
     "edit": "編集",
     "delete": "削除",
-    "addCategory": "カテゴリに追加"
+    "addCategory": "カテゴリに追加",
+    "list": "リスト"
   },
   "button": {
     "login": "ログインする",

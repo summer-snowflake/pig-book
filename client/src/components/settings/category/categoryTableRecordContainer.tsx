@@ -2,21 +2,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { RouteComponentProps } from 'types/react-router'
+import { withRouter } from 'react-router-dom'
 
 import { CategoryParams, Category } from 'types/api'
 import { EditCategoryStore } from 'types/store'
+import { patchCategory, deleteCategory, editCategory, exitCategory, clearEditedCategory } from 'actions/categoryActions'
+import { getCategories } from 'actions/categoriesActions'
+import { RootState } from 'reducers/rootReducer'
+import { toBoolean } from 'modules/toBoolean'
+import { encodeQueryData } from 'modules/encode'
 import EditAndCancel from 'components/common/editAndCancel'
-import CategoryName from 'components/settings/category/categoryName'
-import CategoryForm from 'components/settings/category/categoryForm'
+import Trash from 'components/common/trash'
+import ListIcon from 'components/common/listIcon'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
-import { getCategories } from 'actions/categoriesActions'
-import { patchCategory, deleteCategory, editCategory, exitCategory, clearEditedCategory } from 'actions/categoryActions'
-import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
-import Trash from 'components/common/trash'
-import { toBoolean } from 'modules/toBoolean'
+import CategoryName from 'components/settings/category/categoryName'
+import CategoryForm from 'components/settings/category/categoryForm'
 
 interface ParentProps {
   category: Category;
@@ -33,7 +37,7 @@ interface DispatchProps {
   deleteCategory: (categoryId: number) => void;
 }
 
-type Props = ParentProps & StateProps & DispatchProps
+type Props = ParentProps & StateProps & DispatchProps & RouteComponentProps
 
 interface State {
   isOpenCancelModal: boolean;
@@ -67,6 +71,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
+    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
   }
 
   diff(): boolean {
@@ -168,6 +173,21 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     this.props.deleteCategory(this.props.category.id)
   }
 
+  handleClickAlignJustify(): void {
+    const today = new Date()
+    const params = {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      order: 'published_at',
+      page: 1,
+      category_id: this.props.category.id
+    }
+    this.props.history.push({
+      pathname: '/list',
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
   render(): JSX.Element {
     return (
       <tr className={'category-table-record-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
@@ -199,6 +219,9 @@ class CategoryTableRecordContainer extends Component<Props, State> {
             <CategoryName category={this.props.category} />
           </td>
         )}
+        <td className='icon-field-td'>
+          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+        </td>
         <td className='icon-field-td'>
           <EditAndCancel
             editing={this.editing()}
@@ -252,4 +275,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(CategoryTableRecordContainer)
+export default connect(mapState, mapDispatch)(withRouter(CategoryTableRecordContainer))
