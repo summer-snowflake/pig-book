@@ -17,7 +17,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getDashboard: () => void;
+  getDashboard: (year: number) => void;
   patchDashboard: (year: number) => void;
   clearDashboard: () => void;
 }
@@ -28,7 +28,7 @@ class DashboardContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
-    this.props.getDashboard()
+    this.props.getDashboard((new Date()).getFullYear())
 
     this.handleClickTallyButton = this.handleClickTallyButton.bind(this)
   }
@@ -73,12 +73,12 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getDashboard(): void {
-      dispatch(getDashboard())
+    getDashboard(year: number): void {
+      dispatch(getDashboard(year))
     },
     patchDashboard(year: number): void {
       dispatch(patchDashboard(year)).then(() => {
-        dispatch(getDashboard())
+        dispatch(getDashboard(year))
       })
     },
     clearDashboard(): void {
