@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { DashboardsStore } from 'types/store'
 import { patchDashboard } from 'actions/dashboardActions'
@@ -50,7 +51,9 @@ class DashboardContainer extends Component<Props> {
         {Object.keys(dashboards).reverse().map((year) => (
           <div className='dashboard' key={year}>
             <div className='dashboard-year'>
-              <HumanYearMonth year={year} />
+              <Link to={'/dashboards/' + year}>
+                <HumanYearMonth year={year} />
+              </Link>
             </div>
             <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboardsStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
             <MonthlyData monthly={dashboards[Number(year)].monthly} year={Number(year)} yearly={dashboards[Number(year)].yearly} />

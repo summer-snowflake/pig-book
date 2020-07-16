@@ -91,7 +91,8 @@ describe 'PATCH /api/user', autodoc: true do
         ],
         admin: {
           user_id: user.id
-        }
+        },
+        dashboard_years: [2020]
       }.to_json
       expect(response.body).to be_json_eql(json)
     end

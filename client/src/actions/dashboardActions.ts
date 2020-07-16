@@ -22,12 +22,11 @@ const getDashboardSuccess = (dashboard: Dashboard): DashboardAction => {
   }
 }
 
-export const getDashboard = () => {
+export const getDashboard = (year: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getDashboardRequest())
     try {
       if(ready()) {
-        const year = (new Date()).getFullYear()
         const res = await axios.get('/api/dashboards/' + year, { headers: loginHeaders() })
         dispatch(getDashboardSuccess(res.data))
       } else {

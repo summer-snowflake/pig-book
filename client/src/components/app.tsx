@@ -81,7 +81,7 @@ class App extends Component<Props> {
               <Route component={SignUpPage} exact path='/users/sign_up' />
               <Route component={InputPage} exact path='/input' />
               <Route component={ListPage} exact path='/list' />
-              <Route component={DashboardPage} exact path='/dashboard' />
+              <Route component={DashboardPage} exact path='/dashboards/:year' />
               <Route component={DashboardsPage} exact path='/dashboards' />
               <Route component={DailyPage} exact path='/daily' />
               <Route component={MypageTopPage} exact path='/mypage' />

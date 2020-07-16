@@ -50,6 +50,8 @@ class Header extends Component<Props> {
       this.props.location.pathname === '/places' ||
       this.props.location.pathname === '/labels'
 
+    const thisYear = (new Date()).getFullYear()
+
     return (
       <header className='header-component header'>
         <nav className='navbar navbar-expand-lg'>
@@ -89,7 +91,7 @@ class Header extends Component<Props> {
                 </NavItem>
               )}
               {this.props.user.isLogged && (
-                <NavItem eventKey='/dashboard'>
+                <NavItem eventKey={'/dashboards/' + thisYear}>
                   <NavIcon>
                     <i className='fas fa-chart-bar' />
                   </NavIcon>
@@ -238,7 +240,7 @@ class Header extends Component<Props> {
               )}
               {this.props.user.isLogged && (
                 <li className='nav-item'>
-                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/dashboard'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to={'/dashboards/' + thisYear}>
                     <i className='fas fa-chart-bar left-icon' />
                     {t('menu.dashboard')}
                   </NavLink>
