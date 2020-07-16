@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { RouteComponentProps } from 'types/react-router'
+import { withRouter } from 'react-router-dom'
 
 import { BreakdownParams, Breakdown, Category } from 'types/api'
 import { EditBreakdownStore } from 'types/store'
+import { encodeQueryData } from 'modules/encode'
 import EditAndCancel from 'components/common/editAndCancel'
 import CategoryName from 'components/settings/category/categoryName'
 import BreakdownName from 'components/settings/breakdown/breakdownName'
@@ -13,6 +16,7 @@ import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import AlertModal from 'components/common/alertModal'
+import ListIcon from 'components/common/listIcon'
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { changeCategory, patchBreakdown, deleteBreakdown, editBreakdown, exitBreakdown, clearEditedBreakdown } from 'actions/breakdownActions'
 import { RootState } from 'reducers/rootReducer'
@@ -35,7 +39,7 @@ interface DispatchProps {
   deleteBreakdown: (breakdownId: number) => void;
 }
 
-type Props = ParentProps & StateProps & DispatchProps
+type Props = RouteComponentProps & ParentProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
@@ -75,6 +79,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
+    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
   }
 
   diff(): boolean {
@@ -198,6 +203,21 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.props.deleteBreakdown(this.props.breakdown.id)
   }
 
+  handleClickAlignJustify(): void {
+    const today = new Date()
+    const params = {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      order: 'published_at',
+      page: 1,
+      breakdown_id: this.props.breakdown.id
+    }
+    this.props.history.push({
+      pathname: '/list',
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
   render(): JSX.Element {
     return (
       <tr className={'breakdown-table-record-component' + (this.props.breakdown.id === this.props.editBreakdownStore.editedBreakdownId ? ' edited' : '')}>
@@ -237,6 +257,9 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
             />
           </td>
         )}
+        <td className='icon-field-td'>
+          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+        </td>
         <td className='icon-field-td'>
           <EditAndCancel
             editing={this.editing()}
@@ -293,4 +316,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(BreakdownTableRecordContainer)
+export default connect(mapState, mapDispatch)(withRouter(BreakdownTableRecordContainer))
