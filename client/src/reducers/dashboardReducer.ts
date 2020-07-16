@@ -33,6 +33,7 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
   case actionTypes.GET_DASHBOARD_SUCCESS:
     return {
       ...state,
+      year: action.dashboard.year,
       isLoading: false,
       event: action.dashboard.event,
       monthly: action.dashboard.monthly,
