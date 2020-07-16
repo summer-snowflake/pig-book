@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { RouteComponentProps } from 'types/react-router'
+import { withRouter } from 'react-router-dom'
 
 import { Tag, TagParams } from 'types/api'
 import { EditTagStore } from 'types/store'
+import { encodeQueryData } from 'modules/encode'
 import { getTags } from 'actions/tagsActions'
 import { patchTag, deleteTag, editTag, exitTag } from 'actions/tagActions'
 import { RootState } from 'reducers/rootReducer'
@@ -14,6 +17,7 @@ import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/destroyModal'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import AlertModal from 'components/common/alertModal'
+import ListIcon from 'components/common/listIcon'
 import Trash from 'components/common/trash'
 import TagName from 'components/common/tagName'
 
@@ -32,7 +36,7 @@ interface ParentProps {
   tag: Tag;
 }
 
-type Props = ParentProps & StateProps & DispatchProps
+type Props = RouteComponentProps & ParentProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
@@ -66,6 +70,7 @@ class TagTableRecordContainer extends Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
+    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
   }
 
   diff(): boolean {
@@ -162,6 +167,21 @@ class TagTableRecordContainer extends Component<Props, State> {
     this.props.deleteTag(this.props.tag.id)
   }
 
+  handleClickAlignJustify(): void {
+    const today = new Date()
+    const params = {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      order: 'published_at',
+      page: 1,
+      tag_ids: String(this.props.tag.id)
+    }
+    this.props.history.push({
+      pathname: '/list',
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
   render(): JSX.Element {
     return (
       <tr className={'tag-table-record-component' + (this.props.tag.id === this.props.editTagStore.editedTagId ? ' edited' : '')}>
@@ -192,6 +212,9 @@ class TagTableRecordContainer extends Component<Props, State> {
             <TagName tag={this.props.tag} />
           </td>
         )}
+        <td className='icon-field-td'>
+          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+        </td>
         <td className='icon-field-td'>
           <EditAndCancel
             editing={this.editing()}
@@ -243,4 +266,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(TagTableRecordContainer)
+export default connect(mapState, mapDispatch)(withRouter(TagTableRecordContainer))
