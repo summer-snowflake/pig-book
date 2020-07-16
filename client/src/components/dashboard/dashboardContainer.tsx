@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 
 import { DashboardStore, UserStore } from 'types/store'
 import { getDashboard, patchDashboard, clearDashboard } from 'actions/dashboardActions'
@@ -23,7 +24,7 @@ interface DispatchProps {
   clearDashboard: () => void;
 }
 
-type Props = StateProps & DispatchProps
+type Props = RouteComponentProps & StateProps & DispatchProps
 
 class DashboardContainer extends Component<Props> {
   constructor(props: Props) {
@@ -41,11 +42,15 @@ class DashboardContainer extends Component<Props> {
   }
 
   handleClickLeftArrow(): void {
-    this.props.getDashboard(this.props.dashboardStore.year - 1)
+    const targetYear = this.props.dashboardStore.year - 1
+    this.props.getDashboard(targetYear)
+    this.props.history.push('/dashboards/' + targetYear)
   }
 
   handleClickRightArrow(): void {
-    this.props.getDashboard(this.props.dashboardStore.year + 1)
+    const targetYear = this.props.dashboardStore.year + 1
+    this.props.getDashboard(targetYear)
+    this.props.history.push('/dashboards/' + targetYear)
   }
 
   render(): JSX.Element {
@@ -108,4 +113,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(DashboardContainer)
+export default connect(mapState, mapDispatch)(withRouter(DashboardContainer))
