@@ -16,7 +16,8 @@ const initialState = {
   optionsList: '',
   options: [],
   errors: [],
-  recordsCount: 0
+  recordsCount: 0,
+  dashboardYears: []
 }
 
 interface StoreAction extends UserAction {
@@ -53,6 +54,7 @@ const userReducer = (state: UserStore = initialState, action: StoreAction): User
       optionsList: action.user.options_list,
       options: action.user.options,
       recordsCount: action.user.records_count,
+      dashboardYears: action.user.dashboard_years,
       errors: []
     }
   case actionTypes.PATCH_USER_REQUEST:
@@ -70,6 +72,7 @@ const userReducer = (state: UserStore = initialState, action: StoreAction): User
       optionsList: action.user.options_list,
       options: action.user.options,
       recordsCount: action.user.records_count,
+      dashboardYears: action.user.dashboard_years,
       errors: []
     }
   case actionTypes.PATCH_USER_FAILURE:

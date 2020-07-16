@@ -25,6 +25,7 @@ export interface UserStore extends Errors {
   optionsList: string;
   options: UserOption[];
   recordsCount: number;
+  dashboardYears: number[];
 }
 
 export interface UserOption {
