@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { RouteComponentProps } from 'types/react-router'
+import { withRouter } from 'react-router-dom'
 
 import { PlaceParams, WithCategoriesPlace, Place } from 'types/api'
 import { EditPlaceStore, CategoriesStore } from 'types/store'
+import { encodeQueryData } from 'modules/encode'
 import EditAndCancel from 'components/common/editAndCancel'
 import PlaceName from 'components/settings/place/placeName'
 import PlaceForm from 'components/settings/place/placeForm'
@@ -16,6 +19,7 @@ import { getPlaces } from 'actions/placesActions'
 import { patchPlace, deletePlace, postPlaceCategories, editPlace, exitPlace, clearEditedPlace } from 'actions/placeActions'
 import { RootState } from 'reducers/rootReducer'
 import AlertModal from 'components/common/alertModal'
+import ListIcon from 'components/common/listIcon'
 import CategorizedModal from 'components/settings/place/categorizedModal'
 import Trash from 'components/common/trash'
 import { getCategories } from 'actions/categoriesActions'
@@ -39,7 +43,7 @@ interface ParentProps {
   place: WithCategoriesPlace;
 }
 
-type Props = ParentProps & StateProps & DispatchProps
+type Props = RouteComponentProps & ParentProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
@@ -76,6 +80,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
+    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
   }
 
   diff(): boolean {
@@ -180,6 +185,21 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.props.getCategories(this.props.place.id)
   }
 
+  handleClickAlignJustify(): void {
+    const today = new Date()
+    const params = {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      order: 'published_at',
+      page: 1,
+      place_id: this.props.place.id
+    }
+    this.props.history.push({
+      pathname: '/list',
+      search: '?' + encodeQueryData(params)
+    })
+  }
+
   render(): JSX.Element {
     return (
       <tr className={'place-table-record-component' + (this.props.place.id === this.props.editPlaceStore.editedPlaceId ? ' edited' : '')}>
@@ -210,6 +230,9 @@ class PlaceTableRecordContainer extends Component<Props, State> {
             <PlaceName place={this.props.place} />
           </td>
         )}
+        <td className='icon-field-td'>
+          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+        </td>
         <td className='icon-field-td'>
           <EditAndCancel
             editing={this.editing()}
@@ -291,4 +314,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(PlaceTableRecordContainer)
+export default connect(mapState, mapDispatch)(withRouter(PlaceTableRecordContainer))

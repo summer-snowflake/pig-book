@@ -84,7 +84,8 @@
     "copy": "Copy",
     "edit": "Edit",
     "delete": "Delete",
-    "addCategory": "Add Category"
+    "addCategory": "Add Category",
+    "list": "List"
   },
   "button": {
     "login": "Sign In",
