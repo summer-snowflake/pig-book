@@ -200,8 +200,8 @@ interface DashboardStore {
   isLoading: boolean;
   year: number;
   event: Event | null;
-  monthly: MonthlyBalanceTable[];
-  yearly: YearlyBalanceTable;
+  monthly_total: MonthlyBalanceTable[];
+  yearly_total: YearlyBalanceTable;
   yearly_category_income: YearlyBalanceTable[];
   yearly_category_expenditure: YearlyBalanceTable[];
   yearly_breakdown_income: YearlyBalanceTable[];

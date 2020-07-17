@@ -7,7 +7,7 @@ import {
 import { MonthlyBalanceTable } from 'types/api'
 
 interface Props extends I18nProps {
-  monthly: MonthlyBalanceTable[];
+  monthlyTotal: MonthlyBalanceTable[];
 }
 
 class MonthlyBarChart extends Component<Props> {
@@ -40,7 +40,7 @@ class MonthlyBarChart extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
-    const values = this.props.monthly.map(obj => {
+    const values = this.props.monthlyTotal.map(obj => {
       return obj.income < obj.expenditure ? obj.expenditure : obj.income
     })
     const max = Math.max(...values)
@@ -50,9 +50,9 @@ class MonthlyBarChart extends Component<Props> {
 
     return (
       <div className='monthly-bar-chart-component'>
-        {this.props.monthly.length > 0 && (
+        {this.props.monthlyTotal.length > 0 && (
           <BarChart
-            data={this.props.monthly}
+            data={this.props.monthlyTotal}
             height={300}
             width={width}
           >

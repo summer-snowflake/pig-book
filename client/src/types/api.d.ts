@@ -239,6 +239,6 @@ interface YearlyBalanceTable {
 
 export interface Dashboard {
   event: Event;
-  monthly: MonthlyBalanceTable[];
-  yearly: YearlyBalanceTable;
+  monthly_total: MonthlyBalanceTable[];
+  yearly_total: YearlyBalanceTable;
 }

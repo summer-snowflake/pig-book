@@ -32,8 +32,8 @@ describe 'GET /api/dashboards', autodoc: true do
               user_id: user.id,
               year: year
             },
-            monthly: [],
-            yearly: nil,
+            monthly_total: [],
+            yearly_total: nil,
             year: year,
             yearly_category_income: [],
             yearly_category_expenditure: [],
@@ -53,8 +53,8 @@ describe 'GET /api/dashboards', autodoc: true do
         json = {
           year.to_s => {
             event: nil,
-            monthly: [],
-            yearly: nil,
+            monthly_total: [],
+            yearly_total: nil,
             year: year,
             yearly_category_income: [],
             yearly_category_expenditure: [],

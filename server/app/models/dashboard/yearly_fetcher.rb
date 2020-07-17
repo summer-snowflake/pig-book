@@ -12,8 +12,8 @@ class Dashboard::YearlyFetcher
     {
       year: year,
       event: event,
-      monthly: monthly_total,
-      yearly: yearly_total,
+      monthly_total: monthly_total,
+      yearly_total: yearly_total,
       yearly_category_income: yearly_category_income.with_other,
       yearly_category_expenditure: yearly_category_outgo.with_other,
       yearly_breakdown_income: yearly_breakdown_income,

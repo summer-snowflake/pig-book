@@ -93,9 +93,9 @@ class DashboardContainer extends Component<Props, State> {
           </button>
         </div>
         <TallyField dashboard={this.props.dashboardStore} disabled={this.props.dashboardStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-        <MonthlyData monthly={this.props.dashboardStore.monthly} year={this.props.dashboardStore.year} yearly={this.props.dashboardStore.yearly} />
+        <MonthlyData monthlyTotal={this.props.dashboardStore.monthly_total} year={this.props.dashboardStore.year} yearlyTotal={this.props.dashboardStore.yearly_total} />
         <div className='chart-line'>
-          <MonthlyBarChart monthly={this.props.dashboardStore.monthly} />
+          <MonthlyBarChart monthlyTotal={this.props.dashboardStore.monthly_total} />
           <YearlyPieChart
             breakdownYearly={this.props.dashboardStore.yearly_breakdown_income}
             categoryYearly={this.props.dashboardStore.yearly_category_income}
