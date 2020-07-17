@@ -53,3 +53,19 @@
 
 .form-control::placeholder
   color: $gray
+
+.nav-tabs
+  border-bottom: 1px solid transparent
+
+.nav-tabs .nav-link
+  &:hover
+    background: $translucent
+    border: 1px solid $lighten-green
+
+  &.active
+    background: $translucent
+    border: 1px solid $green
+
+.nav-link
+  font-size: 12px
+  padding: .5rem
