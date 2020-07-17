@@ -16,7 +16,13 @@ class Dashboard::Fetcher
   end
 
   def find_by(year:)
-    fetcher = Dashboard::YearlyFetcher.new(user: @user, year: year)
+    fetcher = Dashboard::YearlyFetcher.new(user: user, year: year)
+    fetcher.build
+  end
+
+  def find_by_category(year:, category_id:)
+    category = user.categories.find(category_id)
+    fetcher = Dashboard::YearlyCategoryFetcher.new(user: user, year: year, category: category)
     fetcher.build
   end
 end

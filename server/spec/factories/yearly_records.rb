@@ -11,5 +11,10 @@ FactoryBot.define do
     cashless_charge { 0 }
     type { 'YearlyTotalBalanceTable' }
     label { nil }
+
+    factory :yearly_category_record, class: YearlyCategoryBalanceTable do
+      type { 'YearlyCategoryBalanceTable' }
+      category
+    end
   end
 end
