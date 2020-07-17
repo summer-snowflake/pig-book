@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 
 import { DashboardStore, UserStore } from 'types/store'
 import { getDashboard, patchDashboard, clearDashboard } from 'actions/dashboardActions'
@@ -12,6 +12,7 @@ import MonthlyData from 'components/dashboard/monthlyData'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
 import TallyField from 'components/dashboard/tallyField'
+import { withTranslation } from 'react-i18next'
 
 interface StateProps {
   dashboardStore: DashboardStore;
@@ -24,7 +25,7 @@ interface DispatchProps {
   clearDashboard: () => void;
 }
 
-type Props = RouteComponentProps & StateProps & DispatchProps
+type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
 
 class DashboardContainer extends Component<Props> {
   constructor(props: Props) {
@@ -54,6 +55,7 @@ class DashboardContainer extends Component<Props> {
   }
 
   render(): JSX.Element {
+    const { t } = this.props
     const prevDashboardDisabled = !this.props.userStore.dashboardYears.includes(this.props.dashboardStore.year - 1)
     const nextDashboardDisabled = !this.props.userStore.dashboardYears.includes(this.props.dashboardStore.year + 1)
 
@@ -67,7 +69,7 @@ class DashboardContainer extends Component<Props> {
           <button className='btn btn-secondary btn-sm' disabled={nextDashboardDisabled} onClick={this.handleClickRightArrow}>
             <i className='fas fa-chevron-right' />
           </button>
-       </div>
+        </div>
         <TallyField dashboard={this.props.dashboardStore} disabled={this.props.dashboardStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
         <MonthlyData monthly={this.props.dashboardStore.monthly} year={this.props.dashboardStore.year} yearly={this.props.dashboardStore.yearly} />
         <div className='chart-line'>
@@ -84,6 +86,11 @@ class DashboardContainer extends Component<Props> {
             dataKey={'expenditure'}
             onUnmount={this.props.clearDashboard}
           />
+          <div className='dashboards-link text-right'>
+            <Link to='/dashboards'>
+              {t('link.dashboards')}
+            </Link>
+          </div>
         </div>
       </div>
     )
@@ -113,4 +120,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(withRouter(DashboardContainer))
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(DashboardContainer)))

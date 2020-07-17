@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import DashboardContainer from 'components/dashboard/dashboardContainer'
 
@@ -22,11 +21,6 @@ class DashboardPage extends Component<I18nProps> {
               </div>
               <div className='card-body with-background-image'>
                 <DashboardContainer />
-                <span className='dashboards-link float-right'>
-                  <Link to='/dashboards'>
-                    {t('link.dashboards')}
-                  </Link>
-                </span>
               </div>
             </div>
           </div>
