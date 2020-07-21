@@ -119,6 +119,7 @@ export interface User {
   unlimited_option: boolean;
   options_list: string;
   options: UserOption[];
+  dashboard_years: number[];
   records_count: number;
   created_at: string;
   updated_at: string;
