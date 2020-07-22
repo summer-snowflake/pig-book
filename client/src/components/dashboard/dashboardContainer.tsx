@@ -61,12 +61,18 @@ class DashboardContainer extends Component<Props, State> {
     const targetYear = this.props.dashboardStore.year - 1
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
+    this.setState({
+      activeCategoryId: null
+    })
   }
 
   handleClickRightArrow(): void {
     const targetYear = this.props.dashboardStore.year + 1
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
+    this.setState({
+      activeCategoryId: null
+    })
   }
 
   handleClickCategory(category: Category): void {
