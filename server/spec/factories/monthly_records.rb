@@ -15,6 +15,14 @@ FactoryBot.define do
     factory :monthly_category_record, class: MonthlyCategoryBalanceTable do
       type { 'MonthlyCategoryBalanceTable' }
       category
+      label { category.name }
+    end
+
+    factory :monthly_breakdown_record, class: MonthlyBreakdownBalanceTable do
+      type { 'MonthlyBreakdownBalanceTable' }
+      category
+      breakdown
+      label { breakdown.name }
     end
   end
 end

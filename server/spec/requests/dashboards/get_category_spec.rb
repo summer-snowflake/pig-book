@@ -5,6 +5,8 @@ require 'rails_helper'
 describe 'GET /api/dashboards/:dashboard_year/categories/:id', autodoc: true do
   let!(:user) { create(:user, :active, :with_profile) }
   let!(:category) { create(:category, user: user) }
+  let!(:breakdown1) { create(:breakdown, user: user, category: category) }
+  let!(:breakdown2) { create(:breakdown, user: user, category: category) }
   let!(:year) { Time.zone.today.year }
 
   context 'when NOT logged in.' do
@@ -25,14 +27,30 @@ describe 'GET /api/dashboards/:dashboard_year/categories/:id', autodoc: true do
 
       expect(response.status).to eq 200
       json = {
-        monthly_category: []
+        monthly_breakdowns: [
+          { month: 1 },
+          { month: 2 },
+          { month: 3 },
+          { month: 4 },
+          { month: 5 },
+          { month: 6 },
+          { month: 7 },
+          { month: 8 },
+          { month: 9 },
+          { month: 10 },
+          { month: 11 },
+          { month: 12 }
+        ]
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
 
     context 'there are tally monthly data' do
-      let!(:monthly_category_balance_table) do
-        create(:monthly_category_record, user: user, category: category, year: year)
+      let!(:monthly_breakdown_balance_table1) do
+        create(:monthly_breakdown_record, user: user, category: category, year: year, month: 12, breakdown: breakdown1)
+      end
+      let!(:monthly_breakdown_balance_table2) do
+        create(:monthly_breakdown_record, user: user, category: category, year: year, month: 12, breakdown: breakdown2)
       end
 
       it 'returns status code 200 and json dashboard data' do
@@ -40,19 +58,22 @@ describe 'GET /api/dashboards/:dashboard_year/categories/:id', autodoc: true do
 
         expect(response.status).to eq 200
         json = {
-          monthly_category: [
+          monthly_breakdowns: [
+            { month: 1 },
+            { month: 2 },
+            { month: 3 },
+            { month: 4 },
+            { month: 5 },
+            { month: 6 },
+            { month: 7 },
+            { month: 8 },
+            { month: 9 },
+            { month: 10 },
+            { month: 11 },
             {
-              user_id: user.id,
-              category_id: category.id,
-              year: Time.zone.today.year,
-              month: Time.zone.today.month,
-              cashless_charge: 0,
-              point: 0,
-              expenditure: monthly_category_balance_table.expenditure,
-              income: monthly_category_balance_table.income,
-              currency: user.profile.currency,
-              breakdown_id: nil,
-              label: nil
+              month: 12,
+              "#{breakdown1.name}": monthly_breakdown_balance_table1.expenditure,
+              "#{breakdown2.name}": monthly_breakdown_balance_table2.expenditure
             }
           ]
         }.to_json
