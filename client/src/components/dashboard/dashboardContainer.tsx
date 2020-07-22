@@ -5,10 +5,11 @@ import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 
-import { DashboardStore, UserStore, CategoriesStore } from 'types/store'
+import { DashboardStore, UserStore, CategoriesStore, DashboardCategoryStore } from 'types/store'
 import { Category } from 'types/api'
-import { getDashboard, patchDashboard, clearDashboard } from 'actions/dashboardActions'
+import { getDashboard, patchDashboard, clearDashboard, getDashboardCategory } from 'actions/dashboardActions'
 import { getCategories } from 'actions/categoriesActions'
+import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
@@ -16,9 +17,11 @@ import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
 import TallyField from 'components/dashboard/tallyField'
 import CategoryTab from 'components/dashboard/categoryTab'
+import CategoryDashboardContainer from 'components/dashboard/categoryDashboardContainer'
 
 interface StateProps {
   dashboardStore: DashboardStore;
+  dashboardCategoryStore: DashboardCategoryStore;
   userStore: UserStore;
   categoriesStore: CategoriesStore;
 }
@@ -28,6 +31,7 @@ interface DispatchProps {
   patchDashboard: (year: number) => void;
   clearDashboard: () => void;
   getCategories: () => void;
+  getDashboardCategory: (year: number, categoryId: number) => void;
 }
 
 type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
@@ -74,6 +78,7 @@ class DashboardContainer extends Component<Props, State> {
     this.setState({
       activeCategoryId: category.id
     })
+    this.props.getDashboardCategory(this.props.dashboardStore.year, category.id)
   }
 
   render(): JSX.Element {
@@ -123,6 +128,10 @@ class DashboardContainer extends Component<Props, State> {
             />
           ))}
         </ul>
+        <CategoryDashboardContainer
+          category={this.props.dashboardCategoryStore.category}
+          monthlyTotal={this.props.dashboardCategoryStore.monthlyBreakdowns}
+        />
       </div>
     )
   }
@@ -131,6 +140,7 @@ class DashboardContainer extends Component<Props, State> {
 function mapState(state: RootState): StateProps {
   return {
     dashboardStore: state.dashboard,
+    dashboardCategoryStore: state.dashboardCategory,
     userStore: state.user,
     categoriesStore: state.categories
   }
@@ -151,6 +161,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     getCategories(): void {
       dispatch(getCategories())
+    },
+    getDashboardCategory(year: number, categoryId: number): void {
+      dispatch(getDashboardCategory(year, categoryId)).then(() => {
+        dispatch(getCategory(categoryId))
+      })
     }
   }
 }

@@ -226,6 +226,10 @@ interface MonthlyBalanceTable {
   currency: string;
 }
 
+export interface MonthlyCategoryBalanceTable {
+  month: number;
+}
+
 interface YearlyBalanceTable {
   year: number;
   income: number;

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 
-import { SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore } from 'types/store'
+import {
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore
+} from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
 import userReducer from 'reducers/userReducer'
@@ -24,6 +26,7 @@ import recordsReducer from 'reducers/recordsReducer'
 import editRecordReducer from 'reducers/editRecordReducer'
 import recordSearchReducer from 'reducers/recordSearchReducer'
 import dashboardReducer from 'reducers/dashboardReducer'
+import dashboardCategoryReducer from 'reducers/dashboardCateogryReducer'
 import dashboardsReducer from 'reducers/dashboardsReducer'
 import errorsReducer from 'reducers/errorsReducer'
 import tutorialReducer from 'reducers/tutorialReducer'
@@ -52,6 +55,7 @@ export type RootState = {
   records: RecordsStore;
   recordSearch: RecordSearchStore;
   dashboard: DashboardStore;
+  dashboardCategory: DashboardCategoryStore;
   dashboards: DashboardsStore;
   responseErrors: ResponseErrorsStore;
   tutorial: TutorialStore;
@@ -81,6 +85,7 @@ const rootReducer = combineReducers({
   records: recordsReducer,
   recordSearch: recordSearchReducer,
   dashboard: dashboardReducer,
+  dashboardCategory: dashboardCategoryReducer,
   dashboards: dashboardsReducer,
   responseErrors: errorsReducer,
   tutorial: tutorialReducer

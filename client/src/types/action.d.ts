@@ -1,4 +1,4 @@
-import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag } from './api'
+import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag, WithRelationsCategory } from './api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
@@ -76,6 +76,13 @@ export interface RecordsAction extends Action {
 
 export interface DashboardAction extends Action {
   dashboard: Dashboard;
+}
+
+export interface DashboardCategoryAction extends Action {
+  category: WithRelationsCategory;
+  dashboard: {
+    monthly_breakdowns: MonthlyCategoryBalanceTable[];
+  }
 }
 
 export interface DashboardsAction extends Action {
