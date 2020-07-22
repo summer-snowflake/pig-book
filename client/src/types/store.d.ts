@@ -201,12 +201,12 @@ interface DashboardStore {
   year: number;
   event: Event | null;
   monthly_total: MonthlyBalanceTable[];
-  yearly_total: YearlyBalanceTable;
   yearly_category_income: YearlyBalanceTable[];
   yearly_category_expenditure: YearlyBalanceTable[];
   yearly_breakdown_income: YearlyBalanceTable[];
   yearly_breakdown_expenditure: YearlyBalanceTable[];
-  categories: Category[];
+  yearly_total?: YearlyBalanceTable;
+  categories?: Category[];
 }
 
 export interface DashboardCategoryStore {

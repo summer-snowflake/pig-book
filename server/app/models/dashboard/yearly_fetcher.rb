@@ -14,7 +14,6 @@ class Dashboard::YearlyFetcher
       year: year,
       event: user.last_tally_event(year: year),
       monthly_total: monthly_total,
-      yearly_total: yearly_total,
       yearly_category_income: yearly_category_income.with_other,
       yearly_category_expenditure: yearly_category_outgo.with_other,
       yearly_breakdown_income: yearly_breakdown_income,
@@ -23,7 +22,7 @@ class Dashboard::YearlyFetcher
   end
 
   def build
-    build_simple.merge(categories: dashboard_categories)
+    build_simple.merge(categories: dashboard_categories, yearly_total: yearly_total)
   end
 
   private

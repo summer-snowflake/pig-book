@@ -9,7 +9,6 @@ import { patchDashboard } from 'actions/dashboardActions'
 import { getDashboards, clearDashboards } from 'actions/dashboardsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
-import MonthlyData from 'components/dashboard/monthlyData'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import TallyField from './tallyField'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
@@ -56,11 +55,6 @@ class DashboardContainer extends Component<Props> {
               </Link>
             </div>
             <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboardsStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-            <MonthlyData
-              monthlyTotal={dashboards[Number(year)].monthly_total}
-              year={Number(year)}
-              yearlyTotal={dashboards[Number(year)].yearly_total}
-            />
             <div className='chart-line'>
               <MonthlyBarChart monthlyTotal={dashboards[Number(year)].monthly_total} />
               <YearlyPieChart
