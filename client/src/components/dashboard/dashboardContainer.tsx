@@ -2,39 +2,60 @@ import React, { Component } from 'react'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
+import { withTranslation } from 'react-i18next'
 
-import { DashboardStore, UserStore } from 'types/store'
-import { getDashboard, patchDashboard, clearDashboard } from 'actions/dashboardActions'
+import { DashboardStore, UserStore, CategoriesStore, DashboardCategoryStore } from 'types/store'
+import { Category } from 'types/api'
+import { getDashboard, patchDashboard, clearDashboard, getDashboardCategory } from 'actions/dashboardActions'
+import { getCategories } from 'actions/categoriesActions'
+import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
 import TallyField from 'components/dashboard/tallyField'
+import CategoryTab from 'components/dashboard/categoryTab'
+import CategoryDashboardContainer from 'components/dashboard/categoryDashboardContainer'
 
 interface StateProps {
   dashboardStore: DashboardStore;
+  dashboardCategoryStore: DashboardCategoryStore;
   userStore: UserStore;
+  categoriesStore: CategoriesStore;
 }
 
 interface DispatchProps {
   getDashboard: (year: number) => void;
   patchDashboard: (year: number) => void;
   clearDashboard: () => void;
+  getCategories: () => void;
+  getDashboardCategory: (year: number, categoryId: number) => void;
 }
 
-type Props = RouteComponentProps & StateProps & DispatchProps
+type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
 
-class DashboardContainer extends Component<Props> {
+interface State {
+  activeCategoryId: number | null;
+}
+
+class DashboardContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
+
+    this.state = {
+      activeCategoryId: null
+    }
 
     this.props.getDashboard((new Date()).getFullYear())
 
     this.handleClickTallyButton = this.handleClickTallyButton.bind(this)
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
+    this.handleClickCategory = this.handleClickCategory.bind(this)
+
+    this.props.getCategories()
   }
 
   handleClickTallyButton(): void {
@@ -53,7 +74,15 @@ class DashboardContainer extends Component<Props> {
     this.props.history.push('/dashboards/' + targetYear)
   }
 
+  handleClickCategory(category: Category): void {
+    this.setState({
+      activeCategoryId: category.id
+    })
+    this.props.getDashboardCategory(this.props.dashboardStore.year, category.id)
+  }
+
   render(): JSX.Element {
+    const { t } = this.props
     const prevDashboardDisabled = !this.props.userStore.dashboardYears.includes(this.props.dashboardStore.year - 1)
     const nextDashboardDisabled = !this.props.userStore.dashboardYears.includes(this.props.dashboardStore.year + 1)
 
@@ -67,11 +96,11 @@ class DashboardContainer extends Component<Props> {
           <button className='btn btn-secondary btn-sm' disabled={nextDashboardDisabled} onClick={this.handleClickRightArrow}>
             <i className='fas fa-chevron-right' />
           </button>
-       </div>
+        </div>
         <TallyField dashboard={this.props.dashboardStore} disabled={this.props.dashboardStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-        <MonthlyData monthly={this.props.dashboardStore.monthly} year={this.props.dashboardStore.year} yearly={this.props.dashboardStore.yearly} />
+        <MonthlyData monthlyTotal={this.props.dashboardStore.monthly_total} year={this.props.dashboardStore.year} yearlyTotal={this.props.dashboardStore.yearly_total} />
         <div className='chart-line'>
-          <MonthlyBarChart monthly={this.props.dashboardStore.monthly} />
+          <MonthlyBarChart monthlyTotal={this.props.dashboardStore.monthly_total} />
           <YearlyPieChart
             breakdownYearly={this.props.dashboardStore.yearly_breakdown_income}
             categoryYearly={this.props.dashboardStore.yearly_category_income}
@@ -84,7 +113,25 @@ class DashboardContainer extends Component<Props> {
             dataKey={'expenditure'}
             onUnmount={this.props.clearDashboard}
           />
+          <div className='dashboards-link text-right'>
+            <Link to='/dashboards'>
+              {t('link.dashboards')}
+            </Link>
+          </div>
         </div>
+        <ul className='nav nav-tabs'>
+          {this.props.categoriesStore.categories.map((category) => (
+            <CategoryTab
+              activeCategoryId={this.state.activeCategoryId}
+              category={category} key={category.id}
+              onClickCategory={this.handleClickCategory}
+            />
+          ))}
+        </ul>
+        <CategoryDashboardContainer
+          category={this.props.dashboardCategoryStore.category}
+          monthlyTotal={this.props.dashboardCategoryStore.monthlyBreakdowns}
+        />
       </div>
     )
   }
@@ -93,7 +140,9 @@ class DashboardContainer extends Component<Props> {
 function mapState(state: RootState): StateProps {
   return {
     dashboardStore: state.dashboard,
-    userStore: state.user
+    dashboardCategoryStore: state.dashboardCategory,
+    userStore: state.user,
+    categoriesStore: state.categories
   }
 }
 
@@ -109,8 +158,16 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     clearDashboard(): void {
       dispatch(clearDashboard())
+    },
+    getCategories(): void {
+      dispatch(getCategories())
+    },
+    getDashboardCategory(year: number, categoryId: number): void {
+      dispatch(getDashboardCategory(year, categoryId)).then(() => {
+        dispatch(getCategory(categoryId))
+      })
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withRouter(DashboardContainer))
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(DashboardContainer)))

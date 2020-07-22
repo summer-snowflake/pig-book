@@ -73,7 +73,8 @@
     "tutorial-place": "お店・施設を設定し、カテゴリを追加てください。",
     "tutorial-record": "データを入力、登録してください。",
     "options": "ご利用オプション",
-    "recordsCount": "現在の登録数"
+    "recordsCount": "現在の登録数",
+    "none": "なし"
   },
   "toolTip": {
     "sortCreatedAt": "作成日順",

@@ -226,6 +226,10 @@ interface MonthlyBalanceTable {
   currency: string;
 }
 
+export interface MonthlyCategoryBalanceTable {
+  month: number;
+}
+
 interface YearlyBalanceTable {
   year: number;
   income: number;
@@ -239,6 +243,6 @@ interface YearlyBalanceTable {
 
 export interface Dashboard {
   event: Event;
-  monthly: MonthlyBalanceTable[];
-  yearly: YearlyBalanceTable;
+  monthly_total: MonthlyBalanceTable[];
+  yearly_total: YearlyBalanceTable;
 }

@@ -1,16 +1,20 @@
-import React, { Component } from 'react'
-import { withTranslation } from 'react-i18next'
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts'
+} from 'recharts';
 
-import { MonthlyBalanceTable } from 'types/api'
+import { MonthlyCategoryBalanceTable, WithRelationsCategory } from 'types/api';
+import { categoryColors } from 'modules/colors'
 
-interface Props extends I18nProps {
-  monthlyTotal: MonthlyBalanceTable[];
+interface ParentProps {
+  monthlyTotal: MonthlyCategoryBalanceTable[];
+  category: WithRelationsCategory;
 }
 
-class MonthlyBarChart extends Component<Props> {
+type Props = ParentProps & I18nProps
+
+class MonthlyCategoryBarChart extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -39,18 +43,12 @@ class MonthlyBarChart extends Component<Props> {
 
   render(): JSX.Element {
     const { t } = this.props
-
-    const values = this.props.monthlyTotal.map(obj => {
-      return obj.income < obj.expenditure ? obj.expenditure : obj.income
-    })
-    const max = Math.max(...values)
     const width = window.innerWidth < 630 ? 386 : 600
-    const YHide = window.innerWidth < 630 ? true : false
     const XUnit = window.innerWidth < 630 ? '' : t('label.month')
 
     return (
-      <div className='monthly-bar-chart-component'>
-        {this.props.monthlyTotal.length > 0 && (
+      <div className='monthly-category-bar-chart-component'>
+        {this.props.monthlyTotal.length !== 0 && (
           <BarChart
             data={this.props.monthlyTotal}
             height={300}
@@ -58,24 +56,28 @@ class MonthlyBarChart extends Component<Props> {
           >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='month' unit={XUnit} />
-            <YAxis
-              domain={[0, Math.round((max + 100000)/100000) * 100000]}
-              hide={YHide}
-              orientation='right'
-            />
+            <YAxis orientation='right' />
             <Tooltip
               cursor={false}
               formatter={this.setFormatter}
               labelFormatter={this.setLabelFormatter}
             />
             <Legend />
-            <Bar dataKey='income' fill='#5e78ac' name={t('label.income')} />
-            <Bar dataKey='expenditure' fill='#ac5e78' name={t('label.outgo')} />
+            {this.props.category.breakdowns.map((breakdown, index) => (
+              <Bar
+                barSize={20}
+                dataKey={breakdown.name}
+                key={breakdown.id}
+                fill={categoryColors(this.props.category.balance_of_payments)[index % categoryColors(this.props.category.balance_of_payments).length]}
+                stackId={'breakdown'}
+              />
+            ))}
+            <Bar barSize={20} dataKey={t('label.none')} stackId={'breakdown'} fill={'#999'} />
           </BarChart>
         )}
       </div>
-    )
+    );
   }
 }
 
-export default withTranslation()(MonthlyBarChart)
+export default withTranslation()(MonthlyCategoryBarChart)
