@@ -206,6 +206,7 @@ interface DashboardStore {
   yearly_category_expenditure: YearlyBalanceTable[];
   yearly_breakdown_income: YearlyBalanceTable[];
   yearly_breakdown_expenditure: YearlyBalanceTable[];
+  categories: Category[];
 }
 
 export interface DashboardCategoryStore {

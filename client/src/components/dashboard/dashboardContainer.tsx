@@ -5,10 +5,9 @@ import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 
-import { DashboardStore, UserStore, CategoriesStore, DashboardCategoryStore } from 'types/store'
+import { DashboardStore, UserStore, DashboardCategoryStore } from 'types/store'
 import { Category } from 'types/api'
 import { getDashboard, patchDashboard, clearDashboard, getDashboardCategory } from 'actions/dashboardActions'
-import { getCategories } from 'actions/categoriesActions'
 import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
@@ -23,14 +22,12 @@ interface StateProps {
   dashboardStore: DashboardStore;
   dashboardCategoryStore: DashboardCategoryStore;
   userStore: UserStore;
-  categoriesStore: CategoriesStore;
 }
 
 interface DispatchProps {
   getDashboard: (year: number) => void;
   patchDashboard: (year: number) => void;
   clearDashboard: () => void;
-  getCategories: () => void;
   getDashboardCategory: (year: number, categoryId: number) => void;
 }
 
@@ -54,8 +51,6 @@ class DashboardContainer extends Component<Props, State> {
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
     this.handleClickCategory = this.handleClickCategory.bind(this)
-
-    this.props.getCategories()
   }
 
   handleClickTallyButton(): void {
@@ -66,12 +61,18 @@ class DashboardContainer extends Component<Props, State> {
     const targetYear = this.props.dashboardStore.year - 1
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
+    this.setState({
+      activeCategoryId: null
+    })
   }
 
   handleClickRightArrow(): void {
     const targetYear = this.props.dashboardStore.year + 1
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
+    this.setState({
+      activeCategoryId: null
+    })
   }
 
   handleClickCategory(category: Category): void {
@@ -120,7 +121,7 @@ class DashboardContainer extends Component<Props, State> {
           </div>
         </div>
         <ul className='nav nav-tabs'>
-          {this.props.categoriesStore.categories.map((category) => (
+          {this.props.dashboardStore.categories.map((category) => (
             <CategoryTab
               activeCategoryId={this.state.activeCategoryId}
               category={category} key={category.id}
@@ -141,8 +142,7 @@ function mapState(state: RootState): StateProps {
   return {
     dashboardStore: state.dashboard,
     dashboardCategoryStore: state.dashboardCategory,
-    userStore: state.user,
-    categoriesStore: state.categories
+    userStore: state.user
   }
 }
 
@@ -158,9 +158,6 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     clearDashboard(): void {
       dispatch(clearDashboard())
-    },
-    getCategories(): void {
-      dispatch(getCategories())
     },
     getDashboardCategory(year: number, categoryId: number): void {
       dispatch(getDashboardCategory(year, categoryId)).then(() => {

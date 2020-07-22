@@ -16,6 +16,10 @@ const initialState = {
 
 const dashboardCategoryReducer = (state: DashboardCategoryStore = initialState, action: DashboardCategoryAction): DashboardCategoryStore => {
   switch (action.type) {
+  case actionTypes.GET_DASHBOARD_SUCCESS:
+    return {
+      ...initialState
+    }
   case actionTypes.GET_DASHBOARD_CATEGORY_REQUEST:
     return {
       ...state,
