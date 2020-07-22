@@ -11,7 +11,8 @@ class Dashboard::YearlyCategoryFetcher
 
   def build
     {
-      monthly_breakdowns: monthly_breakdowns
+      monthly_breakdowns: monthly_breakdowns,
+      breakdowns: dashboard_breakdowns
     }
   end
 
@@ -27,5 +28,11 @@ class Dashboard::YearlyCategoryFetcher
                      .merge(month: month)
     end
     monthly
+  end
+
+  def dashboard_breakdowns
+    breakdown_ids = user.yearly_breakdown_balance_tables
+                        .where(currency: user.profile.currency, year: year).pluck(:breakdown_id)
+    user.breakdowns.where(id: breakdown_ids)
   end
 end

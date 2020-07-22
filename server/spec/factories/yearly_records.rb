@@ -16,5 +16,11 @@ FactoryBot.define do
       type { 'YearlyCategoryBalanceTable' }
       category
     end
+
+    factory :yearly_breakdown_record, class: YearlyBreakdownBalanceTable do
+      type { 'YearlyBreakdownBalanceTable' }
+      category
+      breakdown
+    end
   end
 end
