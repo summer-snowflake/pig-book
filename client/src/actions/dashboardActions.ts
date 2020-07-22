@@ -75,3 +75,34 @@ export const clearDashboard = (): Action => {
     type: actionTypes.CLEAR_DASHBOARD
   }
 }
+
+const getDashboardCategoryRequest = (): Action => {
+  return {
+    type: actionTypes.GET_DASHBOARD_CATEGORY_REQUEST
+  }
+}
+
+const getDashboardCategorySuccess = (dashboard: any): DashboardAction => {
+  return {
+    type: actionTypes.GET_DASHBOARD_CATEGORY_SUCCESS,
+    dashboard
+  }
+}
+
+export const getDashboardCategory = (year: number, categoryId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(getDashboardCategoryRequest())
+    try {
+      if(ready()) {
+        const res = await axios.get('/api/dashboards/' + year + '/categories/' + categoryId, { headers: loginHeaders() })
+        dispatch(getDashboardCategorySuccess(res.data))
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      dispatch(catchErrors(err.response))
+    }
+  }
+}
+

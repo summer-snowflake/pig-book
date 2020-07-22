@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     end
     resources :tags, only: %i[index create update destroy]
     resources :records, only: %i[index create update destroy]
-    resources :dashboards, param: :year, only: %i[index show update]
+    resources :dashboards, param: :year, only: %i[index show update] do
+      resources :categories, only: %i[show], module: :dashboards
+    end
     resource :tutorial, only: %i[show]
 
     namespace :admin do

@@ -31,8 +31,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             user_id: user.id,
             year: year
           },
-          monthly: [],
-          yearly: nil,
+          monthly_total: [],
+          yearly_total: nil,
           year: year,
           yearly_category_income: [],
           yearly_category_expenditure: [],
@@ -56,7 +56,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             user_id: user.id,
             year: year
           },
-          monthly: [
+          monthly_total: [
             user_id: user.id,
             category_id: nil,
             breakdown_id: nil,
@@ -69,7 +69,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             point: 0,
             label: nil
           ],
-          yearly: nil,
+          yearly_total: nil,
           year: year,
           yearly_category_income: [],
           yearly_category_expenditure: [],
@@ -94,7 +94,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             user_id: user.id,
             year: year
           },
-          monthly: [
+          monthly_total: [
             user_id: user.id,
             category_id: nil,
             breakdown_id: nil,
@@ -107,7 +107,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             point: 0,
             label: nil
           ],
-          yearly: {
+          yearly_total: {
             user_id: user.id,
             category_id: nil,
             breakdown_id: nil,
@@ -136,8 +136,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
         expect(response.status).to eq 200
         json = {
           event: nil,
-          monthly: [],
-          yearly: nil,
+          monthly_total: [],
+          yearly_total: nil,
           year: year,
           yearly_category_income: [],
           yearly_category_expenditure: [],

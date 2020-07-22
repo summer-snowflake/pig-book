@@ -6,8 +6,8 @@ const initialState = {
   isLoading: false,
   year: (new Date()).getFullYear(),
   event: null,
-  monthly: [],
-  yearly: {
+  monthly_total: [],
+  yearly_total: {
     year: (new Date()).getFullYear(),
     income: 0,
     expenditure: 0,
@@ -36,8 +36,8 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       year: action.dashboard.year,
       isLoading: false,
       event: action.dashboard.event,
-      monthly: action.dashboard.monthly,
-      yearly: action.dashboard.yearly,
+      monthly_total: action.dashboard.monthly_total,
+      yearly_total: action.dashboard.yearly_total,
       yearly_category_income: action.dashboard.yearly_category_income,
       yearly_category_expenditure: action.dashboard.yearly_category_expenditure,
       yearly_breakdown_income: action.dashboard.yearly_breakdown_income,

@@ -57,6 +57,10 @@ class User < ApplicationRecord
     options.select { |option| option[:value] }.pluck(:name).join(', ')
   end
 
+  def last_tally_event(year:)
+    tally_events.where(year: year).last
+  end
+
   private
 
   def options?
