@@ -33,6 +33,6 @@ class Dashboard::YearlyCategoryFetcher
   def dashboard_breakdowns
     breakdown_ids = user.yearly_breakdown_balance_tables
                         .where(currency: user.profile.currency, year: year).pluck(:breakdown_id)
-    user.breakdowns.where(id: breakdown_ids)
+    user.breakdowns.where(id: breakdown_ids, category_id: category.id)
   end
 end

@@ -8,7 +8,6 @@ import { withTranslation } from 'react-i18next'
 import { DashboardStore, UserStore, DashboardCategoryStore } from 'types/store'
 import { Category } from 'types/api'
 import { getDashboard, patchDashboard, clearDashboard, getDashboardCategory } from 'actions/dashboardActions'
-import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
@@ -35,6 +34,7 @@ type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
 
 interface State {
   activeCategoryId: number | null;
+  activeCategory: Category | undefined;
 }
 
 class DashboardContainer extends Component<Props, State> {
@@ -42,7 +42,8 @@ class DashboardContainer extends Component<Props, State> {
     super(props)
 
     this.state = {
-      activeCategoryId: null
+      activeCategoryId: null,
+      activeCategory: undefined
     }
 
     this.props.getDashboard((new Date()).getFullYear())
@@ -62,6 +63,7 @@ class DashboardContainer extends Component<Props, State> {
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
     this.setState({
+      activeCategory: undefined,
       activeCategoryId: null
     })
   }
@@ -71,12 +73,14 @@ class DashboardContainer extends Component<Props, State> {
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
     this.setState({
+      activeCategory: undefined,
       activeCategoryId: null
     })
   }
 
   handleClickCategory(category: Category): void {
     this.setState({
+      activeCategory: category,
       activeCategoryId: category.id
     })
     this.props.getDashboardCategory(this.props.dashboardStore.year, category.id)
@@ -130,7 +134,8 @@ class DashboardContainer extends Component<Props, State> {
           ))}
         </ul>
         <CategoryDashboardContainer
-          category={this.props.dashboardCategoryStore.category}
+          category={this.state.activeCategory}
+          breakdowns={this.props.dashboardCategoryStore.breakdowns}
           monthlyTotal={this.props.dashboardCategoryStore.monthlyBreakdowns}
         />
       </div>
@@ -160,9 +165,7 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(clearDashboard())
     },
     getDashboardCategory(year: number, categoryId: number): void {
-      dispatch(getDashboardCategory(year, categoryId)).then(() => {
-        dispatch(getCategory(categoryId))
-      })
+      dispatch(getDashboardCategory(year, categoryId))
     }
   }
 }

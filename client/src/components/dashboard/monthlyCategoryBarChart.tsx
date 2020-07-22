@@ -4,12 +4,13 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-import { MonthlyCategoryBalanceTable, WithRelationsCategory } from 'types/api';
+import { MonthlyCategoryBalanceTable, Breakdown, Category } from 'types/api';
 import { categoryColors } from 'modules/colors'
 
 interface ParentProps {
   monthlyTotal: MonthlyCategoryBalanceTable[];
-  category: WithRelationsCategory;
+  category: Category;
+  breakdowns: Breakdown[];
 }
 
 type Props = ParentProps & I18nProps
@@ -63,7 +64,7 @@ class MonthlyCategoryBarChart extends Component<Props> {
               labelFormatter={this.setLabelFormatter}
             />
             <Legend />
-            {this.props.category.breakdowns.map((breakdown, index) => (
+            {this.props.breakdowns.map((breakdown, index) => (
               <Bar
                 barSize={20}
                 dataKey={breakdown.name}
