@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_224858) do
+ActiveRecord::Schema.define(version: 2020_07_22_142314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 2020_07_10_224858) do
 
   create_table "monthly_records", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.decimal "income", default: "0.0", null: false
-    t.decimal "expenditure", default: "0.0", null: false
+    t.integer "income", default: 0, null: false
+    t.integer "expenditure", default: 0, null: false
     t.integer "currency", default: 0, null: false
     t.integer "year", null: false
     t.integer "month", null: false
