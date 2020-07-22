@@ -82,6 +82,7 @@ export interface DashboardCategoryAction extends Action {
   category: WithRelationsCategory;
   dashboard: {
     monthly_breakdowns: MonthlyCategoryBalanceTable[];
+    breakdowns: Breakdown[];
   }
 }
 

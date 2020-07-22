@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import MonthlyCategoryBarChart from './monthlyCategoryBarChart'
-import { WithRelationsCategory } from 'types/api'
+import { Breakdown, Category } from 'types/api'
 
 interface ParentProps {
   monthlyTotal: any[];
-  category: WithRelationsCategory;
+  category: Category | undefined;
+  breakdowns: Breakdown[];
 }
 
 type Props = ParentProps
@@ -12,13 +13,18 @@ type Props = ParentProps
 class CategoryDashboardContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
-
   }
 
   render(): JSX.Element {
     return (
       <div className='category-dashboard-component'>
-        <MonthlyCategoryBarChart monthlyTotal={this.props.monthlyTotal} category={this.props.category} />
+        {this.props.category && (
+          <MonthlyCategoryBarChart
+            breakdowns={this.props.breakdowns}
+            category={this.props.category}
+            monthlyTotal={this.props.monthlyTotal}
+          />
+        )}
       </div>
     )
   }
