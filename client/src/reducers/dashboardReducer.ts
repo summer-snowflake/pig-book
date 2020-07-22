@@ -20,7 +20,8 @@ const initialState = {
   yearly_category_income: [],
   yearly_category_expenditure: [],
   yearly_breakdown_income: [],
-  yearly_breakdown_expenditure: []
+  yearly_breakdown_expenditure: [],
+  categories: []
 }
 
 const dashboardReducer = (state: DashboardStore = initialState, action: DashboardAction): DashboardStore => {
@@ -41,7 +42,8 @@ const dashboardReducer = (state: DashboardStore = initialState, action: Dashboar
       yearly_category_income: action.dashboard.yearly_category_income,
       yearly_category_expenditure: action.dashboard.yearly_category_expenditure,
       yearly_breakdown_income: action.dashboard.yearly_breakdown_income,
-      yearly_breakdown_expenditure: action.dashboard.yearly_breakdown_expenditure
+      yearly_breakdown_expenditure: action.dashboard.yearly_breakdown_expenditure,
+      categories: action.dashboard.categories
     }
   case actionTypes.PATCH_DASHBOARD_REQUEST:
     return {
