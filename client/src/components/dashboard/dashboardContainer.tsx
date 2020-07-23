@@ -125,7 +125,7 @@ class DashboardContainer extends Component<Props, State> {
           </div>
         </div>
         <ul className='nav nav-tabs'>
-          {this.props.dashboardStore.categories.map((category) => (
+          {this.props.dashboardStore.categories?.map((category) => (
             <CategoryTab
               activeCategoryId={this.state.activeCategoryId}
               category={category} key={category.id}
