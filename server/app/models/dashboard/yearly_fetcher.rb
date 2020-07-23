@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 class Dashboard::YearlyFetcher
-  attr_reader :user, :year
+  attr_reader :user, :year, :currency
 
   def initialize(user:, year:)
     @user = user
     @year = year
+    @currency = user.profile.currency
   end
 
-  def build
+  def build_simple
     {
       year: year,
-      event: event,
+      event: user.last_tally_event(year: year),
       monthly_total: monthly_total,
-      yearly_total: yearly_total,
       yearly_category_income: yearly_category_income.with_other,
       yearly_category_expenditure: yearly_category_outgo.with_other,
       yearly_breakdown_income: yearly_breakdown_income,
@@ -21,36 +21,34 @@ class Dashboard::YearlyFetcher
     }
   end
 
-  private
-
-  def event
-    user.last_tally_event(year: year)
+  def build
+    build_simple.merge(categories: dashboard_categories, yearly_total: yearly_total)
   end
+
+  private
 
   def monthly_total
     user.monthly_total_balance_tables
-        .where(currency: user.profile.currency, year: year)
+        .where(currency: currency, year: year)
         .order(:month)
   end
 
   def yearly_total
     user.yearly_total_balance_tables
-        .where(currency: user.profile.currency, year: year)
+        .where(currency: currency, year: year)
         .first
   end
 
+  def yearly_category
+    @yearly_category ||= user.yearly_category_balance_tables.where(currency: currency, year: year)
+  end
+
   def yearly_category_income
-    user.yearly_category_balance_tables
-        .where(currency: user.profile.currency, year: year)
-        .where.not(income: 0)
-        .order(income: :desc)
+    yearly_category.where.not(income: 0).order(income: :desc)
   end
 
   def yearly_category_outgo
-    user.yearly_category_balance_tables
-        .where(currency: user.profile.currency, year: year)
-        .where.not(expenditure: 0)
-        .order(expenditure: :desc)
+    yearly_category.where.not(expenditure: 0).order(expenditure: :desc)
   end
 
   def yearly_breakdown_income
@@ -60,7 +58,7 @@ class Dashboard::YearlyFetcher
       next unless income_category_ids.include?(category_id)
 
       breakdown_income << user.yearly_breakdown_balance_tables
-                              .where(currency: user.profile.currency,
+                              .where(currency: currency,
                                      year: year, category_id: category_id)
                               .order(income: :desc)
     end
@@ -74,7 +72,7 @@ class Dashboard::YearlyFetcher
       next unless outgo_category_ids.include?(category_id)
 
       breakdown_outgo << user.yearly_breakdown_balance_tables
-                             .where(currency: user.profile.currency,
+                             .where(currency: currency,
                                     year: year, category_id: category_id)
                              .order(expenditure: :desc)
     end
@@ -108,11 +106,16 @@ class Dashboard::YearlyFetcher
       user_id: user.id, category_id: nil,
       label: I18n.t('label.other'),
       year: offset_records.last.year,
-      currency: user.profile.currency,
+      currency: currency,
       income: offset_records.pluck(:income).sum,
       expenditure: offset_records.pluck(:expenditure).sum,
       cashless_charge: offset_records.pluck(:cashless_charge).sum,
       point: offset_records.pluck(:point).sum
     )]
+  end
+
+  def dashboard_categories
+    category_ids = yearly_category.pluck(:category_id)
+    user.categories.where(id: category_ids)
   end
 end

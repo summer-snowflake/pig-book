@@ -37,7 +37,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           yearly_category_income: [],
           yearly_category_expenditure: [],
           yearly_breakdown_income: [],
-          yearly_breakdown_expenditure: []
+          yearly_breakdown_expenditure: [],
+          categories: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -46,6 +47,10 @@ describe 'GET /api/dashboards/:year', autodoc: true do
     context 'there are tally monthly data' do
       let!(:tally_event) { create(:tally_event, user: user, year: year) }
       let!(:monthly_balance_table) { create(:monthly_record, user: user) }
+      let!(:category) { create(:category, user: user) }
+      let!(:yearly_category_record) do
+        create(:yearly_category_record, user: user, category: category, year: year, income: 0)
+      end
 
       it 'returns status code 200 and json dashboard data' do
         get "/api/dashboards/#{year}", headers: login_headers_with_login(user)
@@ -72,9 +77,30 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           yearly_total: nil,
           year: year,
           yearly_category_income: [],
-          yearly_category_expenditure: [],
+          yearly_category_expenditure: [
+            {
+              user_id: yearly_category_record.user_id,
+              category_id: yearly_category_record.category_id,
+              breakdown_id: yearly_category_record.breakdown_id,
+              year: yearly_category_record.year,
+              label: yearly_category_record.label,
+              currency: yearly_category_record.currency,
+              cashless_charge: yearly_category_record.cashless_charge,
+              expenditure: yearly_category_record.expenditure,
+              income: yearly_category_record.income,
+              point: yearly_category_record.point
+            }
+          ],
           yearly_breakdown_income: [],
-          yearly_breakdown_expenditure: []
+          yearly_breakdown_expenditure: [],
+          categories: [
+            {
+              id: category.id,
+              user_id: category.user_id,
+              name: category.name,
+              balance_of_payments: category.balance_of_payments
+            }
+          ]
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -123,7 +149,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           yearly_category_income: [],
           yearly_category_expenditure: [],
           yearly_breakdown_income: [],
-          yearly_breakdown_expenditure: []
+          yearly_breakdown_expenditure: [],
+          categories: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -142,7 +169,8 @@ describe 'GET /api/dashboards/:year', autodoc: true do
           yearly_category_income: [],
           yearly_category_expenditure: [],
           yearly_breakdown_income: [],
-          yearly_breakdown_expenditure: []
+          yearly_breakdown_expenditure: [],
+          categories: []
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

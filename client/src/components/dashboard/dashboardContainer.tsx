@@ -5,11 +5,9 @@ import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { withTranslation } from 'react-i18next'
 
-import { DashboardStore, UserStore, CategoriesStore, DashboardCategoryStore } from 'types/store'
+import { DashboardStore, UserStore, DashboardCategoryStore } from 'types/store'
 import { Category } from 'types/api'
 import { getDashboard, patchDashboard, clearDashboard, getDashboardCategory } from 'actions/dashboardActions'
-import { getCategories } from 'actions/categoriesActions'
-import { getCategory } from 'actions/categoryActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'
@@ -23,14 +21,12 @@ interface StateProps {
   dashboardStore: DashboardStore;
   dashboardCategoryStore: DashboardCategoryStore;
   userStore: UserStore;
-  categoriesStore: CategoriesStore;
 }
 
 interface DispatchProps {
   getDashboard: (year: number) => void;
   patchDashboard: (year: number) => void;
   clearDashboard: () => void;
-  getCategories: () => void;
   getDashboardCategory: (year: number, categoryId: number) => void;
 }
 
@@ -38,6 +34,7 @@ type Props = I18nProps & RouteComponentProps & StateProps & DispatchProps
 
 interface State {
   activeCategoryId: number | null;
+  activeCategory: Category | undefined;
 }
 
 class DashboardContainer extends Component<Props, State> {
@@ -45,7 +42,8 @@ class DashboardContainer extends Component<Props, State> {
     super(props)
 
     this.state = {
-      activeCategoryId: null
+      activeCategoryId: null,
+      activeCategory: undefined
     }
 
     this.props.getDashboard((new Date()).getFullYear())
@@ -54,8 +52,6 @@ class DashboardContainer extends Component<Props, State> {
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
     this.handleClickRightArrow = this.handleClickRightArrow.bind(this)
     this.handleClickCategory = this.handleClickCategory.bind(this)
-
-    this.props.getCategories()
   }
 
   handleClickTallyButton(): void {
@@ -66,16 +62,25 @@ class DashboardContainer extends Component<Props, State> {
     const targetYear = this.props.dashboardStore.year - 1
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
+    this.setState({
+      activeCategory: undefined,
+      activeCategoryId: null
+    })
   }
 
   handleClickRightArrow(): void {
     const targetYear = this.props.dashboardStore.year + 1
     this.props.getDashboard(targetYear)
     this.props.history.push('/dashboards/' + targetYear)
+    this.setState({
+      activeCategory: undefined,
+      activeCategoryId: null
+    })
   }
 
   handleClickCategory(category: Category): void {
     this.setState({
+      activeCategory: category,
       activeCategoryId: category.id
     })
     this.props.getDashboardCategory(this.props.dashboardStore.year, category.id)
@@ -120,7 +125,7 @@ class DashboardContainer extends Component<Props, State> {
           </div>
         </div>
         <ul className='nav nav-tabs'>
-          {this.props.categoriesStore.categories.map((category) => (
+          {this.props.dashboardStore.categories?.map((category) => (
             <CategoryTab
               activeCategoryId={this.state.activeCategoryId}
               category={category} key={category.id}
@@ -129,7 +134,8 @@ class DashboardContainer extends Component<Props, State> {
           ))}
         </ul>
         <CategoryDashboardContainer
-          category={this.props.dashboardCategoryStore.category}
+          category={this.state.activeCategory}
+          breakdowns={this.props.dashboardCategoryStore.breakdowns}
           monthlyTotal={this.props.dashboardCategoryStore.monthlyBreakdowns}
         />
       </div>
@@ -141,8 +147,7 @@ function mapState(state: RootState): StateProps {
   return {
     dashboardStore: state.dashboard,
     dashboardCategoryStore: state.dashboardCategory,
-    userStore: state.user,
-    categoriesStore: state.categories
+    userStore: state.user
   }
 }
 
@@ -159,13 +164,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     clearDashboard(): void {
       dispatch(clearDashboard())
     },
-    getCategories(): void {
-      dispatch(getCategories())
-    },
     getDashboardCategory(year: number, categoryId: number): void {
-      dispatch(getDashboardCategory(year, categoryId)).then(() => {
-        dispatch(getCategory(categoryId))
-      })
+      dispatch(getDashboardCategory(year, categoryId))
     }
   }
 }

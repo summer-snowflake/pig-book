@@ -10,7 +10,8 @@ class Dashboard::Fetcher
   def all
     yearly_data = {}
     user.dashboard_years.each do |year|
-      yearly_data[year] = find_by(year: year)
+      fetcher = Dashboard::YearlyFetcher.new(user: user, year: year)
+      yearly_data[year] = fetcher.build_simple
     end
     yearly_data
   end

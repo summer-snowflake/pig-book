@@ -9,7 +9,7 @@ import YearlyData from 'components/dashboard/yearlyData'
 interface Props {
   year: number;
   monthlyTotal: MonthlyBalanceTable[];
-  yearlyTotal: YearlyBalanceTable;
+  yearlyTotal: YearlyBalanceTable | undefined;
 }
 
 class MonthlyData extends Component<Props> {
