@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 
 import { MonthlyCategoryBalanceTable, Breakdown, Category } from 'types/api';
@@ -71,9 +71,18 @@ class MonthlyCategoryBarChart extends Component<Props> {
                 key={breakdown.id}
                 fill={categoryColors(this.props.category.balance_of_payments)[index % categoryColors(this.props.category.balance_of_payments).length]}
                 stackId={'breakdown'}
+                stroke={'#f3e7d6'}
+                strokeWidth={1}
               />
             ))}
-            <Bar barSize={20} dataKey={t('label.none')} stackId={'breakdown'} fill={'#999'} />
+            <Bar
+              barSize={20}
+              dataKey={t('label.none')}
+              stackId={'breakdown'}
+              fill={'#999'}
+              stroke={'#f3e7d6'}
+              strokeWidth={1}
+            />
           </BarChart>
         )}
       </div>
