@@ -13,7 +13,7 @@ class Record::Fetcher
     in: %w[published_at created_at category_id breakdown_id place_id], allow_blank: true
   }
 
-  PER_PAGE = 100
+  PER_PAGE = 20
 
   def initialize(user:)
     @user = user
