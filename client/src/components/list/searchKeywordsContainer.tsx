@@ -181,10 +181,10 @@ class SearchKeywordsContainer extends Component<Props> {
               onClickCancel={this.handleClickCancelPlace}
             />
           )}
-          {this.props.recordSearchStore.tags.length > 0 && (
+          {this.props.recordSearchStore.tags?.length > 0 && (
             <span className='vertical-border' />
           )}
-          {this.props.recordSearchStore.tags.map((tag) => (
+          {this.props.recordSearchStore.tags?.map((tag) => (
             <TagKeywordButton key={tag.id} onClickCancel={this.handleClickCancelTag} tag={tag} />
           ))}
         </div>
