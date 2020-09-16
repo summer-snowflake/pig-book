@@ -54,21 +54,25 @@ class DashboardContainer extends Component<Props> {
                 <HumanYearMonth year={year} />
               </Link>
             </div>
-            <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboardsStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-            <div className='chart-line'>
+            <div className='row'>
+              <TallyField dashboard={dashboards[Number(year)]} disabled={this.props.dashboardsStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
+            </div>
+            <div className='row'>
               <MonthlyBarChart monthlyTotal={dashboards[Number(year)].monthly_total} />
-              <YearlyPieChart
-                breakdownYearly={dashboards[Number(year)].yearly_breakdown_income}
-                categoryYearly={dashboards[Number(year)].yearly_category_income}
-                dataKey={'income'}
-                onUnmount={this.props.clearDashboards}
-              />
-              <YearlyPieChart
-                breakdownYearly={dashboards[Number(year)].yearly_breakdown_expenditure}
-                categoryYearly={dashboards[Number(year)].yearly_category_expenditure}
-                dataKey={'expenditure'}
-                onUnmount={this.props.clearDashboards}
-              />
+              <div className='row'>
+                <YearlyPieChart
+                  breakdownYearly={dashboards[Number(year)].yearly_breakdown_income}
+                  categoryYearly={dashboards[Number(year)].yearly_category_income}
+                  dataKey={'income'}
+                  onUnmount={this.props.clearDashboards}
+                />
+                <YearlyPieChart
+                  breakdownYearly={dashboards[Number(year)].yearly_breakdown_expenditure}
+                  categoryYearly={dashboards[Number(year)].yearly_category_expenditure}
+                  dataKey={'expenditure'}
+                  onUnmount={this.props.clearDashboards}
+                />
+              </div>
             </div>
           </div>
         ))}

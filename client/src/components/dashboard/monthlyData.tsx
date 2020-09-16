@@ -15,7 +15,7 @@ interface Props {
 class MonthlyData extends Component<Props> {
   render(): JSX.Element {
     return (
-      <div className='monthly-data-component'>
+      <div className='monthly-data-component col'>
         <table className='table'>
           <tbody>
             {Array.from(new Array(12)).map((_v,i)=> i + 1).map((month) => (
