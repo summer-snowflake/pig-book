@@ -106,9 +106,9 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
           id: undefined,
           balance_of_payments: state.record.category.balance_of_payments
         },
-        category_id: undefined,
-        breakdown_id: undefined,
-        place_id: undefined,
+        category_id: action.category.id,
+        breakdown_id: state.record.breakdown_id,
+        place_id: state.record.place_id,
         tags: state.record.tags
       },
       breakdowns: [],
@@ -318,7 +318,12 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       ...state,
       isLoading: false,
       breakdowns: action.category.breakdowns,
-      places: action.category.places
+      places: action.category.places,
+      record: {
+        ...state.record,
+        breakdown_id: (state.record.breakdown_id != undefined && action.category.breakdowns.map((b) => b.id).includes(state.record.breakdown_id)) ? state.record.breakdown_id : NaN,
+        place_id: (state.record.place_id != undefined && action.category.places.map((p) => p.id).includes(state.record.place_id)) ? state.record.place_id : NaN
+      }
     }
   case actionTypes.CLOSE_EDIT_MODAL:
     return {
