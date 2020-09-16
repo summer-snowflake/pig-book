@@ -13,16 +13,12 @@ class YearlyData extends Component<Props> {
     const { t } = this.props
 
     return (
-      <tbody className='yearly-data-component'>
-        <tr>
-          <td>
-            {t('label.total')}
-          </td>
-        </tr>
-        <tr>
-          <TallyTableData tally={this.props.yearly} />
-        </tr>
-      </tbody>
+      <tr className='yearly-data-component'>
+        <td>
+          {t('label.total')}
+        </td>
+        <TallyTableData tally={this.props.yearly} />
+      </tr>
     )
   }
 }
