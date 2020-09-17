@@ -15,12 +15,12 @@ interface Props {
 class MonthlyData extends Component<Props> {
   render(): JSX.Element {
     return (
-      <div className='monthly-data-component'>
+      <div className='monthly-data-component col'>
         <table className='table'>
           <tbody>
-            <tr>
-              {Array.from(new Array(6)).map((_v,i)=> i + 1).map((month) => (
-                <td key={month}>
+            {Array.from(new Array(12)).map((_v,i)=> i + 1).map((month) => (
+              <tr key={month}>
+                <td>
                   <HumanYearMonth month={month} />
                   <span className='float-right list-icon'>
                     <Link to={'/list?year=' + this.props.year + '&month=' + month + '&order=published_at'}>
@@ -28,38 +28,11 @@ class MonthlyData extends Component<Props> {
                     </Link>
                   </span>
                 </td>
-              ))}
-            </tr>
-            <tr>
-              {Array.from(new Array(6)).map((_v,i)=> i + 1).map((month) => (
                 <TallyTableData key={month} tally={this.props.monthlyTotal.find((d) => d.month === month)} />
-              ))}
-            </tr>
+              </tr>
+            ))}
+            <YearlyData yearly={this.props.yearlyTotal} />
           </tbody>
-        </table>
-        <table className='table'>
-          <tbody>
-            <tr>
-              {Array.from(new Array(6)).map((_v,i)=> i + 7).map((month) => (
-                <td key={month}>
-                  <HumanYearMonth month={month} />
-                  <span className='float-right list-icon'>
-                    <Link to={'/list?year=' + this.props.year + '&month=' + month + '&order=published_at'}>
-                      <i className='fas fa-align-justify left-icon' />
-                    </Link>
-                  </span>
-                </td>
-              ))}
-            </tr>
-            <tr>
-              {Array.from(new Array(6)).map((_v,i)=> i + 7).map((month) => (
-                <TallyTableData key={month} tally={this.props.monthlyTotal.find((d) => d.month === month)} />
-              ))}
-            </tr>
-          </tbody>
-        </table>
-        <table className='table'>
-          <YearlyData yearly={this.props.yearlyTotal} />
         </table>
       </div>
     )
