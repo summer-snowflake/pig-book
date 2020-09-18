@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'types/react-router'
 import { UserStore } from 'types/store'
 
-import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 import 'stylesheets/header.sass'
 import 'stylesheets/sidenav.sass'
 import brandImage from 'images/pig.gif'
