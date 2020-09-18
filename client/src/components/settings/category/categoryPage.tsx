@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import SettingsMenu from 'components/settings/settingsMenu'
+import SettingsMenuWithIcons from 'components/settings/settingsMenuWithIcons'
 import CategorySettings from 'components/settings/category/categorySettings'
 
 class CategoryPage extends Component {
@@ -11,8 +12,10 @@ class CategoryPage extends Component {
           <div className='col-3 d-none d-lg-block'>
             <SettingsMenu />
           </div>
-          <div className='col-1 d-lg-none' />
-          <div className='col'>
+          <div className='col-1 d-lg-none'>
+            <SettingsMenuWithIcons />
+          </div>
+          <div className='col content'>
             <CategorySettings />
           </div>
         </div>

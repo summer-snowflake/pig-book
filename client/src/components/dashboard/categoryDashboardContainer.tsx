@@ -11,10 +11,6 @@ interface ParentProps {
 type Props = ParentProps
 
 class CategoryDashboardContainer extends Component<Props> {
-  constructor(props: Props) {
-    super(props)
-  }
-
   render(): JSX.Element {
     return (
       <div className='category-dashboard-component'>

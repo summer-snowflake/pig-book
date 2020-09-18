@@ -23,14 +23,14 @@ class TallyField extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <div className='tally-field-component  dashboard-tally-field float-right'>
+      <span className='tally-field-component dashboard-tally-field'>
         {this.props.dashboard.event && (
           <span className='tally-time'>
             <HumanTime date={new Date(this.props.dashboard.event.created_at)} />
           </span>
         )}
         <TallyButton disabled={this.props.disabled} onClickButton={this.handleClickTallyButton} year={this.props.dashboard.year} />
-      </div>
+      </span>
     )
   }
 }

@@ -321,8 +321,8 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
       places: action.category.places,
       record: {
         ...state.record,
-        breakdown_id: (state.record.breakdown_id != undefined && action.category.breakdowns.map((b) => b.id).includes(state.record.breakdown_id)) ? state.record.breakdown_id : NaN,
-        place_id: (state.record.place_id != undefined && action.category.places.map((p) => p.id).includes(state.record.place_id)) ? state.record.place_id : NaN
+        breakdown_id: (state.record.breakdown_id !== undefined && action.category.breakdowns.map((b) => b.id).includes(state.record.breakdown_id)) ? state.record.breakdown_id : NaN,
+        place_id: (state.record.place_id !== undefined && action.category.places.map((p) => p.id).includes(state.record.place_id)) ? state.record.place_id : NaN
       }
     }
   case actionTypes.CLOSE_EDIT_MODAL:

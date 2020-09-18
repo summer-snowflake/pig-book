@@ -102,27 +102,34 @@ class DashboardContainer extends Component<Props, State> {
             <i className='fas fa-chevron-right' />
           </button>
         </div>
-        <TallyField dashboard={this.props.dashboardStore} disabled={this.props.dashboardStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
-        <MonthlyData monthlyTotal={this.props.dashboardStore.monthly_total} year={this.props.dashboardStore.year} yearlyTotal={this.props.dashboardStore.yearly_total} />
-        <div className='chart-line'>
-          <MonthlyBarChart monthlyTotal={this.props.dashboardStore.monthly_total} />
-          <YearlyPieChart
-            breakdownYearly={this.props.dashboardStore.yearly_breakdown_income}
-            categoryYearly={this.props.dashboardStore.yearly_category_income}
-            dataKey={'income'}
-            onUnmount={this.props.clearDashboard}
-          />
-          <YearlyPieChart
-            breakdownYearly={this.props.dashboardStore.yearly_breakdown_expenditure}
-            categoryYearly={this.props.dashboardStore.yearly_category_expenditure}
-            dataKey={'expenditure'}
-            onUnmount={this.props.clearDashboard}
-          />
-          <div className='dashboards-link text-right'>
-            <Link to='/dashboards'>
-              {t('link.dashboards')}
-            </Link>
+        <div className='row'>
+          <TallyField dashboard={this.props.dashboardStore} disabled={this.props.dashboardStore.isLoading} onClickTallyButton={this.handleClickTallyButton} />
+        </div>
+        <div className='row'>
+          <MonthlyData monthlyTotal={this.props.dashboardStore.monthly_total} year={this.props.dashboardStore.year} yearlyTotal={this.props.dashboardStore.yearly_total} />
+          <div className='col'>
+            <MonthlyBarChart monthlyTotal={this.props.dashboardStore.monthly_total} />
+            <div className='row'>
+              <YearlyPieChart
+                breakdownYearly={this.props.dashboardStore.yearly_breakdown_income}
+                categoryYearly={this.props.dashboardStore.yearly_category_income}
+                dataKey={'income'}
+                onUnmount={this.props.clearDashboard}
+              />
+              <YearlyPieChart
+                breakdownYearly={this.props.dashboardStore.yearly_breakdown_expenditure}
+                categoryYearly={this.props.dashboardStore.yearly_category_expenditure}
+                dataKey={'expenditure'}
+                onUnmount={this.props.clearDashboard}
+              />
+            </div>
           </div>
+        </div>
+        <div className='dashboards-link text-right'>
+          <Link to='/dashboards'>
+            <i className='fas fa-chart-bar left-icon' />
+            {t('link.dashboards')}
+          </Link>
         </div>
         <ul className='nav nav-tabs'>
           {this.props.dashboardStore.categories?.map((category) => (

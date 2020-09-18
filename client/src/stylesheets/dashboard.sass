@@ -25,9 +25,9 @@
     &:disabled
       cursor: not-allowed
 
-
 .dashboard-tally-field
-  padding: 10px 0
+  margin: 0 20px 0 auto
+  padding: 10px 0 10px 15px
 
   .tally-time
     padding-right: 10px
@@ -40,25 +40,22 @@
 
     td
       border: 1px solid $green
-      height: 30px
-      width: 90px
+      height: 40px
+      padding: 5px
 
-  .yearly-data-component
-    td
-      width: 120px
+  .tally-text
+    padding-right: 8px
 
   .list-icon
     a
       color: $darken-green
 
-.chart-line
-  padding-top: 40px
-
 .monthly-bar-chart-component
-  display: table-cell
+  padding-top: 20px
 
 .yearly-pie-chart-component
   display: table-cell
+  padding-top: 20px
 
 .dashboards-link
   a
@@ -87,3 +84,13 @@
 
 .category-dashboard-component
   min-height: 350px
+
+@media (max-width: 660px)
+  .monthly-bar-chart-large-component
+    display: none
+
+
+@media (min-width: 660px)
+  .monthly-bar-chart-small-component
+    display: none
+
