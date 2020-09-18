@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 import RecordsListContainer from 'components/list/recordsListContainer'
+import ListMenuWithIcons from 'components/list/listMenuWithIcons'
 
 import 'stylesheets/list.sass'
 
@@ -12,7 +13,9 @@ class ListPage extends Component<I18nProps> {
     return (
       <div className='list-page-component container-fluid'>
         <div className='row'>
-          <div className='col-1 d-lg-none' />
+          <div className='col-1 d-lg-none'>
+            <ListMenuWithIcons />
+          </div>
           <div className='col'>
             <div className='card'>
               <div className='card-header'>

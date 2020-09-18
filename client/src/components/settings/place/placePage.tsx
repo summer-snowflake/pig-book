@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import SettingsMenu from 'components/settings/settingsMenu'
+import SettingsMenuWithIcons from 'components/settings/settingsMenuWithIcons'
 import PlaceSettings from 'components/settings/place/placeSettings'
 
 class PlacePage extends Component {
@@ -11,8 +12,10 @@ class PlacePage extends Component {
           <div className='col-3 d-none d-lg-block'>
             <SettingsMenu />
           </div>
-          <div className='col-1 d-lg-none' />
-          <div className='col'>
+          <div className='col-1 d-lg-none'>
+            <SettingsMenuWithIcons />
+          </div>
+          <div className='col content'>
             <PlaceSettings />
           </div>
         </div>

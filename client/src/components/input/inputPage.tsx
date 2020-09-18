@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next'
 import PickerField from 'components/input/pickerField'
 import RecordsOnInputContainer from 'components/input/recordsOnInputContainer'
 import NewRecordFormContainer from 'components/input/newRecordFormContainer'
+import InputMenuWithIcons from 'components/input/inputMenuWithIcons'
 
 import 'stylesheets/input.sass'
 
@@ -13,7 +14,9 @@ class InputPage extends Component<I18nProps> {
     return (
       <div className='input-page-component container-fluid'>
         <div className='row'>
-          <div className='col-1 d-lg-none' />
+          <div className='col-1 d-lg-none'>
+            <InputMenuWithIcons />
+          </div>
           <div className='col'>
             <div className='card'>
               <div className='card-header'>

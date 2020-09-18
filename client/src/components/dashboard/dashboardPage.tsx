@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 import DashboardContainer from 'components/dashboard/dashboardContainer'
+import DashboardMenuWithIcons from 'components/dashboard/dashboardMenuWithIcons'
 
 import 'stylesheets/dashboard.sass'
 
@@ -12,7 +13,9 @@ class DashboardPage extends Component<I18nProps> {
     return (
       <div className='dashboard-page-component container-fluid'>
         <div className='row'>
-          <div className='col-1 d-lg-none' />
+          <div className='col-1 d-lg-none'>
+            <DashboardMenuWithIcons />
+          </div>
           <div className='col'>
             <div className='card'>
               <div className='card-header'>
