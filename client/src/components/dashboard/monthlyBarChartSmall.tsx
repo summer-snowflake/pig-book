@@ -51,7 +51,7 @@ class MonthlyBarChartSmall extends Component<Props> {
           <BarChart
             data={this.props.monthlyTotal}
             height={300}
-            width={280}
+            width={265}
           >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='month' unit='' />
