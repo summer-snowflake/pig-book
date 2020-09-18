@@ -93,7 +93,7 @@ class YearlyPieChart extends Component<Props> {
 
     return (
       <div className='yearly-pie-chart-component'>
-        <PieChart height={250} width={300}>
+        <PieChart height={250} width={295}>
           <text dy={8} fill='#666666' textAnchor='middle' x='50%' y='50%'>
             {this.props.dataKey === 'income' ? t('label.income') : t('label.outgo') }
           </text>
