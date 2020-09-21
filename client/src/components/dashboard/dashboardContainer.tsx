@@ -46,7 +46,10 @@ class DashboardContainer extends Component<Props, State> {
       activeCategory: undefined
     }
 
-    this.props.getDashboard((new Date()).getFullYear())
+    const pathname = this.props.location.pathname
+    const result = pathname.match(/\/dashboards\/(\d{4})/)
+    const targetYear = result ? Number(result[1]) : (new Date()).getFullYear()
+    this.props.getDashboard(targetYear)
 
     this.handleClickTallyButton = this.handleClickTallyButton.bind(this)
     this.handleClickLeftArrow = this.handleClickLeftArrow.bind(this)
