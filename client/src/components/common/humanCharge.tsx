@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
-import { withTranslation } from 'react-i18next'
 
 interface Props {
   currency: string;
   charge: number;
 }
 
-class HumanCharge extends Component<Props & I18nProps> {
+class HumanCharge extends Component<Props> {
   toHumanCharge(): string {
-    const { t } = this.props
-
-    let charge = ''
-    if (t('label.locale') === 'jp-JP') {
-      charge = Math.floor(this.props.charge).toLocaleString(t('label.locale'), { style: 'currency', currency: 'JPY'})
+    if (this.props.currency === 'yen') {
+      return Math.floor(this.props.charge).toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' })
+    } else if (this.props.currency === 'dollar') {
+      return this.props.charge.toLocaleString('ja-JP', { style: 'currency', currency: 'USD' })
     } else {
-      charge = this.props.charge.toLocaleString(t('label.locale'), { maximumSignificantDigits: 3 })
+      return String(this.props.charge)
     }
-    return charge
   }
 
   render(): JSX.Element {
@@ -28,4 +25,4 @@ class HumanCharge extends Component<Props & I18nProps> {
   }
 }
 
-export default withTranslation()(HumanCharge)
+export default HumanCharge

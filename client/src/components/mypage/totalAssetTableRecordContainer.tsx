@@ -22,7 +22,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  deleteAssetsAccount: (assetsAccountId: number, currency: string) => void;
+  deleteAssetsAccount: (assetsAccountId: number) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -60,7 +60,7 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
     this.setState({
       isOpenDestroyModal: false
     })
-    this.props.deleteAssetsAccount(this.props.assetsAccount.id, this.props.profileStore.currency)
+    this.props.deleteAssetsAccount(this.props.assetsAccount.id)
   }
 
   render(): JSX.Element {
@@ -100,9 +100,9 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    deleteAssetsAccount(assetsAccountId: number, currency: string): void {
+    deleteAssetsAccount(assetsAccountId: number): void {
       dispatch(deleteAssetsAccount(assetsAccountId)).then(() => {
-        dispatch(getAssetsAccounts(currency))
+        dispatch(getAssetsAccounts())
       })
     }
   }

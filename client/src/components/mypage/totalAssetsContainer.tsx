@@ -18,7 +18,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getAssetsAccounts: (currency: string) => void;
+  getAssetsAccounts: () => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -27,7 +27,7 @@ class TotalAssetsContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
-    this.props.getAssetsAccounts(this.props.profileStore.currency)
+    this.props.getAssetsAccounts()
   }
 
   render(): JSX.Element {
@@ -41,7 +41,7 @@ class TotalAssetsContainer extends Component<Props> {
             {t('title.totalAssets')}
           </div>
           <div className='card-body with-background-image'>
-            <TotalAssetsDisplayField currency={this.props.profileStore.currency} sum={this.props.assetsAccountsStore.sum} />
+            <TotalAssetsDisplayField currency={this.props.profileStore.currency} assetsAccounts={this.props.assetsAccountsStore.assetsAccounts} />
             <table className='table'>
               <tbody>
                 {this.props.assetsAccountsStore.assetsAccounts.map((assetsAccount: AssetsAccount) => (
@@ -68,8 +68,8 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    getAssetsAccounts(currency: string): void {
-      dispatch(getAssetsAccounts(currency))
+    getAssetsAccounts(): void {
+      dispatch(getAssetsAccounts())
     }
   }
 }

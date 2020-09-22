@@ -15,21 +15,20 @@ const getAssetsAccountsRequest = (): Action => {
   }
 }
 
-const getAssetsAccountsSuccess = (assetsAccounts: AssetsAccount[], currency: string): AssetsAccountsAction => {
+const getAssetsAccountsSuccess = (assetsAccounts: AssetsAccount[]): AssetsAccountsAction => {
   return {
     type: actionTypes.GET_ASSETS_ACCOUNTS_SUCCESS,
     assetsAccounts,
-    currency
   }
 }
 
-export const getAssetsAccounts = (currency: string) => {
+export const getAssetsAccounts = () => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(getAssetsAccountsRequest())
     try {
       if(ready()) {
         const res = await axios.get('/api/assets_accounts', { headers: loginHeaders() })
-        dispatch(getAssetsAccountsSuccess(res.data, currency))
+        dispatch(getAssetsAccountsSuccess(res.data))
       } else {
         dispatch(getCookiesFailure())
       }

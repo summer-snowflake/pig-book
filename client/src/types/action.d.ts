@@ -92,7 +92,6 @@ export interface DashboardsAction extends Action {
 
 export interface AssetsAccountsAction extends Action {
   assetsAccounts: AssetsAccount[];
-  currency: string;
 }
 
 export interface AssetsAccountAction extends Action {

@@ -227,5 +227,4 @@ export interface ResponseErrorsStore {
 export interface AssetsAccountsStore{
   isLoading: boolean;
   assetsAccounts: AssetsAccount[];
-  sum: number;
 }
