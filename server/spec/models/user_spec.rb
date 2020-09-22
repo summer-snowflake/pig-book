@@ -25,6 +25,7 @@ RSpec.describe User, type: :model do
     is_expected.to have_many(:yearly_category_balance_tables)
       .dependent(:destroy)
   end
+  it { is_expected.to have_many(:assets_accounts).dependent(:destroy) }
 
   describe '#dashboard_years' do
     let!(:user) { create(:user) }

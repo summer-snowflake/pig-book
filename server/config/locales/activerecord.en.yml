@@ -26,3 +26,5 @@ en:
         cashless_charge: Return Amount
         point: Point
         memo: Note
+      assets_account:
+        name: Deposit Account Name

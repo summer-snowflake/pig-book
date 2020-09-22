@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :yearly_total_balance_tables, dependent: :destroy
   has_many :yearly_category_balance_tables, dependent: :destroy
   has_many :yearly_breakdown_balance_tables, dependent: :destroy
+  has_many :assets_accounts, dependent: :destroy
 
   # NOTE: 現時点において、管理者以外はオプションの変更を行えない
   validate :unauthorized_options

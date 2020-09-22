@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :categories, only: %i[show], module: :dashboards
     end
     resource :tutorial, only: %i[show]
+    resources :assets_accounts, only: %i[index create update destroy]
 
     namespace :admin do
       resources :users, only: %i[index]

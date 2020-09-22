@@ -26,3 +26,5 @@ ja:
         cashless_charge: キャッシュレス還元額
         point: ポイント
         memo: メモ
+      assets_account:
+        name: 預金の種類
