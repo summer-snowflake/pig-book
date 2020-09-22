@@ -43,7 +43,8 @@
     "memo": "メモ",
     "optionsSetting": "オプション設定",
     "tutorial": "チュートリアル",
-    "profile": "プロフィール"
+    "profile": "プロフィール",
+    "totalAssets": "総資産"
   },
   "slide": {
     "input": "カテゴリ、内訳等とともに登録ができ、日付ごとにデータの確認ができます。",

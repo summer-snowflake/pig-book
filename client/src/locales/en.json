@@ -43,7 +43,8 @@
     "memo": "Note",
     "optionsSetting": "Options Setting",
     "tutorial": "Tutorial",
-    "profile": "Profile"
+    "profile": "Profile",
+    "totalAssets": "Total Assets"
   },
   "slide": {
     "input": "You can save data and display them one day.",
