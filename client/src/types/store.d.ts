@@ -223,3 +223,9 @@ export interface DashboardsStore {
 export interface ResponseErrorsStore {
   status: number;
 }
+
+export interface AssetsAccountsStore{
+  isLoading: boolean;
+  assetsAccounts: AssetsAccount[];
+  sum: number;
+}

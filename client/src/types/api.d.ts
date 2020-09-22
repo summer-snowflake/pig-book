@@ -246,3 +246,18 @@ export interface Dashboard {
   monthly_total: MonthlyBalanceTable[];
   yearly_total: YearlyBalanceTable;
 }
+
+export interface AssetsAccount {
+  id: number;
+  name: string;
+  balance_of_payments: boolean;
+  currency: string;
+  money: number;
+}
+
+export interface AssetsAccountParams {
+  name: string;
+  balance_of_payments: boolean;
+  currency: string;
+  money: number;
+}

@@ -1,4 +1,4 @@
-import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag, WithRelationsCategory } from './api'
+import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag, WithRelationsCategory } from 'types/api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
@@ -88,4 +88,13 @@ export interface DashboardCategoryAction extends Action {
 
 export interface DashboardsAction extends Action {
   dashboards: Dashboard[];
+}
+
+export interface AssetsAccountsAction extends Action {
+  assetsAccounts: AssetsAccount[];
+  currency: string;
+}
+
+export interface AssetsAccountAction extends Action {
+  assetsAccount: AssetsAccount;
 }

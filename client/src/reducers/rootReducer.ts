@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
@@ -30,6 +30,7 @@ import dashboardCategoryReducer from 'reducers/dashboardCategoryReducer'
 import dashboardsReducer from 'reducers/dashboardsReducer'
 import errorsReducer from 'reducers/errorsReducer'
 import tutorialReducer from 'reducers/tutorialReducer'
+import assetsAccountsReducer from 'reducers/assetsAccountsReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -59,6 +60,7 @@ export type RootState = {
   dashboards: DashboardsStore;
   responseErrors: ResponseErrorsStore;
   tutorial: TutorialStore;
+  assetsAccounts: AssetsAccountsStore;
 }
 
 const rootReducer = combineReducers({
@@ -88,7 +90,8 @@ const rootReducer = combineReducers({
   dashboardCategory: dashboardCategoryReducer,
   dashboards: dashboardsReducer,
   responseErrors: errorsReducer,
-  tutorial: tutorialReducer
+  tutorial: tutorialReducer,
+  assetsAccounts: assetsAccountsReducer
 })
 
 export default rootReducer
