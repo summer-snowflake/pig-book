@@ -29,12 +29,14 @@ describe 'GET /api/assets_accounts', autodoc: true do
           user_id: user.id,
           balance_of_payments: assets_account1.balance_of_payments,
           name: assets_account1.name,
+          currency: assets_account1.currency,
           money: assets_account1.money
         },
         {
           user_id: user.id,
           balance_of_payments: assets_account2.balance_of_payments,
           name: assets_account2.name,
+          currency: assets_account2.currency,
           money: assets_account2.money
         }
       ].to_json

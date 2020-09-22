@@ -36,6 +36,6 @@ class AssetsAccountsController < BaseController
   private
 
   def assets_account_params
-    params.permit(:name, :balance_of_payments, :money)
+    params.permit(:name, :balance_of_payments, :money, :currency)
   end
 end
