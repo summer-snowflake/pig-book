@@ -72,7 +72,9 @@ class TotalAssetsContainer extends Component<Props> {
               </tbody>
             </table>
             {this.props.assetsAccountsStore.assetsAccounts.length === 0 && this.props.assetsAccountsStore.isLoading && (
-              <LoadingImage />
+              <div>
+                <LoadingImage />
+              </div>
             )}
             <button className='create-button-component btn btn-secondary' onClick={this.handleClickCreateButton}>
               <i className='fas fa-plus left-icon'></i>

@@ -60,6 +60,7 @@ class AssetsAccountForm extends Component<Props> {
               name='category_name'
               onChange={this.props.onChangeMoney}
               onKeyDown={this.props.onKeyDown}
+              placeholder={'0'}
               type='text'
               value={this.props.assetsAccountStore.money}
             />

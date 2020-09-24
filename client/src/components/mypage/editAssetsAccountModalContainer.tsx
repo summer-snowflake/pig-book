@@ -83,7 +83,7 @@ class EditAssetsAccountModalContainer extends Component<Props> {
       balance_of_payments: this.props.editAssetsAccountStore.balance_of_payments,
       name: this.props.editAssetsAccountStore.name,
       currency: this.props.editAssetsAccountStore.currency,
-      money: this.props.editAssetsAccountStore.money
+      money: this.props.editAssetsAccountStore.money.replace(/,/g, '')
     }
 
     this.props.patchAssetsAccount(id, params)

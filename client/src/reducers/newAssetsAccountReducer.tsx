@@ -12,7 +12,7 @@ const initialState = {
   balance_of_payments: true,
   name: '',
   currency: 'yen',
-  money: 0,
+  money: '',
   errors: []
 }
 
@@ -20,7 +20,7 @@ interface StoreAction extends AssetsAccountAction {
   balance_of_payments: boolean;
   name: string;
   currency: string;
-  money: number;
+  money: string;
   errors: string[];
 }
 
@@ -39,7 +39,7 @@ const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, ac
       isOpen: false,
       balance_of_payments: true,
       name: '',
-      money: 0,
+      money: '',
       errors: []
     }
   case actionTypes.POST_ASSETS_ACCOUNT_FAILURE:
