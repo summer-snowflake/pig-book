@@ -5,36 +5,35 @@ import { ThunkDispatch } from 'redux-thunk'
 import { withTranslation } from 'react-i18next'
 
 import { AssetsAccount } from 'types/api'
-import { AssetsAccountsStore, ProfileStore } from 'types/store'
+import { AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, ProfileStore } from 'types/store'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import LoadingImage from 'components/common/loadingImage'
 import TotalAssetTableRecord from 'components/mypage/totalAssetTableRecordContainer'
 import TotalAssetsDisplayField from 'components/mypage/totalAssetsDisplayField'
-import NewAssetsAccountModal from './newAssetsAccountModalContainer'
+import NewAssetsAccountModal from 'components/mypage/newAssetsAccountModalContainer'
+import EditAssetsAccountModal from 'components/mypage/editAssetsAccountModalContainer'
+import { openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
 
 interface StateProps {
   profileStore: ProfileStore;
   assetsAccountsStore: AssetsAccountsStore;
+  newAssetsAccountStore: NewAssetsAccountStore;
+  editAssetsAccountStore: EditAssetsAccountStore;
 }
 
 interface DispatchProps {
   getAssetsAccounts: () => void;
+  openNewAssetsAccountModal: () => void;
+  closeNewAssetsAccountModal: () => void;
+  closeEditAssetsAccountModal: () => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
 
-interface State {
-  isOpenCreateAccountModal: boolean
-}
-
-class TotalAssetsContainer extends Component<Props, State> {
+class TotalAssetsContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
-
-    this.state = {
-      isOpenCreateAccountModal: false
-    }
 
     this.handleClickCreateButton = this.handleClickCreateButton.bind(this)
     this.handleClickCloseModal = this.handleClickCloseModal.bind(this)
@@ -43,15 +42,12 @@ class TotalAssetsContainer extends Component<Props, State> {
   }
 
   handleClickCreateButton(): void {
-    this.setState({
-      isOpenCreateAccountModal: true
-    })
+    this.props.openNewAssetsAccountModal()
   }
 
   handleClickCloseModal(): void {
-    this.setState({
-      isOpenCreateAccountModal: false
-    })
+    this.props.closeNewAssetsAccountModal()
+    this.props.closeEditAssetsAccountModal()
   }
 
   render(): JSX.Element {
@@ -80,7 +76,8 @@ class TotalAssetsContainer extends Component<Props, State> {
               <i className='fas fa-plus left-icon'></i>
               {t('button.addAssetsAccount')}
             </button>
-            <NewAssetsAccountModal isOpen={this.state.isOpenCreateAccountModal} onClickClose={this.handleClickCloseModal} />
+            <NewAssetsAccountModal isOpen={this.props.newAssetsAccountStore.isOpen} onClickClose={this.handleClickCloseModal} />
+            <EditAssetsAccountModal isOpen={this.props.editAssetsAccountStore.isOpen} onClickClose={this.handleClickCloseModal} />
           </div>
         </div>
       </div>
@@ -91,7 +88,9 @@ class TotalAssetsContainer extends Component<Props, State> {
 function mapState(state: RootState): StateProps {
   return {
     profileStore: state.profile,
-    assetsAccountsStore: state.assetsAccounts
+    assetsAccountsStore: state.assetsAccounts,
+    newAssetsAccountStore: state.newAssetsAccount,
+    editAssetsAccountStore: state.editAssetsAccount
   }
 }
 
@@ -99,6 +98,15 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   return {
     getAssetsAccounts(): void {
       dispatch(getAssetsAccounts())
+    },
+    openNewAssetsAccountModal(): void {
+      dispatch(openNewAssetsAccountModal())
+    },
+    closeNewAssetsAccountModal(): void {
+      dispatch(closeNewAssetsAccountModal())
+    },
+    closeEditAssetsAccountModal(): void {
+      dispatch(closeEditAssetsAccountModal())
     }
   }
 }

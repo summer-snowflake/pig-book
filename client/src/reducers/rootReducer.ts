@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
@@ -32,6 +32,7 @@ import errorsReducer from 'reducers/errorsReducer'
 import tutorialReducer from 'reducers/tutorialReducer'
 import assetsAccountsReducer from 'reducers/assetsAccountsReducer'
 import newAssetsAccountReducer from 'reducers/newAssetsAccountReducer'
+import editAssetsAccountReducer from 'reducers/editAssetsAccountReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -63,6 +64,7 @@ export type RootState = {
   tutorial: TutorialStore;
   assetsAccounts: AssetsAccountsStore;
   newAssetsAccount: NewAssetsAccountStore;
+  editAssetsAccount: EditAssetsAccountStore;
 }
 
 const rootReducer = combineReducers({
@@ -94,7 +96,8 @@ const rootReducer = combineReducers({
   responseErrors: errorsReducer,
   tutorial: tutorialReducer,
   assetsAccounts: assetsAccountsReducer,
-  newAssetsAccount: newAssetsAccountReducer
+  newAssetsAccount: newAssetsAccountReducer,
+  editAssetsAccount: editAssetsAccountReducer
 })
 
 export default rootReducer

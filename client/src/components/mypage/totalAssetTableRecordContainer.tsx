@@ -5,11 +5,12 @@ import { ThunkDispatch } from 'redux-thunk'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { AssetsAccount } from 'types/api'
-import { ProfileStore } from 'types/store'
-import { deleteAssetsAccount } from 'actions/assetsAccountActions'
+import { EditAssetsAccountStore, ProfileStore } from 'types/store'
+import { deleteAssetsAccount, openEditAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanCharge from 'components/common/humanCharge'
+import Edit from 'components/common/edit'
 import DestroyModal from 'components/common/destroyModal'
 import HumanDate from 'components/common/humanDate'
 import FromNow from 'components/common/fromNow'
@@ -21,10 +22,13 @@ interface ParentProps {
 
 interface StateProps {
   profileStore: ProfileStore;
+  editAssetsAccountStore: EditAssetsAccountStore;
 }
 
 interface DispatchProps {
   deleteAssetsAccount: (assetsAccountId: number) => void;
+  openEditAssetsAccountModal: (assetsAccount: AssetsAccount) => void;
+  closeEditAssetsAccountModal: () => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -44,6 +48,8 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickCloseModal = this.handleClickCloseModal.bind(this)
   }
 
   handleClickTrashIcon(): void {
@@ -65,6 +71,14 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
     this.props.deleteAssetsAccount(this.props.assetsAccount.id)
   }
 
+  handleClickEditIcon(): void {
+    this.props.openEditAssetsAccountModal(this.props.assetsAccount)
+  }
+
+  handleClickCloseModal(): void {
+    this.props.closeEditAssetsAccountModal()
+  }
+
   render(): JSX.Element {
     return (
       <tr className='total-asset-table-record-component'>
@@ -83,6 +97,9 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
           <HumanDate date={new Date(this.props.assetsAccount.updated_at)} />
           <FromNow date={new Date(this.props.assetsAccount.updated_at)} />
         </td>
+        <td>
+          <Edit onClickIcon={this.handleClickEditIcon} />
+        </td>
         <td className='trash-field-td'>
           <DestroyModal
             isOpen={this.state.isOpenDestroyModal}
@@ -100,7 +117,8 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
 
 function mapState(state: RootState): StateProps {
   return {
-    profileStore: state.profile
+    profileStore: state.profile,
+    editAssetsAccountStore: state.editAssetsAccount
   }
 }
 
@@ -110,6 +128,12 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(deleteAssetsAccount(assetsAccountId)).then(() => {
         dispatch(getAssetsAccounts())
       })
+    },
+    openEditAssetsAccountModal(assetsAccount: AssetsAccount): void {
+      dispatch(openEditAssetsAccountModal(assetsAccount))
+    },
+    closeEditAssetsAccountModal(): void {
+      dispatch(closeEditAssetsAccountModal())
     }
   }
 }

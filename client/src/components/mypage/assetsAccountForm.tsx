@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
-import { NewAssetsAccountStore } from 'types/store'
+import { EditAssetsAccountStore, NewAssetsAccountStore } from 'types/store'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
@@ -11,12 +11,12 @@ interface ParentProps {
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeMoney: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmitButton: () => void;
-  assetsAccountStore: NewAssetsAccountStore;
+  assetsAccountStore: NewAssetsAccountStore | EditAssetsAccountStore;
 }
 
 type Props = ParentProps & I18nProps
 
-class NewAssetsAccountForm extends Component<Props> {
+class AssetsAccountForm extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
@@ -72,7 +72,7 @@ class NewAssetsAccountForm extends Component<Props> {
             onClick={this.props.onClickSubmitButton}
             type='button'
           >
-            {t('button.add')}
+            {t('button.set')}
           </button>
         </div>
       </form>
@@ -80,4 +80,4 @@ class NewAssetsAccountForm extends Component<Props> {
   }
 }
 
-export default withTranslation()(NewAssetsAccountForm)
+export default withTranslation()(AssetsAccountForm)

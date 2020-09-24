@@ -133,6 +133,7 @@
     "accessFailure": "Network Error! Try reloading this page or visiting another time.",
     "patchUserSuccess": "updated successfully",
     "postAssetsAccountSuccess": "Assets Account created successfully",
+    "patchAssetsAccountSuccess": "Assets Account updated successfully",
     "deleteAssetsAccountSuccess": "Assets Account deleted successfully"
   },
   "alert": {

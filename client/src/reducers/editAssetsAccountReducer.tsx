@@ -1,14 +1,17 @@
 import React from 'react'
+import * as actionTypes from 'utils/actionTypes'
 import { toast } from 'react-toastify'
 
-import * as actionTypes from 'utils/actionTypes'
-import { NewAssetsAccountStore } from 'types/store'
-import { AssetsAccountAction } from 'types/action'
+import { EditAssetsAccountStore } from 'types/store'
 import FlashMessage from 'components/common/flashMessage'
+import { ErrorsAction } from 'types/action'
+import { AssetsAccount } from 'types/api'
 
 const initialState = {
   isLoading: false,
   isOpen: false,
+  editedAssetsAccountId: 0,
+  id: 0,
   balance_of_payments: true,
   name: '',
   currency: 'yen',
@@ -16,31 +19,32 @@ const initialState = {
   errors: []
 }
 
-interface StoreAction extends AssetsAccountAction {
-  balance_of_payments: boolean;
-  name: string;
-  currency: string;
-  money: number;
-  errors: string[];
+interface StoreAction extends ErrorsAction {
+  id: number,
+  balance_of_payments: boolean,
+  name: string,
+  currency: string,
+  money: number,
+  assetsAccount: AssetsAccount
 }
 
-const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, action: StoreAction): NewAssetsAccountStore => {
+const editAssetsAccountReducer = (state: EditAssetsAccountStore = initialState, action: StoreAction): EditAssetsAccountStore => {
   switch (action.type) {
-  case actionTypes.POST_ASSETS_ACCOUNT_REQUEST:
+  case actionTypes.PATCH_ASSETS_ACCOUNT_REQUEST:
     return {
       ...state,
       isLoading: true
     }
-  case actionTypes.POST_ASSETS_ACCOUNT_SUCCESS:
+  case actionTypes.PATCH_ASSETS_ACCOUNT_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
       ...state,
       isLoading: false,
       isOpen: false,
-      name: '',
+      editedAssetsAccountId: action.assetsAccount.id,
       errors: []
     }
-  case actionTypes.POST_ASSETS_ACCOUNT_FAILURE:
+  case actionTypes.PATCH_ASSETS_ACCOUNT_FAILURE:
     return {
       ...state,
       isLoading: false,
@@ -61,12 +65,17 @@ const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, ac
       ...state,
       money: action.money
     }
-  case actionTypes.OPEN_NEW_ASSETS_ACCOUNT_MODAL:
+  case actionTypes.OPEN_EDIT_ASSETS_ACCOUNT_MODAL:
     return {
       ...state,
-      isOpen: true
+      isOpen: true,
+      id: action.assetsAccount.id,
+      balance_of_payments: action.assetsAccount.balance_of_payments,
+      name: action.assetsAccount.name,
+      currency: action.assetsAccount.currency,
+      money: action.assetsAccount.money
     }
-  case actionTypes.CLOSE_NEW_ASSETS_ACCOUNT_MODAL:
+  case actionTypes.CLOSE_EDIT_ASSETS_ACCOUNT_MODAL:
     return {
       ...state,
       isOpen: false
@@ -84,4 +93,4 @@ const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, ac
   }
 }
 
-export default newAssetsAccountReducer
+export default editAssetsAccountReducer

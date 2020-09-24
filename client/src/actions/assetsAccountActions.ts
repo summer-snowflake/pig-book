@@ -165,3 +165,28 @@ export const changeAssetsAccountMoney = (money: string): WithMoneyAction => {
     money
   }
 }
+
+export const openNewAssetsAccountModal = (): Action => {
+  return {
+    type: actionTypes.OPEN_NEW_ASSETS_ACCOUNT_MODAL
+  }
+}
+
+export const closeNewAssetsAccountModal = (): Action => {
+  return {
+    type: actionTypes.CLOSE_NEW_ASSETS_ACCOUNT_MODAL
+  }
+}
+
+export const openEditAssetsAccountModal = (assetsAccount: AssetsAccount): AssetsAccountAction => {
+  return {
+    type: actionTypes.OPEN_EDIT_ASSETS_ACCOUNT_MODAL,
+    assetsAccount
+  }
+}
+
+export const closeEditAssetsAccountModal = (): Action => {
+  return {
+    type: actionTypes.CLOSE_EDIT_ASSETS_ACCOUNT_MODAL
+  }
+}

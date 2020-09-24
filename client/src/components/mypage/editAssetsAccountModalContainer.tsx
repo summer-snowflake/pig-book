@@ -5,9 +5,9 @@ import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { AssetsAccountParams } from 'types/api'
-import { NewAssetsAccountStore } from 'types/store'
+import { EditAssetsAccountStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
-import { changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney, postAssetsAccount } from 'actions/assetsAccountActions'
+import { changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney, patchAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import AssetsAccountForm from 'components/mypage/assetsAccountForm'
@@ -34,11 +34,11 @@ const customStyles = {
 }
 
 interface StateProps {
-  newAssetsAccountStore: NewAssetsAccountStore;
+  editAssetsAccountStore: EditAssetsAccountStore;
 }
 
 interface DispatchProps {
-  postAssetsAccount: (params: AssetsAccountParams) => void;
+  patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
   changeAssetsAccountBalanceOfPayments: (balanceOfPayments: boolean) => void;
   changeAssetsAccountName: (name: string) => void;
   changeAssetsAccountMoney: (money: string) => void;
@@ -46,7 +46,7 @@ interface DispatchProps {
 
 type Props = ParentProps & StateProps & DispatchProps
 
-class NewAssetsAccountModalContainer extends Component<Props> {
+class EditAssetsAccountModalContainer extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -78,19 +78,20 @@ class NewAssetsAccountModalContainer extends Component<Props> {
   }
 
   handleClickSubmitButton(): void {
+    const id = this.props.editAssetsAccountStore.id
     const params = {
-      balance_of_payments: this.props.newAssetsAccountStore.balance_of_payments,
-      name: this.props.newAssetsAccountStore.name,
-      currency: this.props.newAssetsAccountStore.currency,
-      money: this.props.newAssetsAccountStore.money
+      balance_of_payments: this.props.editAssetsAccountStore.balance_of_payments,
+      name: this.props.editAssetsAccountStore.name,
+      currency: this.props.editAssetsAccountStore.currency,
+      money: this.props.editAssetsAccountStore.money
     }
 
-    this.props.postAssetsAccount(params)
+    this.props.patchAssetsAccount(id, params)
   }
 
   render(): JSX.Element {
     return (
-      <div className='new-assets-account-modal-component modal'>
+      <div className='edit-assets-account-modal-component modal'>
         <div className='modal-dialog'>
           {this.props.isOpen && (
             <Modal
@@ -101,7 +102,7 @@ class NewAssetsAccountModalContainer extends Component<Props> {
             >
               <div className='modal-body'>
                 <AssetsAccountForm
-                  assetsAccountStore={this.props.newAssetsAccountStore}
+                  assetsAccountStore={this.props.editAssetsAccountStore}
                   onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
                   onChangeMoney={this.handleChangeMoney}
                   onChangeName={this.handleChangeName}
@@ -122,14 +123,14 @@ class NewAssetsAccountModalContainer extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    newAssetsAccountStore: state.newAssetsAccount
+    editAssetsAccountStore: state.editAssetsAccount
   }
 }
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    postAssetsAccount(params: AssetsAccountParams): void {
-      dispatch(postAssetsAccount(params)).then(() => {
+    patchAssetsAccount(id: number, params: AssetsAccountParams): void {
+      dispatch(patchAssetsAccount(id, params)).then(() => {
         dispatch(getAssetsAccounts())
       })
     },
@@ -145,4 +146,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(NewAssetsAccountModalContainer)
+export default connect(mapState, mapDispatch)(EditAssetsAccountModalContainer)

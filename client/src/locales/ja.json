@@ -134,6 +134,7 @@
     "accessFailure": "ネットワークエラー：リロードまたは時間をおいてアクセスしてください。",
     "patchUserSuccess": "ユーザ情報を更新しました",
     "postAssetsAccountSuccess": "預金の種類を登録しました",
+    "patchAssetsAccountSuccess": "預金の種類を更新しました",
     "deleteAssetsAccountSuccess": "預金の種類を削除しました"
   },
   "alert": {
