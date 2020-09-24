@@ -82,7 +82,7 @@ class NewAssetsAccountModalContainer extends Component<Props> {
       balance_of_payments: this.props.newAssetsAccountStore.balance_of_payments,
       name: this.props.newAssetsAccountStore.name,
       currency: this.props.newAssetsAccountStore.currency,
-      money: this.props.newAssetsAccountStore.money
+      money: this.props.newAssetsAccountStore.money.replace(/,/g, '')
     }
 
     this.props.postAssetsAccount(params)

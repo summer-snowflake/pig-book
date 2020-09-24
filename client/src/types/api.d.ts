@@ -260,5 +260,5 @@ export interface AssetsAccountParams {
   name: string;
   balance_of_payments: boolean;
   currency: string;
-  money: number;
+  money: string;
 }
