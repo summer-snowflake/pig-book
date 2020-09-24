@@ -6,14 +6,15 @@ import { withTranslation } from 'react-i18next'
 
 import { AssetsAccount } from 'types/api'
 import { AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, ProfileStore } from 'types/store'
+import { openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
+import Counter from 'components/common/counter'
 import LoadingImage from 'components/common/loadingImage'
 import TotalAssetTableRecord from 'components/mypage/totalAssetTableRecordContainer'
 import TotalAssetsDisplayField from 'components/mypage/totalAssetsDisplayField'
 import NewAssetsAccountModal from 'components/mypage/newAssetsAccountModalContainer'
 import EditAssetsAccountModal from 'components/mypage/editAssetsAccountModalContainer'
-import { openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
 
 interface StateProps {
   profileStore: ProfileStore;
@@ -62,6 +63,7 @@ class TotalAssetsContainer extends Component<Props> {
           </div>
           <div className='card-body with-background-image'>
             <TotalAssetsDisplayField currency={this.props.profileStore.currency} assetsAccounts={this.props.assetsAccountsStore.assetsAccounts} />
+            <Counter count={this.props.assetsAccountsStore.assetsAccounts.length} max={10} />
             <table className='table'>
               <tbody>
                 {this.props.assetsAccountsStore.assetsAccounts.map((assetsAccount: AssetsAccount) => (
