@@ -253,6 +253,7 @@ export interface AssetsAccount {
   balance_of_payments: boolean;
   currency: string;
   money: number;
+  updated_at: string;
 }
 
 export interface AssetsAccountParams {

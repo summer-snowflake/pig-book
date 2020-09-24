@@ -11,6 +11,7 @@ import { RootState } from 'reducers/rootReducer'
 import LoadingImage from 'components/common/loadingImage'
 import TotalAssetTableRecord from 'components/mypage/totalAssetTableRecordContainer'
 import TotalAssetsDisplayField from 'components/mypage/totalAssetsDisplayField'
+import NewAssetsAccountModal from './newAssetsAccountModalContainer'
 
 interface StateProps {
   profileStore: ProfileStore;
@@ -23,11 +24,34 @@ interface DispatchProps {
 
 type Props = I18nProps & StateProps & DispatchProps
 
-class TotalAssetsContainer extends Component<Props> {
+interface State {
+  isOpenCreateAccountModal: boolean
+}
+
+class TotalAssetsContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
+    this.state = {
+      isOpenCreateAccountModal: false
+    }
+
+    this.handleClickCreateButton = this.handleClickCreateButton.bind(this)
+    this.handleClickCloseModal = this.handleClickCloseModal.bind(this)
+
     this.props.getAssetsAccounts()
+  }
+
+  handleClickCreateButton(): void {
+    this.setState({
+      isOpenCreateAccountModal: true
+    })
+  }
+
+  handleClickCloseModal(): void {
+    this.setState({
+      isOpenCreateAccountModal: false
+    })
   }
 
   render(): JSX.Element {
@@ -52,6 +76,11 @@ class TotalAssetsContainer extends Component<Props> {
             {this.props.assetsAccountsStore.assetsAccounts.length === 0 && this.props.assetsAccountsStore.isLoading && (
               <LoadingImage />
             )}
+            <button className='create-button-component btn btn-secondary' onClick={this.handleClickCreateButton}>
+              <i className='fas fa-plus left-icon'></i>
+              {t('button.addAssetsAccount')}
+            </button>
+            <NewAssetsAccountModal isOpen={this.state.isOpenCreateAccountModal} onClickClose={this.handleClickCloseModal} />
           </div>
         </div>
       </div>

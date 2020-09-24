@@ -99,7 +99,8 @@
     "delete": "削除する",
     "set": "設定する",
     "today": "今日",
-    "tally": "集計する"
+    "tally": "集計する",
+    "addAssetsAccount": "預金の種類を追加"
   },
   "link": {
     "dashboards": "すべての年度を確認",
@@ -131,7 +132,9 @@
     "signedUpButUnconfirmed": "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。",
     "confirmSuccess": "アカウントを有効にしました。ログインしてください。",
     "accessFailure": "ネットワークエラー：リロードまたは時間をおいてアクセスしてください。",
-    "patchUserSuccess": "ユーザ情報を更新しました"
+    "patchUserSuccess": "ユーザ情報を更新しました",
+    "postAssetsAccountSuccess": "預金の種類を登録しました",
+    "deleteAssetsAccountSuccess": "預金の種類を削除しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

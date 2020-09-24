@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
@@ -31,6 +31,7 @@ import dashboardsReducer from 'reducers/dashboardsReducer'
 import errorsReducer from 'reducers/errorsReducer'
 import tutorialReducer from 'reducers/tutorialReducer'
 import assetsAccountsReducer from 'reducers/assetsAccountsReducer'
+import newAssetsAccountReducer from 'reducers/newAssetsAccountReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -61,6 +62,7 @@ export type RootState = {
   responseErrors: ResponseErrorsStore;
   tutorial: TutorialStore;
   assetsAccounts: AssetsAccountsStore;
+  newAssetsAccount: NewAssetsAccountStore;
 }
 
 const rootReducer = combineReducers({
@@ -91,7 +93,8 @@ const rootReducer = combineReducers({
   dashboards: dashboardsReducer,
   responseErrors: errorsReducer,
   tutorial: tutorialReducer,
-  assetsAccounts: assetsAccountsReducer
+  assetsAccounts: assetsAccountsReducer,
+  newAssetsAccount: newAssetsAccountReducer
 })
 
 export default rootReducer

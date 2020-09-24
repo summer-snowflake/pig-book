@@ -224,7 +224,15 @@ export interface ResponseErrorsStore {
   status: number;
 }
 
-export interface AssetsAccountsStore{
+export interface NewAssetsAccountStore extends Errors {
+  isLoading: boolean;
+  balance_of_payments: boolean;
+  name: string;
+  currency: string;
+  money: number;
+}
+
+export interface AssetsAccountsStore {
   isLoading: boolean;
   assetsAccounts: AssetsAccount[];
 }
