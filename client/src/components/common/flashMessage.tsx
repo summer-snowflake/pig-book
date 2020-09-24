@@ -89,6 +89,15 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.DELETE_TAG_SUCCESS:
       msg = t('message.deleteTagSuccess')
       break
+    case actionTypes.DELETE_ASSETS_ACCOUNT_SUCCESS:
+      msg = t('message.deleteAssetsAccountSuccess')
+      break
+    case actionTypes.POST_ASSETS_ACCOUNT_SUCCESS:
+      msg = t('message.postAssetsAccountSuccess')
+      break
+    case actionTypes.PATCH_ASSETS_ACCOUNT_SUCCESS:
+      msg = t('message.patchAssetsAccountSuccess')
+      break
     case actionTypes.ACCESS_FAILURE:
       msg = t('message.accessFailure')
       break
