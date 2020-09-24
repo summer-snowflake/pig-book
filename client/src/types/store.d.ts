@@ -223,3 +223,28 @@ export interface DashboardsStore {
 export interface ResponseErrorsStore {
   status: number;
 }
+
+export interface NewAssetsAccountStore extends Errors {
+  isLoading: boolean;
+  isOpen: boolean;
+  balance_of_payments: boolean;
+  name: string;
+  currency: string;
+  money: number;
+}
+
+export interface EditAssetsAccountStore extends Errors {
+  editedAssetsAccountId: number;
+  isLoading: boolean;
+  isOpen: boolean;
+  id: number;
+  balance_of_payments: boolean;
+  name: string;
+  currency: string;
+  money: number;
+}
+
+export interface AssetsAccountsStore {
+  isLoading: boolean;
+  assetsAccounts: AssetsAccount[];
+}
