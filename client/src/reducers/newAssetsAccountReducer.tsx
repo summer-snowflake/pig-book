@@ -37,7 +37,9 @@ const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, ac
       ...state,
       isLoading: false,
       isOpen: false,
+      balance_of_payments: true,
       name: '',
+      money: 0,
       errors: []
     }
   case actionTypes.POST_ASSETS_ACCOUNT_FAILURE:
