@@ -9,6 +9,7 @@ import { RecordParams, Category, RecordSearchParams } from 'types/api'
 import { EditRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { toBoolean } from 'modules/toBoolean'
+import { customModalStyles } from 'modules/modalStyles'
 import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
@@ -46,21 +47,6 @@ interface DispatchProps {
 }
 
 type Props = ParentProps & RouteComponentProps & StateProps & DispatchProps
-
-const customStyles = {
-  content : {
-    top         : '40%',
-    left        : '50%',
-    right       : 'auto',
-    bottom      : 'auto',
-    marginRight : '-50%',
-    minWidth    : '400px',
-    transform   : 'translate(-50%, -50%)'
-  },
-  overlay: {
-    background  : 'rgba(0, 0, 0, .5)'
-  }
-}
 
 class EditRecordModalContainer extends Component<Props> {
   constructor(props: Props) {
@@ -166,7 +152,7 @@ class EditRecordModalContainer extends Component<Props> {
               ariaHideApp={false}
               contentLabel="Example Modal"
               isOpen={this.props.isOpen}
-              style={customStyles}
+              style={customModalStyles(40)}
             >
               <div className='modal-body'>
                 {this.props.editRecordStore.errors.length > 0 && (
