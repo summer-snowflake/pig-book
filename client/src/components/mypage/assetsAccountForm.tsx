@@ -31,6 +31,7 @@ class AssetsAccountForm extends Component<Props> {
           <BalanceOfPaymentsRadios
             category={this.props.assetsAccountStore}
             onChangeBalanceOfPayments={this.props.onChangeBalanceOfPayments}
+            labelDisabled={true}
           />
         </div>
         <div className='form-group'>
