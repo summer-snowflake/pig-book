@@ -293,6 +293,7 @@ const editRecordReducer = (state: EditRecordStore = initialState, action: StoreA
     return {
       ...state,
       isOpenEditRecordModal: true,
+      editedRecordId: action.record.id,
       record: {
         id: action.record.id,
         published_on: new Date(action.record.published_at),
