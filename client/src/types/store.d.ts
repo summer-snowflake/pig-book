@@ -231,6 +231,7 @@ export interface NewAssetsAccountStore extends Errors {
   name: string;
   currency: string;
   money: string;
+  position: number | null;
 }
 
 export interface EditAssetsAccountStore extends Errors {
@@ -242,6 +243,7 @@ export interface EditAssetsAccountStore extends Errors {
   name: string;
   currency: string;
   money: string;
+  position: number | null;
 }
 
 export interface AssetsAccountsStore {

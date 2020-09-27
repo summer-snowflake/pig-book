@@ -3,10 +3,11 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { withTranslation } from 'react-i18next'
+import Sortable from 'sortablejs'
 
-import { AssetsAccount } from 'types/api'
+import { AssetsAccount, AssetsAccountParams } from 'types/api'
 import { AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, ProfileStore } from 'types/store'
-import { openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
+import { openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal, patchAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import Counter from 'components/common/counter'
@@ -28,6 +29,7 @@ interface DispatchProps {
   openNewAssetsAccountModal: () => void;
   closeNewAssetsAccountModal: () => void;
   closeEditAssetsAccountModal: () => void;
+  patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
 }
 
 type Props = I18nProps & StateProps & DispatchProps
@@ -54,6 +56,20 @@ class TotalAssetsContainer extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
+    const sortElements = document.getElementById('sortable-assets-accounts');
+    if (sortElements) {
+      Sortable.create(sortElements, {
+        animation: 100,
+        handle: '.cursor-move',
+        onEnd: (e) => {
+          const params = {
+            position: Number(e.newIndex) + 1
+          }
+          this.props.patchAssetsAccount(Number(e.item.id), params)
+        }
+      })
+    }
+
     return (
       <div className='total-assets-component'>
         <div className='card'>
@@ -65,7 +81,7 @@ class TotalAssetsContainer extends Component<Props> {
             <TotalAssetsDisplayField currency={this.props.profileStore.currency} assetsAccounts={this.props.assetsAccountsStore.assetsAccounts} />
             <Counter count={this.props.assetsAccountsStore.assetsAccounts.length} max={10} />
             <table className='table'>
-              <tbody>
+              <tbody className='assets-accounts-list' id='sortable-assets-accounts'>
                 {this.props.assetsAccountsStore.assetsAccounts.map((assetsAccount: AssetsAccount) => (
                   <TotalAssetTableRecord assetsAccount={assetsAccount} key={assetsAccount.id} />
                 ))}
@@ -111,6 +127,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     closeEditAssetsAccountModal(): void {
       dispatch(closeEditAssetsAccountModal())
+    },
+    patchAssetsAccount(id: number, params: AssetsAccountParams): void {
+      dispatch(patchAssetsAccount(id, params)).then(() => {
+        dispatch(getAssetsAccounts())
+      })
     }
   }
 }

@@ -16,6 +16,7 @@ const initialState = {
   name: '',
   currency: 'yen',
   money: '',
+  position: null,
   errors: []
 }
 
@@ -25,6 +26,7 @@ interface StoreAction extends ErrorsAction {
   name: string,
   currency: string,
   money: string,
+  position: number | null,
   assetsAccount: AssetsAccount
 }
 
@@ -73,7 +75,8 @@ const editAssetsAccountReducer = (state: EditAssetsAccountStore = initialState, 
       balance_of_payments: action.assetsAccount.balance_of_payments,
       name: action.assetsAccount.name,
       currency: action.assetsAccount.currency,
-      money: String(action.assetsAccount.money)
+      money: String(action.assetsAccount.money),
+      position: action.assetsAccount.position
     }
   case actionTypes.CLOSE_EDIT_ASSETS_ACCOUNT_MODAL:
     return {

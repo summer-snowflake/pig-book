@@ -25,7 +25,8 @@ describe 'POST /api/assets_accounts', autodoc: true do
           name: '○✕銀行',
           balance_of_payments: true,
           money: '40000',
-          currency: 'yen'
+          currency: 'yen',
+          position: 1
         }.to_json
         post '/api/assets_accounts',
              params: params, headers: login_headers_with_login(user)
@@ -36,6 +37,7 @@ describe 'POST /api/assets_accounts', autodoc: true do
           balance_of_payments: true,
           currency: 'yen',
           money: 40_000,
+          position: 1,
           user_id: user.id
         }.to_json
         expect(response.body).to be_json_eql(json)

@@ -254,11 +254,13 @@ export interface AssetsAccount {
   currency: string;
   money: number;
   updated_at: string;
+  position: number;
 }
 
 export interface AssetsAccountParams {
-  name: string;
-  balance_of_payments: boolean;
-  currency: string;
-  money: string;
+  name?: string;
+  balance_of_payments?: boolean;
+  currency?: string;
+  money?: string;
+  position?: number | null;
 }
