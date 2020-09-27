@@ -88,7 +88,7 @@ class TutorialContainer extends Component<Props> {
     )
 
     return (
-      <div className='tutorial-component'>
+      <div className={!this.exists() ? 'tutorial-component' : ''}>
         {!this.exists() && (
           <div className='card'>
             <div className='card-header'>
