@@ -81,7 +81,7 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <tr className='total-asset-table-record-component'>
+      <tr className='total-asset-table-record-component' id={String(this.props.assetsAccount.id)}>
         <td className='icon-field'>
           <i className='fas fa-suitcase-rolling green cursor-move' />
         </td>
