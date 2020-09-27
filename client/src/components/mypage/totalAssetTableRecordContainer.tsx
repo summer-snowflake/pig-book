@@ -83,11 +83,9 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
     return (
       <tr className='total-asset-table-record-component'>
         <td className='icon-field'>
-        <i className='fas fa-suitcase-rolling green cursor-move' />
+          <i className='fas fa-suitcase-rolling green cursor-move' />
         </td>
-        <td>
-          {this.props.assetsAccount.name}
-        </td>
+        <td>{this.props.assetsAccount.name}</td>
         <td>
           {this.props.assetsAccount.balance_of_payments === true ? (
             <FontAwesomeIcon className='left-icon blue' icon={['fas', 'plus-square']} />
@@ -101,7 +99,7 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
           <FromNow date={new Date(this.props.assetsAccount.updated_at)} />
         </td>
         <td>
-          <Edit onClickIcon={this.handleClickEditIcon} />
+          <Edit onClickIcon={this.handleClickEditIcon} tooltipDisable={true} />
         </td>
         <td className='trash-field-td'>
           <DestroyModal
@@ -111,6 +109,7 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
           />
           <Trash
             onClickIcon={this.handleClickTrashIcon}
+            tooltipDisable={true}
           />
         </td>
       </tr>

@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next'
 
 interface Props extends I18nProps {
   onClickIcon: () => void;
+  tooltipDisable?: boolean;
 }
 
 class Edit extends Component<Props> {
@@ -14,7 +15,9 @@ class Edit extends Component<Props> {
       <div className='edit-component icon-field float-right'>
         <span data-tip={t('toolTip.edit')} onClick={this.props.onClickIcon}>
           <i className='fas fa-edit' />
-          <ReactTooltip />
+          {!this.props.tooltipDisable && (
+            <ReactTooltip />
+          )}
         </span>
       </div>
     )

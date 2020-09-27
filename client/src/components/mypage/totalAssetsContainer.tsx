@@ -3,6 +3,7 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { withTranslation } from 'react-i18next'
+import Sortable from 'sortablejs'
 
 import { AssetsAccount } from 'types/api'
 import { AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, ProfileStore } from 'types/store'
@@ -54,6 +55,14 @@ class TotalAssetsContainer extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
+    const sortElements = document.getElementById('sortable-assets-accounts');
+    if (sortElements) {
+      Sortable.create(sortElements, {
+        animation: 100,
+        handle: '.cursor-move'
+      })
+    }
+
     return (
       <div className='total-assets-component'>
         <div className='card'>
@@ -65,7 +74,7 @@ class TotalAssetsContainer extends Component<Props> {
             <TotalAssetsDisplayField currency={this.props.profileStore.currency} assetsAccounts={this.props.assetsAccountsStore.assetsAccounts} />
             <Counter count={this.props.assetsAccountsStore.assetsAccounts.length} max={10} />
             <table className='table'>
-              <tbody>
+              <tbody className='assets-accounts-list' id='sortable-assets-accounts'>
                 {this.props.assetsAccountsStore.assetsAccounts.map((assetsAccount: AssetsAccount) => (
                   <TotalAssetTableRecord assetsAccount={assetsAccount} key={assetsAccount.id} />
                 ))}
