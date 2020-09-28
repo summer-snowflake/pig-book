@@ -7,6 +7,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { AssetsAccountParams } from 'types/api'
 import { NewAssetsAccountStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
+import { customModalStyles } from 'modules/modalStyles'
 import { changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney, postAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
@@ -16,21 +17,6 @@ import CloseButton from 'components/common/closeButton'
 interface ParentProps {
   isOpen: boolean;
   onClickClose: () => void;
-}
-
-const customStyles = {
-  content : {
-    top         : '40%',
-    left        : '50%',
-    right       : 'auto',
-    bottom      : 'auto',
-    marginRight : '-50%',
-    minWidth    : '400px',
-    transform   : 'translate(-50%, -50%)'
-  },
-  overlay: {
-    background  : 'rgba(0, 0, 0, .5)'
-  }
 }
 
 interface StateProps {
@@ -82,7 +68,8 @@ class NewAssetsAccountModalContainer extends Component<Props> {
       balance_of_payments: this.props.newAssetsAccountStore.balance_of_payments,
       name: this.props.newAssetsAccountStore.name,
       currency: this.props.newAssetsAccountStore.currency,
-      money: this.props.newAssetsAccountStore.money
+      money: this.props.newAssetsAccountStore.money.replace(/,/g, ''),
+      position: this.props.newAssetsAccountStore.position
     }
 
     this.props.postAssetsAccount(params)
@@ -97,7 +84,7 @@ class NewAssetsAccountModalContainer extends Component<Props> {
               ariaHideApp={false}
               contentLabel='Example Modal'
               isOpen={this.props.isOpen}
-              style={customStyles}
+              style={customModalStyles(40)}
             >
               <div className='modal-body'>
                 <AssetsAccountForm

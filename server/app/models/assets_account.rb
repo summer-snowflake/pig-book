@@ -3,6 +3,8 @@
 class AssetsAccount < ApplicationRecord
   include EnumDefinedCurrency
 
+  acts_as_list scope: :user_id
+
   MAX_NUMBER = 10
 
   belongs_to :user, touch: true

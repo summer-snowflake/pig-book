@@ -8,6 +8,7 @@ interface Props extends I18nProps {
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   category: Category;
   recordId: number | undefined;
+  labelDisabled?: boolean;
 }
 
 class BalanceOfPaymentsRadios extends Component<Props> {
@@ -29,7 +30,11 @@ class BalanceOfPaymentsRadios extends Component<Props> {
           <label className='radio-label' htmlFor={'category_balance_of_payments_income_' + this.props.recordId + '_' + this.props.category.id}>
             <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
             <FontAwesomeIcon className='left-icon blue' icon={['fas', 'plus-square']} />
-            {t('label.income')}
+            {!this.props.labelDisabled && (
+              <span>
+                {t('label.income')}
+              </span>
+            )}
           </label>
         </span>
         <span className='radio-span'>
@@ -45,7 +50,11 @@ class BalanceOfPaymentsRadios extends Component<Props> {
           <label className='radio-label' htmlFor={'category_balance_of_payments_outgo_' + this.props.recordId + '_' + this.props.category.id}>
             <FontAwesomeIcon className='left-icon' icon={['fas', 'check']} />
             <FontAwesomeIcon className='left-icon red' icon={['fas', 'minus-square']} />
-            {t('label.outgo')}
+            {!this.props.labelDisabled && (
+              <span>
+                {t('label.outgo')}
+              </span>
+            )}
           </label>
         </span>
       </span>

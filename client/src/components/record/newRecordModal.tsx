@@ -1,27 +1,13 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 
+import { customModalStyles } from 'modules/modalStyles'
 import NewRecordFormContainer from 'components/input/newRecordFormContainer'
 import CloseButton from 'components/common/closeButton'
 
 interface Props {
   isOpen: boolean;
   onClickClose: () => void;
-}
-
-const customStyles = {
-  content : {
-    top         : '40%',
-    left        : '50%',
-    right       : 'auto',
-    bottom      : 'auto',
-    marginRight : '-50%',
-    minWidth    : '400px',
-    transform   : 'translate(-50%, -50%)'
-  },
-  overlay: {
-    background  : 'rgba(0, 0, 0, .5)'
-  }
 }
 
 class NewRecordModalContainer extends Component<Props> {
@@ -34,7 +20,7 @@ class NewRecordModalContainer extends Component<Props> {
               ariaHideApp={false}
               contentLabel="Example Modal"
               isOpen={this.props.isOpen}
-              style={customStyles}
+              style={customModalStyles(40)}
             >
               <div className='modal-body'>
                 <NewRecordFormContainer />

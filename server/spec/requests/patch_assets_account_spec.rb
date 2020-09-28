@@ -33,7 +33,8 @@ describe 'PATCH /api/assets_accounts', autodoc: true do
           name: '△△銀行',
           balance_of_payments: assets_account.balance_of_payments,
           currency: assets_account.currency,
-          money: assets_account.money
+          money: assets_account.money,
+          position: assets_account.position
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import { withTranslation } from 'react-i18next'
 
 import { Category } from 'types/api'
+import { customModalStyles } from 'modules/modalStyles'
 import CloseButton from 'components/common/closeButton'
 import CategoryCheckboxesContainer from 'components/settings/place/categoryCheckboxesContainer'
 
@@ -17,21 +18,6 @@ interface Props extends I18nProps {
 interface State {
   placeCategoryIds: number[];
   checkedCategoryIds: number[];
-}
-
-const customStyles = {
-  content : {
-    top         : '30%',
-    left        : '50%',
-    right       : 'auto',
-    bottom      : 'auto',
-    marginRight : '-50%',
-    maxWidth    : '600px',
-    transform   : 'translate(-50%, -50%)'
-  },
-  overlay: {
-    background  : 'rgba(0, 0, 0, .5)'
-  }
 }
 
 class CategorizedModal extends Component<Props, State> {
@@ -74,7 +60,7 @@ class CategorizedModal extends Component<Props, State> {
               ariaHideApp={false}
               contentLabel='Categorized Modal'
               isOpen={this.props.isOpen}
-              style={customStyles}
+              style={customModalStyles(30, 600)}
             >
               <div className='modal-body'>
                 <p>{t('message.placeCategorized')}</p>

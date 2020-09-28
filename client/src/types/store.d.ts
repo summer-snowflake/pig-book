@@ -230,7 +230,8 @@ export interface NewAssetsAccountStore extends Errors {
   balance_of_payments: boolean;
   name: string;
   currency: string;
-  money: number;
+  money: string;
+  position: number | null;
 }
 
 export interface EditAssetsAccountStore extends Errors {
@@ -241,7 +242,8 @@ export interface EditAssetsAccountStore extends Errors {
   balance_of_payments: boolean;
   name: string;
   currency: string;
-  money: number;
+  money: string;
+  position: number | null;
 }
 
 export interface AssetsAccountsStore {

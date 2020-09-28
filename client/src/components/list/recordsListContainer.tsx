@@ -23,6 +23,7 @@ import Pagination from 'components/list/pagination'
 import SearchKeywords from 'components/list/searchKeywordsContainer'
 
 import 'stylesheets/list.sass'
+import { getCategories } from 'actions/categoriesActions'
 
 interface StateProps {
   editRecordStore: EditRecordStore;
@@ -41,6 +42,7 @@ interface DispatchProps {
   deleteRecord: (recordId: number, searchParams: RecordSearchParams) => void;
   setRecordSearchParams: (params: RecordSearchParams) => void;
   changePage: (page: number) => void;
+  getCategories: () => void;
 }
 
 type Props = RouteComponentProps & StateProps & DispatchProps
@@ -91,6 +93,7 @@ class RecordsListContainer extends Component<Props> {
     this.props.changePage(params.page)
     this.props.setRecordSearchParams(params)
     this.props.getRecords(params)
+    this.props.getCategories()
   }
 
   handleClickCopy(record: Record): void {
@@ -374,6 +377,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     changePage(page: number): void {
       dispatch(changePage(page))
+    },
+    getCategories(): void {
+      dispatch(getCategories())
     }
   }
 }
