@@ -18,7 +18,10 @@ class AssetsAccountsController < BaseController
   def update
     assets_account = current_user.assets_accounts.find(params[:id])
 
-    if assets_account.update(assets_account_params)
+    assets_account.assign_attributes(assets_account_params)
+    assets_account.record_timestamps = false if assets_account.position_changed?
+
+    if assets_account.save
       render json: assets_account, status: :ok
     else
       render_validation_error assets_account
