@@ -127,8 +127,10 @@ class DashboardContainer extends Component<Props, State> {
         </div>
         <div className='dashboards-link text-right'>
           <Link to='/dashboards'>
-            <i className='fas fa-chart-bar left-icon' />
-            {t('link.dashboards')}
+            <button className='btn btn-secondary'>
+              <i className='fas fa-chart-bar left-icon' />
+              {t('link.dashboards')}
+            </button>
           </Link>
         </div>
         <ul className='nav nav-tabs'>
