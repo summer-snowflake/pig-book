@@ -10,9 +10,9 @@ import { getDashboards, clearDashboards } from 'actions/dashboardsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
-import TallyField from './tallyField'
+import TallyField from 'components/dashboard/tallyField'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
-import OtherTallyField from 'components/dashboard/otherTallyField'
+import OtherTallyField from 'components/dashboards/otherTallyField'
 
 interface StateProps {
   dashboardsStore: DashboardsStore;
