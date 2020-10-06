@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_27_105602) do
+ActiveRecord::Schema.define(version: 2020_10_06_191712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,8 +190,8 @@ ActiveRecord::Schema.define(version: 2020_09_27_105602) do
     t.bigint "user_id", null: false
     t.integer "year", null: false
     t.integer "currency", default: 0, null: false
-    t.decimal "income", default: "0.0", null: false
-    t.decimal "expenditure", default: "0.0", null: false
+    t.integer "income", default: 0, null: false
+    t.integer "expenditure", default: 0, null: false
     t.integer "cashless_charge", default: 0, null: false
     t.integer "point", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false

@@ -14,7 +14,7 @@ class MypageMenu extends Component<I18nProps> {
       <div className='mypage-menu-component'>
         <div className='list-group'>
           <NavLink activeClassName='active-link-menu' className='list-group-item' to='/mypage'>
-            <i className='fas fa-piggy-bank left-icon' />
+            <i className='fas fa-user-shield left-icon' />
             {t('menu.mypageTop')}
           </NavLink>
         </div>

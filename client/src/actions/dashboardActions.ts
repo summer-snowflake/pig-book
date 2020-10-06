@@ -54,6 +54,7 @@ const patchDashboardSuccess = (dashboard: Dashboard): DashboardAction => {
 
 export const patchDashboard = (year: number) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
+    console.log(year)
     dispatch(patchDashboardRequest())
     try {
       if(ready()) {
