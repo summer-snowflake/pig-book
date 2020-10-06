@@ -10,9 +10,10 @@ import { getDashboards, clearDashboards } from 'actions/dashboardsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyBarChart from 'components/dashboard/monthlyBarChart'
-import TallyField from './tallyField'
+import TallyField from 'components/dashboard/tallyField'
 import YearlyPieChart from 'components/dashboard/yearlyPieChart'
-import OtherTallyField from 'components/dashboard/otherTallyField'
+import OtherTallyField from 'components/dashboards/otherTallyField'
+import YearlyBarChart from 'components/dashboards/yearlyBarChart'
 
 interface StateProps {
   dashboardsStore: DashboardsStore;
@@ -47,6 +48,7 @@ class DashboardContainer extends Component<Props> {
           disabled={this.props.dashboardsStore.isLoading}
           onClickTallyButton={this.handleClickTallyButton}
         />
+        <YearlyBarChart dashboards={dashboards} />
         {Object.keys(dashboards).reverse().map((year) => (
           <div className='dashboard' key={year}>
             <div className='dashboard-year'>

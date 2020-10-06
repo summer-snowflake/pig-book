@@ -53,11 +53,19 @@
 .monthly-bar-chart-component
   padding-top: 20px
 
+.monthly-bar-chart-large-component
+  margin-left: 15px
+
+.yearly-bar-chart-component
+  padding-bottom: 20px
+
 .yearly-pie-chart-component
   display: table-cell
   padding-top: 20px
 
 .dashboards-link
+  padding-bottom: 10px
+
   a
     color: $darken-green
 
@@ -89,8 +97,14 @@
   .monthly-bar-chart-large-component
     display: none
 
+  .yearly-bar-chart-large-component
+    display: none
+
 
 @media (min-width: 660px)
   .monthly-bar-chart-small-component
+    display: none
+
+  .yearly-bar-chart-small-component
     display: none
 

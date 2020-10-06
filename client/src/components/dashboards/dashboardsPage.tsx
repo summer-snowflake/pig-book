@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
-import DashboardsContainer from 'components/dashboard/dashboardsContainer'
+import DashboardsContainer from 'components/dashboards/dashboardsContainer'
 import DashboardMenuWithIcons from 'components/dashboard/dashboardMenuWithIcons'
 
 import 'stylesheets/dashboard.sass'
