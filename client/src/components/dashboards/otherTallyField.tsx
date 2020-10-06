@@ -17,7 +17,7 @@ class OtherTallyField extends Component<Props, State> {
 
     const today = new Date()
     this.state = {
-      year: today.getFullYear()
+      year: today.getFullYear() - 1
     }
 
     this.handleClickTallyButton = this.handleClickTallyButton.bind(this)
