@@ -69,6 +69,7 @@ const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, ac
   case actionTypes.OPEN_NEW_ASSETS_ACCOUNT_MODAL:
     return {
       ...state,
+      currency: action.currency,
       isOpen: true
     }
   case actionTypes.CLOSE_NEW_ASSETS_ACCOUNT_MODAL:

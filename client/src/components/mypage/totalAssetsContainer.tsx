@@ -26,7 +26,7 @@ interface StateProps {
 
 interface DispatchProps {
   getAssetsAccounts: () => void;
-  openNewAssetsAccountModal: () => void;
+  openNewAssetsAccountModal: (currency: string) => void;
   closeNewAssetsAccountModal: () => void;
   closeEditAssetsAccountModal: () => void;
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
@@ -45,7 +45,7 @@ class TotalAssetsContainer extends Component<Props> {
   }
 
   handleClickCreateButton(): void {
-    this.props.openNewAssetsAccountModal()
+    this.props.openNewAssetsAccountModal(this.props.profileStore.currency)
   }
 
   handleClickCloseModal(): void {
@@ -119,8 +119,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getAssetsAccounts(): void {
       dispatch(getAssetsAccounts())
     },
-    openNewAssetsAccountModal(): void {
-      dispatch(openNewAssetsAccountModal())
+    openNewAssetsAccountModal(currency: string): void {
+      dispatch(openNewAssetsAccountModal(currency))
     },
     closeNewAssetsAccountModal(): void {
       dispatch(closeNewAssetsAccountModal())

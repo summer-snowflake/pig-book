@@ -21,6 +21,10 @@ interface WithMoneyAction extends Action {
   money: string;
 }
 
+interface WithCurrencyAction extends Action {
+  currency: string;
+}
+
 const postAssetsAccountRequest = (): Action => {
   return {
     type: actionTypes.POST_ASSETS_ACCOUNT_REQUEST
@@ -166,9 +170,10 @@ export const changeAssetsAccountMoney = (money: string): WithMoneyAction => {
   }
 }
 
-export const openNewAssetsAccountModal = (): Action => {
+export const openNewAssetsAccountModal = (currency: string): WithCurrencyAction => {
   return {
-    type: actionTypes.OPEN_NEW_ASSETS_ACCOUNT_MODAL
+    type: actionTypes.OPEN_NEW_ASSETS_ACCOUNT_MODAL,
+    currency
   }
 }
 
