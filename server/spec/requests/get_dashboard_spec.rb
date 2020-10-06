@@ -32,7 +32,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             year: year
           },
           monthly_total: [],
-          yearly_total: nil,
+          yearly_total: {},
           year: year,
           yearly_category_income: [],
           yearly_category_expenditure: [],
@@ -74,7 +74,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
             point: 0,
             label: nil
           ],
-          yearly_total: nil,
+          yearly_total: {},
           year: year,
           yearly_category_income: [],
           yearly_category_expenditure: [
@@ -164,7 +164,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
         json = {
           event: nil,
           monthly_total: [],
-          yearly_total: nil,
+          yearly_total: {},
           year: year,
           yearly_category_income: [],
           yearly_category_expenditure: [],
