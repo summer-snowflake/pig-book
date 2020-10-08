@@ -33,7 +33,7 @@ class YearlyBarChartSmall extends Component<Props> {
 
   setLabelFormatter(props: string): string {
     const { t } = this.props
-    return props + t('label.month')
+    return props + t('label.year')
   }
 
   render(): JSX.Element {
