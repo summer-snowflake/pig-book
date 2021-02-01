@@ -4,8 +4,8 @@ class Record::Fetcher
   include ActiveModel::Model
   include TimeRangeGenerator
 
-  attr_reader :user, :date, :year, :month, :page, :limit, :order
-  attr_reader :category, :breakdown, :place, :tag_ids, :records, :max_page, :totals, :total_count
+  attr_reader :user, :date, :year, :month, :page, :limit, :order, :category, :breakdown, :place, :tag_ids, :records,
+              :max_page, :totals, :total_count
 
   validates :year, :month, :page, :limit,
             numericality: { only_integer: true, allow_blank: true }
@@ -54,8 +54,7 @@ class Record::Fetcher
     records = records.where(breakdown: breakdown) if breakdown
     records = records.where(place: place) if place
     records = records.where(tags: { id: tag_ids }) if tag_ids.present?
-    records = records.includes(:category, :breakdown, :place, :tags, tagged_records: :tag)
-    records
+    records.includes(:category, :breakdown, :place, :tags, tagged_records: :tag)
   end
 
   def init_attrs(params)
@@ -123,7 +122,6 @@ class Record::Fetcher
     integer_part, decimal_part = to_rounded.split('.')
     dot = decimal_part ? '.' : ''
 
-    I18n.t('label.' + user.profile.currency) +
-      " #{integer_part.to_i.to_s(:delimited)}#{dot}#{decimal_part}"
+    I18n.t("label.#{user.profile.currency}") + " #{integer_part.to_i.to_s(:delimited)}#{dot}#{decimal_part}"
   end
 end
