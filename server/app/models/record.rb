@@ -55,8 +55,7 @@ class Record < ApplicationRecord
     integer_part, decimal_part = number_to_rounded.split('.')
     dot = decimal_part ? '.' : ''
 
-    I18n.t('label.' + currency) +
-      " #{integer_part.to_i.to_s(:delimited)}#{dot}#{decimal_part}"
+    I18n.t("label.#{currency}") + " #{integer_part.to_i.to_s(:delimited)}#{dot}#{decimal_part}"
   end
 
   def rounded_charge
