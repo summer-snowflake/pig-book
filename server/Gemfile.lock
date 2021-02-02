@@ -73,7 +73,7 @@ GEM
       actionpack
       activesupport (>= 3.0.0)
       rspec
-    bcrypt (3.1.13)
+    bcrypt (3.1.16)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -85,7 +85,7 @@ GEM
       after_commit_action (~> 1.0)
     crass (1.0.6)
     database_rewinder (0.9.4)
-    devise (4.7.1)
+    devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -242,8 +242,8 @@ GEM
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     unicode-display_width (2.0.0)
-    warden (1.2.8)
-      rack (>= 2.0.6)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
