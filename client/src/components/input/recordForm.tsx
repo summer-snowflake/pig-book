@@ -33,11 +33,19 @@ class RecordForm extends Component<Props> {
     super(props)
 
     this.handleClickTodayButton = this.handleClickTodayButton.bind(this)
+    this.isCashlessRange = this.isCashlessRange.bind(this)
   }
 
   handleClickTodayButton(): void {
     const today = new Date()
     this.props.onChangePublishedOn(today)
+  }
+
+  isCashlessRange(): boolean {
+    const publishedTime = this.props.store.record.published_on.getTime()
+    const startTime = new Date(2019, 9, 1, 0, 0, 0).getTime() // 2019/10/01
+    const endTime = new Date(2020, 5, 30, 23, 59, 59).getTime() // 2020/06/30
+    return (publishedTime >= startTime && publishedTime <= endTime)
   }
 
   render(): JSX.Element {
@@ -100,20 +108,22 @@ class RecordForm extends Component<Props> {
               value={this.props.store.record.charge}
             />
           </div>
-          <div className='col-md-3'>
-            <span className='badge-field'>
-              <span className='green badge badge-pill badge-light'>
-                <i className='far fa-check-square' />
+          {this.isCashlessRange() && (
+            <div className='col-md-3'>
+              <span className='badge-field'>
+                <span className='green badge badge-pill badge-light'>
+                  <i className='far fa-check-square' />
+                </span>
               </span>
-            </span>
-            <input
-              className='form-control number'
-              onChange={this.props.onChangeCashlessCharge}
-              placeholder={'0'}
-              type='text'
-              value={this.props.store.record.cashless_charge}
-            />
-          </div>
+              <input
+                className='form-control number'
+                onChange={this.props.onChangeCashlessCharge}
+                placeholder={'0'}
+                type='text'
+                value={this.props.store.record.cashless_charge}
+              />
+            </div>
+          )}
           <div className='col-md-3'>
             <span className='badge-field'>
               <span className='green badge badge-pill badge-light'>
