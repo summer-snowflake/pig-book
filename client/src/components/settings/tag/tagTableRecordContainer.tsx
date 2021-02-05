@@ -70,7 +70,7 @@ class TagTableRecordContainer extends Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
-    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
+    this.handleClickSitemap = this.handleClickSitemap.bind(this)
   }
 
   diff(): boolean {
@@ -167,7 +167,7 @@ class TagTableRecordContainer extends Component<Props, State> {
     this.props.deleteTag(this.props.tag.id)
   }
 
-  handleClickAlignJustify(): void {
+  handleClickSitemap(): void {
     const today = new Date()
     const params = {
       year: today.getFullYear(),
@@ -213,9 +213,6 @@ class TagTableRecordContainer extends Component<Props, State> {
           </td>
         )}
         <td className='icon-field-td'>
-          <ListIcon onClickIcon={this.handleClickAlignJustify} />
-        </td>
-        <td className='icon-field-td'>
           <EditAndCancel
             editing={this.editing()}
             onClickEditIcon={this.handleClickEditIcon}
@@ -231,6 +228,9 @@ class TagTableRecordContainer extends Component<Props, State> {
           <Trash
             onClickIcon={this.handleClickTrashIcon}
           />
+        </td>
+        <td className='icon-field-td piped'>
+          <ListIcon onClickIcon={this.handleClickSitemap} />
         </td>
       </tr>
     )

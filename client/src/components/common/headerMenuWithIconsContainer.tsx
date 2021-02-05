@@ -50,7 +50,7 @@ class HeaderMenuWithIconsContainer extends Component<Props> {
         {this.props.userStore.isLogged && (
           <li className='nav-item'>
             <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
-              <i className='fas fa-align-justify' />
+              <i className='fas fa-sitemap' />
             </NavLink>
           </li>
         )}

@@ -54,7 +54,7 @@ class UserTableRecord extends Component<Props> {
             {this.props.user.places_count}
           </span>
           <span className='total-count'>
-            <i className='fas fa-align-justify left-icon pink' />
+            <i className='fas fa-sitemap left-icon pink' />
             {this.props.user.records_count}
           </span>
           <span className='total-count'>

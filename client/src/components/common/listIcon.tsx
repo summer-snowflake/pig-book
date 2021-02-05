@@ -15,7 +15,7 @@ class ListIcon extends Component<Props> {
     return (
       <div className='list-icon-component icon-field'>
         <span data-tip={t('toolTip.list')} onClick={this.props.onClickIcon}>
-          <i className='fas fa-align-justify'></i>
+          <i className='fas fa-sitemap'></i>
           <ReactTooltip />
         </span>
       </div>

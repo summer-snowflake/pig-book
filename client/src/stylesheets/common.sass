@@ -135,9 +135,9 @@ body
   border: 1px solid
 
 .icon-field
-  .fa-align-justify
+  .fa-sitemap
     @extend %cursor-icon
-    padding: 8px 8px 7px
+    padding: 8px 7px 6px
 
   .fa-edit
     @extend %cursor-icon
@@ -158,12 +158,12 @@ body
     &.checked
       border: 1px solid $green
 
-  .fa-suitcase-rolling
+  .fa-bars
     border-radius: 3px
-    color: $darken-green
+    color: $darken-green-translucent
     cursor: move
     height: 30px
-    padding: 6px
+    padding: 8px
     width: 30px
 
     &:hover
@@ -202,6 +202,9 @@ body
 
   .icon-field-td
     width: 30px
+
+    &.piped
+      border-left: 1px solid $light-green-translucent
 
   .trash-field-td
     width: 20px
