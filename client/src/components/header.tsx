@@ -70,7 +70,7 @@ class Header extends Component<Props> {
               {this.props.user.isLogged && (
                 <li className='nav-item'>
                   <NavLink activeClassName='active-link-menu' className='nav-link' to='/list'>
-                    <i className='fas fa-align-justify left-icon' />
+                    <i className='fas fa-sitemap left-icon' />
                     {t('menu.list')}
                   </NavLink>
                 </li>

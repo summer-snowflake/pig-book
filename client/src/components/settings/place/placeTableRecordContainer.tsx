@@ -231,9 +231,6 @@ class PlaceTableRecordContainer extends Component<Props, State> {
           </td>
         )}
         <td className='icon-field-td'>
-          <ListIcon onClickIcon={this.handleClickAlignJustify} />
-        </td>
-        <td className='icon-field-td'>
           <EditAndCancel
             editing={this.editing()}
             onClickEditIcon={this.handleClickEditIcon}
@@ -264,6 +261,9 @@ class PlaceTableRecordContainer extends Component<Props, State> {
           <Trash
             onClickIcon={this.handleClickTrashIcon}
           />
+        </td>
+        <td className='icon-field-td piped'>
+          <ListIcon onClickIcon={this.handleClickAlignJustify} />
         </td>
       </tr>
     )

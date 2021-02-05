@@ -31,7 +31,7 @@ class MonthlyData extends Component<Props> {
                   <HumanYearMonth month={month} />
                   <span className='float-right list-icon'>
                     <Link to={'/list?year=' + this.props.year + '&month=' + month + '&order=published_at'}>
-                      <i className='fas fa-align-justify left-icon' />
+                      <i className='fas fa-sitemap left-icon' />
                     </Link>
                   </span>
                 </td>
