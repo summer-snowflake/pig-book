@@ -71,7 +71,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
-    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
+    this.handleClickSitemap = this.handleClickSitemap.bind(this)
   }
 
   diff(): boolean {
@@ -173,7 +173,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
     this.props.deleteCategory(this.props.category.id)
   }
 
-  handleClickAlignJustify(): void {
+  handleClickSitemap(): void {
     const today = new Date()
     const params = {
       year: today.getFullYear(),
@@ -237,7 +237,7 @@ class CategoryTableRecordContainer extends Component<Props, State> {
           />
         </td>
         <td className='icon-field-td piped'>
-          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+          <ListIcon onClickIcon={this.handleClickSitemap} />
         </td>
       </tr>
     )

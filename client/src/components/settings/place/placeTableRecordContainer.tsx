@@ -80,7 +80,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickPlusButton = this.handleClickPlusButton.bind(this)
-    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
+    this.handleClickSitemap = this.handleClickSitemap.bind(this)
   }
 
   diff(): boolean {
@@ -185,7 +185,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
     this.props.getCategories(this.props.place.id)
   }
 
-  handleClickAlignJustify(): void {
+  handleClickSitemap(): void {
     const today = new Date()
     const params = {
       year: today.getFullYear(),
@@ -263,7 +263,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
           />
         </td>
         <td className='icon-field-td piped'>
-          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+          <ListIcon onClickIcon={this.handleClickSitemap} />
         </td>
       </tr>
     )

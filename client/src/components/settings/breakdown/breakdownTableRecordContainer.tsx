@@ -79,7 +79,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
-    this.handleClickAlignJustify = this.handleClickAlignJustify.bind(this)
+    this.handleClickSitemap = this.handleClickSitemap.bind(this)
   }
 
   diff(): boolean {
@@ -203,7 +203,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.props.deleteBreakdown(this.props.breakdown.id)
   }
 
-  handleClickAlignJustify(): void {
+  handleClickSitemap(): void {
     const today = new Date()
     const params = {
       year: today.getFullYear(),
@@ -275,7 +275,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
           />
         </td>
         <td className='icon-field-td piped'>
-          <ListIcon onClickIcon={this.handleClickAlignJustify} />
+          <ListIcon onClickIcon={this.handleClickSitemap} />
         </td>
       </tr>
     )
