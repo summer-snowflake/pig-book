@@ -19,7 +19,7 @@ class AssetsAccountsController < BaseController
     assets_account = current_user.assets_accounts.find(params[:id])
 
     assets_account.assign_attributes(assets_account_params)
-    assets_account.record_timestamps = false if assets_account.position_changed?
+    assets_account.record_timestamps = false if assets_account.position_changed? || assets_account.checked_changed?
 
     if assets_account.save
       render json: assets_account, status: :ok
