@@ -255,6 +255,7 @@ export interface AssetsAccount {
   money: number;
   updated_at: string;
   position: number;
+  checked: boolean;
 }
 
 export interface AssetsAccountParams {
@@ -263,4 +264,5 @@ export interface AssetsAccountParams {
   currency?: string;
   money?: string;
   position?: number | null;
+  checked?: boolean;
 }

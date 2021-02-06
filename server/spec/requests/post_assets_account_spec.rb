@@ -38,7 +38,8 @@ describe 'POST /api/assets_accounts', autodoc: true do
           currency: 'yen',
           money: 40_000,
           position: 1,
-          user_id: user.id
+          user_id: user.id,
+          checked: false
         }.to_json
         expect(response.body).to be_json_eql(json)
       end

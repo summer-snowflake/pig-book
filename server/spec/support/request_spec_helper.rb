@@ -12,8 +12,8 @@ module RequestSpecHelper
     response_headers = login_response_headers(user)
     headers.merge(
       'access-token': response_headers['access-token'],
-      'client': response_headers['client'],
-      'uid': response_headers['uid']
+      client: response_headers['client'],
+      uid: response_headers['uid']
     )
   end
 
@@ -21,8 +21,8 @@ module RequestSpecHelper
     {
       'Content-Type': 'application/json',
       'access-token': response_headers['access-token'],
-      'client': response_headers['client'],
-      'uid': response_headers['uid']
+      client: response_headers['client'],
+      uid: response_headers['uid']
     }
   end
 

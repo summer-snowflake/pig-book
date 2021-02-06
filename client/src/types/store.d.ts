@@ -232,6 +232,7 @@ export interface NewAssetsAccountStore extends Errors {
   currency: string;
   money: string;
   position: number | null;
+  checked: boolean;
 }
 
 export interface EditAssetsAccountStore extends Errors {
@@ -244,6 +245,7 @@ export interface EditAssetsAccountStore extends Errors {
   currency: string;
   money: string;
   position: number | null;
+  checked: boolean;
 }
 
 export interface AssetsAccountsStore {

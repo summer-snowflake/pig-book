@@ -14,6 +14,7 @@ const initialState = {
   currency: 'yen',
   money: '',
   position: null,
+  checked: false,
   errors: []
 }
 
@@ -23,6 +24,7 @@ interface StoreAction extends AssetsAccountAction {
   currency: string;
   money: string;
   position: number | null;
+  checked: boolean;
   errors: string[];
 }
 

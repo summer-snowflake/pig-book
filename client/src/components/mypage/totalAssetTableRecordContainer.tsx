@@ -4,9 +4,9 @@ import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { AssetsAccount } from 'types/api'
+import { AssetsAccount, AssetsAccountParams } from 'types/api'
 import { EditAssetsAccountStore, ProfileStore } from 'types/store'
-import { deleteAssetsAccount, openEditAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
+import { patchAssetsAccount, deleteAssetsAccount, openEditAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanCharge from 'components/common/humanCharge'
@@ -26,6 +26,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
+  patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
   deleteAssetsAccount: (assetsAccountId: number) => void;
   openEditAssetsAccountModal: (assetsAccount: AssetsAccount) => void;
   closeEditAssetsAccountModal: () => void;
@@ -50,6 +51,7 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCloseModal = this.handleClickCloseModal.bind(this)
+    this.handleClickCheckButton = this.handleClickCheckButton.bind(this)
   }
 
   handleClickTrashIcon(): void {
@@ -79,11 +81,25 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
     this.props.closeEditAssetsAccountModal()
   }
 
+  handleClickCheckButton(): void {
+    const params = {
+      checked: !this.props.assetsAccount.checked
+    }
+    this.props.patchAssetsAccount(this.props.assetsAccount.id, params)
+  }
+
   render(): JSX.Element {
     return (
       <tr className='total-asset-table-record-component' id={String(this.props.assetsAccount.id)}>
         <td className='icon-field'>
           <i className='fas fa-bars green cursor-move' />
+        </td>
+        <td className='icon-field'>
+          {this.props.assetsAccount.checked ? (
+            <FontAwesomeIcon className='left-icon dark-green button-border' icon={['fas', 'check']} onClick={this.handleClickCheckButton} />
+          ) : (
+            <FontAwesomeIcon className='left-icon light-green' icon={['fas', 'check']} onClick={this.handleClickCheckButton} />
+          )}
         </td>
         <td>{this.props.assetsAccount.name}</td>
         <td>
@@ -126,6 +142,11 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
+    patchAssetsAccount(id: number, params: AssetsAccountParams): void {
+      dispatch(patchAssetsAccount(id, params)).then(() => {
+        dispatch(getAssetsAccounts())
+      })
+    },
     deleteAssetsAccount(assetsAccountId: number): void {
       dispatch(deleteAssetsAccount(assetsAccountId)).then(() => {
         dispatch(getAssetsAccounts())

@@ -1,7 +1,7 @@
 server: &server
   working_directory: ~/pig-book
   docker:
-    - image: circleci/ruby:2.7.1-node-browsers
+    - image: circleci/ruby:2.7.2-node-browsers
       environment:
         RAILS_ENV: test
         DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
@@ -82,7 +82,7 @@ server: &server
 client: &client
   working_directory: ~/pig-book
   docker:
-    - image: circleci/ruby:2.7.1-node-browsers
+    - image: circleci/ruby:2.7.2-node-browsers
       environment:
         NODE_ENV: test
         TZ: Asia/Tokyo
