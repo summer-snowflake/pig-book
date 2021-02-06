@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_125421) do
+ActiveRecord::Schema.define(version: 2021_02_06_141517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_125421) do
     t.boolean "daily_option", default: false, null: false
     t.integer "tags_count", default: 0, null: false
     t.boolean "unlimited_option", default: false, null: false
+    t.boolean "piggy_bank_option", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
