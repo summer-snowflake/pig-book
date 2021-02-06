@@ -4,6 +4,7 @@ $blue: #5e78ac;
 $yellow: #ffd351;
 $white: #fff;
 $darken-green: darken($green, 10%);
+$darken-green-translucent: rgba(darken($green, 10%), .6);
 $purple: #9b7ec9;
 $pink: #ac5e9f;
 $gray: #999;

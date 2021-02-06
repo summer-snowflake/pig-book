@@ -13,6 +13,13 @@ interface Props {
 }
 
 class MonthlyData extends Component<Props> {
+  isCashlessRange(year: number, month: number): boolean {
+    const publishedTime = new Date(year, month - 1, 1, 0, 0, 0).getTime()
+    const startTime = new Date(2019, 9, 1, 0, 0, 0).getTime() // 2019/10/01
+    const endTime = new Date(2020, 5, 30, 23, 59, 59).getTime() // 2020/06/30
+    return (publishedTime >= startTime && publishedTime <= endTime)
+  }
+
   render(): JSX.Element {
     return (
       <div className='monthly-data-component col'>
@@ -24,14 +31,14 @@ class MonthlyData extends Component<Props> {
                   <HumanYearMonth month={month} />
                   <span className='float-right list-icon'>
                     <Link to={'/list?year=' + this.props.year + '&month=' + month + '&order=published_at'}>
-                      <i className='fas fa-align-justify left-icon' />
+                      <i className='fas fa-sitemap left-icon' />
                     </Link>
                   </span>
                 </td>
-                <TallyTableData key={month} tally={this.props.monthlyTotal.find((d) => d.month === month)} />
+                <TallyTableData isCashlessRange={this.isCashlessRange(this.props.year, month)} key={month} tally={this.props.monthlyTotal.find((d) => d.month === month)} />
               </tr>
             ))}
-            <YearlyData yearly={this.props.yearlyTotal} />
+            <YearlyData year={this.props.year} yearly={this.props.yearlyTotal} />
           </tbody>
         </table>
       </div>

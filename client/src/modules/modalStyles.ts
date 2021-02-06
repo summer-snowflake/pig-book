@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-export const customModalStyles = (top: number, minWidth = 400): { [key: string]: CSSProperties } => {
+export const customModalStyles = (top: number, minWidth = 400, maxWidth = 600): { [key: string]: CSSProperties } => {
   return {
     content: {
       top         : top + '%',
@@ -9,6 +9,7 @@ export const customModalStyles = (top: number, minWidth = 400): { [key: string]:
       bottom      : 'auto',
       marginRight : '-50%',
       minWidth    : minWidth + 'px',
+      maxWidth    : maxWidth + 'px',
       transform   : 'translate(-50%, -50%)'
     },
     overlay: {

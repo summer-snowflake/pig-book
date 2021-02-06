@@ -13,10 +13,10 @@ type Props = ParentProps;
 class TotalAssetsDisplayField extends Component<Props> {
   calculateTotalAssets(assets: AssetsAccount[], currency: string): number {
     const plusItems = assets
-      .filter((account) => account.balance_of_payments && account.currency === currency)
+      .filter((account) => account.balance_of_payments && account.currency === currency && account.checked)
       .map((account) => account.money)
     const minusItems = assets
-      .filter((account) => !account.balance_of_payments && account.currency === currency)
+      .filter((account) => !account.balance_of_payments && account.currency === currency && account.checked)
       .map((account) => account.money)
 
     if (plusItems.length > 0 && minusItems.length > 0) {

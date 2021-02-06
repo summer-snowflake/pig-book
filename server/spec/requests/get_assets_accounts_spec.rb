@@ -31,7 +31,8 @@ describe 'GET /api/assets_accounts', autodoc: true do
           name: assets_account1.name,
           currency: assets_account1.currency,
           money: assets_account1.money,
-          position: assets_account1.position
+          position: assets_account1.position,
+          checked: false
         },
         {
           user_id: user.id,
@@ -39,7 +40,8 @@ describe 'GET /api/assets_accounts', autodoc: true do
           name: assets_account2.name,
           currency: assets_account2.currency,
           money: assets_account2.money,
-          position: assets_account2.position
+          position: assets_account2.position,
+          checked: false
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

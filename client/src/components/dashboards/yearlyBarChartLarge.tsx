@@ -33,7 +33,7 @@ class YearlyBarChartLarge extends Component<Props> {
 
   setLabelFormatter(props: string): string {
     const { t } = this.props
-    return props + t('label.month')
+    return props + t('label.year')
   }
 
   render(): JSX.Element {
@@ -45,7 +45,7 @@ class YearlyBarChartLarge extends Component<Props> {
           <BarChart
             data={this.props.dashboards}
             height={300}
-            width={this.props.dashboards.length * 50 + 100}
+            width={this.props.dashboards.length * 50 + 80}
           >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='year' unit={t('label.year')} />

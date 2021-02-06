@@ -5,10 +5,15 @@ import { YearlyBalanceTable } from 'types/api'
 import TallyTableData from 'components/dashboard/tallyTableData'
 
 interface Props extends I18nProps {
+  year: number;
   yearly: YearlyBalanceTable;
 }
 
 class YearlyData extends Component<Props> {
+  isCashlessRange(): boolean {
+    return this.props.year === 2019 || this.props.year === 2020
+  }
+
   render(): JSX.Element {
     const { t } = this.props
 
@@ -17,7 +22,7 @@ class YearlyData extends Component<Props> {
         <td>
           {t('label.total')}
         </td>
-        <TallyTableData tally={this.props.yearly} />
+        <TallyTableData isCashlessRange={this.isCashlessRange()} tally={this.props.yearly} />
       </tr>
     )
   }

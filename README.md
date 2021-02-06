@@ -25,7 +25,7 @@ This tool is for a household account book.
 ### Version & Environment
 
 - Ruby
-  - v2.7.1
+  - v2.7.2
   - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/server/Gemfile#L4)
 
 - Ruby on Rails
@@ -92,7 +92,7 @@ git clone https://github.com/summer-snowflake/account-book-pig.git
 
 ```
 rbenv install -l
-rbenv install 2.7.1
+rbenv install 2.7.2
 rbenv rehash
 ```
 
@@ -102,7 +102,7 @@ rbenv rehash
 - [rbenv-gemset](https://github.com/jf/rbenv-gemset)
 
 ```
-rbenv gemset create 2.7.1 pig-book
+rbenv gemset create 2.7.2 pig-book
 rbenv gemset list # show list
 ```
 
