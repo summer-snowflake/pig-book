@@ -38,7 +38,7 @@
     "react-responsive-carousel": "^3.2.9",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
-    "react-toastify": "^6.0.5",
+    "react-toastify": "^7.0.3",
     "react-tooltip": "^4.2.5",
     "react-transition-group": "^4.3.0",
     "recharts": "^2.0.4",
