@@ -22,6 +22,7 @@ export interface UserStore extends Errors {
   email: string;
   dailyOption: boolean;
   unlimitedOption: boolean;
+  piggyBankOption: boolean;
   optionsList: string;
   options: UserOption[];
   recordsCount: number;

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  USER_OPTIONS = %i[daily_option unlimited_option].freeze
+  USER_OPTIONS = %i[daily_option unlimited_option piggy_bank_option].freeze
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -65,7 +65,7 @@ class User < ApplicationRecord
   private
 
   def options?
-    daily_option || unlimited_option
+    daily_option || unlimited_option || piggy_bank_option
   end
 
   def options
