@@ -39,6 +39,11 @@ class UserTableRecord extends Component<Props> {
               <i className='fas fa-infinity right-icon' />
             )}
           </span>
+          <span>
+            {this.props.user.piggy_bank_option && (
+              <i className='fas fa-piggy-bank right-icon' />
+            )}
+          </span>
        </td>
         <td>
           <span className='total-count'>
