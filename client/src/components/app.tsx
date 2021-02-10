@@ -22,6 +22,7 @@ import ListPage from 'components/list/listPage'
 import DashboardPage from 'components/dashboard/dashboardPage'
 import DashboardsPage from 'components/dashboards/dashboardsPage'
 import DailyPage from 'components/daily/dailyPage'
+import PiggyPage from 'components/piggy/piggyPage'
 import SignInPage from 'components/login/signInPage'
 import SignUpPage from 'components/login/signUpPage'
 import MypageTopPage from 'components/mypage/mypageTopPage'
@@ -84,6 +85,7 @@ class App extends Component<Props> {
               <Route component={DashboardPage} exact path='/dashboards/:year' />
               <Route component={DashboardsPage} exact path='/dashboards' />
               <Route component={DailyPage} exact path='/daily' />
+              <Route component={PiggyPage} exact path='/piggy' />
               <Route component={MypageTopPage} exact path='/mypage' />
               <Route component={SettingsTopPage} exact path='/settings' />
               <Route component={CategoryPage} exact path='/categories' />
