@@ -29,3 +29,6 @@ ja:
         memo: メモ
       assets_account:
         name: 預金の種類
+      piggy_bank:
+        title: タイトル
+        description: 説明
