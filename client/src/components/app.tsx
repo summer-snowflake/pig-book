@@ -86,6 +86,7 @@ class App extends Component<Props> {
               <Route component={DashboardsPage} exact path='/dashboards' />
               <Route component={DailyPage} exact path='/daily' />
               <Route component={PiggyPage} exact path='/piggy' />
+              <Route component={PiggyPage} exact path='/piggy_banks/:id' />
               <Route component={MypageTopPage} exact path='/mypage' />
               <Route component={SettingsTopPage} exact path='/settings' />
               <Route component={CategoryPage} exact path='/categories' />
