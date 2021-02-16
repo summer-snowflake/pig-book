@@ -10103,10 +10103,10 @@ react-resize-detector@^5.2.0:
     raf-schd "^4.0.2"
     resize-observer-polyfill "^1.5.1"
 
-react-responsive-carousel@^3.2.11:
-  version "3.2.11"
-  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.2.11.tgz#4c561339ab9daf6aefd43f0858b7aea65db7291b"
-  integrity sha512-Nl/vZpH2V3STFreApsty9/MLjuMxIwIftZyiOyz+ry4TlRkBUo9LQRpGhARvE2USR12rQagRrp/AwueGJGuS5g==
+react-responsive-carousel@^3.2.12:
+  version "3.2.12"
+  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.2.12.tgz#24d860e6d4e72b72e809b8718389290000605de5"
+  integrity sha512-Wdqpu7+xvn3RPy0Q0pIVOms8SsooYmsFLPgSSxOt+G0WvXHpNOZmnLUsI8EgRRhSww8GUXERKlIYy7MZLdOHPA==
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.5.8"
