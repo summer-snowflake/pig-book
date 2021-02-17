@@ -268,3 +268,16 @@ export interface AssetsAccountParams {
   position?: number | null;
   checked?: boolean;
 }
+
+export interface PiggyBank {
+  id: number;
+  title: string;
+  description: string;
+  currency: string;
+}
+
+export interface PiggyBankParams {
+  title?: string;
+  description?: string;
+  currency?: string;
+}

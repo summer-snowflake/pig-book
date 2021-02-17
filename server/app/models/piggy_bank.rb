@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PiggyBank < ApplicationRecord
+  include EnumDefinedCurrency
+
   belongs_to :user
   has_many :piggy_items, dependent: :restrict_with_exception
 

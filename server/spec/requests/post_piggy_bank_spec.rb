@@ -22,7 +22,8 @@ describe 'POST /api/piggy_banks', autodoc: true do
       it 'returns status code 201 and json piggy_bank data' do
         params = {
           title: '貯金箱の名前',
-          description: '貯金箱の説明'
+          description: '貯金箱の説明',
+          currency: 'yen'
         }.to_json
         post '/api/piggy_banks',
              params: params, headers: login_headers_with_login(user)
@@ -31,7 +32,8 @@ describe 'POST /api/piggy_banks', autodoc: true do
         json = {
           user_id: user.id,
           title: '貯金箱の名前',
-          description: '貯金箱の説明'
+          description: '貯金箱の説明',
+          currency: :yen
         }.to_json
         expect(response.body).to be_json_eql(json)
       end
@@ -43,7 +45,8 @@ describe 'POST /api/piggy_banks', autodoc: true do
       it 'returns status code 422 and json errors data' do
         params = {
           title: '同じ貯金箱の名前',
-          description: ''
+          description: '',
+          currency: 'yen'
         }.to_json
         post '/api/piggy_banks',
              params: params, headers: login_headers_with_login(user)
@@ -60,7 +63,8 @@ describe 'POST /api/piggy_banks', autodoc: true do
       it 'returns status code 422 and json errors data' do
         params = {
           title: '',
-          description: ''
+          description: '',
+          currency: 'yen'
         }.to_json
         post '/api/piggy_banks',
              params: params, headers: login_headers_with_login(user)

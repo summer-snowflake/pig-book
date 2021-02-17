@@ -21,6 +21,7 @@
     "list": "リスト",
     "dashboard": "ダッシュボード",
     "daily": "デイリー",
+    "piggyBank": "貯金箱",
     "login": "ログイン",
     "logout": "ログアウト",
     "signUp": "アカウント登録",
@@ -75,7 +76,9 @@
     "tutorial-record": "データを入力、登録してください。",
     "options": "ご利用オプション",
     "recordsCount": "現在の登録数",
-    "none": "なし"
+    "none": "なし",
+    "title": "タイトル",
+    "description": "説明"
   },
   "toolTip": {
     "sortCreatedAt": "作成日順",
@@ -100,7 +103,8 @@
     "set": "設定する",
     "today": "今日",
     "tally": "集計する",
-    "addAssetsAccount": "預金の種類を追加"
+    "addAssetsAccount": "預金の種類を追加",
+    "addPiggyBank": "貯金箱"
   },
   "link": {
     "dashboards": "すべての年度を確認",
@@ -135,7 +139,10 @@
     "patchUserSuccess": "ユーザ情報を更新しました",
     "postAssetsAccountSuccess": "預金の種類を登録しました",
     "patchAssetsAccountSuccess": "預金の種類を更新しました",
-    "deleteAssetsAccountSuccess": "預金の種類を削除しました"
+    "deleteAssetsAccountSuccess": "預金の種類を削除しました",
+    "postPiggyBankSuccess": "貯金箱を追加しました",
+    "patchPiggyBankSuccess": "貯金箱を編集しました",
+    "deletePiggyBankSuccess": "貯金箱を削除しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"
