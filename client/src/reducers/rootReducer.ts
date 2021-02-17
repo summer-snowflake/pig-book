@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
@@ -33,10 +33,6 @@ import tutorialReducer from 'reducers/tutorialReducer'
 import assetsAccountsReducer from 'reducers/assetsAccountsReducer'
 import newAssetsAccountReducer from 'reducers/newAssetsAccountReducer'
 import editAssetsAccountReducer from 'reducers/editAssetsAccountReducer'
-import piggyBankReducer from 'reducers/piggyBankReducer'
-import piggyBanksReducer from 'reducers/piggyBanksReducer'
-import newPiggyBankReducer from 'reducers/newPiggyBankReducer'
-import editPiggyBankReducer from 'reducers/editPiggyBankReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -69,10 +65,6 @@ export type RootState = {
   assetsAccounts: AssetsAccountsStore;
   newAssetsAccount: NewAssetsAccountStore;
   editAssetsAccount: EditAssetsAccountStore;
-  piggyBank: PiggyBankStore;
-  piggyBanks: PiggyBanksStore;
-  newPiggyBank: NewPiggyBankStore;
-  editPiggyBank: EditPiggyBankStore;
 }
 
 const rootReducer = combineReducers({
@@ -105,11 +97,7 @@ const rootReducer = combineReducers({
   tutorial: tutorialReducer,
   assetsAccounts: assetsAccountsReducer,
   newAssetsAccount: newAssetsAccountReducer,
-  editAssetsAccount: editAssetsAccountReducer,
-  piggyBank: piggyBankReducer,
-  piggyBanks: piggyBanksReducer,
-  newPiggyBank: newPiggyBankReducer,
-  editPiggyBank: editPiggyBankReducer
+  editAssetsAccount: editAssetsAccountReducer
 })
 
 export default rootReducer

@@ -1,4 +1,4 @@
-import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag, WithRelationsCategory, PiggyBank } from 'types/api'
+import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag, WithRelationsCategory } from 'types/api'
 import { Action } from 'redux'
 
 export interface ErrorsAction extends Action {
@@ -96,12 +96,4 @@ export interface AssetsAccountsAction extends Action {
 
 export interface AssetsAccountAction extends Action {
   assetsAccount: AssetsAccount;
-}
-
-export interface PiggyBanksAction extends Action {
-  piggyBanks: PiggyBank[];
-}
-
-export interface PiggyBankAction extends Action {
-  piggyBank: PiggyBank;
 }

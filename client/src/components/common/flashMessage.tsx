@@ -98,15 +98,6 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.PATCH_ASSETS_ACCOUNT_SUCCESS:
       msg = t('message.patchAssetsAccountSuccess')
       break
-    case actionTypes.POST_PIGGY_BANK_SUCCESS:
-      msg = t('message.postPiggyBankSuccess')
-      break
-    case actionTypes.PATCH_PIGGY_BANK_SUCCESS:
-      msg = t('message.patchPiggyBankSuccess')
-      break
-    case actionTypes.DELETE_PIGGY_BANK_SUCCESS:
-      msg = t('message.deletePiggyBankSuccess')
-      break
     case actionTypes.ACCESS_FAILURE:
       msg = t('message.accessFailure')
       break

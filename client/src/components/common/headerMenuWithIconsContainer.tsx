@@ -68,13 +68,6 @@ class HeaderMenuWithIconsContainer extends Component<Props> {
             </NavLink>
           </li>
         )}
-        {this.props.userStore.isLogged && this.props.userStore.piggyBankOption && (
-          <li className='nav-item'>
-            <NavLink activeClassName='active-link-menu' className='nav-link' to='/piggy'>
-              <i className='fas fa-piggy-bank' />
-            </NavLink>
-          </li>
-        )}
         {this.props.userStore.isLogged && this.props.userStore.admin && (
           <li className='nav-item'>
             <NavLink activeClassName='active-link-menu' className='nav-link' to='/admin/users'>

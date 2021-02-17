@@ -5,6 +5,5 @@ FactoryBot.define do
     user
     sequence(:title) { |n| "タイトル#{n}" }
     sequence(:description) { |n| "説明#{n}" }
-    currency { :yen }
   end
 end

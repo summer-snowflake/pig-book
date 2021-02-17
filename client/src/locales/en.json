@@ -21,7 +21,6 @@
     "list": "List",
     "dashboard": "Dashboard",
     "daily": "Daily",
-    "piggyBank": "Piggy Bank",
     "login": "Sign In",
     "logout": "Sign out",
     "signUp": "Sign Up",
@@ -76,9 +75,7 @@
     "tutorial-record": "Create data",
     "options": "Options",
     "recordsCount": "Number of registrations",
-    "none": "None",
-    "title": "Title",
-    "description": "Description"
+    "none": "None"
   },
   "toolTip": {
     "sortCreatedAt": "sort created time",
@@ -102,9 +99,7 @@
     "delete": "Delete",
     "set": "Set",
     "today": "Today",
-    "tally": "Tally",
-    "addAssetsAccount": "Add Assets Account",
-    "addPiggyBank": "Add Piggy Bank"
+    "tally": "Tally"
   },
   "link": {
     "dashboards": "ALL Dashboards",
@@ -139,10 +134,7 @@
     "patchUserSuccess": "updated successfully",
     "postAssetsAccountSuccess": "Assets Account created successfully",
     "patchAssetsAccountSuccess": "Assets Account updated successfully",
-    "deleteAssetsAccountSuccess": "Assets Account deleted successfully",
-    "postPiggyBankSuccess": "Piggy Bank created successfully",
-    "patchPiggyBankSuccess": "Piggy Bank updated successfully",
-    "deletePiggyBankSuccess": "Piggy Bank deleted successfully"
+    "deleteAssetsAccountSuccess": "Assets Account deleted successfully"
   },
   "alert": {
     "editingOther": "Editing now"

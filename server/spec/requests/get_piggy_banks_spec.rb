@@ -28,14 +28,12 @@ describe 'GET /api/piggy_banks', autodoc: true do
         {
           user_id: user.id,
           title: piggy_bank1.title,
-          description: piggy_bank1.description,
-          currency: piggy_bank1.currency
+          description: piggy_bank1.description
         },
         {
           user_id: user.id,
           title: piggy_bank2.title,
-          description: piggy_bank2.description,
-          currency: piggy_bank2.currency
+          description: piggy_bank2.description
         }
       ].to_json
       expect(response.body).to be_json_eql(json)

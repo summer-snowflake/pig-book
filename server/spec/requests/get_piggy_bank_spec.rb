@@ -27,8 +27,7 @@ describe 'GET /api/piggy_bank', autodoc: true do
       json = {
         user_id: user.id,
         title: piggy_bank.title,
-        description: piggy_bank.description,
-        currency: piggy_bank.currency
+        description: piggy_bank.description
       }.to_json
       expect(response.body).to be_json_eql(json)
     end
