@@ -51,9 +51,17 @@ class PiggyBankContentContainer extends Component<Props, State> {
   }
 
   handleClickExitIcon(): void {
-    this.setState({
-      isCancelUpdateModalOpen: true
-    })
+    const piggyBank = this.props.piggyBankStore.piggyBank
+    const editPiggyBank = this.props.editPiggyBankStore
+    if (piggyBank) {
+      if (piggyBank.title !== editPiggyBank.title || piggyBank.description !== editPiggyBank.description) {
+        this.setState({
+          isCancelUpdateModalOpen: true
+        })
+      } else {
+        this.props.onClickExitIcon()
+      }
+    }
   }
 
   handleChangeTitle(e: React.ChangeEvent<HTMLInputElement>): void {
