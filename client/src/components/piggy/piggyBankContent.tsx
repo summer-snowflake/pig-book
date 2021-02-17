@@ -5,6 +5,7 @@ import { EditPiggyBankStore, PiggyBankStore } from 'types/store'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
 import PiggyBankForm from 'components/piggy/piggyBankForm'
+import CancelUpdateModal from 'components/common/cancelUpdateModal'
 
 interface ParentProps {
   editPiggyBankStore: EditPiggyBankStore;
@@ -21,6 +22,7 @@ type Props = ParentProps
 
 interface State {
   isDestroyModalOpen: boolean;
+  isCancelUpdateModalOpen: boolean;
 }
 
 class PiggyBankContentContainer extends Component<Props, State> {
@@ -28,12 +30,14 @@ class PiggyBankContentContainer extends Component<Props, State> {
     super(props)
 
     this.state = {
-      isDestroyModalOpen: false
+      isDestroyModalOpen: false,
+      isCancelUpdateModalOpen: false
     }
 
     this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
+    this.handleClickEditCancelButton = this.handleClickEditCancelButton.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
     this.handleClickCloseButton = this.handleClickCloseButton.bind(this)
@@ -47,7 +51,9 @@ class PiggyBankContentContainer extends Component<Props, State> {
   }
 
   handleClickExitIcon(): void {
-    this.props.onClickExitIcon()
+    this.setState({
+      isCancelUpdateModalOpen: true
+    })
   }
 
   handleChangeTitle(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -85,8 +91,16 @@ class PiggyBankContentContainer extends Component<Props, State> {
 
   handleClickCloseButton(): void {
     this.setState({
-      isDestroyModalOpen: false
+      isDestroyModalOpen: false,
+      isCancelUpdateModalOpen: false
     })
+  }
+
+  handleClickEditCancelButton(): void {
+    this.setState({
+      isCancelUpdateModalOpen: false
+    })
+    this.props.onClickExitIcon()
   }
 
   render(): JSX.Element {
@@ -109,6 +123,13 @@ class PiggyBankContentContainer extends Component<Props, State> {
                   onClickExitIcon={this.handleClickExitIcon}
                   onClickEditIcon={this.handleClickEditIcon}
                 />
+                {this.state.isCancelUpdateModalOpen && (
+                  <CancelUpdateModal
+                    isOpen={this.state.isCancelUpdateModalOpen}
+                    onClickCancel={this.handleClickEditCancelButton}
+                    onClickClose={this.handleClickCloseButton}
+                  />
+                )}
                 {this.props.piggyBankStore.editing ? (
                   <PiggyBankForm
                     piggyBankStore={this.props.editPiggyBankStore}
