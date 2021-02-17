@@ -53,6 +53,11 @@ class PiggyBanksContainer extends Component<Props> {
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
 
     this.props.getPiggyBanks()
+
+    const pathRegex = this.props.location.pathname.match(/piggy_banks\/(\d+)/)
+    if (pathRegex) {
+      this.props.getPiggyBank(pathRegex[1])
+    }
   }
 
   handleClickCreateButton(): void {
