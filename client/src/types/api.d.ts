@@ -281,3 +281,11 @@ export interface PiggyBankParams {
   description?: string;
   currency?: string;
 }
+
+export interface PiggyItem {
+  id: number;
+  balance_of_payments: boolean;
+  name: string;
+  charge: string;
+  published_on: string;
+}
