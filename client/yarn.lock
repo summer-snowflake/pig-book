@@ -10313,10 +10313,10 @@ react-toastify@^7.0.3:
   dependencies:
     clsx "^1.1.1"
 
-react-tooltip@^4.2.5:
-  version "4.2.7"
-  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.7.tgz#245b26aa23bc8ca877f9086ad169207d77281894"
-  integrity sha512-z5T3gNplT76rkT7ZImfx/uXfBtS+x7+WK2H8MVZ5skSwETDDx0hs0+P0jwL5gYDaBvsZ7LYiCBzAOd3tN85CMA==
+react-tooltip@^4.2.14:
+  version "4.2.14"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.14.tgz#8e06b5926fdf6672e78d8ccadaa16bef40d131d7"
+  integrity sha512-hS2kAlpjyH5MXL9DaGKsdmEFCIEuMD2RZXkEJeNjmDe05dHpqj93o5JgpmczAgQFk099+JSsnHUDo7pIOuyMDQ==
   dependencies:
     prop-types "^15.7.2"
     uuid "^7.0.3"
