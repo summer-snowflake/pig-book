@@ -281,3 +281,8 @@ export interface EditPiggyBankStore extends Errors {
   title: string;
   description: string;
 }
+
+export interface PiggyItemsStore {
+  isLoading: boolean;
+  piggyItems: PiggyItem[];
+}

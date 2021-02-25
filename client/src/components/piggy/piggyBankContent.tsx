@@ -4,8 +4,9 @@ import React, { Component } from 'react'
 import { EditPiggyBankStore, PiggyBankStore } from 'types/store'
 import Trash from 'components/common/trash'
 import DestroyModal from 'components/common/destroyModal'
-import PiggyBankForm from 'components/piggy/piggyBankForm'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
+import PiggyBankForm from 'components/piggy/piggyBankForm'
+import PiggyItemsContainer from 'components/piggy/piggyItemsContainer'
 
 interface ParentProps {
   editPiggyBankStore: EditPiggyBankStore;
@@ -117,45 +118,48 @@ class PiggyBankContentContainer extends Component<Props, State> {
         {!this.props.piggyBankStore.isLoading && (
           <div>
             {this.props.piggyBankStore.piggyBank && (
-              <div className='piggy-bank-field'>
-                <Trash onClickIcon={this.handleClickTrashIcon} />
-                {this.state.isDestroyModalOpen && (
-                  <DestroyModal
-                    isOpen={this.state.isDestroyModalOpen}
-                    onClickCancel={this.handleClickCancelButton}
-                    onClickClose={this.handleClickCloseButton}
+              <div>
+                <div className='piggy-bank-field'>
+                  <Trash onClickIcon={this.handleClickTrashIcon} />
+                  {this.state.isDestroyModalOpen && (
+                    <DestroyModal
+                      isOpen={this.state.isDestroyModalOpen}
+                      onClickCancel={this.handleClickCancelButton}
+                      onClickClose={this.handleClickCloseButton}
+                    />
+                  )}
+                  <EditAndCancel
+                    editing={this.props.piggyBankStore.editing}
+                    onClickExitIcon={this.handleClickExitIcon}
+                    onClickEditIcon={this.handleClickEditIcon}
                   />
-                )}
-                <EditAndCancel
-                  editing={this.props.piggyBankStore.editing}
-                  onClickExitIcon={this.handleClickExitIcon}
-                  onClickEditIcon={this.handleClickEditIcon}
-                />
-                {this.state.isCancelUpdateModalOpen && (
-                  <CancelUpdateModal
-                    isOpen={this.state.isCancelUpdateModalOpen}
-                    onClickCancel={this.handleClickEditCancelButton}
-                    onClickClose={this.handleClickCloseButton}
-                  />
-                )}
-                {this.props.piggyBankStore.editing ? (
-                  <PiggyBankForm
-                    piggyBankStore={this.props.editPiggyBankStore}
-                    onChangeTitle={this.handleChangeTitle}
-                    onChangeDescription={this.handleChangeDescription}
-                    onClickSubmitButton={this.handleClickSubmitButton}
-                    onKeyDown={this.handleKeyDown}
-                  />
-                ) : (
-                  <span>
-                    <span className='piggy-bank-title'>
-                      {this.props.piggyBankStore.piggyBank.title}
+                  {this.state.isCancelUpdateModalOpen && (
+                    <CancelUpdateModal
+                      isOpen={this.state.isCancelUpdateModalOpen}
+                      onClickCancel={this.handleClickEditCancelButton}
+                      onClickClose={this.handleClickCloseButton}
+                    />
+                  )}
+                  {this.props.piggyBankStore.editing ? (
+                    <PiggyBankForm
+                      piggyBankStore={this.props.editPiggyBankStore}
+                      onChangeTitle={this.handleChangeTitle}
+                      onChangeDescription={this.handleChangeDescription}
+                      onClickSubmitButton={this.handleClickSubmitButton}
+                      onKeyDown={this.handleKeyDown}
+                    />
+                  ) : (
+                    <span>
+                      <span className='piggy-bank-title'>
+                        {this.props.piggyBankStore.piggyBank.title}
+                      </span>
+                      <span className='piggy-bank-description'>
+                        {this.props.piggyBankStore.piggyBank.description}
+                      </span>
                     </span>
-                    <span className='piggy-bank-description'>
-                      {this.props.piggyBankStore.piggyBank.description}
-                    </span>
-                  </span>
-                )}
+                  )}
+                </div>
+                <PiggyItemsContainer piggyBankId={this.props.piggyBankStore.piggyBank.id} />
               </div>
             )}
           </div>
