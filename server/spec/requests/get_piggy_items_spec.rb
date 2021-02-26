@@ -5,8 +5,8 @@ require 'rails_helper'
 describe 'GET /api/piggy_items', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:piggy_bank) { create(:piggy_bank, user: user, created_at: 2.hours.ago) }
-  let!(:piggy_item1) { create(:piggy_item, user: user, piggy_bank: piggy_bank, name: '内訳1') }
-  let!(:piggy_item2) { create(:piggy_item, user: user, piggy_bank: piggy_bank, name: '内訳2') }
+  let!(:piggy_item1) { create(:piggy_item, piggy_bank: piggy_bank, name: '内訳1') }
+  let!(:piggy_item2) { create(:piggy_item, piggy_bank: piggy_bank, name: '内訳2') }
   let!(:path) { "/api/piggy_banks/#{piggy_bank.id}/piggy_items" }
 
   context 'when NOT logged in.' do
@@ -28,7 +28,6 @@ describe 'GET /api/piggy_items', autodoc: true do
       expect(response.status).to eq 200
       json = [
         {
-          user_id: user.id,
           piggy_bank_id: piggy_bank.id,
           balance_of_payments: piggy_item1.balance_of_payments,
           name: piggy_item1.name,
@@ -36,7 +35,6 @@ describe 'GET /api/piggy_items', autodoc: true do
           published_on: Time.zone.today
         },
         {
-          user_id: user.id,
           piggy_bank_id: piggy_bank.id,
           balance_of_payments: piggy_item2.balance_of_payments,
           name: piggy_item2.name,

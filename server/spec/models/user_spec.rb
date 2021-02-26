@@ -27,7 +27,6 @@ RSpec.describe User, type: :model do
   end
   it { is_expected.to have_many(:assets_accounts).dependent(:destroy) }
   it { is_expected.to have_many(:piggy_banks).dependent(:destroy) }
-  it { is_expected.to have_many(:piggy_items).dependent(:destroy) }
 
   describe '#dashboard_years' do
     let!(:user) { create(:user) }

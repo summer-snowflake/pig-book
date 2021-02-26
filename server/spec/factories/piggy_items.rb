@@ -3,7 +3,6 @@
 FactoryBot.define do
   random = Random.new
   factory :piggy_item do
-    user
     piggy_bank
     published_on { Time.zone.today }
     balance_of_payments { false }

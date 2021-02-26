@@ -40,7 +40,7 @@ describe 'DELETE /api/piggy_banks/:id', autodoc: true do
   end
 
   context 'when already be used by piggy item' do
-    let!(:piggy_item) { create(:piggy_item, user: user, piggy_bank: piggy_bank) }
+    let!(:piggy_item) { create(:piggy_item, piggy_bank: piggy_bank) }
 
     it 'returns status code 403' do
       delete "/api/piggy_banks/#{piggy_bank.id}",
