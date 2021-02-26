@@ -105,3 +105,7 @@ export interface PiggyBanksAction extends Action {
 export interface PiggyBankAction extends Action {
   piggyBank: PiggyBank;
 }
+
+export interface PiggyItemsAction extends Action {
+  piggyItems: PiggyItem[];
+}
