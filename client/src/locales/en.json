@@ -104,7 +104,8 @@
     "today": "Today",
     "tally": "Tally",
     "addAssetsAccount": "Add Assets Account",
-    "addPiggyBank": "Add Piggy Bank"
+    "addPiggyBank": "Add Piggy Bank",
+    "addPiggyItem": "Add Item"
   },
   "link": {
     "dashboards": "ALL Dashboards",
@@ -142,7 +143,8 @@
     "deleteAssetsAccountSuccess": "Assets Account deleted successfully",
     "postPiggyBankSuccess": "Piggy Bank created successfully",
     "patchPiggyBankSuccess": "Piggy Bank updated successfully",
-    "deletePiggyBankSuccess": "Piggy Bank deleted successfully"
+    "deletePiggyBankSuccess": "Piggy Bank deleted successfully",
+    "postPiggyItemSuccess": "Piggy Item created successfully"
   },
   "alert": {
     "editingOther": "Editing now"

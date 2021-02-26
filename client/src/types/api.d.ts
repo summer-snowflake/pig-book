@@ -289,3 +289,10 @@ export interface PiggyItem {
   charge: string;
   published_on: string;
 }
+
+export interface PiggyItemParams {
+  published_on?: Date;
+  name?: string;
+  balance_of_payments?: boolean;
+  charge: string;
+}

@@ -286,3 +286,13 @@ export interface PiggyItemsStore {
   isLoading: boolean;
   piggyItems: PiggyItem[];
 }
+
+export interface NewPiggyItemStore extends Errors {
+  isLoading: boolean;
+  isOpen: boolean;
+  id?: number;
+  publishedOn: Date;
+  balance_of_payments: boolean;
+  charge: string;
+  name: string;
+}
