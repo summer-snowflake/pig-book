@@ -18,7 +18,7 @@ services:
     hostname: redis
     image: redis:6.0.5
     ports:
-      - 6380:6379
+      - 6377:6379
     volumes:
       - redis:/var/lib/redis/data
 
