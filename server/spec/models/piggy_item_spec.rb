@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe PiggyItem, type: :model do
-  it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:piggy_bank) }
 
   it { is_expected.to validate_presence_of(:charge) }

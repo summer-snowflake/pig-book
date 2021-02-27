@@ -107,6 +107,15 @@ class FlashMessage extends Component<I18nProps & Props> {
     case actionTypes.DELETE_PIGGY_BANK_SUCCESS:
       msg = t('message.deletePiggyBankSuccess')
       break
+    case actionTypes.POST_PIGGY_ITEM_SUCCESS:
+      msg = t('message.postPiggyItemSuccess')
+      break
+    case actionTypes.PATCH_PIGGY_ITEM_SUCCESS:
+      msg = t('message.patchPiggyItemSuccess')
+      break
+    case actionTypes.DELETE_PIGGY_ITEM_SUCCESS:
+      msg = t('message.deletePiggyItemSuccess')
+      break
     case actionTypes.ACCESS_FAILURE:
       msg = t('message.accessFailure')
       break

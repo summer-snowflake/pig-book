@@ -31,3 +31,7 @@ en:
       piggy_bank:
         title: Title
         description: Description
+      piggy_item:
+        published_on: Date
+        name: Name
+        charge: Charge

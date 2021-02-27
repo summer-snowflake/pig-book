@@ -287,5 +287,12 @@ export interface PiggyItem {
   balance_of_payments: boolean;
   name: string;
   charge: string;
-  published_on: string;
+  published_on: Date;
+}
+
+export interface PiggyItemParams {
+  published_on?: Date;
+  name?: string;
+  balance_of_payments?: boolean;
+  charge: string;
 }

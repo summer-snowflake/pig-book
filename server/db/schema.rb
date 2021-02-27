@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_152734) do
+ActiveRecord::Schema.define(version: 2021_02_26_163407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 2021_02_12_152734) do
   end
 
   create_table "piggy_items", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "piggy_bank_id", null: false
     t.date "published_on", null: false
     t.boolean "balance_of_payments", default: false, null: false
@@ -103,7 +102,6 @@ ActiveRecord::Schema.define(version: 2021_02_12_152734) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["piggy_bank_id"], name: "index_piggy_items_on_piggy_bank_id"
-    t.index ["user_id"], name: "index_piggy_items_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -240,7 +238,6 @@ ActiveRecord::Schema.define(version: 2021_02_12_152734) do
   add_foreign_key "monthly_records", "users"
   add_foreign_key "piggy_banks", "users"
   add_foreign_key "piggy_items", "piggy_banks"
-  add_foreign_key "piggy_items", "users"
   add_foreign_key "places", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "records", "breakdowns"
