@@ -25,6 +25,10 @@ interface WithChargeAction extends Action {
   charge: string;
 }
 
+interface WithPiggyItemAction extends Action {
+  piggyItem: PiggyItem;
+}
+
 const postPiggyItemRequest = (): Action => {
   return {
     type: actionTypes.POST_PIGGY_ITEM_REQUEST
@@ -66,89 +70,89 @@ export const postPiggyItem = (piggyBankId: number, params: PiggyItemParams) => {
   }
 }
 
-//const patchPiggyBankRequest = (): Action => {
-//  return {
-//    type: actionTypes.PATCH_PIGGY_BANK_REQUEST
-//  }
-//}
-//
-//const patchPiggyBankSuccess = (piggyBank: PiggyBank): PiggyBankAction => {
-//  return {
-//    type: actionTypes.PATCH_PIGGY_BANK_SUCCESS,
-//    piggyBank
-//  }
-//}
-//
-//const patchPiggyBankFailure = (errors: Error): ErrorsAction => {
-//  return {
-//    type: actionTypes.PATCH_PIGGY_BANK_FAILURE,
-//    errors
-//  }
-//}
-//
-//export const patchPiggyBank = (id: number, params: PiggyBankParams) => {
-//  return async (dispatch: Dispatch<Action>): Promise<void> => {
-//    dispatch(patchPiggyBankRequest())
-//
-//    try {
-//      if(ready()) {
-//        const res = await axios.patch('/api/piggy_banks/' + id, params, { headers: loginHeaders() })
-//        dispatch(patchPiggyBankSuccess(res.data))
-//      } else {
-//        dispatch(getCookiesFailure())
-//      }
-//    }
-//    catch (err) {
-//      if (err.response?.status === 422) {
-//        dispatch(patchPiggyBankFailure(err.response.data.errors))
-//      } else {
-//        dispatch(catchErrors(err.response))
-//      }
-//    }
-//  }
-//}
-//
-//const deletePiggyBankRequest = (): Action => {
-//  return {
-//    type: actionTypes.DELETE_PIGGY_BANK_REQUEST
-//  }
-//}
-//
-//const deletePiggyBankSuccess = (): Action => {
-//  return {
-//    type: actionTypes.DELETE_PIGGY_BANK_SUCCESS
-//  }
-//}
-//
-//const deletePiggyBankFailure = (errors: Errors): ErrorsAction => {
-//  return {
-//    type: actionTypes.DELETE_PIGGY_BANK_FAILURE,
-//    errors
-//  }
-//}
-//
-//export const deletePiggyBank = (piggyBankId: number) => {
-//  return async (dispatch: Dispatch<Action>): Promise<void> => {
-//    dispatch(deletePiggyBankRequest())
-//
-//    try {
-//      if(ready()) {
-//        await axios.delete('/api/piggy_banks/' + piggyBankId, { headers: loginHeaders() })
-//        dispatch(deletePiggyBankSuccess())
-//      } else {
-//        dispatch(getCookiesFailure())
-//      }
-//    }
-//    catch (err) {
-//      if (err.response?.status === 403) {
-//        dispatch(deletePiggyBankFailure(err.response.data.errors))
-//      } else {
-//        dispatch(catchErrors(err.response))
-//      }
-//    }
-//  }
-//}
-//
+const patchPiggyItemRequest = (): Action => {
+  return {
+    type: actionTypes.PATCH_PIGGY_ITEM_REQUEST
+  }
+}
+
+const patchPiggyItemSuccess = (piggyItem: PiggyItem): PiggyItemAction => {
+  return {
+    type: actionTypes.PATCH_PIGGY_ITEM_SUCCESS,
+    piggyItem
+  }
+}
+
+const patchPiggyItemFailure = (errors: Error): ErrorsAction => {
+  return {
+    type: actionTypes.PATCH_PIGGY_ITEM_FAILURE,
+    errors
+  }
+}
+
+export const patchPiggyItem = (id: number, piggyItemId: number, params: PiggyItemParams) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(patchPiggyItemRequest())
+
+    try {
+      if(ready()) {
+        const res = await axios.patch('/api/piggy_banks/' + id + '/piggy_items/' + piggyItemId, params, { headers: loginHeaders() })
+        dispatch(patchPiggyItemSuccess(res.data))
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      if (err.response?.status === 422) {
+        dispatch(patchPiggyItemFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
+      }
+    }
+  }
+}
+
+const deletePiggyItemRequest = (): Action => {
+  return {
+    type: actionTypes.DELETE_PIGGY_ITEM_REQUEST
+  }
+}
+
+const deletePiggyItemSuccess = (): Action => {
+  return {
+    type: actionTypes.DELETE_PIGGY_ITEM_SUCCESS
+  }
+}
+
+const deletePiggyItemFailure = (errors: Errors): ErrorsAction => {
+  return {
+    type: actionTypes.DELETE_PIGGY_ITEM_FAILURE,
+    errors
+  }
+}
+
+export const deletePiggyItem = (piggyBankId: number, piggyItemId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(deletePiggyItemRequest())
+
+    try {
+      if(ready()) {
+        await axios.delete('/api/piggy_banks/' + piggyBankId + '/piggy_items/' + piggyItemId, { headers: loginHeaders() })
+        dispatch(deletePiggyItemSuccess())
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      if (err.response?.status === 403) {
+        dispatch(deletePiggyItemFailure(err.response.data.errors))
+      } else {
+        dispatch(catchErrors(err.response))
+      }
+    }
+  }
+}
+
 
 export const changePiggyItemPublishedOn = (publishedOn: Date): WithPublishedOnAction => {
   return {
@@ -178,28 +182,34 @@ export const changePiggyItemCharge = (charge: string): WithChargeAction => {
   }
 }
 
+export const changeEditPiggyItemPublishedOn = (publishedOn: Date): WithPublishedOnAction => {
+  return {
+    type: actionTypes.CHANGE_EDIT_PIGGY_ITEM_PUBLISHED_ON,
+    publishedOn
+  }
+}
 
-//export const changePiggyBankDescription = (description: string): WithDescriptionAction => {
-//  return {
-//    type: actionTypes.CHANGE_PIGGY_BANK_DESCRIPTION,
-//    description
-//  }
-//}
-//
-//export const changeEditPiggyBankTitle = (title: string): WithTitleAction => {
-//  return {
-//    type: actionTypes.CHANGE_EDIT_PIGGY_BANK_TITLE,
-//    title
-//  }
-//}
-//
-//export const changeEditPiggyBankDescription = (description: string): WithDescriptionAction => {
-//  return {
-//    type: actionTypes.CHANGE_EDIT_PIGGY_BANK_DESCRIPTION,
-//    description
-//  }
-//}
-//
+export const changeEditPiggyItemBalanceOfPayments = (balanceOfPayments: boolean): WithBalanceOfPaymentsAction => {
+  return {
+    type: actionTypes.CHANGE_EDIT_PIGGY_ITEM_BALANCE_OF_PAYMENTS,
+    balanceOfPayments
+  }
+}
+
+export const changeEditPiggyItemName = (name: string): WithNameAction => {
+  return {
+    type: actionTypes.CHANGE_EDIT_PIGGY_ITEM_NAME,
+    name
+  }
+}
+
+export const changeEditPiggyItemCharge = (charge: string): WithChargeAction => {
+  return {
+    type: actionTypes.CHANGE_EDIT_PIGGY_ITEM_CHARGE,
+    charge
+  }
+}
+
 export const openNewPiggyItemModal = (): Action => {
   return {
     type: actionTypes.OPEN_NEW_PIGGY_ITEM_MODAL
@@ -212,19 +222,19 @@ export const closeNewPiggyItemModal = (): Action => {
   }
 }
 
-//export const openEditPiggyBankField = (piggyBank: PiggyBank): PiggyBankAction => {
-//  return {
-//    type: actionTypes.OPEN_EDIT_PIGGY_BANK_FIELD,
-//    piggyBank
-//  }
-//}
-//
-//export const closeEditPiggyBankField = (): Action => {
-//  return {
-//    type: actionTypes.CLOSE_EDIT_PIGGY_BANK_FIELD
-//  }
-//}
-//
+export const openEditPiggyItemModal = (piggyItem: PiggyItem): WithPiggyItemAction => {
+  return {
+    type: actionTypes.OPEN_EDIT_PIGGY_ITEM_MODAL,
+    piggyItem
+  }
+}
+
+export const closeEditPiggyItemModal = (): Action => {
+  return {
+    type: actionTypes.CLOSE_EDIT_PIGGY_ITEM_MODAL
+  }
+}
+
 //const getPiggyBankRequest = (): Action => {
 //  return {
 //    type: actionTypes.GET_PIGGY_BANK_REQUEST

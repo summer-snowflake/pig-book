@@ -2,73 +2,87 @@ import React from 'react'
 import { toast } from 'react-toastify'
 
 import * as actionTypes from 'utils/actionTypes'
-import { NewPiggyItemStore } from 'types/store'
+import { EditPiggyItemStore } from 'types/store'
 import { PiggyItemAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
 
 const initialState = {
   isLoading: false,
   isOpen: false,
+  id: 0,
+  name: '',
   publishedOn: new Date(),
   balance_of_payments: false,
   charge: '',
-  name: '',
   errors: []
 }
 
 interface StoreAction extends PiggyItemAction {
+  //piggyBank: PiggyBank;
+  id: string;
+  name: string;
   publishedOn: Date;
   balanceOfPayments: boolean;
-  name: string;
   charge: string;
   errors: string[];
 }
 
-const newPiggyItemReducer = (state: NewPiggyItemStore = initialState, action: StoreAction): NewPiggyItemStore => {
+const editPiggyItemReducer = (state: EditPiggyItemStore = initialState, action: StoreAction): EditPiggyItemStore => {
   switch (action.type) {
-  case actionTypes.OPEN_NEW_PIGGY_ITEM_MODAL:
-    return {
-      ...initialState,
-      isOpen: true
-    }
-  case actionTypes.CLOSE_NEW_PIGGY_ITEM_MODAL:
+  case actionTypes.OPEN_EDIT_PIGGY_ITEM_MODAL:
     return {
       ...state,
-      isOpen: false
+      isOpen: true,
+      id: action.piggyItem.id,
+      name: action.piggyItem.name,
+      publishedOn: new Date(action.piggyItem.published_on),
+      balance_of_payments: action.piggyItem.balance_of_payments,
+      charge: action.piggyItem.charge
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_PUBLISHED_ON:
+  case actionTypes.CLOSE_EDIT_PIGGY_ITEM_MODAL:
+    return {
+      ...initialState,
+      isOpen: false,
+    }
+  case actionTypes.CHANGE_EDIT_PIGGY_ITEM_PUBLISHED_ON:
     return {
       ...state,
       publishedOn: action.publishedOn
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_BALANCE_OF_PAYMENTS:
+  case actionTypes.CHANGE_EDIT_PIGGY_ITEM_BALANCE_OF_PAYMENTS:
     return {
       ...state,
       balance_of_payments: action.balanceOfPayments
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_NAME:
+  case actionTypes.CHANGE_EDIT_PIGGY_ITEM_NAME:
     return {
       ...state,
       name: action.name
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_CHARGE:
+  case actionTypes.CHANGE_EDIT_PIGGY_ITEM_CHARGE:
     return {
       ...state,
       charge: action.charge
     }
-  case actionTypes.POST_PIGGY_ITEM_REQUEST:
+  case actionTypes.PATCH_PIGGY_ITEM_REQUEST:
     return {
       ...state,
       isLoading: true
     }
-  case actionTypes.POST_PIGGY_ITEM_SUCCESS:
+  case actionTypes.DELETE_PIGGY_ITEM_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...initialState,
+      ...state,
+      isLoading: false
+    }
+  case actionTypes.PATCH_PIGGY_ITEM_SUCCESS:
+    toast.success(<FlashMessage actionType={action.type} />)
+    return {
+      ...state,
       isLoading: false,
       isOpen: false
     }
-  case actionTypes.POST_PIGGY_ITEM_FAILURE:
+  case actionTypes.PATCH_PIGGY_ITEM_FAILURE:
     return {
       ...state,
       isLoading: false,
@@ -78,7 +92,6 @@ const newPiggyItemReducer = (state: NewPiggyItemStore = initialState, action: St
     return {
       ...initialState
     }
-
   case actionTypes.GET_COOKIES_FAILURE:
     return {
       ...initialState
@@ -88,4 +101,4 @@ const newPiggyItemReducer = (state: NewPiggyItemStore = initialState, action: St
   }
 }
 
-export default newPiggyItemReducer
+export default editPiggyItemReducer

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore, PiggyItemsStore, NewPiggyItemStore
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore, PiggyItemsStore, NewPiggyItemStore, EditPiggyItemStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
@@ -39,6 +39,7 @@ import newPiggyBankReducer from 'reducers/newPiggyBankReducer'
 import editPiggyBankReducer from 'reducers/editPiggyBankReducer'
 import piggyItemsReducer from 'reducers/piggyItemsReducer'
 import newPiggyItemReducer from 'reducers/newPiggyItemReducer'
+import editPiggyItemReducer from 'reducers/editPiggyItemReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -77,6 +78,7 @@ export type RootState = {
   editPiggyBank: EditPiggyBankStore;
   piggyItems: PiggyItemsStore;
   newPiggyItem: NewPiggyItemStore;
+  editPiggyItem: EditPiggyItemStore;
 }
 
 const rootReducer = combineReducers({
@@ -115,7 +117,8 @@ const rootReducer = combineReducers({
   newPiggyBank: newPiggyBankReducer,
   editPiggyBank: editPiggyBankReducer,
   piggyItems: piggyItemsReducer,
-  newPiggyItem: newPiggyItemReducer
+  newPiggyItem: newPiggyItemReducer,
+  editPiggyItem: editPiggyItemReducer
 })
 
 export default rootReducer

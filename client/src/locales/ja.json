@@ -144,7 +144,9 @@
     "postPiggyBankSuccess": "貯金箱を追加しました",
     "patchPiggyBankSuccess": "貯金箱を編集しました",
     "deletePiggyBankSuccess": "貯金箱を削除しました",
-    "postPiggyItemSuccess": "内訳を追加しました"
+    "postPiggyItemSuccess": "内訳を追加しました",
+    "patchPiggyItemSuccess": "内訳を編集しました",
+    "deletePiggyItemSuccess": "内訳を削除しました"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

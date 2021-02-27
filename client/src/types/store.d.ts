@@ -292,7 +292,17 @@ export interface NewPiggyItemStore extends Errors {
   isOpen: boolean;
   id?: number;
   publishedOn: Date;
+  name: string;
   balance_of_payments: boolean;
   charge: string;
+}
+
+export interface EditPiggyItemStore extends Errors {
+  isLoading: boolean;
+  isOpen: boolean;
+  id: number;
+  publishedOn: Date;
   name: string;
+  balance_of_payments: boolean;
+  charge: string;
 }
