@@ -21,11 +21,10 @@ import { RootState } from 'reducers/rootReducer'
 import HumanChargeSet from 'components/common/humanChargeSet'
 import TrashFieldTd from 'components/common/trashFieldTd'
 import HumanDate from 'components/common/humanDate'
-import EditFieldTd from 'components/common/EditFieldTd'
 import NewPiggyItemField from 'components/piggy/newPiggyItemField'
-import PiggyItemForm from 'components/piggy/piggyItemForm'
 import { PiggyItem, PiggyItemParams } from 'types/api'
-import { toBoolean } from 'modules/toBoolean'
+import EditPiggyItemModal from 'components/common/editPiggyItemModal'
+import PiggyItemEditIcon from 'components/piggy/piggyItemEditIcon'
 
 interface ParentProps {
   piggyBankId: number;
@@ -96,36 +95,21 @@ class PiggyItemsContainer extends Component<Props> {
     this.props.changeEditPiggyItemPublishedOn(date)
   }
 
-  handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changeEditPiggyItemName(e.target.value)
+  handleChangeName(name: string): void {
+    this.props.changeEditPiggyItemName(name)
   }
 
-  handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changeEditPiggyItemBalanceOfPayments(toBoolean(e.target.value))
+  handleChangeBalanceOfPayments(balanceOfPayments: boolean): void {
+    this.props.changeEditPiggyItemBalanceOfPayments(balanceOfPayments)
   }
 
-  handleChangeCharge(e: React.ChangeEvent<HTMLInputElement>):void {
-    this.props.changeEditPiggyItemCharge(e.target.value)
+  handleChangeCharge(charge: string): void {
+    this.props.changeEditPiggyItemCharge(charge)
   }
 
-  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
-    const ENTER = 13
-    if (e.keyCode === ENTER) {
-      e.preventDefault()
-      this.handleClickSubmitButton()
-    }
-  }
-
-  handleClickSubmitButton(): void {
-    const store = this.props.editPiggyItemStore
-    const params = {
-      published_on: store.publishedOn,
-      balance_of_payments: store.balance_of_payments,
-      name: store.name,
-      charge: store.charge
-    }
+  handleClickSubmitButton(piggyItemId: number, params: PiggyItemParams): void {
     if (this.props.piggyBankStore.piggyBank) {
-      this.props.patchPiggyItem(this.props.piggyBankStore.piggyBank.id, store.id, params)
+      this.props.patchPiggyItem(this.props.piggyBankStore.piggyBank.id, piggyItemId, params)
     }
   }
 
@@ -147,27 +131,28 @@ class PiggyItemsContainer extends Component<Props> {
                     />
                   </td>
                 )}
-                <EditFieldTd
-                  isOpenEditModal={this.props.editPiggyItemStore.isOpen}
-                  piggyItem={piggyItem}
-                  onClickCloseButton={this.handleClickCloseButton}
-                  onClickEditIcon={this.handleClickEditIcon}
-                  form={<PiggyItemForm
-                    piggyBank={this.props.piggyBankStore.piggyBank}
-                    piggyItemStore={this.props.editPiggyItemStore}
-                    onChangePublishedOn={this.handleChangePublishedOn}
-                    onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
-                    onChangeCharge={this.handleChangeCharge}
-                    onChangeName={this.handleChangeName}
-                    onKeyDown={this.handleKeyDown}
-                    onClickSubmitButton={this.handleClickSubmitButton}
-                  />}
-                />
+                <td>
+                  <PiggyItemEditIcon
+                    piggyItem={piggyItem}
+                    onClickIcon={this.handleClickEditIcon}
+                    tooltipDisable={true}
+                  />
+                </td>
                 <TrashFieldTd piggyItemId={piggyItem.id} onClickDestroyButton={this.handleClickDestroyButton} />
               </tr>
             ))}
           </tbody>
         </table>
+        <EditPiggyItemModal
+          editPiggyItemStore={this.props.editPiggyItemStore}
+          piggyBank={this.props.piggyBankStore.piggyBank}
+          onClickCloseButton={this.handleClickCloseButton}
+          onChangePublishedOn={this.handleChangePublishedOn}
+          onChangeName={this.handleChangeName}
+          onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+          onChangeCharge={this.handleChangeCharge}
+          onClickSubmitButton={this.handleClickSubmitButton}
+        />
         <NewPiggyItemField
           isOpen={this.props.newPiggyItemStore.isOpen}
           onClickButton={this.handleClickPlusButton}
@@ -198,8 +183,8 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     closeNewPiggyItemModal(): void {
       dispatch(closeNewPiggyItemModal())
     },
-    openEditPiggyItemModal(piggyItemStore: PiggyItem): void {
-      dispatch(openEditPiggyItemModal(piggyItemStore))
+    openEditPiggyItemModal(piggyItem: PiggyItem): void {
+      dispatch(openEditPiggyItemModal(piggyItem))
     },
     closeEditPiggyItemModal(): void {
       dispatch(closeEditPiggyItemModal())
