@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     end
     resource :tutorial, only: %i[show]
     resources :assets_accounts, only: %i[index create update destroy]
+    resources :piggy_banks do
+      resources :piggy_items, only: %i[index create update destroy]
+    end
 
     namespace :admin do
       resources :users, only: %i[index]

@@ -1,0 +1,48 @@
+@import variables
+
+.piggy-bank-list
+  list-style-type: none
+  padding-left: 0
+
+  .piggy-bank-list-item
+    background-color: $translucent
+    border: 1px solid $light-green-translucent-rgba8
+    border-radius: 5px
+    padding: 10px
+
+    &:hover
+      cursor: pointer
+
+  .piggy-bank-list-item + .piggy-bank-list-item
+    margin-top: 10px
+
+.piggy-bank-field
+  background-color: $translucent
+  border: 1px solid $light-green-translucent-rgba8
+  border-radius: 5px
+  min-height: 140px
+  padding: 10px
+
+  .piggy-bank-title
+    display: block
+    font-weight: bold
+    width: 90%
+
+  .piggy-bank-description
+    color: $green
+    display: block
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'
+    font-size: 12px
+    padding-top: 10px
+    width: 90%
+
+  .piggy-bank-form-component
+    padding-top: 10px
+    width: 90%
+
+
+.piggy-items-total-display-field-component
+  padding: 20px 0 10px
+
+  span
+    font-size: 30px

@@ -62,6 +62,7 @@ describe 'PATCH /api/user', autodoc: true do
         id: user.id,
         daily_option: true,
         unlimited_option: false,
+        piggy_bank_option: false,
         email: user.email,
         name: nil,
         nickname: nil,
@@ -87,6 +88,12 @@ describe 'PATCH /api/user', autodoc: true do
             name: '無制限利用',
             value: false,
             description: I18n.t('label.options.unlimited_option')
+          },
+          {
+            column: 'piggy_bank_option',
+            name: '貯金箱',
+            value: false,
+            description: I18n.t('label.options.piggy_bank_option')
           }
         ],
         admin: {

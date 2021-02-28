@@ -9,12 +9,12 @@ import { EditAssetsAccountStore, ProfileStore } from 'types/store'
 import { patchAssetsAccount, deleteAssetsAccount, openEditAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
-import HumanCharge from 'components/common/humanCharge'
 import Edit from 'components/common/edit'
 import DestroyModal from 'components/common/destroyModal'
 import HumanDate from 'components/common/humanDate'
 import FromNow from 'components/common/fromNow'
 import Trash from 'components/common/trash'
+import HumanChargeSet from 'components/common/humanChargeSet'
 
 interface ParentProps {
   assetsAccount: AssetsAccount;
@@ -103,12 +103,7 @@ class TotalAssetTableRecordContainer extends Component<Props, State> {
         </td>
         <td>{this.props.assetsAccount.name}</td>
         <td>
-          {this.props.assetsAccount.balance_of_payments === true ? (
-            <FontAwesomeIcon className='left-icon blue' icon={['fas', 'plus-square']} />
-          ) : (
-            <FontAwesomeIcon className='left-icon red' icon={['fas', 'minus-square']} />
-          )}
-          <HumanCharge currency={this.props.assetsAccount.currency} charge={this.props.assetsAccount.money} />
+          <HumanChargeSet balanceOfPayments={this.props.assetsAccount.balance_of_payments} charge={this.props.assetsAccount.money} currency={this.props.assetsAccount.currency} />
         </td>
         <td>
           <HumanDate date={new Date(this.props.assetsAccount.updated_at)} />

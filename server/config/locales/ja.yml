@@ -7,6 +7,7 @@ ja:
     options:
       daily_option: 日々の登録をグラフで表示（未実装）
       unlimited_option: 登録件数200件を超えて登録できます。200件は3ヶ月〜半年ほどの件数です。
+      piggy_bank_option: 貯金箱機能。貯蓄額のリスト表示や合計値の表示を行います。
   errors:
     messages:
       taken: はすでに登録されています

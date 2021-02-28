@@ -28,3 +28,10 @@ en:
         memo: Note
       assets_account:
         name: Deposit Account Name
+      piggy_bank:
+        title: Title
+        description: Description
+      piggy_item:
+        published_on: Date
+        name: Name
+        charge: Charge
