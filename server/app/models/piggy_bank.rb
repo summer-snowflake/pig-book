@@ -4,7 +4,7 @@ class PiggyBank < ApplicationRecord
   include EnumDefinedCurrency
 
   belongs_to :user
-  has_many :piggy_items, dependent: :restrict_with_exception
+  has_many :piggy_items, -> { order(published_on: :asc) }, dependent: :restrict_with_exception
 
   MAX_NUMBER = 5
   TITLE_MAX_LENGTH = 30
