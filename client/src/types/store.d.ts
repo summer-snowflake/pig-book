@@ -1,4 +1,4 @@
-import { Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable } from 'types/api'
+import { Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank } from 'types/api'
 
 export interface CookiesHeader {
   uid: string;
@@ -22,6 +22,7 @@ export interface UserStore extends Errors {
   email: string;
   dailyOption: boolean;
   unlimitedOption: boolean;
+  piggyBankOption: boolean;
   optionsList: string;
   options: UserOption[];
   recordsCount: number;
@@ -251,4 +252,57 @@ export interface EditAssetsAccountStore extends Errors {
 export interface AssetsAccountsStore {
   isLoading: boolean;
   assetsAccounts: AssetsAccount[];
+}
+
+export interface PiggyBanksStore {
+  isLoading: boolean;
+  piggyBanks: PiggyBank[];
+}
+
+export interface PiggyBankStore {
+  isLoading: boolean;
+  editing: boolean;
+  piggyBank: null | PiggyBank;
+}
+
+export interface NewPiggyBankStore extends Errors {
+  isLoading: boolean;
+  isOpen: boolean;
+  id?: number;
+  currency: string;
+  title: string;
+  description: string;
+}
+
+export interface EditPiggyBankStore extends Errors {
+  isLoading: boolean;
+  id: number;
+  currency: string;
+  title: string;
+  description: string;
+}
+
+export interface PiggyItemsStore {
+  isLoading: boolean;
+  piggyItems: PiggyItem[];
+}
+
+export interface NewPiggyItemStore extends Errors {
+  isLoading: boolean;
+  isOpen: boolean;
+  id?: number;
+  publishedOn: Date;
+  name: string;
+  balance_of_payments: boolean;
+  charge: string;
+}
+
+export interface EditPiggyItemStore extends Errors {
+  isLoading: boolean;
+  isOpen: boolean;
+  id: number;
+  publishedOn: Date;
+  name: string;
+  balance_of_payments: boolean;
+  charge: string;
 }

@@ -55,7 +55,8 @@ describe 'GET /api/admin/users', autodoc: true do
           records_count: 0,
           tags_count: 0,
           daily_option: false,
-          unlimited_option: false
+          unlimited_option: false,
+          piggy_bank_option: false
         },
         {
           admin: {
@@ -76,7 +77,8 @@ describe 'GET /api/admin/users', autodoc: true do
           records_count: 0,
           tags_count: 0,
           daily_option: false,
-          unlimited_option: false
+          unlimited_option: false,
+          piggy_bank_option: false
         },
         {
           active: false,
@@ -94,7 +96,8 @@ describe 'GET /api/admin/users', autodoc: true do
           records_count: 0,
           tags_count: 0,
           daily_option: false,
-          unlimited_option: false
+          unlimited_option: false,
+          piggy_bank_option: false
         }
       ]
       json = {

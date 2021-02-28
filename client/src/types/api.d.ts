@@ -35,6 +35,7 @@ export interface TagParams {
 export interface UserParams {
   daily_option?: boolean;
   unlimited_option?: boolean;
+  piggy_bank_option?: boolean;
 }
 
 export interface ProfileParams {
@@ -117,6 +118,7 @@ export interface User {
   admin: Admin;
   daily_option: boolean;
   unlimited_option: boolean;
+  piggy_bank_option: boolean;
   options_list: string;
   options: UserOption[];
   dashboard_years: number[];
@@ -265,4 +267,32 @@ export interface AssetsAccountParams {
   money?: string;
   position?: number | null;
   checked?: boolean;
+}
+
+export interface PiggyBank {
+  id: number;
+  title: string;
+  description: string;
+  currency: string;
+}
+
+export interface PiggyBankParams {
+  title?: string;
+  description?: string;
+  currency?: string;
+}
+
+export interface PiggyItem {
+  id: number;
+  balance_of_payments: boolean;
+  name: string;
+  charge: string;
+  published_on: Date;
+}
+
+export interface PiggyItemParams {
+  published_on?: Date;
+  name?: string;
+  balance_of_payments?: boolean;
+  charge: string;
 }

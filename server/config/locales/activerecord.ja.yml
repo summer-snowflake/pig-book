@@ -7,6 +7,7 @@ ja:
         password_confirmation: パスワード（確認）
         daily_option: デイリーチャート
         unlimited_option: 無制限利用
+        piggy_bank_option: 貯金箱
       category:
         name: カテゴリ名
       breakdown:
@@ -28,3 +29,10 @@ ja:
         memo: メモ
       assets_account:
         name: 預金の種類
+      piggy_bank:
+        title: タイトル
+        description: 説明
+      piggy_item:
+        published_on: 日付
+        name: 内訳内容
+        charge: 金額

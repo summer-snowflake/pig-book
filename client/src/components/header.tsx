@@ -91,6 +91,14 @@ class Header extends Component<Props> {
                   </NavLink>
                 </li>
               )}
+              {this.props.user.isLogged && this.props.user.piggyBankOption && (
+                <li className='nav-item'>
+                  <NavLink activeClassName='active-link-menu' className='nav-link' to='/piggy'>
+                    <i className='fas fa-piggy-bank left-icon' />
+                    {t('menu.piggyBank')}
+                  </NavLink>
+                </li>
+              )}
             </ul>
             <ul className='navbar-nav justify-content-end'>
               {this.props.user.isLogged && this.props.user.admin && (

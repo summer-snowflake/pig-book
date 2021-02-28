@@ -46,6 +46,7 @@ describe 'GET /api/user', autodoc: true do
         tags_count: 0,
         daily_option: true,
         unlimited_option: false,
+        piggy_bank_option: false,
         options_list: 'デイリーチャート',
         options: [
           {
@@ -61,6 +62,13 @@ describe 'GET /api/user', autodoc: true do
             column: 'unlimited_option',
             value: false,
             description: I18n.t('label.options.unlimited_option')
+          },
+          {
+            id: 3,
+            name: '貯金箱',
+            column: 'piggy_bank_option',
+            value: false,
+            description: I18n.t('label.options.piggy_bank_option')
           }
         ],
         dashboard_years: [Time.zone.today.year]

@@ -13,10 +13,6 @@ interface WithBalanceOfPaymentsAction extends Action {
   balance_of_payments: boolean;
 }
 
-interface WithCheckedAction extends Action {
-  checked: boolean;
-}
-
 interface WithNameAction extends Action {
   name: string;
 }

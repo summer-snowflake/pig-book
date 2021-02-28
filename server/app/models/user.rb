@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  USER_OPTIONS = %i[daily_option unlimited_option].freeze
+  USER_OPTIONS = %i[daily_option unlimited_option piggy_bank_option].freeze
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -26,6 +26,7 @@ class User < ApplicationRecord
   has_many :yearly_category_balance_tables, dependent: :destroy
   has_many :yearly_breakdown_balance_tables, dependent: :destroy
   has_many :assets_accounts, -> { order(position: :asc) }, dependent: :destroy
+  has_many :piggy_banks, -> { order(id: :asc) }, dependent: :destroy
 
   # NOTE: 現時点において、管理者以外はオプションの変更を行えない
   validate :unauthorized_options
@@ -65,7 +66,7 @@ class User < ApplicationRecord
   private
 
   def options?
-    daily_option || unlimited_option
+    daily_option || unlimited_option || piggy_bank_option
   end
 
   def options

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore
+  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore, PiggyItemsStore, NewPiggyItemStore, EditPiggyItemStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
@@ -33,6 +33,13 @@ import tutorialReducer from 'reducers/tutorialReducer'
 import assetsAccountsReducer from 'reducers/assetsAccountsReducer'
 import newAssetsAccountReducer from 'reducers/newAssetsAccountReducer'
 import editAssetsAccountReducer from 'reducers/editAssetsAccountReducer'
+import piggyBankReducer from 'reducers/piggyBankReducer'
+import piggyBanksReducer from 'reducers/piggyBanksReducer'
+import newPiggyBankReducer from 'reducers/newPiggyBankReducer'
+import editPiggyBankReducer from 'reducers/editPiggyBankReducer'
+import piggyItemsReducer from 'reducers/piggyItemsReducer'
+import newPiggyItemReducer from 'reducers/newPiggyItemReducer'
+import editPiggyItemReducer from 'reducers/editPiggyItemReducer'
 
 export type RootState = {
   session: SessionStore;
@@ -65,6 +72,13 @@ export type RootState = {
   assetsAccounts: AssetsAccountsStore;
   newAssetsAccount: NewAssetsAccountStore;
   editAssetsAccount: EditAssetsAccountStore;
+  piggyBank: PiggyBankStore;
+  piggyBanks: PiggyBanksStore;
+  newPiggyBank: NewPiggyBankStore;
+  editPiggyBank: EditPiggyBankStore;
+  piggyItems: PiggyItemsStore;
+  newPiggyItem: NewPiggyItemStore;
+  editPiggyItem: EditPiggyItemStore;
 }
 
 const rootReducer = combineReducers({
@@ -97,7 +111,14 @@ const rootReducer = combineReducers({
   tutorial: tutorialReducer,
   assetsAccounts: assetsAccountsReducer,
   newAssetsAccount: newAssetsAccountReducer,
-  editAssetsAccount: editAssetsAccountReducer
+  editAssetsAccount: editAssetsAccountReducer,
+  piggyBank: piggyBankReducer,
+  piggyBanks: piggyBanksReducer,
+  newPiggyBank: newPiggyBankReducer,
+  editPiggyBank: editPiggyBankReducer,
+  piggyItems: piggyItemsReducer,
+  newPiggyItem: newPiggyItemReducer,
+  editPiggyItem: editPiggyItemReducer
 })
 
 export default rootReducer
