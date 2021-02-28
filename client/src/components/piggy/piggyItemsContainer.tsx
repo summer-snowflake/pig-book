@@ -25,6 +25,7 @@ import NewPiggyItemField from 'components/piggy/newPiggyItemField'
 import { PiggyItem, PiggyItemParams } from 'types/api'
 import EditPiggyItemModal from 'components/common/editPiggyItemModal'
 import PiggyItemEditIcon from 'components/piggy/piggyItemEditIcon'
+import PiggyItemsTotalDisplayField from 'components/piggy/piggyItemsTotalDisplayField'
 
 interface ParentProps {
   piggyBankId: number;
@@ -116,6 +117,12 @@ class PiggyItemsContainer extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className='piggy-items-component'>
+        {this.props.piggyBankStore.piggyBank && (
+          <PiggyItemsTotalDisplayField
+            currency={this.props.piggyBankStore.piggyBank.currency}
+            piggyItems={this.props.piggyItemsStore.piggyItems}
+          />
+        )}
         <table className='table'>
           <tbody>
             {this.props.piggyItemsStore.piggyItems.map((piggyItem) => (
