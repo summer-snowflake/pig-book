@@ -153,9 +153,9 @@ class PiggyBankContentContainer extends Component<Props, State> {
                       <span className='piggy-bank-title'>
                         {this.props.piggyBankStore.piggyBank.title}
                       </span>
-                      <span className='piggy-bank-description'>
+                      <pre className='piggy-bank-description'>
                         {this.props.piggyBankStore.piggyBank.description}
-                      </span>
+                      </pre>
                     </span>
                   )}
                 </div>
