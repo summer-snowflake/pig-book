@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next'
 import DatePicker from 'react-datepicker'
 
 import { PiggyBank } from 'types/api'
-import { NewPiggyItemStore } from 'types/store'
+import { EditPiggyItemStore, NewPiggyItemStore } from 'types/store'
 import BalanceOfPaymentsRadios from 'components/settings/category/balanceOfPaymentsRadios'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 
@@ -14,7 +14,7 @@ interface ParentProps {
   onChangeBalanceOfPayments: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCharge: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmitButton: () => void;
-  piggyItemStore: NewPiggyItemStore;
+  piggyItemStore: NewPiggyItemStore | EditPiggyItemStore;
   piggyBank: PiggyBank;
 }
 

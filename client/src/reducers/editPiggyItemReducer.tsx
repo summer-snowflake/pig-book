@@ -5,6 +5,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { EditPiggyItemStore } from 'types/store'
 import { PiggyItemAction } from 'types/action'
 import FlashMessage from 'components/common/flashMessage'
+import { replaceFromCharge } from 'modules/replaceFromCharge'
 
 const initialState = {
   isLoading: false,
@@ -27,6 +28,7 @@ interface StoreAction extends PiggyItemAction {
   errors: string[];
 }
 
+
 const editPiggyItemReducer = (state: EditPiggyItemStore = initialState, action: StoreAction): EditPiggyItemStore => {
   switch (action.type) {
   case actionTypes.OPEN_EDIT_PIGGY_ITEM_MODAL:
@@ -37,7 +39,7 @@ const editPiggyItemReducer = (state: EditPiggyItemStore = initialState, action: 
       name: action.piggyItem.name,
       publishedOn: new Date(action.piggyItem.published_on),
       balance_of_payments: action.piggyItem.balance_of_payments,
-      charge: action.piggyItem.charge
+      charge: replaceFromCharge(action.piggyItem.charge)
     }
   case actionTypes.CLOSE_EDIT_PIGGY_ITEM_MODAL:
     return {
