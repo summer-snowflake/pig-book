@@ -4,21 +4,21 @@ import { Action } from 'redux'
 import Modal from 'react-modal'
 import { ThunkDispatch } from 'redux-thunk'
 
+import { PiggyItemParams } from 'types/api'
+import { NewPiggyItemStore, PiggyBankStore } from 'types/store'
 import { customModalStyles } from 'modules/modalStyles'
 import { toBoolean } from 'modules/toBoolean'
+import { getPiggyItems } from 'actions/piggyItemsActions'
+import { postPiggyItem } from 'actions/piggyItemActions'
+import {
+  changeNewPiggyItemBalanceOfPayments,
+  changeNewPiggyItemCharge,
+  changeNewPiggyItemName,
+  changeNewPiggyItemPublishedOn,
+} from 'actions/piggyItemStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import CloseButton from 'components/common/closeButton'
 import PiggyItemForm from 'components/piggy/piggyItemForm'
-import { NewPiggyItemStore, PiggyBankStore } from 'types/store'
-import { getPiggyItems } from 'actions/piggyItemsActions'
-import {
-  changePiggyItemBalanceOfPayments,
-  changePiggyItemCharge,
-  changePiggyItemName,
-  changePiggyItemPublishedOn,
-  postPiggyItem
-} from 'actions/piggyItemActions'
-import { PiggyItemParams } from 'types/api'
 
 interface ParentProps {
   isOpen: boolean;
@@ -32,10 +32,10 @@ interface StateProps {
 
 interface DispatchProps {
   getPiggyItems: (piggyBankId: number) => void;
-  changePiggyItemPublishedOn: (date: Date) => void;
-  changePiggyItemBalanceOfPayments: (balanceOfPayments: boolean) => void;
-  changePiggyItemName: (name: string) => void;
-  changePiggyItemCharge: (charge: string) => void;
+  changeNewPiggyItemPublishedOn: (date: Date) => void;
+  changeNewPiggyItemBalanceOfPayments: (balanceOfPayments: boolean) => void;
+  changeNewPiggyItemName: (name: string) => void;
+  changeNewPiggyItemCharge: (charge: string) => void;
   postPiggyItem: (piggyBankId: number, params: PiggyItemParams) => void;
 }
 
@@ -54,19 +54,19 @@ class NewPiggyItemModalContainer extends Component<Props> {
   }
 
   handleChangePublishedOn(date: Date): void {
-    this.props.changePiggyItemPublishedOn(date)
+    this.props.changeNewPiggyItemPublishedOn(date)
   }
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changePiggyItemName(e.target.value)
+    this.props.changeNewPiggyItemName(e.target.value)
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changePiggyItemBalanceOfPayments(toBoolean(e.target.value))
+    this.props.changeNewPiggyItemBalanceOfPayments(toBoolean(e.target.value))
   }
 
   handleChangeCharge(e: React.ChangeEvent<HTMLInputElement>):void {
-    this.props.changePiggyItemCharge(e.target.value)
+    this.props.changeNewPiggyItemCharge(e.target.value)
   }
 
   handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
@@ -136,17 +136,17 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getPiggyItems(piggyBankId: number): void {
       dispatch(getPiggyItems(piggyBankId))
     },
-    changePiggyItemPublishedOn(date: Date): void {
-      dispatch(changePiggyItemPublishedOn(date))
+    changeNewPiggyItemPublishedOn(date: Date): void {
+      dispatch(changeNewPiggyItemPublishedOn(date))
     },
-    changePiggyItemBalanceOfPayments(balanceOfPayments: boolean): void {
-      dispatch(changePiggyItemBalanceOfPayments(balanceOfPayments))
+    changeNewPiggyItemBalanceOfPayments(balanceOfPayments: boolean): void {
+      dispatch(changeNewPiggyItemBalanceOfPayments(balanceOfPayments))
     },
-    changePiggyItemName(name: string): void {
-      dispatch(changePiggyItemName(name))
+    changeNewPiggyItemName(name: string): void {
+      dispatch(changeNewPiggyItemName(name))
     },
-    changePiggyItemCharge(charge: string): void {
-      dispatch(changePiggyItemCharge(charge))
+    changeNewPiggyItemCharge(charge: string): void {
+      dispatch(changeNewPiggyItemCharge(charge))
     },
     postPiggyItem(piggyBankId: number, params: PiggyItemParams): void {
       dispatch(postPiggyItem(piggyBankId, params)).then(() => {

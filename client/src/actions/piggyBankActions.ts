@@ -9,16 +9,34 @@ import { Errors, PiggyBank, PiggyBankParams } from 'types/api'
 import { catchErrors } from 'actions/errorsAction'
 import { getCookiesFailure } from 'actions/userActions'
 
-interface WithCurrencyAction extends Action {
-  currency: string;
+const getPiggyBankRequest = (): Action => {
+  return {
+    type: actionTypes.GET_PIGGY_BANK_REQUEST
+  }
 }
 
-interface WithTitleAction extends Action {
-  title: string;
+const getPiggyBankSuccess = (piggyBank: PiggyBank): PiggyBankAction => {
+  return {
+    type: actionTypes.GET_PIGGY_BANK_SUCCESS,
+    piggyBank
+  }
 }
 
-interface WithDescriptionAction extends Action {
-  description: string;
+export const getPiggyBank = (piggyBankId: number) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    dispatch(getPiggyBankRequest())
+    try {
+      if(ready()) {
+        const res = await axios.get('/api/piggy_banks/' + piggyBankId, { headers: loginHeaders() })
+        dispatch(getPiggyBankSuccess(res.data))
+      } else {
+        dispatch(getCookiesFailure())
+      }
+    }
+    catch (err) {
+      dispatch(catchErrors(err.response))
+    }
+  }
 }
 
 const postPiggyBankRequest = (): Action => {
@@ -141,90 +159,6 @@ export const deletePiggyBank = (piggyBankId: number) => {
       } else {
         dispatch(catchErrors(err.response))
       }
-    }
-  }
-}
-
-export const changePiggyBankTitle = (title: string): WithTitleAction => {
-  return {
-    type: actionTypes.CHANGE_PIGGY_BANK_TITLE,
-    title
-  }
-}
-
-export const changePiggyBankDescription = (description: string): WithDescriptionAction => {
-  return {
-    type: actionTypes.CHANGE_PIGGY_BANK_DESCRIPTION,
-    description
-  }
-}
-
-export const changeEditPiggyBankTitle = (title: string): WithTitleAction => {
-  return {
-    type: actionTypes.CHANGE_EDIT_PIGGY_BANK_TITLE,
-    title
-  }
-}
-
-export const changeEditPiggyBankDescription = (description: string): WithDescriptionAction => {
-  return {
-    type: actionTypes.CHANGE_EDIT_PIGGY_BANK_DESCRIPTION,
-    description
-  }
-}
-
-export const openNewPiggyBankModal = (currency: string): WithCurrencyAction => {
-  return {
-    type: actionTypes.OPEN_NEW_PIGGY_BANK_MODAL,
-    currency
-  }
-}
-
-export const closeNewPiggyBankModal = (): Action => {
-  return {
-    type: actionTypes.CLOSE_NEW_PIGGY_BANK_MODAL
-  }
-}
-
-export const openEditPiggyBankField = (piggyBank: PiggyBank): PiggyBankAction => {
-  return {
-    type: actionTypes.OPEN_EDIT_PIGGY_BANK_FIELD,
-    piggyBank
-  }
-}
-
-export const closeEditPiggyBankField = (): Action => {
-  return {
-    type: actionTypes.CLOSE_EDIT_PIGGY_BANK_FIELD
-  }
-}
-
-const getPiggyBankRequest = (): Action => {
-  return {
-    type: actionTypes.GET_PIGGY_BANK_REQUEST
-  }
-}
-
-const getPiggyBankSuccess = (piggyBank: PiggyBank): PiggyBankAction => {
-  return {
-    type: actionTypes.GET_PIGGY_BANK_SUCCESS,
-    piggyBank
-  }
-}
-
-export const getPiggyBank = (piggyBankId: number) => {
-  return async (dispatch: Dispatch<Action>): Promise<void> => {
-    dispatch(getPiggyBankRequest())
-    try {
-      if(ready()) {
-        const res = await axios.get('/api/piggy_banks/' + piggyBankId, { headers: loginHeaders() })
-        dispatch(getPiggyBankSuccess(res.data))
-      } else {
-        dispatch(getCookiesFailure())
-      }
-    }
-    catch (err) {
-      dispatch(catchErrors(err.response))
     }
   }
 }
