@@ -33,7 +33,7 @@
     "react-color": "^2.19.3",
     "react-datepicker": "^3.6.0",
     "react-dom": "^16.14.0",
-    "react-i18next": "^11.8.8",
+    "react-i18next": "^11.8.10",
     "react-modal": "^3.12.1",
     "react-redux": "^7.2.2",
     "react-responsive-carousel": "^3.2.13",
