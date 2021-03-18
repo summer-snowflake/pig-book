@@ -5,7 +5,9 @@ import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
 import { RecordSearchParams, Record } from 'types/api'
-import { NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore } from 'types/store'
+import {
+  NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore
+} from 'types/store'
 import HumanDate from 'components/common/humanDate'
 import { changePublishedOn, copyRecord } from 'actions/newRecordStoreActions'
 import { getProfile } from 'actions/settingsActions'

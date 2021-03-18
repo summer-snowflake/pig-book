@@ -7,7 +7,9 @@ import { withTranslation } from 'react-i18next'
 
 import { DashboardStore, UserStore, DashboardCategoryStore } from 'types/store'
 import { Category } from 'types/api'
-import { getDashboard, patchDashboard, clearDashboard, getDashboardCategory } from 'actions/dashboardActions'
+import {
+  getDashboard, patchDashboard, clearDashboard, getDashboardCategory
+} from 'actions/dashboardActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanYearMonth from 'components/common/humanYearMonth'
 import MonthlyData from 'components/dashboard/monthlyData'

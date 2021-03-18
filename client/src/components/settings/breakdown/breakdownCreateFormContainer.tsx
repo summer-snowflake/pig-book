@@ -9,7 +9,9 @@ import { NewBreakdownStore, NewCategoryStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import BreakdownForm from 'components/settings/breakdown/breakdownForm'
 import { postBreakdown } from 'actions/breakdownActions'
-import { changeBreakdownName, changeCategory, clearEditedBreakdown } from 'actions/breakdownStoreActions'
+import {
+  changeBreakdownName, changeCategory, clearEditedBreakdown
+} from 'actions/breakdownStoreActions'
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { RootState } from 'reducers/rootReducer'
 import { changeCategoryBalanceOfPayments } from 'actions/categoryStoreActions'

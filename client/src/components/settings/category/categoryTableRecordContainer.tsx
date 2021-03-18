@@ -8,7 +8,9 @@ import { withRouter } from 'react-router-dom'
 import { CategoryParams, Category } from 'types/api'
 import { EditCategoryStore } from 'types/store'
 import { patchCategory, deleteCategory } from 'actions/categoryActions'
-import { editCategory, exitCategory, clearEditedCategory } from 'actions/categoryStoreActions'
+import {
+  editCategory, exitCategory, clearEditedCategory
+} from 'actions/categoryStoreActions'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'

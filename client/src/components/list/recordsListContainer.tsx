@@ -4,8 +4,12 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { withRouter } from 'react-router-dom'
 
-import { Record, RecordSearchParams, Category, Breakdown, Place, Tag } from 'types/api'
-import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
+import {
+  Record, RecordSearchParams, Category, Breakdown, Place, Tag
+} from 'types/api'
+import {
+  RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore
+} from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { encodeQueryData } from 'modules/encode'
 import { getEditRecordCategory } from 'actions/categoryActions'

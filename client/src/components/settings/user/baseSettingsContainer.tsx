@@ -11,7 +11,9 @@ import EditAndCancel from 'components/common/editAndCancel'
 import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import AlertModal from 'components/common/alertModal'
 import { getProfile, patchProfile } from 'actions/settingsActions'
-import { changeProfileLocale, changeProfileCurrency, setEditing } from 'actions/settingsStoreActions'
+import {
+  changeProfileLocale, changeProfileCurrency, setEditing
+} from 'actions/settingsStoreActions'
 import { RootState } from 'reducers/rootReducer'
 
 import 'stylesheets/settings.sass'

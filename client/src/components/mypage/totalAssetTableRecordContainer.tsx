@@ -7,7 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AssetsAccount, AssetsAccountParams } from 'types/api'
 import { EditAssetsAccountStore, ProfileStore } from 'types/store'
 import { patchAssetsAccount, deleteAssetsAccount } from 'actions/assetsAccountActions'
-import { openEditAssetsAccountModal, closeEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
+import {
+  openEditAssetsAccountModal, closeEditAssetsAccountModal
+} from 'actions/assetsAccountStoreActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import Edit from 'components/common/edit'

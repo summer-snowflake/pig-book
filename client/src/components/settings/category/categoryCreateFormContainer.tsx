@@ -9,7 +9,9 @@ import { NewCategoryStore } from 'types/store'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CategoryForm from 'components/settings/category/categoryForm'
 import { postCategory } from 'actions/categoryActions'
-import { changeCategoryBalanceOfPayments, changeCategoryName, clearEditedCategory } from 'actions/categoryStoreActions'
+import {
+  changeCategoryBalanceOfPayments, changeCategoryName, clearEditedCategory
+} from 'actions/categoryStoreActions'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'

@@ -10,15 +10,8 @@ import { RouteComponentProps } from 'types/react-router'
 import { toBoolean } from 'modules/toBoolean'
 import { postRecord } from 'actions/newRecordActions'
 import {
-  changeCategory,
-  changeBalanceOfPayments,
-  changePublishedOn,
-  changeBreakdown,
-  changePlace,
-  changeCharge,
-  changeCashlessCharge,
-  changePoint,
-  changeMemo
+  changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown,
+  changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo
 } from 'actions/newRecordStoreActions'
 import { getCategory } from 'actions/categoryActions'
 import { clearEditedRecord } from 'actions/editRecordStoreActions'

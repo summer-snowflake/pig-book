@@ -9,7 +9,9 @@ import { NewAssetsAccountStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { customModalStyles } from 'modules/modalStyles'
 import { postAssetsAccount } from 'actions/assetsAccountActions'
-import { changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney } from 'actions/assetsAccountStoreActions'
+import {
+  changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney
+} from 'actions/assetsAccountStoreActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import AssetsAccountForm from 'components/mypage/assetsAccountForm'

@@ -12,16 +12,8 @@ import { toBoolean } from 'modules/toBoolean'
 import { customModalStyles } from 'modules/modalStyles'
 import { patchRecord } from 'actions/editRecordActions'
 import {
-  clearEditedRecord,
-  changeCategory,
-  changeBalanceOfPayments,
-  changePublishedOn,
-  changeBreakdown,
-  changePlace,
-  changeCharge,
-  changeCashlessCharge,
-  changePoint,
-  changeMemo
+  clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown,
+  changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo
 } from 'actions/editRecordStoreActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
 import { getRecords } from 'actions/recordsActions'
