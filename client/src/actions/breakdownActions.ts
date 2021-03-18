@@ -5,17 +5,9 @@ import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, BreakdownAction } from 'types/action'
-import { BreakdownParams, Errors, Category, Breakdown } from 'types/api'
+import { BreakdownParams, Errors, Breakdown } from 'types/api'
 import { getCookiesFailure } from 'actions/userActions'
 import { catchErrors } from 'actions/errorsAction'
-
-interface WithNameAction extends Action {
-  name: string;
-}
-
-interface WithCategoryAction extends Action {
-  category: Category | undefined;
-}
 
 const postBreakdownRequest = (): Action => {
   return {
@@ -55,20 +47,6 @@ export const postBreakdown = (params: BreakdownParams) => {
         dispatch(catchErrors(err.response))
       }
     }
-  }
-}
-
-export const changeBreakdownName = (name: string): WithNameAction => {
-  return {
-    type: actionTypes.CHANGE_BREAKDOWN_NAME,
-    name
-  }
-}
-
-export const changeCategory = (category: Category | undefined): WithCategoryAction => {
-  return {
-    type: actionTypes.CHANGE_CATEGORY,
-    category
   }
 }
 
@@ -152,24 +130,5 @@ export const deleteBreakdown = (breakdownId: number) => {
         dispatch(catchErrors(err.response))
       }
     }
-  }
-}
-
-export const editBreakdown = (breakdown: Breakdown): BreakdownAction => {
-  return {
-    type: actionTypes.EDIT_BREAKDOWN,
-    breakdown
-  }
-}
-
-export const exitBreakdown = (): Action => {
-  return {
-    type: actionTypes.EXIT_BREAKDOWN
-  }
-}
-
-export const clearEditedBreakdown = (): Action => {
-  return {
-    type: actionTypes.CLEAR_EDITED_BREAKDOWN
   }
 }
