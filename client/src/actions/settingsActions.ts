@@ -9,22 +9,6 @@ import { ProfileAction } from 'types/action'
 import { getCookiesFailure } from 'actions/userActions'
 import { catchErrors } from 'actions/errorsAction'
 
-interface WithLocaleAction extends Action {
-  locale: string;
-}
-
-interface WithCurrencyAction extends Action {
-  currency: string;
-}
-
-interface WithEditingAction extends Action {
-  editing: boolean;
-}
-
-interface WithEditingMemoAction extends Action {
-  editingMemo: boolean;
-}
-
 interface WithTargetAction extends Action {
   target: string;
 }
@@ -59,20 +43,6 @@ export const getProfile = () => {
   }
 }
 
-export const changeProfileLocale = (locale: string): WithLocaleAction => {
-  return {
-    type: actionTypes.CHANGE_PROFILE_LOCALE,
-    locale: locale
-  }
-}
-
-export const changeProfileCurrency = (currency: string): WithCurrencyAction => {
-  return {
-    type: actionTypes.CHANGE_PROFILE_CURRENCY,
-    currency: currency
-  }
-}
-
 const patchProfileRequest = (target: string): WithTargetAction => {
   return {
     type: actionTypes.PATCH_PROFILE_REQUEST,
@@ -101,19 +71,5 @@ export const patchProfile = (params: ProfileParams, target: string) => {
     catch (err) {
       dispatch(catchErrors(err.response))
     }
-  }
-}
-
-export const setEditing = (editing: boolean): WithEditingAction => {
-  return {
-    type: actionTypes.SET_EDITING,
-    editing
-  }
-}
-
-export const setEditingMemo = (editingMemo: boolean): WithEditingMemoAction => {
-  return {
-    type: actionTypes.SET_EDITING_MEMO,
-    editingMemo
   }
 }
