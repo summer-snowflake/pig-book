@@ -8,10 +8,22 @@ import { RecordParams, Category, RecordSearchParams } from 'types/api'
 import { NewRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { toBoolean } from 'modules/toBoolean'
-import { postRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/newRecordActions'
+import { postRecord } from 'actions/newRecordActions'
+import {
+  changeCategory,
+  changeBalanceOfPayments,
+  changePublishedOn,
+  changeBreakdown,
+  changePlace,
+  changeCharge,
+  changeCashlessCharge,
+  changePoint,
+  changeMemo
+} from 'actions/newRecordStoreActions'
 import { getCategory } from 'actions/categoryActions'
-import { clearEditedRecord } from 'actions/editRecordActions'
-import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
+import { clearEditedRecord } from 'actions/editRecordStoreActions'
+import { getRecords } from 'actions/recordsActions'
+import { setRecordSearchParams } from 'actions/recordsStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import CreateButton from 'components/common/createButton'
