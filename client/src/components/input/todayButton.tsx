@@ -10,7 +10,10 @@ class TodayButton extends Component<Props> {
     const { t } = this.props
 
     return (
-      <button className='today-button-component btn btn-secondary btn-sm' onClick={this.props.onClickTodayButton}>
+      <button
+        className='today-button-component btn btn-secondary btn-sm'
+        onClick={this.props.onClickTodayButton}
+      >
         {t('button.today')}
       </button>
     )

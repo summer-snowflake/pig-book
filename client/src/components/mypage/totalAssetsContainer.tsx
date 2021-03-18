@@ -6,8 +6,13 @@ import { withTranslation } from 'react-i18next'
 import Sortable from 'sortablejs'
 
 import { AssetsAccount, AssetsAccountParams } from 'types/api'
-import { AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, ProfileStore } from 'types/store'
-import { openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal, patchAssetsAccount } from 'actions/assetsAccountActions'
+import {
+  AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, ProfileStore
+} from 'types/store'
+import { patchAssetsAccount } from 'actions/assetsAccountActions'
+import {
+  openNewAssetsAccountModal, closeNewAssetsAccountModal, closeEditAssetsAccountModal
+} from 'actions/assetsAccountStoreActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import Counter from 'components/common/counter'

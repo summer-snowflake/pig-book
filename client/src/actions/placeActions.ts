@@ -216,22 +216,3 @@ export const postPlaceCategories = (placeId: number, categoryIds: number[]) => {
     }
   }
 }
-
-export const editPlace = (place: Place): WithPlaceAction => {
-  return {
-    type: actionTypes.EDIT_PLACE,
-    place
-  }
-}
-
-export const exitPlace = (): Action => {
-  return {
-    type: actionTypes.EXIT_PLACE
-  }
-}
-
-export const clearEditedPlace = (): Action => {
-  return {
-    type: actionTypes.CLEAR_EDITED_PLACE
-  }
-}

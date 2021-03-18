@@ -9,7 +9,15 @@ import { RouteComponentProps } from 'types/react-router'
 import { PiggyBank } from 'types/api'
 import { EditPiggyBankStore, NewPiggyBankStore, PiggyBanksStore, PiggyBankStore, ProfileStore } from 'types/store'
 import { getPiggyBanks } from 'actions/piggyBanksActions'
-import { openNewPiggyBankModal, closeNewPiggyBankModal, getPiggyBank, openEditPiggyBankField, closeEditPiggyBankField, patchPiggyBank, changeEditPiggyBankTitle, changeEditPiggyBankDescription, deletePiggyBank } from 'actions/piggyBankActions'
+import { getPiggyBank, patchPiggyBank, deletePiggyBank } from 'actions/piggyBankActions'
+import {
+  openNewPiggyBankModal,
+  closeNewPiggyBankModal,
+  openEditPiggyBankField,
+  closeEditPiggyBankField,
+  changeEditPiggyBankTitle,
+  changeEditPiggyBankDescription
+} from 'actions/piggyBankStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import NewPiggyBankModalContainer from 'components/piggy/newPiggyBankModalContainer'
 import PiggyBankListItem from 'components/piggy/piggyBankListItem'

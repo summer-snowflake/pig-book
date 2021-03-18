@@ -6,17 +6,19 @@ import { ThunkDispatch } from 'redux-thunk'
 import { NewPiggyItemStore, EditPiggyItemStore, PiggyBankStore, PiggyItemsStore } from 'types/store'
 import { getPiggyItems } from 'actions/piggyItemsActions'
 import {
+  patchPiggyItem,
+  deletePiggyItem
+} from 'actions/piggyItemActions'
+import {
   closeNewPiggyItemModal,
   openNewPiggyItemModal,
-  deletePiggyItem,
   openEditPiggyItemModal,
   closeEditPiggyItemModal,
   changeEditPiggyItemPublishedOn,
   changeEditPiggyItemBalanceOfPayments,
   changeEditPiggyItemName,
-  changeEditPiggyItemCharge,
-  patchPiggyItem
-} from 'actions/piggyItemActions'
+  changeEditPiggyItemCharge
+} from 'actions/piggyItemStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import HumanChargeSet from 'components/common/humanChargeSet'
 import TrashFieldTd from 'components/common/trashFieldTd'
