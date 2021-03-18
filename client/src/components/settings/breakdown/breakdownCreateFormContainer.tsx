@@ -12,7 +12,7 @@ import { postBreakdown } from 'actions/breakdownActions'
 import { changeBreakdownName, changeCategory, clearEditedBreakdown } from 'actions/breakdownStoreActions'
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { RootState } from 'reducers/rootReducer'
-import { changeCategoryBalanceOfPayments } from 'actions/categoryActions'
+import { changeCategoryBalanceOfPayments } from 'actions/categoryStoreActions'
 import { toBoolean } from 'modules/toBoolean'
 
 interface StateProps {
