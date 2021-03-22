@@ -72,7 +72,8 @@ class NewAssetsAccountModalContainer extends Component<Props> {
       name: this.props.newAssetsAccountStore.name,
       currency: this.props.newAssetsAccountStore.currency,
       money: this.props.newAssetsAccountStore.money.replace(/,/g, ''),
-      position: this.props.newAssetsAccountStore.position
+      position: this.props.newAssetsAccountStore.position,
+      checked: true
     }
 
     this.props.postAssetsAccount(params)
