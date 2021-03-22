@@ -78,7 +78,8 @@ const editAssetsAccountReducer = (state: EditAssetsAccountStore = initialState, 
       name: action.assetsAccount.name,
       currency: action.assetsAccount.currency,
       money: String(action.assetsAccount.money),
-      position: action.assetsAccount.position
+      position: action.assetsAccount.position,
+      checked: action.assetsAccount.checked
     }
   case actionTypes.CLOSE_EDIT_ASSETS_ACCOUNT_MODAL:
     return {
