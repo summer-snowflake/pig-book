@@ -18,7 +18,10 @@ import ValidationErrorMessages from 'components/common/validationErrorMessages'
 import AlertModal from 'components/common/alertModal'
 import ListIcon from 'components/common/listIcon'
 import { getBreakdowns } from 'actions/breakdownsActions'
-import { changeCategory, patchBreakdown, deleteBreakdown, editBreakdown, exitBreakdown, clearEditedBreakdown } from 'actions/breakdownActions'
+import { patchBreakdown, deleteBreakdown } from 'actions/breakdownActions'
+import {
+  changeCategory, editBreakdown, exitBreakdown, clearEditedBreakdown
+} from 'actions/breakdownStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 import Trash from 'components/common/trash'

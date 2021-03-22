@@ -54,12 +54,12 @@ const newPiggyBankReducer = (state: NewPiggyBankStore = initialState, action: St
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.CHANGE_PIGGY_BANK_TITLE:
+  case actionTypes.CHANGE_NEW_PIGGY_BANK_TITLE:
     return {
       ...state,
       title: action.title
     }
-  case actionTypes.CHANGE_PIGGY_BANK_DESCRIPTION:
+  case actionTypes.CHANGE_NEW_PIGGY_BANK_DESCRIPTION:
     return {
       ...state,
       description: action.description

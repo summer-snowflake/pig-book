@@ -4,14 +4,19 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { withRouter } from 'react-router-dom'
 
-import { Record, RecordSearchParams, Category, Breakdown, Place, Tag } from 'types/api'
-import { RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore } from 'types/store'
+import {
+  Record, RecordSearchParams, Category, Breakdown, Place, Tag
+} from 'types/api'
+import {
+  RecordsStore, EditRecordStore, RecordSearchStore, NewRecordStore
+} from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { encodeQueryData } from 'modules/encode'
 import { getEditRecordCategory } from 'actions/categoryActions'
-import { getRecords, deleteRecord, setRecordSearchParams, changePage } from 'actions/recordsActions'
-import { editRecord, closeEditModal } from 'actions/editRecordActions'
-import { copyRecord, closeNewModal } from 'actions/newRecordActions'
+import { getRecords, deleteRecord } from 'actions/recordsActions'
+import { setRecordSearchParams, changePage } from 'actions/recordsStoreActions'
+import { editRecord, closeEditModal } from 'actions/editRecordStoreActions'
+import { copyRecord, closeNewModal } from 'actions/newRecordStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import Records from 'components/record/records'
 import HumanYearMonth from 'components/common/humanYearMonth'

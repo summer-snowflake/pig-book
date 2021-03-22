@@ -10,9 +10,14 @@ import { EditRecordStore, ProfileStore, RecordSearchStore } from 'types/store'
 import { RouteComponentProps } from 'types/react-router'
 import { toBoolean } from 'modules/toBoolean'
 import { customModalStyles } from 'modules/modalStyles'
-import { patchRecord, clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown, changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo } from 'actions/editRecordActions'
+import { patchRecord } from 'actions/editRecordActions'
+import {
+  clearEditedRecord, changeCategory, changeBalanceOfPayments, changePublishedOn, changeBreakdown,
+  changePlace, changeCharge, changeCashlessCharge, changePoint, changeMemo
+} from 'actions/editRecordStoreActions'
 import { getCategory, getEditRecordCategory } from 'actions/categoryActions'
-import { getRecords, setRecordSearchParams } from 'actions/recordsActions'
+import { getRecords } from 'actions/recordsActions'
+import { setRecordSearchParams } from 'actions/recordsStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import CloseButton from 'components/common/closeButton'
 import UpdateButton from 'components/common/updateButton'

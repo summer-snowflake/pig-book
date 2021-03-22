@@ -9,14 +9,6 @@ import { Record, RecordSearchParams, RecordTotals } from 'types/api'
 import { catchErrors } from 'actions/errorsAction'
 import { getCookiesFailure } from 'actions/userActions'
 
-interface WithRecordSearchParamsAction extends Action {
-  params: RecordSearchParams;
-}
-
-interface WithPageAction extends Action {
-  page: number;
-}
-
 const getRecordsRequest = (): Action => {
   return {
     type: actionTypes.GET_RECORDS_REQUEST
@@ -77,19 +69,5 @@ export const deleteRecord = (recordId: number) => {
     catch (err) {
       dispatch(catchErrors(err.response))
     }
-  }
-}
-
-export const setRecordSearchParams = (params: RecordSearchParams): WithRecordSearchParamsAction => {
-  return {
-    type: actionTypes.SET_RECORD_SEARCH_PARAMS,
-    params
-  }
-}
-
-export const changePage = (page: number): WithPageAction => {
-  return {
-    type: actionTypes.CHANGE_PAGE,
-    page
   }
 }

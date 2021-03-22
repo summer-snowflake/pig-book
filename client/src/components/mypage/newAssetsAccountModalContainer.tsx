@@ -8,7 +8,10 @@ import { AssetsAccountParams } from 'types/api'
 import { NewAssetsAccountStore } from 'types/store'
 import { toBoolean } from 'modules/toBoolean'
 import { customModalStyles } from 'modules/modalStyles'
-import { changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney, postAssetsAccount } from 'actions/assetsAccountActions'
+import { postAssetsAccount } from 'actions/assetsAccountActions'
+import {
+  changeAssetsAccountBalanceOfPayments, changeAssetsAccountName, changeAssetsAccountMoney
+} from 'actions/assetsAccountStoreActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import AssetsAccountForm from 'components/mypage/assetsAccountForm'
@@ -69,7 +72,8 @@ class NewAssetsAccountModalContainer extends Component<Props> {
       name: this.props.newAssetsAccountStore.name,
       currency: this.props.newAssetsAccountStore.currency,
       money: this.props.newAssetsAccountStore.money.replace(/,/g, ''),
-      position: this.props.newAssetsAccountStore.position
+      position: this.props.newAssetsAccountStore.position,
+      checked: true
     }
 
     this.props.postAssetsAccount(params)

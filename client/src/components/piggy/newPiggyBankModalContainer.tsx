@@ -7,8 +7,9 @@ import { ThunkDispatch } from 'redux-thunk'
 import { PiggyBankParams } from 'types/api'
 import { NewPiggyBankStore } from 'types/store'
 import { customModalStyles } from 'modules/modalStyles'
-import { changePiggyBankTitle, changePiggyBankDescription, postPiggyBank } from 'actions/piggyBankActions'
+import { postPiggyBank } from 'actions/piggyBankActions'
 import { getPiggyBanks } from 'actions/piggyBanksActions'
+import { changeNewPiggyBankTitle, changeNewPiggyBankDescription } from 'actions/piggyBankStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import PiggyBankForm from 'components/piggy/piggyBankForm'
 import CloseButton from 'components/common/closeButton'
@@ -24,8 +25,8 @@ interface StateProps {
 
 interface DispatchProps {
   postPiggyBank: (params: PiggyBankParams) => void;
-  changePiggyBankTitle: (title: string) => void;
-  changePiggyBankDescription: (description: string) => void;
+  changeNewPiggyBankTitle: (title: string) => void;
+  changeNewPiggyBankDescription: (description: string) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
@@ -41,11 +42,11 @@ class NewPiggyBankModalContainer extends Component<Props> {
   }
 
   handleChangeTitle(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.props.changePiggyBankTitle(e.target.value)
+    this.props.changeNewPiggyBankTitle(e.target.value)
   }
 
   handleChangeDescription(e: React.ChangeEvent<HTMLTextAreaElement>): void {
-    this.props.changePiggyBankDescription(e.target.value)
+    this.props.changeNewPiggyBankDescription(e.target.value)
   }
 
   handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
@@ -110,11 +111,11 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
         dispatch(getPiggyBanks())
       })
     },
-    changePiggyBankTitle(title: string): void {
-      dispatch(changePiggyBankTitle(title))
+    changeNewPiggyBankTitle(title: string): void {
+      dispatch(changeNewPiggyBankTitle(title))
     },
-    changePiggyBankDescription(description: string): void {
-      dispatch(changePiggyBankDescription(description))
+    changeNewPiggyBankDescription(description: string): void {
+      dispatch(changeNewPiggyBankDescription(description))
     }
   }
 }

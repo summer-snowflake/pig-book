@@ -10,6 +10,6 @@ ENV PATH /pig-book/client/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY package.json /pig-book/client/package.json
 RUN yarn install --silent
-COPY . /pig-book/client
+COPY ./src /pig-book/client/src
 
 RUN yarn add serve

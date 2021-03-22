@@ -36,22 +36,22 @@ const newPiggyItemReducer = (state: NewPiggyItemStore = initialState, action: St
       ...state,
       isOpen: false
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_PUBLISHED_ON:
+  case actionTypes.CHANGE_NEW_PIGGY_ITEM_PUBLISHED_ON:
     return {
       ...state,
       publishedOn: action.publishedOn
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_BALANCE_OF_PAYMENTS:
+  case actionTypes.CHANGE_NEW_PIGGY_ITEM_BALANCE_OF_PAYMENTS:
     return {
       ...state,
       balance_of_payments: action.balanceOfPayments
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_NAME:
+  case actionTypes.CHANGE_NEW_PIGGY_ITEM_NAME:
     return {
       ...state,
       name: action.name
     }
-  case actionTypes.CHANGE_PIGGY_ITEM_CHARGE:
+  case actionTypes.CHANGE_NEW_PIGGY_ITEM_CHARGE:
     return {
       ...state,
       charge: action.charge
