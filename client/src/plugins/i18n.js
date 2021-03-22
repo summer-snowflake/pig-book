@@ -40,7 +40,7 @@ i18n
     },
 
     react: {
-      wait: true
+      useSuspense: true
     },
 
     resources: resources
