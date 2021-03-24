@@ -68,7 +68,6 @@ class TagTableRecordContainer extends Component<Props, State> {
     this.handleChangeColorCode = this.handleChangeColorCode.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
-    this.handleClickSubmit = this.handleClickSubmit.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
@@ -150,13 +149,6 @@ class TagTableRecordContainer extends Component<Props, State> {
       isOpenCancelModal: false
     })
     this.props.exitTag()
-  }
-
-  handleClickSubmit(): void {
-    //this.setState({
-    //  isOpenCategorizedModal: false
-    //})
-    //this.props.postTagCategories(this.props.tag.id, categoryIds)
   }
 
   handleClickClose(): void {
