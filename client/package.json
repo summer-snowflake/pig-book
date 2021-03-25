@@ -42,7 +42,7 @@
     "react-toastify": "^7.0.3",
     "react-tooltip": "^4.2.15",
     "react-transition-group": "^4.3.0",
-    "recharts": "^2.0.8",
+    "recharts": "^2.0.9",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "serve": "^11.3.1",
