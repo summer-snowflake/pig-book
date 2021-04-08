@@ -48,6 +48,11 @@ server: &server
         working_directory: server
         command: bundle exec rake db:schema:load
 
+    - run:
+        name: Ruby version
+        warking_directory: server
+        command: ruby -v
+
     # Run rubocop
     - run:
         name: Run Rubocop
