@@ -75,7 +75,7 @@
   "devDependencies": {
     "@types/sortablejs": "^1.10.6",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.22.0",
     "eslint-plugin-react": "^7.23.0",
     "sass-lint": "^1.13.1"
