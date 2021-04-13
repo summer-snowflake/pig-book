@@ -31,7 +31,7 @@ server: &server
 
     - run:
         name: Bundle install
-        command: bundle install --path vendor/bundle --clean
+        command: bundle install
         working_directory: server
 
     - type: cache-save
