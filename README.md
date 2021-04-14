@@ -29,7 +29,7 @@ This tool is for a household account book.
   - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/server/Gemfile#L4)
 
 - Ruby on Rails
-  - v6.0.3.1
+  - v6.0.3.6
   - [Click here for details](https://github.com/summer-snowflake/pig-book/blob/master/server/Gemfile#6)
 
 - PostgreSQL
@@ -136,3 +136,14 @@ rails db:migrate
 ### Seed Data
 
 `rails db:seed` is not yet.
+
+## App History
+
+- 2004-2006: PHP5
+- 2007-2008: PHP5 + Symphony
+- 2009-2012: Ruby1.8 + Rails2.3
+- 2013-2014: Ruby1.9 + Rails3
+- 2015-2016: Ruby2.0 + Rails4 + AngularJS v1
+- 2017-2018: Ruby2.3 + Rails5
+- 2018-2019: Ruby2.5 + Rails5 + React.js
+- 2020-2021: Ruby2.6 + Rails5 + React.js + Redux + Typescript

@@ -31,7 +31,7 @@ server: &server
 
     - run:
         name: Bundle install
-        command: bundle install --path vendor/bundle --clean
+        command: bundle install
         working_directory: server
 
     - type: cache-save
@@ -47,6 +47,11 @@ server: &server
         name: Load Database Schema
         working_directory: server
         command: bundle exec rake db:schema:load
+
+    - run:
+        name: Ruby version
+        warking_directory: server
+        command: ruby -v
 
     # Run rubocop
     - run:

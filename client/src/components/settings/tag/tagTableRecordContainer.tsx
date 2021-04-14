@@ -65,9 +65,9 @@ class TagTableRecordContainer extends Component<Props, State> {
     this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
+    this.handleChangeColorCode = this.handleChangeColorCode.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
-    this.handleClickSubmit = this.handleClickSubmit.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
@@ -75,7 +75,7 @@ class TagTableRecordContainer extends Component<Props, State> {
   }
 
   diff(): boolean {
-    return this.props.tag.name !== this.state.tag.name
+    return this.props.tag.name !== this.state.tag.name || this.props.tag.color_code !== this.state.tag.color_code
   }
 
   editing(): boolean {
@@ -128,6 +128,17 @@ class TagTableRecordContainer extends Component<Props, State> {
     })
   }
 
+  handleChangeColorCode(colorCode: string): void {
+    const tag = {
+      id: this.state.tag.id,
+      name: this.state.tag.name,
+      color_code: colorCode
+    }
+    this.setState({
+      tag: tag
+    })
+  }
+
   handleClickSubmitButton(): void {
     this.props.patchTag(this.state.tag.id, this.state.tag)
   }
@@ -138,13 +149,6 @@ class TagTableRecordContainer extends Component<Props, State> {
       isOpenCancelModal: false
     })
     this.props.exitTag()
-  }
-
-  handleClickSubmit(): void {
-    //this.setState({
-    //  isOpenCategorizedModal: false
-    //})
-    //this.props.postTagCategories(this.props.tag.id, categoryIds)
   }
 
   handleClickClose(): void {
@@ -197,6 +201,7 @@ class TagTableRecordContainer extends Component<Props, State> {
               disabled={this.props.editTagStore.isLoading || !this.diff()}
               isLoading={this.props.editTagStore.isLoading}
               onChangeName={this.handleChangeName}
+              onChangeColorCode={this.handleChangeColorCode}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}
               tag={this.state.tag}

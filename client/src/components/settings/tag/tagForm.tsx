@@ -13,8 +13,8 @@ interface State {
 interface ParentProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickSubmitButton: () => void;
   onChangeColorCode: (color: string) => void;
+  onClickSubmitButton: () => void;
   tag: Tag;
   disabled: boolean;
   isLoading: boolean;
@@ -34,13 +34,13 @@ class TagForm extends Component<Props, State> {
     this.handleChangeColorCode = this.handleChangeColorCode.bind(this)
   }
 
-  handleClickColorCode() {
+  handleClickColorCode(): void {
     this.setState({
       colorEditing: !this.state.colorEditing
     })
   }
 
-  handleChangeColorCode(color: ColorResult) {
+  handleChangeColorCode(color: ColorResult): void {
     this.props.onChangeColorCode(color.hex)
     this.setState({
       colorEditing: false
