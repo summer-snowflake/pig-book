@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   scope :api do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'confirmations' }
+  end
 
+  namespace :api do
     resource :user, only: %i[show update]
     resource :profile, only: %i[show update]
     resources :categories, only: %i[index show create update destroy]
