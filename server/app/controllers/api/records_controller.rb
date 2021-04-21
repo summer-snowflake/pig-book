@@ -5,7 +5,7 @@ module Api
     before_action :set_record, only: %i[update destroy]
 
     def index
-      fetcher = Record::Fetcher.new(user: current_user)
+      fetcher = Records::Fetcher.new(user: current_user)
       fetcher.find_all_by(records_params)
       render json: { list: fetcher.records,
                      total_count: fetcher.total_count,
