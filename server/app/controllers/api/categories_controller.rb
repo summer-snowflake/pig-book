@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class CategoriesController < BaseController
+  class CategoriesController < Api::BaseController
     def index
       render json: current_user.categories.order(created_at: :desc), status: :ok
     end

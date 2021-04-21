@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class PiggyItemsController < BaseController
+  class PiggyItemsController < Api::BaseController
     before_action :find_piggy_bank, only: %i[index create update destroy]
     before_action :find_piggy_item, only: %i[update]
 

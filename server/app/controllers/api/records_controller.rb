@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class RecordsController < BaseController
+  class RecordsController < Api::BaseController
     before_action :set_record, only: %i[update destroy]
 
     def index

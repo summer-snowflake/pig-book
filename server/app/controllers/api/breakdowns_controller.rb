@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class BreakdownsController < BaseController
+  class BreakdownsController < Api::BaseController
     def index
       breakdowns =
         current_user.breakdowns.includes(:category).order(created_at: :desc)

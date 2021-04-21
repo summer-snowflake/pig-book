@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class TagsController < BaseController
+  class TagsController < Api::BaseController
     def index
       tags = current_user.tags.order(created_at: :desc)
       render json: tags, status: :ok

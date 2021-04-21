@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class ProfilesController < BaseController
+  class ProfilesController < Api::BaseController
     before_action :set_profile
 
     def show

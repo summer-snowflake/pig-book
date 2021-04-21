@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class DashboardsController < BaseController
+  class DashboardsController < Api::BaseController
     def index
       fetcher = Dashboard::Fetcher.new(user: current_user)
       render json: fetcher.all

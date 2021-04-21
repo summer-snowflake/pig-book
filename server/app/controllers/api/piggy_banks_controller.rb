@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class PiggyBanksController < BaseController
+  class PiggyBanksController < Api::BaseController
     def index
       render json: current_user.piggy_banks, status: :ok
     end

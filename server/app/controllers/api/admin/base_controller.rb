@@ -2,7 +2,7 @@
 
 module Api
   module Admin
-    class BaseController < BaseController
+    class BaseController < Api::BaseController
       before_action :authenticate_admin!
 
       def authenticate_admin!

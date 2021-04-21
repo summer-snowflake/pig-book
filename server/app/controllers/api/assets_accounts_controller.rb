@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class AssetsAccountsController < BaseController
+  class AssetsAccountsController < Api::BaseController
     def index
       render json: current_user.assets_accounts, status: :ok
     end
