@@ -66,7 +66,7 @@ GEM
     acts_as_list (1.0.4)
       activerecord (>= 4.2)
     ast (2.4.2)
-    autodoc (0.7.5)
+    autodoc (0.7.6)
       actionpack
       activesupport (>= 3.0.0)
       rspec
