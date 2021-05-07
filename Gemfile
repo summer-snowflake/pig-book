@@ -17,6 +17,7 @@ gem 'slack-notifier'
 gem 'acts_as_list'
 gem 'webpacker'
 gem 'turbolinks'
+gem 'react-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

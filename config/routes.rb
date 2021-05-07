@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'home#show'
   scope :api do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'api/confirmations' }
   end
