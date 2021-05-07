@@ -262,7 +262,7 @@ DEPENDENCIES
   pg
   puma
   rack-cors
-  rails (~> 6.0.3.6)
+  rails (~> 6.0.3.7)
   rails-i18n
   rspec-rails
   rspec_junit_formatter
