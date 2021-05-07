@@ -11,8 +11,8 @@ RUN mkdir -p /pig-book/server
 
 WORKDIR /pig-book/server
 
-COPY Gemfile /pig-book/server/Gemfile
-COPY Gemfile.lock /pig-book/server/Gemfile.lock
+COPY Gemfile /pig-book/Gemfile
+COPY Gemfile.lock /pig-book/Gemfile.lock
 RUN gem install bundler
 RUN bundle install -j4
-COPY . /pig-book/server
+COPY . /pig-book
