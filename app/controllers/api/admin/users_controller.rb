@@ -4,7 +4,7 @@ module Api
   module Admin
     class UsersController < Api::Admin::BaseController
       def index
-        fetcher = User::Fetcher.new
+        fetcher = Users::Fetcher.new
         fetcher.find_all_by(users_params)
         render json: { list: fetcher.users, max_page: fetcher.max_page },
                include: :admin,

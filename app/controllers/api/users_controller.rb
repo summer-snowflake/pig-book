@@ -8,7 +8,8 @@ module Api
 
     def update
       if current_user.update(user_params)
-        render json: current_user.to_json(include: :admin, methods: %i[options_list options dashboard_years]), status: :ok
+        render json: current_user.to_json(include: :admin, methods: %i[options_list options dashboard_years]),
+               status: :ok
       else
         render_validation_error current_user
       end
