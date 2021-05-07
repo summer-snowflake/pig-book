@@ -1,8 +1,18 @@
 version: 2
 updates:
-- package-ecosystem: npm
+- package-ecosystem: bundler
   directory: "/"
   schedule:
     interval: daily
-    time: '16:00'
+    time: "13:00"
+    timezone: Asia/Tokyo
   open-pull-requests-limit: 10
+  versioning-strategy: lockfile-only
+- package-ecosystem: npm
+  directory: "/client"
+  schedule:
+    interval: daily
+    timezone: Asia/Tokyo
+    time: '13:00'
+  open-pull-requests-limit: 10
+  versioning-strategy: increase-if-necessary
