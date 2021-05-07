@@ -35,7 +35,7 @@ services:
       - "${CLIENT_PORT}:3000"
 
   server:
-    build: ./server
+    build: .
     hostname: server
     command: "bundle exec rails server -b 0.0.0.0"
     volumes:
