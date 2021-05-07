@@ -22,52 +22,39 @@ server: &server
     - checkout
 
     - type: cache-restore
-      key: pig_book-{{ checksum "server/Gemfile.lock" }}
+      key: pig_book-{{ checksum "Gemfile.lock" }}
 
     - run:
         name: Update bundler
         command: gem update bundler
-        working_directory: server
 
     - run:
         name: Bundle install
         command: bundle install
-        working_directory: server
 
     - type: cache-save
-      key: pig_book-{{ checksum "server/Gemfile.lock" }}
+      key: pig_book-{{ checksum "Gemfile.lock" }}
       paths:
         - vendor/bundle
 
     - run:
         name: Create Database
-        working_directory: server
         command: bundle exec rake db:create
     - run:
         name: Load Database Schema
-        working_directory: server
         command: bundle exec rake db:schema:load
 
     - run:
         name: Ruby version
-        warking_directory: server
         command: ruby -v
 
     # Run rubocop
     - run:
         name: Run Rubocop
-        working_directory: server
         command: bundle exec rubocop
-
-    # Run precompile
-    #- run:
-    #    name: precompile
-    #    working_directory: server
-    #    command: bundle exec rake assets:precompile
 
     # Run rspec in parallel
     - type: shell
-      working_directory: server
       command: |
         bundle exec rspec \
           --format RspecJunitFormatter \
@@ -77,11 +64,11 @@ server: &server
 
     # Save artifacts
     - store_artifacts:
-        path: ./server/tmp/capybara
+        path: ./tmp/capybara
         destination: capybara-screenshot
 
     - store_artifacts:
-        path: ./server/doc
+        path: ./doc
         destination: autodoc
 
 client: &client
