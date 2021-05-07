@@ -34,6 +34,8 @@ module Server
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
+
     config.generators.system_tests = nil
+    config.generators.template_engine = :slim
   end
 end
