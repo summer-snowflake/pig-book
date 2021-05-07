@@ -15,6 +15,8 @@ gem 'counter_culture'
 gem 'rack-cors'
 gem 'slack-notifier'
 gem 'acts_as_list'
+gem 'webpacker'
+gem 'turbolinks'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
