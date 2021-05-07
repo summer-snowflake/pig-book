@@ -1,0 +1,110 @@
+@import variables
+
+.dashboard-year
+  background-color: $translucent
+  border: 1px solid $green
+  font:
+    size: 14px
+    weight: bold
+  height: 43px
+  padding: 10px
+  text-align: center
+
+  .human-month-component
+    color: $darken-green
+
+  .btn-sm
+    margin:
+      left: 20px
+      right: 20px
+    padding: 1px 6px
+    position: relative
+    top: -2px
+
+  .btn
+    &:disabled
+      cursor: not-allowed
+
+.dashboard-tally-field
+  margin: 0 20px 0 auto
+  padding: 10px 0 10px 15px
+
+  .tally-time
+    padding-right: 10px
+
+.monthly-data-component
+  padding-top: 20px
+
+  .table
+    display: inline
+
+    td
+      border: 1px solid $green
+      height: 40px
+      padding: 5px
+
+  .tally-text
+    padding-right: 8px
+
+  .list-icon
+    a
+      color: $darken-green
+
+.monthly-bar-chart-component
+  padding-top: 20px
+
+.monthly-bar-chart-large-component
+  margin-left: 15px
+
+.yearly-bar-chart-component
+  padding-bottom: 20px
+
+.yearly-pie-chart-component
+  display: table-cell
+  padding-top: 20px
+
+.dashboards-link
+  padding-bottom: 10px
+
+  a
+    color: $darken-green
+
+    &:hover
+      color: $darken-green
+
+.dashboard + .dashboard
+  padding-top: 20px
+
+.other-tally-field-component
+  padding-bottom: 10px
+  text-align: right
+
+  .years-select
+    display: inline-block
+    margin-right: 10px
+    width: 120px
+
+  .tally-button-component
+    margin-bottom: 5px
+
+.monthly-category-bar-chart-component
+  padding-top: 40px
+
+.category-dashboard-component
+  min-height: 350px
+
+@media (max-width: 660px)
+  .monthly-bar-chart-large-component
+    display: none
+
+  .yearly-bar-chart-large-component
+    display: none
+
+
+@media (min-width: 660px)
+  .monthly-bar-chart-small-component
+    display: none
+
+  .yearly-bar-chart-small-component
+    display: none
+

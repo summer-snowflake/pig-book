@@ -1,0 +1,72 @@
+@import 'variables'
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle
+  background-color: $darken-pink
+  border-color: $darken-pink
+  box-shadow: 0 0 0 3px $rgba3-pink
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus
+  box-shadow: 0 0 0 3px $rgba3-pink
+
+.btn-primary.focus, .btn-primary:focus
+  background-color: $darken-pink
+  border-color: $darken-pink
+
+.btn-light:not(:disabled):not(.disabled).active,
+.btn-light:not(:disabled):not(.disabled):active,
+.show>.btn-light.dropdown-toggle
+  background-color: $light-green-translucent
+  border-color: $light-green
+  box-shadow: 0 0 0 3px $light-green-translucent
+
+.btn-light:not(:disabled):not(.disabled).active:focus,
+.btn-light:not(:disabled):not(.disabled):active:focus,
+.show>.btn-light.dropdown-toggle:focus
+  box-shadow: 0 0 0 3px $light-green-translucent
+
+.btn-secondary.focus, .btn-secondary:focus
+  background-color: $darken-button-green
+  border-color: $darken-button-green
+
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show>.btn-secondary.dropdown-toggle
+  background-color: $darken-button-green
+  border-color: $darken-button-green
+  box-shadow: 0 0 0 3px $light-green-translucent
+
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-secondary.dropdown-toggle:focus
+  box-shadow: 0 0 0 3px $light-green-translucent
+
+.modal-footer
+  border-top: 0
+  padding: 0
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link
+  background-color: $button-green
+
+.form-control::placeholder
+  color: $gray
+
+.nav-tabs
+  border-bottom: 1px solid $lighten-green
+
+.nav-tabs .nav-link
+  &:hover
+    background: $translucent
+    border: 1px solid $lighten-green
+
+  &.active
+    background: $translucent
+    border: 1px solid $green
+    border-bottom: 1px solid $translucent
+
+.nav-link
+  font-size: 12px
+  padding: .5rem

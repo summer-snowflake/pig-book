@@ -1,0 +1,54 @@
+@import 'variables'
+
+// メニュー共通
+.list-group-item
+  color: $pink
+
+  &:hover
+    color: $darken-pink
+
+    &:after
+      background-image: url('../images/pig-footprints.gif')
+      background-size: contain
+      content: ''
+      display: inline-block
+      height: 20px
+      position: absolute
+      right: 10px
+      vertical-align: middle
+      width: 20px
+
+  &.active-link-menu
+    color: $darken-pink
+    cursor: default
+    text-decoration: none
+
+    &:after
+      background-image: url('../images/pig-footprints-both.gif')
+      background-size: contain
+      content: ''
+      display: inline-block
+      height: 20px
+      position: absolute
+      right: 10px
+      vertical-align: middle
+      width: 20px
+
+.side-menu
+  .nav-link
+    background-color: $translucent
+    border: 1px solid $green
+    border-radius: 5px
+    height: 40px
+    line-height: 22px
+    margin-right: 10px
+    text-align: center
+
+  .nav-item
+    min-width: 42px
+
+  .nav-item + .nav-item
+    margin-top: 10px
+
+  template + .nav-item
+    margin-top: 20px

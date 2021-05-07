@@ -1,0 +1,30 @@
+@import 'variables'
+
+// ブランド
+.nav-brand
+  display: table
+  font-family: 'Lucida Grande', Meiryo, sans-serif
+  font-weight: bold
+
+  .brand-image
+    float: left
+    width: 60px
+
+  .brand-name
+    border-bottom: dotted 3px $green
+    color: $green
+    display: table-cell
+    font-size: 16px
+    padding: 3px
+
+// リンク
+.nav-link
+  color: $green
+  cursor: pointer
+  font-size: 14px
+
+  &:hover
+    color: $darken-green
+
+  &.active-link-menu
+    color: $darken-green
