@@ -1,5 +1,8 @@
 en:
   brand_name: Pig Book β
+  brand_subtitle: the cute account book application
+  menu:
+    home: Top
   label:
     yen: ¥
     dollar: $

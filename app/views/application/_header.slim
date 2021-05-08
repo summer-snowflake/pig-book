@@ -1,0 +1,11 @@
+header.header
+  nav.nav-brand
+    = image_pack_tag 'pig.gif', class: 'brand-image'
+    = link_to root_path, class: 'top-link'
+      span.brand-name
+        = t('brand_name')
+    ul.menu
+      li
+        = link_to root_path, class: 'menu-link'
+          i.fas.fa-home.left-icon
+          = t('menu.home')

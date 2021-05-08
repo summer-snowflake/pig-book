@@ -6,21 +6,27 @@
 .carousel
   .control-next
     &.control-arrow
+      &:hover
+        background-color: $rgba2-green
       &::before
         border-left: 12px solid $green
 
   .control-prev
     &.control-arrow
+      &:hover
+        background-color: $rgba2-green
       &::before
         border-right: 12px solid $green
 
   .carousel-status
     color: $green
+    right: 4px
     text-shadow: none
+    top: -11px
 
   .carousel-image
     background-color: $white
-    padding: 20px
+    padding: 21px
 
   .slide
     .legend

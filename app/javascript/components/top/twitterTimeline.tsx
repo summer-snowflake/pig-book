@@ -15,6 +15,7 @@ class TwitterTimeline extends Component {
         <a
           className='twitter-timeline'
           data-width='400'
+          data-tweet-limit='5'
           href="https://twitter.com/pig_book?ref_src=twsrc%5Etfw">
           Tweets by pig_book
         </a>

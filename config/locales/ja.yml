@@ -1,5 +1,8 @@
 ja:
   brand_name: おこづかいちょうβ
+  brand_subtitle: かわいい家計簿アプリ
+  menu:
+    home: HOME
   label:
     yen: ¥
     dollar: $

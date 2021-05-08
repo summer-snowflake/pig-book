@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
+    "rootDir": "./app/javascript/",
+    "baseUrl": "./app/javascript/",
+    "typeRoots": [
+      "node_modules/@types",
+      "app/javascript/types"
+    ],
     "declaration": false,
+    "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es6", "dom"],

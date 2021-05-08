@@ -1,4 +1,4 @@
-import React, { Component} from 'react'
+  import React, { Component } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import { withTranslation } from 'react-i18next'
 
@@ -6,7 +6,6 @@ import slideImage01 from 'images/slide01.png'
 import slideImage02 from 'images/slide02.png'
 
 import 'stylesheets/carousel.min.css'
-import 'stylesheets/top.sass'
 
 type Props = I18nProps
 

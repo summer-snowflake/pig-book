@@ -1,16 +1,16 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 
-import TwitterTimeline from 'components/top/twitterTimeline'
-import TopCarousel from 'components/top/topCarousel'
+import TwitterTimeline from './top/TwitterTimeline'
+import TopCarousel from './top/TopCarousel'
+
+import 'stylesheets/top.sass'
 
 class TopPage extends Component {
   render (): JSX.Element {
     return (
-      <div className='top-page-component container'>
-        <div className='row'>
-          <TopCarousel />
-          <TwitterTimeline />
-        </div>
+      <div className='top-page-component center-container'>
+        <TopCarousel />
+        <TwitterTimeline />
       </div>
     );
   }
