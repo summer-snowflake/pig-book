@@ -3,39 +3,52 @@
 require 'rails_helper'
 
 describe 'GET /api/admin/users', autodoc: true do
-  let!(:user3) { create(:user) }
-  let!(:user2) { create(:user, :active, :admin) }
+  let!(:inactive_user) { create(:user) }
+  let!(:admin_user) { create(:user, :active, :admin) }
   let!(:user) { create(:user, :active) }
+  let(:path) { '/api/admin/users' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      get '/api/admin/users'
+    it 'set alert message' do
+      get path
 
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+      expect(flash[:alert]).to eq 'アカウント登録もしくはログインしてください。'
+    end
+  end
+
+  context 'when NOT logged in.' do
+    before do
+      sign_in inactive_user
+    end
+
+    it 'set alert message' do
+      get path
+
+      expect(flash[:alert]).to eq 'メールアドレスの本人確認が必要です。'
     end
   end
 
   context 'when NOT logged in as admin.' do
-    it 'returns status code 401 and json errors data' do
-      get '/api/admin/users', headers: login_headers_with_login(user)
+    before do
+      sign_in user
+    end
 
-      expect(response.status).to eq 401
-      json = {
-        errors: ['操作が許可されているユーザでログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    it 'set alert message' do
+      get path
+
+      expect(flash[:alert]).to eq '操作が許可されているユーザでログインしてください。'
     end
   end
 
-  context 'when logged in.' do
+  context 'when logged in as admin user.' do
+    before do
+      sign_in admin_user
+    end
+
     let!(:category) { create(:category, user: user) }
 
     it 'returns status code 200 and json users data' do
-      get '/api/admin/users', headers: login_headers_with_login(user2)
+      get path
 
       expect(response.status).to eq 200
       users = [
@@ -56,21 +69,22 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false
+          piggy_bank_option: false,
+          tokens: nil
         },
         {
           admin: {
-            user_id: user2.id
+            user_id: admin_user.id
           },
           active: true,
-          email: user2.email,
+          email: admin_user.email,
           allow_password_change: false,
-          image: user2.image,
-          name: user2.name,
-          nickname: user2.nickname,
+          image: admin_user.image,
+          name: admin_user.name,
+          nickname: admin_user.nickname,
           provider: 'email',
-          uid: user2.email,
-          current_sign_in_at: user2.reload.current_sign_in_at,
+          uid: admin_user.email,
+          current_sign_in_at: admin_user.reload.current_sign_in_at,
           categories_count: 0,
           breakdowns_count: 0,
           places_count: 0,
@@ -78,18 +92,19 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false
+          piggy_bank_option: false,
+          tokens: nil
         },
         {
           active: false,
-          email: user3.email,
+          email: inactive_user.email,
           allow_password_change: false,
-          image: user3.image,
-          name: user3.name,
-          nickname: user3.nickname,
+          image: inactive_user.image,
+          name: inactive_user.name,
+          nickname: inactive_user.nickname,
           provider: 'email',
-          uid: user3.email,
-          current_sign_in_at: user3.reload.current_sign_in_at,
+          uid: inactive_user.email,
+          current_sign_in_at: inactive_user.reload.current_sign_in_at,
           categories_count: 0,
           breakdowns_count: 0,
           places_count: 0,
@@ -97,7 +112,8 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false
+          piggy_bank_option: false,
+          tokens: nil
         }
       ]
       json = {

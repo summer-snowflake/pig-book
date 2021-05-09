@@ -3,6 +3,9 @@ en:
   brand_subtitle: the cute account book application
   menu:
     home: Top
+    sign_in: SignIn
+    sign_up: SignUp
+    sign_out: SignOut
   label:
     yen: ¥
     dollar: $
@@ -11,6 +14,9 @@ en:
     options:
       daily_option: Daily Graph - Unimplemented.
       unlimited_option: You can add more than 200 which is equivalent to about three months.
+  button:
+    login: Log in
+    sign_up: Sign up
   errors:
     messages:
       is_limited: You can't add any more. You need to add option `Daily Chart`.

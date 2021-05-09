@@ -1,4 +1,3 @@
-/*
 import { Category, Breakdown, User, Place, RecordTotals, Event, Tutorial, Tag, WithRelationsCategory, PiggyBank } from 'types/api'
 import { Action } from 'redux'
 
@@ -114,4 +113,3 @@ export interface PiggyItemsAction extends Action {
 export interface PiggyItemAction extends Action {
   piggyItem: PiggyItem;
 }
-*/

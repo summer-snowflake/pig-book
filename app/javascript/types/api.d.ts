@@ -1,17 +1,5 @@
-/*
 export interface Errors {
   errors: string[];
-}
-
-export interface LoginParams {
-  email: string;
-  password: string;
-}
-
-export interface SignUpParams {
-  email: string;
-  password: string;
-  password_confirmation: string;
 }
 
 export interface CategoryParams {
@@ -297,4 +285,3 @@ export interface PiggyItemParams {
   balance_of_payments?: boolean;
   charge: string;
 }
-*/

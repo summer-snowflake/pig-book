@@ -1,19 +1,18 @@
-/*
-import { Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank } from 'types/api'
+import { compose } from 'redux'
+import {
+  Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank, RecordTotals, Tag, MonthlyCategoryBalanceTable, AssetsAccount, PiggyItem, Admin, WithCategoriesPlace, AdminUser
+} from 'types/api'
+
+// for redux Provider store
+interface ExtendedWindow extends Window {
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+}
+declare let window: ExtendedWindow
 
 export interface CookiesHeader {
   uid: string;
   client: string;
   'access-token': string;
-}
-
-export interface SessionStore {
-  isLoading: boolean;
-}
-
-export interface RegistrationStore extends Errors {
-  isLoading: boolean;
-  sendMail: boolean;
 }
 
 export interface UserStore extends Errors {
@@ -307,4 +306,3 @@ export interface EditPiggyItemStore extends Errors {
   balance_of_payments: boolean;
   charge: string;
 }
-*/

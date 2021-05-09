@@ -10,22 +10,22 @@ describe 'GET /api/piggy_items', autodoc: true do
   let!(:path) { "/api/piggy_banks/#{piggy_bank.id}/piggy_items" }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
+    before do
       get path
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
-    it 'returns status code 200 and json piggy_items data' do
-      get path, headers: login_headers_with_login(user)
+    before do
+      sign_in user
+    end
 
+    it 'returns status code 200 and json piggy_items data' do
+      get path
       expect(response.status).to eq 200
+
       json = [
         {
           piggy_bank_id: piggy_bank.id,

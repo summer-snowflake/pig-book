@@ -4,31 +4,31 @@ require 'rails_helper'
 
 describe 'POST /api/piggy_banks', autodoc: true do
   let!(:user) { create(:user, :active) }
+  let(:path) { '/api/piggy_banks' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post '/api/piggy_banks'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
+    before do
+      sign_in user
+    end
+
     context 'name is valid' do
       it 'returns status code 201 and json piggy_bank data' do
         params = {
           title: '貯金箱の名前',
           description: '貯金箱の説明',
           currency: 'yen'
-        }.to_json
-        post '/api/piggy_banks',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params
         expect(response.status).to eq 201
+
         json = {
           user_id: user.id,
           title: '貯金箱の名前',
@@ -47,11 +47,10 @@ describe 'POST /api/piggy_banks', autodoc: true do
           title: '同じ貯金箱の名前',
           description: '',
           currency: 'yen'
-        }.to_json
-        post '/api/piggy_banks',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params
         expect(response.status).to eq 422
+
         json = {
           errors: ['タイトルはすでに登録されています']
         }.to_json
@@ -65,11 +64,10 @@ describe 'POST /api/piggy_banks', autodoc: true do
           title: '',
           description: '',
           currency: 'yen'
-        }.to_json
-        post '/api/piggy_banks',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params
         expect(response.status).to eq 422
+
         json = {
           errors: ['タイトルを入力してください']
         }.to_json

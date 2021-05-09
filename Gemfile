@@ -8,7 +8,6 @@ gem 'pg'
 gem 'puma'
 gem 'bootsnap', require: false
 gem 'devise'
-gem 'devise_token_auth'
 gem 'dotenv-rails'
 gem 'rails-i18n'
 gem 'counter_culture'
@@ -16,8 +15,8 @@ gem 'rack-cors'
 gem 'slack-notifier'
 gem 'acts_as_list'
 gem 'webpacker'
-gem 'turbolinks'
 gem 'react-rails'
+gem 'turbolinks'
 gem 'slim-rails'
 
 group :development, :test do
@@ -27,6 +26,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry-rails'
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'

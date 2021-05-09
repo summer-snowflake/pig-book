@@ -1,0 +1,18 @@
+.center-container
+  .row
+    .col-3
+      = render partial: 'login_menu'
+    .col
+      .card
+        .card-header
+          i.fa.fa-leaf.left-icon
+          = t('menu.sign_in')
+        .card-body.with-background-image
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .form-group
+              = f.label :email, class: 'form-label required'
+              = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
+            .form-group
+              = f.label :password, class: 'form-label required'
+              = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
+            = f.submit t('button.login'), class: 'btn btn-primary'

@@ -11,25 +11,25 @@ describe 'GET /api/categories', autodoc: true do
   let!(:categorized) do
     create(:categorized_place, category: category, place: place2)
   end
+  let(:path) { "/api/categories/#{category.id}" }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      get "/api/categories/#{category.id}"
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      get path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
-    it 'returns status code 200 and json category data' do
-      get "/api/categories/#{category.id}",
-          headers: login_headers_with_login(user)
+    before do
+      sign_in user
+    end
 
+    it 'returns status code 200 and json category data' do
+      get path
       expect(response.status).to eq 200
+
       json = {
         name: category.name,
         balance_of_payments: category.balance_of_payments,

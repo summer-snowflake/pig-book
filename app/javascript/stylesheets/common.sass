@@ -10,6 +10,26 @@ body
     margin: auto
     max-width: 1140px
 
+  .row
+    display: flex
+    flex-wrap: wrap
+    margin-right: -15px
+    margin-left: -15px
+
+    .col-3
+      flex: 0 0 25%
+
+    .col
+      flex-basis: 0
+      flex-grow: 1
+      max-width: 100%
+
+    &.flex-end
+      justify-content: flex-end
+
+.clear
+  clear: both
+
 //.disabled
 //  cursor: default
 //
@@ -22,9 +42,9 @@ body
 //.green
 //  color: $green
 //
-//.pink
-//  color: $pink
-//
+.pink
+  color: $pink
+
 //.red
 //  color: $red
 //
@@ -43,52 +63,102 @@ body
 //.right-icon
 //  margin-left: 5px
 //
-//.list-group-item
-//  background-color: $translucent
-//  border: 1px solid $green
-//
-//.navbar
-//  padding-top: 0
-//
-//.card
-//  background: $translucent
-//  border-color: $green
-//
-//.card-header
-//  background-color: $translucent
-//  border-color: $green
-//  font-size: 14px
-//  padding: 10px 15px
-//
-//.card-body
-//  border-color: $green
-//
-//  &.with-background-image
-//    background-image: url('../images/filter-pig.png')
-//    background-repeat: no-repeat
-//    background-size: 120% auto
-//
-//.form-control
-//  border-color: $light-green
-//  font-size: 14px
-//
-//  &:focus
-//    border-color: $light-green
-//    box-shadow: 0 0 0 3px $light-green
-//
+
+.list-group
+  display: flex
+  flex-direction: column
+  padding: 0 15px
+
+.list-group-item
+  background-color: $translucent
+  border: 1px solid $green
+  color: $pink
+  padding: 10px
+  text-decoration: none
+
+  &:first-child
+    border-top-left-radius: .25rem
+    border-top-right-radius: .25rem
+
+  &:last-child
+    border-bottom-left-radius: .25rem
+    border-bottom-right-radius: .25rem
+
+  &:hover
+    color: $darken-pink
+
+.list-group-item + .list-group-item
+  border-top: 0
+
+.card
+  background: $translucent
+  border-radius: .25rem
+
+.card-header
+  border: 1px solid $green
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
+  background-color: $translucent
+  padding: 10px 15px
+
+.card-body
+  border: 1px solid $green
+  border-top: 0
+  border-bottom-left-radius: .25rem
+  border-bottom-right-radius: .25rem
+  padding: 10px
+
+  &.with-background-image
+    background-image: url('../images/filter-pig.png')
+    background-repeat: no-repeat
+    background-size: 120% auto
+
+.form-group
+  display: flex
+  flex-direction: column
+
+  .required
+    &::after
+      color: $pink
+      content: '＊'
+      font-weight: bold
+      margin-left: 4px
+      font-size: 10px
+
+  .form-label
+    padding: 5px
+
+.form-control
+  background-color: $white
+  border: 1px solid $light-green
+  border-radius: .25rem
+  height: 1.8em
+  margin: 0 5px
+  padding: 1px 8px
+
+  &:focus
+    outline: none
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
+
 //  &.zero
 //    color: $gray
-//
-//.required
-//  &::after
-//    color: $pink
-//    content: '*'
-//    font-weight: bold
-//    margin-left: 4px
-//
-//.btn
-//  font-size: 13px
-//
+
+.btn
+  border: 0
+  border-radius: .25rem
+  cursor: pointer
+  margin: 15px 5px 5px 5px
+  padding: 5px 10px
+
+  &.btn-primary
+    background: $pink
+    color: $white
+    //border: 1px solid $pink
+
+  &:disabled
+    background: $translucent5-pink
+
 //  &:disabled
 //    cursor: default
 //
@@ -330,11 +400,52 @@ body
 //    td
 //      padding: 10px
 //
-//.validation-errors-field
-//  border: 1px solid $pink
+
+.validation-error-messages-field
+  border: 1px solid $pink
+  margin-bottom: 15px
+  padding: 10px 10px 12px
+
+  small
+    color: $pink
+    display: block
+
+.notification-field
+  color: $white
+  display: inline-block
+  font-weight: bold
+  float: right
+  margin-bottom: 15px
+  padding: 10px 10px 12px
+
+  &.alert
+    border: 1px solid $pink
+    background-color: $translucent5-pink
+
+  &.notice
+    border: 1px solid $green
+    background-color: $translucent5-green
+
+//@keyframes fadeout
+//    0%
+//      opacity: 1
+//    99%
+//      opacity: 0
+//    100%
+//      opacity: 0
+//
+//@-webkit-keyframes fadeout
+//    0%
+//      opacity: 1
+//    99%
+//      opacity: 0
+//    100%
+//      opacity: 0
+
+//.messages-field
 //  margin-bottom: 15px
 //  padding: 10px 10px 12px
-//
+
 //.messages-field
 //  margin-bottom: 15px
 //  padding: 10px 10px 12px

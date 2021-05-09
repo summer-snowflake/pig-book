@@ -20,7 +20,27 @@
     font-size: 16px
     padding: 3px
 
+  .nav-brand
+    float: left
+
   .menu
+    display: flex
+    float: left
+    justify-content: flex-start
+    list-style: none
+
+    .menu-link
+      color: $green
+      font-size: 14px
+      text-decoration: none
+
+      &:hover
+        color: $darken-green
+
+  .right-menu
+    display: flex
+    float: right
+    justify-content: flex-end
     list-style: none
 
     .menu-link

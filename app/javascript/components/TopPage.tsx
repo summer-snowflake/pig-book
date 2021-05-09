@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import TwitterTimeline from './top/TwitterTimeline'
-import TopCarousel from './top/TopCarousel'
+import TwitterTimeline from 'components/top/TwitterTimeline'
+import TopCarousel from 'components/top/TopCarousel'
 
 import 'stylesheets/top.sass'
 

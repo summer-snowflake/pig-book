@@ -4,24 +4,25 @@ require 'rails_helper'
 
 describe 'PATCH /api/user', autodoc: true do
   let!(:user) { create(:user, :active) }
+  let(:path) { '/api/user' }
 
   context 'when NOT logged in.' do
-    it 'return status code 401 and json errors data' do
-      patch '/api/user'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      patch path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in as not an administrator' do
     let(:params) do
       {
         daily_option: true
-      }.to_json
+      }
+    end
+
+    before do
+      sign_in user
     end
 
     after do
@@ -29,10 +30,9 @@ describe 'PATCH /api/user', autodoc: true do
     end
 
     it 'returns status code 200 and json user data' do
-      patch '/api/user',
-            params: params, headers: login_headers_with_login(user)
-
+      patch path, params: params
       expect(response.status).to eq 422
+
       json = {
         errors: ['デイリーチャートは許可されていません']
       }.to_json
@@ -42,11 +42,14 @@ describe 'PATCH /api/user', autodoc: true do
 
   context 'when logged in as an administrator' do
     let(:user) { create(:user, :active, :admin) }
-
     let(:params) do
       {
         daily_option: true
-      }.to_json
+      }
+    end
+
+    before do
+      sign_in user
     end
 
     after do
@@ -54,10 +57,9 @@ describe 'PATCH /api/user', autodoc: true do
     end
 
     it 'returns status code 200 and json user data' do
-      patch '/api/user',
-            params: params, headers: login_headers_with_login(user)
-
+      patch path, params: params
       expect(response.status).to eq 200
+
       json = {
         id: user.id,
         daily_option: true,
@@ -67,6 +69,7 @@ describe 'PATCH /api/user', autodoc: true do
         name: nil,
         nickname: nil,
         provider: 'email',
+        tokens: nil,
         uid: user.uid,
         image: nil,
         allow_password_change: false,

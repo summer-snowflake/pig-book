@@ -5,30 +5,30 @@ require 'rails_helper'
 describe 'POST /api/tags', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:tag) { create(:tag, user: user) }
+  let(:path) { '/api/tags' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post '/api/tags'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
+    before do
+      sign_in user
+    end
+
     context 'name is valid' do
       it 'returns status code 201 and json tag data' do
         params = {
           name: '新しいラベル',
           color_code: '#000000'
-        }.to_json
-        post '/api/tags',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params
         expect(response.status).to eq 201
+
         json = {
           name: '新しいラベル',
           color_code: '#000000',
@@ -47,11 +47,10 @@ describe 'POST /api/tags', autodoc: true do
         params = {
           name: '同じラベル',
           color_code: tag.color_code
-        }.to_json
-        post '/api/tags',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params
         expect(response.status).to eq 422
+
         json = {
           errors: %w[ラベルはすでに登録されています カラーコードはすでに登録されています]
         }.to_json
@@ -63,11 +62,10 @@ describe 'POST /api/tags', autodoc: true do
       it 'returns status code 422 and json errors data' do
         params = {
           name: ''
-        }.to_json
-        post '/api/tags',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params
         expect(response.status).to eq 422
+
         json = {
           errors: %w[ラベルを入力してください カラーコードを入力してください]
         }.to_json

@@ -1,0 +1,6 @@
+- if resource.errors.present?
+  .validation-error-messages-field
+    - resource.errors.full_messages.each do |message|
+      small
+        i.fas.fa-exclamation-circle.left-icon
+        = message
