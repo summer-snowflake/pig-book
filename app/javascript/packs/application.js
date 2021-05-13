@@ -8,6 +8,9 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import './server_rendering'
 
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+
 import 'stylesheets/application'
 import 'plugins/i18n'
 

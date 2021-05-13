@@ -1,6 +1,5 @@
 body
   background-image: url('../images/background-wood.png')
-  color: $darken-green
   font-size: 12px
   min-height: 100vh
   padding: 0 10px
@@ -30,6 +29,9 @@ body
 .clear
   clear: both
 
+.transparent
+  color: transparent
+
 //.disabled
 //  cursor: default
 //
@@ -45,14 +47,14 @@ body
 .pink
   color: $pink
 
-//.red
-//  color: $red
-//
+.red
+  color: $red
+
+.blue
+  color: $blue
+
 //.light-blue
 //  color: $light-blue
-//
-//.blue
-//  color: $blue
 //
 //.yellow
 //  color: $yellow
@@ -94,7 +96,7 @@ body
   background: $translucent
   border-radius: .25rem
   border: 1px solid $green
-
+  color: $darken-green
   margin: 15px
   padding: 10px 15px
 
@@ -114,6 +116,7 @@ body
   border-top-left-radius: .25rem
   border-top-right-radius: .25rem
   background-color: $translucent
+  color: $darken-green
   padding: 10px 15px
 
 .card-body
@@ -142,6 +145,9 @@ body
 
   .form-label
     padding: 5px
+
+.form-group + .form-group
+  padding-top: 5px
 
 .form-control
   background-color: $white
@@ -173,6 +179,18 @@ body
 
   &:disabled
     background: $translucent5-pink
+
+.box-border
+  position: relative
+  top: 2px
+
+  .fa-check
+    border: 1px solid $green-translucent
+    cursor: pointer
+    padding: 5px
+
+    &:hover
+      background: $translucent2-lighten-green
 
 //  &:disabled
 //    cursor: default
@@ -246,7 +264,7 @@ body
 //    width: 30px
 //
 //    &:hover
-//      background-color: $rgba2-lighten-green
+//      background-color: $translucent2-lighten-green
 //
 //  .fa-sort-down
 //    @extend %cursor-icon
@@ -264,7 +282,7 @@ body
 //    width: 30px
 //
 //    &:hover
-//      background-color: $rgba2-lighten-green
+//      background-color: $translucent2-lighten-green
 //
 //  %cursor-icon
 //    border-radius: 3px
@@ -274,24 +292,33 @@ body
 //    width: 30px
 //
 //    &:hover
-//      background-color: $rgba2-lighten-green
+//      background-color: $translucent2-lighten-green
 //
 //  .fa-copy
 //    @extend %cursor-icon
 //    padding: 8px
 //
-//  .button-border
-//    border: 1px solid $green-translucent
-//
-//.table
+
 //
 //  tbody + tbody
 //    border-top: 0
-//
-//  td
-//    border-top: 1px solid $light-green-translucent
-//    height: 73px
-//    padding: .25rem
+    //height: 73px
+.table
+  padding-top: 10px
+  width: 100%
+
+  tr
+    height: 40px
+  td
+    border-top: 1px solid $light-green-translucent
+    padding: .25rem
+
+  .column-human-date
+    width: 140px
+
+  .column-human-now
+    color: $gray
+
 //
 //  th
 //    border-top: 0
@@ -476,11 +503,10 @@ body
 //  border-left: solid 2px $green
 //  margin-left: 10px
 //
-//.counter-component
-//  position: absolute
-//  right: 1.25rem
-//  top: 50px
-//
+.counter
+  color: $darken-green
+  text-align: right
+
 //.from-now-component
 //  color: $gray
 //  padding-left: 5px

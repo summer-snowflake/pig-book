@@ -59,7 +59,7 @@ development:
 test:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  # database: pig-book_test
+  database: pig-book_test
   port: 5433
 
 # As with config/credentials.yml, you never want to store sensitive information,

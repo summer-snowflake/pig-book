@@ -1,17 +1,24 @@
 $green: #76891a;
 $darken-green: darken($green, 10%);
+$translucent5-green: rgba($green, .5);
+
+$lighten-green: lighten($green, 10%);
+$translucent2-lighten-green: rgba($lighten-green, .2);
+
 $pink: #ac5e9f;
 $darken-pink: darken($pink, 10%);
 $translucent5-pink: rgba($pink, .5);
-$translucent5-green: rgba($green, .5);
+
+$white: #fff;
+$translucent: rgba($white, .5);
 
 $red: #ac5e78;
 $blue: #5e78ac;
+$gray: #999;
+
 $yellow: #ffd351;
-$white: #fff;
 $darken-green-translucent: rgba(darken($green, 10%), .6);
 $purple: #9b7ec9;
-$gray: #999;
 $info: #61abb3;
 $light-blue: #61abbb;
 $rgba3-pink: rgba($pink, .3);
@@ -21,11 +28,9 @@ $button-green: #5e7535;
 $darken-button-green: darken($button-green, 10%);
 $rgba3-button-green: rgba($button-green, .3);
 $light-green: #c8d0a3;
-$light-green-translucent-rgba8: rgba($light-green, .8);
 $light-green-translucent: rgba($light-green, .5);
+$translucent8-light-green: rgba($light-green, .8);
+$light-green-translucent-rgba8: rgba($light-green, .8);
 
 $rgba2-green: rgba($green, .2);
 $rgba5-green: rgba($green, .5);
-$lighten-green: lighten($green, 15%);
-$rgba2-lighten-green: rgba($lighten-green, .2);
-$translucent: rgba($white, .5);

@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux'
 
 import {
-  UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, RegistrationStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore, PiggyItemsStore, NewPiggyItemStore, EditPiggyItemStore
+  UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore, PiggyItemsStore, NewPiggyItemStore, EditPiggyItemStore
 } from 'types/store'
-import registrationReducer from 'reducers/registrationReducer'
 import userReducer from 'reducers/userReducer'
 import profileReducer from 'reducers/profileReducer'
 import newCategoryReducer from 'reducers/newCategoryReducer'
@@ -41,7 +40,6 @@ import newPiggyItemReducer from 'reducers/newPiggyItemReducer'
 import editPiggyItemReducer from 'reducers/editPiggyItemReducer'
 
 export type RootState = {
-  registration: RegistrationStore;
   user: UserStore;
   profile: ProfileStore;
   newCategory: NewCategoryStore;
@@ -80,7 +78,6 @@ export type RootState = {
 }
 
 const rootReducer = combineReducers({
-  registration: registrationReducer,
   user: userReducer,
   profile: profileReducer,
   newCategory: newCategoryReducer,

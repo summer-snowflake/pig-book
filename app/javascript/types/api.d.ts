@@ -1,3 +1,4 @@
+/*
 export interface Errors {
   errors: string[];
 }
@@ -237,18 +238,20 @@ export interface Dashboard {
   monthly_total: MonthlyBalanceTable[];
   yearly_total: YearlyBalanceTable;
 }
+*/
 
 export interface AssetsAccount {
   id: number;
   name: string;
   balance_of_payments: boolean;
-  currency: string;
   money: number;
-  updated_at: string;
-  position: number;
   checked: boolean;
+  human_charge: string;
+  human_updated_at: string;
+  from_now: string;
 }
 
+/*
 export interface AssetsAccountParams {
   name?: string;
   balance_of_payments?: boolean;
@@ -285,3 +288,4 @@ export interface PiggyItemParams {
   balance_of_payments?: boolean;
   charge: string;
 }
+*/

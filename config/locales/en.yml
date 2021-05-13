@@ -1,4 +1,8 @@
 en:
+  time:
+    formats:
+      default: "%m/%d/%Y %H:%M:%S"
+      date: "%m/%d/%Y %a"
   brand_name: Pig Book β
   brand_subtitle: the cute account book application
   menu:
@@ -8,6 +12,7 @@ en:
     sign_out: SignOut
     mypage: Mypage
     mypage_top: Mypage TOP
+    total_assets: Total Assets
   label:
     yen: ¥
     dollar: $
@@ -17,6 +22,7 @@ en:
     options:
       daily_option: Daily Graph - Unimplemented.
       unlimited_option: You can add more than 200 which is equivalent to about three months.
+    ago: ' ago'
   button:
     login: Log in
     sign_up: Sign up

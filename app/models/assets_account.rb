@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AssetsAccount < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::DateHelper
   include EnumDefinedCurrency
 
   acts_as_list scope: :user_id, touch_on_update: false
@@ -12,6 +14,20 @@ class AssetsAccount < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 },
                    uniqueness: { scope: :user }
   validate :should_have_limited_count
+
+  def human_charge
+    yen? ? number_to_currency(money, unit: '¥', format: '%u%n') : number_to_currency(money, precision: 2)
+  end
+
+  def human_updated_at
+    I18n.l(updated_at, format: :date)
+  end
+
+  def from_now
+    time_ago_in_words(updated_at)
+  end
+
+  private
 
   def should_have_limited_count
     return unless user

@@ -1,13 +1,6 @@
-import { compose } from 'redux'
 import {
   Errors, Category, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank, RecordTotals, Tag, MonthlyCategoryBalanceTable, AssetsAccount, PiggyItem, Admin, WithCategoriesPlace, AdminUser
 } from 'types/api'
-
-// for redux Provider store
-interface ExtendedWindow extends Window {
-  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-}
-declare let window: ExtendedWindow
 
 export interface CookiesHeader {
   uid: string;
