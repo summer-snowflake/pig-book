@@ -6,11 +6,14 @@ ja:
     sign_in: ログイン
     sign_up: アカウント登録
     sign_out: ログアウト
+    mypage: マイページ
+    mypage_top: マイページTOP
   label:
     yen: ¥
     dollar: $
     nothing: なし
     other: その他
+    option_names: ご利用オプション
     options:
       daily_option: 日々の登録をグラフで表示（未実装）
       unlimited_option: 登録件数200件を超えて登録できます。200件は3ヶ月〜半年ほどの件数です。

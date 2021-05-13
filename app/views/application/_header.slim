@@ -13,6 +13,10 @@ header.header
     ul.right-menu
       - if user_signed_in?
         li
+          = link_to mypage_path, class: 'menu-link'
+            i.fas.fa-user.left-icon
+            = t('menu.mypage')
+        li
           = link_to destroy_user_session_path, class: 'menu-link', method: :delete
             i.fas.fa-sign-out-alt.left-icon
             = t('menu.sign_out')

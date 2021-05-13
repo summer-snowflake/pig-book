@@ -6,11 +6,14 @@ en:
     sign_in: SignIn
     sign_up: SignUp
     sign_out: SignOut
+    mypage: Mypage
+    mypage_top: Mypage TOP
   label:
     yen: ¥
     dollar: $
     nothing: None
     other: Other
+    option_names: Options
     options:
       daily_option: Daily Graph - Unimplemented.
       unlimited_option: You can add more than 200 which is equivalent to about three months.
