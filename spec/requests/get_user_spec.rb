@@ -19,12 +19,8 @@ describe 'GET /api/user', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     it 'returns status code 200 and json user data' do
-      get path
+      get path, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 200
 
       json = {
@@ -36,7 +32,6 @@ describe 'GET /api/user', autodoc: true do
         name: nil,
         nickname: nil,
         provider: 'email',
-        tokens: nil,
         image: nil,
         allow_password_change: false,
         categories_count: 0,

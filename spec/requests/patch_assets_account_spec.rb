@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'PATCH /api/assets_accounts', autodoc: true do
+describe 'PATCH /api/assets_accounts/:id', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:assets_account) { create(:assets_account, user: user) }
   let(:path) { "/api/assets_accounts/#{assets_account.id}" }
@@ -16,16 +16,12 @@ describe 'PATCH /api/assets_accounts', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 200 and json assets_account data' do
         params = {
           name: '△△銀行'
         }
-        patch path, params: params
+        patch path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {

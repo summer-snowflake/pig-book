@@ -21,16 +21,12 @@ describe 'POST /api/places/:place_id/categories', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 200 and json place categories data' do
         params = {
           category_ids: [category2.id]
         }
-        post path, params: params, as: :json
+        post path, params: params, headers: login_headers_with_login(user), as: :json
 
         expect(response.status).to eq 200
         json = [

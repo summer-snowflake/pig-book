@@ -23,10 +23,6 @@ describe 'PATCH /api/records/:id', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'params are valid' do
       let!(:published_at) { Time.zone.local(2021, 3, 3, 15, 0, 0) }
 
@@ -41,7 +37,7 @@ describe 'PATCH /api/records/:id', autodoc: true do
           point: 10,
           memo: '更新'
         }
-        patch path, params: params
+        patch path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {

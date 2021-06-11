@@ -15,10 +15,6 @@ describe 'PATCH /api/profile', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     let(:params) do
       {
         locale: 'en',
@@ -31,7 +27,7 @@ describe 'PATCH /api/profile', autodoc: true do
     end
 
     it 'returns status code 200 and json profile data' do
-      patch path, params: params
+      patch path, params: params, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 200
 
       json = {

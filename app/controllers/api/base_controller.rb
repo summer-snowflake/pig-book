@@ -4,6 +4,8 @@ module Api
   class BaseController < ApplicationController
     protect_from_forgery with: :null_session
 
+    include DeviseTokenAuth::Concerns::SetUserByToken
+
     rescue_from Exception, with: :render_exception_error
     rescue_from ActiveRecord::RecordNotFound,
                 ActionController::RoutingError,

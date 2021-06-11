@@ -15,10 +15,6 @@ describe 'POST /api/piggy_banks', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 201 and json piggy_bank data' do
         params = {
@@ -26,7 +22,7 @@ describe 'POST /api/piggy_banks', autodoc: true do
           description: '貯金箱の説明',
           currency: 'yen'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
 
         json = {
@@ -48,7 +44,7 @@ describe 'POST /api/piggy_banks', autodoc: true do
           description: '',
           currency: 'yen'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {
@@ -65,7 +61,7 @@ describe 'POST /api/piggy_banks', autodoc: true do
           description: '',
           currency: 'yen'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {

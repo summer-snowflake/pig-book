@@ -20,10 +20,6 @@ describe 'POST /api/records', autodoc: true do
   context 'when logged in.' do
     let!(:published_at) { Time.zone.local(2021, 3, 3, 15, 0, 0) }
 
-    before do
-      sign_in user
-    end
-
     context 'valid parameters' do
       let(:params) do
         {
@@ -39,7 +35,7 @@ describe 'POST /api/records', autodoc: true do
       end
 
       it 'returns status code 201 and json record data' do
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
 
         json = {
@@ -73,7 +69,7 @@ describe 'POST /api/records', autodoc: true do
       end
 
       it 'returns status code 422 and json errors data' do
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {

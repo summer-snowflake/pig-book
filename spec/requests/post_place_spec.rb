@@ -16,16 +16,12 @@ describe 'POST /api/places', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 201 and json place data' do
         params = {
           name: '新しい場所'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
 
         json = {
@@ -45,7 +41,7 @@ describe 'POST /api/places', autodoc: true do
         params = {
           name: '同じ場所'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {
@@ -60,7 +56,7 @@ describe 'POST /api/places', autodoc: true do
         params = {
           name: ''
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {

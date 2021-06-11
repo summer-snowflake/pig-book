@@ -16,21 +16,31 @@ describe 'DELETE /api/categories/:id', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
+    it 'returns status code 204' do
+      delete path, headers: login_headers_with_login(user), as: :json
+      expect(response.status).to eq 204
+
+      delete path, headers: login_headers_with_login(user), as: :json
+      expect(response.status).to eq 404
     end
 
-    it_behaves_like 'returns status code 404 because delete twice'
-
     it 'returns status code 204' do
-      delete path
+      delete path, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 204
     end
 
     context 'when already be used by record' do
       let!(:record) { create(:record, user: user, category: category) }
 
-      it_behaves_like 'returns status code 403 because it is already in use'
+      it 'returns status code 403 because it is already in use' do
+        delete path, headers: login_headers_with_login(user), as: :json
+        expect(response.status).to eq 403
+
+        json = {
+          errors: ['使用されているため削除できません。']
+        }.to_json
+        expect(response.body).to be_json_eql(json)
+      end
     end
   end
 end

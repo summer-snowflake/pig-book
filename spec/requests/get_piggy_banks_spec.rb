@@ -17,12 +17,8 @@ describe 'GET /api/piggy_banks', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     it 'returns status code 200 and json piggy_banks data' do
-      get path
+      get path, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 200
 
       json = [

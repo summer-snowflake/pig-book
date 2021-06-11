@@ -16,10 +16,6 @@ describe 'PATCH /api/piggy_banks', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 200 and json piggy_bank data' do
         params = {
@@ -27,7 +23,7 @@ describe 'PATCH /api/piggy_banks', autodoc: true do
           description: '編集した説明',
           currency: 'yen'
         }
-        patch path, params: params
+        patch path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {

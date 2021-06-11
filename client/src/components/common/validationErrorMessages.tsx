@@ -7,7 +7,7 @@ interface Props {
 class ValidationErrorMessages extends Component<Props> {
   render(): JSX.Element {
     return (
-      <div className='validation-error-messages-component validation-errors-field'>
+      <div className='validation-error-messages-component'>
         {this.props.messages.map((message, index) => (
           <small className='form-text pink' key={index}>
             <i className='fas fa-exclamation-circle left-icon' />

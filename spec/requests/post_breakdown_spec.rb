@@ -16,17 +16,13 @@ describe 'POST /api/categories', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 201 and json breakdown data' do
         params = {
           category_id: category.id,
           name: '新しい内訳'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
 
         json = {
@@ -53,7 +49,7 @@ describe 'POST /api/categories', autodoc: true do
           category_id: category.id,
           name: '同じ内訳'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {
@@ -69,7 +65,7 @@ describe 'POST /api/categories', autodoc: true do
           category_id: category.id,
           name: ''
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {

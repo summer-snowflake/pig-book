@@ -21,14 +21,16 @@ describe 'DELETE /api/records/:id', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
+    it 'returns status code 404 because delete twice' do
+      delete path, headers: login_headers_with_login(user), as: :json
+      expect(response.status).to eq 204
+
+      delete path, headers: login_headers_with_login(user), as: :json
+      expect(response.status).to eq 404
     end
 
-    it_behaves_like 'returns status code 404 because delete twice'
-
     it 'returns status code 204' do
-      delete path
+      delete path, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 204
     end
   end

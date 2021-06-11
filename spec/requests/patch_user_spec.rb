@@ -21,16 +21,12 @@ describe 'PATCH /api/user', autodoc: true do
       }
     end
 
-    before do
-      sign_in user
-    end
-
     after do
       I18n.locale = :ja
     end
 
     it 'returns status code 200 and json user data' do
-      patch path, params: params
+      patch path, params: params, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 422
 
       json = {
@@ -48,16 +44,12 @@ describe 'PATCH /api/user', autodoc: true do
       }
     end
 
-    before do
-      sign_in user
-    end
-
     after do
       I18n.locale = :ja
     end
 
     it 'returns status code 200 and json user data' do
-      patch path, params: params
+      patch path, params: params, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 200
 
       json = {
@@ -69,7 +61,6 @@ describe 'PATCH /api/user', autodoc: true do
         name: nil,
         nickname: nil,
         provider: 'email',
-        tokens: nil,
         uid: user.uid,
         image: nil,
         allow_password_change: false,

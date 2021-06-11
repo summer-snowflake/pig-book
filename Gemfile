@@ -8,6 +8,7 @@ gem 'pg'
 gem 'puma'
 gem 'bootsnap', require: false
 gem 'devise'
+gem 'devise_token_auth'
 gem 'dotenv-rails'
 gem 'rails-i18n'
 gem 'counter_culture'

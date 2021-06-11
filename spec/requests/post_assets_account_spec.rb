@@ -16,10 +16,6 @@ describe 'POST /api/assets_accounts', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 201 and json assets_account data' do
         params = {
@@ -29,7 +25,7 @@ describe 'POST /api/assets_accounts', autodoc: true do
           currency: 'yen',
           position: 1
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
 
         json = {
@@ -55,7 +51,7 @@ describe 'POST /api/assets_accounts', autodoc: true do
           name: '○✕銀行',
           money: '20000'
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {
@@ -70,7 +66,7 @@ describe 'POST /api/assets_accounts', autodoc: true do
         params = {
           name: ''
         }
-        post path, params: params
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
 
         json = {

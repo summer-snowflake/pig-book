@@ -36,12 +36,8 @@ describe 'PATCH /api/records/:id', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     it 'returns status code 200 and json dashboard data' do
-      patch path
+      patch path, headers: login_headers_with_login(user), as: :json
       expect(response.status).to eq 200
 
       json = {

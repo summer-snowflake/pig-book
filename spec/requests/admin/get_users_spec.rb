@@ -9,46 +9,40 @@ describe 'GET /api/admin/users', autodoc: true do
   let(:path) { '/api/admin/users' }
 
   context 'when NOT logged in.' do
-    it 'set alert message' do
+    before do
       get path
-
-      expect(flash[:alert]).to eq 'アカウント登録もしくはログインしてください。'
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when NOT logged in.' do
-    before do
-      sign_in inactive_user
-    end
-
     it 'set alert message' do
-      get path
+      get path, headers: login_headers_with_login(inactive_user), as: :json
 
-      expect(flash[:alert]).to eq 'メールアドレスの本人確認が必要です。'
+      json = {
+        errors: ['アカウント登録もしくはログインしてください。']
+      }.to_json
+      expect(response.body).to be_json_eql(json)
     end
   end
 
   context 'when NOT logged in as admin.' do
-    before do
-      sign_in user
-    end
-
     it 'set alert message' do
-      get path
+      get path, headers: login_headers_with_login(user), as: :json
 
-      expect(flash[:alert]).to eq '操作が許可されているユーザでログインしてください。'
+      json = {
+        errors: ['操作が許可されているユーザでログインしてください。']
+      }.to_json
+      expect(response.body).to be_json_eql(json)
     end
   end
 
   context 'when logged in as admin user.' do
-    before do
-      sign_in admin_user
-    end
-
     let!(:category) { create(:category, user: user) }
 
     it 'returns status code 200 and json users data' do
-      get path
+      get path, headers: login_headers_with_login(admin_user), as: :json
 
       expect(response.status).to eq 200
       users = [
@@ -69,8 +63,7 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false,
-          tokens: nil
+          piggy_bank_option: false
         },
         {
           admin: {
@@ -92,8 +85,7 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false,
-          tokens: nil
+          piggy_bank_option: false
         },
         {
           active: false,
@@ -112,8 +104,7 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false,
-          tokens: nil
+          piggy_bank_option: false
         }
       ]
       json = {

@@ -16,15 +16,11 @@ describe 'GET /api/dashboards/:year', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'there is tally event' do
       let!(:tally_event) { create(:tally_event, user: user, year: year) }
 
       it 'returns status code 200 and json dashboard data' do
-        get path
+        get path, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {
@@ -54,7 +50,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
       end
 
       it 'returns status code 200 and json dashboard data' do
-        get path
+        get path, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {
@@ -113,7 +109,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
       let!(:yearly_balance_table) { create(:yearly_record, user: user) }
 
       it 'returns status code 200 and json dashboard data' do
-        get path
+        get path, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {
@@ -159,7 +155,7 @@ describe 'GET /api/dashboards/:year', autodoc: true do
 
     context 'there is NOT tally event' do
       it 'returns status code 200 and json dashboard data' do
-        get path
+        get path, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {

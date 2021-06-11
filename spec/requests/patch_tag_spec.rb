@@ -16,17 +16,13 @@ describe 'PATCH /api/tags', autodoc: true do
   end
 
   context 'when logged in.' do
-    before do
-      sign_in user
-    end
-
     context 'name is valid' do
       it 'returns status code 200 and json tag data' do
         params = {
           name: '編集したラベル',
           color_code: '#000000'
         }
-        patch path, params: params
+        patch path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {
