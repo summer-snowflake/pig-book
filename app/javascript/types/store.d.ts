@@ -8,6 +8,10 @@ export interface CookiesHeader {
   'access-token': string;
 }
 
+export interface SessionStore {
+  isLoading: boolean;
+}
+
 export interface UserStore extends Errors {
   isLoading: boolean;
   isLogged: boolean;

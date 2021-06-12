@@ -28,13 +28,18 @@ class AssetsAccountsList extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <table className='assets-accounts-list-component table'>
-        <tbody>
-          {this.props.assetsAccountsStore.assetsAccounts && this.props.assetsAccountsStore.assetsAccounts.map((assetsAccount: AssetsAccount) => (
-            <AssetsAccountItem assetsAccount={assetsAccount} key={assetsAccount.id} />
-          ))}
-        </tbody>
-      </table>
+      <div className='assets-accounts-list-component'>
+        <div className='counter'>
+          {this.props.assetsAccountsStore.assetsAccounts.length + ' / 10'}
+        </div>
+        <table className='table'>
+          <tbody>
+            {this.props.assetsAccountsStore.assetsAccounts && this.props.assetsAccountsStore.assetsAccounts.map((assetsAccount: AssetsAccount) => (
+              <AssetsAccountItem assetsAccount={assetsAccount} key={assetsAccount.id} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     )
   }
 }

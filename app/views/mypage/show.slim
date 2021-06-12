@@ -7,7 +7,4 @@
         .card-header
           i.fa.fa-coins.left-icon
           = t('menu.total_assets')
-        .card-body.with-background-image
-          .counter
-            = "#{@size} / #{AssetsAccount::MAX_NUMBER}"
-          = react_component('mypage/TotalAssets')
+        = react_component('TotalAssetsCardBody')

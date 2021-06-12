@@ -1,8 +1,13 @@
-/*
 export interface Errors {
   errors: string[];
 }
 
+export interface LoginParams {
+  email: string;
+  password: string;
+}
+
+/*
 export interface CategoryParams {
   name: string;
   balance_of_payments: boolean;
@@ -99,24 +104,26 @@ export interface AdminUser extends User {
   tags_count: number;
 }
 
+*/
 export interface User {
   id: number;
   email: string;
   current_sign_in_at: string;
   uid: string;
   active: boolean;
-  admin: Admin;
+  //admin: Admin;
   daily_option: boolean;
   unlimited_option: boolean;
   piggy_bank_option: boolean;
   options_list: string;
-  options: UserOption[];
+  //options: UserOption[];
   dashboard_years: number[];
   records_count: number;
   created_at: string;
   updated_at: string;
 }
 
+/*
 export interface Profile {
   id: number;
   locale: string;
