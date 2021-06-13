@@ -1,0 +1,58 @@
+.header
+  font:
+    family: 'Lucida Grande', Meiryo, sans-serif
+    weight: bold
+
+  .nav-brand
+    display: flex
+    padding-bottom: 10px
+
+  .top-link
+    padding: 7px
+    text-decoration: none
+
+  .brand-image
+    width: 60px
+
+  .brand-name
+    border-bottom: dotted 3px $green
+    color: $green
+    font-size: 16px
+    padding: 3px
+
+  .nav-brand
+    float: left
+
+  .menu
+    display: flex
+    float: left
+    justify-content: flex-start
+    list-style: none
+
+    li + li
+      padding-left: 10px
+
+    .menu-link
+      color: $green
+      font-size: 12px
+      text-decoration: none
+
+      &:hover
+        color: $darken-green
+
+  .right-menu
+    display: flex
+    float: right
+    justify-content: flex-end
+    list-style: none
+
+    li + li
+      padding-left: 10px
+
+    .menu-link
+      color: $green
+      font-size: 12px
+      text-decoration: none
+
+      &:hover
+        color: $darken-green

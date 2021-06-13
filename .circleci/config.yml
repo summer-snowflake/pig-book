@@ -54,6 +54,14 @@ server: &server
         command: bundle exec rubocop
 
     # Run rspec in parallel
+    - run:
+        name: Run yarn install
+        command: yarn install
+
+    - run:
+        name: Compile webpack
+        command: rails webpacker:compile
+
     - type: shell
       command: |
         bundle exec rspec \
