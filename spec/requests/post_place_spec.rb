@@ -5,17 +5,14 @@ require 'rails_helper'
 describe 'POST /api/places', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:place) { create(:place, user: user) }
+  let(:path) { '/api/places' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post '/api/places'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
@@ -23,11 +20,10 @@ describe 'POST /api/places', autodoc: true do
       it 'returns status code 201 and json place data' do
         params = {
           name: '新しい場所'
-        }.to_json
-        post '/api/places',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
+
         json = {
           name: '新しい場所',
           user_id: user.id
@@ -44,11 +40,10 @@ describe 'POST /api/places', autodoc: true do
       it 'returns status code 422 and json errors data' do
         params = {
           name: '同じ場所'
-        }.to_json
-        post '/api/places',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['お店・施設はすでに登録されています']
         }.to_json
@@ -60,11 +55,10 @@ describe 'POST /api/places', autodoc: true do
       it 'returns status code 422 and json errors data' do
         params = {
           name: ''
-        }.to_json
-        post '/api/places',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['お店・施設を入力してください']
         }.to_json

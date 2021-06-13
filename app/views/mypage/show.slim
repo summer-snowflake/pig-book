@@ -1,0 +1,10 @@
+.center-container
+  .row
+    .col-3
+      = render partial: 'mypage_menu'
+    .col
+      .card
+        .card-header
+          i.fa.fa-coins.left-icon
+          = t('menu.total_assets')
+        = react_component('TotalAssetsCardBody')

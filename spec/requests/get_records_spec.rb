@@ -26,25 +26,22 @@ describe 'GET /api/records', autodoc: true do
   let!(:tag2) { create(:tag, user: user) }
   let!(:tagged_record1) { create(:tagged_record, tag: tag1, record: record2) }
   let!(:tagged_record2) { create(:tagged_record, tag: tag2, record: record2) }
+  let(:path) { '/api/records' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      get '/api/records'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      get path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
     context 'without params' do
       it 'returns status code 200 and json records data' do
-        get '/api/records', headers: login_headers_with_login(user)
-
+        get path, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
+
         json = {
           list: [
             {
@@ -137,10 +134,9 @@ describe 'GET /api/records', autodoc: true do
       end
 
       it 'returns status code 200 and json records data' do
-        get '/api/records', params: params,
-                            headers: login_headers_with_login(user)
-
+        get path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
+
         json = {
           list: [
             {

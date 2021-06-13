@@ -28,7 +28,7 @@ module Api
     def destroy
       tag = current_user.tags.find(params[:id])
       tag.destroy!
-    rescue StandardError
+    rescue ActiveRecord::RecordNotDestroyed
       render json: { errors: [I18n.t('errors.cannot_be_deleted')] },
              status: :forbidden
     end

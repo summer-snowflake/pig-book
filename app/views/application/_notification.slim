@@ -1,0 +1,6 @@
+- flash.each do |key, value|
+  .row.flex-end
+    .notification-field{class="#{key}"}
+      = content_tag(:span) do
+        i.fas.fa-exclamation-circle.left-icon
+        = value

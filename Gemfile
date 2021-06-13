@@ -15,6 +15,10 @@ gem 'counter_culture'
 gem 'rack-cors'
 gem 'slack-notifier'
 gem 'acts_as_list'
+gem 'webpacker'
+gem 'react-rails'
+gem 'turbolinks'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -23,6 +27,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry-rails'
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
@@ -36,6 +41,8 @@ group :test do
   gem 'rspec_junit_formatter'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'json_spec'
+  gem 'capybara'
+  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

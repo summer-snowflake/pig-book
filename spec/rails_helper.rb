@@ -2,8 +2,8 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
 
+ENV['RAILS_ENV'] ||= 'test'
 ENV['AUTODOC'] = 'true' if ENV['CI']
 
 require File.expand_path('../config/environment', __dir__)
@@ -85,6 +85,16 @@ RSpec.configure do |config|
       FactoryBot.lint
     ensure
       DatabaseRewinder.clean_all
+    end
+  end
+
+  config.before :each do |example|
+    if example.metadata[:type] == :system
+      if example.metadata[:js]
+        driven_by :selenium_chrome_headless, screen_size: [1400, 1400]
+      else
+        driven_by :rack_test
+      end
     end
   end
 

@@ -18,7 +18,7 @@ module Api
     private
 
     def user_params
-      params.require(:user).permit(:daily_option, :unlimited_option, :piggy_bank_option)
+      params.permit(:daily_option, :unlimited_option, :piggy_bank_option)
     end
   end
 end

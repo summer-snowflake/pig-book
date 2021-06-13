@@ -10,17 +10,14 @@ describe 'POST /api/places/:place_id/categories', autodoc: true do
   let!(:categorized) do
     create(:categorized_place, category: category1, place: place)
   end
+  let(:path) { "/api/places/#{place.id}/categories" }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post "/api/places/#{place.id}/categories"
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
@@ -28,9 +25,8 @@ describe 'POST /api/places/:place_id/categories', autodoc: true do
       it 'returns status code 200 and json place categories data' do
         params = {
           category_ids: [category2.id]
-        }.to_json
-        post "/api/places/#{place.id}/categories",
-             params: params, headers: login_headers_with_login(user)
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
 
         expect(response.status).to eq 200
         json = [
