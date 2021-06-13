@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-  rescue_from Exception, with: :render_exception_error
+  rescue_from Exception, with: :render_exception_error if Rails.env.production?
   rescue_from ActiveRecord::RecordNotFound,
               ActionController::RoutingError,
               with: :render_not_found_error

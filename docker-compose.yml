@@ -22,30 +22,30 @@ services:
     volumes:
       - redis:/var/lib/redis/data
 
-  client:
-    container_name: pig-book_react
-    hostname: client
-    build: ./client
-    command: "yarn start"
-    stdin_open: true
-    volumes:
-      - ./client:/pig-book/client
-      - /pig-book/client/node_modules
-    ports:
-      - "${CLIENT_PORT}:3000"
-
-  server:
-    build: .
-    hostname: server
-    command: "bundle exec rails server -b 0.0.0.0"
-    volumes:
-      - ./server:/pig-book/server
-    ports:
-      - "${SERVER_PORT}:3000"
-    environment:
-      - DATABASE_URL=postgres://postgres:servers@db:5432
-    depends_on:
-      - db
+#  client:
+#    container_name: pig-book_react
+#    hostname: client
+#    build: ./client
+#    command: "yarn start"
+#    stdin_open: true
+#    volumes:
+#      - ./client:/pig-book/client
+#      - /pig-book/client/node_modules
+#    ports:
+#      - "${CLIENT_PORT}:3000"
+#
+#  server:
+#    build: .
+#    hostname: server
+#    command: "bundle exec rails server -b 0.0.0.0"
+#    volumes:
+#      - ./server:/pig-book/server
+#    ports:
+#      - "${SERVER_PORT}:3000"
+#    environment:
+#      - DATABASE_URL=postgres://postgres:servers@db:5432
+#    depends_on:
+#      - db
 
   mailhog:
     image: mailhog/mailhog:v1.0.0

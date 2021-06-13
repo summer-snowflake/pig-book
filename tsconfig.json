@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "rootDir": "./app/javascript/",
+    "baseUrl": "./app/javascript/",
+    "typeRoots": [
+      "node_modules/@types",
+      "app/javascript/types"
+    ],
+    "declaration": false,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "noEmit": true
+  },
+  "exclude": [
+    "**/*.spec.ts",
+    "node_modules",
+    "vendor",
+    "public"
+  ],
+  "compileOnSave": false
+}
