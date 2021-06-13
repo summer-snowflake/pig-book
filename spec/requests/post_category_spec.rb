@@ -4,17 +4,14 @@ require 'rails_helper'
 
 describe 'POST /api/categories', autodoc: true do
   let!(:user) { create(:user, :active) }
+  let(:path) { '/api/categories' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post '/api/categories'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
@@ -23,11 +20,10 @@ describe 'POST /api/categories', autodoc: true do
         params = {
           name: '新しいカテゴリ',
           balance_of_payments: true
-        }.to_json
-        post '/api/categories',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
+
         json = {
           balance_of_payments: true,
           name: '新しいカテゴリ',
@@ -44,11 +40,10 @@ describe 'POST /api/categories', autodoc: true do
         params = {
           name: '同じカテゴリ',
           balance_of_payments: true
-        }.to_json
-        post '/api/categories',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['カテゴリ名はすでに登録されています']
         }.to_json
@@ -61,11 +56,10 @@ describe 'POST /api/categories', autodoc: true do
         params = {
           name: '',
           balance_of_payments: true
-        }.to_json
-        post '/api/categories',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['カテゴリ名を入力してください']
         }.to_json

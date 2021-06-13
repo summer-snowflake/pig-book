@@ -25,35 +25,29 @@ describe 'PATCH /api/records/:id', autodoc: true do
     create(:record, user: user, category: category2, place: place)
   end
   let(:year) { Time.zone.today.year }
+  let(:path) { "/api/dashboards/#{year}" }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      patch "/api/dashboards/#{year}"
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      patch path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
-    context 'params are valid' do
-      it 'returns status code 200 and json dashboard data' do
-        patch "/api/dashboards/#{year}",
-              headers: login_headers_with_login(user)
+    it 'returns status code 200 and json dashboard data' do
+      patch path, headers: login_headers_with_login(user), as: :json
+      expect(response.status).to eq 200
 
-        expect(response.status).to eq 200
-        json = {
-          event: {
-            user_id: user.id,
-            year: year
-          }
-        }.to_json
-        expect(response.body).to be_json_eql(json)
-        expect(user.monthly_total_balance_tables.count).to eq 12
-      end
+      json = {
+        event: {
+          user_id: user.id,
+          year: year
+        }
+      }.to_json
+      expect(response.body).to be_json_eql(json)
+      expect(user.monthly_total_balance_tables.count).to eq 12
     end
   end
 end

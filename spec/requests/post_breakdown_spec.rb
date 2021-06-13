@@ -5,17 +5,14 @@ require 'rails_helper'
 describe 'POST /api/categories', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:category) { create(:category, user: user) }
+  let(:path) { '/api/breakdowns' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post '/api/breakdowns'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
@@ -24,11 +21,10 @@ describe 'POST /api/categories', autodoc: true do
         params = {
           category_id: category.id,
           name: '新しい内訳'
-        }.to_json
-        post '/api/breakdowns',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
+
         json = {
           name: '新しい内訳',
           user_id: user.id,
@@ -52,11 +48,10 @@ describe 'POST /api/categories', autodoc: true do
         params = {
           category_id: category.id,
           name: '同じ内訳'
-        }.to_json
-        post '/api/breakdowns',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['内訳はすでに登録されています']
         }.to_json
@@ -69,11 +64,10 @@ describe 'POST /api/categories', autodoc: true do
         params = {
           category_id: category.id,
           name: ''
-        }.to_json
-        post '/api/breakdowns',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['内訳を入力してください']
         }.to_json
