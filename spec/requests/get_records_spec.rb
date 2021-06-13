@@ -134,7 +134,7 @@ describe 'GET /api/records', autodoc: true do
       end
 
       it 'returns status code 200 and json records data' do
-        get path, params: params, headers: login_headers_with_login(user)
+        get path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
 
         json = {
