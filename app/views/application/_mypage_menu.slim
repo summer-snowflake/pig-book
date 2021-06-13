@@ -5,9 +5,9 @@
 
 .menu-card
   ul.list
-    li.list-item
+    /li.list-item
       label = User.human_attribute_name(:email)
       p.value = current_user.email
-    li.list-item
+    /li.list-item
       label = I18n.t('label.option_names')
       p.value = current_user.options_list

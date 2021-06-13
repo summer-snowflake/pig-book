@@ -4,8 +4,8 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs"
+// import * as ActiveStorage from "@rails/activestorage"
 // import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
 import './server_rendering'
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
@@ -17,6 +17,5 @@ import 'plugins/i18n'
 const images = require.context("images", true);
 
 Rails.start()
+// ActiveStorage.start()
 // Turbolinks.start()
-ActiveStorage.start()
-

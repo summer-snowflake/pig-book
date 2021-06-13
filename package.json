@@ -30,6 +30,7 @@
     "react-i18next": "^11.8.15",
     "react-redux": "^7.2.4",
     "react-responsive-carousel": "^3.2.18",
+    "react-router-dom": "^5.2.0",
     "react-toastify": "^7.0.4",
     "react-tooltip": "^4.2.19",
     "react_ujs": "^2.6.1",

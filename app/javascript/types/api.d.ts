@@ -258,16 +258,16 @@ export interface AssetsAccount {
   from_now: string;
 }
 
-/*
 export interface AssetsAccountParams {
-  name?: string;
-  balance_of_payments?: boolean;
-  currency?: string;
-  money?: string;
-  position?: number | null;
+  //name?: string;
+  //balance_of_payments?: boolean;
+  //currency?: string;
+  //money?: string;
+  //position?: number | null;
   checked?: boolean;
 }
 
+/*
 export interface PiggyBank {
   id: number;
   title: string;
