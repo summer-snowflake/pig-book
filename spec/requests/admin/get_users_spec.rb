@@ -3,15 +3,23 @@
 require 'rails_helper'
 
 describe 'GET /api/admin/users', autodoc: true do
-  let!(:user3) { create(:user) }
-  let!(:user2) { create(:user, :active, :admin) }
+  let!(:inactive_user) { create(:user) }
+  let!(:admin_user) { create(:user, :active, :admin) }
   let!(:user) { create(:user, :active) }
+  let(:path) { '/api/admin/users' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      get '/api/admin/users'
+    before do
+      get path
+    end
 
-      expect(response.status).to eq 401
+    it_behaves_like 'set alert message of the authentication'
+  end
+
+  context 'when NOT logged in.' do
+    it 'set alert message' do
+      get path, headers: login_headers_with_login(inactive_user), as: :json
+
       json = {
         errors: ['アカウント登録もしくはログインしてください。']
       }.to_json
@@ -20,10 +28,9 @@ describe 'GET /api/admin/users', autodoc: true do
   end
 
   context 'when NOT logged in as admin.' do
-    it 'returns status code 401 and json errors data' do
-      get '/api/admin/users', headers: login_headers_with_login(user)
+    it 'set alert message' do
+      get path, headers: login_headers_with_login(user), as: :json
 
-      expect(response.status).to eq 401
       json = {
         errors: ['操作が許可されているユーザでログインしてください。']
       }.to_json
@@ -31,11 +38,11 @@ describe 'GET /api/admin/users', autodoc: true do
     end
   end
 
-  context 'when logged in.' do
+  context 'when logged in as admin user.' do
     let!(:category) { create(:category, user: user) }
 
     it 'returns status code 200 and json users data' do
-      get '/api/admin/users', headers: login_headers_with_login(user2)
+      get path, headers: login_headers_with_login(admin_user), as: :json
 
       expect(response.status).to eq 200
       users = [
@@ -60,17 +67,17 @@ describe 'GET /api/admin/users', autodoc: true do
         },
         {
           admin: {
-            user_id: user2.id
+            user_id: admin_user.id
           },
           active: true,
-          email: user2.email,
+          email: admin_user.email,
           allow_password_change: false,
-          image: user2.image,
-          name: user2.name,
-          nickname: user2.nickname,
+          image: admin_user.image,
+          name: admin_user.name,
+          nickname: admin_user.nickname,
           provider: 'email',
-          uid: user2.email,
-          current_sign_in_at: user2.reload.current_sign_in_at,
+          uid: admin_user.email,
+          current_sign_in_at: admin_user.reload.current_sign_in_at,
           categories_count: 0,
           breakdowns_count: 0,
           places_count: 0,
@@ -82,14 +89,14 @@ describe 'GET /api/admin/users', autodoc: true do
         },
         {
           active: false,
-          email: user3.email,
+          email: inactive_user.email,
           allow_password_change: false,
-          image: user3.image,
-          name: user3.name,
-          nickname: user3.nickname,
+          image: inactive_user.image,
+          name: inactive_user.name,
+          nickname: inactive_user.nickname,
           provider: 'email',
-          uid: user3.email,
-          current_sign_in_at: user3.reload.current_sign_in_at,
+          uid: inactive_user.email,
+          current_sign_in_at: inactive_user.reload.current_sign_in_at,
           categories_count: 0,
           breakdowns_count: 0,
           places_count: 0,

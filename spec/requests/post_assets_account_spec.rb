@@ -5,17 +5,14 @@ require 'rails_helper'
 describe 'POST /api/assets_accounts', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:assets_account) { create(:assets_account, user: user) }
+  let(:path) { '/api/assets_accounts' }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      post '/api/assets_accounts'
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      post path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
@@ -27,11 +24,10 @@ describe 'POST /api/assets_accounts', autodoc: true do
           money: '40000',
           currency: 'yen',
           position: 1
-        }.to_json
-        post '/api/assets_accounts',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 201
+
         json = {
           name: '○✕銀行',
           balance_of_payments: true,
@@ -54,11 +50,10 @@ describe 'POST /api/assets_accounts', autodoc: true do
         params = {
           name: '○✕銀行',
           money: '20000'
-        }.to_json
-        post '/api/assets_accounts',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['預金の種類はすでに登録されています']
         }.to_json
@@ -70,11 +65,10 @@ describe 'POST /api/assets_accounts', autodoc: true do
       it 'returns status code 422 and json errors data' do
         params = {
           name: ''
-        }.to_json
-        post '/api/assets_accounts',
-             params: params, headers: login_headers_with_login(user)
-
+        }
+        post path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 422
+
         json = {
           errors: ['預金の種類を入力してください']
         }.to_json

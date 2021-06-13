@@ -12,22 +12,19 @@ describe 'PATCH /api/records/:id', autodoc: true do
   let!(:record) do
     create(:record, user: user, category: category1, breakdown: breakdown1)
   end
+  let(:path) { "/api/records/#{record.id}" }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      patch "/api/records/#{record.id}"
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      patch path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
     context 'params are valid' do
-      let!(:published_at) { 3.days.ago }
+      let!(:published_at) { Time.zone.local(2021, 3, 3, 15, 0, 0) }
 
       it 'returns status code 200 and json record data' do
         params = {
@@ -39,11 +36,10 @@ describe 'PATCH /api/records/:id', autodoc: true do
           cashless_charge: 30,
           point: 10,
           memo: '更新'
-        }.to_json
-        patch "/api/records/#{record.id}",
-              params: params, headers: login_headers_with_login(user)
-
+        }
+        patch path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
+
         json = {
           user_id: user.id,
           category_id: category2.id,

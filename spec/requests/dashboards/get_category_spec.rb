@@ -16,20 +16,16 @@ describe 'GET /api/dashboards/:dashboard_year/categories/:id', autodoc: true do
   end
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
+    before do
       get "/api/dashboards/#{year}/categories/#{category.id}"
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
     it 'returns status code 200 and json dashboard data' do
-      get "/api/dashboards/#{year}/categories/#{category.id}", headers: login_headers_with_login(user)
+      get "/api/dashboards/#{year}/categories/#{category.id}", headers: login_headers_with_login(user), as: :json
 
       expect(response.status).to eq 200
       json = {
@@ -72,7 +68,7 @@ describe 'GET /api/dashboards/:dashboard_year/categories/:id', autodoc: true do
       end
 
       it 'returns status code 200 and json dashboard data' do
-        get "/api/dashboards/#{year}/categories/#{category.id}", headers: login_headers_with_login(user)
+        get "/api/dashboards/#{year}/categories/#{category.id}", headers: login_headers_with_login(user), as: :json
 
         expect(response.status).to eq 200
         json = {

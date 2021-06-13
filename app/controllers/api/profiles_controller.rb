@@ -23,7 +23,7 @@ module Api
     end
 
     def profile_params
-      params.require(:profile).permit(:locale, :currency, :memo)
+      params.permit(:locale, :currency, :memo)
     end
   end
 end

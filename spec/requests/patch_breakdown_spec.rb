@@ -6,17 +6,14 @@ describe 'PATCH /api/breakdowns', autodoc: true do
   let!(:user) { create(:user, :active) }
   let!(:category) { create(:category, user: user) }
   let!(:breakdown) { create(:breakdown, user: user, category: category) }
+  let(:path) { "/api/breakdowns/#{breakdown.id}" }
 
   context 'when NOT logged in.' do
-    it 'returns status code 401 and json errors data' do
-      patch "/api/breakdowns/#{breakdown.id}"
-
-      expect(response.status).to eq 401
-      json = {
-        errors: ['アカウント登録もしくはログインしてください。']
-      }.to_json
-      expect(response.body).to be_json_eql(json)
+    before do
+      patch path
     end
+
+    it_behaves_like 'set alert message of the authentication'
   end
 
   context 'when logged in.' do
@@ -25,11 +22,10 @@ describe 'PATCH /api/breakdowns', autodoc: true do
         params = {
           category_id: category.id,
           name: '編集した内訳'
-        }.to_json
-        patch "/api/breakdowns/#{breakdown.id}",
-              params: params, headers: login_headers_with_login(user)
-
+        }
+        patch path, params: params, headers: login_headers_with_login(user), as: :json
         expect(response.status).to eq 200
+
         json = {
           user_id: user.id,
           name: '編集した内訳',
