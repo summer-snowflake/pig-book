@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'root#show'
 
+  get 'users/sign_in', to: 'users/sessions#new'
+
   scope :api do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'api/confirmations' }
   end

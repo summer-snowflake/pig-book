@@ -38,7 +38,7 @@ export const login = (params: LoginParams) => {
       window.location.href = '/mypage'
     }
     catch(err) {
-      return dispatch(loginFailure(err.response))
+      return dispatch(loginFailure(err.response.data.errors))
     }
   }
 }

@@ -51,7 +51,7 @@ class NavMenu extends Component<Props> {
           )}
           {this.props.userStore.isLogged ? (
             <li>
-              <a className='menu-link' onClick={this.props.signOut} href='/users/sign_out' data-method='delete'>
+              <a className='menu-link' onClick={this.props.signOut}>
                 <i className='fas fa-sign-out-alt left-icon' />
                 {t('menu.logout')}
               </a>
