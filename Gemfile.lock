@@ -85,7 +85,11 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    capybara-chromedriver-logger (0.3.0)
+      capybara
+      colorize
     childprocess (3.0.0)
+    colorize (0.8.1)
     concurrent-ruby (1.1.8)
     counter_culture (2.8.0)
       activerecord (>= 4.2)
@@ -290,6 +294,7 @@ DEPENDENCIES
   bootsnap
   byebug
   capybara
+  capybara-chromedriver-logger
   counter_culture
   database_rewinder
   devise

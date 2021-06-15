@@ -46,6 +46,11 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+Capybara::Chromedriver::Logger::TestHooks.for_rspec!
+Capybara.server = :puma
+Capybara.server_host = 'localhost'
+Capybara.server_port = ENV['PORT']
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
@@ -91,7 +96,7 @@ RSpec.configure do |config|
   config.before :each do |example|
     if example.metadata[:type] == :system
       if example.metadata[:js]
-        driven_by :selenium_chrome_headless, screen_size: [1400, 1400]
+        driven_by :selenium_chrome_headless, screen_size: [1900, 1400]
       else
         driven_by :rack_test
       end

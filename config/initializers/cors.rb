@@ -17,7 +17,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   host_name = "http://#{ENV.fetch("HOST_NAME")}"
-  port = ENV.fetch("CLIENT_PORT")
+  port = ENV.fetch("PORT")
   host_name = port.present? ? "#{host_name}:#{port}" : host_name
 
   allow do
