@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
-  revision: 3da09563b10294e987d8cc81c0052a6a249ea380
+  revision: 2712a419dfe3006e2ae3afeeeff7cc0e88c3d11c
   specs:
-    shoulda-matchers (4.5.1)
+    shoulda-matchers (5.0.0.rc1)
       activesupport (>= 5.2.0)
 
 GEM
@@ -75,7 +75,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     counter_culture (2.8.0)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
