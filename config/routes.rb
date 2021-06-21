@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   root to: 'root#show'
 
-  devise_for :users
+  get 'users/sign_in', to: 'users/sessions#new'
+  get 'mypage', to: 'mypage#show'
+
+  scope :api do
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'api/confirmations' }
+  end
 
   namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'api/confirmations' }
-
     resource :user, only: %i[show update]
     resource :profile, only: %i[show update]
     resources :categories, only: %i[index show create update destroy]
