@@ -1,18 +1,6 @@
 version: '3'
 
 services:
-  db:
-    container_name: pig-book_postgres
-    image: postgres:11.3
-    hostname: db
-    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
-    logging:
-      options:
-        max-size: "10k"
-        max-file: "5"
-    ports:
-      - 5433:5432
-
   redis:
     container_name: pig-book_redis
     hostname: redis
@@ -28,7 +16,5 @@ services:
       - '8025:8025'
 
 volumes:
-  postgresql:
-    driver: local
   redis:
     driver: local
