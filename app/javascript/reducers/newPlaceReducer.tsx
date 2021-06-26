@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import * as actionTypes from 'utils/actionTypes'
 import { NewPlaceStore } from 'types/store'
 import { PlaceAction } from 'types/action'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,

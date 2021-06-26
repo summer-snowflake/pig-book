@@ -15,6 +15,7 @@ RSpec.describe 'SignIn Page', type: :system, js: true do
       fill_in 'user_password', with: user.password
       click_button 'ログインする'
 
+      expect(page).to have_content 'ログインしました'
       expect(page).to have_content 'ログアウト'
       expect(current_path).to eq mypage_path
     end
@@ -23,7 +24,7 @@ RSpec.describe 'SignIn Page', type: :system, js: true do
   context 'user is invalid' do
     let!(:user) { create(:user) }
 
-    it 'Sign In' do
+    it 'Sign In fails' do
       visit users_sign_in_path
 
       expect(page).to have_content 'ログイン'
@@ -32,7 +33,7 @@ RSpec.describe 'SignIn Page', type: :system, js: true do
       fill_in 'user_password', with: 'invalid'
       click_button 'ログインする'
 
-      expect(page).to have_content 'ログイン用の認証情報が正しくありません。再度お試しください。'
+      expect(page).to have_content 'ログインに失敗しました'
       expect(current_path).to eq users_sign_in_path
     end
   end

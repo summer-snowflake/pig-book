@@ -2,10 +2,12 @@ Rails.application.routes.draw do
   root to: 'root#show'
 
   get 'users/sign_in', to: 'users/sessions#new'
+  get 'confirmed', to: 'users/sessions#new'
+  get 'users/sign_up', to: 'users/registrations#new'
   get 'mypage', to: 'mypage#show'
 
   scope :api do
-    mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'api/confirmations' }
+    mount_devise_token_auth_for 'User', at: 'auth'
   end
 
   namespace :api do

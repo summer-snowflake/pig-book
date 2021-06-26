@@ -88,6 +88,9 @@ GEM
     capybara-chromedriver-logger (0.3.0)
       capybara
       colorize
+    capybara-email (3.0.2)
+      capybara (>= 2.4, < 4.0)
+      mail
     childprocess (3.0.0)
     colorize (0.8.1)
     concurrent-ruby (1.1.8)
@@ -295,6 +298,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-chromedriver-logger
+  capybara-email
   counter_culture
   database_rewinder
   devise

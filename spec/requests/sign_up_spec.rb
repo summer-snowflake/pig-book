@@ -41,7 +41,7 @@ describe 'POST /api/auth', autodoc: true do
         expect(response.status).to eq 401
 
         get "/api/auth/confirmation?confirmation_token=#{token}"
-        expect(response.status).to eq 200
+        expect(response.status).to eq 302
 
         # after confirmation
         post '/api/auth/sign_in', params: params, headers: headers
@@ -63,11 +63,6 @@ describe 'POST /api/auth', autodoc: true do
         password: password
       }.to_json
     end
-    let(:extract_confirmation_url) do
-      mail = ActionMailer::Base.deliveries.last
-      body = mail.body.encoded
-      body[/http[^"]+/]
-    end
 
     context 'new account' do
       it 'returns status code 200 and json user data' do
@@ -78,7 +73,8 @@ describe 'POST /api/auth', autodoc: true do
         post '/api/auth/sign_in', params: params, headers: headers
         expect(response.status).to eq 401
 
-        get extract_confirmation_url
+        user = User.find_by(email: email)
+        get user_confirmation_url(confirmation_token: user.confirmation_token)
 
         # after confirmation
         post '/api/auth/sign_in', params: params, headers: headers

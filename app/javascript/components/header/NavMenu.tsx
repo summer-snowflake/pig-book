@@ -3,6 +3,8 @@ import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
+import * as H from 'history'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 
 import { UserStore } from 'types/store'
 import { getUser } from 'actions/userActions'
@@ -15,16 +17,22 @@ interface StateProps {
 
 interface DispatchProps {
   getUser: () => void;
-  signOut: () => void;
+  signOut: (history: H.History) => void;
 }
 
-type Props = I18nProps & StateProps & DispatchProps
+type Props = I18nProps & StateProps & DispatchProps & RouteComponentProps
 
 class NavMenu extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
+    this.handleClickSignOutLink = this.handleClickSignOutLink.bind(this)
+
     this.props.getUser()
+  }
+
+  handleClickSignOutLink(): void {
+    this.props.signOut(this.props.history)
   }
 
   render(): JSX.Element {
@@ -51,7 +59,7 @@ class NavMenu extends Component<Props> {
           )}
           {this.props.userStore.isLogged ? (
             <li>
-              <a className='menu-link' onClick={this.props.signOut}>
+              <a className='menu-link' onClick={this.handleClickSignOutLink}>
                 <i className='fas fa-sign-out-alt left-icon' />
                 {t('menu.logout')}
               </a>
@@ -81,10 +89,10 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     getUser(): void {
       dispatch(getUser())
     },
-    signOut(): void {
-      dispatch(signOut())
+    signOut(history: H.History): void {
+      dispatch(signOut(history))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(NavMenu))
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(NavMenu)))

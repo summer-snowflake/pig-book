@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import * as actionTypes from 'utils/actionTypes'
 import { NewPiggyItemStore } from 'types/store'
 import { PiggyItemAction } from 'types/action'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,

@@ -73,7 +73,7 @@ server: &server
 
     # Save artifacts
     - store_artifacts:
-        path: ./tmp/capybara
+        path: ./tmp/screenshots
         destination: capybara-screenshot
 
     - store_artifacts:

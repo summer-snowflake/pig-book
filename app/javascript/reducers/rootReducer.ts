@@ -1,9 +1,46 @@
 import { combineReducers } from 'redux'
 
 import {
-  SessionStore, UserStore, ProfileStore, NewCategoryStore, CategoriesStore, EditCategoryStore, BreakdownsStore, EditBreakdownStore, NewBreakdownStore, UsersStore, NewPlaceStore, PlacesStore, EditPlaceStore, PlaceCategoriesStore, NewRecordStore, RecordsStore, EditRecordStore, RecordSearchStore, DashboardStore, DashboardsStore, ResponseErrorsStore, TutorialStore, TagsStore, EditTagStore, NewTagStore, DashboardCategoryStore, AssetsAccountsStore, NewAssetsAccountStore, EditAssetsAccountStore, PiggyBanksStore, NewPiggyBankStore, PiggyBankStore, EditPiggyBankStore, PiggyItemsStore, NewPiggyItemStore, EditPiggyItemStore, MessagesStore
+  SessionStore,
+  RegistrationStore,
+  UserStore,
+  ProfileStore,
+  NewCategoryStore,
+  CategoriesStore,
+  EditCategoryStore,
+  BreakdownsStore,
+  EditBreakdownStore,
+  NewBreakdownStore,
+  UsersStore,
+  NewPlaceStore,
+  PlacesStore,
+  EditPlaceStore,
+  PlaceCategoriesStore,
+  NewRecordStore,
+  RecordsStore,
+  EditRecordStore,
+  RecordSearchStore,
+  DashboardStore,
+  DashboardsStore,
+  ResponseErrorsStore,
+  TutorialStore,
+  TagsStore,
+  EditTagStore,
+  NewTagStore,
+  DashboardCategoryStore,
+  AssetsAccountsStore,
+  NewAssetsAccountStore,
+  EditAssetsAccountStore,
+  PiggyBanksStore,
+  NewPiggyBankStore,
+  PiggyBankStore,
+  EditPiggyBankStore,
+  PiggyItemsStore,
+  NewPiggyItemStore,
+  EditPiggyItemStore
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
+import registrationReducer from 'reducers/registrationReducer'
 import userReducer from 'reducers/userReducer'
 import profileReducer from 'reducers/profileReducer'
 import newCategoryReducer from 'reducers/newCategoryReducer'
@@ -39,10 +76,10 @@ import editPiggyBankReducer from 'reducers/editPiggyBankReducer'
 import piggyItemsReducer from 'reducers/piggyItemsReducer'
 import newPiggyItemReducer from 'reducers/newPiggyItemReducer'
 import editPiggyItemReducer from 'reducers/editPiggyItemReducer'
-import messagesReducer from 'reducers/messagesReducer'
 
 export type RootState = {
   session: SessionStore;
+  registration: RegistrationStore;
   user: UserStore;
   profile: ProfileStore;
   newCategory: NewCategoryStore;
@@ -78,11 +115,11 @@ export type RootState = {
   piggyItems: PiggyItemsStore;
   newPiggyItem: NewPiggyItemStore;
   editPiggyItem: EditPiggyItemStore;
-  messages: MessagesStore;
 }
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  registration: registrationReducer,
   user: userReducer,
   profile: profileReducer,
   newCategory: newCategoryReducer,
@@ -117,8 +154,7 @@ const rootReducer = combineReducers({
   editPiggyBank: editPiggyBankReducer,
   piggyItems: piggyItemsReducer,
   newPiggyItem: newPiggyItemReducer,
-  editPiggyItem: editPiggyItemReducer,
-  messages: messagesReducer
+  editPiggyItem: editPiggyItemReducer
 })
 
 export default rootReducer

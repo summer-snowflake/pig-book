@@ -3,7 +3,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { toast } from 'react-toastify'
 
 import { EditPlaceStore } from 'types/store'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 import { ErrorsAction } from 'types/action'
 import { Place } from 'types/api'
 
