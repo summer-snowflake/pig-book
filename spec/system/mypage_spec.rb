@@ -20,9 +20,11 @@ RSpec.describe 'MyPage', type: :system, js: true do
     let!(:assets_account1) { create(:assets_account, user: user, position: 1) }
     let!(:assets_account2) { create(:assets_account, user: user, position: 2) }
 
-    it 'Display Assets Accounts Items' do
+    before do
       sign_in user
+    end
 
+    it 'Display Assets Accounts Items' do
       within '.card-header' do
         expect(page).to have_content '総資産'
       end
@@ -40,6 +42,14 @@ RSpec.describe 'MyPage', type: :system, js: true do
         expect(page).to have_content assets_account2.human_updated_at
         expect(page).to have_content assets_account2.from_now
       end
+    end
+
+    it 'Update Assets Account' do
+      within all('.assets-account-item-component')[0] do
+        find('.check-box-component').click
+      end
+
+      expect(page).to have_content '預金の種類を更新しました'
     end
   end
 end
