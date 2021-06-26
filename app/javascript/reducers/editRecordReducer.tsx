@@ -5,7 +5,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { WithRelationsCategory, Tag } from 'types/api'
 import { EditRecordStore } from 'types/store'
 import { RecordAction } from 'types/action'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,

@@ -5,7 +5,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { Category } from 'types/api'
 import { NewBreakdownStore } from 'types/store'
 import { BreakdownAction } from 'types/action'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,

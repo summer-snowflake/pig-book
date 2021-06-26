@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import * as actionTypes from 'utils/actionTypes'
 import { ProfileStore } from 'types/store'
 import { ProfileAction } from 'types/action'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 import i18next from 'i18next'
 
 const initialState = {

@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import * as actionTypes from 'utils/actionTypes'
 
-import 'stylesheets/errors.sass'
-
-interface Props {
+interface ParentProps {
   actionType: string;
   messages?: string;
 }
 
-class FlashMessage extends Component<I18nProps & Props> {
+type Props = ParentProps & I18nProps
+
+class FlashMessage extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
     let msg = ''

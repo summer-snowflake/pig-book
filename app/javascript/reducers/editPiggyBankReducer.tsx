@@ -5,7 +5,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { NewPiggyBankStore } from 'types/store'
 import { PiggyBankAction } from 'types/action'
 import { PiggyBank } from 'types/api'
-import FlashMessage from 'components/common/flashMessage'
+import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,
