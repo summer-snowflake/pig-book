@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 import MypageMenu from 'components/mypage/MypageMenu';
+import TotalAssetsCard from 'components/mypage/TotalAssetsCard';
 
 type Props = I18nProps
 
@@ -16,6 +17,7 @@ class MyPage extends Component<Props> {
             <MypageMenu />
           </div>
           <div className='col'>
+            <TotalAssetsCard />
           </div>
         </div>
       </div>

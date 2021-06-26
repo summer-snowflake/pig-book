@@ -2,6 +2,8 @@
 
 class AssetsAccount < ApplicationRecord
   include EnumDefinedCurrency
+  include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::DateHelper
 
   acts_as_list scope: :user_id, touch_on_update: false
 
@@ -19,5 +21,17 @@ class AssetsAccount < ApplicationRecord
     return if user.assets_accounts.count < MAX_NUMBER
 
     errors.add(:base, :is_limited)
+  end
+
+  def human_charge
+    yen? ? number_to_currency(money, unit: '¥', format: '%u%n') : number_to_currency(money, precision: 2)
+  end
+
+  def human_updated_at
+    I18n.l(updated_at, format: :date)
+  end
+
+  def from_now
+    time_ago_in_words(updated_at)
   end
 end
