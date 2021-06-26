@@ -1,5 +1,6 @@
 import { Dispatch } from 'react'
 import { Action } from 'redux'
+import * as H from 'history'
 
 import { setting as axios } from 'config/axios'
 import * as actionTypes from 'utils/actionTypes'
@@ -29,13 +30,13 @@ export const loginFailure = (errors: Errors): ErrorsAction => {
   }
 }
 
-export const login = (params: LoginParams) => {
+export const login = (params: LoginParams, history: H.History) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(loginRequest())
     try {
       const res = await axios.post('/api/auth/sign_in', params)
       dispatch(loginSuccess(res.data, res.headers))
-      window.location.href = '/mypage'
+      history.push('/mypage')
     }
     catch(err) {
       return dispatch(loginFailure(err.response.data.errors))
@@ -62,13 +63,13 @@ const signOutFailure = (): Action => {
   }
 }
 
-export const signOut = () => {
+export const signOut = (history: H.History) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(signOutRequest())
     try {
       await axios.delete('/api/auth/sign_out', { headers: loginHeaders() })
       dispatch(signOutSuccess())
-      window.location.href = '/users/sign_in'
+      history.push('/users/sign_in')
     }
     catch(err) {
       return dispatch(signOutFailure())

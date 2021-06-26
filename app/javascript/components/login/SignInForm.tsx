@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
+import * as H from 'history'
 
 import { LoginParams } from 'types/api'
 import { SessionStore } from 'types/store'
@@ -14,10 +16,10 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  login: (params: LoginParams) => void;
+  login: (params: LoginParams, history: H.History) => void;
 }
 
-type Props = I18nProps & StateProps & DispatchProps
+type Props = I18nProps & StateProps & DispatchProps & RouteComponentProps
 type State = LoginParams
 
 class SignInForm extends Component<Props, State> {
@@ -50,7 +52,7 @@ class SignInForm extends Component<Props, State> {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.login(params)
+    this.props.login(params, this.props.history)
   }
 
   render (): JSX.Element {
@@ -105,10 +107,10 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    login(params: LoginParams): void {
-      dispatch(login(params))
+    login(params: LoginParams, history: H.History): void {
+      dispatch(login(params, history))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(SignInForm))
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(SignInForm)))

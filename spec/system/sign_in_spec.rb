@@ -23,7 +23,7 @@ RSpec.describe 'SignIn Page', type: :system, js: true do
   context 'user is invalid' do
     let!(:user) { create(:user) }
 
-    it 'Sign In' do
+    it 'Sign In fails' do
       visit users_sign_in_path
 
       expect(page).to have_content 'ログイン'
