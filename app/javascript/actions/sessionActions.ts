@@ -23,10 +23,9 @@ export const loginSuccess = (user: User, headers: CookiesHeader): UserAction => 
   }
 }
 
-export const loginFailure = (errors: Errors): ErrorsAction => {
+export const loginFailure = (): Action => {
   return {
-    type: actionTypes.LOGIN_FAILURE,
-    errors
+    type: actionTypes.LOGIN_FAILURE
   }
 }
 
@@ -39,7 +38,7 @@ export const login = (params: LoginParams, history: H.History) => {
       history.push('/mypage')
     }
     catch(err) {
-      return dispatch(loginFailure(err.response.data.errors))
+      return dispatch(loginFailure())
     }
   }
 }

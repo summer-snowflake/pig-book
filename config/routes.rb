@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'root#show'
 
   get 'users/sign_in', to: 'users/sessions#new'
+  get 'users/sign_up', to: 'users/registrations#new'
   get 'mypage', to: 'mypage#show'
 
   scope :api do
