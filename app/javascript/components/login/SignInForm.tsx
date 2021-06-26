@@ -5,11 +5,14 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import * as H from 'history'
+import { toast } from 'react-toastify'
 
+import * as actionTypes from 'utils/actionTypes'
 import { LoginParams } from 'types/api'
 import { SessionStore } from 'types/store'
 import { login } from 'actions/sessionActions'
 import { RootState } from 'reducers/rootReducer'
+import FlashMessage from 'components/common/FlashMessage'
 
 interface StateProps {
   sessionStore: SessionStore;
@@ -33,6 +36,11 @@ class SignInForm extends Component<Props, State> {
     this.handleChangeEmail = this.handleChangeEmail.bind(this)
     this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
+
+    if (this.props.location.pathname === '/confirmed') {
+      toast.success(<FlashMessage actionType={actionTypes.CONFIRM_USER_SUCCESS} />)
+      this.props.history.push('/users/sign_in')
+    }
   }
 
   handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {

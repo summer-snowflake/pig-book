@@ -23,7 +23,7 @@ export const App = () => {
         <Switch>
           <Route component={TopPage} exact path='/' />
           <Route component={SignInPage} exact path='/users/sign_in' />
-          <Route component={SignInPage} path='/api/auth/confirmation' />
+          <Route component={SignInPage} exact path='/confirmed' />
           <Route component={SignUpPage} exact path='/users/sign_up' />
           <Route component={MyPage} exact path='/mypage' />
         </Switch>

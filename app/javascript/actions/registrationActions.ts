@@ -51,39 +51,6 @@ export const reloadSignUp = (): Action => {
   }
 }
 
-const confirmUserRequest = (): Action => {
-  return {
-    type: actionTypes.CONFIRM_USER_REQUEST
-  }
-}
-
-const confirmUserSuccess = (): Action => {
-  return {
-    type: actionTypes.CONFIRM_USER_SUCCESS
-  }
-}
-
-const confirmUserFailure = (errors: Error): ErrorsAction => {
-  return {
-    type: actionTypes.CONFIRM_USER_FAILURE,
-    errors
-  }
-}
-
-export const confirmUser = (confirmationToken: string, history: H.History) => {
-  return async (dispatch: Dispatch<Action>): Promise<void> => {
-    dispatch(confirmUserRequest())
-    try {
-      await axios.get('/api/auth/confirmation?confirmation_token=' + confirmationToken)
-      history.push('/users/sign_in')
-      dispatch(confirmUserSuccess())
-    }
-    catch(err) {
-      dispatch(confirmUserFailure(err.response?.data?.errors || []))
-    }
-  }
-}
-
 export const clearErrors = (): Action => {
   return {
     type: actionTypes.CLEAR_ERRORS,

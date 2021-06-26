@@ -40,6 +40,7 @@ group :test do
   gem 'json_spec'
   gem 'capybara'
   gem 'capybara-chromedriver-logger'
+  gem 'capybara-email'
   gem 'webdrivers'
 end
 
