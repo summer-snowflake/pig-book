@@ -71,6 +71,9 @@ class FlashMessage extends Component<Props> {
     case actionTypes.SIGN_UP_FAILURE:
       msg = t('message.signUpFailure')
       break
+    case actionTypes.SIGN_UP_SUCCESS:
+      msg = t('message.signedUpButUnconfirmed')
+      break
     case actionTypes.POST_RECORD_SUCCESS:
       msg = t('message.postSuccess')
       break

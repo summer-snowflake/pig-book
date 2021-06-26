@@ -23,6 +23,7 @@ const registrationReducer = (state: RegistrationStore = initialState, action: Re
       isLoading: true
     }
   case actionTypes.SIGN_UP_SUCCESS:
+    toast.success(<FlashMessage actionType={actionTypes.SIGN_UP_SUCCESS} />)
     return {
       ...state,
       isLoading: false,

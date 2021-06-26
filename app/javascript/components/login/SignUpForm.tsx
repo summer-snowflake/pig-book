@@ -3,6 +3,8 @@ import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import * as H from 'history'
 
 import { SignUpParams } from 'types/api'
 import { RegistrationStore } from 'types/store'
@@ -15,10 +17,10 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  signUp: (params: SignUpParams) => void;
+  signUp: (params: SignUpParams, history: H.History) => void;
 }
 
-type Props = I18nProps & StateProps & DispatchProps
+type Props = I18nProps & StateProps & DispatchProps & RouteComponentProps
 type State = SignUpParams
 
 class SignInForm extends Component<Props, State> {
@@ -61,7 +63,7 @@ class SignInForm extends Component<Props, State> {
       password: this.state.password,
       password_confirmation: this.state.password_confirmation
     }
-    this.props.signUp(params)
+    this.props.signUp(params, this.props.history)
   }
 
   render (): JSX.Element {
@@ -115,7 +117,7 @@ class SignInForm extends Component<Props, State> {
           disabled={this.props.registrationStore.isLoading}
           onClick={this.handleSignUp}
           type='submit'>
-          {t('button.login')}
+          {t('button.create')}
         </button>
       </form>
     );
@@ -130,10 +132,10 @@ function mapState(state: RootState): StateProps {
 
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
-    signUp(params: SignUpParams): void {
-      dispatch(signUp(params))
+    signUp(params: SignUpParams, history: H.History): void {
+      dispatch(signUp(params, history))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(withTranslation()(SignInForm))
+export default connect(mapState, mapDispatch)(withTranslation()(withRouter(SignInForm)))

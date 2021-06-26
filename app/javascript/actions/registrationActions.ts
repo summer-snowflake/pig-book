@@ -27,12 +27,13 @@ const signUpFailure = (errors: Error): ErrorsAction => {
   }
 }
 
-export const signUp = (params: SignUpParams) => {
+export const signUp = (params: SignUpParams, history: H.History) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     dispatch(signUpRequest())
     try {
       await axios.post('/api/auth', params)
       dispatch(signUpSuccess())
+      history.push('/users/sign_in')
     }
     catch(err) {
       if (err.response.status === 422) {
