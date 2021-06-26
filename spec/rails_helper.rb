@@ -48,7 +48,7 @@ end
 
 Capybara::Chromedriver::Logger::TestHooks.for_rspec!
 Capybara.server = :puma
-Capybara.server_host = 'localhost'
+Capybara.server_host = ENV['HOST_NAME']
 Capybara.server_port = ENV['PORT']
 
 RSpec.configure do |config|
