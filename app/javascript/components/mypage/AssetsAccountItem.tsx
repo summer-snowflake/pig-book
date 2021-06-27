@@ -10,6 +10,7 @@ import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import CheckBox from 'components/common/CheckBox'
 import HumanCharge from 'components/common/HumanCharge'
+import Edit from 'components/common/Edit'
 
 interface ParentProps {
   assetsAccount: AssetsAccount;
@@ -30,6 +31,7 @@ class AssetsAccountItem extends Component<Props> {
     super(props)
 
     this.handleClickCheckButton = this.handleClickCheckButton.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
   }
 
   handleClickCheckButton(): void {
@@ -37,6 +39,10 @@ class AssetsAccountItem extends Component<Props> {
       checked: !this.props.assetsAccount.checked
     }
     this.props.patchAssetsAccount(this.props.assetsAccount.id, params)
+  }
+
+  handleClickEditIcon(): void {
+    console.log('click')
   }
 
   render(): JSX.Element {
@@ -61,6 +67,9 @@ class AssetsAccountItem extends Component<Props> {
         </td>
         <td className='column-human-now'>
           {this.props.assetsAccount.from_now}
+        </td>
+        <td className='icon-field'>
+          <Edit onClickIcon={this.handleClickEditIcon} tooltipDisable={false} />
         </td>
       </tr>
     )

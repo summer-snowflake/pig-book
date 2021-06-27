@@ -203,10 +203,7 @@ body
 //    @extend %cursor-icon
 //    padding: 8px 7px 6px
 //
-//  .fa-edit
-//    @extend %cursor-icon
-//    padding: 6px 6px 6px 8px
-//
+
 //  .fa-times
 //    @extend %cursor-icon
 //    padding: 7px
@@ -235,36 +232,49 @@ body
 .icon-field
   width: 0
 
-  .fa-bars
-    border-radius: 3px
-    color: $darken-green-translucent
-    cursor: move
-    height: 18px
-    padding: 5px
-    width: 15px
-
+  svg
     &:hover
       background-color: $translucent2-lighten-green
-//
-//  %cursor-icon
-//    border-radius: 3px
-//    color: $darken-green
-//    cursor: pointer
-//    height: 30px
-//    width: 30px
-//
-//    &:hover
-//      background-color: $translucent2-lighten-green
-//
+
+  %cursor-icon
+    border-radius: 3px
+    color: $darken-green
+    cursor: pointer
+    height: 18px
+    width: 15px
+
+  .fa-bars
+    @extend %cursor-icon
+    color: $darken-green-translucent
+    cursor: move
+    padding: 5px
+
+  .fa-edit
+    @extend %cursor-icon
+    padding: 6px 6px 6px 8px
+
 //  .fa-copy
 //    @extend %cursor-icon
 //    padding: 8px
 //
-
-//
 //  tbody + tbody
 //    border-top: 0
     //height: 73px
+
+.edit-component
+  .__react_component_tooltip
+    font-size: 10px
+    padding: 7px 10px
+
+    &.type-dark
+      background-color: $green
+
+      &.place-top::after
+        border-top-color: $green
+
+      &.place-bottom::after
+        border-bottom-color: $green
+
 .table
   padding-top: 10px
   width: 100%
