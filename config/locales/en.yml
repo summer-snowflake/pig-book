@@ -1,4 +1,7 @@
 en:
+  time:
+    formats:
+      date: "%m/%d/%Y"
   brand_name: Pig Book β
   brand_subtitle: the cute account book application
   label:

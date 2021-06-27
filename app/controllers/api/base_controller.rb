@@ -6,10 +6,12 @@ module Api
 
     include DeviseTokenAuth::Concerns::SetUserByToken
 
-    rescue_from Exception, with: :render_exception_error
-    rescue_from ActiveRecord::RecordNotFound,
-                ActionController::RoutingError,
-                with: :render_not_found_error
+    unless Rails.env.development?
+      rescue_from Exception, with: :render_exception_error
+      rescue_from ActiveRecord::RecordNotFound,
+                  ActionController::RoutingError,
+                  with: :render_not_found_error
+    end
 
     before_action :authenticate_user!
     before_action :set_locale

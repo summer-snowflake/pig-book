@@ -3,7 +3,9 @@
 module Api
   class AssetsAccountsController < Api::BaseController
     def index
-      render json: current_user.assets_accounts, status: :ok
+      render json: current_user.assets_accounts,
+             methods: %i[human_charge human_updated_at from_now],
+             status: :ok
     end
 
     def create
