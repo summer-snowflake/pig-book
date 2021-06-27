@@ -41,7 +41,7 @@ class AssetsAccountItem extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <tr className='assets-account-item-component'>
+      <tr className='assets-account-item-component' id={String(this.props.assetsAccount.id)}>
         <td className='icon-field'>
           <i className='fas fa-bars green cursor-move' />
         </td>
