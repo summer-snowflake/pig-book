@@ -42,10 +42,10 @@ class AssetsAccountItem extends Component<Props> {
   render(): JSX.Element {
     return (
       <tr className='assets-account-item-component'>
-        <td>
+        <td className='icon-field'>
           <i className='fas fa-bars green cursor-move' />
         </td>
-        <td>
+        <td className='icon-field'>
           <CheckBox checked={this.props.assetsAccount.checked} onClick={this.handleClickCheckButton} />
         </td>
         <td>
