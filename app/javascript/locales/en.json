@@ -80,6 +80,9 @@
     "title": "Title",
     "description": "Description"
   },
+  "placeholder": {
+    "assetsAccountName": "Bank, Insurance"
+  },
   "toolTip": {
     "sortCreatedAt": "sort created time",
     "sortPublishedAt": "sort published time",

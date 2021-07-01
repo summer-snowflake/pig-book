@@ -77,7 +77,8 @@ const newAssetsAccountReducer = (state: NewAssetsAccountStore = initialState, ac
   case actionTypes.CLOSE_NEW_ASSETS_ACCOUNT_MODAL:
     return {
       ...state,
-      isOpen: false
+      isOpen: false,
+      errors: []
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

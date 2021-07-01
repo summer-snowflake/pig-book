@@ -35,9 +35,6 @@ body
 //.disabled
 //  cursor: default
 //
-//.light-green
-//  color: $green-translucent
-//
 //.dark-green
 //  color: $darken-green
 //
@@ -90,9 +87,19 @@ body
     background-repeat: no-repeat
     background-size: 120% auto
 
+.modal-header
+  height: 25px
+
+.form-group + .form-group
+  padding-top: 5px
+
 .form-group
   display: flex
   flex-direction: column
+
+  &.row
+    flex-direction: row
+    padding-top: 10px
 
   .required
     &::after
@@ -104,9 +111,6 @@ body
 
   .form-label
     padding: 5px
-
-.form-group + .form-group
-  padding-top: 5px
 
 .form-control
   background-color: $white
@@ -121,23 +125,49 @@ body
     border-color: $light-green
     box-shadow: 0 0 0 3px $light-green
 
-//  &.zero
-//    color: $gray
+  &::placeholder
+    color: $lighten-gray
 
 .btn
   border: 0
   border-radius: .25rem
+  color: $white
   cursor: pointer
   margin: 15px 5px 5px 5px
   padding: 5px 10px
 
-  &.btn-primary
-    background: $pink
-    color: $white
-    //border: 1px solid $pink
-
   &:disabled
     background: $translucent5-pink
+
+  &.btn-primary
+    background-color: $pink
+    border-color: $pink
+
+    &:hover
+      background-color: $darken-pink
+      border-color: $darken-pink
+
+  &.btn-secondary
+    background-color: $button-green
+    border-color: $button-green
+
+    &:hover
+      background-color: $darken-button-green
+      border-color: $darken-button-green
+
+  &.btn-light
+    background-color: $white
+    color: $green
+
+    &:hover
+      background-color: $light-green-translucent
+      border-color: $light-green
+
+.close-button-component
+  float: right
+  position: relative
+  top: -25px
+  left: 15px
 
 .box-border
   position: relative
@@ -173,31 +203,15 @@ body
 //    background-color: $pink
 //    border-color: $pink
 //
-//.btn-light
-//  background-color: $white
-//  border-color: $light-green
-//
-//  &:hover
-//    background-color: $light-green-translucent
-//    border-color: $light-green
-//
-//.btn-secondary
-//  background-color: $button-green
-//  border-color: $button-green
-//
-//  &:hover,
-//  %btn-hover
-//    background-color: $darken-button-green
-//    border-color: $darken-button-green
-//
-//  &:focus,
-//  &.focus
-//    @extend %btn-hover
-//    box-shadow: 0 0 0 3px $green-translucent
-//
-//.badge-light
-//  border: 1px solid
-//
+
+.currency-badge
+  color: $translucent5-green
+  border: 1px solid
+  border-radius: .25rem
+  display: inline-block
+  padding: .25em .4em
+  margin-left: 5px
+
 //.icon-field
 //  .fa-sitemap
 //    @extend %cursor-icon
@@ -382,27 +396,42 @@ body
 //  .fa-check
 //    color: $green-translucent
 //
-//.radio-input
-//  visibility: hidden
-//
-//  &:checked + .radio-label
-//    border: 1px solid $green-translucent
-//
-//    .fa-check
-//      color: $darken-green
-//
-//.radio-label
-//  border: 1px solid transparent
-//  border-radius: 5px
-//  cursor: pointer
-//  padding: 5px
-//
-//  .fa-check
-//    color: $green-translucent
-//
-//.category-radio
-//  padding-top: 3px
-//
+
+.currency-badge
+  color: $translucent5-green
+  border: 1px solid
+  border-radius: .25rem
+  display: inline-block
+  padding: .25em .4em
+  margin-left: 5px
+
+.radio-input
+  visibility: hidden
+  position: absolute
+
+  &:checked + .radio-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.radio-label
+  border: 1px solid transparent
+  border-radius: .25rem
+  cursor: pointer
+  display: inline-block
+  padding: .25em .4em
+
+  .fa-check
+    color: $green-translucent
+
+.radio-span + .radio-span
+  padding: 0 10px
+
+.balance-of-payments-radios-component
+  margin-left: 20px
+  margin-top: 2px
+
 //.record-totals-component
 //  text-align: right
 //

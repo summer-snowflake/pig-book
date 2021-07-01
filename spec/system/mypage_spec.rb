@@ -43,13 +43,5 @@ RSpec.describe 'MyPage', type: :system, js: true do
         expect(page).to have_content assets_account2.from_now
       end
     end
-
-    it 'Update Assets Account' do
-      within all('.assets-account-item-component')[0] do
-        find('.check-box-component').click
-      end
-
-      expect(page).to have_content '預金の種類を更新しました'
-    end
   end
 end

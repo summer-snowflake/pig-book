@@ -13,12 +13,12 @@ class AssetsAccount < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 30 },
                    uniqueness: { scope: :user }
-  validate :should_have_limited_count
+  validate :should_have_limited_count, on: :create
 
   def should_have_limited_count
     return unless user
     return if user.unlimited_option
-    return if user.assets_accounts.count < MAX_NUMBER
+    return if user.assets_accounts.size < MAX_NUMBER
 
     errors.add(:base, :is_limited)
   end

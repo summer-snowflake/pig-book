@@ -3,33 +3,52 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import Sortable from 'sortablejs'
+import { withTranslation } from 'react-i18next'
 
 import { AssetsAccount, AssetsAccountParams } from 'types/api'
-import { AssetsAccountsStore } from 'types/store'
+import { AssetsAccountsStore, NewAssetsAccountStore, UserStore } from 'types/store'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { patchAssetsAccount } from 'actions/assetsAccountActions'
+import { closeNewAssetsAccountModal, openNewAssetsAccountModal } from 'actions/assetsAccountStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import AssetsAccountItem from 'components/mypage/AssetsAccountItem'
+import NewAssetsAccountModal from 'components/mypage/NewAssetsAccountModal'
 
 interface StateProps {
+  userStore: UserStore;
   assetsAccountsStore: AssetsAccountsStore;
+  newAssetsAccountStore: NewAssetsAccountStore;
 }
 
 interface DispatchProps {
   getAssetsAccounts: () => void;
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
+  openNewAssetsAccountModal: (currency: string) => void;
+  closeNewAssetsAccountModal: () => void;
 }
 
-type Props = StateProps & DispatchProps
+type Props = StateProps & DispatchProps & I18nProps
 
 class AssetsAccountsList extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
+    this.handleClickCreateButton = this.handleClickCreateButton.bind(this)
+    this.handleClickModalCloseButton = this.handleClickModalCloseButton.bind(this)
+
     this.props.getAssetsAccounts()
   }
 
+  handleClickCreateButton(): void {
+    this.props.openNewAssetsAccountModal(this.props.userStore.profile.currency)
+  }
+
+  handleClickModalCloseButton(): void {
+    this.props.closeNewAssetsAccountModal()
+  }
+
   render(): JSX.Element {
+    const { t } = this.props
     const sortElements = document.getElementById('sortable-assets-accounts');
     if (sortElements) {
       Sortable.create(sortElements, {
@@ -39,8 +58,6 @@ class AssetsAccountsList extends Component<Props> {
           const params = {
             position: Number(e.newIndex) + 1
           }
-          console.log(params)
-          console.log(e)
           this.props.patchAssetsAccount(Number(e.item.id), params)
         }
       })
@@ -58,6 +75,11 @@ class AssetsAccountsList extends Component<Props> {
             ))}
           </tbody>
         </table>
+        <button className='btn btn-secondary' onClick={this.handleClickCreateButton}>
+          <i className='fas fa-plus left-icon' />
+          {t('button.addAssetsAccount')}
+        </button>
+        <NewAssetsAccountModal isOpen={this.props.newAssetsAccountStore.isOpen} onClickClose={this.handleClickModalCloseButton} />
       </div>
     )
   }
@@ -65,7 +87,9 @@ class AssetsAccountsList extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    assetsAccountsStore: state.assetsAccounts
+    userStore: state.user,
+    assetsAccountsStore: state.assetsAccounts,
+    newAssetsAccountStore: state.newAssetsAccount
   }
 }
 
@@ -78,8 +102,14 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(patchAssetsAccount(id, params)).then(() => {
         dispatch(getAssetsAccounts())
       })
+    },
+    openNewAssetsAccountModal(currency: string): void {
+      dispatch(openNewAssetsAccountModal(currency))
+    },
+    closeNewAssetsAccountModal(): void {
+      dispatch(closeNewAssetsAccountModal())
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(AssetsAccountsList)
+export default connect(mapState, mapDispatch)(withTranslation()(AssetsAccountsList))

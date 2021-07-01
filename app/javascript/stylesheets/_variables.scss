@@ -12,9 +12,11 @@ $translucent5-pink: rgba($pink, .5);
 $white: #fff;
 $translucent: rgba($white, .5);
 
+$gray: #999;
+$lighten-gray: rgba($gray, .5);
+
 $red: #ac5e78;
 $blue: #5e78ac;
-$gray: #999;
 
 $yellow: #ffd351;
 $darken-green-translucent: rgba(darken($green, 10%), .6);

@@ -1,3 +1,5 @@
+import { ReactText } from 'react'
+
 export interface Errors {
   errors: string[];
 }
@@ -109,7 +111,6 @@ export interface AdminUser extends User {
   tags_count: number;
 }
 
-*/
 export interface User {
   id: number;
   email: string;
@@ -117,6 +118,7 @@ export interface User {
   uid: string;
   active: boolean;
   admin: Admin;
+  profile: Profile;
   daily_option: boolean;
   unlimited_option: boolean;
   piggy_bank_option: boolean;
@@ -126,6 +128,14 @@ export interface User {
   records_count: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface UserOption {
+  id: number;
+  name: string;
+  column: string;
+  value: boolean;
+  description: string;
 }
 
 export interface Profile {

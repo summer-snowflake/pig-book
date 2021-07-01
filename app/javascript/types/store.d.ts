@@ -1,5 +1,5 @@
 import {
-  Errors, Category, Record, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank, RecordTotals, Tag, MonthlyCategoryBalanceTable, AssetsAccount, PiggyItem, Admin, WithCategoriesPlace, AdminUser
+  Errors, Category, Record, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank, RecordTotals, Tag, MonthlyCategoryBalanceTable, AssetsAccount, PiggyItem, Admin, WithCategoriesPlace, AdminUser, UserOption
 } from 'types/api'
 
 export interface CookiesHeader {
@@ -25,6 +25,7 @@ export interface UserStore extends Errors {
   isLoading: boolean;
   isLogged: boolean;
   admin: Admin;
+  profile: ProfileStore;
   email: string;
   dailyOption: boolean;
   unlimitedOption: boolean;
@@ -35,19 +36,7 @@ export interface UserStore extends Errors {
   dashboardYears: number[];
 }
 
-export interface UserOption {
-  id: number;
-  name: string;
-  column: string;
-  value: boolean;
-  description: string;
-}
-
-export interface ProfileStore {
-  isLoading: boolean;
-  isLoadingMemo: boolean;
-  editing: boolean;
-  editingMemo: boolean;
+interface ProfileStore {
   locale: string;
   currency: string;
   memo: string;
