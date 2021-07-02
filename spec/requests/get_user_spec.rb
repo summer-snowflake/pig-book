@@ -27,6 +27,12 @@ describe 'GET /api/user', autodoc: true do
         admin: {
           user_id: user.id
         },
+        profile: {
+          user_id: user.id,
+          locale: 'ja',
+          currency: 'yen',
+          memo: ''
+        },
         email: user.email,
         uid: user.email,
         name: nil,

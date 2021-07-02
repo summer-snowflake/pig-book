@@ -11,6 +11,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { LoginParams } from 'types/api'
 import { SessionStore } from 'types/store'
 import { login } from 'actions/sessionActions'
+import { getUser } from 'actions/userActions'
 import { RootState } from 'reducers/rootReducer'
 import FlashMessage from 'components/common/FlashMessage'
 
@@ -116,7 +117,9 @@ function mapState(state: RootState): StateProps {
 function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): DispatchProps {
   return {
     login(params: LoginParams, history: H.History): void {
-      dispatch(login(params, history))
+      dispatch(login(params, history)).then(() => {
+        dispatch(getUser())
+      })
     }
   }
 }

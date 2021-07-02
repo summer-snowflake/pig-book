@@ -4,12 +4,16 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 
 import { AssetsAccount, AssetsAccountParams } from 'types/api'
-import { AssetsAccountsStore } from 'types/store'
-import { patchAssetsAccount } from 'actions/assetsAccountActions'
+import { AssetsAccountsStore, EditAssetsAccountStore } from 'types/store'
+import { deleteAssetsAccount, patchAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
+import { closeDestroyAssetsAccountModal, openDestroyAssetsAccountModal, openEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import CheckBox from 'components/common/CheckBox'
 import HumanCharge from 'components/common/HumanCharge'
+import DestroyModal from 'components/common/DestroyModal'
+import Edit from 'components/common/Edit'
+import Trash from 'components/common/Trash'
 
 interface ParentProps {
   assetsAccount: AssetsAccount;
@@ -17,19 +21,28 @@ interface ParentProps {
 
 interface StateProps {
   assetsAccountsStore: AssetsAccountsStore;
+  editAssetsAccountStore: EditAssetsAccountStore;
 }
 
 interface DispatchProps {
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
+  openEditAssetsAccountModal: (assetsAccount: AssetsAccount) => void;
+  openDestroyAssetsAccountModal: () => void;
+  closeDestroyAssetsAccountModal: () => void;
+  deleteAssetsAccount: (assetsAccountId: number) => void;
 }
 
-type Props = ParentProps & DispatchProps
+type Props = ParentProps & StateProps & DispatchProps
 
 class AssetsAccountItem extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
     this.handleClickCheckButton = this.handleClickCheckButton.bind(this)
+    this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.handleClickModalCloseButton = this.handleClickModalCloseButton.bind(this)
+    this.handleClickDestroyButton = this.handleClickDestroyButton.bind(this)
   }
 
   handleClickCheckButton(): void {
@@ -39,13 +52,29 @@ class AssetsAccountItem extends Component<Props> {
     this.props.patchAssetsAccount(this.props.assetsAccount.id, params)
   }
 
+  handleClickEditIcon(): void {
+    this.props.openEditAssetsAccountModal(this.props.assetsAccount)
+  }
+
+  handleClickTrashIcon(): void {
+    this.props.openDestroyAssetsAccountModal()
+  }
+
+  handleClickModalCloseButton(): void {
+    this.props.closeDestroyAssetsAccountModal()
+  }
+
+  handleClickDestroyButton(): void {
+    this.props.deleteAssetsAccount(this.props.assetsAccount.id)
+  }
+
   render(): JSX.Element {
     return (
-      <tr className='assets-account-item-component'>
-        <td>
+      <tr className='assets-account-item-component' id={String(this.props.assetsAccount.id)}>
+        <td className='icon-field'>
           <i className='fas fa-bars green cursor-move' />
         </td>
-        <td>
+        <td className='icon-field'>
           <CheckBox checked={this.props.assetsAccount.checked} onClick={this.handleClickCheckButton} />
         </td>
         <td>
@@ -62,6 +91,20 @@ class AssetsAccountItem extends Component<Props> {
         <td className='column-human-now'>
           {this.props.assetsAccount.from_now}
         </td>
+        <td className='icon-field'>
+          <Edit onClickIcon={this.handleClickEditIcon} tooltipDisable={false} />
+        </td>
+        <td className='icon-field'>
+          <DestroyModal
+            isOpen={this.props.editAssetsAccountStore.isOpenDestroyModal}
+            onClickCancel={this.handleClickDestroyButton}
+            onClickClose={this.handleClickModalCloseButton}
+          />
+          <Trash
+            onClickIcon={this.handleClickTrashIcon}
+            tooltipDisable={true}
+          />
+        </td>
       </tr>
     )
   }
@@ -69,7 +112,8 @@ class AssetsAccountItem extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    assetsAccountsStore: state.assetsAccounts
+    assetsAccountsStore: state.assetsAccounts,
+    editAssetsAccountStore: state.editAssetsAccount
   }
 }
 
@@ -79,7 +123,21 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(patchAssetsAccount(id, params)).then(() => {
         dispatch(getAssetsAccounts())
       })
-    }
+    },
+    openEditAssetsAccountModal(assetsAccount: AssetsAccount): void {
+      dispatch(openEditAssetsAccountModal(assetsAccount))
+    },
+    openDestroyAssetsAccountModal(): void {
+      dispatch(openDestroyAssetsAccountModal())
+    },
+    closeDestroyAssetsAccountModal(): void {
+      dispatch(closeDestroyAssetsAccountModal())
+    },
+    deleteAssetsAccount(assetsAccountId: number): void {
+      dispatch(deleteAssetsAccount(assetsAccountId)).then(() => {
+        dispatch(getAssetsAccounts())
+      })
+    },
   }
 }
 

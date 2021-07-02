@@ -80,6 +80,9 @@
     "title": "タイトル",
     "description": "説明"
   },
+  "placeholder": {
+    "assetsAccountName": "銀行、保険、有価証券"
+  },
   "toolTip": {
     "sortCreatedAt": "作成日順",
     "sortPublishedAt": "日付順",
