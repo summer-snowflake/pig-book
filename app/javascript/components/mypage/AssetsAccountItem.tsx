@@ -92,7 +92,7 @@ class AssetsAccountItem extends Component<Props> {
           {this.props.assetsAccount.from_now}
         </td>
         <td className='icon-field'>
-          <Edit onClickIcon={this.handleClickEditIcon} tooltipDisable={false} />
+          <Edit onClickIcon={this.handleClickEditIcon} tooltipDisable={true} />
         </td>
         <td className='icon-field'>
           <DestroyModal

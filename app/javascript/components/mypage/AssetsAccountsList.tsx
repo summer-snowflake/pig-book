@@ -14,6 +14,7 @@ import { RootState } from 'reducers/rootReducer'
 import AssetsAccountItem from 'components/mypage/AssetsAccountItem'
 import NewAssetsAccountModal from 'components/mypage/NewAssetsAccountModal'
 import EditAssetsAccountModal from 'components/mypage/EditAssetsAccountModal'
+import TotalAssetsDisplayField from 'components/mypage/TotalAssetsDisplayField'
 
 interface StateProps {
   userStore: UserStore;
@@ -69,6 +70,9 @@ class AssetsAccountsList extends Component<Props> {
 
     return (
       <div className='assets-accounts-list-component'>
+        <TotalAssetsDisplayField
+          currency={this.props.userStore.profile.currency}
+          assetsAccounts={this.props.assetsAccountsStore.assetsAccounts} />
         <div className='counter'>
           {this.props.assetsAccountsStore.assetsAccounts.length + ' / 10'}
         </div>
