@@ -9,14 +9,14 @@ interface ParentProps {
 
 type Props = ParentProps & I18nProps
 
-class Edit extends Component<Props> {
+class Trash extends Component<Props> {
   render(): JSX.Element {
     const { t } = this.props
 
     return (
-      <div className='edit-component'>
-        <span data-tip={t('toolTip.edit')} onClick={this.props.onClickIcon}>
-          <i className='fas fa-edit' />
+      <div className='trash-component'>
+        <span data-tip={t('toolTip.delete')} onClick={this.props.onClickIcon}>
+          <i className='fas fa-trash' />
           {!this.props.tooltipDisable && (
             <ReactTooltip />
           )}
@@ -26,4 +26,5 @@ class Edit extends Component<Props> {
   }
 }
 
-export default withTranslation()(Edit)
+export default withTranslation()(Trash)
+

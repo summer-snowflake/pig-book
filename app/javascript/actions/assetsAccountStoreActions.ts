@@ -66,3 +66,15 @@ export const closeEditAssetsAccountModal = (): Action => {
     type: actionTypes.CLOSE_EDIT_ASSETS_ACCOUNT_MODAL
   }
 }
+
+export const openDestroyAssetsAccountModal = (): Action => {
+  return {
+    type: actionTypes.OPEN_DESTROY_ASSETS_ACCOUNT_MODAL
+  }
+}
+
+export const closeDestroyAssetsAccountModal = (): Action => {
+  return {
+    type: actionTypes.CLOSE_DESTROY_ASSETS_ACCOUNT_MODAL
+  }
+}

@@ -10,6 +10,7 @@ import { AssetsAccount } from 'types/api'
 const initialState = {
   isLoading: false,
   isOpen: false,
+  isOpenDestroyModal: false,
   editedAssetsAccountId: 0,
   id: 0,
   balance_of_payments: true,
@@ -54,6 +55,11 @@ const editAssetsAccountReducer = (state: EditAssetsAccountStore = initialState, 
       isLoading: false,
       errors: action.errors
     }
+  case actionTypes.DELETE_ASSETS_ACCOUNT_SUCCESS:
+    return {
+      ...state,
+      isOpenDestroyModal: false
+    }
   case actionTypes.CHANGE_ASSETS_ACCOUNT_BALANCE_OF_PAYMENTS:
     return {
       ...state,
@@ -85,6 +91,16 @@ const editAssetsAccountReducer = (state: EditAssetsAccountStore = initialState, 
     return {
       ...state,
       isOpen: false
+    }
+  case actionTypes.OPEN_DESTROY_ASSETS_ACCOUNT_MODAL:
+    return {
+      ...state,
+      isOpenDestroyModal: true
+    }
+  case actionTypes.CLOSE_DESTROY_ASSETS_ACCOUNT_MODAL:
+    return {
+      ...state,
+      isOpenDestroyModal: false
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

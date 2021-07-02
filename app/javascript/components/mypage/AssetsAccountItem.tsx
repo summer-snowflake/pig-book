@@ -4,14 +4,16 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 
 import { AssetsAccount, AssetsAccountParams } from 'types/api'
-import { AssetsAccountsStore } from 'types/store'
-import { patchAssetsAccount } from 'actions/assetsAccountActions'
+import { AssetsAccountsStore, EditAssetsAccountStore } from 'types/store'
+import { deleteAssetsAccount, patchAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
-import { openEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
+import { closeDestroyAssetsAccountModal, openDestroyAssetsAccountModal, openEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import CheckBox from 'components/common/CheckBox'
 import HumanCharge from 'components/common/HumanCharge'
+import DestroyModal from 'components/common/DestroyModal'
 import Edit from 'components/common/Edit'
+import Trash from 'components/common/Trash'
 
 interface ParentProps {
   assetsAccount: AssetsAccount;
@@ -19,14 +21,18 @@ interface ParentProps {
 
 interface StateProps {
   assetsAccountsStore: AssetsAccountsStore;
+  editAssetsAccountStore: EditAssetsAccountStore;
 }
 
 interface DispatchProps {
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
   openEditAssetsAccountModal: (assetsAccount: AssetsAccount) => void;
+  openDestroyAssetsAccountModal: () => void;
+  closeDestroyAssetsAccountModal: () => void;
+  deleteAssetsAccount: (assetsAccountId: number) => void;
 }
 
-type Props = ParentProps & DispatchProps
+type Props = ParentProps & StateProps & DispatchProps
 
 class AssetsAccountItem extends Component<Props> {
   constructor(props: Props) {
@@ -34,6 +40,9 @@ class AssetsAccountItem extends Component<Props> {
 
     this.handleClickCheckButton = this.handleClickCheckButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
+    this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
+    this.handleClickModalCloseButton = this.handleClickModalCloseButton.bind(this)
+    this.handleClickDestroyButton = this.handleClickDestroyButton.bind(this)
   }
 
   handleClickCheckButton(): void {
@@ -45,6 +54,18 @@ class AssetsAccountItem extends Component<Props> {
 
   handleClickEditIcon(): void {
     this.props.openEditAssetsAccountModal(this.props.assetsAccount)
+  }
+
+  handleClickTrashIcon(): void {
+    this.props.openDestroyAssetsAccountModal()
+  }
+
+  handleClickModalCloseButton(): void {
+    this.props.closeDestroyAssetsAccountModal()
+  }
+
+  handleClickDestroyButton(): void {
+    this.props.deleteAssetsAccount(this.props.assetsAccount.id)
   }
 
   render(): JSX.Element {
@@ -73,6 +94,17 @@ class AssetsAccountItem extends Component<Props> {
         <td className='icon-field'>
           <Edit onClickIcon={this.handleClickEditIcon} tooltipDisable={false} />
         </td>
+        <td className='icon-field'>
+          <DestroyModal
+            isOpen={this.props.editAssetsAccountStore.isOpenDestroyModal}
+            onClickCancel={this.handleClickDestroyButton}
+            onClickClose={this.handleClickModalCloseButton}
+          />
+          <Trash
+            onClickIcon={this.handleClickTrashIcon}
+            tooltipDisable={true}
+          />
+        </td>
       </tr>
     )
   }
@@ -80,7 +112,8 @@ class AssetsAccountItem extends Component<Props> {
 
 function mapState(state: RootState): StateProps {
   return {
-    assetsAccountsStore: state.assetsAccounts
+    assetsAccountsStore: state.assetsAccounts,
+    editAssetsAccountStore: state.editAssetsAccount
   }
 }
 
@@ -93,7 +126,18 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     openEditAssetsAccountModal(assetsAccount: AssetsAccount): void {
       dispatch(openEditAssetsAccountModal(assetsAccount))
-    }
+    },
+    openDestroyAssetsAccountModal(): void {
+      dispatch(openDestroyAssetsAccountModal())
+    },
+    closeDestroyAssetsAccountModal(): void {
+      dispatch(closeDestroyAssetsAccountModal())
+    },
+    deleteAssetsAccount(assetsAccountId: number): void {
+      dispatch(deleteAssetsAccount(assetsAccountId)).then(() => {
+        dispatch(getAssetsAccounts())
+      })
+    },
   }
 }
 

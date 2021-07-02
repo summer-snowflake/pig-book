@@ -266,6 +266,8 @@ export interface AssetsAccount {
   balance_of_payments: boolean;
   money: number;
   checked: boolean;
+  currency: string;
+  position: number;
   human_charge: string;
   human_updated_at: string;
   from_now: string;

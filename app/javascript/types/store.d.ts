@@ -235,6 +235,7 @@ export interface EditAssetsAccountStore extends Errors {
   editedAssetsAccountId: number;
   isLoading: boolean;
   isOpen: boolean;
+  isOpenDestroyModal: boolean;
   id: number;
   balance_of_payments: boolean;
   name: string;
