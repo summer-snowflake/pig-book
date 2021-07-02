@@ -18,4 +18,21 @@ RSpec.describe 'Update assets account', type: :system, js: true do
 
     expect(page).to have_content '預金の種類を更新しました'
   end
+
+  it 'Update Assets Account by edit modal' do
+    within all('.assets-account-item-component')[0] do
+      find('.fa-edit').click
+    end
+
+    fill_in 'assets_account_name', with: '△△銀行'
+    fill_in 'assets_account_money', with: '200000'
+    click_button '設定する'
+
+    expect(page).to have_content '預金の種類を更新しました'
+
+    within all('.assets-account-item-component')[0] do
+      expect(page).to have_content '△△銀行'
+      expect(page).to have_content '¥200,000'
+    end
+  end
 end

@@ -7,6 +7,7 @@ import { AssetsAccount, AssetsAccountParams } from 'types/api'
 import { AssetsAccountsStore } from 'types/store'
 import { patchAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
+import { openEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import CheckBox from 'components/common/CheckBox'
 import HumanCharge from 'components/common/HumanCharge'
@@ -22,6 +23,7 @@ interface StateProps {
 
 interface DispatchProps {
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
+  openEditAssetsAccountModal: (assetsAccount: AssetsAccount) => void;
 }
 
 type Props = ParentProps & DispatchProps
@@ -42,7 +44,7 @@ class AssetsAccountItem extends Component<Props> {
   }
 
   handleClickEditIcon(): void {
-    console.log('click')
+    this.props.openEditAssetsAccountModal(this.props.assetsAccount)
   }
 
   render(): JSX.Element {
@@ -88,6 +90,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(patchAssetsAccount(id, params)).then(() => {
         dispatch(getAssetsAccounts())
       })
+    },
+    openEditAssetsAccountModal(assetsAccount: AssetsAccount): void {
+      dispatch(openEditAssetsAccountModal(assetsAccount))
     }
   }
 }

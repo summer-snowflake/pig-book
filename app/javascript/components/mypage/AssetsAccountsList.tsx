@@ -6,18 +6,20 @@ import Sortable from 'sortablejs'
 import { withTranslation } from 'react-i18next'
 
 import { AssetsAccount, AssetsAccountParams } from 'types/api'
-import { AssetsAccountsStore, NewAssetsAccountStore, UserStore } from 'types/store'
+import { AssetsAccountsStore, EditAssetsAccountStore, NewAssetsAccountStore, UserStore } from 'types/store'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { patchAssetsAccount } from 'actions/assetsAccountActions'
-import { closeNewAssetsAccountModal, openNewAssetsAccountModal } from 'actions/assetsAccountStoreActions'
+import { closeEditAssetsAccountModal, closeNewAssetsAccountModal, openNewAssetsAccountModal } from 'actions/assetsAccountStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import AssetsAccountItem from 'components/mypage/AssetsAccountItem'
 import NewAssetsAccountModal from 'components/mypage/NewAssetsAccountModal'
+import EditAssetsAccountModal from 'components/mypage/EditAssetsAccountModal'
 
 interface StateProps {
   userStore: UserStore;
   assetsAccountsStore: AssetsAccountsStore;
   newAssetsAccountStore: NewAssetsAccountStore;
+  editAssetsAccountStore: EditAssetsAccountStore;
 }
 
 interface DispatchProps {
@@ -25,6 +27,7 @@ interface DispatchProps {
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
   openNewAssetsAccountModal: (currency: string) => void;
   closeNewAssetsAccountModal: () => void;
+  closeEditAssetsAccountModal: () => void;
 }
 
 type Props = StateProps & DispatchProps & I18nProps
@@ -45,6 +48,7 @@ class AssetsAccountsList extends Component<Props> {
 
   handleClickModalCloseButton(): void {
     this.props.closeNewAssetsAccountModal()
+    this.props.closeEditAssetsAccountModal()
   }
 
   render(): JSX.Element {
@@ -80,6 +84,7 @@ class AssetsAccountsList extends Component<Props> {
           {t('button.addAssetsAccount')}
         </button>
         <NewAssetsAccountModal isOpen={this.props.newAssetsAccountStore.isOpen} onClickClose={this.handleClickModalCloseButton} />
+        <EditAssetsAccountModal isOpen={this.props.editAssetsAccountStore.isOpen} onClickClose={this.handleClickModalCloseButton} />
       </div>
     )
   }
@@ -89,7 +94,8 @@ function mapState(state: RootState): StateProps {
   return {
     userStore: state.user,
     assetsAccountsStore: state.assetsAccounts,
-    newAssetsAccountStore: state.newAssetsAccount
+    newAssetsAccountStore: state.newAssetsAccount,
+    editAssetsAccountStore: state.editAssetsAccount
   }
 }
 
@@ -108,6 +114,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     closeNewAssetsAccountModal(): void {
       dispatch(closeNewAssetsAccountModal())
+    },
+    closeEditAssetsAccountModal(): void {
+      dispatch(closeEditAssetsAccountModal())
     }
   }
 }
