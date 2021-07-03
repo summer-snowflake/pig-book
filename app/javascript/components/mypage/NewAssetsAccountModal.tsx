@@ -35,7 +35,7 @@ interface DispatchProps {
 
 type Props = ParentProps & StateProps & DispatchProps
 
-class NewAssetsAccountModalContainer extends Component<Props> {
+class NewAssetsAccountModal extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -136,4 +136,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(NewAssetsAccountModalContainer)
+export default connect(mapState, mapDispatch)(NewAssetsAccountModal)

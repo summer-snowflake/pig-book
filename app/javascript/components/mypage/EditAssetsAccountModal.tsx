@@ -35,7 +35,7 @@ interface DispatchProps {
 
 type Props = ParentProps & StateProps & DispatchProps
 
-class EditAssetsAccountModalContainer extends Component<Props> {
+class EditAssetsAccountModal extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -137,4 +137,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(EditAssetsAccountModalContainer)
+export default connect(mapState, mapDispatch)(EditAssetsAccountModal)

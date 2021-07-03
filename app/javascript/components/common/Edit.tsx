@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next'
 
 interface ParentProps {
   onClickIcon: () => void;
-  tooltipDisable?: boolean;
+  tooltipDisable?: boolean; // NOTE: 並び替え対象のDOMの場合、並び替え時のstyleが崩れる可能性があるため disable オプションを用意
 }
 
 type Props = ParentProps & I18nProps
