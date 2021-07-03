@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
-import MypageMenu from 'components/mypage/MypageMenu';
-import TotalAssetsCard from 'components/mypage/TotalAssetsCard';
+import MypageMenu from 'components/mypage/MypageMenu'
+import TotalAssetsCard from 'components/mypage/TotalAssetsCard'
+import TutorialCard from 'components/mypage/TutorialCard'
 
 type Props = I18nProps
 
@@ -17,6 +18,7 @@ class MyPage extends Component<Props> {
             <MypageMenu />
           </div>
           <div className='col'>
+            <TutorialCard />
             <TotalAssetsCard />
           </div>
         </div>

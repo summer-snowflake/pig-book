@@ -7,7 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { Tutorial } from 'types/api'
 import { TutorialAction } from 'types/action'
 import { getCookiesFailure } from 'actions/userActions'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 
 const getTutorialRequest = (): Action => {
   return {
