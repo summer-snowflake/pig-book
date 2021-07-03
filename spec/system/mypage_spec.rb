@@ -9,10 +9,29 @@ RSpec.describe 'MyPage', type: :system, js: true do
     it 'Display empty Assets Accounts List' do
       sign_in user
 
-      within '.card-header' do
+      within all('.card-header')[0] do
+        expect(page).to have_content 'チュートリアル'
+      end
+      within all('.card-header')[1] do
         expect(page).to have_content '総資産'
       end
-      expect(page).to have_content '0 / 10'
+      within all('.card-body')[1] do
+        expect(page).to have_content '0 / 10'
+      end
+    end
+  end
+
+  context 'there are not categories, places, and records' do
+    before do
+      sign_in user
+    end
+
+    it 'Display tutorial card' do
+      within all('.card')[0] do
+        expect(page).to have_content 'カテゴリを設定してください。'
+        expect(page).to have_content 'お店・施設を設定し、カテゴリを追加てください。'
+        expect(page).to have_content 'データを入力、登録してください。'
+      end
     end
   end
 
@@ -25,7 +44,7 @@ RSpec.describe 'MyPage', type: :system, js: true do
     end
 
     it 'Display Assets Accounts Items' do
-      within '.card-header' do
+      within all('.card-header')[1] do
         expect(page).to have_content '総資産'
       end
       expect(page).to have_content '2 / 10'
