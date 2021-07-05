@@ -7,6 +7,7 @@ import CloseButton from 'components/common/CloseButton'
 
 interface Props {
   isOpen: boolean;
+  disabled: boolean;
   onClickCancel: () => void;
   onClickClose: () => void;
 }
@@ -29,7 +30,7 @@ class DestroyModal extends Component<I18nProps & Props> {
               </div>
               <div className='modal-body'>
                 <p>{t('message.deleteItem')}</p>
-                <button className='btn btn-primary' onClick={this.props.onClickCancel}>
+                <button className='btn btn-primary' disabled={this.props.disabled} onClick={this.props.onClickCancel}>
                   {t('button.delete')}
                 </button>
               </div>

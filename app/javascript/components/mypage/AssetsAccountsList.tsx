@@ -52,6 +52,10 @@ class AssetsAccountsList extends Component<Props> {
     this.props.closeEditAssetsAccountModal()
   }
 
+  handleClickTrashIcon(): void {
+    //this.props.openDestroyAssetsAccountModal()
+  }
+
   render(): JSX.Element {
     const { t } = this.props
     const sortElements = document.getElementById('sortable-assets-accounts');
