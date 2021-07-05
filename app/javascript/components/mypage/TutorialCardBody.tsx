@@ -27,7 +27,7 @@ class TutorialCardBody extends Component<Props> {
               <td>
                 <CheckMark check={this.props.tutorialStore.categoryExists} />
               </td>
-              <td className='tutorial-link'>
+              <td className='link'>
                 <NavLink to='/categories'>
                   <i className='fas fa-cog left-icon' />
                   {t('menu.settings')} {'>'} {t('menu.category')}
@@ -41,7 +41,7 @@ class TutorialCardBody extends Component<Props> {
               <td>
                 <CheckMark check={this.props.tutorialStore.placeExists} />
               </td>
-              <td className='tutorial-link'>
+              <td className='link'>
                 <NavLink to='/places'>
                   <i className='fas fa-cog left-icon' />
                   {t('menu.settings')} {'>'} {t('menu.place')}
@@ -55,7 +55,7 @@ class TutorialCardBody extends Component<Props> {
               <td>
                 <CheckMark check={this.props.tutorialStore.recordExists} />
               </td>
-              <td className='tutorial-link'>
+              <td className='link'>
                 <NavLink to='/input'>
                   <i className='fas fa-palette left-icon' />
                   {t('menu.input')}
