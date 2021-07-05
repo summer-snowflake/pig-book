@@ -4,22 +4,23 @@ require 'rails_helper'
 
 RSpec.describe 'Destroy assets account', type: :system, js: true do
   let!(:user) { create(:user, :active) }
-  let!(:assets_account) { create(:assets_account, user: user, name: '△△銀行', money: '200_000') }
+  let!(:assets_account1) { create(:assets_account, user: user, position: 1) }
+  let!(:assets_account2) { create(:assets_account, user: user, position: 2) }
 
   before do
     sign_in user
   end
 
   it 'Destroy Assets Account by destroy modal' do
-    expect(page).to have_content '△△銀行'
-    expect(page).to have_content '¥200,000'
-    find('.fa-trash').click
+    within all('.assets-account-item-component')[0] do
+      find('.fa-trash').click
+    end
+
+    expect(page).to have_content '削除しますか？'
 
     click_button '削除する'
 
     expect(page).to have_content '預金の種類を削除しました'
-
-    expect(page).to have_no_content '△△銀行'
-    expect(page).to have_no_content '¥200,000'
+    expect(user.reload.assets_accounts.size).to eq 1
   end
 end

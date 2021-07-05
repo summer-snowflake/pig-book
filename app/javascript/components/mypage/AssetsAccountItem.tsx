@@ -7,7 +7,7 @@ import { AssetsAccount, AssetsAccountParams } from 'types/api'
 import { AssetsAccountsStore, EditAssetsAccountStore } from 'types/store'
 import { deleteAssetsAccount, patchAssetsAccount } from 'actions/assetsAccountActions'
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
-import { closeDestroyAssetsAccountModal, openDestroyAssetsAccountModal, openEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
+import { openEditAssetsAccountModal } from 'actions/assetsAccountStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import CheckBox from 'components/common/CheckBox'
 import HumanCharge from 'components/common/HumanCharge'
@@ -27,16 +27,22 @@ interface StateProps {
 interface DispatchProps {
   patchAssetsAccount: (id: number, params: AssetsAccountParams) => void;
   openEditAssetsAccountModal: (assetsAccount: AssetsAccount) => void;
-  openDestroyAssetsAccountModal: () => void;
-  closeDestroyAssetsAccountModal: () => void;
   deleteAssetsAccount: (assetsAccountId: number) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps
 
-class AssetsAccountItem extends Component<Props> {
+interface State {
+  isOpenDestroyModal: boolean;
+}
+
+class AssetsAccountItem extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
+
+    this.state = {
+      isOpenDestroyModal: false
+    }
 
     this.handleClickCheckButton = this.handleClickCheckButton.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
@@ -57,11 +63,15 @@ class AssetsAccountItem extends Component<Props> {
   }
 
   handleClickTrashIcon(): void {
-    this.props.openDestroyAssetsAccountModal()
+    this.setState({
+      isOpenDestroyModal: true
+    })
   }
 
   handleClickModalCloseButton(): void {
-    this.props.closeDestroyAssetsAccountModal()
+    this.setState({
+      isOpenDestroyModal: false
+    })
   }
 
   handleClickDestroyButton(): void {
@@ -96,7 +106,8 @@ class AssetsAccountItem extends Component<Props> {
         </td>
         <td className='icon-field'>
           <DestroyModal
-            isOpen={this.props.editAssetsAccountStore.isOpenDestroyModal}
+            isOpen={this.state.isOpenDestroyModal}
+            disabled={this.props.editAssetsAccountStore.isLoading}
             onClickCancel={this.handleClickDestroyButton}
             onClickClose={this.handleClickModalCloseButton}
           />
@@ -126,12 +137,6 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
     },
     openEditAssetsAccountModal(assetsAccount: AssetsAccount): void {
       dispatch(openEditAssetsAccountModal(assetsAccount))
-    },
-    openDestroyAssetsAccountModal(): void {
-      dispatch(openDestroyAssetsAccountModal())
-    },
-    closeDestroyAssetsAccountModal(): void {
-      dispatch(closeDestroyAssetsAccountModal())
     },
     deleteAssetsAccount(assetsAccountId: number): void {
       dispatch(deleteAssetsAccount(assetsAccountId)).then(() => {
