@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'MyPage', type: :system, js: true do
+  include ActionView::Helpers::NumberHelper
+
   let!(:user) { create(:user, :active) }
 
   context 'assets account is empty' do
@@ -61,6 +63,18 @@ RSpec.describe 'MyPage', type: :system, js: true do
         expect(page).to have_content assets_account2.human_updated_at
         expect(page).to have_content assets_account2.from_now
       end
+    end
+
+    it 'Display total assets of Assets Accounts Items' do
+      total = number_to_currency(assets_account1.money + assets_account2.money, unit: '￥', format: '%u%n')
+      expect(page).to have_content total
+
+      within all('.assets-account-item-component')[0] do
+        find('.check-box-component').click
+      end
+
+      expect(page).to have_content '預金の種類を更新しました'
+      expect(page).to have_content number_to_currency(assets_account2.money, unit: '￥', format: '%u%n')
     end
   end
 end
