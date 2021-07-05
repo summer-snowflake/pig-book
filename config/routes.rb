@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get 'users/sign_up', to: 'users/registrations#new'
   get 'mypage', to: 'mypage#show'
 
+  namespace :admin, module: :admin_page do
+    get 'users', to: 'users#show'
+  end
+
   scope :api do
     mount_devise_token_auth_for 'User', at: 'auth'
   end
