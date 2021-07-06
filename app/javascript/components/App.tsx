@@ -10,6 +10,7 @@ import SignUpPage from 'components/SignUpPage'
 import MyPage from 'components/MyPage'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
+import AdminUsersPage from 'components/AdminUsersPage'
 
 import 'react-toastify/dist/ReactToastify.css'
 import 'stylesheets/toastify.sass'
@@ -26,6 +27,7 @@ export const App = () => {
           <Route component={SignInPage} exact path='/confirmed' />
           <Route component={SignUpPage} exact path='/users/sign_up' />
           <Route component={MyPage} exact path='/mypage' />
+          <Route component={AdminUsersPage} exact path='/admin/users' />
         </Switch>
         <Footer />
       </Router>

@@ -109,6 +109,9 @@ export interface AdminUser extends User {
   breakdowns_count: number;
   places_count: number;
   tags_count: number;
+  human_created_on: string;
+  human_current_sign_in_at: string;
+  human_updated_at: string;
 }
 
 export interface User {

@@ -8,7 +8,8 @@ module Api
         fetcher.find_all_by(users_params)
         render json: { list: fetcher.users, max_page: fetcher.max_page },
                include: :admin,
-               methods: %i[active current_sign_in_at], status: :ok
+               methods: %i[active current_sign_in_at human_created_on human_current_sign_in_at human_updated_at],
+               status: :ok
       end
 
       private

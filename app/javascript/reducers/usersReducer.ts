@@ -1,5 +1,5 @@
 import * as actionTypes from 'utils/actionTypes'
-import { UsersAction } from 'types/action'
+import { AdminUsersAction } from 'types/action'
 import { UsersStore } from 'types/store'
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
   maxPage: 1
 }
 
-const usersReducer = (state: UsersStore = initialState, action: UsersAction): UsersStore => {
+const usersReducer = (state: UsersStore = initialState, action: AdminUsersAction): UsersStore => {
   switch (action.type) {
   case actionTypes.GET_USERS_REQUEST:
     return {

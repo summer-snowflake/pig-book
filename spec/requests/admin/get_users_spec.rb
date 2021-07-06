@@ -63,7 +63,10 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false
+          piggy_bank_option: false,
+          human_created_on: I18n.l(user.created_at, format: :date),
+          human_current_sign_in_at: '',
+          human_updated_at: I18n.l(user.updated_at)
         },
         {
           admin: {
@@ -85,7 +88,10 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false
+          piggy_bank_option: false,
+          human_created_on: I18n.l(admin_user.created_at, format: :date),
+          human_current_sign_in_at: I18n.l(admin_user.reload.current_sign_in_at),
+          human_updated_at: I18n.l(admin_user.updated_at)
         },
         {
           active: false,
@@ -104,7 +110,10 @@ describe 'GET /api/admin/users', autodoc: true do
           tags_count: 0,
           daily_option: false,
           unlimited_option: false,
-          piggy_bank_option: false
+          piggy_bank_option: false,
+          human_created_on: I18n.l(inactive_user.created_at, format: :date),
+          human_current_sign_in_at: '',
+          human_updated_at: I18n.l(inactive_user.updated_at)
         }
       ]
       json = {
