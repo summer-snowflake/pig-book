@@ -8,6 +8,7 @@ import { UsersStore } from 'types/store'
 import { getUsers } from 'actions/usersAction'
 import { RootState } from 'reducers/rootReducer'
 import Pagination from 'components/common/Pagination'
+import LoadingImage from 'components/common/LoadingImage'
 import UserItem from 'components/admin/UserItem'
 
 interface StateProps {
@@ -47,8 +48,8 @@ class UsersList extends Component<Props> {
         <table className='table'>
           <tbody>
             <tr>
-              <th />
-              <th />
+              <th className='icon-label-field' />
+              <th className='icon-label-field' />
               <th>{t('admin.userEmail')}</th>
               <th />
               <th />
@@ -56,6 +57,9 @@ class UsersList extends Component<Props> {
               <th>{t('admin.lastSignInAt')}</th>
               <th>{t('admin.updatedAt')}</th>
             </tr>
+            {this.props.usersStore.isLoading && (
+              <LoadingImage />
+            )}
             {this.props.usersStore.users.map((user) => (
               <UserItem key={user.id} user={user} />
             ))}
