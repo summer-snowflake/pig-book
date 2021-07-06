@@ -12,6 +12,7 @@ import MyPage from 'components/MyPage'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import AdminUsersPage from 'components/AdminUsersPage'
+import Page404 from 'components/errors/Page404'
 
 import 'react-toastify/dist/ReactToastify.css'
 import 'stylesheets/toastify.sass'
@@ -30,6 +31,7 @@ export const App = () => {
           <Route component={ResendMailPage} exact path='/users/confirmations' />
           <Route component={MyPage} exact path='/mypage' />
           <Route component={AdminUsersPage} exact path='/admin/users' />
+          <Route component={Page404} />
         </Switch>
         <Footer />
       </Router>

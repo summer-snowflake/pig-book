@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   end
 
   scope :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+      confirmations: 'api/auth/confirmations'
+    }
   end
 
   namespace :api do
