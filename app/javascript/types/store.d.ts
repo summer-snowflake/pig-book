@@ -41,6 +41,9 @@ export interface UserStore extends Errors {
 }
 
 interface ProfileStore {
+  isLoading: boolean;
+  isLoadingMemo: boolean;
+  editingMemo: boolean;
   locale: string;
   currency: string;
   memo: string;

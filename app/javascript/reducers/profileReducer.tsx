@@ -10,7 +10,6 @@ import i18next from 'i18next'
 const initialState = {
   isLoading: false,
   isLoadingMemo: false,
-  editing: false,
   editingMemo: false,
   locale: 'ja',
   currency: 'yen',
@@ -18,15 +17,13 @@ const initialState = {
 }
 
 interface StoreAction extends ProfileAction {
-  target?: string;
   locale: string;
   currency: string;
   memo: string;
-  editing: boolean;
   editingMemo: boolean;
 }
 
-const settingsReducer = (state: ProfileStore = initialState, action: StoreAction): ProfileStore => {
+const profileReducer = (state: ProfileStore = initialState, action: StoreAction): ProfileStore => {
   switch (action.type) {
   case actionTypes.LOGIN_SUCCESS:
     return {
@@ -35,14 +32,12 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
   case actionTypes.GET_PROFILE_REQUEST:
     return {
       ...state,
-      isLoading: true,
-      isLoadingMemo: true
+      isLoading: true
     }
   case actionTypes.PATCH_PROFILE_REQUEST:
     return {
       ...state,
-      isLoading: (action.target === 'base') ? true : false,
-      isLoadingMemo: (action.target === 'memo') ? true : false
+      isLoading: true
     }
   case actionTypes.GET_PROFILE_SUCCESS:
     i18next.changeLanguage(action.profile?.locale || 'ja')
@@ -50,7 +45,6 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
     return {
       ...state,
       isLoading: false,
-      isLoadingMemo: false,
       locale: action.profile?.locale,
       currency: action.profile?.currency,
       memo: action.profile?.memo
@@ -62,31 +56,12 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
     return {
       ...state,
       isLoading: false,
-      isLoadingMemo: false,
-      editing: false,
-      editingMemo: false,
       locale: action.profile?.locale,
       memo: action.profile?.memo
     }
-  case actionTypes.CHANGE_PROFILE_LOCALE:
-    return {
-      ...state,
-      locale: action.locale
-    }
-  case actionTypes.CHANGE_PROFILE_CURRENCY:
-    return {
-      ...state,
-      currency: action.currency
-    }
-  case actionTypes.SET_EDITING:
-    return {
-      ...state,
-      editing: action.editing
-    }
   case actionTypes.SET_EDITING_MEMO:
     return {
-      ...state,
-      editingMemo: action.editingMemo
+      ...state
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {
@@ -101,4 +76,4 @@ const settingsReducer = (state: ProfileStore = initialState, action: StoreAction
   }
 }
 
-export default settingsReducer
+export default profileReducer

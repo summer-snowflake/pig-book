@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get 'mypage', to: 'mypage#show'
+  get 'settings', to: 'settings#show'
 
   namespace :admin, module: :admin_page do
     get 'users', to: 'users#show'

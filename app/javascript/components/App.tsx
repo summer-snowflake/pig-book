@@ -11,6 +11,7 @@ import ResendMailPage from 'components/ResendMailPage'
 import MyPage from 'components/MyPage'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
+import SettingsTopPage from 'components/SettingsTopPage'
 import AdminUsersPage from 'components/AdminUsersPage'
 import Page404 from 'components/errors/Page404'
 
@@ -30,6 +31,7 @@ export const App = () => {
           <Route component={SignUpPage} exact path='/users/sign_up' />
           <Route component={ResendMailPage} exact path='/users/confirmations' />
           <Route component={MyPage} exact path='/mypage' />
+          <Route component={SettingsTopPage} exact path='/settings' />
           <Route component={AdminUsersPage} exact path='/admin/users' />
           <Route component={Page404} />
         </Switch>
