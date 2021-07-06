@@ -1,6 +1,7 @@
 ja:
   time:
     formats:
+      default: "%Y年%m月%d日（%a）%H時%M分%S秒"
       date: "%Y年%m月%d日（%a）"
   brand_name: おこづかいちょうβ
   brand_subtitle: かわいい家計簿アプリ

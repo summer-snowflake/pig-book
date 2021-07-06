@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 import AdminMenu from 'components/admin/AdminMenu'
+import UsersList from 'components/admin/UsersList'
 
 import 'stylesheets/admin.sass'
 
@@ -10,7 +11,7 @@ class AdminUsersPage extends Component<I18nProps> {
     const { t } = this.props
 
     return (
-      <div className='admin-users-page-component center-container'>
+      <div className='admin-users-page-component'>
         <div className='row'>
           <div className='col'>
             <AdminMenu />
@@ -20,6 +21,7 @@ class AdminUsersPage extends Component<I18nProps> {
                 {t('menu.adminUsers')}
               </div>
               <div className='card-body with-background-panel'>
+                <UsersList />
               </div>
             </div>
           </div>
