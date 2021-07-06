@@ -15,6 +15,10 @@ export interface SignUpParams {
   password_confirmation: string;
 }
 
+export interface ConfirmationParams {
+  email: string;
+}
+
 export interface CategoryParams {
   name: string;
   balance_of_payments: boolean;

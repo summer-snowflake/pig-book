@@ -7,6 +7,7 @@ import { store } from 'modules/store'
 import TopPage from 'components/TopPage'
 import SignInPage from 'components/SignInPage'
 import SignUpPage from 'components/SignUpPage'
+import ResendMailPage from 'components/ResendMailPage'
 import MyPage from 'components/MyPage'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
@@ -26,6 +27,7 @@ export const App = () => {
           <Route component={SignInPage} exact path='/users/sign_in' />
           <Route component={SignInPage} exact path='/users/confirmed' />
           <Route component={SignUpPage} exact path='/users/sign_up' />
+          <Route component={ResendMailPage} exact path='/users/confirmations' />
           <Route component={MyPage} exact path='/mypage' />
           <Route component={AdminUsersPage} exact path='/admin/users' />
         </Switch>

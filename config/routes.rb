@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'sessions#new'
     get 'confirmed', to: 'sessions#new'
     get 'sign_up', to: 'registrations#new'
+    get 'confirmations', to: 'confirmations#new'
   end
 
   get 'mypage', to: 'mypage#show'

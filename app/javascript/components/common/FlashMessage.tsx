@@ -122,6 +122,12 @@ class FlashMessage extends Component<Props> {
     case actionTypes.ACCESS_FAILURE:
       msg = t('message.accessFailure')
       break
+    case actionTypes.CONFIRM_EMAIL_SUCCESS:
+      msg = t('message.confirmEmailSuccess')
+      break
+    case actionTypes.CONFIRM_EMAIL_FAILURE:
+      msg = t('message.confirmEmailFailure')
+      break
     }
 
     return (

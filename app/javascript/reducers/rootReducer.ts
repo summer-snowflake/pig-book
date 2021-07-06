@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import {
   SessionStore,
   RegistrationStore,
+  ConfirmationStore,
   UserStore,
   ProfileStore,
   NewCategoryStore,
@@ -41,6 +42,7 @@ import {
 } from 'types/store'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
+import confirmationReducer from 'reducers/confirmationReducer'
 import userReducer from 'reducers/userReducer'
 import profileReducer from 'reducers/profileReducer'
 import newCategoryReducer from 'reducers/newCategoryReducer'
@@ -80,6 +82,7 @@ import editPiggyItemReducer from 'reducers/editPiggyItemReducer'
 export type RootState = {
   session: SessionStore;
   registration: RegistrationStore;
+  confirmation: ConfirmationStore;
   user: UserStore;
   profile: ProfileStore;
   newCategory: NewCategoryStore;
@@ -120,6 +123,7 @@ export type RootState = {
 const rootReducer = combineReducers({
   session: sessionReducer,
   registration: registrationReducer,
+  confirmation: confirmationReducer,
   user: userReducer,
   profile: profileReducer,
   newCategory: newCategoryReducer,

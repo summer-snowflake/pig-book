@@ -16,6 +16,10 @@ class AccountMenu extends Component<I18nProps> {
           <i className='fa fa-heart left-icon' />
           {t('menu.signUp')}
         </NavLink>
+        <NavLink activeClassName='active-link-menu' className='list-group-item' to='/users/confirmations'>
+          <i className='fas fa-envelope left-icon' />
+          {t('menu.resendEmail')}
+        </NavLink>
       </div>
     )
   }
