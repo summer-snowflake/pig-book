@@ -20,7 +20,7 @@ class Pagination extends Component<Props> {
 
   render(): JSX.Element {
     return (
-      <nav aria-label='pagination' className='pagination-component'>
+      <nav className='pagination-component'>
         <ul className='pagination'>
           {this.props.currentPage !== 1 && (
             <li className='page-item'

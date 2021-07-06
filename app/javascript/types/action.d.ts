@@ -13,6 +13,14 @@ export interface UserAction extends Action {
   user: User;
 }
 
+export interface RegistrationAction extends Action {
+  errors: string[];
+}
+
+export interface ConfirmationAction extends Action {
+  errors: string[];
+}
+
 export interface ProfileAction extends Action {
   profile: Profile;
 }

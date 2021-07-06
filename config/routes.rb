@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   root to: 'root#show'
 
-  get 'users/sign_in', to: 'users/sessions#new'
-  get 'confirmed', to: 'users/sessions#new'
-  get 'users/sign_up', to: 'users/registrations#new'
+  namespace :users do
+    get 'sign_in', to: 'sessions#new'
+    get 'confirmed', to: 'sessions#new'
+    get 'sign_up', to: 'registrations#new'
+    get 'confirmations', to: 'confirmations#new'
+  end
+
   get 'mypage', to: 'mypage#show'
 
   namespace :admin, module: :admin_page do
@@ -11,7 +15,9 @@ Rails.application.routes.draw do
   end
 
   scope :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+      confirmations: 'api/auth/confirmations'
+    }
   end
 
   namespace :api do

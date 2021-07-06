@@ -54,5 +54,5 @@ DeviseTokenAuth.setup do |config|
   # config.enable_standard_devise_support = false
 
   # NOTE: No use but set the default as confirm success url
-  config.default_confirm_success_url = "http://#{ENV['HOST_NAME']}:#{ENV['PORT']}/confirmed"
+  config.default_confirm_success_url = "http://#{ENV['HOST_NAME']}:#{ENV['PORT']}/users/confirmed"
 end

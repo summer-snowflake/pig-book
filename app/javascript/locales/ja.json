@@ -25,6 +25,7 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "signUp": "アカウント登録",
+    "resendEmail": "認証メール再送",
     "mypage": "マイページ",
     "mypageTop": "マイページTOP",
     "settings": "各種設定",
@@ -104,6 +105,7 @@
     "add": "追加する",
     "delete": "削除する",
     "set": "設定する",
+    "send": "送信する",
     "today": "今日",
     "tally": "集計する",
     "addAssetsAccount": "預金の種類を追加",
@@ -149,7 +151,9 @@
     "deletePiggyBankSuccess": "貯金箱を削除しました",
     "postPiggyItemSuccess": "内訳を追加しました",
     "patchPiggyItemSuccess": "内訳を編集しました",
-    "deletePiggyItemSuccess": "内訳を削除しました"
+    "deletePiggyItemSuccess": "内訳を削除しました",
+    "confirmEmailSuccess": "メールを送信しました",
+    "confirmEmailFailure": "メールの送信ができませんでした"
   },
   "alert": {
     "editingOther": "編集中の項目があります"

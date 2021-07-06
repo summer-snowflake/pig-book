@@ -38,7 +38,7 @@ class SignInForm extends Component<Props, State> {
     this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
 
-    if (this.props.location.pathname === '/confirmed') {
+    if (this.props.location.pathname === '/users/confirmed') {
       toast.success(<FlashMessage actionType={actionTypes.CONFIRM_USER_SUCCESS} />)
       this.props.history.push('/users/sign_in')
     }
