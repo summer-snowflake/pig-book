@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   root to: 'root#show'
 
-  get 'users/sign_in', to: 'users/sessions#new'
-  get 'confirmed', to: 'users/sessions#new'
-  get 'users/sign_up', to: 'users/registrations#new'
+  namespace :users do
+    get 'sign_in', to: 'sessions#new'
+    get 'confirmed', to: 'sessions#new'
+    get 'sign_up', to: 'registrations#new'
+  end
+
   get 'mypage', to: 'mypage#show'
 
   namespace :admin, module: :admin_page do
