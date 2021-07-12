@@ -10,7 +10,8 @@ import i18next from 'i18next'
 const initialState = {
   isLoading: false,
   isLoadingMemo: false,
-  editingMemo: false,
+  isOpenMemoModal: false,
+  editingMemo: '',
   locale: 'ja',
   currency: 'yen',
   memo: ''
@@ -47,6 +48,7 @@ const profileReducer = (state: ProfileStore = initialState, action: StoreAction)
       isLoading: false,
       locale: action.profile?.locale,
       currency: action.profile?.currency,
+      editingMemo: action.profile?.memo,
       memo: action.profile?.memo
     }
   case actionTypes.PATCH_PROFILE_SUCCESS:
@@ -57,11 +59,23 @@ const profileReducer = (state: ProfileStore = initialState, action: StoreAction)
       ...state,
       isLoading: false,
       locale: action.profile?.locale,
+      isOpenMemoModal: false,
       memo: action.profile?.memo
     }
-  case actionTypes.SET_EDITING_MEMO:
+  case actionTypes.CHANGE_MEMO:
     return {
-      ...state
+      ...state,
+      editingMemo: action.memo
+    }
+  case actionTypes.OPEN_EDIT_MEMO_MODAL:
+    return {
+      ...state,
+      isOpenMemoModal: true
+    }
+  case actionTypes.CLOSE_EDIT_MEMO_MODAL:
+    return {
+      ...state,
+      isOpenMemoModal: false
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

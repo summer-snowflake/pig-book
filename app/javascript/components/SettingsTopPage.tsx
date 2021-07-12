@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
 import SettingsMenu from 'components/settings/SettingsMenu'
-import BaseSettings from 'components/settings/user/BaseSettings'
-//import OptionsSettingsContainer from 'components/settings/user/optionsSettingsContainer'
-//import MemoContainer from 'components/settings/user/memoContainer'
+import UserSettingsCard from 'components/settings/user/UserSettingsCard'
+import OptionsSettingsCard from 'components/settings/user/OptionsSettingsCard'
+import MemoCard from 'components/settings/user/MemoCard'
 
 import 'stylesheets/settings.sass'
 
@@ -16,7 +16,9 @@ class SettingsTopPage extends Component {
             <SettingsMenu />
           </div>
           <div className='col'>
-            <BaseSettings />
+            <UserSettingsCard />
+            <OptionsSettingsCard />
+            <MemoCard />
           </div>
         </div>
       </div>
