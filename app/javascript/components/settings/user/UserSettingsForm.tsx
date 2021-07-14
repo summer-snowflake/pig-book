@@ -58,7 +58,7 @@ class UserSettingForm extends Component<Props, State> {
     return (
       <form className='user-setting-form-component'>
         <div className='form-group'>
-          <label className='label'>{t('label.language')}</label>
+          <label className='form-label'>{t('label.language')}</label>
           <span>
             <span className='radio-span'>
               <input
@@ -93,7 +93,7 @@ class UserSettingForm extends Component<Props, State> {
           </span>
         </div>
         <div className='form-group'>
-        <label className='label'>{t('label.currency')}</label>
+        <label className='form-label'>{t('label.currency')}</label>
           <span>
             <span className='radio-span'>
               <input

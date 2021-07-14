@@ -1,35 +1,5 @@
 @import variables
 
-//.settings-top-component + .options-settings-component,
-//.options-settings-component + .memo-component
-//  padding-top: 30px
-//
-//.settings-top-component
-//  .card
-//    min-height: 230px
-//
-//  .form-group
-//    .label
-//      width: 100px
-//
-//    .radio-label
-//      cursor: pointer
-//
-//.memo-component
-//  .card
-//    min-height: 350px
-//
-//  .memo
-//    margin-top: 30px
-//    white-space: pre-line
-//    width: 100%
-//
-//  textarea
-//    background-color: $translucent
-//
-//    &:focus
-//      background-color: $translucent
-//
 //.category-page-component,
 //.place-page-component
 //  .form-group
@@ -44,79 +14,61 @@
 //.category-select-box-component
 //  .form-control
 //    min-width: 104px
-//
-//.option-li
-//  align-items: center
-//  display: flex
-//  list-style-type: none
-//  padding-top: 10px
-//
-//  span
-//    padding-left: 20px
-//
-//  .description
-//    cursor: pointer
-//
-//.switch-checkbox-component
-//  cursor: pointer
-//  font-size: 14px
-//  font-weight: bold
-//  letter-spacing: 0
-//  line-height: 30px
-//  position: relative
-//  width: 80px
-//
-//  .switch-checkbox
-//    display: none
-//
-//    &:checked + label
-//      border-color: $green
-//
-//      span
-//        &::after
-//          color: $green
-//          content: 'ON'
-//          cursor: pointer
-//          padding: 0 36px 0 0
-//
-//    &:checked ~ .switch-ball
-//      background: $green
-//      transform: translateX(50px)
-//
-//  .switch-label
-//    border: 1px solid $green-translucent
-//    border-radius: 30px
-//    box-sizing: border-box
-//    display: block
-//    height: 30px
-//    margin-bottom: 0
-//
-//    span
-//      &::after
-//        color: $green-translucent
-//        content: 'OFF'
-//        cursor: pointer
-//        padding: 0 0 0 14px
-//
-//  .switch-ball
-//    background: $green-translucent
-//    border-radius: 26px
-//    height: 26px
-//    left: 2px
-//    position: absolute
-//    top: 2px
-//    transition: .2s
-//    width: 26px
-//
-//.options-info-list
-//  padding-top: 15px
-//
-//  li
-//    border: 1px solid $green
-//    display: inline
-//    padding: 10px
-//
-//    span
-//      font-weight: bold
-//      padding-left: 5px
-//
+
+.switch-checkbox-component
+  cursor: pointer
+  font-size: 12px
+  font-weight: bold
+  letter-spacing: 0
+  line-height: 20px
+  position: relative
+  width: 70px
+
+  .switch-checkbox
+    display: none
+
+    &:checked + label
+      border-color: $green
+
+      span
+        &::after
+          color: $green
+          content: 'ON'
+          cursor: pointer
+          padding: 0 0 0 23px
+
+    &:checked ~ .switch-ball
+      background: $green
+      transform: translateX(50px)
+
+  .switch-label
+    border: 1px solid $green-translucent
+    border-radius: 30px
+    box-sizing: border-box
+    display: block
+    height: 21px
+    margin-bottom: 0
+
+    span
+      &::after
+        color: $green-translucent
+        content: 'OFF'
+        cursor: pointer
+        padding: 0 0 0 23px
+
+  .switch-ball
+    background: $green-translucent
+    border-radius: 17px
+    height: 17px
+    left: 2px
+    position: absolute
+    top: 2px
+    transition: .2s
+    width: 16px
+
+.records-count
+  padding: 30px 0 10px 0
+
+  .label
+    border: 1px solid $green
+    padding: 10px
