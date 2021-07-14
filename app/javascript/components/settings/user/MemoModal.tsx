@@ -72,6 +72,7 @@ class MemoModal extends Component<Props> {
                 <div className='form-group'>
                   <textarea
                     className='text-form-control'
+                    name='memo'
                     onChange={this.handleChangeMemo}
                     rows={8}
                     value={this.props.profileStore.editingMemo}

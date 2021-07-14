@@ -14,7 +14,7 @@ class UserSettings extends Component<Props> {
     const { t } = this.props
 
     return (
-      <div className='settings-top-component card'>
+      <div className='user-settings-card-component card'>
         <div className='card-header'>
           <i className='fas fa-user-cog left-icon' />
           {t('title.baseSetting')}

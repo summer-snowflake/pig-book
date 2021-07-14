@@ -39,7 +39,7 @@ class MemoCard extends Component<Props> {
     const { t } = this.props
 
     return (
-      <div className='memo-component card'>
+      <div className='memo-card-component card'>
         <div className='card-header'>
           <i className='fas fa-book-open left-icon' />
           {t('title.memo')}
