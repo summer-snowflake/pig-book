@@ -57,6 +57,14 @@ class NavMenu extends Component<Props> {
               </a>
             </li>
           )}
+         {this.props.userStore.isLogged && (
+            <li>
+              <a className='menu-link' href='/settings'>
+                <i className='fa fa-cog left-icon' />
+                {t('menu.settings')}
+              </a>
+            </li>
+          )}
           {this.props.userStore.isLogged && (
             <li>
               <a className='menu-link' href='/mypage'>

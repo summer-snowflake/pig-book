@@ -45,9 +45,9 @@ export interface UserParams {
 }
 
 export interface ProfileParams {
-  locale: string;
-  currency: string;
-  memo: string;
+  locale?: string;
+  currency?: string;
+  memo?: string;
 }
 
 export interface RecordParams {

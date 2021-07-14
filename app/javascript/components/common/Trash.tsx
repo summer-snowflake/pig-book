@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactTooltip from 'react-tooltip'
 import { withTranslation } from 'react-i18next'
 
 interface ParentProps {
@@ -17,9 +16,6 @@ class Trash extends Component<Props> {
       <div className='trash-component'>
         <span data-tip={t('toolTip.delete')} onClick={this.props.onClickIcon}>
           <i className='fas fa-trash' />
-          {!this.props.tooltipDisable && (
-            <ReactTooltip />
-          )}
         </span>
       </div>
     )

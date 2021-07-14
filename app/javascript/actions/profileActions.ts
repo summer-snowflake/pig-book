@@ -9,10 +9,6 @@ import { ProfileAction } from 'types/action'
 import { getCookiesFailure } from 'actions/userActions'
 import { catchErrors } from 'actions/errorsActions'
 
-interface WithTargetAction extends Action {
-  target: string;
-}
-
 const getProfileRequest = (): Action => {
   return {
     type: actionTypes.GET_PROFILE_REQUEST
@@ -43,10 +39,9 @@ export const getProfile = () => {
   }
 }
 
-const patchProfileRequest = (target: string): WithTargetAction => {
+const patchProfileRequest = (): Action => {
   return {
-    type: actionTypes.PATCH_PROFILE_REQUEST,
-    target
+    type: actionTypes.PATCH_PROFILE_REQUEST
   }
 }
 
@@ -57,9 +52,9 @@ const patchProfileSuccess = (profile: Profile): ProfileAction => {
   }
 }
 
-export const patchProfile = (params: ProfileParams, target: string) => {
+export const patchProfile = (params: ProfileParams) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
-    dispatch(patchProfileRequest(target))
+    dispatch(patchProfileRequest())
     try {
       if(ready()) {
         const res = await axios.patch('/api/profile', params, { headers: loginHeaders() })

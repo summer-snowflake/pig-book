@@ -63,9 +63,8 @@ body
 .left-icon
   margin-right: 5px
 
-//.right-icon
-//  margin-left: 5px
-//
+.right-icon
+  margin-left: 5px
 
 .card + .card
   margin-top: 20px
@@ -101,7 +100,7 @@ body
   opacity: .3
 
 .form-group + .form-group
-  padding-top: 5px
+  padding-top: 10px
 
 .form-group
   display: flex
@@ -121,6 +120,20 @@ body
 
   .form-label
     padding: 5px
+
+.text-form-control
+  background-color: $white
+  border: 1px solid $light-green
+  border-radius: .25rem
+  margin: 0 5px
+  min-height: calc(1em + (.75rem + 2px))
+  line-height: 1.5
+  padding: 5px 8px
+
+  &:focus
+    outline: none
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
 
 .form-control
   background-color: $white
@@ -223,7 +236,7 @@ body
   border: 1px solid
   border-radius: .25rem
   display: inline-block
-  padding: .25em .4em
+  padding: .4em
   margin-left: 5px
 
 .large-size-charge
@@ -300,19 +313,29 @@ body
 //    border-top: 0
     //height: 73px
 
-.edit-component
-  .__react_component_tooltip
-    font-size: 10px
+.text-field
+  white-space: pre-wrap
+
+.text-align-right
+  text-align: right
+  width: auto
+
+.tooltip-component
+  &:hover
+    cursor: pointer
+    position: relative
+
+  .tooltip
+    background-color: $green
+    border-radius: 2px
+    color: $white
+    display: block
+    left: -20px
     padding: 7px 10px
-
-    &.type-dark
-      background-color: $green
-
-      &.place-top::after
-        border-top-color: $green
-
-      &.place-bottom::after
-        border-bottom-color: $green
+    position: absolute
+    bottom: 20px
+    width: 300px
+    z-index: 10
 
 .table
   padding-top: 10px
@@ -418,14 +441,6 @@ body
 //  .fa-check
 //    color: $green-translucent
 //
-
-.currency-badge
-  color: $translucent5-green
-  border: 1px solid
-  border-radius: .25rem
-  display: inline-block
-  padding: .25em .4em
-  margin-left: 5px
 
 .radio-input
   visibility: hidden
