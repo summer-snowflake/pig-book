@@ -8,6 +8,7 @@ import { ErrorsAction } from 'types/action'
 import { Category } from 'types/api'
 
 const initialState = {
+  isEditing: false,
   isLoading: false,
   category: {
     id: 0,
@@ -56,6 +57,7 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: St
   case actionTypes.EDIT_CATEGORY:
     return {
       ...state,
+      isEditing: true,
       category: action.category,
       errors: []
     }

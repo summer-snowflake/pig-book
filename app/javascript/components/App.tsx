@@ -9,6 +9,7 @@ import SignInPage from 'components/SignInPage'
 import SignUpPage from 'components/SignUpPage'
 import ResendMailPage from 'components/ResendMailPage'
 import MyPage from 'components/MyPage'
+import CategoryPage from 'components/CategoryPage'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import SettingsTopPage from 'components/SettingsTopPage'
@@ -31,6 +32,7 @@ export const App = () => {
           <Route component={SignUpPage} exact path='/users/sign_up' />
           <Route component={ResendMailPage} exact path='/users/confirmations' />
           <Route component={MyPage} exact path='/mypage' />
+          <Route component={CategoryPage} exact path='/categories' />
           <Route component={SettingsTopPage} exact path='/settings' />
           <Route component={AdminUsersPage} exact path='/admin/users' />
           <Route component={Page404} />

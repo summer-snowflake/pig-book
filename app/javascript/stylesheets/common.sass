@@ -244,11 +244,6 @@ body
   padding: 5px
 
 //.icon-field
-//  .fa-sitemap
-//    @extend %cursor-icon
-//    padding: 8px 7px 6px
-//
-
 //  .fa-times
 //    @extend %cursor-icon
 //    padding: 7px
@@ -279,6 +274,9 @@ body
 .icon-field
   width: 0
 
+  &.piped
+    border-left: 1px solid $light-green-translucent
+
   svg
     &:hover
       background-color: $translucent2-lighten-green
@@ -304,6 +302,10 @@ body
     @extend %cursor-icon
     padding: 5px
     width: 11px
+
+  .fa-list-alt
+    @extend %cursor-icon
+    padding: 5px
 
 //  .fa-copy
 //    @extend %cursor-icon

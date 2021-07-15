@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, CategoryAction } from 'types/action'
 import { Category, CategoryParams, Errors } from 'types/api'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 import { getCookiesFailure } from 'actions/userActions'
 
 interface WithBalanceOfPaymentsAction extends Action {

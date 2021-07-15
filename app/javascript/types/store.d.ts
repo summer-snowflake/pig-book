@@ -84,6 +84,7 @@ export interface NewTagStore extends Errors {
 
 export interface EditCategoryStore extends Errors {
   isLoading: boolean;
+  isEditing: boolean;
   editedCategoryId: number;
   category: Category;
 }
