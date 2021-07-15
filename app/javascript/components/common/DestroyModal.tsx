@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import { withTranslation } from 'react-i18next'
 
 import { customModalStyles } from 'modules/modalStyles'
-import CloseButton from 'components/common/CloseButton'
+import Cancel from 'components/common/Cancel'
 
 interface Props {
   isOpen: boolean;
@@ -26,7 +26,7 @@ class DestroyModal extends Component<I18nProps & Props> {
               isOpen={this.props.isOpen}
               style={customModalStyles(40)}>
               <div className='modal-header'>
-                <CloseButton onClickClose={this.props.onClickClose} />
+                <Cancel onClickIcon={this.props.onClickClose} />
               </div>
               <div className='modal-body'>
                 <p>{t('message.deleteItem')}</p>

@@ -8,8 +8,10 @@ import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,
-  balance_of_payments: false,
-  name: '',
+  category: {
+    balance_of_payments: false,
+    name: ''
+  },
   errors: []
 }
 
@@ -29,10 +31,7 @@ const categoryReducer = (state: NewCategoryStore = initialState, action: StoreAc
   case actionTypes.POST_CATEGORY_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      name: '',
-      errors: []
+      ...initialState
     }
   case actionTypes.POST_CATEGORY_FAILURE:
     return {
@@ -40,15 +39,10 @@ const categoryReducer = (state: NewCategoryStore = initialState, action: StoreAc
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS:
+  case actionTypes.NEW_CATEGORY:
     return {
       ...state,
-      balance_of_payments: action.balance_of_payments
-    }
-  case actionTypes.CHANGE_CATEGORY_NAME:
-    return {
-      ...state,
-      name: action.name
+      category: action.category
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

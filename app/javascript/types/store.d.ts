@@ -1,5 +1,5 @@
 import {
-  Errors, Category, Record, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank, RecordTotals, Tag, MonthlyCategoryBalanceTable, AssetsAccount, PiggyItem, Admin, WithCategoriesPlace, AdminUser, UserOption
+  Errors, Category, Record, Breakdown, Place, Event, MonthlyBalanceTable, YearlyBalanceTable, PiggyBank, RecordTotals, Tag, MonthlyCategoryBalanceTable, AssetsAccount, PiggyItem, Admin, WithCategoriesPlace, AdminUser, UserOption, CategoryParams
 } from 'types/api'
 
 export interface CookiesHeader {
@@ -60,8 +60,7 @@ export interface TutorialStore {
 
 export interface NewCategoryStore extends Errors {
   isLoading: boolean;
-  balance_of_payments: boolean;
-  name: string;
+  category: CategoryParams;
 }
 
 export interface NewBreakdownStore extends Errors {
@@ -84,6 +83,7 @@ export interface NewTagStore extends Errors {
 
 export interface EditCategoryStore extends Errors {
   isLoading: boolean;
+  isEditing: boolean;
   editedCategoryId: number;
   category: Category;
 }

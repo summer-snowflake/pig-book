@@ -8,6 +8,7 @@ import { ErrorsAction } from 'types/action'
 import { Category } from 'types/api'
 
 const initialState = {
+  isEditing: false,
   isLoading: false,
   category: {
     id: 0,
@@ -32,15 +33,8 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: St
   case actionTypes.PATCH_CATEGORY_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      category: {
-        id: 0,
-        name: '',
-        balance_of_payments: false
-      },
-      editedCategoryId: action.category.id,
-      errors: []
+      ...initialState,
+      editedCategoryId: action.category.id
     }
   case actionTypes.POST_CATEGORY_SUCCESS:
     return {
@@ -56,18 +50,12 @@ const editCategoryReducer = (state: EditCategoryStore = initialState, action: St
   case actionTypes.EDIT_CATEGORY:
     return {
       ...state,
-      category: action.category,
-      errors: []
+      isEditing: true,
+      category: action.category
     }
   case actionTypes.EXIT_CATEGORY:
     return {
-      ...state,
-      category: {
-        id: 0,
-        name: '',
-        balance_of_payments: false
-      },
-      errors: []
+      ...initialState
     }
   case actionTypes.CLEAR_EDITED_CATEGORY:
     return {

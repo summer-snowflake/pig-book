@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
 
 import 'stylesheets/application.scss'
 import 'plugins/i18n'

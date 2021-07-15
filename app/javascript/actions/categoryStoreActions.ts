@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, CategoryAction } from 'types/action'
 import { Category, CategoryParams, Errors } from 'types/api'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 import { getCookiesFailure } from 'actions/userActions'
 
 interface WithBalanceOfPaymentsAction extends Action {
@@ -18,7 +18,7 @@ interface WithNameAction extends Action {
 }
 
 interface WithCategoryAction extends Action {
-  category: Category;
+  category: CategoryParams;
 }
 
 const postCategoryRequest = (): Action => {
@@ -59,20 +59,6 @@ export const postCategory = (params: CategoryParams) => {
         dispatch(catchErrors(err.response))
       }
     }
-  }
-}
-
-export const changeCategoryBalanceOfPayments = (balance_of_payments: boolean): WithBalanceOfPaymentsAction => {
-  return {
-    type: actionTypes.CHANGE_CATEGORY_BALANCE_OF_PAYMENTS,
-    balance_of_payments
-  }
-}
-
-export const changeCategoryName = (name: string): WithNameAction => {
-  return {
-    type: actionTypes.CHANGE_CATEGORY_NAME,
-    name
   }
 }
 
@@ -219,7 +205,14 @@ export const getEditRecordCategory = (categoryId: number) => {
   }
 }
 
-export const editCategory = (category: Category): WithCategoryAction => {
+export const newCategory = (category: CategoryParams): WithCategoryAction => {
+  return {
+    type: actionTypes.NEW_CATEGORY,
+    category
+  }
+}
+
+export const editCategory = (category: CategoryParams): WithCategoryAction => {
   return {
     type: actionTypes.EDIT_CATEGORY,
     category

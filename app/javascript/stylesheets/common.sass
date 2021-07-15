@@ -66,6 +66,45 @@ body
 .right-icon
   margin-left: 5px
 
+.btn
+  border: 0
+  border-radius: .25rem
+  color: $white
+  cursor: pointer
+  margin: 15px 5px 5px 5px
+  padding: 4px 10px
+
+  &:disabled
+    background: $translucent5-pink
+
+  &.btn-primary
+    background-color: $pink
+    border-color: $pink
+
+    &:hover
+      background-color: $darken-pink
+      border-color: $darken-pink
+
+    &:disabled
+      cursor: not-allowed
+      background: $translucent5-pink
+
+  &.btn-secondary
+    background-color: $button-green
+    border-color: $button-green
+
+    &:hover
+      background-color: $darken-button-green
+      border-color: $darken-button-green
+
+  &.btn-light
+    background-color: $white
+    color: $green
+
+    &:hover
+      background-color: $light-green-translucent
+      border-color: $light-green
+
 .card + .card
   margin-top: 20px
 
@@ -93,9 +132,6 @@ body
     background-repeat: no-repeat
     background-size: 120% auto
 
-.modal-header
-  height: 25px
-
 .sortable-ghost
   opacity: .3
 
@@ -108,7 +144,12 @@ body
 
   &.row
     flex-direction: row
-    padding-top: 10px
+
+    .btn
+      margin: 0
+
+    .form-control
+      margin-top: 1px
 
   .required
     &::after
@@ -150,51 +191,6 @@ body
 
   &::placeholder
     color: $lighten-gray
-
-.btn
-  border: 0
-  border-radius: .25rem
-  color: $white
-  cursor: pointer
-  margin: 15px 5px 5px 5px
-  padding: 5px 10px
-
-  &:disabled
-    background: $translucent5-pink
-
-  &.btn-primary
-    background-color: $pink
-    border-color: $pink
-
-    &:hover
-      background-color: $darken-pink
-      border-color: $darken-pink
-
-    &:disabled
-      cursor: not-allowed
-      background: $translucent5-pink
-
-  &.btn-secondary
-    background-color: $button-green
-    border-color: $button-green
-
-    &:hover
-      background-color: $darken-button-green
-      border-color: $darken-button-green
-
-  &.btn-light
-    background-color: $white
-    color: $green
-
-    &:hover
-      background-color: $light-green-translucent
-      border-color: $light-green
-
-.close-button-component
-  float: right
-  position: relative
-  top: -25px
-  left: 15px
 
 .box-border
   position: relative
@@ -244,16 +240,6 @@ body
   padding: 5px
 
 //.icon-field
-//  .fa-sitemap
-//    @extend %cursor-icon
-//    padding: 8px 7px 6px
-//
-
-//  .fa-times
-//    @extend %cursor-icon
-//    padding: 7px
-//
-
 //  .fa-check
 //    border-radius: 3px
 //    cursor: pointer
@@ -276,19 +262,22 @@ body
   text-align: center
   width: 30px
 
+%cursor-icon
+  border-radius: 3px
+  color: $darken-green
+  cursor: pointer
+  height: 18px
+  width: 15px
+
 .icon-field
   width: 0
+
+  &.piped
+    border-left: 1px solid $light-green-translucent
 
   svg
     &:hover
       background-color: $translucent2-lighten-green
-
-  %cursor-icon
-    border-radius: 3px
-    color: $darken-green
-    cursor: pointer
-    height: 18px
-    width: 15px
 
   .fa-bars
     @extend %cursor-icon
@@ -300,10 +289,19 @@ body
     @extend %cursor-icon
     padding: 6px 6px 6px 8px
 
+  .fa-times
+    @extend %cursor-icon
+    padding: 4px 8px
+    width: 9px
+
   .fa-trash
     @extend %cursor-icon
-    padding: 5px
+    padding: 4px 7px
     width: 11px
+
+  .fa-list-alt
+    @extend %cursor-icon
+    padding: 5px
 
 //  .fa-copy
 //    @extend %cursor-icon
@@ -312,6 +310,23 @@ body
 //  tbody + tbody
 //    border-top: 0
     //height: 73px
+
+.modal-header
+  height: 25px
+
+  .cancel-component
+    float: right
+    position: relative
+    top: -15px
+    left: 15px
+    svg
+      &:hover
+        background-color: $translucent2-lighten-green
+
+    .fa-times
+      @extend %cursor-icon
+      padding: 4px 8px
+      width: 9px
 
 .text-field
   white-space: pre-wrap
@@ -342,7 +357,7 @@ body
   width: 100%
 
   tr
-    height: 40px
+    height: 42px
   td
     border-top: 1px solid $light-green-translucent
     padding: .25rem
