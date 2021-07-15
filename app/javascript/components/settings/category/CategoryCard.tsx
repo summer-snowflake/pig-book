@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
+import NewCategoryField from 'components/settings/category/NewCategoryField'
 import CategoriesList from 'components/settings/category/CategoriesList'
 
 class CategoryCard extends Component<I18nProps> {
@@ -15,6 +16,7 @@ class CategoryCard extends Component<I18nProps> {
             {t('menu.category')}
           </div>
           <div className='card-body with-background-image'>
+            <NewCategoryField />
             <CategoriesList />
           </div>
         </div>

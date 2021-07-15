@@ -68,6 +68,10 @@ class CategoryItem extends Component<Props, State> {
       this.props.category.balance_of_payments !== this.props.editCategoryStore.category.balance_of_payments
   }
 
+  editing(): boolean {
+    return this.props.editCategoryStore.isEditing && this.props.category.id == this.props.editCategoryStore.category.id
+  }
+
   handleClickEditIcon(): void {
     if (this.props.editCategoryStore.isEditing) {
       // alert modal
@@ -94,7 +98,7 @@ class CategoryItem extends Component<Props, State> {
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     const category = {
-      ...this.props.category,
+      ...this.props.editCategoryStore.category,
       name: e.target.value
     }
     this.props.editCategory(category)
@@ -102,7 +106,7 @@ class CategoryItem extends Component<Props, State> {
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
     const category = {
-      ...this.props.category,
+      ...this.props.editCategoryStore.category,
       balance_of_payments: toBoolean(e.target.value)
     }
     this.props.editCategory(category)
@@ -152,7 +156,7 @@ class CategoryItem extends Component<Props, State> {
       <tr className={'category-item-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
         <td>
           <ValidationErrorMessages errors={this.props.editCategoryStore.errors} />
-          {this.props.editCategoryStore.isEditing ? (
+          {this.editing() ? (
             <CategoryForm
               categoryStore={this.props.editCategoryStore}
               onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
@@ -164,7 +168,7 @@ class CategoryItem extends Component<Props, State> {
           )}
         </td>
         <td className='icon-field'>
-          {this.props.editCategoryStore.isEditing ? (
+          {this.editing() ? (
             <Cancel onClickIcon={this.handleClickCancelIcon} />
           ) : (
             <Edit onClickIcon={this.handleClickEditIcon} />

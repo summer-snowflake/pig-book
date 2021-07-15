@@ -31,7 +31,7 @@ class CategoriesList extends Component<Props> {
     return (
       <div className='categories-list-component'>
         <div className='counter'>
-          {this.props.categoriesStore.categories.length + ' / 10'}
+          {this.props.categoriesStore.categories.length + ' / 20'}
         </div>
         <table className='table'>
           <tbody>

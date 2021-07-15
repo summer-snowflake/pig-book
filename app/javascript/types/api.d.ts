@@ -20,6 +20,7 @@ export interface ConfirmationParams {
 }
 
 export interface CategoryParams {
+  id?: number;
   name: string;
   balance_of_payments: boolean;
 }
