@@ -62,6 +62,7 @@ export interface NewCategoryStore extends Errors {
   isLoading: boolean;
   balance_of_payments: boolean;
   name: string;
+  category: Category;
 }
 
 export interface NewBreakdownStore extends Errors {

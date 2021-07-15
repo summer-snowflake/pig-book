@@ -15,7 +15,7 @@ import {
 import { getAssetsAccounts } from 'actions/assetsAccountsActions'
 import { RootState } from 'reducers/rootReducer'
 import AssetsAccountForm from 'components/mypage/AssetsAccountForm'
-import CloseButton from 'components/common/CloseButton'
+import Cancel from 'components/common/Cancel'
 
 interface ParentProps {
   isOpen: boolean;
@@ -92,7 +92,7 @@ class EditAssetsAccountModal extends Component<Props> {
               style={customModalStyles(40)}
             >
               <div className='modal-header'>
-                <CloseButton onClickClose={this.props.onClickClose} />
+                <Cancel onClickIcon={this.props.onClickClose} />
               </div>
               <div className='modal-body'>
                 <AssetsAccountForm

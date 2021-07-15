@@ -14,17 +14,13 @@ import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 import { encodeQueryData } from 'modules/encode'
-//import EditAndCancel from 'components/common/editAndCancel'
 import Trash from 'components/common/Trash'
-//import ListIcon from 'components/common/listIcon'
-//import CancelUpdateModal from 'components/common/cancelUpdateModal'
 import DestroyModal from 'components/common/DestroyModal'
 import ValidationErrorMessages from 'components/common/ValidationErrorMessages'
 import CategoryName from 'components/common/CategoryName'
 import Edit from 'components/common/Edit'
-//import AlertModal from 'components/common/alertModal'
-//import CategoryName from 'components/settings/category/categoryName'
-//import CategoryForm from 'components/settings/category/categoryForm'
+import Cancel from 'components/common/Cancel'
+import CategoryForm from 'components/settings/category/CategoryForm'
 
 interface ParentProps {
   category: Category;
@@ -44,10 +40,7 @@ interface DispatchProps {
 type Props = ParentProps & StateProps & DispatchProps & RouteComponentProps
 
 interface State {
-  isOpenCancelModal: boolean;
-  isOpenAlertModal: boolean;
   isOpenDestroyModal: boolean;
-  category: Category;
 }
 
 class CategoryItem extends Component<Props, State> {
@@ -55,60 +48,37 @@ class CategoryItem extends Component<Props, State> {
     super(props)
 
     this.state = {
-      isOpenCancelModal: false,
-      isOpenAlertModal: false,
-      isOpenDestroyModal: false,
-      category: {
-        id: 0,
-        name: '',
-        balance_of_payments: false
-      }
+      isOpenDestroyModal: false
     }
 
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
-    this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
+    this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
-    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
-    this.handleClickCancel = this.handleClickCancel.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickListIcon = this.handleClickListIcon.bind(this)
+    this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
   }
 
   diff(): boolean {
-    return this.props.category.name !== this.state.category.name ||
-      this.props.category.balance_of_payments !== this.state.category.balance_of_payments
-  }
-
-  editing(): boolean {
-    return this.props.category.id === this.props.editCategoryStore.category.id
+    return this.props.category.name !== this.props.editCategoryStore.category.name ||
+      this.props.category.balance_of_payments !== this.props.editCategoryStore.category.balance_of_payments
   }
 
   handleClickEditIcon(): void {
-    // 編集中ではない場合
-    if (this.props.editCategoryStore.category.id === 0) {
-      this.props.editCategory(this.props.category)
-      this.setState({
-        category: this.props.category
-      })
+    if (this.props.editCategoryStore.isEditing) {
+      // alert modal
     } else {
-      // 他のアイテム編集中の場合
-      if (this.props.editCategoryStore.category.id !== this.props.category.id) {
-        this.setState({
-          isOpenAlertModal: true
-        })
-      }
+      this.props.editCategory(this.props.category)
     }
   }
 
-  handleClickExitIcon(): void {
+  handleClickCancelIcon(): void {
     if (this.diff()) {
-      this.setState({
-        isOpenCancelModal: true
-      })
+      // alert modal
     } else {
       this.props.exitCategory()
     }
@@ -124,42 +94,22 @@ class CategoryItem extends Component<Props, State> {
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     const category = {
-      id: this.props.category.id,
-      name: e.target.value,
-      balance_of_payments: this.state.category.balance_of_payments
+      ...this.props.category,
+      name: e.target.value
     }
-    this.setState({
-      category: category
-    })
+    this.props.editCategory(category)
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
     const category = {
-      id: this.props.category.id,
-      name: this.state.category.name,
+      ...this.props.category,
       balance_of_payments: toBoolean(e.target.value)
     }
-    this.setState({
-      category: category
-    })
-  }
-
-  handleClickSubmitButton(): void {
-    this.props.patchCategory(this.state.category.id, this.state.category)
-  }
-
-  handleClickCancel(): void {
-    this.setState({
-      category: this.props.category,
-      isOpenCancelModal: false
-    })
-    this.props.exitCategory()
+    this.props.editCategory(category)
   }
 
   handleClickClose(): void {
     this.setState({
-      isOpenCancelModal: false,
-      isOpenAlertModal: false,
       isOpenDestroyModal: false
     })
   }
@@ -192,14 +142,33 @@ class CategoryItem extends Component<Props, State> {
     })
   }
 
+  handleClickSubmitButton(): void {
+    const category = this.props.editCategoryStore.category
+    this.props.patchCategory(category.id, category)
+  }
+
   render(): JSX.Element {
     return (
       <tr className={'category-item-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
         <td>
-          <CategoryName balanceOfPayments={this.props.category.balance_of_payments} name={this.props.category.name} />
+          <ValidationErrorMessages errors={this.props.editCategoryStore.errors} />
+          {this.props.editCategoryStore.isEditing ? (
+            <CategoryForm
+              categoryStore={this.props.editCategoryStore}
+              onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
+              onChangeName={this.handleChangeName}
+              onClickSubmitButton={this.handleClickSubmitButton}
+              onKeyDown={this.handleKeyDown} />
+          ) : (
+            <CategoryName balanceOfPayments={this.props.category.balance_of_payments} name={this.props.category.name} />
+          )}
         </td>
         <td className='icon-field'>
-          <Edit onClickIcon={this.handleClickEditIcon} />
+          {this.props.editCategoryStore.isEditing ? (
+            <Cancel onClickIcon={this.handleClickCancelIcon} />
+          ) : (
+            <Edit onClickIcon={this.handleClickEditIcon} />
+          )}
         </td>
         <td className='icon-field'>
           <Trash onClickIcon={this.handleClickTrashIcon}/>

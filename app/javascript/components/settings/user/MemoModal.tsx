@@ -11,7 +11,7 @@ import { customModalStyles } from 'modules/modalStyles'
 import { getProfile, patchProfile } from 'actions/profileActions'
 import { changeMemo, closeEditMemoModal } from 'actions/profileStoreActions'
 import { RootState } from 'reducers/rootReducer'
-import CloseButton from 'components/common/CloseButton'
+import Cancel from 'components/common/Cancel'
 
 interface StateProps {
   profileStore: ProfileStore;
@@ -65,7 +65,7 @@ class MemoModal extends Component<Props> {
             style={customModalStyles(40)}
           >
             <div className='modal-header'>
-              <CloseButton onClickClose={this.handleClickCloseButton} />
+              <Cancel onClickIcon={this.handleClickCloseButton} />
             </div>
             <div className='modal-body'>
               <form>
