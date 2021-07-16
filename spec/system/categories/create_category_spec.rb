@@ -27,6 +27,8 @@ RSpec.describe 'Create Category', type: :system, js: true do
         expect(page).to have_css '.fa-minus-square'
         expect(page).to have_content '光熱費'
       end
+
+      expect(page).to have_content '1 / 20'
     end
 
     it 'create category' do
@@ -39,6 +41,8 @@ RSpec.describe 'Create Category', type: :system, js: true do
         expect(page).to have_css '.fa-plus-square'
         expect(page).to have_content '収入'
       end
+
+      expect(page).to have_content '1 / 20'
     end
   end
 end

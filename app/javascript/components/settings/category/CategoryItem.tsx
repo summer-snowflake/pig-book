@@ -10,12 +10,14 @@ import { patchCategory, deleteCategory } from 'actions/categoryActions'
 import {
   editCategory, exitCategory, clearEditedCategory
 } from 'actions/categoryStoreActions'
+import { openAlertModal } from 'actions/alertStoreActions'
 import { getCategories } from 'actions/categoriesActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 import { encodeQueryData } from 'modules/encode'
 import Trash from 'components/common/Trash'
 import DestroyModal from 'components/common/DestroyModal'
+import CancelModal from 'components/common/CancelModal'
 import ValidationErrorMessages from 'components/common/ValidationErrorMessages'
 import CategoryName from 'components/common/CategoryName'
 import Edit from 'components/common/Edit'
@@ -35,12 +37,14 @@ interface DispatchProps {
   exitCategory: () => void;
   patchCategory: (id: number, params: CategoryParams) => void;
   deleteCategory: (categoryId: number) => void;
+  openAlertModal: (messageType: string) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps & RouteComponentProps
 
 interface State {
   isOpenDestroyModal: boolean;
+  isOpenCancelModal: boolean;
 }
 
 class CategoryItem extends Component<Props, State> {
@@ -48,11 +52,13 @@ class CategoryItem extends Component<Props, State> {
     super(props)
 
     this.state = {
-      isOpenDestroyModal: false
+      isOpenDestroyModal: false,
+      isOpenCancelModal: false
     }
 
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
     this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
+    this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
@@ -74,7 +80,7 @@ class CategoryItem extends Component<Props, State> {
 
   handleClickEditIcon(): void {
     if (this.props.editCategoryStore.isEditing) {
-      // alert modal
+      this.props.openAlertModal('editing')
     } else {
       this.props.editCategory(this.props.category)
     }
@@ -82,10 +88,19 @@ class CategoryItem extends Component<Props, State> {
 
   handleClickCancelIcon(): void {
     if (this.diff()) {
-      // alert modal
+      this.setState({
+        isOpenCancelModal: true
+      })
     } else {
       this.props.exitCategory()
     }
+  }
+
+  handleClickCancelButton(): void {
+    this.setState({
+      isOpenCancelModal: false
+    })
+    this.props.exitCategory()
   }
 
   handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
@@ -114,7 +129,8 @@ class CategoryItem extends Component<Props, State> {
 
   handleClickClose(): void {
     this.setState({
-      isOpenDestroyModal: false
+      isOpenDestroyModal: false,
+      isOpenCancelModal: false
     })
   }
 
@@ -155,7 +171,9 @@ class CategoryItem extends Component<Props, State> {
     return (
       <tr className={'category-item-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
         <td>
-          <ValidationErrorMessages errors={this.props.editCategoryStore.errors} />
+          {this.editing() && (
+            <ValidationErrorMessages errors={this.props.editCategoryStore.errors} />
+          )}
           {this.editing() ? (
             <CategoryForm
               categoryStore={this.props.editCategoryStore}
@@ -168,6 +186,10 @@ class CategoryItem extends Component<Props, State> {
           )}
         </td>
         <td className='icon-field'>
+          <CancelModal
+            isOpen={this.state.isOpenCancelModal}
+            onClickCancel={this.handleClickCancelButton}
+            onClickClose={this.handleClickClose} />
           {this.editing() ? (
             <Cancel onClickIcon={this.handleClickCancelIcon} />
           ) : (
@@ -218,6 +240,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(deleteCategory(categoryId)).then(() => {
         dispatch(getCategories())
       })
+    },
+    openAlertModal(messageType: string): void {
+      dispatch(openAlertModal(messageType))
     }
   }
 }

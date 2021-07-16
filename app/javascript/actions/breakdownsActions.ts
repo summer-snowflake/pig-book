@@ -6,8 +6,8 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { BreakdownsAction } from 'types/action'
 import { Breakdown } from 'types/api'
-import { catchErrors } from './errorsAction'
-import { getCookiesFailure } from './userActions'
+import { catchErrors } from 'actions/errorsActions'
+import { getCookiesFailure } from 'actions/userActions'
 
 const getBreakdownsRequest = (): Action => {
   return {

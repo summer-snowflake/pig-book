@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import {
+  AlertStore,
   SessionStore,
   RegistrationStore,
   ConfirmationStore,
@@ -40,6 +41,7 @@ import {
   NewPiggyItemStore,
   EditPiggyItemStore
 } from 'types/store'
+import alertReducer from 'reducers/alertReducer'
 import sessionReducer from 'reducers/sessionReducer'
 import registrationReducer from 'reducers/registrationReducer'
 import confirmationReducer from 'reducers/confirmationReducer'
@@ -80,6 +82,7 @@ import newPiggyItemReducer from 'reducers/newPiggyItemReducer'
 import editPiggyItemReducer from 'reducers/editPiggyItemReducer'
 
 export type RootState = {
+  alert: AlertStore;
   session: SessionStore;
   registration: RegistrationStore;
   confirmation: ConfirmationStore;
@@ -121,6 +124,7 @@ export type RootState = {
 }
 
 const rootReducer = combineReducers({
+  alert: alertReducer,
   session: sessionReducer,
   registration: registrationReducer,
   confirmation: confirmationReducer,

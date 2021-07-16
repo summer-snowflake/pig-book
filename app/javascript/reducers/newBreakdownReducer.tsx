@@ -12,7 +12,17 @@ const initialState = {
   balance_of_payments: false,
   category_id: 0,
   name: '',
-  errors: []
+  errors: [],
+  breakdown: {
+    id: 0,
+    name: '',
+    category_id: 0,
+    category: {
+      id: 0,
+      name: '',
+      balance_of_payments: false
+    },
+  }
 }
 
 interface StoreAction extends BreakdownAction {
@@ -31,10 +41,7 @@ const newBreakdownReducer = (state: NewBreakdownStore = initialState, action: St
   case actionTypes.POST_BREAKDOWN_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      name: '',
-      errors: []
+      ...initialState
     }
   case actionTypes.POST_BREAKDOWN_FAILURE:
     return {
@@ -42,16 +49,10 @@ const newBreakdownReducer = (state: NewBreakdownStore = initialState, action: St
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.CHANGE_BREAKDOWN_NAME:
+  case actionTypes.NEW_BREAKDOWN:
     return {
       ...state,
-      name: action.name
-    }
-  case actionTypes.CHANGE_CATEGORY:
-    return {
-      ...state,
-      category_id: action.category?.id,
-      balance_of_payments: action.category?.balance_of_payments || false
+      breakdown: action.breakdown
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {
