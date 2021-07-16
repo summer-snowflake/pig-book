@@ -12,6 +12,7 @@ import { patchBreakdown, deleteBreakdown } from 'actions/breakdownActions'
 import {
   changeCategory, editBreakdown, exitBreakdown, clearEditedBreakdown
 } from 'actions/breakdownStoreActions'
+import { openAlertModal } from 'actions/alertStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
 import Trash from 'components/common/Trash'
@@ -20,6 +21,7 @@ import Edit from 'components/common/Edit'
 import ValidationErrorMessages from 'components/common/ValidationErrorMessages'
 import CategoryName from 'components/common/CategoryName'
 import DestroyModal from 'components/common/DestroyModal'
+import CancelModal from 'components/common/CancelModal'
 import BreakdownForm from 'components/settings/breakdown/BreakdownForm'
 
 interface ParentProps {
@@ -36,15 +38,14 @@ interface DispatchProps {
   changeCategory: (category: Category | undefined) => void;
   patchBreakdown: (id: number, params: BreakdownParams) => void;
   deleteBreakdown: (breakdownId: number) => void;
+  openAlertModal: (messageType: string) => void;
 }
 
 type Props = RouteComponentProps & ParentProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
-  isOpenAlertModal: boolean;
   isOpenDestroyModal: boolean;
-  breakdown: Breakdown;
 }
 
 class BreakdownTableRecordContainer extends Component<Props, State> {
@@ -53,18 +54,7 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
-      isOpenAlertModal: false,
-      isOpenDestroyModal: false,
-      breakdown: {
-        id: 0,
-        category_id: 0,
-        name: '',
-        category: {
-          id: 0,
-          name: '',
-          balance_of_payments: false
-        }
-      }
+      isOpenDestroyModal: false
     }
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -72,38 +62,30 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     this.handleChangeBalanceOfPayments = this.handleChangeBalanceOfPayments.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
-    this.handleClickCancel = this.handleClickCancel.bind(this)
+    this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
+    this.handleClickCancelButton = this.handleClickCancelButton.bind(this)
     this.handleClickClose = this.handleClickClose.bind(this)
     this.handleClickTrashIcon = this.handleClickTrashIcon.bind(this)
     this.handleClickDestroy = this.handleClickDestroy.bind(this)
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
-    this.handleClickCancelIcon = this.handleClickCancelIcon.bind(this)
     this.handleClickListIcon = this.handleClickListIcon.bind(this)
   }
 
   diff(): boolean {
-    return this.props.breakdown.name !== this.state.breakdown.name ||
-      this.props.breakdown.category_id !== this.state.breakdown.category_id
+    return this.props.breakdown.category.balance_of_payments !== this.props.editBreakdownStore.breakdown.category.balance_of_payments ||
+      this.props.breakdown.name !== this.props.editBreakdownStore.breakdown.name ||
+      this.props.breakdown.category_id !== this.props.editBreakdownStore.breakdown.category_id
   }
 
   editing(): boolean {
-    return this.props.breakdown.id === this.props.editBreakdownStore.breakdown.id
+    return this.props.editBreakdownStore.isEditing && this.props.breakdown.id === this.props.editBreakdownStore.breakdown.id
   }
 
   handleClickEditIcon(): void {
-    // 編集中ではない場合
-    if (this.props.editBreakdownStore.breakdown.id === 0) {
-      this.props.editBreakdown(this.props.breakdown)
-      this.setState({
-        breakdown: this.props.breakdown
-      })
+    if (this.props.editBreakdownStore.isEditing) {
+      this.props.openAlertModal('editing')
     } else {
-      // 他のアイテム編集中の場合
-      if (this.props.editBreakdownStore.breakdown.id !== this.props.breakdown.id) {
-        this.setState({
-          isOpenAlertModal: true
-        })
-      }
+      this.props.editBreakdown(this.props.breakdown)
     }
   }
 
@@ -117,6 +99,13 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     }
   }
 
+  handleClickCancelButton(): void {
+    this.setState({
+      isOpenCancelModal: false
+    })
+    this.props.exitBreakdown()
+  }
+
   handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
     const ENTER = 13
     if (e.keyCode === ENTER) {
@@ -127,36 +116,26 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     const breakdown = {
-      id: this.props.breakdown.id,
-      category_id: this.state.breakdown.category_id,
-      name: e.target.value,
-      category: this.state.breakdown.category
+      ...this.props.editBreakdownStore.breakdown,
+      name: e.target.value
     }
-    this.setState({
-      breakdown: breakdown
-    })
+    this.props.editBreakdown(breakdown)
   }
 
   handleChangeBalanceOfPayments(e: React.ChangeEvent<HTMLInputElement>): void {
     const breakdown = {
-      id: this.props.breakdown.id,
-      name: this.props.breakdown.name,
-      category_id: this.props.breakdown.category.id,
+      ...this.props.editBreakdownStore.breakdown,
       category: {
-        id: this.props.breakdown.category.id,
-        name: this.props.breakdown.category.name,
+        ...this.props.editBreakdownStore.breakdown.category,
         balance_of_payments: toBoolean(e.target.value)
       }
     }
-    this.setState({
-      breakdown: breakdown
-    })
+    this.props.editBreakdown(breakdown)
   }
 
   handleChangeCategory(category: Category | undefined): void {
     const breakdown = {
-      id: this.state.breakdown.id,
-      name: this.state.breakdown.name,
+      ...this.props.editBreakdownStore.breakdown,
       category_id: category?.id || 0,
       category: category || {
         id: 0,
@@ -164,27 +143,17 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
         balance_of_payments: false
       }
     }
-    this.setState({
-      breakdown: breakdown
-    })
+    this.props.editBreakdown(breakdown)
   }
 
   handleClickSubmitButton(): void {
-    this.props.patchBreakdown(this.state.breakdown.id, this.state.breakdown)
-  }
-
-  handleClickCancel(): void {
-    this.setState({
-      breakdown: this.props.breakdown,
-      isOpenCancelModal: false
-    })
-    this.props.exitBreakdown()
+    const breakdown = this.props.editBreakdownStore.breakdown
+    this.props.patchBreakdown(breakdown.id, breakdown)
   }
 
   handleClickClose(): void {
     this.setState({
       isOpenCancelModal: false,
-      isOpenAlertModal: false,
       isOpenDestroyModal: false
     })
   }
@@ -222,33 +191,33 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
 
     return (
       <tr className={'breakdown-item-component' + (breakdown.id === this.props.editBreakdownStore.editedBreakdownId ? ' edited' : '')}>
-        <td>
-          {this.editing() && (
+        {this.editing() ? (
+          <td colSpan={2}>
             <ValidationErrorMessages errors={this.props.editBreakdownStore.errors} />
-          )}
-          {this.editing() ? (
             <BreakdownForm
               breakdownStore={this.props.editBreakdownStore}
-              breakdown={this.state.breakdown}
-              category={this.state.breakdown.category}
-              disabled={this.props.editBreakdownStore.isLoading || !this.diff()}
-              isLoading={this.props.editBreakdownStore.isLoading}
               onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
               onChangeCategory={this.handleChangeCategory}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}
             />
-          ) : (
+          </td>
+        ) : (
+          <td>
             <CategoryName balanceOfPayments={breakdown.category.balance_of_payments} name={breakdown.category.name} />
-          )}
-        </td>
+          </td>
+        )}
         {!this.editing() && (
           <td>
             {breakdown.name}
           </td>
         )}
         <td className='icon-field'>
+          <CancelModal
+            isOpen={this.state.isOpenCancelModal}
+            onClickCancel={this.handleClickCancelButton}
+            onClickClose={this.handleClickClose} />
           {this.editing() ? (
             <Cancel onClickIcon={this.handleClickCancelIcon} />
           ) : (
@@ -305,6 +274,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(deleteBreakdown(breakdownId)).then(() => {
         dispatch(getBreakdowns())
       })
+    },
+    openAlertModal(messageType: string): void {
+      dispatch(openAlertModal(messageType))
     }
   }
 }

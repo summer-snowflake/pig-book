@@ -9,6 +9,7 @@ import { Breakdown } from 'types/api'
 
 const initialState = {
   isLoading: false,
+  isEditing: false,
   breakdown: {
     id: 0,
     name: '',
@@ -37,20 +38,8 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
   case actionTypes.PATCH_BREAKDOWN_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      breakdown: {
-        id: 0,
-        name: '',
-        category_id: 0,
-        category: {
-          id: 0,
-          name: '',
-          balance_of_payments: false
-        }
-      },
-      editedBreakdownId: action.breakdown.id,
-      errors: []
+      ...initialState,
+      editedBreakdownId: action.breakdown.id
     }
   case actionTypes.POST_BREAKDOWN_SUCCESS:
     return {
@@ -66,23 +55,12 @@ const editBreakdownReducer = (state: EditBreakdownStore = initialState, action: 
   case actionTypes.EDIT_BREAKDOWN:
     return {
       ...state,
-      breakdown: action.breakdown,
-      errors: []
+      isEditing: true,
+      breakdown: action.breakdown
     }
   case actionTypes.EXIT_BREAKDOWN:
     return {
-      ...state,
-      breakdown: {
-        id: 0,
-        name: '',
-        category_id: 0,
-        category: {
-          id: 0,
-          name: '',
-          balance_of_payments: false
-        }
-      },
-      errors: []
+      ...initialState
     }
   case actionTypes.CLEAR_EDITED_BREAKDOWN:
     return {

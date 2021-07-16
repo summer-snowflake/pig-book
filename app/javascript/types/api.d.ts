@@ -26,6 +26,7 @@ export interface CategoryParams {
 }
 
 export interface BreakdownParams {
+  id?: number;
   category_id: number;
   name: string;
 }

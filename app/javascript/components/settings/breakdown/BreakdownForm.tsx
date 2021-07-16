@@ -14,10 +14,6 @@ interface ParentProps {
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmitButton: () => void;
   breakdownStore: NewBreakdownStore | EditBreakdownStore;
-  category: Category;
-  breakdown: Breakdown;
-  disabled: boolean;
-  isLoading: boolean;
 }
 
 type Props = ParentProps & I18nProps
@@ -39,18 +35,19 @@ class BreakdownForm extends Component<Props> {
 
   render(): JSX.Element {
     const { t } = this.props
+    const breakdown = this.props.breakdownStore.breakdown
 
     return (
       <form className='breakdown-form-component'>
         <div className='form-group row'>
           <BalanceOfPaymentsRadios
-            category={this.props.category}
+            category={breakdown.category}
             onChangeBalanceOfPayments={this.handleChangeBalanceOfPayments}
           />
           <CategorySelectBox
-            balanceOfPayments={this.props.category.balance_of_payments}
+            balanceOfPayments={breakdown.category.balance_of_payments}
             onChangeCategory={this.props.onChangeCategory}
-            selectedCategoryId={this.props.category.id}
+            selectedCategoryId={breakdown.category.id}
           />
           <input
             className='form-control'
@@ -58,15 +55,15 @@ class BreakdownForm extends Component<Props> {
             onChange={this.props.onChangeName}
             onKeyDown={this.props.onKeyDown}
             type='text'
-            value={this.props.breakdown.name}
+            value={breakdown.name}
           />
           <button
             className='btn btn-primary'
-            disabled={this.props.disabled}
+            disabled={this.props.breakdownStore.isLoading}
             onClick={this.props.onClickSubmitButton}
             type='button'
           >
-            {this.props.breakdown.id ? (
+            {breakdown.id ? (
               t('button.update')
             ) : (
               t('button.add')

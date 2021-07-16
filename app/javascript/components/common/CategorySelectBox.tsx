@@ -33,7 +33,8 @@ class CategorySelectBox extends Component<Props> {
     this.loadCategory = this.loadCategory.bind(this)
 
     this.props.getCategories()
-    this.loadCategory(Number(this.props.selectedCategoryId))
+    // TODO: 内訳のロード
+    // this.loadCategory(Number(this.props.selectedCategoryId))
   }
 
   handleChangeCategory(e: React.ChangeEvent<HTMLSelectElement>): void {

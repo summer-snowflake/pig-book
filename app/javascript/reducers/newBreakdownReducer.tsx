@@ -12,7 +12,17 @@ const initialState = {
   balance_of_payments: false,
   category_id: 0,
   name: '',
-  errors: []
+  errors: [],
+  breakdown: {
+    id: 0,
+    name: '',
+    category_id: 0,
+    category: {
+      id: 0,
+      name: '',
+      balance_of_payments: false
+    },
+  }
 }
 
 interface StoreAction extends BreakdownAction {
