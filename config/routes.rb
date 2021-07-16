@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'settings', to: 'settings#show'
   get 'categories', to: 'categories#index'
   get 'breakdowns', to: 'breakdowns#index'
+  get 'places', to: 'places#index'
 
   namespace :admin, module: :admin_page do
     get 'users', to: 'users#show'
