@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'mypage', to: 'mypage#show'
   get 'settings', to: 'settings#show'
   get 'categories', to: 'categories#index'
+  get 'breakdowns', to: 'breakdowns#index'
 
   namespace :admin, module: :admin_page do
     get 'users', to: 'users#show'
