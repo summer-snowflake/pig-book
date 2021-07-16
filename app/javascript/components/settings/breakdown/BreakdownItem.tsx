@@ -223,7 +223,9 @@ class BreakdownTableRecordContainer extends Component<Props, State> {
     return (
       <tr className={'breakdown-item-component' + (breakdown.id === this.props.editBreakdownStore.editedBreakdownId ? ' edited' : '')}>
         <td>
-          <ValidationErrorMessages errors={this.props.editBreakdownStore.errors} />
+          {this.editing() && (
+            <ValidationErrorMessages errors={this.props.editBreakdownStore.errors} />
+          )}
           {this.editing() ? (
             <BreakdownForm
               breakdownStore={this.props.editBreakdownStore}

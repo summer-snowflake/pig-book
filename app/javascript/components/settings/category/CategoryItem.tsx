@@ -155,7 +155,9 @@ class CategoryItem extends Component<Props, State> {
     return (
       <tr className={'category-item-component' + (this.props.category.id === this.props.editCategoryStore.editedCategoryId ? ' edited' : '')}>
         <td>
-          <ValidationErrorMessages errors={this.props.editCategoryStore.errors} />
+          {this.editing() && (
+            <ValidationErrorMessages errors={this.props.editCategoryStore.errors} />
+          )}
           {this.editing() ? (
             <CategoryForm
               categoryStore={this.props.editCategoryStore}
