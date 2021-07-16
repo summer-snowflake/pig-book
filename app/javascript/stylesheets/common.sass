@@ -353,6 +353,7 @@ body
     z-index: 10
 
 .table
+  border-collapse: collapse
   padding-top: 10px
   width: 100%
 
@@ -367,6 +368,9 @@ body
 
   .column-human-now
     color: $gray
+
+  .edited
+    animation: flash 1s linear
 
 //
 //  th
@@ -398,9 +402,6 @@ body
 //  .date-field-td
 //    width: 140px
 //
-//  .edited
-//    animation: flash 1s linear
-//
 //  .record-charge-td
 //    min-width: 80px
 //
@@ -416,17 +417,18 @@ body
 //  .record-place-td
 //    width: 200px
 //
-//@keyframes flash
-//  0%
-//    background-color: $light-green-translucent-rgba8
-//
-//  50%
-//    background-color: $light-green-translucent
-//
-//  100%
-//    background-color: 0
-//
-//
+
+@keyframes flash
+  0%
+    background-color: $light-green-translucent-rgba8
+
+  50%
+    background-color: $light-green-translucent
+
+  100%
+    background-color: 0
+
+
 //.loading-image-component
 //  padding: 0 0 0 10px
 //
