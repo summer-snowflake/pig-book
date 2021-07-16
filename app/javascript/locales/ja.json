@@ -156,7 +156,7 @@
     "confirmEmailFailure": "メールの送信ができませんでした"
   },
   "alert": {
-    "editingOther": "編集中の項目があります"
+    "editing": "編集中の項目があります"
   },
   "admin": {
     "userEmail": "メールアドレス",

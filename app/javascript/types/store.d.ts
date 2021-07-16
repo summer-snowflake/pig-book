@@ -13,6 +13,11 @@ export interface MessagesStore {
   messages: string[];
 }
 
+export interface AlertStore {
+  isOpen: boolean;
+  messageType: string;
+}
+
 export interface SessionStore {
   isLoading: boolean;
 }

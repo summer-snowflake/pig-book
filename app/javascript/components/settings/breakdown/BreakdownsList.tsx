@@ -20,7 +20,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps
 
-class BreakdownsListContainer extends Component<Props> {
+class BreakdownsList extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -62,4 +62,4 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
   }
 }
 
-export default connect(mapState, mapDispatch)(BreakdownsListContainer)
+export default connect(mapState, mapDispatch)(BreakdownsList)

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
 import { store } from 'modules/store'
+import AlertModal from 'components/common/AlertModal'
 import TopPage from 'components/TopPage'
 import SignInPage from 'components/SignInPage'
 import SignUpPage from 'components/SignUpPage'
@@ -26,6 +27,7 @@ export const App = () => {
       <Router>
         <Header />
         <ToastContainer />
+        <AlertModal />
         <Switch>
           <Route component={TopPage} exact path='/' />
           <Route component={SignInPage} exact path='/users/sign_in' />

@@ -21,6 +21,7 @@ import CategoryName from 'components/common/CategoryName'
 import Edit from 'components/common/Edit'
 import Cancel from 'components/common/Cancel'
 import CategoryForm from 'components/settings/category/CategoryForm'
+import { openAlertModal } from 'actions/alertStoreActions'
 
 interface ParentProps {
   category: Category;
@@ -35,6 +36,7 @@ interface DispatchProps {
   exitCategory: () => void;
   patchCategory: (id: number, params: CategoryParams) => void;
   deleteCategory: (categoryId: number) => void;
+  openAlertModal: (messageType: string) => void;
 }
 
 type Props = ParentProps & StateProps & DispatchProps & RouteComponentProps
@@ -75,6 +77,7 @@ class CategoryItem extends Component<Props, State> {
   handleClickEditIcon(): void {
     if (this.props.editCategoryStore.isEditing) {
       // alert modal
+      this.props.openAlertModal('editing')
     } else {
       this.props.editCategory(this.props.category)
     }
@@ -220,6 +223,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
       dispatch(deleteCategory(categoryId)).then(() => {
         dispatch(getCategories())
       })
+    },
+    openAlertModal(messageType: string): void {
+      dispatch(openAlertModal(messageType))
     }
   }
 }
