@@ -9,9 +9,7 @@ import { EditBreakdownStore } from 'types/store'
 import { encodeQueryData } from 'modules/encode'
 import { getBreakdowns } from 'actions/breakdownsActions'
 import { patchBreakdown, deleteBreakdown } from 'actions/breakdownActions'
-import {
-  changeCategory, editBreakdown, exitBreakdown, clearEditedBreakdown
-} from 'actions/breakdownStoreActions'
+import { editBreakdown, exitBreakdown, clearEditedBreakdown } from 'actions/breakdownStoreActions'
 import { openAlertModal } from 'actions/alertStoreActions'
 import { RootState } from 'reducers/rootReducer'
 import { toBoolean } from 'modules/toBoolean'
@@ -35,7 +33,6 @@ interface StateProps {
 interface DispatchProps {
   editBreakdown: (breakdown: Breakdown) => void;
   exitBreakdown: () => void;
-  changeCategory: (category: Category | undefined) => void;
   patchBreakdown: (id: number, params: BreakdownParams) => void;
   deleteBreakdown: (breakdownId: number) => void;
   openAlertModal: (messageType: string) => void;
@@ -260,9 +257,6 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
           }, 3000)
         })
       })
-    },
-    changeCategory(category: Category | undefined): void {
-      dispatch(changeCategory(category))
     },
     editBreakdown(breakdown: Breakdown): void {
       dispatch(editBreakdown(breakdown))

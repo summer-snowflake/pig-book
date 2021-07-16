@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 import BreakdownsList from 'components/settings/breakdown/BreakdownsList'
+import NewBreakdownField from 'components/settings/breakdown/NewBreakdownField'
 
 class BreakdownSettings extends Component<I18nProps> {
   render(): JSX.Element {
@@ -15,6 +16,7 @@ class BreakdownSettings extends Component<I18nProps> {
             {t('menu.breakdown')}
           </div>
           <div className='card-body with-background-image'>
+            <NewBreakdownField />
             <BreakdownsList />
           </div>
         </div>
