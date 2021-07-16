@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
-import { Place } from 'types/api'
+import { EditPlaceStore, NewPlaceStore } from 'types/store'
 
 interface ParentProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmitButton: () => void;
-  place: Place;
-  disabled: boolean;
-  isLoading: boolean;
+  placeStore: NewPlaceStore | EditPlaceStore
 }
 
 type Props = ParentProps & I18nProps
@@ -27,15 +25,13 @@ class PlaceForm extends Component<Props> {
             onChange={this.props.onChangeName}
             onKeyDown={this.props.onKeyDown}
             type='text'
-            value={this.props.place.name}
-          />
+            value={this.props.placeStore.place.name} />
           <button
             className='btn btn-primary'
-            disabled={this.props.disabled}
+            disabled={this.props.placeStore.isLoading}
             onClick={this.props.onClickSubmitButton}
-            type='button'
-          >
-            {this.props.place.id ? (
+            type='button'>
+            {this.props.placeStore.place.id ? (
               t('button.update')
             ) : (
               t('button.add')

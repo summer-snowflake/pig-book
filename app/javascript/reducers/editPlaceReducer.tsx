@@ -9,6 +9,7 @@ import { Place } from 'types/api'
 
 const initialState = {
   isLoading: false,
+  isEditing: false,
   place: {
     id: 0,
     name: '',
@@ -33,15 +34,8 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
   case actionTypes.PATCH_PLACE_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      place: {
-        id: 0,
-        name: '',
-        categories: []
-      },
-      editedPlaceId: action.place.id,
-      errors: []
+      ...initialState,
+      editedPlaceId: action.place.id
     }
   case actionTypes.POST_PLACE_SUCCESS:
     return {
@@ -57,18 +51,12 @@ const editPlaceReducer = (state: EditPlaceStore = initialState, action: WithEdit
   case actionTypes.EDIT_PLACE:
     return {
       ...state,
-      place: action.place,
-      errors: []
+      isEditing: true,
+      place: action.place
     }
   case actionTypes.EXIT_PLACE:
     return {
-      ...state,
-      place: {
-        id: 0,
-        name: '',
-        categories: []
-      },
-      errors: []
+      ...initialState
     }
   case actionTypes.CLEAR_EDITED_PLACE:
     return {

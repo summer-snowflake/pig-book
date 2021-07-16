@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 import PlacesList from 'components/settings/place/PlacesList'
+import NewPlaceField from 'components/settings/place/NewPlaceField'
 
 class PlaceCard extends Component<I18nProps> {
   render(): JSX.Element {
@@ -14,6 +15,7 @@ class PlaceCard extends Component<I18nProps> {
           {t('menu.place')}
         </div>
         <div className='card-body with-background-image'>
+          <NewPlaceField />
           <PlacesList />
         </div>
       </div>

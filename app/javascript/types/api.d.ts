@@ -32,6 +32,7 @@ export interface BreakdownParams {
 }
 
 export interface PlaceParams {
+  id?: number;
   name: string;
 }
 
@@ -175,6 +176,7 @@ export interface Breakdown {
 export interface Place {
   id: number;
   name: string;
+  categories: Category[];
 }
 
 export interface WithCategoriesPlace extends Place {

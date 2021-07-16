@@ -8,6 +8,7 @@ import { PlaceParams, WithCategoriesPlace, Place } from 'types/api'
 import { EditPlaceStore, CategoriesStore } from 'types/store'
 import { encodeQueryData } from 'modules/encode'
 import { getPlaces } from 'actions/placesActions'
+import { openAlertModal } from 'actions/alertStoreActions'
 import { patchPlace, deletePlace, postPlaceCategories } from 'actions/placeActions'
 import { editPlace, exitPlace, clearEditedPlace } from 'actions/placeStoreActions'
 import { getCategories } from 'actions/categoriesActions'
@@ -34,6 +35,7 @@ interface DispatchProps {
   deletePlace: (placeId: number) => void;
   getCategories: (placeId: number) => void;
   postPlaceCategories: (placeId: number, categoryIds: number[]) => void;
+  openAlertModal: (messageType: string) => void;
 }
 
 interface ParentProps {
@@ -44,10 +46,8 @@ type Props = RouteComponentProps & ParentProps & StateProps & DispatchProps
 
 interface State {
   isOpenCancelModal: boolean;
-  isOpenAlertModal: boolean;
   isOpenDestroyModal: boolean;
   isOpenCategorizedModal: boolean;
-  place: WithCategoriesPlace;
 }
 
 class PlaceTableRecordContainer extends Component<Props, State> {
@@ -56,18 +56,11 @@ class PlaceTableRecordContainer extends Component<Props, State> {
 
     this.state = {
       isOpenCancelModal: false,
-      isOpenAlertModal: false,
       isOpenDestroyModal: false,
-      isOpenCategorizedModal: false,
-      place: {
-        id: 0,
-        name: '',
-        categories: []
-      }
+      isOpenCategorizedModal: false
     }
 
     this.handleClickEditIcon = this.handleClickEditIcon.bind(this)
-    this.handleClickExitIcon = this.handleClickExitIcon.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleClickSubmitButton = this.handleClickSubmitButton.bind(this)
@@ -82,7 +75,7 @@ class PlaceTableRecordContainer extends Component<Props, State> {
   }
 
   diff(): boolean {
-    return this.props.place.name !== this.state.place.name
+    return this.props.place.name !== this.props.editPlaceStore.place.name
   }
 
   editing(): boolean {
@@ -90,29 +83,10 @@ class PlaceTableRecordContainer extends Component<Props, State> {
   }
 
   handleClickEditIcon(): void {
-    // 編集中ではない場合
-    if (this.props.editPlaceStore.place.id === 0) {
+    if (this.props.editPlaceStore.isEditing) {
+      this.props.openAlertModal('editing')
+    } else {
       this.props.editPlace(this.props.place)
-      this.setState({
-        place: this.props.place
-      })
-    } else {
-      // 他のアイテム編集中の場合
-      if (this.props.editPlaceStore.place.id !== this.props.place.id) {
-        this.setState({
-          isOpenAlertModal: true
-        })
-      }
-    }
-  }
-
-  handleClickExitIcon(): void {
-    if (this.diff()) {
-      this.setState({
-        isOpenCancelModal: true
-      })
-    } else {
-      this.props.exitPlace()
     }
   }
 
@@ -126,28 +100,32 @@ class PlaceTableRecordContainer extends Component<Props, State> {
 
   handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     const place = {
-      id: this.props.place.id,
-      name: e.target.value,
-      categories: this.props.place.categories
+      ...this.props.editPlaceStore.place,
+      name: e.target.value
     }
-    this.setState({
-      place: place
-    })
+    this.props.editPlace(place)
   }
 
   handleClickSubmitButton(): void {
-    this.props.patchPlace(this.state.place.id, this.state.place)
+    const place = this.props.editPlaceStore.place
+    this.props.patchPlace(place.id, place)
   }
 
   handleClickCancelIcon(): void {
-    this.setState({
-      place: this.props.place,
-      isOpenCancelModal: false
-    })
-    this.props.exitPlace()
+    if (this.diff()) {
+      this.setState({
+        isOpenCancelModal: true
+      })
+    } else {
+      this.props.exitPlace()
+    }
   }
 
   handleClickCancelButton(): void {
+    this.setState({
+      isOpenCancelModal: false
+    })
+    this.props.exitPlace()
   }
 
   handleClickSubmit(categoryIds: number[]): void {
@@ -160,7 +138,6 @@ class PlaceTableRecordContainer extends Component<Props, State> {
   handleClickClose(): void {
     this.setState({
       isOpenCancelModal: false,
-      isOpenAlertModal: false,
       isOpenDestroyModal: false,
       isOpenCategorizedModal: false
     })
@@ -208,12 +185,10 @@ class PlaceTableRecordContainer extends Component<Props, State> {
           <td>
             <ValidationErrorMessages errors={this.props.editPlaceStore.errors} />
             <PlaceForm
-              disabled={this.props.editPlaceStore.isLoading || !this.diff()}
-              isLoading={this.props.editPlaceStore.isLoading}
               onChangeName={this.handleChangeName}
               onClickSubmitButton={this.handleClickSubmitButton}
               onKeyDown={this.handleKeyDown}
-              place={this.state.place}
+              placeStore={this.props.editPlaceStore}
             />
           </td>
         ) : (
@@ -300,6 +275,9 @@ function mapDispatch(dispatch: ThunkDispatch<RootState, undefined, Action>): Dis
           }, 3000)
         })
       })
+    },
+    openAlertModal(messageType: string): void {
+      dispatch(openAlertModal(messageType))
     }
   }
 }
