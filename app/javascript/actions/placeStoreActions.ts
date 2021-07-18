@@ -1,10 +1,17 @@
 import { Action } from 'redux'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Place } from 'types/api'
+import { Place, PlaceParams } from 'types/api'
 
 interface WithPlaceAction extends Action {
-  place: Place;
+  place: PlaceParams;
+}
+
+export const newPlace = (place: PlaceParams): WithPlaceAction => {
+  return {
+    type: actionTypes.NEW_PLACE,
+    place
+  }
 }
 
 export const editPlace = (place: Place): WithPlaceAction => {

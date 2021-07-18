@@ -8,6 +8,10 @@ import FlashMessage from 'components/common/FlashMessage'
 
 const initialState = {
   isLoading: false,
+  place: {
+    id: 0,
+    name: ''
+  },
   name: '',
   errors: []
 }
@@ -38,10 +42,10 @@ const placeReducer = (state: NewPlaceStore = initialState, action: StoreAction):
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.CHANGE_PLACE_NAME:
+  case actionTypes.NEW_PLACE:
     return {
       ...state,
-      name: action.name
+      place: action.place
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

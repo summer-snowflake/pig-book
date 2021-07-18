@@ -4,6 +4,7 @@ body
   min-height: 100vh
   padding: 0 20px
   position: relative
+  font-family: Quicksand,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,メイリオ,Meiryo,sans-serif
 
   .center-container
     margin: auto
@@ -12,8 +13,6 @@ body
   .row
     display: flex
     flex-wrap: wrap
-    margin-right: -15px
-    margin-left: -15px
 
     .col-3
       flex: 0 0 25%
@@ -25,6 +24,10 @@ body
 
     &.flex-end
       justify-content: flex-end
+
+  button, input, select, textarea
+    font-family: Quicksand,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,メイリオ,Meiryo,sans-serif
+    font-size: 12px
 
 .clear
   clear: both
@@ -269,6 +272,13 @@ body
   height: 18px
   width: 15px
 
+.plus-icon-field
+  width: 0
+
+  .btn
+    margin: 0
+    padding: 4px 8px
+
 .icon-field
   width: 0
 
@@ -440,24 +450,25 @@ body
 //.loading-image
 //  width: 55px
 //
-//.checkbox-input
-//  visibility: hidden
-//
-//  &:checked + .checkbox-label
-//    border: 1px solid $green-translucent
-//
-//    .fa-check
-//      color: $darken-green
-//
-//.checkbox-label
-//  border: 1px solid transparent
-//  border-radius: 5px
-//  cursor: pointer
-//  padding: 5px
-//
-//  .fa-check
-//    color: $green-translucent
-//
+.checkbox-input
+  visibility: hidden
+
+  &:checked + .checkbox-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.checkbox-label
+  display: inline-block
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  margin: 2px 0
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
 
 .radio-input
   visibility: hidden
@@ -483,8 +494,7 @@ body
   padding: 0 10px
 
 .balance-of-payments-radios-component
-  margin-left: 20px
-  margin-top: 2px
+  margin-top: 1px
 
 //.record-totals-component
 //  text-align: right
@@ -584,4 +594,5 @@ body
     padding: 10px
 
 .categories-list
-  height: 28px
+  height: 26px
+  min-width: 160px
