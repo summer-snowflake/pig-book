@@ -24,7 +24,7 @@ class SettingsMenu extends Component<I18nProps> {
           <i className='fas fa-map-marker-alt left-icon' />
           {t('menu.place')}
         </NavLink>
-        <NavLink activeClassName='active-link-menu' className='list-group-item' to='/labels'>
+        <NavLink activeClassName='active-link-menu' className='list-group-item' to='/tags'>
           <i className='fas fa-bookmark left-icon' />
           {t('menu.tag')}
         </NavLink>

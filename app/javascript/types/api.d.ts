@@ -37,6 +37,7 @@ export interface PlaceParams {
 }
 
 export interface TagParams {
+  id?: number
   name: string;
   color_code: string;
 }

@@ -10,7 +10,12 @@ const initialState = {
   isLoading: false,
   name: '',
   color_code: '#' + Math.floor(Math.random() * 16777215).toString(16),
-  errors: []
+  errors: [],
+  tag: {
+    id: 0,
+    name: '',
+    color_code: ''
+  }
 }
 
 interface StoreAction extends TagAction {
@@ -39,16 +44,6 @@ const tagReducer = (state: NewTagStore = initialState, action: StoreAction): New
       ...state,
       isLoading: false,
       errors: action.errors
-    }
-  case actionTypes.CHANGE_TAG_COLOR_CODE:
-    return {
-      ...state,
-      color_code: action.color
-    }
-  case actionTypes.CHANGE_TAG_NAME:
-    return {
-      ...state,
-      name: action.name
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

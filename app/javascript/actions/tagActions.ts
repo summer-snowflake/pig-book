@@ -7,7 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, TagAction } from 'types/action'
 import { Tag, TagParams, Errors } from 'types/api'
 import { getCookiesFailure } from 'actions/userActions'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 
 interface WithTagAction extends Action {
   tag: Tag;

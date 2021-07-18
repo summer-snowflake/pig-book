@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { TagsAction } from 'types/action'
 import { Tag } from 'types/api'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 import { getCookiesFailure } from 'actions/userActions'
 
 const getTagsRequest = (): Action => {
