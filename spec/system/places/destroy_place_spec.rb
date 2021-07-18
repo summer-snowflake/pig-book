@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Destroy Category', type: :system, js: true do
+RSpec.describe 'Destroy Place', type: :system, js: true do
   let!(:user) { create(:user, :active) }
   let!(:place1) { create(:place, user: user, name: 'スーパー') }
   let!(:place2) { create(:place, user: user, name: 'コンビニ') }

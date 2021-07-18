@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'categories', to: 'categories#index'
   get 'breakdowns', to: 'breakdowns#index'
   get 'places', to: 'places#index'
+  get 'tags', to: 'tags#index'
 
   namespace :admin, module: :admin_page do
     get 'users', to: 'users#show'

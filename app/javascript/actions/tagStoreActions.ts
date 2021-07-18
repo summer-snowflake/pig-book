@@ -1,31 +1,16 @@
 import { Action } from 'redux'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Tag } from 'types/api'
-
-interface WithColorCodeAction extends Action {
-  color: string;
-}
-
-interface WithNameAction extends Action {
-  name: string;
-}
+import { Tag, TagParams } from 'types/api'
 
 interface WithTagAction extends Action {
-  tag: Tag;
+  tag: TagParams;
 }
 
-export const changeTagColorCode = (color: string): WithColorCodeAction => {
+export const newTag = (tag: TagParams): WithTagAction => {
   return {
-    type: actionTypes.CHANGE_TAG_COLOR_CODE,
-    color
-  }
-}
-
-export const changeTagName = (name: string): WithNameAction => {
-  return {
-    type: actionTypes.CHANGE_TAG_NAME,
-    name
+    type: actionTypes.NEW_TAG,
+    tag
   }
 }
 
@@ -39,5 +24,11 @@ export const editTag = (tag: Tag): WithTagAction => {
 export const exitTag = (): Action => {
   return {
     type: actionTypes.EXIT_TAG
+  }
+}
+
+export const clearEditedTag = (): Action => {
+  return {
+    type: actionTypes.CLEAR_EDITED_TAG
   }
 }

@@ -9,6 +9,7 @@ import { Tag } from 'types/api'
 
 const initialState = {
   isLoading: false,
+  isEditing: false,
   tag: {
     id: 0,
     name: '',
@@ -33,13 +34,8 @@ const editTagReducer = (state: EditTagStore = initialState, action: WithEditingI
   case actionTypes.PATCH_TAG_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      tag: {
-        name: ''
-      },
-      editedTagId: action.tag.id,
-      errors: []
+      ...initialState,
+      editedTagId: action.tag.id
     }
   case actionTypes.PATCH_TAG_FAILURE:
     return {
@@ -55,12 +51,17 @@ const editTagReducer = (state: EditTagStore = initialState, action: WithEditingI
   case actionTypes.EDIT_TAG:
     return {
       ...state,
+      isEditing: true,
       tag: action.tag,
-      errors: []
     }
   case actionTypes.EXIT_TAG:
     return {
       ...initialState
+    }
+  case actionTypes.CLEAR_EDITED_TAG:
+    return {
+      ...state,
+      editedTagId: 0
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

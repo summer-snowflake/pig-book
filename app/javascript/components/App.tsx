@@ -13,6 +13,7 @@ import MyPage from 'components/MyPage'
 import CategoryPage from 'components/CategoryPage'
 import BreakdownPage from 'components/BreakdownPage'
 import PlacePage from 'components/PlacePage'
+import TagPage from 'components/TagPage'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import SettingsTopPage from 'components/SettingsTopPage'
@@ -39,6 +40,7 @@ export const App = () => {
           <Route component={CategoryPage} exact path='/categories' />
           <Route component={BreakdownPage} exact path='/breakdowns' />
           <Route component={PlacePage} exact path='/places' />
+          <Route component={TagPage} exact path='/tags' />
           <Route component={SettingsTopPage} exact path='/settings' />
           <Route component={AdminUsersPage} exact path='/admin/users' />
           <Route component={Page404} />

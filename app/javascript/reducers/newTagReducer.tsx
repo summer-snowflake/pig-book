@@ -10,7 +10,12 @@ const initialState = {
   isLoading: false,
   name: '',
   color_code: '#' + Math.floor(Math.random() * 16777215).toString(16),
-  errors: []
+  errors: [],
+  tag: {
+    id: 0,
+    name: '',
+    color_code: ''
+  }
 }
 
 interface StoreAction extends TagAction {
@@ -29,10 +34,7 @@ const tagReducer = (state: NewTagStore = initialState, action: StoreAction): New
   case actionTypes.POST_TAG_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      name: '',
-      errors: []
+      ...initialState
     }
   case actionTypes.POST_TAG_FAILURE:
     return {
@@ -40,15 +42,10 @@ const tagReducer = (state: NewTagStore = initialState, action: StoreAction): New
       isLoading: false,
       errors: action.errors
     }
-  case actionTypes.CHANGE_TAG_COLOR_CODE:
+  case actionTypes.NEW_TAG:
     return {
-      ...state,
-      color_code: action.color
-    }
-  case actionTypes.CHANGE_TAG_NAME:
-    return {
-      ...state,
-      name: action.name
+      ...initialState,
+      tag: action.tag
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {
