@@ -22,6 +22,7 @@ import Edit from 'components/common/Edit'
 import CategoryName from 'components/common/CategoryName'
 import PlusButton from 'components/common/PlusButton'
 import PlaceForm from 'components/settings/place/PlaceForm'
+import CategorizedModal from 'components/settings/place/CategorizedModal'
 
 interface StateProps {
   editPlaceStore: EditPlaceStore;
@@ -209,6 +210,13 @@ class PlaceTableRecordContainer extends Component<Props, State> {
         </td>
         <td className='plus-icon-field'>
           <PlusButton onClickButton={this.handleClickPlusButton} />
+          <CategorizedModal
+            categories={this.props.categoriesStore.categories}
+            isOpen={this.state.isOpenCategorizedModal}
+            onClickClose={this.handleClickClose}
+            onClickSubmit={this.handleClickSubmit}
+            placeId={this.props.place.id}
+          />
         </td>
         <td className='categorized-list-field'>
           {this.props.place.categories.map((category) => (

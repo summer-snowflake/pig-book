@@ -450,24 +450,25 @@ body
 //.loading-image
 //  width: 55px
 //
-//.checkbox-input
-//  visibility: hidden
-//
-//  &:checked + .checkbox-label
-//    border: 1px solid $green-translucent
-//
-//    .fa-check
-//      color: $darken-green
-//
-//.checkbox-label
-//  border: 1px solid transparent
-//  border-radius: 5px
-//  cursor: pointer
-//  padding: 5px
-//
-//  .fa-check
-//    color: $green-translucent
-//
+.checkbox-input
+  visibility: hidden
+
+  &:checked + .checkbox-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.checkbox-label
+  display: inline-block
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  margin: 2px 0
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
 
 .radio-input
   visibility: hidden
