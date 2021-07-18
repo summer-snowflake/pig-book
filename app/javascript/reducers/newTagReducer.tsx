@@ -34,16 +34,18 @@ const tagReducer = (state: NewTagStore = initialState, action: StoreAction): New
   case actionTypes.POST_TAG_SUCCESS:
     toast.success(<FlashMessage actionType={action.type} />)
     return {
-      ...state,
-      isLoading: false,
-      name: '',
-      errors: []
+      ...initialState
     }
   case actionTypes.POST_TAG_FAILURE:
     return {
       ...state,
       isLoading: false,
       errors: action.errors
+    }
+  case actionTypes.NEW_TAG:
+    return {
+      ...initialState,
+      tag: action.tag
     }
   case actionTypes.LOGOUT_SUCCESS:
     return {

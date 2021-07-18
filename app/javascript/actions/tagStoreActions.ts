@@ -1,10 +1,17 @@
 import { Action } from 'redux'
 
 import * as actionTypes from 'utils/actionTypes'
-import { Tag } from 'types/api'
+import { Tag, TagParams } from 'types/api'
 
 interface WithTagAction extends Action {
-  tag: Tag;
+  tag: TagParams;
+}
+
+export const newTag = (tag: TagParams): WithTagAction => {
+  return {
+    type: actionTypes.NEW_TAG,
+    tag
+  }
 }
 
 export const editTag = (tag: Tag): WithTagAction => {

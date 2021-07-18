@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
+import NewTagField from 'components/settings/tag/NewTagField'
 import TagsList from 'components/settings/tag/TagsList'
 
 class TagCard extends Component<I18nProps> {
@@ -15,6 +16,7 @@ class TagCard extends Component<I18nProps> {
             {t('menu.tag')}
           </div>
           <div className='card-body with-background-image'>
+            <NewTagField />
             <TagsList />
           </div>
         </div>
