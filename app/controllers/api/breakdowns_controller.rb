@@ -4,7 +4,7 @@ module Api
   class BreakdownsController < Api::BaseController
     def index
       breakdowns =
-        current_user.breakdowns.includes(:category).order(created_at: :desc)
+        current_user.breakdowns.order(created_at: :desc)
       render json: breakdowns, include: :category, status: :ok
     end
 

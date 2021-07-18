@@ -93,6 +93,12 @@ describe 'PATCH /api/user', autodoc: true do
         admin: {
           user_id: user.id
         },
+        profile: {
+          user_id: user.id,
+          locale: 'ja',
+          currency: 'yen',
+          memo: ''
+        },
         dashboard_years: [Time.zone.today.year]
       }.to_json
       expect(response.body).to be_json_eql(json)

@@ -15,6 +15,8 @@ gem 'counter_culture'
 gem 'rack-cors'
 gem 'slack-notifier'
 gem 'acts_as_list'
+gem 'webpacker'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -36,6 +38,10 @@ group :test do
   gem 'rspec_junit_formatter'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'json_spec'
+  gem 'capybara'
+  gem 'capybara-chromedriver-logger'
+  gem 'capybara-email'
+  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -1,18 +1,6 @@
 version: '3'
 
 services:
-  db:
-    container_name: pig-book_postgres
-    image: postgres:11.3
-    hostname: db
-    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
-    logging:
-      options:
-        max-size: "10k"
-        max-file: "5"
-    ports:
-      - 5433:5432
-
   redis:
     container_name: pig-book_redis
     hostname: redis
@@ -22,38 +10,12 @@ services:
     volumes:
       - redis:/var/lib/redis/data
 
-  client:
-    container_name: pig-book_react
-    hostname: client
-    build: ./client
-    command: "yarn start"
-    stdin_open: true
-    volumes:
-      - ./client:/pig-book/client
-      - /pig-book/client/node_modules
-    ports:
-      - "${CLIENT_PORT}:3000"
-
-  server:
-    build: .
-    hostname: server
-    command: "bundle exec rails server -b 0.0.0.0"
-    volumes:
-      - ./server:/pig-book/server
-    ports:
-      - "${SERVER_PORT}:3000"
-    environment:
-      - DATABASE_URL=postgres://postgres:servers@db:5432
-    depends_on:
-      - db
-
   mailhog:
-    image: mailhog/mailhog:v1.0.0
+    image: mailhog/mailhog:latest
     ports:
       - '8025:8025'
+      - '1025:1025'
 
 volumes:
-  postgresql:
-    driver: local
   redis:
     driver: local

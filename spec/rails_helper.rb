@@ -11,6 +11,7 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/email/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -46,10 +47,18 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+Rails.application.routes.default_url_options[:host] = "#{ENV['HOST_NAME']}:#{ENV['PORT']}"
+
+Capybara::Chromedriver::Logger::TestHooks.for_rspec!
+Capybara.server = :puma
+Capybara.server_host = ENV['HOST_NAME']
+Capybara.server_port = ENV['PORT']
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include RequestSpecHelper, type: :request
+  config.include SystemSpecHelper, type: :system
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -85,6 +94,16 @@ RSpec.configure do |config|
       FactoryBot.lint
     ensure
       DatabaseRewinder.clean_all
+    end
+  end
+
+  config.before :each do |example|
+    if example.metadata[:type] == :system
+      if example.metadata[:js]
+        driven_by :selenium_chrome_headless, screen_size: [1900, 1400]
+      else
+        driven_by :rack_test
+      end
     end
   end
 

@@ -1,0 +1,75 @@
+@import 'variables'
+
+// メニュー共通
+
+.menu, .right-menu
+  font-family: Quicksand, ヒラギノ丸ゴ Pro, Hiragino Maru Gothic Pro, メイリオ, Meiryo, sans-serif
+
+.list-group
+  display: flex
+  flex-direction: column
+  padding: 0 15px
+  position: relative
+
+.list-group-item
+  background-color: $translucent
+  border: 1px solid $green
+  color: $pink
+  padding: 10px 15px
+  text-decoration: none
+
+  &:first-child
+    border-top-left-radius: .25rem
+    border-top-right-radius: .25rem
+
+  &:last-child
+    border-bottom-left-radius: .25rem
+    border-bottom-right-radius: .25rem
+
+  &:hover
+    color: $darken-pink
+
+    &:after
+      background-image: url('../images/pig-footprints.gif')
+      background-size: contain
+      content: ''
+      display: inline-block
+      height: 20px
+      right: 25px
+      position: absolute
+      vertical-align: middle
+      width: 20px
+
+  &.active-link-menu
+    color: $darken-pink
+    cursor: default
+    text-decoration: none
+
+    &:after
+      background-image: url('../images/pig-footprints-both.gif')
+      background-size: contain
+      content: ''
+      display: inline-block
+      height: 20px
+      position: absolute
+      right: 25px
+      vertical-align: middle
+      width: 20px
+
+.list-group-item + .list-group-item
+  border-top: 0
+
+.menu-card
+  background: $translucent
+  border-radius: .25rem
+  border: 1px solid $green
+  color: $darken-green
+  margin: 15px
+  padding: 10px 15px
+
+  .list
+    padding: 0 20px
+    list-style-type: circle
+
+    .value
+      margin-top: 3px

@@ -4,14 +4,15 @@ server: &server
     - image: circleci/ruby:2.7.3-node-browsers
       environment:
         RAILS_ENV: test
+        NODE_ENV: test
         DATABASE_URL: postgres://postgres:password@localhost:5432/pig_book_test
         DB_PASS: password
         DB_USER: postgres
         DB_HOST: localhost
         REDIS_HOST: redis
         TZ: Asia/Tokyo
-        HOST_NAME: localhost
-        CLIENT_PORT: 4020
+        HOST_NAME: 127.0.0.1
+        PORT: 33333
         SLACK_WEBHOOK_URL: ""
     - image: postgres:10.4-alpine
       environment:
@@ -54,6 +55,14 @@ server: &server
         command: bundle exec rubocop
 
     # Run rspec in parallel
+    - run:
+        name: Run yarn install
+        command: yarn install
+
+    - run:
+        name: Compile webpack
+        command: rails webpacker:compile
+
     - type: shell
       command: |
         bundle exec rspec \
@@ -64,7 +73,7 @@ server: &server
 
     # Save artifacts
     - store_artifacts:
-        path: ./tmp/capybara
+        path: ./tmp/screenshots
         destination: capybara-screenshot
 
     - store_artifacts:

@@ -149,7 +149,7 @@
     "deletePiggyItemSuccess": "Piggy Item deleted successfully"
   },
   "alert": {
-    "editingOther": "Editing now"
+    "editing": "Editing now"
   },
   "admin": {
     "userEmail": "Email",

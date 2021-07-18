@@ -1,0 +1,43 @@
+@import 'variables'
+
+.top-carousel-component
+  padding-bottom: 20px
+
+.carousel
+  .control-next
+    &.control-arrow
+      &:hover
+        background-color: $rgba2-green
+      &::before
+        border-left: 12px solid $green
+
+  .control-prev
+    &.control-arrow
+      &:hover
+        background-color: $rgba2-green
+      &::before
+        border-right: 12px solid $green
+
+  .carousel-status
+    color: $green
+    right: 4px
+    text-shadow: none
+    top: -11px
+
+  .carousel-image
+    background-color: $white
+    padding: 21px
+
+  .slide
+    .legend
+      background: $darken-green
+      color: $white
+      margin-bottom: 0
+
+      .legend-title
+        border: 1px solid $white
+        font-weight: bold
+        padding: 3px
+
+      .legend-text
+        padding-left: 10px

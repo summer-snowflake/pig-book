@@ -1,0 +1,66 @@
+@import variables
+
+.categorized-list-field
+  width: 400px
+
+  .category-name-component
+    display: inline-block
+    padding: 3px
+
+.switch-checkbox-component
+  cursor: pointer
+  font-size: 12px
+  font-weight: bold
+  letter-spacing: 0
+  line-height: 20px
+  position: relative
+  width: 70px
+
+  .switch-checkbox
+    display: none
+
+    &:checked + label
+      border-color: $green
+
+      span
+        &::after
+          color: $green
+          content: 'ON'
+          cursor: pointer
+          padding: 0 0 0 23px
+
+    &:checked ~ .switch-ball
+      background: $green
+      transform: translateX(50px)
+
+  .switch-label
+    border: 1px solid $green-translucent
+    border-radius: 30px
+    box-sizing: border-box
+    display: block
+    height: 21px
+    margin-bottom: 0
+
+    span
+      &::after
+        color: $green-translucent
+        content: 'OFF'
+        cursor: pointer
+        padding: 0 0 0 23px
+
+  .switch-ball
+    background: $green-translucent
+    border-radius: 17px
+    height: 17px
+    left: 2px
+    position: absolute
+    top: 2px
+    transition: .2s
+    width: 16px
+
+.records-count
+  padding: 30px 0 10px 0
+
+  .label
+    border: 1px solid $green
+    padding: 10px

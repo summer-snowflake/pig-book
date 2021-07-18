@@ -1,0 +1,598 @@
+body
+  background-image: url('../images/background-wood.png')
+  font-size: 12px
+  min-height: 100vh
+  padding: 0 20px
+  position: relative
+  font-family: Quicksand,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,メイリオ,Meiryo,sans-serif
+
+  .center-container
+    margin: auto
+    max-width: 1140px
+
+  .row
+    display: flex
+    flex-wrap: wrap
+
+    .col-3
+      flex: 0 0 25%
+
+    .col
+      flex-basis: 0
+      flex-grow: 1
+      max-width: 100%
+
+    &.flex-end
+      justify-content: flex-end
+
+  button, input, select, textarea
+    font-family: Quicksand,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,メイリオ,Meiryo,sans-serif
+    font-size: 12px
+
+.clear
+  clear: both
+
+.loading
+  width: 60px
+
+.transparent
+  color: transparent
+
+//.disabled
+//  cursor: default
+//
+
+.green
+  color: $green
+
+.dark-green
+  color: $darken-green
+
+.pink
+  color: $pink
+
+.red
+  color: $red
+
+.blue
+  color: $blue
+
+.light-blue
+  color: $light-blue
+
+.yellow
+  color: $yellow
+
+.left-icon
+  margin-right: 5px
+
+.right-icon
+  margin-left: 5px
+
+.btn
+  border: 0
+  border-radius: .25rem
+  color: $white
+  cursor: pointer
+  margin: 15px 5px 5px 5px
+  padding: 4px 10px
+
+  &:disabled
+    background: $translucent5-pink
+
+  &.btn-primary
+    background-color: $pink
+    border-color: $pink
+
+    &:hover
+      background-color: $darken-pink
+      border-color: $darken-pink
+
+    &:disabled
+      cursor: not-allowed
+      background: $translucent5-pink
+
+  &.btn-secondary
+    background-color: $button-green
+    border-color: $button-green
+
+    &:hover
+      background-color: $darken-button-green
+      border-color: $darken-button-green
+
+  &.btn-light
+    background-color: $white
+    color: $green
+
+    &:hover
+      background-color: $light-green-translucent
+      border-color: $light-green
+
+.card + .card
+  margin-top: 20px
+
+.card
+  background: $translucent
+  border-radius: .25rem
+
+.card-header
+  border: 1px solid $green
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
+  background-color: $translucent
+  color: $darken-green
+  padding: 10px 15px
+
+.card-body
+  border: 1px solid $green
+  border-top: 0
+  border-bottom-left-radius: .25rem
+  border-bottom-right-radius: .25rem
+  padding: 10px
+
+  &.with-background-image
+    background-image: url('../images/filter-pig.png')
+    background-repeat: no-repeat
+    background-size: 120% auto
+
+.sortable-ghost
+  opacity: .3
+
+.form-group + .form-group
+  padding-top: 10px
+
+.form-group
+  display: flex
+  flex-direction: column
+
+  &.row
+    flex-direction: row
+
+    .btn
+      margin: 0
+
+    .form-control
+      margin-top: 1px
+
+  .required
+    &::after
+      color: $pink
+      content: '＊'
+      font-weight: bold
+      margin-left: 4px
+      font-size: 10px
+
+  .form-label
+    padding: 5px
+
+.text-form-control
+  background-color: $white
+  border: 1px solid $light-green
+  border-radius: .25rem
+  margin: 0 5px
+  min-height: calc(1em + (.75rem + 2px))
+  line-height: 1.5
+  padding: 5px 8px
+
+  &:focus
+    outline: none
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
+
+.form-control
+  background-color: $white
+  border: 1px solid $light-green
+  border-radius: .25rem
+  height: 1.8em
+  margin: 0 5px
+  padding: 1px 8px
+
+  &:focus
+    outline: none
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
+
+  &::placeholder
+    color: $lighten-gray
+
+.box-border
+  position: relative
+  top: 2px
+
+  .fa-check
+    border: 1px solid $green-translucent
+    cursor: pointer
+    padding: 5px
+
+    &:hover
+      background: $translucent2-lighten-green
+
+//  &:disabled
+//    cursor: default
+//
+//.btn-primary
+//  background-color: $pink
+//  border-color: $pink
+//  color: $white
+//
+//  &:hover,
+//  %btn-hover
+//    background-color: $darken-pink
+//    border-color: $darken-pink
+//
+//  &:focus,
+//  &.focus
+//    @extend %btn-hover
+//    box-shadow: 0 0 0 3px $rgba3-pink
+//
+//  &:disabled
+//    background-color: $pink
+//    border-color: $pink
+//
+
+.currency-badge
+  color: $translucent5-green
+  border: 1px solid
+  border-radius: .25rem
+  display: inline-block
+  padding: .4em
+  margin-left: 5px
+
+.large-size-charge
+  font-size: 30px
+  padding: 5px
+
+//.icon-field
+//  .fa-check
+//    border-radius: 3px
+//    cursor: pointer
+//    height: 30px
+//    padding: 8px
+//    width: 30px
+//
+//    &:hover
+//      background-color: $translucent2-lighten-green
+//
+//  .fa-sort-down
+//    @extend %cursor-icon
+//    padding: 7px
+//
+//    &.checked
+//      border: 1px solid $green
+//
+
+.icon-label-field
+  text-align: center
+  width: 30px
+
+%cursor-icon
+  border-radius: 3px
+  color: $darken-green
+  cursor: pointer
+  height: 18px
+  width: 15px
+
+.plus-icon-field
+  width: 0
+
+  .btn
+    margin: 0
+    padding: 4px 8px
+
+.icon-field
+  width: 0
+
+  &.piped
+    border-left: 1px solid $light-green-translucent
+
+  svg
+    &:hover
+      background-color: $translucent2-lighten-green
+
+  .fa-bars
+    @extend %cursor-icon
+    color: $darken-green-translucent
+    cursor: move
+    padding: 5px
+
+  .fa-edit
+    @extend %cursor-icon
+    padding: 6px 6px 6px 8px
+
+  .fa-times
+    @extend %cursor-icon
+    padding: 4px 8px
+    width: 9px
+
+  .fa-trash
+    @extend %cursor-icon
+    padding: 4px 7px
+    width: 11px
+
+  .fa-list-alt
+    @extend %cursor-icon
+    padding: 5px
+
+//  .fa-copy
+//    @extend %cursor-icon
+//    padding: 8px
+//
+//  tbody + tbody
+//    border-top: 0
+    //height: 73px
+
+.modal-header
+  height: 25px
+
+  .cancel-component
+    float: right
+    position: relative
+    top: -15px
+    left: 15px
+    svg
+      &:hover
+        background-color: $translucent2-lighten-green
+
+    .fa-times
+      @extend %cursor-icon
+      padding: 4px 8px
+      width: 9px
+
+.text-field
+  white-space: pre-wrap
+
+.text-align-right
+  text-align: right
+  width: auto
+
+.tooltip-component
+  &:hover
+    cursor: pointer
+    position: relative
+
+  .tooltip
+    background-color: $green
+    border-radius: 2px
+    color: $white
+    display: block
+    left: -20px
+    padding: 7px 10px
+    position: absolute
+    bottom: 20px
+    width: 300px
+    z-index: 10
+
+.table
+  border-collapse: collapse
+  padding-top: 10px
+  width: 100%
+
+  tr
+    height: 42px
+  td
+    border-top: 1px solid $light-green-translucent
+    padding: .25rem
+
+  .column-human-date
+    width: 140px
+
+  .column-human-now
+    color: $gray
+
+  .edited
+    animation: flash 1s linear
+
+//
+//  th
+//    border-top: 0
+//
+//  td,
+//  th
+//    vertical-align: middle
+//
+//  .icon-field-td
+//    width: 30px
+//
+//    &.piped
+//      border-left: 1px solid $light-green-translucent
+//
+//  .plus-field-td
+//    width: 30px
+//
+//  .place-field-td
+//    min-width: 160px
+//
+//  .place-categories-field-td
+//    width: 250px
+//
+//    .category-name-component
+//      display: inline-block
+//      padding: 5px 7px
+//
+//  .date-field-td
+//    width: 140px
+//
+//  .record-charge-td
+//    min-width: 80px
+//
+//  .record-cashless-charge-td,
+//  .record-point-td
+//    width: 60px
+//
+//    &.zero
+//      opacity: .4
+//
+//  .record-category-td,
+//  .record-breakdown-td,
+//  .record-place-td
+//    width: 200px
+//
+
+@keyframes flash
+  0%
+    background-color: $light-green-translucent-rgba8
+
+  50%
+    background-color: $light-green-translucent
+
+  100%
+    background-color: 0
+
+
+//.loading-image-component
+//  padding: 0 0 0 10px
+//
+//.loading-image-form
+//  align-items: center
+//  display: flex
+//  height: 40px
+//
+//.loading-image
+//  width: 55px
+//
+.checkbox-input
+  visibility: hidden
+
+  &:checked + .checkbox-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.checkbox-label
+  display: inline-block
+  border: 1px solid transparent
+  border-radius: 5px
+  cursor: pointer
+  margin: 2px 0
+  padding: 5px
+
+  .fa-check
+    color: $green-translucent
+
+.radio-input
+  visibility: hidden
+  position: absolute
+
+  &:checked + .radio-label
+    border: 1px solid $green-translucent
+
+    .fa-check
+      color: $darken-green
+
+.radio-label
+  border: 1px solid transparent
+  border-radius: .25rem
+  cursor: pointer
+  display: inline-block
+  padding: .25em .4em
+
+  .fa-check
+    color: $green-translucent
+
+.radio-span + .radio-span
+  padding: 0 10px
+
+.balance-of-payments-radios-component
+  margin-top: 1px
+
+//.record-totals-component
+//  text-align: right
+//
+//  .table
+//    border-collapse: inherit
+//    margin-right: 0
+//    width: 400px
+//
+//    td
+//      padding: 10px
+//
+
+.validation-error-messages-field
+  border: 1px solid $pink
+  margin-bottom: 15px
+  padding: 10px
+
+  small
+    color: $pink
+    display: block
+
+    & + small
+      padding-top: 5px
+
+.notification-field
+  color: $white
+  display: inline-block
+  font-weight: bold
+  float: right
+  margin-bottom: 15px
+  padding: 10px 10px 12px
+
+  &.alert
+    border: 1px solid $pink
+    background-color: $translucent5-pink
+
+  &.notice
+    border: 1px solid $green
+    background-color: $translucent5-green
+
+//@keyframes fadeout
+//    0%
+//      opacity: 1
+//    99%
+//      opacity: 0
+//    100%
+//      opacity: 0
+//
+//@-webkit-keyframes fadeout
+//    0%
+//      opacity: 1
+//    99%
+//      opacity: 0
+//    100%
+//      opacity: 0
+
+//.messages-field
+//  margin-bottom: 15px
+//  padding: 10px 10px 12px
+
+//.messages-field
+//  margin-bottom: 15px
+//  padding: 10px 10px 12px
+//
+.link
+  a
+    color: $darken-green
+
+    &:hover
+      color: $darken-green
+
+//.vertical-border
+//  border-left: solid 2px $green
+//  margin-left: 10px
+//
+.counter
+  color: $darken-green
+  text-align: right
+
+//.from-now-component
+//  color: $gray
+//  padding-left: 5px
+//
+//.col-1
+//  &.d-lg-none + .col
+//    margin-left: 5px
+//
+
+.pagination
+  display: flex
+  padding-top: 10px
+  list-style: none
+
+  .page-link
+    color: $darken-green
+    padding: 10px
+
+.categories-list
+  height: 26px
+  min-width: 160px

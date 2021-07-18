@@ -8,7 +8,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
-
   include DeviseTokenAuth::Concerns::User
 
   has_one :admin, dependent: :destroy
@@ -61,6 +60,18 @@ class User < ApplicationRecord
 
   def last_tally_event(year:)
     tally_events.where(year: year).last
+  end
+
+  def human_created_on
+    I18n.l(created_at, format: :date)
+  end
+
+  def human_current_sign_in_at
+    current_sign_in_at ? I18n.l(current_sign_in_at) : ''
+  end
+
+  def human_updated_at
+    I18n.l(updated_at)
   end
 
   private

@@ -1,6 +1,28 @@
 Rails.application.routes.draw do
+  root to: 'root#show'
+
+  namespace :users do
+    get 'sign_in', to: 'sessions#new'
+    get 'confirmed', to: 'sessions#new'
+    get 'sign_up', to: 'registrations#new'
+    get 'confirmations', to: 'confirmations#new'
+  end
+
+  get 'mypage', to: 'mypage#show'
+  get 'settings', to: 'settings#show'
+  get 'categories', to: 'categories#index'
+  get 'breakdowns', to: 'breakdowns#index'
+  get 'places', to: 'places#index'
+  get 'tags', to: 'tags#index'
+
+  namespace :admin, module: :admin_page do
+    get 'users', to: 'users#show'
+  end
+
   scope :api do
-    mount_devise_token_auth_for 'User', at: 'auth', controllers: { confirmations: 'api/confirmations' }
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+      confirmations: 'api/auth/confirmations'
+    }
   end
 
   namespace :api do
