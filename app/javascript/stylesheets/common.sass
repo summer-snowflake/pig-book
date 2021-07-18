@@ -179,6 +179,20 @@ body
     border-color: $light-green
     box-shadow: 0 0 0 3px $light-green
 
+.select-form-control
+  background-color: $white
+  border: 1px solid $light-green
+  border-radius: .25rem
+  height: 26px
+  margin: 0 5px
+  padding: 1px 8px
+  min-width: 160px
+
+  &:focus
+    outline: none
+    border-color: $light-green
+    box-shadow: 0 0 0 3px $light-green
+
 .form-control
   background-color: $white
   border: 1px solid $light-green
@@ -593,6 +607,26 @@ body
     color: $darken-green
     padding: 10px
 
-.categories-list
-  height: 26px
-  min-width: 160px
+.tag-name-component
+  display: inline-flex
+
+  .tag-name
+    margin-top: 1px
+
+.tag-label-component
+  background-color: $white
+  border: solid 1px $green
+  border-radius: 3px
+  display: inline-flex
+  margin: 5px 0 0 5px
+  padding: 0 5px
+
+  .cancel-icon
+    cursor: pointer
+    color: $green
+    margin: 1px 1px 1px 5px
+
+.color-code-box
+  display: inline-block
+  padding: 7px 12px
+  margin: 4px 5px

@@ -52,7 +52,7 @@ class CategorySelectBox extends Component<Props> {
     return (
       <span className='category-select-box-component'>
         <select
-          className='form-control categories-list'
+          className='select-form-control'
           disabled={this.props.categoriesStore.isLoading}
           name='categories-list'
           onChange={this.handleChangeCategory}
