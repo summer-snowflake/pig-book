@@ -29,6 +29,12 @@ body
     font-family: Quicksand,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,メイリオ,Meiryo,sans-serif
     font-size: 12px
 
+.float-right
+  float: right
+
+.float-left
+  float: left
+
 .clear
   clear: both
 
@@ -108,6 +114,9 @@ body
       background-color: $light-green-translucent
       border-color: $light-green
 
+  &.btn-sm
+    padding: 2px 8px
+
 .card + .card
   margin-top: 20px
 
@@ -129,6 +138,11 @@ body
   border-bottom-left-radius: .25rem
   border-bottom-right-radius: .25rem
   padding: 10px
+
+  .card-body
+    border-top-left-radius: .25rem
+    border-top-right-radius: .25rem
+    border-top: 1px solid $green
 
   &.with-background-image
     background-image: url('../images/filter-pig.png')
@@ -327,9 +341,10 @@ body
     @extend %cursor-icon
     padding: 5px
 
-//  .fa-copy
-//    @extend %cursor-icon
-//    padding: 8px
+  .fa-copy
+    @extend %cursor-icon
+    padding: 4px 7px
+    width: 11px
 //
 //  tbody + tbody
 //    border-top: 0
@@ -365,15 +380,14 @@ body
     position: relative
 
   .tooltip
-    background-color: $green
+    background-color: $green-translucent
     border-radius: 2px
     color: $white
     display: block
-    left: -20px
     padding: 7px 10px
     position: absolute
-    bottom: 20px
-    width: 300px
+    top: 20px
+    width: 220px
     z-index: 10
 
 .table
@@ -510,17 +524,17 @@ body
 .balance-of-payments-radios-component
   margin-top: 1px
 
-//.record-totals-component
-//  text-align: right
-//
-//  .table
-//    border-collapse: inherit
-//    margin-right: 0
-//    width: 400px
-//
-//    td
-//      padding: 10px
-//
+.total-records-display-field-component
+  text-align: right
+  margin-top: 20px
+
+  .totals-table
+    display: inline-block
+    border: double $green
+    padding: 10px 0
+
+  .total-item
+    padding: 0 10px
 
 .validation-error-messages-field
   border: 1px solid $pink
@@ -606,6 +620,9 @@ body
   .page-link
     color: $darken-green
     padding: 10px
+
+.tag-icon-component + .tag-icon-component
+  padding-left: 5px
 
 .tag-name-component
   display: inline-flex

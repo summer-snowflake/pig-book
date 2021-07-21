@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next'
 
 import PickerField from 'components/input/PickerField'
 import NewRecordField from 'components/input/NewRecordField'
+import RecordsListByDay from 'components/input/RecordsListByDay'
 
 import 'stylesheets/input.sass'
 
@@ -26,6 +27,7 @@ class InputPage extends Component<I18nProps> {
                 <NewRecordField />
               </div>
               <div className='col'>
+                <RecordsListByDay />
               </div>
             </div>
           </div>

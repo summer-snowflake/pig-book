@@ -47,6 +47,11 @@ interface StoreAction extends RecordAction {
 
 const newRecordReducer = (state: NewRecordStore = initialState, action: StoreAction): NewRecordStore => {
   switch (action.type) {
+  case actionTypes.NEW_RECORD:
+    return {
+      ...state,
+      record: action.record
+    }
   case actionTypes.PATCH_RECORD_SUCCESS:
     return {
       ...state,

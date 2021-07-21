@@ -23,6 +23,7 @@ RSpec.describe 'Create Tag', type: :system, js: true do
       find('.color-code-box').click
       find('.saturation-white').click
       fill_in 'tag_name', with: '経費'
+      sleep 0.1 # カラーコードの選択待機
       click_button '追加する'
 
       expect(page).to have_content 'ラベルを追加しました'
