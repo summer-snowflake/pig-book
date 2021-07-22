@@ -7,7 +7,7 @@ import { ready, loginHeaders } from 'utils/cookies'
 import { ErrorsAction, RecordAction } from 'types/action'
 import { Record, Errors, RecordParams } from 'types/api'
 import { getCookiesFailure } from 'actions/userActions'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 
 const postRecordRequest = (): Action => {
   return {

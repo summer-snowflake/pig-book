@@ -9,6 +9,7 @@ import TopPage from 'components/TopPage'
 import SignInPage from 'components/SignInPage'
 import SignUpPage from 'components/SignUpPage'
 import ResendMailPage from 'components/ResendMailPage'
+import InputPage from 'components/InputPage'
 import MyPage from 'components/MyPage'
 import CategoryPage from 'components/CategoryPage'
 import BreakdownPage from 'components/BreakdownPage'
@@ -36,6 +37,7 @@ export const App = () => {
           <Route component={SignInPage} exact path='/users/confirmed' />
           <Route component={SignUpPage} exact path='/users/sign_up' />
           <Route component={ResendMailPage} exact path='/users/confirmations' />
+          <Route component={InputPage} exact path='/input' />
           <Route component={MyPage} exact path='/mypage' />
           <Route component={CategoryPage} exact path='/categories' />
           <Route component={BreakdownPage} exact path='/breakdowns' />

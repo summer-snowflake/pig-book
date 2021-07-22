@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 
 import { Tag } from 'types/api'
 
-interface Props {
+interface ParentProps {
   tag: Tag;
 }
+
+type Props = ParentProps
 
 class TagName extends Component<Props> {
   render(): JSX.Element {
@@ -14,11 +16,11 @@ class TagName extends Component<Props> {
 
     return (
       <span className='tag-name-component'>
-        <span className='color-code-back-box'>
-          <span className='color-code-box' style={colorCodeStyles}>
-          </span>
+        <span className='color-code-box' style={colorCodeStyles}>
         </span>
-        {this.props.tag.name}
+        <span className='tag-name'>
+          {this.props.tag.name}
+        </span>
       </span>
     )
   }

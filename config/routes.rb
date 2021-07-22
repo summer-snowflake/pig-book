@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'confirmations', to: 'confirmations#new'
   end
 
+  get 'input', to: 'records#new'
   get 'mypage', to: 'mypage#show'
   get 'settings', to: 'settings#show'
   get 'categories', to: 'categories#index'

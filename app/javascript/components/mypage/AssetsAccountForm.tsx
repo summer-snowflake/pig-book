@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next'
 import { EditAssetsAccountStore, NewAssetsAccountStore } from 'types/store'
 import BalanceOfPaymentsRadios from 'components/common/BalanceOfPaymentsRadios'
 import ValidationErrorMessages from 'components/common/ValidationErrorMessages'
+import CurrencyBadge from 'components/common/CurrencyBadge'
 
 interface ParentProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -42,9 +43,7 @@ class AssetsAccountForm extends Component<Props> {
             onChangeBalanceOfPayments={this.props.onChangeBalanceOfPayments}
             labelDisabled={true}
           />
-          <span className='currency-badge'>
-            {t('label.currency-unit-' + this.props.assetsAccountStore.currency)}
-          </span>
+          <CurrencyBadge currency={this.props.assetsAccountStore.currency} />
           <input
             autoComplete={'off'}
             className='form-control'

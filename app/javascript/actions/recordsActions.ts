@@ -6,7 +6,7 @@ import * as actionTypes from 'utils/actionTypes'
 import { ready, loginHeaders } from 'utils/cookies'
 import { RecordsAction } from 'types/action'
 import { Record, RecordSearchParams, RecordTotals } from 'types/api'
-import { catchErrors } from 'actions/errorsAction'
+import { catchErrors } from 'actions/errorsActions'
 import { getCookiesFailure } from 'actions/userActions'
 
 const getRecordsRequest = (): Action => {

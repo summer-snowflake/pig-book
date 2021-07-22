@@ -37,6 +37,7 @@ class NavMenu extends Component<Props> {
 
   render(): JSX.Element {
     const { t } = this.props
+    const isLogged = this.props.userStore.isLogged
 
     return (
       <nav className='nav-menu-component nav-menu'>
@@ -47,9 +48,19 @@ class NavMenu extends Component<Props> {
               {t('menu.home')}
             </a>
           </li>
+          {isLogged && (
+            <li>
+              <a className='menu-link' href='/input'>
+                <i className='fas fa-palette left-icon red' />
+                <span className='red'>
+                  {t('menu.input')}
+                </span>
+              </a>
+            </li>
+          )}
         </ul>
         <ul className='right-menu'>
-          {this.props.userStore.isLogged && this.props.userStore.admin && (
+          {isLogged && this.props.userStore.admin && (
             <li>
               <a className='menu-link' href='/admin/users'>
                 <i className='fas fa-book left-icon' />
@@ -57,7 +68,7 @@ class NavMenu extends Component<Props> {
               </a>
             </li>
           )}
-         {this.props.userStore.isLogged && (
+         {isLogged && (
             <li>
               <a className='menu-link' href='/settings'>
                 <i className='fa fa-cog left-icon' />
@@ -65,7 +76,7 @@ class NavMenu extends Component<Props> {
               </a>
             </li>
           )}
-          {this.props.userStore.isLogged && (
+          {isLogged && (
             <li>
               <a className='menu-link' href='/mypage'>
                 <i className='fas fa-user left-icon' />
@@ -73,7 +84,7 @@ class NavMenu extends Component<Props> {
               </a>
             </li>
           )}
-          {this.props.userStore.isLogged ? (
+          {isLogged ? (
             <li>
               <a className='menu-link' onClick={this.handleClickSignOutLink}>
                 <i className='fas fa-sign-out-alt left-icon' />

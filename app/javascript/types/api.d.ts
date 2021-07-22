@@ -76,7 +76,7 @@ export interface RecordSearchParams {
   place_id?: number | null;
   place_name?: string | null;
   tag_ids?: string;
-  tags?: { [x: string]: ReactText; }[];
+  tags?: Tag[];
 }
 
 export interface RecordSearchResponseParams {
